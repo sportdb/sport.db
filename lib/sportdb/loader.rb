@@ -49,7 +49,7 @@ class Loader
   end
   
   def load_fixtures_builtin( name ) # load from gem (built-in)
-    path = "#{SportDB.root}/db/#{name}.rb"
+    path = "#{SportDB.data_path}/#{name}.rb"
  
     puts "*** loading data '#{name}' (#{path})..."
 

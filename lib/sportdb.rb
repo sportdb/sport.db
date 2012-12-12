@@ -56,6 +56,12 @@ module SportDB
   def self.root
     "#{File.expand_path( File.dirname(File.dirname(__FILE__)) )}"
   end
+  
+  # builtin path to fixture data
+  def self.data_path
+    "#{root}/data"
+  end
+
 
   def self.main
     Runner.new.run(ARGV)

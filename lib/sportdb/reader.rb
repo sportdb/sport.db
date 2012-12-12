@@ -104,7 +104,7 @@ class Reader
   end
 
   def load_fixtures_builtin( event_key, name ) # load from gem (built-in)
-    path = "#{SportDB.root}/db/#{name}.txt"
+    path = "#{SportDB.data_path}/#{name}.txt"
 
     puts "*** parsing data '#{name}' (#{path})..."
 
@@ -117,7 +117,7 @@ class Reader
 
 
   def load_teams_builtin( name, more_values={} )
-    path = "#{SportDB.root}/db/#{name}.txt"
+    path = "#{SportDB.data_path}/#{name}.txt"
 
     puts "*** parsing data '#{name}' (#{path})..."
 

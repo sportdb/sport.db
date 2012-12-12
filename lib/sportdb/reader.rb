@@ -2,6 +2,51 @@
 
 module SportDB
 
+
+##
+## fix/todo: move to/merge into LineReader itself
+
+class StringLineReader
+
+  def initialize( logger=nil, data )
+    if logger.nil?
+      @logger = Logger.new(STDOUT)
+      @logger.level = Logger::INFO
+    else
+      @logger = logger
+    end
+    
+    @data = data
+  end
+
+  attr_reader :logger
+
+
+  def each_line
+    @data.each_line do |line|
+  
+      if line =~ /^\s*#/
+        # skip komments and do NOT copy to result (keep comments secret!)
+        logger.debug 'skipping comment line'
+        next
+      end
+        
+      if line =~ /^\s*$/ 
+        # kommentar oder leerzeile überspringen 
+        logger.debug 'skipping blank line'
+        next
+      end
+
+      # remove leading and trailing whitespace
+      line = line.strip
+ 
+      yield( line )
+    end # each lines
+  end # method each_line
+
+end
+
+
 class Reader
 
 ## make models available in sportdb module by default with namespace
@@ -34,6 +79,17 @@ class Reader
 
   end
 
+
+  def load_fixtures_from_string( event_key, text )  # load from string (e.g. passed in via web form)
+
+    ## todo/fix: move code into LineReader e.g. use LineReader.fromString() - why? why not?
+    reader = StringLineReader.new( logger, text )
+    
+    load_fixtures_worker( event_key, reader )
+
+    ## fix add prop 
+    ### Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )  
+  end
 
   def load_fixtures_with_include_path( event_key, name, include_path )  # load from file system
     path = "#{include_path}/#{name}.txt"

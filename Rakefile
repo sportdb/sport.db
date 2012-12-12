@@ -4,6 +4,12 @@ require './lib/sportdb/version.rb'
 ## NB: plugin (hoe-manifest) not required; just used for future testing/development
 Hoe::plugin :manifest   # more options for manifests (in the future; not yet)
 
+###########
+#### NB: if you try this script at home
+#    you need to create a (symbolic) link to the sport.db fixtures
+#     e.g. use ln -s ../sport.db  data  or similar
+
+
 Hoe.spec 'sportdb' do
   
   self.version = SportDB::VERSION

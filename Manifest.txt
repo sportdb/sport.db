@@ -40,7 +40,7 @@ data/leagues.rb
 data/mx/apertura_2012.rb
 data/mx/apertura_2012.txt
 data/mx/teams.txt
-data/nfl/teams.rb
+data/nfl/teams.txt
 data/nhl/teams.txt
 data/ro/l1_2012_13.rb
 data/ro/teams.txt

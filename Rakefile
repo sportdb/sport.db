@@ -35,9 +35,10 @@ Hoe.spec 'sportdb' do
 
   self.licenses = ['Public Domain']
 
-  self.spec_extras = {
-    :required_ruby_version => '>= 1.9.2'
-  }
+#
+#  self.spec_extras = {
+#    :required_ruby_version => '>= 1.9.2'
+#  }
 
   self.post_install_message =<<EOS
 ******************************************************************************

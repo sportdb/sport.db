@@ -28,7 +28,7 @@ Hoe.spec 'sportdb' do
   # self.history_file = 'History.md'
   
   self.extra_deps = [
-    ['activerecord', '~> 3.2'],  # NB: will include activesupport,etc.
+    ## ['activerecord', '~> 3.2'],  # NB: will include activesupport,etc.
     ['worlddb', '~> 0.6.8']
     ### ['sqlite3',      '~> 1.3']  # NB: install on your own; remove dependency
   ]

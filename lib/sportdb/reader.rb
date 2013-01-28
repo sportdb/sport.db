@@ -80,6 +80,57 @@ class Reader
   end
 
 
+  def load_event_with_include_path( name, include_path )
+    path = "#{include_path}/#{name}.yml"
+
+    puts "*** parsing data '#{name}' (#{path})..."
+
+    reader = HashReader.new( logger, path )
+
+    event_attribs = {}
+
+    reader.each do |key, value|
+
+      ## puts "processing event attrib >>#{key}<< >>#{value}<<..."
+      
+      key   = key.to_s.strip
+
+      if key == 'league'
+        league = League.find_by_key( value.to_s.strip )
+
+        ## check if it exists
+        if league.present?
+          event_attribs['league_id'] = league.id
+        else
+          puts "!!! error: league with key >>#{value.to_s.strip}<< missing"
+        end
+       
+      elsif key == 'season'
+        season = Season.find_by_key( value.to_s.strip )
+
+        ## check if it exists
+        if season.present?
+          event_attribs['season_id'] = season.id
+        else
+          puts "!!! error: season with key >>#{value.to_s.strip}<< missing"
+        end
+        
+      elsif key == 'start_at'
+      elsif key == 'teams'
+      elsif key == 'team3'
+        ## for now always assume false  # todo: fix - use value and convert to boolean if not boolean
+        event_attribs['team3'] = false
+      else
+        puts "!!! error: unknown event attrib; skipping attrib"
+      end
+  
+    end # each key,value
+
+    puts event_attribs.to_json
+  
+  end  # load_event_with_include_path
+
+
   def load_fixtures_from_string( event_key, text )  # load from string (e.g. passed in via web form)
 
     ## todo/fix: move code into LineReader e.g. use LineReader.fromString() - why? why not?

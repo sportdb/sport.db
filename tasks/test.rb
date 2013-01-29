@@ -7,7 +7,8 @@
 ## for testing 
 ##
 ## NB: use
-#   $ rake -I ../sport.db.ruby/lib update
+#   rake -I ../world.db.ruby/lib -I ../sport.db.ruby/lib update
+
 
 
 ##########
@@ -19,7 +20,6 @@
   
 #  SPORT_DB_PATH = "#{BUILD_DIR}/sport.db"
 
-#  SPORT_DB_RUBY_PATH = "../sport.db.ruby"
 
 ################
 
@@ -35,8 +35,6 @@
  # end
 
   task :env => BUILD_DIR do
-    require "#{SPORT_DB_RUBY_PATH}/lib/sportdb.rb"
-
     pp DB_CONFIG
     ActiveRecord::Base.establish_connection( DB_CONFIG )
   end
@@ -49,6 +47,8 @@
     puts "hello from import"
     
     reader = SportDB::Reader.new
+    
+    reader.load_seasons_with_include_path( 'seasons', INCLUDE_PATH )
     
     reader.load_leagues_with_include_path( 'leagues',      INCLUDE_PATH )
     reader.load_leagues_with_include_path( 'leagues_club', INCLUDE_PATH, club: true )
@@ -78,9 +78,14 @@ BUILD_DIR = "./db"
   
 SPORT_DB_PATH = "#{BUILD_DIR}/sport.db"
 
-SPORT_DB_RUBY_PATH = "../sport.db.ruby"
 
 #### step 2) include tasks in test.rb
+
+SPORT_DB_RUBY_PATH = "../sport.db.ruby"
+WORLD_DB_RUBY_PATH = "../world.db.ruby"
+
+require "#{WORLD_DB_RUBY_PATH}/lib/worlddb.rb"
+require "#{SPORT_DB_RUBY_PATH}/lib/sportdb.rb"
 
 require "#{SPORT_DB_RUBY_PATH}/tasks/test.rb"
 
@@ -88,6 +93,6 @@ Shell:
 
 ### step 3) call on command line
 
-$ rake -I ../sport.db.ruby/lib update
+$ rake -I ../world.db.ruby/lib -I ../sport.db.ruby/lib update
 
 =end

@@ -2,51 +2,6 @@
 
 module SportDB
 
-
-##
-## fix/todo: move to/merge into LineReader itself
-
-class StringLineReader
-
-  def initialize( logger=nil, data )
-    if logger.nil?
-      @logger = Logger.new(STDOUT)
-      @logger.level = Logger::INFO
-    else
-      @logger = logger
-    end
-    
-    @data = data
-  end
-
-  attr_reader :logger
-
-
-  def each_line
-    @data.each_line do |line|
-  
-      if line =~ /^\s*#/
-        # skip komments and do NOT copy to result (keep comments secret!)
-        logger.debug 'skipping comment line'
-        next
-      end
-        
-      if line =~ /^\s*$/ 
-        # kommentar oder leerzeile überspringen 
-        logger.debug 'skipping blank line'
-        next
-      end
-
-      # remove leading and trailing whitespace
-      line = line.strip
- 
-      yield( line )
-    end # each lines
-  end # method each_line
-
-end
-
-
 class Reader
 
 ## make models available in sportdb module by default with namespace
@@ -95,6 +50,55 @@ class Reader
   end # load_leagues_with_include_path
 
 
+  def load_seasons_with_include_path( name, include_path )
+    path = "#{include_path}/#{name}.yml"
+
+    puts "*** parsing data '#{name}' (#{path})..."
+
+    reader = HashReader.new( logger, path )
+
+    reader.each_typed do |key, value|
+
+      ## puts "processing event attrib >>#{key}<< >>#{value}<<..."
+
+      if key == 'seasons'
+        
+        puts "#{value.class.name}: >>#{value}<<"
+        
+        ## nb: assume value is an array
+        value.each do |item|
+          season_attribs = {}
+          
+          season = Season.find_by_key( item.to_s.strip )
+
+          ## check if it exists
+          if season.present?
+            puts "*** update season #{season.id}-#{season.key}:"
+          else
+            puts "*** create season:"
+            season = Season.new
+            season_attribs[ :key ] = item.to_s.strip
+          end
+          
+          season_attribs[:title] = item.to_s.strip
+     
+          puts season_attribs.to_json
+          
+          season.update_attributes!( season_attribs )
+        end
+        
+      else
+        puts "!!! error: unknown seasons key; skipping"
+      end
+  
+    end # each key,value
+    
+    ### Prop.create_from_sportdb_fixture!( name, path )
+  
+  end  # load_seasons_with_include_path
+
+
+
   def load_event_with_include_path( name, include_path )
     path = "#{include_path}/#{name}.yml"
 
@@ -104,11 +108,9 @@ class Reader
 
     event_attribs = {}
 
-    reader.each do |key, value|
+    reader.each_typed do |key, value|
 
       ## puts "processing event attrib >>#{key}<< >>#{value}<<..."
-      
-      key   = key.to_s.strip
 
       if key == 'league'
         league = League.find_by_key( value.to_s.strip )

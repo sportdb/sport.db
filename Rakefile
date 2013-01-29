@@ -30,7 +30,7 @@ Hoe.spec 'sportdb' do
   self.extra_deps = [
     ## ['activerecord', '~> 3.2'],  # NB: will include activesupport,etc.
     ### ['sqlite3',      '~> 1.3']  # NB: install on your own; remove dependency
-    ['worlddb', '~> 0.8.0']
+    ['worlddb', '~> 0.10.0']
   ]
 
   self.licenses = ['Public Domain']

@@ -3,8 +3,6 @@
 #  Fill up sport.db w/ football.db fixtures
 
 
-### at
-
 ##############################
 ## for testing 
 ##
@@ -52,9 +50,44 @@
     
     reader = SportDB::Reader.new
     
+    reader.load_leagues_with_include_path( 'leagues',      INCLUDE_PATH )
+    reader.load_leagues_with_include_path( 'leagues_club', INCLUDE_PATH, club: true )
+    
     reader.load_event_with_include_path( 'at/2011_12/bl', INCLUDE_PATH )
     reader.load_event_with_include_path( 'at/2011_12/cup', INCLUDE_PATH )
   end
 
   desc 'worlddb - test loading of builtin fixtures (update)'
   task :update => [:import]
+  
+  
+  
+=begin
+
+##################
+# usage sample
+##################
+
+#### step 1) configure tasks in test.rb in your rake file
+
+Rakefile:
+
+INCLUDE_PATH = "../football.db"
+  
+BUILD_DIR = "./db"
+  
+SPORT_DB_PATH = "#{BUILD_DIR}/sport.db"
+
+SPORT_DB_RUBY_PATH = "../sport.db.ruby"
+
+#### step 2) include tasks in test.rb
+
+require "#{SPORT_DB_RUBY_PATH}/tasks/test.rb"
+
+Shell:
+
+### step 3) call on command line
+
+$ rake -I ../sport.db.ruby/lib update
+
+=end

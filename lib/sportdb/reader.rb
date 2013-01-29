@@ -80,6 +80,21 @@ class Reader
   end
 
 
+  def load_leagues_with_include_path( name, include_path, more_values={} )
+    
+    path = "#{include_path}/#{name}.txt"
+
+    puts "*** parsing data '#{name}' (#{path})..."
+
+    reader = ValuesReader.new( logger, path, more_values )
+
+    load_leagues_worker( reader )
+    
+    ### Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )
+     
+  end # load_leagues_with_include_path
+
+
   def load_event_with_include_path( name, include_path )
     path = "#{include_path}/#{name}.yml"
 
@@ -183,6 +198,41 @@ class Reader
 private
 
   include SportDB::FixtureHelpers
+
+  def load_leagues_worker( reader )
+
+    reader.each_line do |attribs, values|
+
+      ## check optional values
+      values.each_with_index do |value, index|
+        if value =~ /^club$/   # club flag
+          attribs[ :club ] = true
+        elsif value =~ /^[a-z]{2}$/  ## assume two-letter country key e.g. at,de,mx,etc.
+          value_country = Country.find_by_key!( value )
+          attribs[ :country_id ] = value_country.id
+        else
+          ## todo: assume title2 ??
+          # issue warning: unknown type for value
+          puts "*** warning: unknown type for value >#{value}<"
+        end
+      end
+
+      rec = League.find_by_key( attribs[ :key ] )
+      if rec.present?
+        puts "*** update League #{rec.id}-#{rec.key}:"
+      else
+        puts "*** create League:"
+        rec = League.new
+      end
+      
+      puts attribs.to_json
+   
+      rec.update_attributes!( attribs )
+
+    end # each lines
+
+  end # load_leagues_worker
+
 
   def load_teams_worker( reader )
  

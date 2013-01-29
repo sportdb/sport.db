@@ -207,10 +207,14 @@ class Reader
     
     load_fixtures_worker( event_key, reader )
 
-    Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )
+    ## fix add prop
+    ## Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )
   end
 
   def load_fixtures_builtin( event_key, name ) # load from gem (built-in)
+    ### todo/fix: use load_teams_with_include_path and pass in SportDB.data_path
+    # see worlddb for example
+    
     path = "#{SportDB.data_path}/#{name}.txt"
 
     puts "*** parsing data '#{name}' (#{path})..."

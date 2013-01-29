@@ -42,6 +42,8 @@ module SportDB::FixtureHelpers
           when 'H' then 8
           when 'I' then 9
           when 'J' then 10
+          when 'K' then 11
+          when 'L' then 12
           else  match[1].to_i
           end
 
@@ -59,6 +61,30 @@ module SportDB::FixtureHelpers
     ## fix/todo:
     ##  if no round found assume last_pos+1 ??? why? why not?
 
+    # extract optional round pos from line
+    # e.g.  (1)   - must start line 
+    regex = /^[ \t]*\((\d{1,3})\)[ \t]+/
+    if line =~ regex
+      puts "   pos: >#{$1}<"
+      
+      line.sub!( regex, '[ROUND|POS] ' )  ## NB: add back trailing space that got swallowed w/ regex -> [ \t]+
+      return $1.to_i
+    end
+
+    # continue; try some other options
+
+    # NB: do not search string after free standing / or //
+    #  cut-off optional trailing part w/ starting w/  / or //
+    #
+    # e.g.  Viertelfinale   //   Di+Mi 10.+11. April 2012  becomes just
+    #       Viertelfinale
+    
+    cutoff_regex = /^(.+?)[ \t]\/{1,3}[ \t]/
+    
+    if line =~ cutoff_regex
+      line = $1.to_s    # cut off the rest if regex matches
+    end
+
     regex = /\b(\d+)\b/
     
     if line =~ regex
@@ -70,7 +96,7 @@ module SportDB::FixtureHelpers
       return value
     else
       return nil
-    end    
+    end
   end
   
   def find_date!( line )
@@ -83,6 +109,9 @@ module SportDB::FixtureHelpers
 
     # e.g. 14.09. 20:30  => DD.MM. HH:MM
     regex_de = /\b(\d{2})\.(\d{2})\.\s+(\d{2}):(\d{2})\b/
+    
+    # e.g. 14.09.2012 20:30   => DD.MM.YYYY HH:MM
+    regex_de2 = /\b(\d{2})\.(\d{2})\.(\d{4})\s+(\d{2}):(\d{2})\b/
 
     if line =~ regex_db
       value = "#{$1}-#{$2}-#{$3} #{$4}:#{$5}"
@@ -92,6 +121,16 @@ module SportDB::FixtureHelpers
       ##  and time zone (e.g. cet, eet, utc, etc.)
       
       line.sub!( regex_db, '[DATE.DB]' )
+
+      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
+    elsif line =~ regex_de2
+      value = "#{$3}-#{$2}-#{$1} #{$4}:#{$5}"
+      puts "   date: >#{value}<"
+
+      ## todo: lets you configure year
+      ##  and time zone (e.g. cet, eet, utc, etc.)
+      
+      line.sub!( regex_de2, '[DATE.DE2]' )
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     elsif line =~ regex_de

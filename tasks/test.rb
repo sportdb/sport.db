@@ -44,25 +44,30 @@
  # end
 
   task :import => :env do
-    puts "hello from import"
-    
     reader = SportDB::Reader.new
     
     reader.load_seasons_with_include_path( 'seasons', INCLUDE_PATH )
     
     reader.load_leagues_with_include_path( 'leagues',      INCLUDE_PATH )
     reader.load_leagues_with_include_path( 'leagues_club', INCLUDE_PATH, club: true )
-    
+  end
+  
+  #### at - Austria
+  task :at => [:import] do
     at = SportDB::Models::Country.find_by_key!( 'at' )
     
+    reader = SportDB::Reader.new
     reader.load_teams_with_include_path( 'at/teams', INCLUDE_PATH, { club: true, country_id: at.id } )
     
     reader.load_event_with_include_path( 'at/2011_12/bl', INCLUDE_PATH )
     reader.load_event_with_include_path( 'at/2011_12/cup', INCLUDE_PATH )
+    
+    reader.load_fixtures_with_include_path( 'at.2011/12', 'at/2011_12/bl', INCLUDE_PATH )
+    reader.load_fixtures_with_include_path( 'at.cup.2011/12', 'at/2011_12/cup', INCLUDE_PATH )
   end
 
   desc 'worlddb - test loading of builtin fixtures (update)'
-  task :update => [:import]
+  task :update => [:at]
   
   
   

@@ -53,6 +53,10 @@
     reader.load_leagues_with_include_path( 'leagues',      INCLUDE_PATH )
     reader.load_leagues_with_include_path( 'leagues_club', INCLUDE_PATH, club: true )
     
+    at = SportDB::Models::Country.find_by_key!( 'at' )
+    
+    reader.load_teams_with_include_path( 'at/teams', INCLUDE_PATH, { club: true, country_id: at.id } )
+    
     reader.load_event_with_include_path( 'at/2011_12/bl', INCLUDE_PATH )
     reader.load_event_with_include_path( 'at/2011_12/cup', INCLUDE_PATH )
   end

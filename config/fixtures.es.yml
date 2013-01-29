@@ -1,0 +1,43 @@
+###########################
+# known keywords for fixtures
+
+
+group:      Grupo
+matchday:   Jornada
+round:      Fecha
+
+stage:    Primera fase|Segunda fase|Fase de grupos|Fase final
+
+
+### Knock out rounds
+
+round32:        Dieciseisavos de final|16vos de final
+round16:        Octavos de final|8vos de final
+quarterfinals:  Cuartos de final|4tos de final
+semifinals:     Semifinales|Semifinal
+thirdplace:     Tercer lugar
+final:          Final
+
+### Pair matches/games if marked with leg1 n leg2
+
+leg1:  Ida
+leg2:  Vuelta
+
+
+#######################
+# months of year
+
+january:   enero
+february:  febrero
+march:     marzo
+april:     abril
+may:       mayo
+june:      junio
+july:      julio
+august:    agosto
+september: septiembre
+october:   octubre
+november:  noviembre
+december:  diciembre
+
+

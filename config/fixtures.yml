@@ -1,0 +1,52 @@
+###########################
+# known keywords for fixtures
+
+
+group:      Group
+matchday:   Matchday
+round:      Round
+
+stage:    Stage|Phase|Rounds
+# e.g.
+#  Group stage
+#  Play off stage|Play-off stage
+#  Knockout stage|Knockout stages
+#  First stage
+#  Second stage
+#  Qualifying rounds
+
+
+
+
+### Knockout rounds
+
+round32:        Round of 32|Last 32
+round16:        Round of 16|Last 16
+quarterfinals:  Quarterfinals|Quarter-finals|Quarters
+semifinals:     Semifinals|Semi-finals|Semis
+thirdplace:     Third-place play-off
+final:          Final|Finals
+
+### Pair matches/games if marked with leg1 n leg2
+
+leg1:  1st leg|First leg
+leg2:  2nd leg|Second leg
+
+
+#######################
+# months of year
+
+january:   January
+february:  February
+march:     March
+april:     April
+may:       May
+june:      June
+july:      July
+august:    August
+september: September
+october:   October
+november:  November
+december:  December
+
+

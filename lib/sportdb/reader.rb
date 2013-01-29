@@ -45,6 +45,7 @@ class Reader
 
     load_leagues_worker( reader )
     
+    ### todo/fix: add prop
     ### Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )
      
   end # load_leagues_with_include_path
@@ -93,6 +94,7 @@ class Reader
   
     end # each key,value
     
+    ### todo/fix: add prop
     ### Prop.create_from_sportdb_fixture!( name, path )
   
   end  # load_seasons_with_include_path
@@ -120,6 +122,7 @@ class Reader
           event_attribs['league_id'] = league.id
         else
           puts "!!! error: league with key >>#{value.to_s.strip}<< missing"
+          exit 1
         end
        
       elsif key == 'season'
@@ -130,10 +133,32 @@ class Reader
           event_attribs['season_id'] = season.id
         else
           puts "!!! error: season with key >>#{value.to_s.strip}<< missing"
+          exit 1
         end
         
       elsif key == 'start_at'
+        
+        if value.is_a?(DateTime) || value.is_a?(Date)
+          start_at = value
+        else # assume it's a string
+          start_at = DateTime.strptime( value.to_s.strip, '%Y-%m-%d %H:%M' )
+        end
+        
+        event_attribs['start_at'] = start_at
+        
       elsif key == 'teams'
+        
+        ## assume teams value is an array
+        
+        team_ids = []
+        value.each do |item|
+          team_key = item.to_s.strip
+          team = Team.find_by_key!( team_key )
+          team_ids << team.id
+        end
+        
+        event_attribs['team_ids'] = team_ids
+        
       elsif key == 'team3'
         ## for now always assume false  # todo: fix - use value and convert to boolean if not boolean
         event_attribs['team3'] = false
@@ -143,7 +168,21 @@ class Reader
   
     end # each key,value
 
+    event = Event.find_by_league_id_and_season_id( event_attribs['league_id'], event_attribs['season_id'])
+
+    ## check if it exists
+    if event.present?
+      puts "*** update event #{event.id}-#{event.key}:"
+    else
+      puts "*** create event:"
+      event = Event.new
+    end
+    
     puts event_attribs.to_json
+    
+    event.update_attributes!( event_attribs )
+    
+    ### todo/fix: add prop
   
   end  # load_event_with_include_path
 
@@ -184,7 +223,22 @@ class Reader
   end
 
 
+  def load_teams_with_include_path( name, include_path, more_values={} )
+    path = "#{include_path}/#{name}.txt"
+
+    puts "*** parsing data '#{name}' (#{path})..."
+
+    reader = ValuesReader.new( logger, path, more_values )
+
+    load_teams_worker( reader )
+    
+    ## todo/fix: add prop
+    ## Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "sport.txt.#{SportDB::VERSION}" )    
+  end # load_teams_with_include_path
+
+
   def load_teams_builtin( name, more_values={} )
+    ## todo/fix: use load_teams_with_include_path and pass in SportDB.data_path
     path = "#{SportDB.data_path}/#{name}.txt"
 
     puts "*** parsing data '#{name}' (#{path})..."
@@ -214,6 +268,8 @@ private
           attribs[ :country_id ] = value_country.id
         else
           ## todo: assume title2 ??
+          ## assume title2 if title2 is empty (not already in use)
+          ##  and if it title2 contains at least two letter e.g. [a-zA-Z].*[a-zA-Z]
           # issue warning: unknown type for value
           puts "*** warning: unknown type for value >#{value}<"
         end

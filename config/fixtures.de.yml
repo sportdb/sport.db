@@ -1,0 +1,42 @@
+###########################
+# known keywords for fixtures
+
+
+group:      Gruppe
+matchday:   Spieltag
+round:      Runde
+stage:      Gruppenphase|Qualifikation|Play-off|Finalrunde|K.-o.-Phase
+
+
+### Knock out rounds
+
+round32:        Sechzehntelfinale|1/16 Finale
+round16:        Achtelfinale|1/8 Finale
+quarterfinals:  Viertelfinale|1/4 Finale
+semifinals:     Halbfinale|Semifinale|1/2 Finale
+thirdplace:     Spiel um Platz 3
+final:          Finale|Endspiel
+
+### Pair matches/games if marked with leg1 n leg2
+
+leg1:  Hin|Hinspiel|Hinspiele
+leg2:  Rück|Rückspiel|Rückspiele
+
+
+#######################
+# months of year
+
+january:   Jänner|Januar
+february:  Feber|Februar
+march:     März
+april:     April
+may:       Mai
+june:      Juni
+july:      Juli
+august:    August
+september: September
+october:   Oktober
+november:  November
+december:  Dezember
+
+

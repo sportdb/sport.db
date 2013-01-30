@@ -52,6 +52,25 @@
     reader.load_leagues_with_include_path( 'leagues_club', INCLUDE_PATH, club: true )
   end
   
+  #### mx - Mexico
+  task :mx => [:import] do
+    mx = SportDB::Models::Country.find_by_key!( 'mx' )
+    
+    reader = SportDB::Reader.new
+    reader.load_teams_with_include_path( 'mx/teams', INCLUDE_PATH, { club: true, country_id: mx.id } )
+    
+    ## 2012 apertura season
+    
+    reader.load_event_with_include_path( 'mx/2012_apertura', INCLUDE_PATH )  
+    reader.load_fixtures_with_include_path( 'mx.apertura.2012.2', 'mx/2012_apertura', INCLUDE_PATH )
+
+    ## 2013 clausura season
+
+    reader.load_event_with_include_path( 'mx/2013_clausura', INCLUDE_PATH )  
+    reader.load_fixtures_with_include_path( 'mx.clausura.2013.1', 'mx/2013_clausura', INCLUDE_PATH )
+  end
+  
+  
   #### at - Austria
   task :at => [:import] do
     at = SportDB::Models::Country.find_by_key!( 'at' )
@@ -59,18 +78,28 @@
     reader = SportDB::Reader.new
     reader.load_teams_with_include_path( 'at/teams', INCLUDE_PATH, { club: true, country_id: at.id } )
     
+    ## 2011/12 season
+    
     reader.load_event_with_include_path( 'at/2011_12/bl', INCLUDE_PATH )
     reader.load_event_with_include_path( 'at/2011_12/cup', INCLUDE_PATH )
     
     reader.load_fixtures_with_include_path( 'at.2011/12', 'at/2011_12/bl', INCLUDE_PATH )
     reader.load_fixtures_with_include_path( 'at.cup.2011/12', 'at/2011_12/cup', INCLUDE_PATH )
+    
+    ## 2012/13 season
+    
+    reader.load_event_with_include_path( 'at/2012_13/bl', INCLUDE_PATH )
+    reader.load_event_with_include_path( 'at/2012_13/cup', INCLUDE_PATH )
+    
+    reader.load_fixtures_with_include_path( 'at.2012/13', 'at/2012_13/bl', INCLUDE_PATH )
+    reader.load_fixtures_with_include_path( 'at.2012/13', 'at/2012_13/bl2', INCLUDE_PATH )
+    reader.load_fixtures_with_include_path( 'at.cup.2012/13', 'at/2012_13/cup', INCLUDE_PATH )
+    
   end
 
   desc 'worlddb - test loading of builtin fixtures (update)'
-  task :update => [:at]
-  
-  
-  
+  task :update => [:at, :mx]
+
 =begin
 
 ##################

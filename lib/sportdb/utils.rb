@@ -5,7 +5,7 @@
 module SportDB::FixtureHelpers
 
   def is_round?( line )
-    line =~ /Spieltag|Runde|Achtelfinale|Viertelfinale|Halbfinale|Finale/
+    line =~ /Spieltag|Runde|Achtelfinale|Viertelfinale|Halbfinale|Finale|Jornada/
   end
   
   def is_group?( line )

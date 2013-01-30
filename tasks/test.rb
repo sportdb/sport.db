@@ -52,54 +52,72 @@
     reader.load_leagues_with_include_path( 'leagues_club', INCLUDE_PATH, club: true )
   end
   
-  #### mx - Mexico
-  task :mx => [:import] do
-    mx = SportDB::Models::Country.find_by_key!( 'mx' )
-    
-    reader = SportDB::Reader.new
-    reader.load_teams_with_include_path( 'mx/teams', INCLUDE_PATH, { club: true, country_id: mx.id } )
-    
-    ## 2012 apertura season
-    
-    reader.load_event_with_include_path( 'mx/2012_apertura', INCLUDE_PATH )  
-    reader.load_fixtures_with_include_path( 'mx.apertura.2012.2', 'mx/2012_apertura', INCLUDE_PATH )
 
-    ## 2013 clausura season
 
-    reader.load_event_with_include_path( 'mx/2013_clausura', INCLUDE_PATH )  
-    reader.load_fixtures_with_include_path( 'mx.clausura.2013.1', 'mx/2013_clausura', INCLUDE_PATH )
+  AR_FIXTURES = []
+
+  BR_FIXTURES = [
+    ['br.2013', 'br/2013/cb' ]
+  ]
+
+  MX_FIXTURES = [
+    ['mx.apertura.2012.2', 'mx/2012_apertura' ],
+    ['mx.clausura.2013.1', 'mx/2013_clausura' ]
+  ]
+
+  AT_FIXTURES = [
+    ['at.2011/12',     'at/2011_12/bl' ],
+    ['at.cup.2011/12', 'at/2011_12/cup' ],
+    ['at.2012/13',     'at/2012_13/bl', 'at/2012_13/bl2'],
+    ['at.cup.2012/13', 'at/2012_13/cup']
+  ]
+
+  ### ar - Argentina
+  task :ar => [:import] do
+    import_club_fixtures_for_country( 'ar', AR_FIXTURES )
+  end
+
+  ### br - Brasil
+  task :br => [:import] do
+    import_club_fixtures_for_country( 'br', BR_FIXTURES )
   end
   
+  ### mx - Mexico
+  task :mx => [:import] do
+    import_club_fixtures_for_country( 'mx', MX_FIXTURES )
+  end
   
   #### at - Austria
   task :at => [:import] do
-    at = SportDB::Models::Country.find_by_key!( 'at' )
-    
-    reader = SportDB::Reader.new
-    reader.load_teams_with_include_path( 'at/teams', INCLUDE_PATH, { club: true, country_id: at.id } )
-    
-    ## 2011/12 season
-    
-    reader.load_event_with_include_path( 'at/2011_12/bl', INCLUDE_PATH )
-    reader.load_event_with_include_path( 'at/2011_12/cup', INCLUDE_PATH )
-    
-    reader.load_fixtures_with_include_path( 'at.2011/12', 'at/2011_12/bl', INCLUDE_PATH )
-    reader.load_fixtures_with_include_path( 'at.cup.2011/12', 'at/2011_12/cup', INCLUDE_PATH )
-    
-    ## 2012/13 season
-    
-    reader.load_event_with_include_path( 'at/2012_13/bl', INCLUDE_PATH )
-    reader.load_event_with_include_path( 'at/2012_13/cup', INCLUDE_PATH )
-    
-    reader.load_fixtures_with_include_path( 'at.2012/13', 'at/2012_13/bl', INCLUDE_PATH )
-    reader.load_fixtures_with_include_path( 'at.2012/13', 'at/2012_13/bl2', INCLUDE_PATH )
-    reader.load_fixtures_with_include_path( 'at.cup.2012/13', 'at/2012_13/cup', INCLUDE_PATH )
-    
+    import_club_fixtures_for_country( 'at', AT_FIXTURES )
   end
 
-  desc 'worlddb - test loading of builtin fixtures (update)'
-  task :update => [:at, :mx]
 
+  desc 'worlddb - test loading of builtin fixtures (update)'
+  task :update => [:br]
+  # task :update => [:at, :ar, :br, :mx]
+
+
+  def import_club_fixtures_for_country( country_key, fixtures )
+    country = SportDB::Models::Country.find_by_key!( country_key )
+    
+    reader = SportDB::Reader.new
+    reader.load_teams_with_include_path( "#{country_key}/teams", INCLUDE_PATH, { club: true, country_id: country.id } )
+
+    fixtures.each do |item|
+      # assume first item is key
+      # assume second item is event plus fixture
+      # assume option third,etc are fixtures (e.g. bl2, etc.)
+      event_key      = item[0]  # e.g. at.2012/13
+      event_name     = item[1]  # e.g. at/2012_13/bl
+      fixture_names  = item[1..-1]  # e.g. at/2012_13/bl, at/2012_13/bl2
+      
+      reader.load_event_with_include_path( event_name, INCLUDE_PATH )
+      fixture_names.each do |fixture_name|
+        reader.load_fixtures_with_include_path( event_key, fixture_name, INCLUDE_PATH )
+      end
+    end
+  end
 =begin
 
 ##################

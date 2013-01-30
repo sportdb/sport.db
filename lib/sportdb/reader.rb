@@ -304,8 +304,14 @@ private
       values.each_with_index do |value, index|
         if value =~ /^city:/   ## city:
           value_city_key = value[5..-1]  ## cut off city: prefix
-          value_city = City.find_by_key!( value_city_key )
-          attribs[ :city_id ] = value_city.id
+          value_city = City.find_by_key( value_city_key )
+          if value_city.present?
+            attribs[ :city_id ] = value_city.id
+          else
+            ## todo/fix: add strict mode flag - fail w/ exit 1 in strict mode
+            puts "!!! warning - city with key #{value_city_key} missing"
+            ## todo: log errors to db log??? 
+          end
         elsif value =~ /^[A-Z]{3}$/  ## assume three-letter code e.g. FCB, RBS, etc.
           attribs[ :code ] = value
         elsif value =~ /^[a-z]{2}$/  ## assume two-letter country key e.g. at,de,mx,etc.

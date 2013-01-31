@@ -65,11 +65,16 @@
     ['mx.clausura.2013.1', 'mx/2013_clausura' ]
   ]
 
+
   AT_FIXTURES = [
     ['at.2011/12',     'at/2011_12/bl' ],
     ['at.cup.2011/12', 'at/2011_12/cup' ],
     ['at.2012/13',     'at/2012_13/bl', 'at/2012_13/bl2'],
     ['at.cup.2012/13', 'at/2012_13/cup']
+  ]
+  
+  DE_FIXTURES = [
+    ['de.2012/13',     'de/2012_13/bl' ]
   ]
 
   ### ar - Argentina
@@ -91,11 +96,16 @@
   task :at => [:import] do
     import_club_fixtures_for_country( 'at', AT_FIXTURES )
   end
+  
+  #### de - Deutschland/Germany
+  task :de => [:import] do
+    import_club_fixtures_for_country( 'de', DE_FIXTURES )
+  end  
 
 
   desc 'worlddb - test loading of builtin fixtures (update)'
-  task :update => [:br]
-  # task :update => [:at, :ar, :br, :mx]
+  task :update => [:de]
+  # task :update => [:at, :de, :ar, :br, :mx]
 
 
   def import_club_fixtures_for_country( country_key, fixtures )

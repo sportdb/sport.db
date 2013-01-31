@@ -2,6 +2,80 @@
 
 module SportDB
 
+class LangChecker
+  
+  def count_word_in_text( word, text )
+    count = 0
+    pos = text.index( word )
+    while pos.nil? == false
+      count += 1
+      puts "bingo - found >>#{word}<< on pos #{pos}, count: #{count}"
+      ### todo: check if pos+word.length/size needs +1 or similar
+      pos = text.index( word, pos+word.length)
+    end
+    count
+  end
+  
+  def count_words_in_text( words, text )
+    count = 0
+    words.each do |word|
+      count += count_word_in_text( word, text )
+    end
+    count
+  end
+  
+  def fixtures_hash_to_words_ary( hash )
+    ary = []
+    hash.each do |key_wild, values_wild|
+      key     = key_wild.to_s.strip
+      values  = values_wild.to_s.strip
+       
+      puts "processing key >>#{key}<< with words >>#{values}<<"
+       
+      ary += values.split('|')
+    end
+    ary
+  end
+  
+  def initialize( logger=nil )
+
+    # load word lists
+
+    @fixtures_en = YAML.load( File.read_utf8( "#{SportDB.config_path}/fixtures.yml" ))
+    @fixtures_de = YAML.load( File.read_utf8( "#{SportDB.config_path}/fixtures.de.yml" ))
+    @fixtures_es = YAML.load( File.read_utf8( "#{SportDB.config_path}/fixtures.es.yml" ))
+    
+    @words_en = fixtures_hash_to_words_ary( @fixtures_en )
+    @words_de = fixtures_hash_to_words_ary( @fixtures_de )
+    @words_es = fixtures_hash_to_words_ary( @fixtures_es )
+    
+    puts "en - #{@words_en.size} words: #{@words_en}"
+    puts "de - #{@words_de.size} words: #{@words_de}"
+    puts "es - #{@words_es.size} words: #{@words_es}"
+    
+  end
+  
+  def analyze( name, include_path )
+    # return lang??
+    
+    path = "#{include_path}/#{name}.txt"
+
+    puts "*** parsing data '#{name}' (#{path})..."
+
+    text = File.read_utf8( path )
+    
+    en = count_words_in_text( @words_en, text )
+    de = count_words_in_text( @words_de, text )
+    es = count_words_in_text( @words_es, text )
+    
+    puts "****************************************"
+    puts "*** en: #{en} words, de: #{de} words, es: #{es} words"
+    
+  end
+  
+end # class LangChecker
+
+
 class Reader
 
 ## make models available in sportdb module by default with namespace
@@ -199,6 +273,7 @@ class Reader
   end
 
   def load_fixtures_with_include_path( event_key, name, include_path )  # load from file system
+     
     path = "#{include_path}/#{name}.txt"
 
     puts "*** parsing data '#{name}' (#{path})..."
@@ -206,6 +281,10 @@ class Reader
     reader = LineReader.new( logger, path )
     
     load_fixtures_worker( event_key, reader )
+
+    ## fix: move up first
+    checker = LangChecker.new
+    checker.analyze( name, include_path )
 
     ## fix add prop
     ## Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )

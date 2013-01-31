@@ -61,6 +61,10 @@ module SportDB
   def self.data_path
     "#{root}/data"
   end
+  
+  def self.config_path
+    "#{root}/config"
+  end
 
 
   def self.main

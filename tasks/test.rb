@@ -112,7 +112,7 @@
   end
 
   desc 'worlddb - test loading of builtin fixtures (update)'
-  task :update => [:en]
+  task :update => [:mx]
   # task :update => [:at, :de, :en, :ar, :br, :mx]
 
 

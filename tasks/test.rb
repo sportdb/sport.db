@@ -80,6 +80,10 @@
   EN_FIXTURES = [
     ['en.2012/13',     'en/2012_13/pl' ]
   ]
+  
+  RO_FIXTURES = [
+    ['ro.2012/13',     'ro/2012_13_l1' ]
+  ]
 
   ### ar - Argentina
   task :ar => [:import] do
@@ -111,9 +115,14 @@
     import_club_fixtures_for_country( 'en', EN_FIXTURES )
   end
 
+  #### ro - Romania
+  task :ro => [:import] do
+    import_club_fixtures_for_country( 'ro', RO_FIXTURES )
+  end
+
   desc 'worlddb - test loading of builtin fixtures (update)'
-  task :update => [:at, :mx]
-  # task :update => [:at, :de, :en, :ar, :br, :mx]
+  # task :update => [:en]
+  task :update => [:at, :de, :en, :ro, :ar, :br, :mx]
 
 
   def import_club_fixtures_for_country( country_key, fixtures )

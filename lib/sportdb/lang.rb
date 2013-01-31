@@ -166,6 +166,9 @@ class LangChecker
 
     text = File.read_utf8( path )
     
+    ### todo/fix:
+    # remove comment lines and end of line comments from text
+    
     en = count_words_in_text( SportDB.lang.words_en, text )
     de = count_words_in_text( SportDB.lang.words_de, text )
     es = count_words_in_text( SportDB.lang.words_es, text )

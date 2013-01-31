@@ -43,6 +43,7 @@ require 'sportdb/utils'
 require 'sportdb/loader'
 require 'sportdb/reader'
 require 'sportdb/templater'
+require 'sportdb/lang'
 require 'sportdb/cli/opts'
 require 'sportdb/cli/runner'
 
@@ -64,6 +65,14 @@ module SportDB
   
   def self.config_path
     "#{root}/config"
+  end
+
+  def self.lang
+    # todo/fix: find a better way for single instance ??
+     if @lang.nil?
+       @lang = Lang.new
+     end
+     @lang
   end
 
 

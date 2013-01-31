@@ -5,17 +5,27 @@
 module SportDB::FixtureHelpers
 
   def is_round?( line )
-    line =~ /Spieltag|Runde|Achtelfinale|Viertelfinale|Halbfinale|Finale|Jornada/
+    line =~ SportDB.lang.regex_round
   end
-  
+
   def is_group?( line )
     # NB: check after is_round? (round may contain group reference!)
-    line =~ /Gruppe|Group/
+    line =~ SportDB.lang.regex_group
   end
-  
+
   def is_knockout_round?( line )
-    if line =~ /Achtelfinale|Viertelfinale|Halbfinale|Spiel um Platz 3|Finale|K\.O\.|Knockout/
+    ### check if
+    ## todo: check for leg1 - if present cancel knockout flag!!
+    
+    ### if line  leg1
+    ##    return false !!!!!
+    
+    if line =~ SportDB.lang.regex_knockout_round
       puts "   setting knockout flag to true"
+      true
+    elsif line =~ /K\.O\.|Knockout/
+        ## NB: add two language independent markers, that is, K.O. and Knockout
+      puts "   setting knockout flag to true (lang independent marker)"
       true
     else
       false
@@ -25,13 +35,15 @@ module SportDB::FixtureHelpers
   def find_group_title_and_pos!( line )
     ## group pos - for now support single digit e.g 1,2,3 or letter e.g. A,B,C
     ## nb:  (?:)  = is for non-capturing group(ing)
-    regex = /(?:Group|Gruppe)\s+((?:\d{1}|[A-Z]{1}))\b/
+    regex = /(?:Group|Gruppe|Grupo)\s+((?:\d{1}|[A-Z]{1}))\b/
+    
+    ## todo: allow HEX for Hexagonal - map to ????
     
     match = regex.match( line )
     
     return [nil,nil] if match.nil?
 
-    pos = case match[1]      
+    pos = case match[1]
           when 'A' then 1
           when 'B' then 2
           when 'C' then 3
@@ -58,6 +70,10 @@ module SportDB::FixtureHelpers
   end
   
   def find_round_pos!( line )
+    
+    ## todo: let title2 go first to cut off //
+    ## todo: cut of end of line comments w/ # ???
+    
     ## fix/todo:
     ##  if no round found assume last_pos+1 ??? why? why not?
 
@@ -84,6 +100,11 @@ module SportDB::FixtureHelpers
     if line =~ cutoff_regex
       line = $1.to_s    # cut off the rest if regex matches
     end
+
+    ## fix/todo: use cutoff_line for search
+    ## and use line.sub! to change original string
+    # e.g.  Jornada 3  // 1,2 y 3 febrero
+    #   only replaces match in local string w/ [ROUND|POS]
 
     regex = /\b(\d+)\b/
     

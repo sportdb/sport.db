@@ -56,6 +56,7 @@
 
   AR_FIXTURES = []
 
+  ### todo: ? get event_key automatically from event_reader ?? why? why not??
   BR_FIXTURES = [
     ['br.2013', 'br/2013/cb' ]
   ]
@@ -84,54 +85,119 @@
   RO_FIXTURES = [
     ['ro.2012/13',     'ro/2012_13_l1' ]
   ]
+  
+  CLUB_EUROPE_FIXTURES = [
+    ['cl.2011/12',     'club/europe/2011_12/cl'],
+    ['el.2011/12',     'club/europe/2011_12/el']
+  ]
+  
+  CLUB_AMERICA_FIXTURES = [
+   # ['copa.sud.2012',     'club/america/2012_sud'],
+   ['america.cl.2011/12',     'club/america/2011_12_cl']
+  ]
+
+  ## todo: extract two letter country-key from path - why?? why not??
+  CLUB_EUROPE_TEAMS = [
+    ['en/teams', 'en'],
+    ['es/teams', 'es'],
+    ['de/teams', 'de'],
+    ['it/teams', 'it'],
+    ['fr/teams', 'fr'],
+    ['at/teams', 'at'],
+    ['ro/teams', 'ro'],
+    ['club/europe/teams']
+  ]
+  
+  CLUB_AMERICA_TEAMS = [
+    ['ar/teams', 'ar'],
+    ['br/teams', 'br'],
+    ['club/america/teams_c'],
+    ['club/america/teams_n'],
+    ['club/america/teams_s'],
+  ]
+  
+  ### club europe (cl,el)
+  task :club_europe => [:import] do
+    import_club_fixtures( CLUB_EUROPE_TEAMS, CLUB_EUROPE_FIXTURES )
+  end
+
+  ### club america 
+  task :club_america => [:import] do
+    import_club_fixtures( CLUB_AMERICA_TEAMS, CLUB_AMERICA_FIXTURES )
+  end
+
 
   ### ar - Argentina
   task :ar => [:import] do
-    import_club_fixtures_for_country( 'ar', AR_FIXTURES )
+    import_club_fixtures( 'ar', AR_FIXTURES )
   end
 
   ### br - Brasil
   task :br => [:import] do
-    import_club_fixtures_for_country( 'br', BR_FIXTURES )
+    import_club_fixtures( 'br', BR_FIXTURES )
   end
   
   ### mx - Mexico
   task :mx => [:import] do
-    import_club_fixtures_for_country( 'mx', MX_FIXTURES )
+    import_club_fixtures( 'mx', MX_FIXTURES )
   end
   
   #### at - Austria
   task :at => [:import] do
-    import_club_fixtures_for_country( 'at', AT_FIXTURES )
+    import_club_fixtures( 'at', AT_FIXTURES )
   end
   
   #### de - Deutschland/Germany
   task :de => [:import] do
-    import_club_fixtures_for_country( 'de', DE_FIXTURES )
+    import_club_fixtures( 'de', DE_FIXTURES )
   end
 
   #### en - England
   task :en => [:import] do
-    import_club_fixtures_for_country( 'en', EN_FIXTURES )
+    import_club_fixtures( 'en', EN_FIXTURES )
   end
 
   #### ro - Romania
   task :ro => [:import] do
-    import_club_fixtures_for_country( 'ro', RO_FIXTURES )
+    import_club_fixtures( 'ro', RO_FIXTURES )
   end
 
   desc 'worlddb - test loading of builtin fixtures (update)'
-  # task :update => [:en]
-  task :update => [:at, :de, :en, :ro, :ar, :br, :mx]
+  task :update => [:club_america]
+  # task :update => [:at, :de, :en, :ro, :ar, :br, :mx]
 
 
-  def import_club_fixtures_for_country( country_key, fixtures )
-    country = SportDB::Models::Country.find_by_key!( country_key )
-    
+  def import_club_fixtures( teams, fixtures )
     reader = SportDB::Reader.new
-    reader.load_teams_with_include_path( "#{country_key}/teams", INCLUDE_PATH, { club: true, country_id: country.id } )
+    import_club_teams_worker( reader, teams )
+    import_club_fixtures_worker( reader, fixtures )
+  end
+  
+  def import_club_teams_worker( reader, teams )
+    
+    ## allow country_key shortcut
+    if teams.is_a?( String )
+      teams = [["#{teams}", "#{teams}/teams"]]
+    end
 
-    fixtures.each do |item|
+    teams.each do |item|
+      if item.size > 1
+        # country-specific teams
+        name        = item[0]
+        country_key = item[1]
+        country = SportDB::Models::Country.find_by_key!( country_key )
+        reader.load_teams_with_include_path( name, INCLUDE_PATH, { club: true, country_id: country.id } )
+      else
+        # international teams (many countries)
+        name       = item[0]
+        reader.load_teams_with_include_path( name, INCLUDE_PATH, { club: true } )
+      end
+    end # teams
+  end # import_club_teams_worker
+
+
+  def import_club_fixtures_worker( reader, fixtures )
+   fixtures.each do |item|
       # assume first item is key
       # assume second item is event plus fixture
       # assume option third,etc are fixtures (e.g. bl2, etc.)
@@ -144,7 +210,7 @@
         reader.load_fixtures_with_include_path( event_key, fixture_name, INCLUDE_PATH )
       end
     end
-  end
+  end  
 =begin
 
 ##################

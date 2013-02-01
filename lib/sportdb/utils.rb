@@ -127,6 +127,9 @@ module SportDB::FixtureHelpers
     
     # e.g. 2012-09-14 20:30   => YYYY-MM-DD HH:MM
     regex_db = /\b(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})\b/
+    
+    # e.g. 2012-09-14  w/ implied hours (set to 12:00)
+    regex_db2 = /\b(\d{4})-(\d{2})-(\d{2})\b/
 
     # e.g. 14.09. 20:30  => DD.MM. HH:MM
     regex_de = /\b(\d{2})\.(\d{2})\.\s+(\d{2}):(\d{2})\b/
@@ -142,6 +145,13 @@ module SportDB::FixtureHelpers
       ##  and time zone (e.g. cet, eet, utc, etc.)
       
       line.sub!( regex_db, '[DATE.DB]' )
+
+      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
+    elsif line =~ regex_db2
+      value = "#{$1}-#{$2}-#{$3} 12:00"
+      puts "   date: >#{value}<"
+      
+      line.sub!( regex_db2, '[DATE.DB2]' )
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     elsif line =~ regex_de2
@@ -193,14 +203,14 @@ module SportDB::FixtureHelpers
     # and return it
     # NB: side effect - removes date from line string
     
-    # e.g. 1:2 or 0:2 or 3:3
-    regex = /\b(\d):(\d)\b/
+    # e.g. 1:2 or 0:2 or 3:3 // 1-1 or 0-2 or 3-3
+    regex = /\b(\d)[:\-](\d)\b/
     
     # e.g. 1:2nV  => overtime
-    regex_ot = /\b(\d):(\d)[ \t]?[nN][vV]\b/
+    regex_ot = /\b(\d)[:\-](\d)[ \t]?[nN][vV]\b/
     
     # e.g. 5:4iE  => penalty
-    regex_p = /\b(\d):(\d)[ \t]?[iI][eE]\b/
+    regex_p = /\b(\d)[:\-](\d)[ \t]?[iI][eE]\b/
     
     scores = []
     

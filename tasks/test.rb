@@ -94,9 +94,9 @@
   CLUB_AMERICA_FIXTURES = [
    # ['america.cl.2011/12',     'club/america/2011_12/cl'],
    # ['america.cl.2012/13',     'club/america/2012_13/cl'],
-   # ['copa.libertadores.2012', 'club/america/2012/libertadores' ],
+   ['copa.libertadores.2012', 'club/america/2012/libertadores' ],
    # ['copa.sud.2012',     'club/america/2012/sud'],
-   ['copa.libertadores.2013', 'club/america/2013/libertadores' ]
+   # ['copa.libertadores.2013', 'club/america/2013/libertadores' ]
   ]
 
   ## todo: extract two letter country-key from path - why?? why not??

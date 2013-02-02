@@ -12,8 +12,8 @@ stage:    Primera fase|Segunda fase|Fase de grupos|Fase final
 ### Knock out rounds
 
 round32:        Dieciseisavos de final|16vos de final
-round16:        Octavos de final|8vos de final
-quarterfinals:  Cuartos de final|4tos de final
+round16:        Octavos|Octavos de final|8vos de final
+quarterfinals:  Cuartos|Cuartos de final|4tos de final
 semifinals:     Semifinales|Semifinal
 thirdplace:     Tercer lugar
 final:          Final

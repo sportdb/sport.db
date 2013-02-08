@@ -46,10 +46,14 @@ class Lang
       @group = nil
       @round = nil
       @knockout_round = nil
+      @leg1 = nil
+      @leg2 = nil
       
       @regex_group = nil
       @regex_round = nil
       @regex_knockout_round = nil
+      @regex_leg1 = nil
+      @regex_leg2 = nil
     end
     
     @lang = value
@@ -67,7 +71,15 @@ class Lang
  
   def knockout_round
     @knock_round ||= knockout_round_getter
-  end 
+  end
+  
+  def leg1
+    @leg1 ||= leg1_getter
+  end
+  
+  def leg2
+    @leg2 ||= leg2_getter
+  end
 
 
   def regex_group
@@ -80,7 +92,17 @@ class Lang
   
   def regex_knockout_round
     @regex_knockout_round ||= regex_knockout_round_getter
-  end  
+  end
+  
+  def regex_leg1
+    @regex_leg1 ||= regex_leg1_getter
+  end
+  
+  def regex_leg2
+    @regex_leg2 ||= regex_leg2_getter
+  end
+  
+  
   
 private
   def group_getter
@@ -105,7 +127,18 @@ private
     values << "|" << h['final']
     values
   end
-  
+
+  def leg1_getter
+    h = @fixtures[ lang ]
+    values = h['leg1']
+    values
+  end
+
+  def leg2_getter
+    h = @fixtures[ lang ]
+    values = h['leg2']
+    values
+  end
 
   def knockout_round_getter
     h = @fixtures[ lang ]
@@ -132,6 +165,16 @@ private
   def regex_knockout_round_getter
     ## todo: escape for regex?
     /#{knockout_round}/
+  end
+  
+  def regex_leg1_getter
+    ## todo: escape for regex?
+    /#{leg1}/
+  end
+
+  def regex_leg2_getter
+    ## todo: escape for regex?
+    /#{leg2}/
   end
 
 

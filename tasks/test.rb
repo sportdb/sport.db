@@ -88,15 +88,17 @@
   
   CLUB_EUROPE_FIXTURES = [
     ['cl.2011/12',     'club/europe/2011_12/cl'],
-    ['el.2011/12',     'club/europe/2011_12/el']
+    ['el.2011/12',     'club/europe/2011_12/el'],
+    ['cl.2012/13',     'club/europe/2012_13/cl'],
+    ['el.2012/13',     'club/europe/2012_13/el'],
   ]
   
   CLUB_AMERICA_FIXTURES = [
-   # ['america.cl.2011/12',     'club/america/2011_12/cl'],
-   # ['america.cl.2012/13',     'club/america/2012_13/cl'],
+   ['america.cl.2011/12',     'club/america/2011_12/cl'],
    ['copa.libertadores.2012', 'club/america/2012/libertadores' ],
-   # ['copa.sud.2012',     'club/america/2012/sud'],
-   # ['copa.libertadores.2013', 'club/america/2013/libertadores' ]
+   ['copa.sud.2012',          'club/america/2012/sud'],
+   ['america.cl.2012/13',     'club/america/2012_13/cl'],
+   ['copa.libertadores.2013', 'club/america/2013/libertadores' ]
   ]
 
   ## todo: extract two letter country-key from path - why?? why not??
@@ -165,9 +167,12 @@
     import_club_fixtures( 'ro', RO_FIXTURES )
   end
 
+
+
   desc 'worlddb - test loading of builtin fixtures (update)'
   task :update => [:club_america]
   # task :update => [:at, :de, :en, :ro, :ar, :br, :mx]
+
 
 
   def import_club_fixtures( teams, fixtures )

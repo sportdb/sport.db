@@ -29,8 +29,8 @@ final:          Final|Finals
 
 ### Pair matches/games if marked with leg1 n leg2
 
-leg1:  1st leg|First leg
-leg2:  2nd leg|Second leg
+leg1:  1st leg|1st Leg|First leg     # todo: check for automatica ignore case - why? why not?
+leg2:  2nd leg|2nd Leg|Second leg
 
 
 #######################

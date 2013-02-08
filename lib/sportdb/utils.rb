@@ -14,13 +14,13 @@ module SportDB::FixtureHelpers
   end
 
   def is_knockout_round?( line )
-    ### check if
-    ## todo: check for leg1 - if present cancel knockout flag!!
     
-    ### if line  leg1
-    ##    return false !!!!!
+    ## todo: check for adding ignore case for regex (e.g. 1st leg/1st Leg)
     
-    if line =~ SportDB.lang.regex_knockout_round
+    if line =~ SportDB.lang.regex_leg1
+      puts "  two leg knockout; skip knockout flag on first leg"
+      false
+    elsif line =~ SportDB.lang.regex_knockout_round
       puts "   setting knockout flag to true"
       true
     elsif line =~ /K\.O\.|Knockout/

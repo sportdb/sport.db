@@ -10,7 +10,7 @@ class Lang
 
     # load word lists
 
-    @fixtures_en = YAML.load( File.read_utf8( "#{SportDB.config_path}/fixtures.yml" ))
+    @fixtures_en = YAML.load( File.read_utf8( "#{SportDB.config_path}/fixtures.en.yml" ))
     @fixtures_de = YAML.load( File.read_utf8( "#{SportDB.config_path}/fixtures.de.yml" ))
     @fixtures_es = YAML.load( File.read_utf8( "#{SportDB.config_path}/fixtures.es.yml" ))
 

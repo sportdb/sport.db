@@ -10,6 +10,8 @@
 #   rake -I ../world.db.ruby/lib -I ../sport.db.ruby/lib update
 
 
+include SportDB::Fixture   # include fixture constants like WORLD_FIXTURES, EN_FIXTURES etc.
+
 
 ##########
 # TODO: configure - copy to your rake file
@@ -52,75 +54,6 @@
     reader.load_leagues_with_include_path( 'leagues_club', INCLUDE_PATH, club: true )
   end
   
-
-
-  AR_FIXTURES = []
-
-  ### todo: ? get event_key automatically from event_reader ?? why? why not??
-  BR_FIXTURES = [
-    ['br.2013', 'br/2013/cb' ]
-  ]
-
-  MX_FIXTURES = [
-    ['mx.apertura.2012.2', 'mx/2012_apertura' ],
-    ['mx.clausura.2013.1', 'mx/2013_clausura' ]
-  ]
-
-
-  AT_FIXTURES = [
-    ['at.2011/12',     'at/2011_12/bl' ],
-    ['at.cup.2011/12', 'at/2011_12/cup' ],
-    ['at.2012/13',     'at/2012_13/bl', 'at/2012_13/bl2'],
-    ['at.cup.2012/13', 'at/2012_13/cup']
-  ]
-  
-  DE_FIXTURES = [
-    ['de.2012/13',     'de/2012_13/bl' ]
-  ]
-  
-  EN_FIXTURES = [
-    ['en.2012/13',     'en/2012_13/pl' ]
-  ]
-  
-  RO_FIXTURES = [
-    ['ro.2012/13',     'ro/2012_13_l1' ]
-  ]
-  
-  CLUB_EUROPE_FIXTURES = [
-    ['cl.2011/12',     'club/europe/2011_12/cl'],
-    ['el.2011/12',     'club/europe/2011_12/el'],
-    ['cl.2012/13',     'club/europe/2012_13/cl'],
-    ['el.2012/13',     'club/europe/2012_13/el'],
-  ]
-  
-  CLUB_AMERICA_FIXTURES = [
-   ['america.cl.2011/12',     'club/america/2011_12/cl'],
-   ['copa.libertadores.2012', 'club/america/2012/libertadores' ],
-   ['copa.sud.2012',          'club/america/2012/sud'],
-   ['america.cl.2012/13',     'club/america/2012_13/cl'],
-   ['copa.libertadores.2013', 'club/america/2013/libertadores' ]
-  ]
-
-  ## todo: extract two letter country-key from path - why?? why not??
-  CLUB_EUROPE_TEAMS = [
-    ['en/teams', 'en'],
-    ['es/teams', 'es'],
-    ['de/teams', 'de'],
-    ['it/teams', 'it'],
-    ['fr/teams', 'fr'],
-    ['at/teams', 'at'],
-    ['ro/teams', 'ro'],
-    ['club/europe/teams']
-  ]
-  
-  CLUB_AMERICA_TEAMS = [
-    ['ar/teams', 'ar'],
-    ['br/teams', 'br'],
-    ['club/america/teams_c'],
-    ['club/america/teams_n'],
-    ['club/america/teams_s'],
-  ]
-  
   ### club europe (cl,el)
   task :club_europe => [:import] do
     import_club_fixtures( CLUB_EUROPE_TEAMS, CLUB_EUROPE_FIXTURES )
@@ -130,7 +63,18 @@
   task :club_america => [:import] do
     import_club_fixtures( CLUB_AMERICA_TEAMS, CLUB_AMERICA_FIXTURES )
   end
+  
+  task :europe  => [:import] do
+    import_national_fixtures( EUROPE_TEAMS, EUROPE_FIXTURES )
+  end
 
+  task :america  => [:import] do
+    import_national_fixtures( AMERICA_TEAMS, AMERICA_FIXTURES )
+  end
+  
+  task :world  => [:import] do
+    import_national_fixtures( WORLD_TEAMS, WORLD_FIXTURES )
+  end  
 
   ### ar - Argentina
   task :ar => [:import] do
@@ -170,7 +114,7 @@
 
 
   desc 'worlddb - test loading of builtin fixtures (update)'
-  task :update => [:club_america]
+  task :update => [:world]
   # task :update => [:at, :de, :en, :ro, :ar, :br, :mx]
 
 
@@ -178,7 +122,20 @@
   def import_club_fixtures( teams, fixtures )
     reader = SportDB::Reader.new
     import_club_teams_worker( reader, teams )
-    import_club_fixtures_worker( reader, fixtures )
+    import_fixtures_worker( reader, fixtures )
+  end
+  
+  def import_national_fixtures( teams, fixtures )
+    reader = SportDB::Reader.new
+    import_national_teams_worker( reader, teams )
+    import_fixtures_worker( reader, fixtures )
+  end
+  
+  def import_national_teams_worker( reader, teams )
+   teams.each do |item|
+      name = item
+      reader.load_teams_with_include_path( name, INCLUDE_PATH, { national: true } )
+    end # teams
   end
   
   def import_club_teams_worker( reader, teams )
@@ -204,7 +161,7 @@
   end # import_club_teams_worker
 
 
-  def import_club_fixtures_worker( reader, fixtures )
+  def import_fixtures_worker( reader, fixtures )
    fixtures.each do |item|
       # assume first item is key
       # assume second item is event plus fixture

@@ -1,3 +1,4 @@
+# encoding: utf-8
 
 ### some utils moved to worldbdb/utils for reuse
 
@@ -33,11 +34,9 @@ module SportDB::FixtureHelpers
   end
   
   def find_group_title_and_pos!( line )
-    ## group pos - for now support single digit e.g 1,2,3 or letter e.g. A,B,C
+    ## group pos - for now support single digit e.g 1,2,3 or letter e.g. A,B,C or HEX
     ## nb:  (?:)  = is for non-capturing group(ing)
-    regex = /(?:Group|Gruppe|Grupo)\s+((?:\d{1}|[A-Z]{1}))\b/
-    
-    ## todo: allow HEX for Hexagonal - map to ????
+    regex = /(?:Group|Gruppe|Grupo)\s+((?:\d{1}|[A-Z]{1,3}))\b/
     
     match = regex.match( line )
     
@@ -56,6 +55,7 @@ module SportDB::FixtureHelpers
           when 'J' then 10
           when 'K' then 11
           when 'L' then 12
+          when 'HEX' then 666    # HEX for Hexagonal - todo/check: map to something else ??
           else  match[1].to_i
           end
 
@@ -199,6 +199,13 @@ module SportDB::FixtureHelpers
   end
 
   def find_scores!( line )
+
+    ### fix: depending on language allow 1:1 or 1-1
+    ##   do NOT allow mix and match
+    ##  e.g. default to en is  1-1
+    ##    de is 1:1 etc.
+    
+
     # extract score from line
     # and return it
     # NB: side effect - removes date from line string

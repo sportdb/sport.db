@@ -1,3 +1,6 @@
+# encoding: utf-8
+
+
 ###
 # NB: for local testing run like:
 #
@@ -22,7 +25,8 @@ require 'worlddb'
 
 require 'sportdb/version'
 
-require 'sportdb/keys'
+require 'sportdb/data/keys'
+
 require 'sportdb/models/forward'
 require 'sportdb/models/badge'
 require 'sportdb/models/city'
@@ -44,6 +48,9 @@ require 'sportdb/loader'
 require 'sportdb/reader'
 require 'sportdb/templater'
 require 'sportdb/lang'
+
+require 'sportdb/data/fixtures'
+
 require 'sportdb/cli/opts'
 require 'sportdb/cli/runner'
 
@@ -83,103 +90,6 @@ module SportDB
   def self.create
     CreateDB.up
   end
-
-  class Fixtures
-    ## todo: move into its own file???    
-    
-    ## make constants in Keys availabe (get include in Models) - do NOT pollute/include in SportDB
-    ## make models available in sportdb module by default with namespace
-    #  e.g. lets you use Team instead of Models::Team 
-    include SportDB::Models
-
-
-    def self.fixtures_rb_test
-     ['leagues',
-      'seasons',
-#      'at/2011_12/bl',
-#      'at/2011_12/cup',
-#      'at/2012_13/bl',
-#      'at/2012_13/cup',
-#      'copa/sud_2012_13',
-#      'world/quali_2012_13_america'
-     ]
-    end
-
-    def self.fixtures_txt_test
-      [
-#       [ AT_2011_12,        'at/2011_12/bl'],
-#       [ AT_2012_13,        'at/2012_13/bl'],
-#       [ AT_CUP_2012_13,    'at/2012_13/cup'],
-#       ['copa.sud.2012/13', 'copa/sud_2012_13'],
-#       [ WORLD_QUALI_AMERICA_2012_13, 'world/quali_2012_13_america']
-      ]
-    end
-
-
-    def self.team_fixtures
-      at = Country.find_by_key!( 'at' )
-      de = Country.find_by_key!( 'de' )
-      en = Country.find_by_key!( 'en' )
-      es = Country.find_by_key!( 'es' )
-      ro = Country.find_by_key!( 'ro' )
-      mx = Country.find_by_key!( 'mx' )
-
-      [
-        [ 'america/teams', { national: true } ],
-        [ 'euro/teams',    { national: true } ],
-        [ 'world/teams',   { national: true } ],
-        [ 'at/teams', { club: true, country_id: at.id } ],
-        [ 'de/teams', { club: true, country_id: de.id } ],
-        [ 'en/teams', { club: true, country_id: en.id } ],
-        [ 'es/teams', { club: true, country_id: es.id } ],
-#        [ 'ro/teams', { club: true, country_id: ro.id } ],
-        [ 'mx/teams', { club: true, country_id: mx.id } ],
-        [ 'cl/teams', { club: true } ],
-        [ 'copa/teams', { club: true } ],
-        [ 'nhl/teams', { club: true } ]
-      ]
-    end
-
-    def self.fixtures_rb  # all builtin ruby fixtures; helper for covenience
-     ['leagues',
-      'seasons',
-      'at/badges',
-      'at/2011_12/bl',
-      'at/2011_12/cup',
-      'at/2012_13/bl',
-      'at/2012_13/cup',
-      'cl/badges',
-      'cl/2011_12/cl',
-      'cl/2011_12/el',
-      'cl/2012_13/cl',
-      'de/2012_13/bl',
-      'en/2012_13/pl',
-      'euro/2008',
-      'euro/2012',
-      'america/2011',
-      'copa/sud_2012_13',
-      'mx/apertura_2012',
-      'world/2010',
-      'world/quali_2012_13_europe',
-      'world/quali_2012_13_america'
-      ]
-    end
-
-    def self.fixtures_txt
-      [[ AT_2011_12,        'at/2011_12/bl'],
-       [ AT_2012_13,        'at/2012_13/bl'],
-       [ AT_CUP_2012_13,    'at/2012_13/cup'],
-       ['de.2012/13',       'de/2012_13/bl'],
-       ['en.2012/13',       'en/2012_13/pl'],
-       ['america.2011',     'america/2011'],
-       ['mx.apertura.2012', 'mx/apertura_2012'],
-       ['copa.sud.2012/13', 'copa/sud_2012_13'],
-       [ EURO_2008,                   'euro/2008'],
-       [ WORLD_2010,                  'world/2010'],
-       [ WORLD_QUALI_EURO_2012_13,    'world/quali_2012_13_europe_c'],
-       [ WORLD_QUALI_AMERICA_2012_13, 'world/quali_2012_13_america']]
-    end
-  end # class Fixtures
 
   def self.team_fixtures
     Fixtures.team_fixtures

@@ -1,8 +1,14 @@
+### todo/fix: move to sportdb-data gem/plugin/addon ??
+
+
+### fix: rename to ::Key (singular) - why? why not??
 
 module SportDB::Keys
 
     module EventKeys
   # use constants for known keys; lets us define aliases (if things change)
+  
+  ## todo: cleanup keys - use new names for some keys that changed!!
   
   AT_2011_12     = 'at.2011/12'
   AT_2012_13     = 'at.2012/13'

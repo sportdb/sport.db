@@ -25,14 +25,76 @@ class Reader
     args.each do |arg|
       name = arg     # File.basename( arg, '.*' )
 
-      if opts.load?
-        load_fixtures_builtin( opts.event, name )
-      else
+      if opts.event.present?
         load_fixtures_with_include_path( opts.event, name, opts.data_path )
+      else
+        ary = []
+        ary << name
+        load_with_include_path( ary, opts.data_path )
       end
     end
 
   end
+
+
+  def load_with_include_path( ary, include_path )   # convenience helper for all-in-one reader
+    
+    puts "[debug] enter load_with_include_path (include_path=>>#{include_path}<<):"
+    pp ary
+    
+    ary.each do |rec|
+      if rec.kind_of?( String )
+        ## assume single fixture name
+        name = rec
+        
+        if name =~ /^seasons/
+          load_seasons_with_include_path( name, include_path )
+        elsif name =~ /^leagues/
+          if name =~ /club/
+            # e.g. leagues_club
+            load_leagues_with_include_path( name, include_path, { club: true } )
+          else
+            # e.g. leagues
+            load_leagues_with_include_path( name, include_path )
+          end
+        elsif name =~ /^([a-z]{2})\/teams/
+          # auto-add country code (from folder structure) for country-specific teams
+          #  e.g. at/teams at/teams2 de/teams etc.
+          country_key = $1
+          country = Country.find_by_key!( country_key )
+          load_teams_with_include_path( name, include_path, { club: true, country_id: country.id } )
+        elsif name =~ /\/teams/
+          if name =~ /club/
+            # club teams (many countries)
+            # e.g. club/europe/teams
+            load_teams_with_include_path( name, include_path, { club: true } )
+          else
+            # assume national teams
+            # e.g. world/teams  amercia/teams_n
+            load_teams_with_include_path( name, include_path, { national: true } )
+          end
+        else
+          puts "*** error: unknown sportdb fixture type >#{name}<"
+          # todo/fix: exit w/ error
+        end
+      else  # more than one item in record? assume fixture starting w/ event key
+        
+        # assume first item is key
+        # assume second item is event plus fixture
+        # assume option third,etc are fixtures (e.g. bl2, etc.)
+        event_key      = rec[0]  # e.g. at.2012/13
+        event_name     = rec[1]  # e.g. at/2012_13/bl
+        fixture_names  = rec[1..-1]  # e.g. at/2012_13/bl, at/2012_13/bl2
+      
+        load_event_with_include_path( event_name, include_path )
+        fixture_names.each do |fixture_name|
+          load_fixtures_with_include_path( event_key, fixture_name, include_path )
+        end
+      end
+      
+    end # each ary
+  end # method load_with_include_path
+
 
 
   def load_leagues_with_include_path( name, include_path, more_values={} )

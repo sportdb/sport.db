@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 ### todo/fix: move to sportdb-data gem/plugin/addon ??
 
 
@@ -7,8 +9,7 @@ module SportDB::Keys
 
     module EventKeys
   # use constants for known keys; lets us define aliases (if things change)
-  
-  ## todo: cleanup keys - use new names for some keys that changed!!
+
   
   AT_2011_12     = 'at.2011/12'
   AT_2012_13     = 'at.2012/13'
@@ -21,8 +22,8 @@ module SportDB::Keys
 
   WORLD_2010     = 'world.2010'
   
-  WORLD_QUALI_EURO_2012_13    = 'world.quali.euro.2012/13'
-  WORLD_QUALI_AMERICA_2012_13 = 'world.quali.america.2012/13'
+  WORLD_QUALI_EUROPE_2014  = 'world.quali.europe.2014'
+  WORLD_QUALI_AMERICA_2014 = 'world.quali.america.2014'
 
   ############################
   ## NB: see db/leagues.rb for keys in use

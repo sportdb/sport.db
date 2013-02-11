@@ -36,13 +36,8 @@ class Runner
       ### todo: in future allow multiple search path??
       cmd.on( '-i', '--include PATH', "Data path (default is #{opts.data_path})" ) { |path| opts.data_path = path }
 
-      cmd.on( '--load', 'Use loader for builtin sports data' ) { opts.load = true }
-
       cmd.on( '-e', '--event KEY', 'Event to load or generate' ) { |key| opts.event = key; }
       
-      cmd.on( '-o', '--output PATH', "Output path (default is #{opts.output_path})" ) { |path| opts.output_path = path }
-      cmd.on( '-g', '--generate', 'Generate fixtures from template' ) { opts.generate = true }
-
 
       cmd.on( '-v', '--version', "Show version" ) do
         puts SportDB.banner
@@ -99,7 +94,7 @@ EOS
       WorldDB.create
       SportDB.create
       WorldDB.read_all
-      SportDB.load_all  # ruby (.rb) fixtures
+      ## todo/fix: pass allong data path
       SportDB.read_all  # plain text (.txt) fixtures
     else
 
@@ -116,7 +111,7 @@ EOS
 
         if opts.sport?
           SportDB.delete! if opts.delete?
-          SportDB.load_all
+          ## todo/fix: pass allong data path
           SportDB.read_all
         end
       else # no sport or world flag
@@ -126,15 +121,7 @@ EOS
         end
       end
 
-      if opts.event.present?
-        if opts.generate?
-          Templater.new( logger ).run( opts, args ) # export/generate ruby fixtures
-        else
-          Reader.new( logger ).run( opts, args )  # load/read plain text fixtures
-        end
-      else
-        Loader.new( logger ).run( opts, args ) # load ruby fixtures
-      end
+      Reader.new( logger ).run( opts, args )  # load/read plain text fixtures
     end
 
     SportDB.stats

@@ -44,12 +44,14 @@ require 'sportdb/models/season'
 require 'sportdb/models/team'
 require 'sportdb/schema'       # NB: requires sportdb/models (include SportDB::Models)
 require 'sportdb/utils'
-require 'sportdb/loader'
 require 'sportdb/reader'
-require 'sportdb/templater'
 require 'sportdb/lang'
 
+require 'sportdb/deleter'
+require 'sportdb/stats'
+
 require 'sportdb/data/fixtures'
+require 'sportdb/data/models'     # add convenience finders for known fixtures
 
 require 'sportdb/cli/opts'
 require 'sportdb/cli/runner'
@@ -90,81 +92,22 @@ module SportDB
   def self.create
     CreateDB.up
   end
-
-  def self.team_fixtures
-    Fixtures.team_fixtures
-  end
-
-  def self.fixtures_rb  # all builtin ruby fixtures; helper for covenience
-    Fixtures.fixtures_rb
-  end
   
-  def self.fixtures_txt
-    Fixtures.fixtures_txt
-  end
-
-  def self.load_all
-    ## load teams first
-    read( team_fixtures )  # converted to plain text fixtures (.rb no longer exist)
-    
-    load( fixtures_rb )
-  end
-
-
   def self.read_all
-    ## todo/fix: remove!! roll into load_all
-    read( fixtures_txt )
+    read( Fixtures.all )
   end
 
-  # load built-in (that is, bundled within the gem) named seeds
-  # - pass in an array of seed names e.g. [ 'cl/teams', 'cl/2012_13/cl' ] etc.
-
-  def self.load( ary )
-    loader = Loader.new
-    ary.each do |name|
-      loader.load_fixtures_builtin( name )
-    end
-  end
 
   # load built-in (that is, bundled within the gem) named plain text seeds
-  # - pass in an array of pairs of event/seed names e.g. [['at.2012/13', 'at/2012_13/bl'], ['cl.2012/13', 'cl/2012_13/cl']] etc.
+  # - pass in an array of pairs of event/seed names e.g.
+  #   [['at.2012/13', 'at/2012_13/bl'],
+  #    ['cl.2012/13', 'cl/2012_13/cl']] etc.
 
   def self.read( ary )
     reader = Reader.new
-    ary.each do |rec|
-      ## todo: check for teams in name too?
-      if rec[1].nil? || rec[1].kind_of?( Hash )   ## assume team fixtures
-        reader.load_teams_builtin( rec[0], rec[1] )  ## NB: name goes first than opt more_values hash
-      else
-        reader.load_fixtures_builtin( rec[0], rec[1] ) # event_key, name  -- assume game fixtures
-      end
-    end
+    reader.load_with_include_path( ary, data_path )
   end
-
   
-  class Deleter
-    ## todo: move into its own file???    
-    
-    ## make models available in sportdb module by default with namespace
-    #  e.g. lets you use Team instead of Models::Team 
-    include SportDB::Models
-
-    def run( args=[] )
-      # for now delete all tables
-      
-      Team.delete_all
-      Game.delete_all
-      Event.delete_all
-      EventTeam.delete_all
-      Group.delete_all
-      GroupTeam.delete_all
-      Round.delete_all
-      Badge.delete_all
-      League.delete_all
-      Season.delete_all
-    end
-    
-  end
   
   # delete ALL records (use with care!)
   def self.delete!
@@ -172,29 +115,6 @@ module SportDB
     Deleter.new.run
   end # method delete!
 
-
-  class Stats
-    include SportDB::Models
-
-    def tables
-      puts "Stats:"
-      puts "  #{Event.count} events  /  #{Round.count} rounds  /  #{Group.count} groups"
-      puts "  #{League.count} leagues  /  #{Season.count} seasons"
-      puts "  #{Country.count} countries / #{Region.count} regions / #{City.count} cities"
-      puts "  #{Team.count} teams"
-      puts "  #{Game.count} games"
-      puts "  #{Badge.count} badges"
-      
-      ## todo: add tags / taggings from worlddb
-    end
-    
-    def props
-      puts "Props:"
-      Prop.order( 'created_at asc' ).all.each do |prop|
-        puts "  #{prop.key} / #{prop.value} || #{prop.created_at}"
-      end
-    end
-  end
 
   def self.stats
     stats = Stats.new
@@ -209,7 +129,6 @@ module SportDB
   def self.props
     Stats.new.props
   end
-
 
 
 

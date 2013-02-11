@@ -73,40 +73,6 @@ class Event < ActiveRecord::Base
     
     known_teams
   end # method known_teams_table
-  
-  ###########################
-  ## convenience helpers
-
-  include SportDB::Keys::EventKeys
-
-  def self.find_at_2012_13!
-    self.find_by_key!( AT_2012_13 )
-  end
-  
-  def self.find_at_cup_2012_13!
-    self.find_by_key!( AT_CUP_2012_13 )
-  end
-  
-  def self.find_cl_2012_13!
-    self.find_by_key!( CL_2012_13 )
-  end
-  
-  def self.find_euro_2012!
-    self.find_by_key!( EURO_2012 )
-  end
-  
-  def self.find_world_2010!
-    self.find_by_key!( WORLD_2010 )
-  end
-  
-  def self.find_world_quali_euro_2012_13!
-    self.find_by_key!( WORLD_QUALI_EURO_2012_13 )
-  end
-  
-  def self.find_world_quali_america_2012_13!
-    self.find_by_key!( WORLD_QUALI_AMERICA_2012_13 )
-  end
-
 
 end # class Event
 

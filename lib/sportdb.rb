@@ -92,9 +92,10 @@ module SportDB
   def self.create
     CreateDB.up
   end
-  
-  def self.read_all
-    read( Fixtures.all )
+
+
+  def self.read_all( include_path )
+    read( Fixtures.all, include_path )
   end
 
 
@@ -103,9 +104,9 @@ module SportDB
   #   [['at.2012/13', 'at/2012_13/bl'],
   #    ['cl.2012/13', 'cl/2012_13/cl']] etc.
 
-  def self.read( ary )
+  def self.read( ary, include_path )
     reader = Reader.new
-    reader.load_with_include_path( ary, data_path )
+    reader.load_with_include_path( ary, include_path )
   end
   
   

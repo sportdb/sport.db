@@ -37,6 +37,56 @@ class Reader
   end
 
 
+  def load_setup_with_include_path( setup, include_path )
+    ary = load_fixture_setup_with_include_path( setup, include_path )
+    load_with_include_path( ary, include_path )
+  end # method load_setup_with_include_path
+
+  def load_fixture_setup_with_include_path( name, include_path )
+    
+   ## todo/fix: cleanup quick and dirty code
+    
+    path = "#{include_path}/#{name}.yml"
+
+    puts "*** parsing data '#{name}' (#{path})..."
+
+    text = File.read_utf8( path )
+    
+    hash = YAML.load( text )
+    
+    ### build up array for fixtures from hash
+    
+    ary = []
+    
+    hash.each do |key_wild, value_wild|
+      key   = key_wild.to_s.strip
+      
+      puts "yaml key:#{key_wild.class.name} >>#{key}<<, value:#{value_wild.class.name} >>#{value_wild}<<"
+    
+      if value_wild.kind_of?( String ) # assume non-event data
+        ary << value_wild
+      elsif value_wild.kind_of?( Array ) # assume non_event data as array of strings
+        ary = ary + value_wild
+      elsif value_wild.kind_of?( Hash )  # assume event data
+        
+        value_wild.each do |event_key, event_values|
+          ary << [ event_key.to_s, event_values.to_s ]
+        end
+        
+      else
+        puts "*** error: unknow fixture type in setup; skipping"
+      end
+    
+    end
+    
+    puts "[debug] fixture setup:"
+    pp ary
+    
+    ary
+      
+  end # load_fixture_setup_with_include_path
+
+
   def load_with_include_path( ary, include_path )   # convenience helper for all-in-one reader
     
     puts "[debug] enter load_with_include_path (include_path=>>#{include_path}<<):"
@@ -94,7 +144,6 @@ class Reader
       
     end # each ary
   end # method load_with_include_path
-
 
 
   def load_leagues_with_include_path( name, include_path, more_values={} )

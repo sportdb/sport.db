@@ -95,9 +95,15 @@ module SportDB
 
 
   def self.read_all( include_path )
+    # todo: change to read( 'setups/all', include_path )  or remove completely - why? why not?
+    
     read( Fixtures.all, include_path )
   end
 
+  def self.read_setup( setup, include_path )
+    reader = Reader.new
+    reader.load_setup_with_include_path( setup, include_path )
+  end
 
   # load built-in (that is, bundled within the gem) named plain text seeds
   # - pass in an array of pairs of event/seed names e.g.

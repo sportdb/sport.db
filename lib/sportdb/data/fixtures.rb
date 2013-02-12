@@ -2,12 +2,12 @@
 
 def find_football_db_path_from_gemfile_gitref!
   puts "[debug] find_football_db_path..."
-  puts "loadpath:"
+  puts "load path:"
   pp $LOAD_PATH
   
   candidates = []
   $LOAD_PATH.each do |path|
-    if path =~ /football.db/
+    if path =~ /football\.db-[a-z0-9]+/
       candidates << path.dup
     end
   end

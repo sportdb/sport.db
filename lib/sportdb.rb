@@ -18,7 +18,10 @@ require 'erb'
 # rubygems  / 3rd party libs
 
 require 'active_record'   ## todo: add sqlite3? etc.
+
 require 'logutils'
+require 'textutils'
+
 require 'worlddb'
 
 

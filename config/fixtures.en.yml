@@ -24,7 +24,7 @@ round32:        Round of 32|Last 32
 round16:        Round of 16|Last 16
 quarterfinals:  Quarterfinals|Quarter-finals|Quarters|Quarterfinal  # todo: check if singular Quaterfinal is possible??
 semifinals:     Semifinals|Semi-finals|Semis
-thirdplace:     Third-place play-off
+thirdplace:     Third-place play-off|Third place play-off
 final:          Final|Finals
 
 ### Pair matches/games if marked with leg1 n leg2

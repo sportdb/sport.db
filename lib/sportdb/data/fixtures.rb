@@ -7,7 +7,7 @@ def find_football_db_path_from_gemfile_gitref!
   
   candidates = []
   $LOAD_PATH.each do |path|
-    if path =~ /football\.db-[a-z0-9]+/
+    if path =~ /\/(football\.db-[a-z0-9]+)|(football\.db)\//
       candidates << path.dup
     end
   end
@@ -25,7 +25,10 @@ def find_football_db_path_from_gemfile_gitref!
   
   ## nb: *? is non-greedy many operator
   
-  regex = /(\/football\.db-.*?)(\/.*)/
+  ## todo: why not just cut off trailing /lib - is it good enough??
+  # it's easier
+  
+  regex = /(\/football\.db.*?)(\/.*)/
   cand = cand.sub( regex ) do |_|
     puts "cutting off >>#{$2}<<"
     $1

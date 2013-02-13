@@ -11,8 +11,9 @@ class Reader
 
   def initialize( logger=nil )
     if logger.nil?
-      @logger = Logger.new(STDOUT)
-      @logger.level = Logger::INFO
+      @logger = LogUtils::Logger.new
+      ## @logger = Logger.new(STDOUT)
+      ## @logger.level = Logger::INFO
     else
       @logger = logger
     end
@@ -42,13 +43,15 @@ class Reader
     load_with_include_path( ary, include_path )
   end # method load_setup_with_include_path
 
+
+  ## fix/todo: rename ??
   def load_fixture_setup_with_include_path( name, include_path )
     
    ## todo/fix: cleanup quick and dirty code
     
     path = "#{include_path}/#{name}.yml"
 
-    puts "*** parsing data '#{name}' (#{path})..."
+    logger.info "parsing data '#{name}' (#{path})..."
 
     text = File.read_utf8( path )
     
@@ -61,7 +64,7 @@ class Reader
     hash.each do |key_wild, value_wild|
       key   = key_wild.to_s.strip
       
-      puts "yaml key:#{key_wild.class.name} >>#{key}<<, value:#{value_wild.class.name} >>#{value_wild}<<"
+      logger.debug "yaml key:#{key_wild.class.name} >>#{key}<<, value:#{value_wild.class.name} >>#{value_wild}<<"
     
       if value_wild.kind_of?( String ) # assume non-event data
         ary << value_wild
@@ -70,11 +73,15 @@ class Reader
       elsif value_wild.kind_of?( Hash )  # assume event data
         
         value_wild.each do |event_key, event_values|
-          ary << [ event_key.to_s, event_values.to_s ]
+          # e.g.
+          #  at.2012/13: at/2012_13/bl, at/2012_13/bl2
+          #  becomes
+          # [ 'at.2012/13', 'at/2012_13/bl', 'at/2012_13/bl2' ]
+          ary << ( [ event_key.to_s ] + event_values.split(',') )
         end
         
       else
-        puts "*** error: unknow fixture type in setup; skipping"
+        logger.error "unknow fixture type in setup (yaml key:#{key_wild.class.name} >>#{key}<<, value:#{value_wild.class.name} >>#{value_wild}<<); skipping"
       end
     
     end
@@ -124,7 +131,7 @@ class Reader
             load_teams_with_include_path( name, include_path, { national: true } )
           end
         else
-          puts "*** error: unknown sportdb fixture type >#{name}<"
+          logger.error "unknown sportdb fixture type >#{name}<"
           # todo/fix: exit w/ error
         end
       else  # more than one item in record? assume fixture starting w/ event key
@@ -150,7 +157,7 @@ class Reader
     
     path = "#{include_path}/#{name}.txt"
 
-    puts "*** parsing data '#{name}' (#{path})..."
+    logger.info "parsing data '#{name}' (#{path})..."
 
     reader = ValuesReader.new( logger, path, more_values )
 
@@ -200,7 +207,7 @@ class Reader
         end
         
       else
-        puts "!!! error: unknown seasons key; skipping"
+        logger.error "unknown seasons key; skipping"
       end
   
     end # each key,value
@@ -215,7 +222,7 @@ class Reader
   def load_event_with_include_path( name, include_path )
     path = "#{include_path}/#{name}.yml"
 
-    puts "*** parsing data '#{name}' (#{path})..."
+    logger.info "parsing data '#{name}' (#{path})..."
 
     reader = HashReader.new( logger, path )
 
@@ -232,7 +239,7 @@ class Reader
         if league.present?
           event_attribs['league_id'] = league.id
         else
-          puts "!!! error: league with key >>#{value.to_s.strip}<< missing"
+          logger.error "league with key >>#{value.to_s.strip}<< missing"
           exit 1
         end
        
@@ -243,7 +250,7 @@ class Reader
         if season.present?
           event_attribs['season_id'] = season.id
         else
-          puts "!!! error: season with key >>#{value.to_s.strip}<< missing"
+          logger.error "season with key >>#{value.to_s.strip}<< missing"
           exit 1
         end
         
@@ -274,7 +281,8 @@ class Reader
         ## for now always assume false  # todo: fix - use value and convert to boolean if not boolean
         event_attribs['team3'] = false
       else
-        puts "!!! error: unknown event attrib; skipping attrib"
+        ## todo: add a source location struct to_s or similar (file, line, col)
+        logger.error "unknown event attrib; skipping attrib"
       end
   
     end # each key,value
@@ -283,9 +291,9 @@ class Reader
 
     ## check if it exists
     if event.present?
-      puts "*** update event #{event.id}-#{event.key}:"
+      logger.debug "*** update event #{event.id}-#{event.key}:"
     else
-      puts "*** create event:"
+      logger.debug "*** create event:"
       event = Event.new
     end
     
@@ -389,15 +397,15 @@ private
           ## assume title2 if title2 is empty (not already in use)
           ##  and if it title2 contains at least two letter e.g. [a-zA-Z].*[a-zA-Z]
           # issue warning: unknown type for value
-          puts "*** warning: unknown type for value >#{value}<"
+          logger.warn "unknown type for value >#{value}<"
         end
       end
 
       rec = League.find_by_key( attribs[ :key ] )
       if rec.present?
-        puts "*** update League #{rec.id}-#{rec.key}:"
+        logger.debug "update League #{rec.id}-#{rec.key}:"
       else
-        puts "*** create League:"
+        logger.debug "create League:"
         rec = League.new
       end
       
@@ -423,7 +431,7 @@ private
             attribs[ :city_id ] = value_city.id
           else
             ## todo/fix: add strict mode flag - fail w/ exit 1 in strict mode
-            puts "!!! warning - city with key #{value_city_key} missing"
+            logger.warn "city with key #{value_city_key} missing"
             ## todo: log errors to db log??? 
           end
         elsif value =~ /^[A-Z]{3}$/  ## assume three-letter code e.g. FCB, RBS, etc.
@@ -434,15 +442,15 @@ private
         else
           ## todo: assume title2 ??
           # issue warning: unknown type for value
-          puts "*** warning: unknown type for value >#{value}<"
+          logger.warn "unknown type for value >#{value}<"
         end
       end
 
       rec = Team.find_by_key( attribs[ :key ] )
       if rec.present?
-        puts "*** update Team #{rec.id}-#{rec.key}:"
+        logger.debug "update Team #{rec.id}-#{rec.key}:"
       else
-        puts "*** create Team:"
+        logger.debug "create Team:"
         rec = Team.new
       end
       
@@ -466,7 +474,7 @@ private
     
     @event = Event.find_by_key!( event_key )
     
-    puts "Event #{@event.key} >#{@event.title}<"
+    logger.info "Event #{@event.key} >#{@event.title}<"
     
     @known_teams = @event.known_teams_table
     
@@ -476,14 +484,14 @@ private
 
 
   def parse_group( line )
-    puts "parsing group line: >#{line}<"
+    logger.debug "parsing group line: >#{line}<"
     
     match_teams!( line )
     team_keys = find_teams!( line )
       
     title, pos = find_group_title_and_pos!( line )
 
-    puts "  line: >#{line}<"
+    logger.debug "  line: >#{line}<"
 
     group_attribs = {
       title: title
@@ -491,9 +499,9 @@ private
         
     @group = Group.find_by_event_id_and_pos( @event.id, pos )
     if @group.present?
-      puts "*** update group #{@group.id}:"
+      logger.debug "update group #{@group.id}:"
     else
-      puts "*** create group:"
+      logger.debug "create group:"
       @group = Group.new
       group_attribs = group_attribs.merge( {
         event_id: @event.id,
@@ -509,13 +517,13 @@ private
     ## add new teams
     team_keys.each do |team_key|
       team = Team.find_by_key!( team_key )
-      puts "  adding team #{team.title} (#{team.code})"
+      logger.debug "  adding team #{team.title} (#{team.code})"
       @group.teams << team
     end
   end
   
   def parse_round( line )
-    puts "parsing round line: >#{line}<"
+    logger.debug "parsing round line: >#{line}<"
     pos = find_round_pos!( line )
         
     @knockout_flag = is_knockout_round?( line )
@@ -528,7 +536,7 @@ private
       @group = nil   # reset group to no group
     end
 
-    puts "  line: >#{line}<"
+    logger.debug "  line: >#{line}<"
         
     ## NB: dummy/placeholder start_at, end_at date
     ##  replace/patch after adding all games for round

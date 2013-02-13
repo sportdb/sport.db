@@ -15,9 +15,10 @@ require 'optparse'
 require 'fileutils'
 require 'erb'
 
-# rubygems
+# rubygems  / 3rd party libs
 
 require 'active_record'   ## todo: add sqlite3? etc.
+require 'logutils'
 require 'worlddb'
 
 
@@ -93,17 +94,15 @@ module SportDB
     CreateDB.up
   end
 
-
-  def self.read_all( include_path )
-    # todo: change to read( 'setups/all', include_path )  or remove completely - why? why not?
-    
-    read( Fixtures.all, include_path )
-  end
-
   def self.read_setup( setup, include_path )
     reader = Reader.new
     reader.load_setup_with_include_path( setup, include_path )
   end
+
+  def self.read_all( include_path )   # convenience helper
+    read_setup( 'setups/all', include_path )
+  end
+
 
   # load built-in (that is, bundled within the gem) named plain text seeds
   # - pass in an array of pairs of event/seed names e.g.

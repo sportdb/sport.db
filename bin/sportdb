@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'sportdb'
+require 'sportdb/cli/main'
 
-SportDB.main
+## require 'sportdb'     ## old using OptionParser ??
+## SportDB.main      

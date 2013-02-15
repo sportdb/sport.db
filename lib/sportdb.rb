@@ -58,7 +58,6 @@ require 'sportdb/data/fixtures'
 require 'sportdb/data/models'     # add convenience finders for known fixtures
 
 require 'sportdb/cli/opts'
-require 'sportdb/cli/runner'
 
 
 module SportDB

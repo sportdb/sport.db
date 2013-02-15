@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 require 'commander/import'
-require 'sportdb'
 
 program :name,  'sportdb'
 program :version, SportDB::VERSION
@@ -35,19 +34,23 @@ Further information:
 myopts = SportDB::Opts.new
 
 ### global option (required)
+## todo: add check that path is valid?? possible?
+
 global_option '-i', '--include PATH', String, "Data path (default is #{myopts.data_path})"
+global_option '-d', '--dbpath PATH', String, "Database path (default is #{myopts.db_path})"
+global_option '-n', '--dbname NAME', String, "Database name (datault is #{myopts.db_name})"
 
 
-def connect_to_db
+def connect_to_db( options )
   puts SportDB.banner
 
   puts "working directory: #{Dir.pwd}"
- 
+
   db_config = {
     :adapter  => 'sqlite3',
-    :database => "./sport.db"
+    :database => "#{options.db_path}/#{options.db_name}"
   }
-  
+
   puts "Connecting to db using settings: "
   pp db_config
 
@@ -59,7 +62,8 @@ command :create do |c|
   c.syntax = 'sportdb create [options]'
   c.description = 'Create DB schema'
   c.action do |args, options|
-    connect_to_db
+    myopts.merge_commander_options!( options.__hash__ )
+    connect_to_db( myopts )
     
     LogDB.create
     WorldDB.create
@@ -80,8 +84,8 @@ command :setup do |c|
   c.option '--delete', 'Delete all records'
 
   c.action do |args, options|
-    connect_to_db
-    myopts.merge_commander_options!( options )
+    myopts.merge_commander_options!( options.__hash__ )
+    connect_to_db( myopts )
     
     if options.world.present? || options.sport.present?
       
@@ -122,8 +126,8 @@ command :load do |c|
   c.option '--delete', 'Delete all records'
 
   c.action do |args, options|
-    connect_to_db
-    myopts.merge_commander_options!( options )
+    myopts.merge_commander_options!( options.__hash__ )
+    connect_to_db( myopts )
     
     SportDB.delete! if options.delete.present?
 
@@ -138,7 +142,8 @@ command :stats do |c|
   c.syntax = 'sportdb stats [options]'
   c.description = 'Show stats'
   c.action do |args, options|
-    connect_to_db
+    myopts.merge_commander_options!( options.__hash__ )
+    connect_to_db( myopts ) 
     
     SportDB.stats
     

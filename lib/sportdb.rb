@@ -89,7 +89,8 @@ module SportDB
 
 
   def self.main
-    Runner.new.run(ARGV)
+    ## Runner.new.run(ARGV) - old code
+    require 'sportdb/cli/main'
   end
 
   def self.create

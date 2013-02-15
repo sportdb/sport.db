@@ -1,0 +1,75 @@
+# Dev Tips
+
+## Command Line Suites
+
+### Commander
+
+Source Code Examples:
+
+- [jekyll](https://github.com/mojombo/jekyll/blob/master/bin/jekyll)
+- [commander](https://github.com/visionmedia/commander/blob/master/bin/commander)
+- [pomo](https://github.com/visionmedia/pomo/blob/master/bin/pomo)
+
+Source Code Examples for Options:
+
+- [pomo](https://github.com/visionmedia/pomo/blob/master/lib/pomo/configuration.rb)
+
+Some more gems depending on commander:
+
+rhc, jspec, bind, rehabilitate, cloudsync, shnell, rutty,
+grapevine, uki, microcloud, html_email_creator,
+md_splitter, abak-flow, rid-core
+
+#### Docu / Links
+
+- [Rubygems](https://rubygems.org/gems/commander)
+  - Runtime Dependencies: 1 - highline ~> 1.6.11
+  - Last Update: Dec/2012
+  - Downloads: > 10,000
+- [Official Gem Docu](http://visionmedia.github.com/commander)
+- [Github Site 'n' Readme](https://github.com/visionmedia/commander)
+- [Rdoc](http://rdoc.info/github/visionmedia/commander/master/frames)
+
+Features:
+
+- Parses options using OptionParser
+- Optional default sub-command when none is present
+
+
+### Alternatives
+
+- [cri](https://github.com/ddfreyne/cri)  - used by nanoc (static site generator)
+
+#### GLI 
+
+- [Official Project Docu](http://davetron5000.github.com/gli)
+
+Used by: showoff
+
+Features:
+
+- Parses options using OptionParser
+
+Minus:
+
+Docu for default command says:
+
+> Note that if you use this, you won't be able to pass arguments, flags, or switches
+> to the command when run in default mode.  All flags and switches are treated
+> as global, and any argument will be interpretted as the command name and likely
+> fail.
+
+
+### Links
+
+- [Command Plugin "Architecture - Q on Stackoverflow"](http://stackoverflow.com/questions/7251580/how-can-i-build-a-modular-command-line-interface-using-rubygems)
+- [Command Line Gem Options](http://www.awesomecommandlineapps.com/gems.html)
+  - does NOT include commander
+
+
+### Todos
+
+[ ] check gem - what is it using? hand rolled? w/ optparser?    
+[ ] add link to cli rubytoolbox category
+[ ] move notes to rubybook (single-source, all in one place)
+

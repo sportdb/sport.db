@@ -4,6 +4,21 @@
 
 ### Commander
 
+#### Docu / Links
+
+- [Rubygems](https://rubygems.org/gems/commander)
+  - Runtime Dependencies: 1 - highline ~> 1.6.11
+  - Last Update: Dec/2012
+  - Downloads: > 10,000
+- [Official Gem Docu](http://visionmedia.github.com/commander)
+- [Github Site 'n' Readme](https://github.com/visionmedia/commander)
+- [Rdoc](http://rdoc.info/github/visionmedia/commander/master/frames)
+
+Features:
+
+- Parses options using OptionParser
+- Optional default sub-command when none is present
+
 Source Code Examples:
 
 - [jekyll](https://github.com/mojombo/jekyll/blob/master/bin/jekyll)
@@ -20,31 +35,31 @@ rhc, jspec, bind, rehabilitate, cloudsync, shnell, rutty,
 grapevine, uki, microcloud, html_email_creator,
 md_splitter, abak-flow, rid-core
 
-#### Docu / Links
-
-- [Rubygems](https://rubygems.org/gems/commander)
-  - Runtime Dependencies: 1 - highline ~> 1.6.11
-  - Last Update: Dec/2012
-  - Downloads: > 10,000
-- [Official Gem Docu](http://visionmedia.github.com/commander)
-- [Github Site 'n' Readme](https://github.com/visionmedia/commander)
-- [Rdoc](http://rdoc.info/github/visionmedia/commander/master/frames)
-
-Features:
-
-- Parses options using OptionParser
-- Optional default sub-command when none is present
-
 
 ### Alternatives
 
-- [cri](https://github.com/ddfreyne/cri)  - used by nanoc (static site generator)
+#### CRI - stands for ?? 
+- [Github Site](https://github.com/ddfreyne/cri)
 
-#### GLI 
+[ ] todo add rubygems link
+  - Runtime Dependencies: ??
+  - Last Update: ??
+  - Downloads: > ??
+
+Used by nanoc (static site generator)
+
+#### GLI - stands for ??
 
 - [Official Project Docu](http://davetron5000.github.com/gli)
 
 Used by: showoff
+
+[ ] todo add rubygems link
+  - Runtime Dependencies: ??
+  - Last Update: ??
+  - Downloads: > ??
+
+
 
 Features:
 
@@ -62,14 +77,12 @@ Docu for default command says:
 
 ### Links
 
-- [Command Plugin "Architecture - Q on Stackoverflow"](http://stackoverflow.com/questions/7251580/how-can-i-build-a-modular-command-line-interface-using-rubygems)
 - [Command Line Gem Options](http://www.awesomecommandlineapps.com/gems.html)
-  - does NOT include commander
+- [Command Plugin "Architecture - Q on Stackoverflow"](http://stackoverflow.com/questions/7251580/how-can-i-build-a-modular-command-line-interface-using-rubygems)
 
 
 ### Todos
 
-[ ] check gem - what is it using? hand rolled? w/ optparser?    
-[ ] add link to cli rubytoolbox category
-[ ] move notes to rubybook (single-source, all in one place)
-
+- [ ] check gem - what is it using? hand rolled? w/ optparser?    
+- [ ] add link to cli rubytoolbox category
+- [ ] move notes to rubybook (single-source, all in one place)

@@ -10,8 +10,7 @@
 
 require 'yaml'
 require 'pp'
-require 'logger'
-require 'optparse'
+require 'logger'             ## todo/fix: no longer needed - replaced by logutils??
 require 'fileutils'
 require 'erb'
 
@@ -28,8 +27,6 @@ require 'worlddb'
 # our own code
 
 require 'sportdb/version'
-
-require 'sportdb/data/keys'
 
 require 'sportdb/models/forward'
 require 'sportdb/models/badge'
@@ -54,10 +51,18 @@ require 'sportdb/lang'
 require 'sportdb/deleter'
 require 'sportdb/stats'
 
+###############
+# optional: for convenience add some finders etc. for known fixtures
+#
+#  only used for sportdb/console.rb
+#   and  sportdb/tasks/test.rb  -> rename to tasks.rb?
+#
+#  todo/fix => remove from here and move into console.rb and tasks.rb
+
+require 'sportdb/data/keys'
 require 'sportdb/data/fixtures'
 require 'sportdb/data/models'     # add convenience finders for known fixtures
 
-require 'sportdb/cli/opts'
 
 
 module SportDB
@@ -70,6 +75,7 @@ module SportDB
     "#{File.expand_path( File.dirname(File.dirname(__FILE__)) )}"
   end
   
+  ### fix: remove! no longer used ???
   # builtin path to fixture data
   def self.data_path
     "#{root}/data"

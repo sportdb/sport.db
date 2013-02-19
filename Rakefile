@@ -4,11 +4,6 @@ require './lib/sportdb/version.rb'
 ## NB: plugin (hoe-manifest) not required; just used for future testing/development
 Hoe::plugin :manifest   # more options for manifests (in the future; not yet)
 
-###########
-#### NB: if you try this script at home
-#    you need to create a (symbolic) link to the sport.db fixtures
-#     e.g. use ln -s ../sport.db  data  or similar
-
 
 Hoe.spec 'sportdb' do
   
@@ -28,9 +23,16 @@ Hoe.spec 'sportdb' do
   # self.history_file = 'History.md'
   
   self.extra_deps = [
+    ['worlddb', '~> 0.10.0'],  # NB: worlddb already includes
+                               #         - commander
+                               #         - logutils
+                               #         - textutils
+    
+    ## 3rd party
+    ['commander', '~> 4.1.3']   # remove? -- already included as dep in worlddb
+
     ## ['activerecord', '~> 3.2'],  # NB: will include activesupport,etc.
     ### ['sqlite3',      '~> 1.3']  # NB: install on your own; remove dependency
-    ['worlddb', '~> 0.10.0']
   ]
 
   self.licenses = ['Public Domain']

@@ -21,23 +21,6 @@ class Reader
 
   attr_reader :logger
 
-  def run( opts, args )
- 
-    args.each do |arg|
-      name = arg     # File.basename( arg, '.*' )
-
-      if opts.event.present?
-        load_fixtures_with_include_path( opts.event, name, opts.data_path )
-      else
-        ary = []
-        ary << name
-        load_with_include_path( ary, opts.data_path )
-      end
-    end
-
-  end
-
-
   def load_setup_with_include_path( setup, include_path )
     ary = load_fixture_setup_with_include_path( setup, include_path )
     load_with_include_path( ary, include_path )

@@ -2,13 +2,12 @@
 module SportDB
 
   class Deleter
-    ## todo: move into its own file???    
-    
-    ## make models available in sportdb module by default with namespace
+    ######
+    # NB: make models available in sportdb module by default with namespace
     #  e.g. lets you use Team instead of Models::Team 
     include SportDB::Models
 
-    def run( args=[] )
+    def run
       # for now delete all tables
       
       Team.delete_all

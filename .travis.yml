@@ -1,0 +1,15 @@
+##############################
+# Travis CI Ruby Settings
+#   more info see -> about.travis-ci.org/docs/user/languages/ruby
+#
+#
+# fix: Please note that you need to add rake to your Gemfile
+# (adding it to just :test group should be sufficient).
+
+
+language: ruby
+rvm:
+  - "1.9.2"
+  - "1.9.3"
+  - jruby-19mode    # JRuby in 1.9 mode
+

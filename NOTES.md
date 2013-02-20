@@ -1,5 +1,15 @@
 # Dev Tips
 
+## Hoe
+
+### Configure Manfifest Excludes
+
+To configure files to exclude from check_manifest open `~/.hoerc` and edit the
+line starting with `exclude:` e.g.
+
+    exclude: !ruby/regexp /tmp$|(attic\/\S+)|NOTES\.md|(sandbox\/\S+)|TODO\.markdown...
+
+
 ## Command Line Suites
 
 ### Commander

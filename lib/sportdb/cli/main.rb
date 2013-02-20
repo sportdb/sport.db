@@ -124,7 +124,7 @@ end  # command setup
 
 command :load do |c|
   ## todo: how to specify many fixutes <>... ??? in syntax
-  c.syntax = 'sportdb load [options] <fixtures>'
+  c.syntax = 'sportdb load [options] FIXTURE...'
   c.description = 'Load fixtures'
 
   c.option '-e', '--event KEY', String, 'Event to load'

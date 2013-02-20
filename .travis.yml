@@ -5,7 +5,8 @@
 #
 # fix: Please note that you need to add rake to your Gemfile
 # (adding it to just :test group should be sufficient).
-
+#
+# fix: add travis build status image to readme
 
 language: ruby
 rvm:

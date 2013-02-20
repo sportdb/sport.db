@@ -2,10 +2,10 @@
 
 ## Hoe
 
-### Configure Manfifest Excludes
+### Configure Manifest Excludes
 
-To configure files to exclude from check_manifest open `~/.hoerc` and edit the
-line starting with `exclude:` e.g.
+To configure files to exclude from the `check_manifest` task
+open `~/.hoerc` and edit the line starting with `exclude:` e.g.
 
     exclude: !ruby/regexp /tmp$|(attic\/\S+)|NOTES\.md|(sandbox\/\S+)|TODO\.markdown...
 

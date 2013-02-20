@@ -74,13 +74,7 @@ module SportDB
   def self.root
     "#{File.expand_path( File.dirname(File.dirname(__FILE__)) )}"
   end
-  
-  ### fix: remove! no longer used ???
-  # builtin path to fixture data
-  def self.data_path
-    "#{root}/data"
-  end
-  
+
   def self.config_path
     "#{root}/config"
   end

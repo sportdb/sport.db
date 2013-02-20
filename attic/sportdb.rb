@@ -1,5 +1,11 @@
 
 
+  # builtin path to fixture data
+  def self.data_path
+    "#{root}/data"
+  end
+
+
 # load built-in (that is, bundled within the gem) named seeds
 # - pass in an array of seed names e.g. [ 'cl/teams', 'cl/2012_13/cl' ] etc.
 

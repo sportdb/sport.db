@@ -136,21 +136,19 @@ command :load do |c|
     
     SportDB.delete! if options.delete.present?
 
-    logger = LogUtils::Logger.new
+    reader = SportDB::Reader.new
 
-    reader = SportDB::Reader.new( logger )
- 
     args.each do |arg|
       name = arg     # File.basename( arg, '.*' )
 
       if myopts.event.present?
         ## fix: rename to load_event_fixtures_w... or similar
-        reader.load_fixtures_with_include_path( myopts.event, name, myopts.data_path )
+        reader.load_fixtures( myopts.event, name, myopts.data_path )
       else
         ## fix> add a convenience method for loading single fixture
         ary = []
         ary << name
-        reader.load_with_include_path( ary, myopts.data_path )
+        reader.load( ary, myopts.data_path )
       end
     end # each arg
 

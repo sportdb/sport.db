@@ -9,26 +9,20 @@ class Reader
   include SportDB::Models
 
 
-  def initialize( logger=nil )
-    if logger.nil?
-      @logger = LogUtils::Logger.new
-      ## @logger = Logger.new(STDOUT)
-      ## @logger.level = Logger::INFO
-    else
-      @logger = logger
-    end
+  def initialize( opts={} )
+    @logger = LogUtils::Logger.new
   end
 
   attr_reader :logger
 
-  def load_setup_with_include_path( setup, include_path )
-    ary = load_fixture_setup_with_include_path( setup, include_path )
-    load_with_include_path( ary, include_path )
-  end # method load_setup_with_include_path
+  def load_setup( setup, include_path )
+    ary = load_fixture_setup( setup, include_path )
+    load( ary, include_path )
+  end # method load_setup
 
 
   ## fix/todo: rename ??
-  def load_fixture_setup_with_include_path( name, include_path )
+  def load_fixture_setup( name, include_path )
     
    ## todo/fix: cleanup quick and dirty code
     
@@ -74,12 +68,12 @@ class Reader
     
     ary
       
-  end # load_fixture_setup_with_include_path
+  end # load_fixture_setup
 
 
-  def load_with_include_path( ary, include_path )   # convenience helper for all-in-one reader
+  def load( ary, include_path )   # convenience helper for all-in-one reader
     
-    puts "[debug] enter load_with_include_path (include_path=>>#{include_path}<<):"
+    puts "[debug] enter load(include_path=>>#{include_path}<<):"
     pp ary
     
     ary.each do |rec|
@@ -88,30 +82,30 @@ class Reader
         name = rec
         
         if name =~ /^seasons/
-          load_seasons_with_include_path( name, include_path )
+          load_seasons( name, include_path )
         elsif name =~ /^leagues/
           if name =~ /club/
             # e.g. leagues_club
-            load_leagues_with_include_path( name, include_path, { club: true } )
+            load_leagues( name, include_path, { club: true } )
           else
             # e.g. leagues
-            load_leagues_with_include_path( name, include_path )
+            load_leagues( name, include_path )
           end
         elsif name =~ /^([a-z]{2})\/teams/
           # auto-add country code (from folder structure) for country-specific teams
           #  e.g. at/teams at/teams2 de/teams etc.
           country_key = $1
           country = Country.find_by_key!( country_key )
-          load_teams_with_include_path( name, include_path, { club: true, country_id: country.id } )
+          load_teams( name, include_path, { club: true, country_id: country.id } )
         elsif name =~ /\/teams/
           if name =~ /club/
             # club teams (many countries)
             # e.g. club/europe/teams
-            load_teams_with_include_path( name, include_path, { club: true } )
+            load_teams( name, include_path, { club: true } )
           else
             # assume national teams
             # e.g. world/teams  amercia/teams_n
-            load_teams_with_include_path( name, include_path, { national: true } )
+            load_teams( name, include_path, { national: true } )
           end
         else
           logger.error "unknown sportdb fixture type >#{name}<"
@@ -126,17 +120,17 @@ class Reader
         event_name     = rec[1]  # e.g. at/2012_13/bl
         fixture_names  = rec[1..-1]  # e.g. at/2012_13/bl, at/2012_13/bl2
       
-        load_event_with_include_path( event_name, include_path )
+        load_event( event_name, include_path )
         fixture_names.each do |fixture_name|
-          load_fixtures_with_include_path( event_key, fixture_name, include_path )
+          load_fixtures( event_key, fixture_name, include_path )
         end
       end
       
     end # each ary
-  end # method load_with_include_path
+  end # method load
 
 
-  def load_leagues_with_include_path( name, include_path, more_values={} )
+  def load_leagues( name, include_path, more_values={} )
     
     path = "#{include_path}/#{name}.txt"
 
@@ -149,10 +143,10 @@ class Reader
     ### todo/fix: add prop
     ### Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )
      
-  end # load_leagues_with_include_path
+  end # load_leagues
 
 
-  def load_seasons_with_include_path( name, include_path )
+  def load_seasons( name, include_path )
     path = "#{include_path}/#{name}.yml"
 
     puts "*** parsing data '#{name}' (#{path})..."
@@ -198,11 +192,11 @@ class Reader
     ### todo/fix: add prop
     ### Prop.create_from_sportdb_fixture!( name, path )
   
-  end  # load_seasons_with_include_path
+  end  # load_seasons
 
 
 
-  def load_event_with_include_path( name, include_path )
+  def load_event( name, include_path )
     path = "#{include_path}/#{name}.yml"
 
     logger.info "parsing data '#{name}' (#{path})..."
@@ -286,7 +280,7 @@ class Reader
     
     ### todo/fix: add prop
   
-  end  # load_event_with_include_path
+  end  # load_event
 
 
   def load_fixtures_from_string( event_key, text )  # load from string (e.g. passed in via web form)
@@ -300,7 +294,7 @@ class Reader
     ### Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )  
   end
 
-  def load_fixtures_with_include_path( event_key, name, include_path )  # load from file system
+  def load_fixtures( event_key, name, include_path )  # load from file system
      
     path = "#{include_path}/#{name}.txt"
 
@@ -317,7 +311,7 @@ class Reader
   end
 
 
-  def load_teams_with_include_path( name, include_path, more_values={} )
+  def load_teams( name, include_path, more_values={} )
     path = "#{include_path}/#{name}.txt"
 
     puts "*** parsing data '#{name}' (#{path})..."
@@ -328,7 +322,7 @@ class Reader
     
     ## todo/fix: add prop
     ## Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "sport.txt.#{SportDB::VERSION}" )    
-  end # load_teams_with_include_path
+  end # load_teams
 
 private
 

@@ -99,7 +99,7 @@ module SportDB
 
   def self.read_setup( setup, include_path )
     reader = Reader.new
-    reader.load_setup_with_include_path( setup, include_path )
+    reader.load_setup( setup, include_path )
   end
 
   def self.read_all( include_path )   # convenience helper
@@ -114,7 +114,7 @@ module SportDB
 
   def self.read( ary, include_path )
     reader = Reader.new
-    reader.load_with_include_path( ary, include_path )
+    reader.load( ary, include_path )
   end
   
   

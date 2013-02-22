@@ -4,16 +4,17 @@ module SportDB
 
 class Reader
 
+  def logger
+    @logger ||= LogUtils[ self ]
+  end
+
 ## make models available in sportdb module by default with namespace
 #  e.g. lets you use Team instead of Models::Team 
   include SportDB::Models
 
 
-  def initialize( opts={} )
-    @logger = LogUtils::Logger.new
+  def initialize
   end
-
-  attr_reader :logger
 
   def load_setup( setup, include_path )
     ary = load_fixture_setup( setup, include_path )
@@ -136,7 +137,7 @@ class Reader
 
     logger.info "parsing data '#{name}' (#{path})..."
 
-    reader = ValuesReader.new( logger, path, more_values )
+    reader = ValuesReader.new( path, more_values )
 
     load_leagues_worker( reader )
     
@@ -151,7 +152,7 @@ class Reader
 
     puts "*** parsing data '#{name}' (#{path})..."
 
-    reader = HashReader.new( logger, path )
+    reader = HashReader.new( path )
 
     reader.each_typed do |key, value|
 
@@ -169,16 +170,16 @@ class Reader
 
           ## check if it exists
           if season.present?
-            puts "*** update season #{season.id}-#{season.key}:"
+            logger.debug "update season #{season.id}-#{season.key}:"
           else
-            puts "*** create season:"
+            logger.debug "create season:"
             season = Season.new
             season_attribs[ :key ] = item.to_s.strip
           end
           
           season_attribs[:title] = item.to_s.strip
      
-          puts season_attribs.to_json
+          logger.debug season_attribs.to_json
           
           season.update_attributes!( season_attribs )
         end
@@ -201,7 +202,7 @@ class Reader
 
     logger.info "parsing data '#{name}' (#{path})..."
 
-    reader = HashReader.new( logger, path )
+    reader = HashReader.new( path )
 
     event_attribs = {}
 
@@ -274,7 +275,7 @@ class Reader
       event = Event.new
     end
     
-    puts event_attribs.to_json
+    logger.debug event_attribs.to_json
     
     event.update_attributes!( event_attribs )
     
@@ -286,7 +287,7 @@ class Reader
   def load_fixtures_from_string( event_key, text )  # load from string (e.g. passed in via web form)
 
     ## todo/fix: move code into LineReader e.g. use LineReader.fromString() - why? why not?
-    reader = StringLineReader.new( logger, text )
+    reader = StringLineReader.new( text )
     
     load_fixtures_worker( event_key, reader )
 
@@ -302,7 +303,7 @@ class Reader
     
     SportDB.lang.lang = LangChecker.new.analyze( name, include_path )
 
-    reader = LineReader.new( logger, path )
+    reader = LineReader.new( path )
     
     load_fixtures_worker( event_key, reader )
 
@@ -316,7 +317,7 @@ class Reader
 
     puts "*** parsing data '#{name}' (#{path})..."
 
-    reader = ValuesReader.new( logger, path, more_values )
+    reader = ValuesReader.new( path, more_values )
 
     load_teams_worker( reader )
     
@@ -456,7 +457,7 @@ private
       })
     end
       
-    puts  group_attribs.to_json
+    logger.debug group_attribs.to_json
    
     @group.update_attributes!( group_attribs )
 
@@ -495,9 +496,9 @@ private
         
     @round = Round.find_by_event_id_and_pos( @event.id, pos )
     if @round.present?
-      puts "*** update round #{@round.id}:"
+      logger.debug "update round #{@round.id}:"
     else
-      puts "*** create round:"
+      logger.debug "create round:"
       @round = Round.new
           
       round_attribs = round_attribs.merge( {
@@ -508,7 +509,7 @@ private
       })
     end
         
-    puts round_attribs.to_json
+    logger.debug round_attribs.to_json
    
     @round.update_attributes!( round_attribs )
 
@@ -517,7 +518,7 @@ private
   end
 
   def parse_game( line )
-    puts "parsing game (fixture) line: >#{line}<"
+    logger.debug "parsing game (fixture) line: >#{line}<"
 
     pos = find_game_pos!( line )
 
@@ -528,7 +529,7 @@ private
     date  = find_date!( line )
     scores = find_scores!( line )
         
-    puts "  line: >#{line}<"
+    logger.debug "  line: >#{line}<"
 
 
     ### todo: cache team lookups in hash?
@@ -557,9 +558,9 @@ private
     game_attribs[ :pos ]      = pos        if pos.present?
 
     if game.present?
-      puts "*** update game #{game.id}:"
+      logger.debug "update game #{game.id}:"
     else
-      puts "*** create game:"
+      logger.debug "create game:"
       game = Game.new
 
       more_game_attribs = {
@@ -575,7 +576,7 @@ private
       game_attribs = game_attribs.merge( more_game_attribs )
     end
 
-    puts game_attribs.to_json
+    logger.debug game_attribs.to_json
 
     game.update_attributes!( game_attribs )
   end
@@ -594,7 +595,7 @@ private
     end # lines.each
     
     @patch_rounds.each do |k,v|
-      puts "*** patch start_at/end_at date for round #{k}:"
+      logger.debug "patch start_at/end_at date for round #{k}:"
       round = Round.find( k )
       games = round.games.order( 'play_at asc' ).all
       
@@ -611,7 +612,7 @@ private
       round_attribs[:start_at] = games[0].play_at
       round_attribs[:end_at  ] = games[-1].play_at
 
-      puts round_attribs.to_json
+      logger.debug round_attribs.to_json
       round.update_attributes!( round_attribs )
     end
     

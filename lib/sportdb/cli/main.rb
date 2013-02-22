@@ -4,6 +4,7 @@ require 'commander/import'
 
 # our own code / additional for cli only
 
+require 'logutils/db'
 require 'sportdb/cli/opts'
 
 
@@ -60,6 +61,8 @@ def connect_to_db( options )
   pp db_config
 
   ActiveRecord::Base.establish_connection( db_config )
+  
+  LogDb.setup  # start logging to db
 end
 
 

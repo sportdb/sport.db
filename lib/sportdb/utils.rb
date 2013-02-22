@@ -19,14 +19,14 @@ module SportDB::FixtureHelpers
     ## todo: check for adding ignore case for regex (e.g. 1st leg/1st Leg)
     
     if line =~ SportDB.lang.regex_leg1
-      puts "  two leg knockout; skip knockout flag on first leg"
+      logger.debug "  two leg knockout; skip knockout flag on first leg"
       false
     elsif line =~ SportDB.lang.regex_knockout_round
-      puts "   setting knockout flag to true"
+      logger.debug "   setting knockout flag to true"
       true
     elsif line =~ /K\.O\.|Knockout/
         ## NB: add two language independent markers, that is, K.O. and Knockout
-      puts "   setting knockout flag to true (lang independent marker)"
+      logger.debug "   setting knockout flag to true (lang independent marker)"
       true
     else
       false
@@ -61,8 +61,8 @@ module SportDB::FixtureHelpers
 
     title = match[0]
 
-    puts "   title: >#{title}<"
-    puts "   pos: >#{pos}<"
+    logger.debug "   title: >#{title}<"
+    logger.debug "   pos: >#{pos}<"
       
     line.sub!( regex, '[GROUP|TITLE+POS]' )
 
@@ -81,7 +81,7 @@ module SportDB::FixtureHelpers
     # e.g.  (1)   - must start line 
     regex = /^[ \t]*\((\d{1,3})\)[ \t]+/
     if line =~ regex
-      puts "   pos: >#{$1}<"
+      logger.debug "   pos: >#{$1}<"
       
       line.sub!( regex, '[ROUND|POS] ' )  ## NB: add back trailing space that got swallowed w/ regex -> [ \t]+
       return $1.to_i
@@ -110,7 +110,7 @@ module SportDB::FixtureHelpers
     
     if line =~ regex
       value = $1.to_i
-      puts "   pos: >#{value}<"
+      logger.debug "   pos: >#{value}<"
       
       line.sub!( regex, '[ROUND|POS]' )
 
@@ -139,7 +139,7 @@ module SportDB::FixtureHelpers
 
     if line =~ regex_db
       value = "#{$1}-#{$2}-#{$3} #{$4}:#{$5}"
-      puts "   date: >#{value}<"
+      logger.debug "   date: >#{value}<"
 
       ## todo: lets you configure year
       ##  and time zone (e.g. cet, eet, utc, etc.)
@@ -149,14 +149,14 @@ module SportDB::FixtureHelpers
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     elsif line =~ regex_db2
       value = "#{$1}-#{$2}-#{$3} 12:00"
-      puts "   date: >#{value}<"
+      logger.debug "   date: >#{value}<"
       
       line.sub!( regex_db2, '[DATE.DB2]' )
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     elsif line =~ regex_de2
       value = "#{$3}-#{$2}-#{$1} #{$4}:#{$5}"
-      puts "   date: >#{value}<"
+      logger.debug "   date: >#{value}<"
 
       ## todo: lets you configure year
       ##  and time zone (e.g. cet, eet, utc, etc.)
@@ -166,7 +166,7 @@ module SportDB::FixtureHelpers
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     elsif line =~ regex_de
       value = "2012-#{$2}-#{$1} #{$3}:#{$4}"
-      puts "   date: >#{value}<"
+      logger.debug "   date: >#{value}<"
 
       ## todo: lets you configure year
       ##  and time zone (e.g. cet, eet, utc, etc.)
@@ -188,7 +188,7 @@ module SportDB::FixtureHelpers
     # e.g.  (1)   - must start line 
     regex = /^[ \t]*\((\d{1,3})\)[ \t]+/
     if line =~ regex
-      puts "   pos: >#{$1}<"
+      logger.debug "   pos: >#{$1}<"
       
       line.sub!( regex, '[POS] ' )
       return $1.to_i
@@ -222,7 +222,7 @@ module SportDB::FixtureHelpers
     scores = []
     
     if line =~ regex
-      puts "   score: >#{$1}-#{$2}<"
+      logger.debug "   score: >#{$1}-#{$2}<"
       
       line.sub!( regex, '[SCORE]' )
 
@@ -230,7 +230,7 @@ module SportDB::FixtureHelpers
       scores << $2.to_i
       
       if line =~ regex_ot
-        puts "   score.ot: >#{$1}-#{$2}<"
+        logger.debug "   score.ot: >#{$1}-#{$2}<"
       
         line.sub!( regex_ot, '[SCORE.OT]' )
 
@@ -238,7 +238,7 @@ module SportDB::FixtureHelpers
         scores << $2.to_i
       
         if line =~ regex_p
-          puts "   score.p: >#{$1}-#{$2}<"
+          logger.debug "   score.p: >#{$1}-#{$2}<"
       
           line.sub!( regex_p, '[SCORE.P]' )
 
@@ -256,7 +256,7 @@ module SportDB::FixtureHelpers
     
     if line =~ regex
       value = "#{$1}"
-      puts "   team#{index}: >#{value}<"
+      logger.debug "   team#{index}: >#{value}<"
       
       line.sub!( regex, "[TEAM#{index}]" )
 
@@ -297,7 +297,7 @@ module SportDB::FixtureHelpers
       ## check add $ e.g. (\b| |\t|$) does this work? - check w/ Benfica Lis.$
       regex = /\b#{value}(\b| |\t|$)/   # wrap with world boundry (e.g. match only whole words e.g. not wac in wacker) 
       if line =~ regex
-        puts "     match for team >#{key}< >#{value}<"
+        logger.debug "     match for team >#{key}< >#{value}<"
         # make sure @@oo{key}oo@@ doesn't match itself with other key e.g. wacker, wac, etc.
         line.sub!( regex, "@@oo#{key}oo@@ " )    # NB: add one space char at end
         return true    # break out after first match (do NOT continue)
@@ -317,4 +317,3 @@ module SportDB::FixtureHelpers
   
 
 end # module SportDB::FixtureHelpers
-

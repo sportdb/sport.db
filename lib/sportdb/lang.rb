@@ -4,7 +4,11 @@ module SportDB
 
 class Lang
 
-  def initialize( logger=nil )
+  def logger
+    @logger ||= LogUtils[ self ]
+  end
+
+  def initialize
 
     @lang = 'en'   # make default lang english/en
 
@@ -37,11 +41,11 @@ class Lang
   attr_reader :lang
 
   def lang=(value)
-    puts "setting lang to #{value}"
+    logger.debug "setting lang to #{value}"
     
     if @lang != value
       # reset cached values on language change
-      puts "reseting cached lang values (lang changed from #{@lang} to #{value})"
+      logger.debug "reseting cached lang values (lang changed from #{@lang} to #{value})"
 
       @group = nil
       @round = nil
@@ -184,7 +188,7 @@ private
       key     = key_wild.to_s.strip
       values  = values_wild.to_s.strip
        
-      puts "processing key >>#{key}<< with words >>#{values}<<"
+      logger.debug "processing key >>#{key}<< with words >>#{values}<<"
        
       ary += values.split('|')
     end
@@ -196,8 +200,11 @@ end # class Lang
 
 class LangChecker
 
-  def initialize( logger=nil )
-    ## add logger here
+  def logger
+    @logger ||= LogUtils[ self ]
+  end
+  
+  def initialize
   end
 
   def analyze( name, include_path )
@@ -205,7 +212,7 @@ class LangChecker
     
     path = "#{include_path}/#{name}.txt"
 
-    puts "*** parsing data '#{name}' (#{path})..."
+    logger.info "parsing data '#{name}' (#{path})..."
 
     text = File.read_utf8( path )
     
@@ -227,11 +234,11 @@ class LangChecker
     
     # dump stats
     
-    puts "****************************************"
+    logger.info "****************************************"
     lang_counts.each_with_index do |item,index|
       ## e.g. 1. en: 20 words
       ##      2. de: 2 words
-      puts "#{index+1}. #{item[0]}: #{item[1]}"
+      logger.info "#{index+1}. #{item[0]}: #{item[1]}"
     end
     
     ## return lang code w/ highest count
@@ -244,7 +251,7 @@ private
     pos = text.index( word )
     while pos.nil? == false
       count += 1
-      puts "bingo - found >>#{word}<< on pos #{pos}, count: #{count}"
+      logger.debug "bingo - found >>#{word}<< on pos #{pos}, count: #{count}"
       ### todo: check if pos+word.length/size needs +1 or similar
       pos = text.index( word, pos+word.length)
     end

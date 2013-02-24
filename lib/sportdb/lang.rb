@@ -4,9 +4,7 @@ module SportDB
 
 class Lang
 
-  def logger
-    @logger ||= LogUtils[ self ]
-  end
+  include LogUtils::Logging
 
   def initialize
 
@@ -29,9 +27,9 @@ class Lang
     @words_de = fixtures_hash_to_words_ary( @fixtures_de )
     @words_es = fixtures_hash_to_words_ary( @fixtures_es )
     
-    puts "en - #{@words_en.size} words: #{@words_en}"
-    puts "de - #{@words_de.size} words: #{@words_de}"
-    puts "es - #{@words_es.size} words: #{@words_es}"
+    logger.debug "en - #{@words_en.size} words: #{@words_en}"
+    logger.debug "de - #{@words_de.size} words: #{@words_de}"
+    logger.debug "es - #{@words_es.size} words: #{@words_es}"
     
   end
 
@@ -200,9 +198,7 @@ end # class Lang
 
 class LangChecker
 
-  def logger
-    @logger ||= LogUtils[ self ]
-  end
+  include LogUtils::Logging
   
   def initialize
   end
@@ -234,12 +230,14 @@ class LangChecker
     
     # dump stats
     
-    logger.info "****************************************"
+    logger.debug "lang checker:"
     lang_counts.each_with_index do |item,index|
       ## e.g. 1. en: 20 words
       ##      2. de: 2 words
-      logger.info "#{index+1}. #{item[0]}: #{item[1]}"
+      logger.debug " #{index+1}. #{item[0]}: #{item[1]}"
     end
+    
+    logger.info "lang checker - using lang >>#{lang_counts[0][0]}<<"
     
     ## return lang code w/ highest count
     lang_counts[0][0]

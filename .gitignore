@@ -22,3 +22,8 @@ doc/
 # ignore komodo project files
 
 *.kpf
+
+###########################
+# ignore dbs in root folder (e.g. sport.db)
+
+*.db

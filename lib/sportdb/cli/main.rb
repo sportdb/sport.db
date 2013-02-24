@@ -1,5 +1,14 @@
 # encoding: utf-8
 
+##############
+# nb: for local testing use:
+#    
+#  ruby -I ../../github/sport.db.ruby/lib
+#        ../../github/sport.db.ruby/lib/sportdb.rb
+#        setup --delete --sport
+#        --include ../../github/football.db
+
+
 require 'commander/import'
 
 # our own code / additional for cli only
@@ -7,6 +16,7 @@ require 'commander/import'
 require 'logutils/db'
 require 'sportdb/cli/opts'
 
+LogUtils::Logger.root.level = :info   # set logging level to info 
 
 program :name,  'sportdb'
 program :version, SportDB::VERSION
@@ -46,6 +56,10 @@ global_option '-i', '--include PATH', String, "Data path (default is #{myopts.da
 global_option '-d', '--dbpath PATH', String, "Database path (default is #{myopts.db_path})"
 global_option '-n', '--dbname NAME', String, "Database name (datault is #{myopts.db_name})"
 
+global_option '-q', '--quiet', "Only show warnings, errors and fatal messages"
+### todo/fix: just want --debug/--verbose flag (no single letter option wanted) - fix
+global_option '-w', '--verbose', "Show debug messages"
+
 
 def connect_to_db( options )
   puts SportDB.banner
@@ -70,6 +84,10 @@ command :create do |c|
   c.syntax = 'sportdb create [options]'
   c.description = 'Create DB schema'
   c.action do |args, options|
+    
+    LogUtils::Logger.root.level = :warn    if options.quiet.present?
+    LogUtils::Logger.root.level = :debug   if options.verbose.present?
+    
     myopts.merge_commander_options!( options.__hash__ )
     connect_to_db( myopts )
     
@@ -92,6 +110,10 @@ command :setup do |c|
   c.option '--delete', 'Delete all records'
 
   c.action do |args, options|
+
+    LogUtils::Logger.root.level = :warn    if options.quiet.present?
+    LogUtils::Logger.root.level = :debug   if options.verbose.present?
+
     myopts.merge_commander_options!( options.__hash__ )
     connect_to_db( myopts )
     
@@ -134,6 +156,10 @@ command :load do |c|
   c.option '--delete', 'Delete all records'
 
   c.action do |args, options|
+
+    LogUtils::Logger.root.level = :warn    if options.quiet.present?
+    LogUtils::Logger.root.level = :debug   if options.verbose.present?
+
     myopts.merge_commander_options!( options.__hash__ )
     connect_to_db( myopts )
     
@@ -160,14 +186,56 @@ command :load do |c|
 end # command load
 
 
+command :logs do |c|
+  c.syntax = 'sportdb logs [options]'
+  c.description = 'Show logs'
+  c.action do |args, options|
+
+    LogUtils::Logger.root.level = :warn    if options.quiet.present?
+    LogUtils::Logger.root.level = :debug   if options.verbose.present?
+
+    myopts.merge_commander_options!( options.__hash__ )
+    connect_to_db( myopts ) 
+    
+    LogDB::Models::Log.all.each do |log|
+      puts "[#{log.level}] -- #{log.msg}"
+    end
+    
+    puts 'Done.'
+  end
+end
+
+
 command :stats do |c|
   c.syntax = 'sportdb stats [options]'
   c.description = 'Show stats'
   c.action do |args, options|
+
+    LogUtils::Logger.root.level = :warn    if options.quiet.present?
+    LogUtils::Logger.root.level = :debug   if options.verbose.present?
+
     myopts.merge_commander_options!( options.__hash__ )
     connect_to_db( myopts ) 
     
-    SportDB.stats
+    SportDB.tables
+    
+    puts 'Done.'
+  end
+end
+
+
+command :props do |c|
+  c.syntax = 'sportdb props [options]'
+  c.description = 'Show props'
+  c.action do |args, options|
+
+    LogUtils::Logger.root.level = :warn    if options.quiet.present?
+    LogUtils::Logger.root.level = :debug   if options.verbose.present?
+
+    myopts.merge_commander_options!( options.__hash__ )
+    connect_to_db( myopts ) 
+    
+    SportDB.props
     
     puts 'Done.'
   end
@@ -178,6 +246,10 @@ command :test do |c|
   c.syntax = 'sportdb test [options]'
   c.description = 'Debug/test command suite'
   c.action do |args, options|
+
+    LogUtils::Logger.root.level = :warn    if options.quiet.present?
+    LogUtils::Logger.root.level = :debug   if options.verbose.present?
+
     puts "hello from test command"
     puts "args (#{args.class.name}):"
     pp args
@@ -185,6 +257,11 @@ command :test do |c|
     pp options
     puts "options.__hash__:"
     pp options.__hash__
+    
+    LogUtils::Logger.root.debug 'test debug msg'
+    LogUtils::Logger.root.info 'test info msg'
+    LogUtils::Logger.root.warn 'test warn msg'
+    
     puts 'Done.'
   end
 end

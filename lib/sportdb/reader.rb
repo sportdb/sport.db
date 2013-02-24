@@ -4,9 +4,7 @@ module SportDB
 
 class Reader
 
-  def logger
-    @logger ||= LogUtils[ self ]
-  end
+  include LogUtils::Logging
 
 ## make models available in sportdb module by default with namespace
 #  e.g. lets you use Team instead of Models::Team 
@@ -64,8 +62,8 @@ class Reader
     
     end
     
-    puts "[debug] fixture setup:"
-    pp ary
+    logger.debug "fixture setup:"
+    logger.debug ary.to_json
     
     ary
       
@@ -74,8 +72,8 @@ class Reader
 
   def load( ary, include_path )   # convenience helper for all-in-one reader
     
-    puts "[debug] enter load(include_path=>>#{include_path}<<):"
-    pp ary
+    logger.debug "enter load(include_path=>>#{include_path}<<):"
+    logger.debug ary.to_json
     
     ary.each do |rec|
       if rec.kind_of?( String )
@@ -141,8 +139,7 @@ class Reader
 
     load_leagues_worker( reader )
     
-    ### todo/fix: add prop
-    ### Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )
+    Prop.create_from_fixture!( name, path )
      
   end # load_leagues
 
@@ -160,7 +157,7 @@ class Reader
 
       if key == 'seasons'
         
-        puts "#{value.class.name}: >>#{value}<<"
+        logger.debug "#{value.class.name}: >>#{value}<<"
         
         ## nb: assume value is an array
         value.each do |item|
@@ -190,8 +187,7 @@ class Reader
   
     end # each key,value
     
-    ### todo/fix: add prop
-    ### Prop.create_from_sportdb_fixture!( name, path )
+    Prop.create_from_fixture!( name, path )
   
   end  # load_seasons
 
@@ -279,7 +275,7 @@ class Reader
     
     event.update_attributes!( event_attribs )
     
-    ### todo/fix: add prop
+    Prop.create_from_fixture!( name, path )
   
   end  # load_event
 
@@ -307,8 +303,7 @@ class Reader
     
     load_fixtures_worker( event_key, reader )
 
-    ## fix add prop
-    ## Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )
+    Prop.create_from_fixture!( name, path )
   end
 
 
@@ -321,8 +316,7 @@ class Reader
 
     load_teams_worker( reader )
     
-    ## todo/fix: add prop
-    ## Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "sport.txt.#{SportDB::VERSION}" )    
+    Prop.create_from_fixture!( name, path )
   end # load_teams
 
 private
@@ -357,7 +351,7 @@ private
         rec = League.new
       end
       
-      puts attribs.to_json
+      logger.debug attribs.to_json
    
       rec.update_attributes!( attribs )
 
@@ -402,7 +396,7 @@ private
         rec = Team.new
       end
       
-      puts attribs.to_json
+      logger.debug attribs.to_json
    
       rec.update_attributes!( attribs )
 
@@ -422,7 +416,7 @@ private
     
     @event = Event.find_by_key!( event_key )
     
-    logger.info "Event #{@event.key} >#{@event.title}<"
+    logger.debug "Event #{@event.key} >#{@event.title}<"
     
     @known_teams = @event.known_teams_table
     

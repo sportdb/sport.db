@@ -68,7 +68,10 @@ class Event < ActiveRecord::Base
             
       known_teams << [ team.key, titles ]
       
-      puts "  Team[#{index+1}] #{team.key} >#{titles.join('|')}<"
+      ### fix:
+      ## plain logger
+      
+      LogUtils::Logger.root.debug "  Team[#{index+1}] #{team.key} >#{titles.join('|')}<"
     end
     
     known_teams

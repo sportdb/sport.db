@@ -1,15 +1,3 @@
-hoe-manifest plugin 0.1.0 / hoe 3.3.1 on Ruby 1.9.3 (2012-02-16) [i686-linux]
-[hoe-manifest] before read_manifest
-[hoe-manifest] after read_manifest
-[hoe-manifest] enter initialize_<plugin>
-[hoe-manifest] before define_spec
-[hoe-manifest] before read_manifest
-[hoe-manifest] after read_manifest
-[hoe-manifest] after define_spec
-[hoe-manifest] extra_manifest: >><<
-[hoe-manifest] spec.name:    >>sportdb<<
-[hoe-manifest] spec.version: >>1.3.0<<
-[hoe-manifest] enter define_<plugin>_tasks
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|

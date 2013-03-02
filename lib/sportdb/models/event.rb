@@ -3,7 +3,7 @@
 module SportDB::Models
 
 class Event < ActiveRecord::Base
-  
+
   belongs_to :league
   belongs_to :season
   

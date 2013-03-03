@@ -116,6 +116,9 @@ command :setup do |c|
 
     myopts.merge_commander_options!( options.__hash__ )
     connect_to_db( myopts )
+ 
+    ## todo: document optional setup profile arg (defaults to all)
+    setup = args[0] || 'all'
     
     if options.world.present? || options.sport.present?
       
@@ -131,8 +134,9 @@ command :setup do |c|
       if options.world.present?
         WorldDB.read_all( myopts.world_data_path )
       end
+      
       if options.sport.present?
-        SportDB.read_all( myopts.data_path )
+        SportDB.read_setup( "setups/#{setup}", myopts.data_path )
       end
 
     else  # assume "plain" regular setup
@@ -141,7 +145,7 @@ command :setup do |c|
       SportDB.create
     
       WorldDB.read_all( myopts.world_data_path )
-      SportDB.read_all( myopts.data_path )
+      SportDB.read_setup( "setups/#{setup}", myopts.data_path )
     end
     puts 'Done.'
   end # action

@@ -24,7 +24,7 @@ module SportDB::FixtureHelpers
     elsif line =~ SportDB.lang.regex_knockout_round
       logger.debug "   setting knockout flag to true"
       true
-    elsif line =~ /K\.O\.|Knockout/
+    elsif line =~ /K\.O\.|K\.o\.|Knockout/
         ## NB: add two language independent markers, that is, K.O. and Knockout
       logger.debug "   setting knockout flag to true (lang independent marker)"
       true
@@ -126,16 +126,23 @@ module SportDB::FixtureHelpers
     # NB: side effect - removes date from line string
     
     # e.g. 2012-09-14 20:30   => YYYY-MM-DD HH:MM
-    regex_db = /\b(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})\b/
+    #  nb: allow 2012-9-3 7:30 e.g. no leading zero required
+    regex_db = /\b(\d{4})-(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{2})\b/
     
     # e.g. 2012-09-14  w/ implied hours (set to 12:00)
-    regex_db2 = /\b(\d{4})-(\d{2})-(\d{2})\b/
+    #  nb: allow 2012-9-3 e.g. no leading zero required
+    regex_db2 = /\b(\d{4})-(\d{1,2})-(\d{1,2})\b/
 
     # e.g. 14.09. 20:30  => DD.MM. HH:MM
-    regex_de = /\b(\d{2})\.(\d{2})\.\s+(\d{2}):(\d{2})\b/
+    #  nb: allow 2.3.2012 e.g. no leading zero required
+    #  nb: allow hour as 20.30  or 3.30 instead of 03.30
+    regex_de = /\b(\d{1,2})\.(\d{1,2})\.\s+(\d{1,2})[:.](\d{2})\b/
     
     # e.g. 14.09.2012 20:30   => DD.MM.YYYY HH:MM
-    regex_de2 = /\b(\d{2})\.(\d{2})\.(\d{4})\s+(\d{2}):(\d{2})\b/
+    #  nb: allow 2.3.2012 e.g. no leading zero required
+    #  nb: allow hour as 20.30
+    regex_de2 = /\b(\d{1,2})\.(\d{1,2})\.(\d{4})\s+(\d{1,2})[:.](\d{2})\b/
+
 
     if line =~ regex_db
       value = "#{$1}-#{$2}-#{$3} #{$4}:#{$5}"
@@ -165,6 +172,11 @@ module SportDB::FixtureHelpers
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     elsif line =~ regex_de
+      
+      #### fix/todo:
+      #  get year from event start date!!!!
+      #  do NOT hard code!!!!
+      
       value = "2012-#{$2}-#{$1} #{$3}:#{$4}"
       logger.debug "   date: >#{value}<"
 

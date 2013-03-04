@@ -376,7 +376,7 @@ private
             logger.warn "city with key #{value_city_key} missing"
             ## todo: log errors to db log??? 
           end
-        elsif value =~ /^[A-Z]{3}$/  ## assume three-letter code e.g. FCB, RBS, etc.
+        elsif value =~ /^[A-Z][A-Z0-9][A-Z0-9_]?$/   ## assume two or three-letter code e.g. FCB, RBS, etc.
           attribs[ :code ] = value
         elsif value =~ /^[a-z]{2}$/  ## assume two-letter country key e.g. at,de,mx,etc.
           value_country = Country.find_by_key!( value )

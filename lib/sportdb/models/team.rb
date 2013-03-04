@@ -6,11 +6,12 @@ class Team < ActiveRecord::Base
   has_many :home_games, :class_name => 'Game', :foreign_key => 'team1_id'
   has_many :away_games, :class_name => 'Game', :foreign_key => 'team2_id'
 
-  REGEX_CODE = /^[A-Z][A-Z0-9_]{2}$/  # must start w/ letter a-z (2 n 3 can be number or underscore _)
+  REGEX_KEY  = /^[a-z]{3,}$/
+  REGEX_CODE = /^[A-Z][A-Z0-9][A-Z0-9_]?$/  # must start w/ letter a-z (2 n 3 can be number or underscore _)
 
   ## todo/fix: must be 3 or more letters (plus allow digits e.g. salzburgii, muenchen1980, etc.) - why? why not??
-  validates :key,  :format => { :with => /^[a-z]{2,}$/, :message => 'expected two or more lowercase letters a-z' }
-  validates :code, :format => { :with => REGEX_CODE, :message => 'expected three uppercase letters A-Z (and _)' }, :allow_nil => true
+  validates :key,  :format => { :with => REGEX_KEY,  :message => 'expected three or more lowercase letters a-z' }
+  validates :code, :format => { :with => REGEX_CODE, :message => 'expected three uppercase letters A-Z (and 0-9_)' }, :allow_nil => true
 
   has_many :event_teams, :class_name => 'EventTeam'  # join table (events+teams)
   has_many :events, :through => :event_teams

@@ -80,14 +80,27 @@ create_table :games do |t|
   t.boolean    :home,     :null => false, :default => true    # is team1 play at home (that is, at its home stadium)
   t.integer    :score1
   t.integer    :score2
-  t.integer    :score3    # verlaengerung (opt)
-  t.integer    :score4
-  t.integer    :score5    # elfmeter (opt)
-  t.integer    :score6
+  t.integer    :score1ot  # overtime - team 1 (opt)
+  t.integer    :score2ot  # overtime - team 2 (opt)
+  t.integer    :score1p   # penalty  - team 1 (opt)
+  t.integer    :score2p   # penalty  - team 2 (opt) elfmeter (opt)
+  t.integer    :score1i   # half time / first third (opt)
+  t.integer    :score2i   # half time - team 2
+  t.integer    :score1ii  # second third (opt)
+  t.integer    :score2ii  # second third - team2 (opt)
   t.references :next_game  # for hinspiel bei rueckspiel in knockout game
   t.references :prev_game
+  
+  ### todo> find a better name (toto is not international/english?)
+  ## rename to score12x or pt12x or result12x
   t.string     :toto12x      # 1,2,X,nil  calculate on save
   t.string     :key          # import/export key
+
+  t.integer    :score3    # deprecated  - remove todo: change to score1o or score1o overtime  # verlaengerung (opt)
+  t.integer    :score4    # deprecated - remove todo> change to score2o
+  t.integer    :score5    # deprecated - remove elfmeter (opt)  ## todo> change to score1p  - penality
+  t.integer    :score6    # deprecated - remove
+
   t.timestamps
 end
 

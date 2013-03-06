@@ -84,30 +84,30 @@ class Reader
         name = rec
         
         if name =~ /^seasons/
-          load_seasons( name, include_path )
+          load_seasons( name )
         elsif name =~ /^leagues/
           if name =~ /club/
             # e.g. leagues_club
-            load_leagues( name, include_path, { club: true } )
+            load_leagues( name, club: true )
           else
             # e.g. leagues
-            load_leagues( name, include_path )
+            load_leagues( name )
           end
         elsif name =~ /^([a-z]{2})\/teams/
           # auto-add country code (from folder structure) for country-specific teams
           #  e.g. at/teams at/teams2 de/teams etc.
           country_key = $1
           country = Country.find_by_key!( country_key )
-          load_teams( name, include_path, { club: true, country_id: country.id } )
+          load_teams( name, club: true, country_id: country.id )
         elsif name =~ /\/teams/
           if name =~ /club/
             # club teams (many countries)
             # e.g. club/europe/teams
-            load_teams( name, include_path, { club: true } )
+            load_teams( name, club: true )
           else
             # assume national teams
             # e.g. world/teams  amercia/teams_n
-            load_teams( name, include_path, { national: true } )
+            load_teams( name, national: true )
           end
         else
           logger.error "unknown sportdb fixture type >#{name}<"
@@ -122,9 +122,9 @@ class Reader
         event_name     = rec[1]  # e.g. at/2012_13/bl
         fixture_names  = rec[1..-1]  # e.g. at/2012_13/bl, at/2012_13/bl2
       
-        load_event( event_name, include_path )
+        load_event( event_name )
         fixture_names.each do |fixture_name|
-          load_fixtures( event_key, fixture_name, include_path )
+          load_fixtures( event_key, fixture_name )
         end
       end
       

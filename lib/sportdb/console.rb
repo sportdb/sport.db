@@ -14,21 +14,21 @@ require 'yaml'
 
 ## shortcuts for models
 
-Event   = SportDB::Models::Event
-Team    = SportDB::Models::Team
-Game    = SportDB::Models::Game
-Group   = SportDB::Models::Group
-Round   = SportDB::Models::Round
-Season  = SportDB::Models::Season
-League  = SportDB::Models::League
-Badge   = SportDB::Models::Badge
+Event   = SportDb::Models::Event
+Team    = SportDb::Models::Team
+Game    = SportDb::Models::Game
+Group   = SportDb::Models::Group
+Round   = SportDb::Models::Round
+Season  = SportDb::Models::Season
+League  = SportDb::Models::League
+Badge   = SportDb::Models::Badge
 
-Tag     = WorldDB::Models::Tag
-Tagging = WorldDB::Models::Tagging
-Country = WorldDB::Models::Country
-Region  = WorldDB::Models::Region
-City    = WorldDB::Models::City
-Prop    = WorldDB::Models::Prop
+Tag     = WorldDb::Models::Tag
+Tagging = WorldDb::Models::Tagging
+Country = WorldDb::Models::Country
+Region  = WorldDb::Models::Region
+City    = WorldDb::Models::City
+Prop    = WorldDb::Models::Prop
 
 ## connect to db
 
@@ -42,7 +42,7 @@ ActiveRecord::Base.establish_connection( DB_CONFIG )
 
 ## test drive
 
-puts "Welcome to sport.db, version #{SportDB::VERSION} (world.db, version #{WorldDB::VERSION})!"
+puts "Welcome to sport.db, version #{SportDb::VERSION} (world.db, version #{WorldDb::VERSION})!"
 puts "  #{'%5d' % Event.count} events"
 puts "  #{'%5d' % Team.count} teams"
 puts "  #{'%5d' % Game.count} games"

@@ -19,8 +19,8 @@ require 'sportdb/cli/opts'
 LogUtils::Logger.root.level = :info   # set logging level to info 
 
 program :name,  'sportdb'
-program :version, SportDB::VERSION
-program :description, "sport.db command line tool, version #{SportDB::VERSION}"
+program :version, SportDb::VERSION
+program :description, "sport.db command line tool, version #{SportDb::VERSION}"
 
 
 # default_command :help
@@ -47,7 +47,7 @@ Further information:
 
 
 ## todo: find a better name e.g. change to settings? config? safe_opts? why? why not?
-myopts = SportDB::Opts.new
+myopts = SportDb::Opts.new
 
 ### global option (required)
 ## todo: add check that path is valid?? possible?
@@ -62,7 +62,7 @@ global_option '-w', '--verbose', "Show debug messages"
 
 
 def connect_to_db( options )
-  puts SportDB.banner
+  puts SportDb.banner
 
   puts "working directory: #{Dir.pwd}"
 
@@ -91,9 +91,9 @@ command :create do |c|
     myopts.merge_commander_options!( options.__hash__ )
     connect_to_db( myopts )
     
-    LogDB.create
-    WorldDB.create
-    SportDB.create
+    LogDb.create
+    WorldDb.create
+    SportDb.create
     puts 'Done.'
   end # action
 end # command create
@@ -127,25 +127,25 @@ command :setup do |c|
       #   delete sport first
       
       if options.delete.present?
-        SportDB.delete! if options.sport.present?
-        WorldDB.delete! if options.world.present?
+        SportDb.delete! if options.sport.present?
+        WorldDb.delete! if options.world.present?
       end
       
       if options.world.present?
-        WorldDB.read_all( myopts.world_data_path )
+        WorldDb.read_all( myopts.world_data_path )
       end
       
       if options.sport.present?
-        SportDB.read_setup( "setups/#{setup}", myopts.data_path )
+        SportDb.read_setup( "setups/#{setup}", myopts.data_path )
       end
 
     else  # assume "plain" regular setup
-      LogDB.create
-      WorldDB.create
-      SportDB.create
+      LogDb.create
+      WorldDb.create
+      SportDb.create
     
-      WorldDB.read_all( myopts.world_data_path )
-      SportDB.read_setup( "setups/#{setup}", myopts.data_path )
+      WorldDb.read_all( myopts.world_data_path )
+      SportDb.read_setup( "setups/#{setup}", myopts.data_path )
     end
     puts 'Done.'
   end # action
@@ -167,21 +167,21 @@ command :load do |c|
     myopts.merge_commander_options!( options.__hash__ )
     connect_to_db( myopts )
     
-    SportDB.delete! if options.delete.present?
+    SportDb.delete! if options.delete.present?
 
-    reader = SportDB::Reader.new
+    reader = SportDb::Reader.new( myopts.data_path )
 
     args.each do |arg|
       name = arg     # File.basename( arg, '.*' )
 
       if myopts.event.present?
         ## fix: rename to load_event_fixtures_w... or similar
-        reader.load_fixtures( myopts.event, name, myopts.data_path )
+        reader.load_fixtures( myopts.event, name )
       else
         ## fix> add a convenience method for loading single fixture
         ary = []
         ary << name
-        reader.load( ary, myopts.data_path )
+        reader.load( ary )
       end
     end # each arg
 
@@ -201,7 +201,7 @@ command :logs do |c|
     myopts.merge_commander_options!( options.__hash__ )
     connect_to_db( myopts ) 
     
-    LogDB::Models::Log.all.each do |log|
+    LogDb::Models::Log.all.each do |log|
       puts "[#{log.level}] -- #{log.msg}"
     end
     
@@ -221,7 +221,7 @@ command :stats do |c|
     myopts.merge_commander_options!( options.__hash__ )
     connect_to_db( myopts ) 
     
-    SportDB.tables
+    SportDb.tables
     
     puts 'Done.'
   end
@@ -239,7 +239,7 @@ command :props do |c|
     myopts.merge_commander_options!( options.__hash__ )
     connect_to_db( myopts ) 
     
-    SportDB.props
+    SportDb.props
     
     puts 'Done.'
   end

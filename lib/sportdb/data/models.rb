@@ -1,12 +1,12 @@
 # encoding: utf-8
 
-module SportDB::Models
+module SportDb::Models
 
   ## add convenience finders to some model classes
   
   class Event
 
-  include SportDB::Keys::EventKeys
+  include SportDb::Keys::EventKeys
 
   def self.find_at_2012_13!
     self.find_by_key!( AT_2012_13 )
@@ -38,6 +38,6 @@ module SportDB::Models
     
   end # class Event
 
-end # module SportDB::Models
+end # module SportDb::Models
 
 

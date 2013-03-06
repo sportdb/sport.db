@@ -1,4 +1,4 @@
-module SportDB::Models
+module SportDb::Models
 
 
 class Group < ActiveRecord::Base
@@ -19,5 +19,5 @@ class Group < ActiveRecord::Base
 end # class Group
   
   
-end # module SportDB::Models
+end # module SportDb::Models
 

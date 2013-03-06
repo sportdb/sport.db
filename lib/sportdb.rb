@@ -94,12 +94,13 @@ module SportDB
   end
 
   def self.create
-    CreateDB.up
+    CreateDb.new.up
+    WorldDb::Models::Prop.create!( key: 'db.schema.sport.version', value: VERSION )
   end
 
   def self.read_setup( setup, include_path )
-    reader = Reader.new
-    reader.load_setup( setup, include_path )
+    reader = Reader.new( include_path )
+    reader.load_setup( setup )
   end
 
   def self.read_all( include_path )   # convenience helper
@@ -113,11 +114,11 @@ module SportDB
   #    ['cl.2012/13', 'cl/2012_13/cl']] etc.
 
   def self.read( ary, include_path )
-    reader = Reader.new
-    reader.load( ary, include_path )
+    reader = Reader.new( include_path )
+    reader.load( ary )
   end
-  
-  
+
+
   # delete ALL records (use with care!)
   def self.delete!
     puts '*** deleting sport table records/data...'
@@ -174,15 +175,15 @@ module SportDB
 
   end
 
-end  # module SportDB
+end  # module SportDb
 
 
-## SportDB::load_plugins
+## SportDb::load_plugins
 
 
 if __FILE__ == $0
-  SportDB.main
+  SportDb.main
 else
    ## say hello
-  puts SportDB.banner
+  puts SportDb.banner
 end

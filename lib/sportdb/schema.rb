@@ -1,18 +1,9 @@
 
-module SportDB
+module SportDb
 
-class CreateDB   ## fix/todo: change to ActiveRecord::Migration why? why not?
+class CreateDb < ActiveRecord::Migration
 
-
-## make models available in sportdb module by default with namespace
-#  e.g. lets you use Team instead of Models::Team 
-  include SportDB::Models
-
-
-def self.up
-
-  ActiveRecord::Schema.define do
-
+def up
 
 create_table :teams do |t|
   t.string  :title, :null => false
@@ -23,6 +14,8 @@ create_table :teams do |t|
   t.references :country,   :null => false
   t.references :city     # NB: city is optional (should be required for clubs e.g. non-national teams)
   t.boolean  :club,     :null => false, :default => false  # is it a club (not a national team)?
+  
+  ### fix: remove and add virtual attribute in model instead
   t.boolean  :national, :null => false, :default => false  # is it a national selection team (not a club)?
   t.timestamps
 end
@@ -34,8 +27,8 @@ create_table :events do |t|
   t.string      :key,      :null => false   # import/export key
   t.references  :league,   :null => false
   t.references  :season,   :null => false
-  t.datetime    :start_at, :null => false
-  t.datetime    :end_at   # make it required???
+  t.date        :start_at, :null => false    # NB: only use date (w/o time)
+  t.date        :end_at   # make it required???  # NB: only use date (w/o time)
   t.boolean     :team3,    :null => false, :default => true   ## e.g. Champions League has no 3rd place (only 1st and 2nd/final)
   t.timestamps
 end
@@ -51,8 +44,8 @@ create_table :rounds do |t|
   ## add new table stage/stages for grouping rounds in group rounds and playoff rounds, for example???
   ## # "regular" season (group) games or post-season (playoff) knockouts (k.o's)
   t.boolean    :knockout, :null => false, :default => false
-  t.datetime   :start_at, :null => false
-  t.datetime   :end_at    # todo: make it required e.g. :null => false 
+  t.date   :start_at, :null => false     # NB: only use date (w/o time)
+  t.date   :end_at    # todo: make it required e.g. :null => false    # NB: only use date (w/o time)
   t.timestamps
 end
 
@@ -95,11 +88,6 @@ create_table :games do |t|
   ## rename to score12x or pt12x or result12x
   t.string     :toto12x      # 1,2,X,nil  calculate on save
   t.string     :key          # import/export key
-
-  t.integer    :score3    # deprecated  - remove todo: change to score1o or score1o overtime  # verlaengerung (opt)
-  t.integer    :score4    # deprecated - remove todo> change to score2o
-  t.integer    :score5    # deprecated - remove elfmeter (opt)  ## todo> change to score1p  - penality
-  t.integer    :score6    # deprecated - remove
 
   t.timestamps
 end
@@ -161,14 +149,14 @@ create_table :badges do |t|
   t.string      :title, :null => false   # Meister, Weltmeister, Europameister, Cupsieger, Vize-Meister, Aufsteiger, Absteiger, etc.
   t.timestamps
 end
-       
-  end # block Schema.define
-
-
-  Prop.create!( key: 'db.schema.sport.version', value: SportDB::VERSION )
 
 end # method up
 
-end # class CreateDB
+def down
+  raise ActiveRecord::IrreversibleMigration
+end
 
-end # module SportDB
+
+end # class CreateDb
+
+end # module SportDb

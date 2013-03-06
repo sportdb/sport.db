@@ -3,25 +3,25 @@
 ### some utils moved to worldbdb/utils for reuse
 
 
-module SportDB::FixtureHelpers
+module SportDb::FixtureHelpers
 
   def is_round?( line )
-    line =~ SportDB.lang.regex_round
+    line =~ SportDb.lang.regex_round
   end
 
   def is_group?( line )
     # NB: check after is_round? (round may contain group reference!)
-    line =~ SportDB.lang.regex_group
+    line =~ SportDb.lang.regex_group
   end
 
   def is_knockout_round?( line )
     
     ## todo: check for adding ignore case for regex (e.g. 1st leg/1st Leg)
     
-    if line =~ SportDB.lang.regex_leg1
+    if line =~ SportDb.lang.regex_leg1
       logger.debug "  two leg knockout; skip knockout flag on first leg"
       false
-    elsif line =~ SportDB.lang.regex_knockout_round
+    elsif line =~ SportDb.lang.regex_knockout_round
       logger.debug "   setting knockout flag to true"
       true
     elsif line =~ /K\.O\.|K\.o\.|Knockout/
@@ -328,4 +328,4 @@ module SportDB::FixtureHelpers
   end # method translate_teams!
   
 
-end # module SportDB::FixtureHelpers
+end # module SportDb::FixtureHelpers

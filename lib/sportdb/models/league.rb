@@ -1,4 +1,4 @@
-module SportDB::Models
+module SportDb::Models
 
 
 class League < ActiveRecord::Base
@@ -10,7 +10,7 @@ class League < ActiveRecord::Base
   has_many :events
   has_many :seasons, :through => :events
   
-  belongs_to :country, :class_name => 'WorldDB::Models::Country', :foreign_key => 'country_id'
+  belongs_to :country, :class_name => 'WorldDd::Models::Country', :foreign_key => 'country_id'
 
 
   def self.create_from_ary!( leagues, more_values={} )
@@ -40,4 +40,4 @@ class League < ActiveRecord::Base
 end  # class League
 
 
-end # module SportDB::Models
+end # module SportDb::Models

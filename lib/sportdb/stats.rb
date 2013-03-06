@@ -1,8 +1,8 @@
 
-module SportDB
+module SportDb
   
   class Stats
-    include SportDB::Models
+    include SportDb::Models
 
     def tables
       puts "Stats:"
@@ -25,4 +25,4 @@ module SportDB
   
   end  # class Stats
 
-end  # module SportDB
+end  # module SportDb

@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
 require 'sportdb'
-SportDB.main
+SportDb.main

@@ -1,4 +1,4 @@
-module SportDB
+module SportDb
 
 class Opts
 
@@ -45,4 +45,4 @@ class Opts
 
 end # class Opts
 
-end # module SportDB
+end # module SportDb

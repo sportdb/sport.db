@@ -2,12 +2,12 @@ require 'hoe'
 require './lib/sportdb/version.rb'
 
 ## NB: plugin (hoe-manifest) not required; just used for future testing/development
-Hoe::plugin :manifest   # more options for manifests (in the future; not yet)
+## Hoe::plugin :manifest   # more options for manifests (in the future; not yet)
 
 
 Hoe.spec 'sportdb' do
   
-  self.version = SportDB::VERSION
+  self.version = SportDb::VERSION
   
   self.summary = 'sportdb - sport.db command line tool'
   self.description = summary

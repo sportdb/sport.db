@@ -2,6 +2,6 @@
 
 
 ## moved to models/forward
-#  module SportDB::Models
-#    Prop = WorldDB::Models::Prop
-#  end # module SportDB::Models
+#  module SportDb::Models
+#    Prop = WorldDb::Models::Prop
+#  end # module SportDb::Models

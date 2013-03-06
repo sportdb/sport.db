@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module SportDB
+module SportDb
 
 class Lang
 
@@ -267,4 +267,4 @@ private
 end # class LangChecker
 
 
-end # module SportDB
+end # module SportDb

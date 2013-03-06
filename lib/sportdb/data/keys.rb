@@ -5,7 +5,7 @@
 
 ### fix: rename to ::Key (singular) - why? why not??
 
-module SportDB::Keys
+module SportDb::Keys
 
     module EventKeys
   # use constants for known keys; lets us define aliases (if things change)
@@ -29,6 +29,6 @@ module SportDB::Keys
   ## NB: see db/leagues.rb for keys in use
     end 
     
-    include SportDB::Keys::EventKeys
+    include SportDb::Keys::EventKeys
 
-end # module SportDB::Keys
+end # module SportDb::Keys

@@ -2,17 +2,17 @@
 
 ## todo: how to best extends country model?
 
-module WorldDB::Models
+module WorldDb::Models
 
   class Country
-    has_many :teams,   :class_name => 'SportDB::Models::Team',   :foreign_key => 'country_id'
-    has_many :leagues, :class_name => 'SportDB::Models::League', :foreign_key => 'country_id'
+    has_many :teams,   :class_name => 'SportDb::Models::Team',   :foreign_key => 'country_id'
+    has_many :leagues, :class_name => 'SportDb::Models::League', :foreign_key => 'country_id'
   end # class Country
 
-end # module WorldDB::Models
+end # module WorldDb::Models
 
 
 ## moved to models/forward
-# module SportDB::Models
-#  Country = WorldDB::Models::Country
-# end # module SportDB::Models
+# module SportDb::Models
+#  Country = WorldDb::Models::Country
+# end # module SportDb::Models

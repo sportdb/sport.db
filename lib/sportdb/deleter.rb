@@ -1,11 +1,11 @@
 
-module SportDB
+module SportDb
 
   class Deleter
     ######
     # NB: make models available in sportdb module by default with namespace
     #  e.g. lets you use Team instead of Models::Team 
-    include SportDB::Models
+    include SportDb::Models
 
     def run
       # for now delete all tables
@@ -24,4 +24,4 @@ module SportDB
     
   end # class Deleter
   
-end # module SportDB
+end # module SportDb

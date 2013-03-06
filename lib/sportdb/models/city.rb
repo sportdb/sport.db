@@ -1,14 +1,14 @@
 
 ## todo: how to best extends city model?
 
-module WorldDB::Models
+module WorldDb::Models
   class City
-    has_many :teams, :class_name => 'SportDB::Models::Team', :foreign_key => 'city_id'
+    has_many :teams, :class_name => 'SportDb::Models::Team', :foreign_key => 'city_id'
   end
-end # module WorldDB::Models
+end # module WorldDb::Models
 
 
 ## moved to models/forward
-#  module SportDB::Models
-#  City = WorldDB::Models::City
-# end # module SportDB::Models
+#  module SportDb::Models
+#  City = WorldDb::Models::City
+# end # module SportDb::Models

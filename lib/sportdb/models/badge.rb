@@ -1,4 +1,4 @@
-module SportDB::Models
+module SportDb::Models
 
 class Badge < ActiveRecord::Base
 
@@ -9,4 +9,4 @@ class Badge < ActiveRecord::Base
 end  # class Badge
   
 
-end # module SportDB::Models
+end # module SportDb::Models

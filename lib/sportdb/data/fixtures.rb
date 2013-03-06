@@ -43,7 +43,7 @@ end
 
 
 
-module SportDB
+module SportDb
   
   module Fixtures   # use shortcut/alias Fx?
   
@@ -202,4 +202,4 @@ module SportDB
 
   end # module Fixtures
   
-end # module SportDB
+end # module SportDb

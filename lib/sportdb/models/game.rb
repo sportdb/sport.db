@@ -1,4 +1,4 @@
-module SportDB::Models
+module SportDb::Models
 
 
 class Game < ActiveRecord::Base
@@ -10,6 +10,41 @@ class Game < ActiveRecord::Base
   belongs_to :group   # group is optional
 
   before_save :calc_toto12x
+
+  ### getter/setters for deprecated attribs (score3,4,5,6) n national
+  
+  def score3
+    score1ot
+  end
+
+  def score4
+    score2ot
+  end
+
+  def score5
+    score1p
+  end
+
+  def score6
+    score2p
+  end
+
+  def score3=(value)
+    self.score1ot = value
+  end
+
+  def score4=(value)
+    self.score2ot = value
+  end
+
+  def score5=(value)
+    self.score1p = value
+  end
+
+  def score6=(value)
+    self.score2p = value
+  end
+
 
 
   def self.create_knockouts_from_ary!( games, round )
@@ -58,10 +93,10 @@ class Game < ActiveRecord::Base
         :team1     => value_teams[0],
         :score1    => value_scores[0],
         :score2    => value_scores[1],
-        :score3    => value_scores[2],
-        :score4    => value_scores[3],
-        :score5    => value_scores[4],
-        :score6    => value_scores[5],
+        :score1ot  => value_scores[2],
+        :score2ot  => value_scores[3],
+        :score1p   => value_scores[4],
+        :score2p   => value_scores[5],
         :team2     => value_teams[1],
         :play_at   => value_play_at,
         :group     => value_group,     # Note: group is optional (may be null/nil)
@@ -122,10 +157,10 @@ class Game < ActiveRecord::Base
         :team1     =>pair[1][1],
         :score1    =>pair[1][2][0],
         :score2    =>pair[1][2][1],
-        :score3    =>pair[1][2][2],
-        :score4    =>pair[1][2][3],
-        :score5    =>pair[1][2][4],
-        :score6    =>pair[1][2][5],
+        :score1ot  =>pair[1][2][2],
+        :score2ot  =>pair[1][2][3],
+        :score1p   =>pair[1][2][4],
+        :score1p   =>pair[1][2][5],
         :team2     =>pair[1][3],
         :play_at   =>pair[1][4],
         :knockout  =>true }
@@ -194,4 +229,4 @@ class Game < ActiveRecord::Base
 end # class Game
 
 
-end # module SportDB::Models
+end # module SportDb::Models

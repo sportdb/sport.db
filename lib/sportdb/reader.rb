@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module SportDB
+module SportDb
 
 class Reader
 
@@ -11,17 +11,20 @@ class Reader
   include SportDB::Models
 
 
-  def initialize
+  attr_reader :include_path
+
+  def initialize( include_path, opts={})
+    @include_path = include_path
   end
 
-  def load_setup( setup, include_path )
-    ary = load_fixture_setup( setup, include_path )
-    load( ary, include_path )
+  def load_setup( setup )
+    ary = load_fixture_setup( setup )
+    load( ary )
   end # method load_setup
 
 
   ## fix/todo: rename ??
-  def load_fixture_setup( name, include_path )
+  def load_fixture_setup( name )
     
    ## todo/fix: cleanup quick and dirty code
     
@@ -70,7 +73,7 @@ class Reader
   end # load_fixture_setup
 
 
-  def load( ary, include_path )   # convenience helper for all-in-one reader
+  def load( ary )   # convenience helper for all-in-one reader
     
     logger.debug "enter load(include_path=>>#{include_path}<<):"
     logger.debug ary.to_json
@@ -129,7 +132,7 @@ class Reader
   end # method load
 
 
-  def load_leagues( name, include_path, more_values={} )
+  def load_leagues( name, more_values={} )
     
     path = "#{include_path}/#{name}.txt"
 
@@ -144,7 +147,7 @@ class Reader
   end # load_leagues
 
 
-  def load_seasons( name, include_path )
+  def load_seasons( name )
     path = "#{include_path}/#{name}.yml"
 
     puts "*** parsing data '#{name}' (#{path})..."
@@ -193,7 +196,7 @@ class Reader
 
 
 
-  def load_event( name, include_path )
+  def load_event( name )
     path = "#{include_path}/#{name}.yml"
 
     logger.info "parsing data '#{name}' (#{path})..."
@@ -291,7 +294,7 @@ class Reader
     ### Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )  
   end
 
-  def load_fixtures( event_key, name, include_path )  # load from file system
+  def load_fixtures( event_key, name )  # load from file system
      
     path = "#{include_path}/#{name}.txt"
 
@@ -307,7 +310,7 @@ class Reader
   end
 
 
-  def load_teams( name, include_path, more_values={} )
+  def load_teams( name, more_values={} )
     path = "#{include_path}/#{name}.txt"
 
     puts "*** parsing data '#{name}' (#{path})..."
@@ -540,10 +543,10 @@ private
     game_attribs = {
       score1:    scores[0],
       score2:    scores[1],
-      score3:    scores[2],
-      score4:    scores[3],
-      score5:    scores[4],
-      score6:    scores[5],
+      score1ot:  scores[2],
+      score2ot:  scores[3],
+      score1p:   scores[4],
+      score2p:   scores[5],
       play_at:   date,
       knockout:  @knockout_flag,
       group_id:  @group.present? ? @group.id : nil
@@ -614,4 +617,4 @@ private
 
   
 end # class Reader
-end # module SportDB
+end # module SportDb

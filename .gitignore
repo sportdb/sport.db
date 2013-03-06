@@ -27,3 +27,9 @@ doc/
 # ignore dbs in root folder (e.g. sport.db)
 
 *.db
+
+############
+# ignore build folder  (what works build or build/ why?)
+
+build
+build/

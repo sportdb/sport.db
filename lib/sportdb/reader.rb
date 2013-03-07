@@ -93,9 +93,15 @@ class Reader
             # e.g. leagues
             load_leagues( name )
           end
+        elsif name =~ /^([a-z]{2})\/leagues/
+          # auto-add country code (from folder structure) for country-specific leagues
+          #  e.g. at/leagues
+          country_key = $1
+          country = Country.find_by_key!( country_key )
+          load_leagues( name, club: true, country_id: country.id )
         elsif name =~ /^([a-z]{2})\/teams/
           # auto-add country code (from folder structure) for country-specific teams
-          #  e.g. at/teams at/teams2 de/teams etc.
+          #  e.g. at/teams at/teams.2 de/teams etc.
           country_key = $1
           country = Country.find_by_key!( country_key )
           load_teams( name, club: true, country_id: country.id )
@@ -150,7 +156,7 @@ class Reader
   def load_seasons( name )
     path = "#{include_path}/#{name}.yml"
 
-    puts "*** parsing data '#{name}' (#{path})..."
+    logger.info "parsing data '#{name}' (#{path})..."
 
     reader = HashReader.new( path )
 
@@ -236,7 +242,7 @@ class Reader
         if value.is_a?(DateTime) || value.is_a?(Date)
           start_at = value
         else # assume it's a string
-          start_at = DateTime.strptime( value.to_s.strip, '%Y-%m-%d %H:%M' )
+          start_at = DateTime.strptime( value.to_s.strip, '%Y-%m-%d' )
         end
         
         event_attribs['start_at'] = start_at
@@ -298,7 +304,7 @@ class Reader
      
     path = "#{include_path}/#{name}.txt"
 
-    puts "*** parsing data '#{name}' (#{path})..."
+    logger.info "parsing data '#{name}' (#{path})..."
     
     SportDB.lang.lang = LangChecker.new.analyze( name, include_path )
 
@@ -313,7 +319,7 @@ class Reader
   def load_teams( name, more_values={} )
     path = "#{include_path}/#{name}.txt"
 
-    puts "*** parsing data '#{name}' (#{path})..."
+    logger.info "parsing data '#{name}' (#{path})..."
 
     reader = ValuesReader.new( path, more_values )
 

@@ -98,7 +98,7 @@ namespace :sportdb do
   end
 
   task :importsport => :env do
-    SportDb.read_setup( 'setups/at', '../football.db' )
+    SportDb.read_setup( 'setups/all', '../football.db' )
     # SportDb.stats
   end
 

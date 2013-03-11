@@ -6,10 +6,11 @@ module SportDb::Models
 
   ## todo: why? why not use include WorldDb::Models here???
 
-  Country = WorldDb::Models::Country
-  Region  = WorldDb::Models::Region
-  City    = WorldDb::Models::City
-  Prop    = WorldDb::Models::Prop
+  Continent = WorldDb::Models::Continent
+  Country   = WorldDb::Models::Country
+  Region    = WorldDb::Models::Region
+  City      = WorldDb::Models::City
+  Prop      = WorldDb::Models::Prop
 
   ## nb: for now only team and league use worlddb tables
   #   e.g. with belongs_to assoc (country,region)

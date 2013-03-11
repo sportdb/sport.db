@@ -23,12 +23,13 @@ Season  = SportDb::Models::Season
 League  = SportDb::Models::League
 Badge   = SportDb::Models::Badge
 
-Tag     = WorldDb::Models::Tag
-Tagging = WorldDb::Models::Tagging
-Country = WorldDb::Models::Country
-Region  = WorldDb::Models::Region
-City    = WorldDb::Models::City
-Prop    = WorldDb::Models::Prop
+Tag       = WorldDb::Models::Tag
+Tagging   = WorldDb::Models::Tagging
+Continent = WorldDb::Models::Continent
+Country   = WorldDb::Models::Country
+Region    = WorldDb::Models::Region
+City      = WorldDb::Models::City
+Prop      = WorldDb::Models::Prop
 
 ## connect to db
 
@@ -43,10 +44,9 @@ ActiveRecord::Base.establish_connection( DB_CONFIG )
 ## test drive
 
 puts "Welcome to sport.db, version #{SportDb::VERSION} (world.db, version #{WorldDb::VERSION})!"
-puts "  #{'%5d' % Event.count} events"
-puts "  #{'%5d' % Team.count} teams"
-puts "  #{'%5d' % Game.count} games"
-puts "  #{'%5d' % City.count} cities"
+
+SportDb.tables
+
 puts "Ready."
 
 ## add some predefined shortcuts

@@ -18,6 +18,7 @@ lib/sportdb/deleter.rb
 lib/sportdb/lang.rb
 lib/sportdb/models/badge.rb
 lib/sportdb/models/city.rb
+lib/sportdb/models/continent.rb
 lib/sportdb/models/country.rb
 lib/sportdb/models/event.rb
 lib/sportdb/models/event_team.rb

@@ -529,9 +529,18 @@ private
     team1_key = find_team1!( line )
     team2_key = find_team2!( line )
 
-    date  = find_date!( line )
+    if is_postponed?
+      postponed  = true
+      date_v2    = find_date!( line )
+      date       = find_date!( line )
+    else
+      postponed = false
+      date_v2   = nil
+      date      = find_date!( line )
+    end
+
     scores = find_scores!( line )
-        
+
     logger.debug "  line: >#{line}<"
 
 
@@ -553,7 +562,9 @@ private
       score2ot:  scores[3],
       score1p:   scores[4],
       score2p:   scores[5],
-      play_at:   date,
+      play_at:    date,
+      play_at_v2: date_v2,
+      postponed: postponed,
       knockout:  @knockout_flag,
       group_id:  @group.present? ? @group.id : nil
     }

@@ -24,9 +24,11 @@ lib/sportdb/models/event.rb
 lib/sportdb/models/event_team.rb
 lib/sportdb/models/forward.rb
 lib/sportdb/models/game.rb
+lib/sportdb/models/goal.rb
 lib/sportdb/models/group.rb
 lib/sportdb/models/group_team.rb
 lib/sportdb/models/league.rb
+lib/sportdb/models/player.rb
 lib/sportdb/models/prop.rb
 lib/sportdb/models/region.rb
 lib/sportdb/models/round.rb

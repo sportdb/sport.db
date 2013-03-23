@@ -23,6 +23,32 @@ end
 add_index :teams, :key, :unique => true
 
 
+create_table :players do |t|
+  t.string      :key,      :null => false   # import/export key
+  t.string      :name,     :null => false
+  t.string      :synonyms  # comma separated list of synonyms
+
+  t.date        :born_at     # optional date of birth (birthday)
+  t.references  :country,   :null => false
+  t.timestamps
+end
+
+create_table :goals do |t|
+  t.references  :player,   :null => false
+  t.references  :game,     :null => false
+  t.integer   :minute
+  t.integer   :offset    # e.g. 45' +3 or 90' +2
+  t.integer   :score1
+  t.integer   :score2
+  
+  ## type of goal (penalty, owngoal)
+  t.boolean   :penalty,   :null => false, :default => false
+  t.boolean   :owngoal,   :null => false, :default => false  # de: Eigentor -> # todo: find better name?
+
+  t.timestamps
+end
+
+
 create_table :events do |t|
   t.string      :key,      :null => false   # import/export key
   t.references  :league,   :null => false
@@ -68,7 +94,12 @@ create_table :games do |t|
   t.references :group      # note: group is optional
   t.references :team1,    :null => false
   t.references :team2,    :null => false
-  t.datetime   :play_at,  :null => false
+
+  t.datetime   :play_at,   :null => false
+  t.boolean    :postponed, :null => false, :default => false
+  t.datetime   :play_at_v2   # optional old date (when postponed)
+  t.datetime   :play_at_v3   # optional odl date (when postponed twice)
+
   t.boolean    :knockout, :null => false, :default => false
   t.boolean    :home,     :null => false, :default => true    # is team1 play at home (that is, at its home stadium)
   t.integer    :score1
@@ -83,6 +114,8 @@ create_table :games do |t|
   t.integer    :score2ii  # second third - team2 (opt)
   t.references :next_game  # for hinspiel bei rueckspiel in knockout game
   t.references :prev_game
+  
+  
   
   ### todo> find a better name (toto is not international/english?)
   ## rename to score12x or pt12x or result12x
@@ -133,6 +166,8 @@ create_table :leagues do |t|  ## also for cups/conferences/tournaments/world ser
   t.string     :key,   :null => false
   t.string     :title, :null => false     # e.g. Premier League, Deutsche Bundesliga, World Cup, Champions League, etc.
   t.references :country   ##  optional for now ,   :null => false   ### todo: create "virtual" country for international leagues e.g. use int? or world (ww?)/europe (eu)/etc. similar? already taken??
+ 
+  ## fix: rename to :clubs from :club
   t.boolean    :club,          :null => false, :default => false  # club teams or national teams?
   ## todo: add t.boolean  :national flag? for national teams?
   ## t.boolean  :international, :null => false, :default => false  # national league or international?

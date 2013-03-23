@@ -8,6 +8,8 @@ class Game < ActiveRecord::Base
   
   belongs_to :round
   belongs_to :group   # group is optional
+  
+  has_many :goals
 
   before_save :calc_toto12x
 

@@ -5,6 +5,11 @@
 
 module SportDb::FixtureHelpers
 
+  def is_postponed?( line )
+    # check if line include postponed marker e.g. =>
+    line =~ /=>/
+  end
+
   def is_round?( line )
     line =~ SportDb.lang.regex_round
   end

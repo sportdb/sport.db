@@ -529,7 +529,7 @@ private
     team1_key = find_team1!( line )
     team2_key = find_team2!( line )
 
-    if is_postponed?
+    if is_postponed?( line )
       postponed  = true
       date_v2    = find_date!( line )
       date       = find_date!( line )

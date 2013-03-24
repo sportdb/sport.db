@@ -12,7 +12,8 @@ class TestLang < MiniTest::Unit::TestCase
 
   def test_getters
 
-     lang = SportDb::Lang.new
+     lang = SportDb.lang
+     lang.lang = 'en'
 
      group = 'Group'
 
@@ -45,7 +46,7 @@ class TestLang < MiniTest::Unit::TestCase
   end
   
   def test_getters_de
-     lang = SportDb::Lang.new
+     lang = SportDb.lang
      lang.lang = 'de'
 
      group = 'Gruppe'
@@ -79,7 +80,8 @@ class TestLang < MiniTest::Unit::TestCase
   end
 
   def test_regex_knockout_round
-     lang = SportDb::Lang.new
+     lang = SportDb.lang
+     lang.lang = 'en'
 
      lines = [
       '(4) Quarter-finals',
@@ -94,7 +96,7 @@ class TestLang < MiniTest::Unit::TestCase
   end
   
   def test_regex_knockout_round_de
-    lang = SportDb::Lang.new
+    lang = SportDb.lang
     lang.lang = 'de'
 
     lines = [

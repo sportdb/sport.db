@@ -103,21 +103,21 @@ class Lang
   def regex_leg2
     @regex_leg2 ||= regex_leg2_getter
   end
-  
-  
-  
+
 private
   def group_getter
     h = @fixtures[ lang ]
-    values = h['group']
+    values = ""   # NB: always construct a new string (do NOT use a reference to hash value)
+    values << h['group']
     values
   end
-  
+
   def round_getter
     # e.g. Spieltag|Runde|Achtelfinale|Viertelfinale|Halbfinale|Finale
     
     h = @fixtures[ lang ]
-    values = h['round']
+    values = ""   # NB: always construct a new string (do NOT use a reference to hash value)
+    values << h['round']
     values << "|" << h['matchday']  ## todo/check: fold round n matchday into one key? why? why not??
     
     ### add knockout rounds values too
@@ -132,19 +132,22 @@ private
 
   def leg1_getter
     h = @fixtures[ lang ]
-    values = h['leg1']
+    values = ""  # NB: always construct a new string (do NOT use a reference to hash value)
+    values << h['leg1']
     values
   end
 
   def leg2_getter
     h = @fixtures[ lang ]
-    values = h['leg2']
+    values = ""  # NB: always construct a new string (do NOT use a reference to hash value)
+    values << h['leg2']
     values
   end
 
   def knockout_round_getter
     h = @fixtures[ lang ]
-    values = h['round32']
+    values = ""  # NB: always construct a new string (do NOT use a reference to hash value)
+    values << h['round32']
     values << "|" << h['round16']
     values << "|" << h['quarterfinals']
     values << "|" << h['semifinals']

@@ -20,9 +20,9 @@ module SportDb::FixtureHelpers
   end
 
   def is_knockout_round?( line )
-    
+
     ## todo: check for adding ignore case for regex (e.g. 1st leg/1st Leg)
-    
+
     if line =~ SportDb.lang.regex_leg1
       logger.debug "  two leg knockout; skip knockout flag on first leg"
       false

@@ -11,5 +11,6 @@ require 'minitest/autorun'
 
 ## our own code
 
+require 'logutils'
 require 'sportdb'
 

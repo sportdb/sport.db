@@ -72,7 +72,7 @@ class Lang
   end
  
   def knockout_round
-    @knock_round ||= knockout_round_getter
+    @knockout_round ||= knockout_round_getter
   end
   
   def leg1

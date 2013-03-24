@@ -40,3 +40,7 @@ lib/sportdb/stats.rb
 lib/sportdb/utils.rb
 lib/sportdb/version.rb
 tasks/test.rb
+test/helper.rb
+test/test_lang.rb
+test/test_round.rb
+test/test_utils.rb

@@ -73,57 +73,77 @@ module SportDb::FixtureHelpers
 
     return [title,pos]
   end
-  
+
+  def cut_off_end_of_line_comment!( line )
+    #  cut off (that is, remove) optional end of line comment starting w/ #
+    
+    line = line.sub( /#.*$/, '' )
+    line
+  end
+
+
+  def find_round_title2!( line )
+    # assume everything after // is title2 - strip off leading n trailing whitespaces
+    regex = /\/{2,}\s*(.+)\s*$/
+    if line =~ regex
+      logger.debug "   title2: >#{$1}<"
+      
+      line.sub!( regex, '[ROUND|TITLE2]' )
+      return $1
+    else
+      return nil    # no round title2 found (title2 is optional)
+    end
+  end
+
+
+  def find_round_title!( line )
+    # assume everything left is the round title
+    #  extract all other items first (round title2, round pos, group title n pos, etc.)
+
+    buf = line.dup
+    logger.debug "  find_round_title! line-before: >>#{buf}<<"
+
+    buf.gsub!( /\[.+?\]/, '' )   # e.g. remove [ROUND|POS], [ROUND|TITLE2], [GROUP|TITLE+POS] etc.
+    buf.sub!( /\s+[\/\-]{1,}\s+$/, '' )    # remove optional trailing / or / chars (left over from group)
+    buf.strip!    # remove leading and trailing whitespace
+
+    logger.debug "  find_round_title! line-after: >>#{buf}<<"
+
+    ### bingo - assume what's left is the round title
+
+    logger.debug "   title: >>#{buf}<<"
+    line.sub!( buf, '[ROUND|TITLE]' )
+
+    buf
+  end
+
+
   def find_round_pos!( line )
-    
-    ## todo: let title2 go first to cut off //
-    ## todo: cut of end of line comments w/ # ???
-    
     ## fix/todo:
     ##  if no round found assume last_pos+1 ??? why? why not?
 
     # extract optional round pos from line
     # e.g.  (1)   - must start line 
-    regex = /^[ \t]*\((\d{1,3})\)[ \t]+/
-    if line =~ regex
+    regex_pos = /^[ \t]*\((\d{1,3})\)[ \t]+/
+
+    ## find free standing number
+    regex_num = /\b(\d{1,3})\b/
+
+    if line =~ regex_pos
       logger.debug "   pos: >#{$1}<"
       
-      line.sub!( regex, '[ROUND|POS] ' )  ## NB: add back trailing space that got swallowed w/ regex -> [ \t]+
+      line.sub!( regex_pos, '[ROUND|POS] ' )  ## NB: add back trailing space that got swallowed w/ regex -> [ \t]+
       return $1.to_i
-    end
-
-    # continue; try some other options
-
-    # NB: do not search string after free standing / or //
-    #  cut-off optional trailing part w/ starting w/  / or //
-    #
-    # e.g.  Viertelfinale   //   Di+Mi 10.+11. April 2012  becomes just
-    #       Viertelfinale
-    
-    cutoff_regex = /^(.+?)[ \t]\/{1,3}[ \t]/
-    
-    if line =~ cutoff_regex
-      line = $1.to_s    # cut off the rest if regex matches
-    end
-
-    ## fix/todo: use cutoff_line for search
-    ## and use line.sub! to change original string
-    # e.g.  Jornada 3  // 1,2 y 3 febrero
-    #   only replaces match in local string w/ [ROUND|POS]
-
-    regex = /\b(\d+)\b/
-    
-    if line =~ regex
-      value = $1.to_i
-      logger.debug "   pos: >#{value}<"
-      
-      line.sub!( regex, '[ROUND|POS]' )
-
-      return value
+    elsif line =~ regex_num
+      ## assume number in title is pos (e.g. Jornada 3, 3 Runde etc.)
+      ## NB: do NOT remove pos from string (will get removed by round title)
+      logger.debug "   pos: >#{$1}<"
+      return $1.to_i
     else
+      ## fix: add logger.warn no round pos found in line
       return nil
     end
-  end
+  end # method find_round_pos!
   
   def find_date!( line )
     # extract date from line

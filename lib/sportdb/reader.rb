@@ -475,11 +475,22 @@ private
   
   def parse_round( line )
     logger.debug "parsing round line: >#{line}<"
-    pos = find_round_pos!( line )
-        
-    @knockout_flag = is_knockout_round?( line )
+
+    ### todo/fix/check:  move cut off optional comment in reader for all lines? why? why not?
+    cut_off_end_of_line_comment!( line )  # cut off optional comment starting w/ #
+
+    # NB: cut off optional title2 starting w/  //  first
+    title2 = find_round_title2!( line )
 
     group_title, group_pos = find_group_title_and_pos!( line )
+
+    pos = find_round_pos!( line )
+
+    title = find_round_title!( line )
+
+    ## NB: use extracted round title for knockout check
+    @knockout_flag = is_knockout_round?( title )
+
 
     if group_pos.present?
       @group = Group.find_by_event_id_and_pos!( @event.id, group_pos )
@@ -491,12 +502,14 @@ private
         
     ## NB: dummy/placeholder start_at, end_at date
     ##  replace/patch after adding all games for round
-        
+
     round_attribs = {
-      title: "#{pos}. Runde"
+      title:  title,
+      title2: title2,
+      knockout: @knockout_flag
     }
 
-        
+
     @round = Round.find_by_event_id_and_pos( @event.id, pos )
     if @round.present?
       logger.debug "update round #{@round.id}:"

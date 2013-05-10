@@ -27,6 +27,50 @@ class Team < ActiveRecord::Base
   belongs_to :city,    :class_name => 'WorldDb::Models::City',    :foreign_key => 'city_id'
 
 
+
+  def self.create_or_update_from_values( new_attributes, values )
+
+    ## fix: add/configure logger for ActiveRecord!!!
+    logger = LogKernel::Logger.root
+
+    ## check optional values
+    values.each_with_index do |value, index|
+      if value =~ /^city:/   ## city:
+        value_city_key = value[5..-1]  ## cut off city: prefix
+        value_city = City.find_by_key( value_city_key )
+        if value_city.present?
+          new_attributes[ :city_id ] = value_city.id
+        else
+          ## todo/fix: add strict mode flag - fail w/ exit 1 in strict mode
+          logger.warn "city with key #{value_city_key} missing"
+          ## todo: log errors to db log??? 
+        end
+      elsif value =~ /^[A-Z][A-Z0-9][A-Z0-9_]?$/   ## assume two or three-letter code e.g. FCB, RBS, etc.
+        new_attributes[ :code ] = value
+      elsif value =~ /^[a-z]{2}$/  ## assume two-letter country key e.g. at,de,mx,etc.
+        value_country = Country.find_by_key!( value )
+        new_attributes[ :country_id ] = value_country.id
+      else
+        ## todo: assume title2 ??
+        # issue warning: unknown type for value
+        logger.warn "unknown type for value >#{value}< - key #{new_attributes[:key]}"
+      end
+    end
+
+    rec = Team.find_by_key( new_attributes[ :key ] )
+    if rec.present?
+      logger.debug "update Team #{rec.id}-#{rec.key}:"
+    else
+      logger.debug "create Team:"
+      rec = Team.new
+    end
+      
+    logger.debug new_attributes.to_json
+   
+    rec.update_attributes!( new_attributes )
+  end # create_or_update_from_values
+
+
   def self.create_from_ary!( teams, more_values={} )
     teams.each do |values|
       

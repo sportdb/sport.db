@@ -146,7 +146,9 @@ class Reader
 
     reader = ValuesReader.new( path, more_values )
 
-    load_leagues_worker( reader )
+    reader.each_line do |new_attributes, values|
+      League.create_or_update_from_values( new_attributes, values )
+    end # each lines
     
     Prop.create_from_fixture!( name, path )
      
@@ -159,6 +161,12 @@ class Reader
     logger.info "parsing data '#{name}' (#{path})..."
 
     reader = HashReader.new( path )
+
+####
+## fix!!!!!
+##   use Season.create_or_update_from_hash or similar
+##   use Season.create_or_update_from_hash_reader?? or similar
+#   move parsing code to model
 
     reader.each_typed do |key, value|
 
@@ -206,6 +214,12 @@ class Reader
     path = "#{include_path}/#{name}.yml"
 
     logger.info "parsing data '#{name}' (#{path})..."
+
+####
+## fix!!!!!
+##   use Event.create_or_update_from_hash or similar
+##   use Event.create_or_update_from_hash_reader?? or similar
+#   move parsing code to model
 
     reader = HashReader.new( path )
 
@@ -323,7 +337,9 @@ class Reader
 
     reader = ValuesReader.new( path, more_values )
 
-    load_teams_worker( reader )
+    reader.each_line do |new_attributes, values|
+      Team.create_or_update_from_values( new_attributes, valus )
+    end # each lines
     
     Prop.create_from_fixture!( name, path )
   end # load_teams
@@ -331,86 +347,6 @@ class Reader
 private
 
   include SportDB::FixtureHelpers
-
-  def load_leagues_worker( reader )
-
-    reader.each_line do |attribs, values|
-
-      ## check optional values
-      values.each_with_index do |value, index|
-        if value =~ /^club$/   # club flag
-          attribs[ :club ] = true
-        elsif value =~ /^[a-z]{2}$/  ## assume two-letter country key e.g. at,de,mx,etc.
-          value_country = Country.find_by_key!( value )
-          attribs[ :country_id ] = value_country.id
-        else
-          ## todo: assume title2 ??
-          ## assume title2 if title2 is empty (not already in use)
-          ##  and if it title2 contains at least two letter e.g. [a-zA-Z].*[a-zA-Z]
-          # issue warning: unknown type for value
-          logger.warn "unknown type for value >#{value}<"
-        end
-      end
-
-      rec = League.find_by_key( attribs[ :key ] )
-      if rec.present?
-        logger.debug "update League #{rec.id}-#{rec.key}:"
-      else
-        logger.debug "create League:"
-        rec = League.new
-      end
-      
-      logger.debug attribs.to_json
-   
-      rec.update_attributes!( attribs )
-
-    end # each lines
-
-  end # load_leagues_worker
-
-
-  def load_teams_worker( reader )
- 
-    reader.each_line do |attribs, values|
-
-      ## check optional values
-      values.each_with_index do |value, index|
-        if value =~ /^city:/   ## city:
-          value_city_key = value[5..-1]  ## cut off city: prefix
-          value_city = City.find_by_key( value_city_key )
-          if value_city.present?
-            attribs[ :city_id ] = value_city.id
-          else
-            ## todo/fix: add strict mode flag - fail w/ exit 1 in strict mode
-            logger.warn "city with key #{value_city_key} missing"
-            ## todo: log errors to db log??? 
-          end
-        elsif value =~ /^[A-Z][A-Z0-9][A-Z0-9_]?$/   ## assume two or three-letter code e.g. FCB, RBS, etc.
-          attribs[ :code ] = value
-        elsif value =~ /^[a-z]{2}$/  ## assume two-letter country key e.g. at,de,mx,etc.
-          value_country = Country.find_by_key!( value )
-          attribs[ :country_id ] = value_country.id
-        else
-          ## todo: assume title2 ??
-          # issue warning: unknown type for value
-          logger.warn "unknown type for value >#{value}<"
-        end
-      end
-
-      rec = Team.find_by_key( attribs[ :key ] )
-      if rec.present?
-        logger.debug "update Team #{rec.id}-#{rec.key}:"
-      else
-        logger.debug "create Team:"
-        rec = Team.new
-      end
-      
-      logger.debug attribs.to_json
-   
-      rec.update_attributes!( attribs )
-
-    end # each lines
-  end # method load_teams_worker
 
   def load_fixtures_worker( event_key, reader )
    

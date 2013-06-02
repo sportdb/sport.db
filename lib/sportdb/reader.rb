@@ -83,8 +83,12 @@ class Reader
         ## assume single fixture name
         name = rec
         
-        if name  =~ /^circuits/
+        if name  =~ /^circuits/  # e.g. circuits.txt in formula1.db
           load_tracks( name )
+        elsif name =~ /^drivers/ # e.g. drivers.txt in formula1.db
+          load_persons( name )
+        elsif name =~ /^teams/   # e.g. teams.txt in formula1.db
+          load_teams( name )
         elsif name =~ /^seasons/
           load_seasons( name )
         elsif name =~ /^leagues/
@@ -172,6 +176,25 @@ class Reader
     Prop.create_from_fixture!( name, path )
 
   end # load_tracks
+
+
+
+  def load_persons( name, more_values={} )
+
+    path = "#{include_path}/#{name}.txt"
+
+    logger.info "parsing data '#{name}' (#{path})..."
+
+    reader = ValuesReader.new( path, more_values )
+
+    reader.each_line do |new_attributes, values|
+      Person.create_or_update_from_values( new_attributes, values )
+    end # each lines
+    
+    Prop.create_from_fixture!( name, path )
+
+  end # load_persons
+
 
 
   def load_seasons( name )

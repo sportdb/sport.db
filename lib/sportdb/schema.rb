@@ -23,18 +23,26 @@ end
 add_index :teams, :key, :unique => true
 
 
-create_table :players do |t|
+create_table :persons do |t|    # use people ? instead of persons (person/persons makes it easier?)
   t.string      :key,      :null => false   # import/export key
   t.string      :name,     :null => false
   t.string      :synonyms  # comma separated list of synonyms
 
+  ## todo: add gender flag (male/female -man/lady  how?)
   t.date        :born_at     # optional date of birth (birthday)
-  t.references  :country,   :null => false
+  ## todo: add country of birth  might not be the same as nationality
+
+  t.references  :city
+  t.references  :region
+  t.references  :country,   :null => false   # use for nationality? or rename to nationality?
+
+
   t.timestamps
 end
 
+# join table: person+game(team1+team2+event(season+league))
 create_table :goals do |t|
-  t.references  :player,   :null => false
+  t.references  :person,   :null => false
   t.references  :game,     :null => false
   t.integer   :minute
   t.integer   :offset    # e.g. 45' +3 or 90' +2
@@ -45,6 +53,38 @@ create_table :goals do |t|
   t.boolean   :penalty,   :null => false, :default => false
   t.boolean   :owngoal,   :null => false, :default => false  # de: Eigentor -> # todo: find better name?
 
+  t.timestamps
+end
+
+
+create_table :tracks do |t|    # e.g. Formula 1 circuits or Apline Ski resorts/slops/pistes
+  t.string      :key,      :null => false   # import/export key
+  t.string      :name,     :null => false
+  t.string      :synonyms  # comma separated list of synonyms
+
+  t.references  :city
+  t.references  :region
+  t.references  :country,   :null => false
+  t.timestamps
+end
+
+
+# join table -> event(season+league)+track
+create_table :races do |t|     # e.g. Formula 1 race (Grand Prix Monaco) or Alpine Ski race (Downhill Lake Louise)
+  t.references :track
+  t.references :event
+  t.integer    :pos,      :null => false   # Race #1,#2,#3,#4 etc.
+  
+  t.datetime   :start_at
+  t.timestamps
+end
+
+# join table -> person+team+event(season+league)
+create_table :rosters do |t|   # use squads as an alternative name? why? why not??
+  t.references :person
+  t.references :team
+  t.references :event
+  t.integer    :pos,      :null => false
   t.timestamps
 end
 

@@ -10,7 +10,8 @@ module SportDb
     def run
       # for now delete all tables
       
-      Team.delete_all
+      Goal.delete_all
+
       Game.delete_all
       Event.delete_all
       EventTeam.delete_all
@@ -18,6 +19,14 @@ module SportDb
       GroupTeam.delete_all
       Round.delete_all
       Badge.delete_all
+      
+      Race.delete_all
+      Roster.delete_all
+
+      Track.delete_all
+      Person.delete_all
+      Team.delete_all
+      
       League.delete_all
       Season.delete_all
     end

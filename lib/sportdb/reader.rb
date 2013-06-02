@@ -83,7 +83,9 @@ class Reader
         ## assume single fixture name
         name = rec
         
-        if name =~ /^seasons/
+        if name  =~ /^circuits/
+          load_tracks( name )
+        elsif name =~ /^seasons/
           load_seasons( name )
         elsif name =~ /^leagues/
           if name =~ /club/
@@ -153,6 +155,23 @@ class Reader
     Prop.create_from_fixture!( name, path )
      
   end # load_leagues
+
+
+  def load_tracks( name, more_values={} )
+
+    path = "#{include_path}/#{name}.txt"
+
+    logger.info "parsing data '#{name}' (#{path})..."
+
+    reader = ValuesReader.new( path, more_values )
+
+    reader.each_line do |new_attributes, values|
+      Track.create_or_update_from_values( new_attributes, values )
+    end # each lines
+    
+    Prop.create_from_fixture!( name, path )
+
+  end # load_tracks
 
 
   def load_seasons( name )

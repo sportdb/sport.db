@@ -1,11 +1,11 @@
 module SportDb::Models
 
 
-class Player < ActiveRecord::Base
+class Person < ActiveRecord::Base
 
   has_many :goals
 
-end  # class Player
+end  # class Person
 
 
 end # module SportDb::Models

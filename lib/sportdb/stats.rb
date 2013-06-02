@@ -6,12 +6,17 @@ module SportDb
 
     def tables
       puts "Stats:"
-      puts "  #{Event.count} events  /  #{Round.count} rounds  /  #{Group.count} groups"
       puts "  #{League.count} leagues  /  #{Season.count} seasons"
-      puts "  #{Country.count} countries / #{Region.count} regions / #{City.count} cities"
+      puts "  #{Event.count} events (league+season recs)  /  #{Round.count} rounds  /  #{Group.count} groups"
       puts "  #{Team.count} teams"
       puts "  #{Game.count} games"
       puts "  #{Badge.count} badges"
+
+      puts "  #{Track.count} tracks / #{Race.count} races (track+event recs)"
+      puts "  #{Person.count} persons / #{Roster.count} rosters (person+team+event recs)"
+      puts "  #{Goal.count} goals (person+game recs)"
+
+      puts "  #{Country.count} countries / #{Region.count} regions / #{City.count} cities"
       
       ## todo: add tags / taggings from worlddb
     end

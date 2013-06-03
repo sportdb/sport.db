@@ -34,8 +34,9 @@ create_table :persons do |t|    # use people ? instead of persons (person/person
 
   t.references  :city
   t.references  :region
-  t.references  :country,   :null => false   # use for nationality? or rename to nationality?
+  t.references  :country,   :null => false
 
+  t.references  :nationality, :null => false  # by default assume same as country of birth (see above)
 
   t.timestamps
 end
@@ -59,7 +60,7 @@ end
 
 create_table :tracks do |t|    # e.g. Formula 1 circuits or Apline Ski resorts/slops/pistes
   t.string      :key,      :null => false   # import/export key
-  t.string      :name,     :null => false
+  t.string      :title,     :null => false
   t.string      :synonyms  # comma separated list of synonyms
 
   t.references  :city

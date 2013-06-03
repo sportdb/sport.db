@@ -2,10 +2,20 @@ module SportDb::Models
 
 
 class Person < ActiveRecord::Base
+  self.table_name = 'persons'  #  avoids possible "smart" plural inflection to people
 
   has_many :goals
 
   belongs_to :country, :class_name => 'WorldDb::Models::Country', :foreign_key => 'country_id'
+
+
+  def title    # alias for name
+    name
+  end
+
+  def title=(value)  # alias for name
+    self.name = value
+  end
 
 
   def self.create_or_update_from_values( new_attributes, values )
@@ -25,6 +35,11 @@ class Person < ActiveRecord::Base
         # issue warning: unknown type for value
         logger.warn "unknown type for value >#{value}< - key #{new_attributes[:key]}"
       end
+    end
+
+    ## quick hack: set nationality_id if not present to country_id
+    if new_attributes[ :nationality_id ].blank?
+      new_attributes[ :nationality_id ] = new_attributes[ :country_id ]
     end
 
     rec = Person.find_by_key( new_attributes[ :key ] )

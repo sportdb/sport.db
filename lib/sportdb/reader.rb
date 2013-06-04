@@ -380,7 +380,7 @@ class Reader
     reader = ValuesReader.new( path, more_values )
 
     reader.each_line do |new_attributes, values|
-      Team.create_or_update_from_values( new_attributes, valus )
+      Team.create_or_update_from_values( new_attributes, values )
     end # each lines
     
     Prop.create_from_fixture!( name, path )

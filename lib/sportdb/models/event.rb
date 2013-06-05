@@ -32,13 +32,20 @@ class Event < ActiveRecord::Base
   def title
     league.title
   end
-  
+
   def full_title   # includes season (e.g. year)
     "#{league.title} #{season.title}"
   end
-  
+
+
   #####################
   ## convenience helper for text parser/reader
+
+  ###
+  ## fix: use/add  to_teams_table( rec )  for reuse
+  #
+  ##  @known_teams = @event.known_teams_table
+
 
   def known_teams_table
     

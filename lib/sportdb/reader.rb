@@ -91,6 +91,10 @@ class Reader
           load_teams( name )
         elsif name =~ /\/races/  # e.g. 2013/races.txt in formula1.db
           load_races( name )
+        elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
+          load_rosters( name )
+        elsif name =~ /\/([0-9]{2})-/
+          load_records( name ) # e.g. 2013/04-gp-monaco.txt in formula1.db
         elsif name =~ /^seasons/
           load_seasons( name )
         elsif name =~ /^leagues/
@@ -372,6 +376,95 @@ class Reader
 
     Prop.create_from_fixture!( name, path )
   end
+
+
+
+  def load_records( name )
+    path = "#{include_path}/#{name}.txt"
+
+    logger.info "parsing data '#{name}' (#{path})..."
+
+    ### SportDB.lang.lang = LangChecker.new.analyze( name, include_path )
+
+    reader = LineReader.new( path )
+
+    ## for now: use all tracks (later filter/scope by event)
+    # @known_tracks = Track.known_tracks_table
+
+    ## fix: add @known_teams  - for now; use teams (not scoped by event)
+
+    load_records_worker( reader )
+
+    Prop.create_from_fixture!( name, path )
+  end
+
+  def load_records_worker( reader )
+
+    reader.each_line do |line|
+      logger.debug "  line: >#{line}<"
+
+      ### fix: use new find_leading_pos!
+      # pos = find_game_pos!( line )  # alias -> rename to find_pos! or better use find_leading_pos!( line )
+
+      # match_person!( line )
+
+      # match_teams!( line )
+
+      record_attribs = {
+      #  pos:  pos,
+      #  team_key: team_key   # fix: use team_id
+      }
+
+      pp record_attribs
+    end # lines.each
+
+  end # method load_record_worker
+
+
+
+  def load_rosters( name )
+    path = "#{include_path}/#{name}.txt"
+
+    logger.info "parsing data '#{name}' (#{path})..."
+
+    ### SportDB.lang.lang = LangChecker.new.analyze( name, include_path )
+
+    reader = LineReader.new( path )
+
+    ## for now: use all tracks (later filter/scope by event)
+    # @known_tracks = Track.known_tracks_table
+
+    ## fix: add @known_teams  - for now; use teams (not scoped by event)
+
+    load_rosters_worker( reader )
+
+    Prop.create_from_fixture!( name, path )
+  
+  end
+
+  def load_rosters_worker( reader )
+
+    reader.each_line do |line|
+      logger.debug "  line: >#{line}<"
+
+      ### fix: use new find_leading_pos!
+      pos = find_game_pos!( line )  # alias -> rename to find_pos! or better use find_leading_pos!( line )
+
+      # match_person!( line )
+
+      # match_teams!( line )
+
+      roster_attribs = {
+        pos:  pos,
+      #  team_key: team_key   # fix: use team_id
+      }
+
+      pp roster_attribs
+    end # lines.each
+
+  end # method load_rosters_worker
+
+
 
   def load_races( name )
     path = "#{include_path}/#{name}.txt"

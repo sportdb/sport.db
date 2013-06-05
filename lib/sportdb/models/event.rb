@@ -61,7 +61,7 @@ class Event < ActiveRecord::Base
       titles = titles.sort { |left,right| right.length <=> left.length }
       
       ## escape for regex plus allow subs for special chars/accents
-      titles = titles.map { |title| title_esc_regex( title )  }
+      titles = titles.map { |title| TextUtils.title_esc_regex( title )  }
       
       titles << team.code                  if team.code.present?
       titles << team.key

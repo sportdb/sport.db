@@ -89,6 +89,8 @@ class Reader
           load_persons( name )
         elsif name =~ /^teams/   # e.g. teams.txt in formula1.db
           load_teams( name )
+        elsif name =~ /\/races/  # e.g. 2013/races.txt in formula1.db
+          load_races( name )
         elsif name =~ /^seasons/
           load_seasons( name )
         elsif name =~ /^leagues/
@@ -370,6 +372,47 @@ class Reader
 
     Prop.create_from_fixture!( name, path )
   end
+
+  def load_races( name )
+    path = "#{include_path}/#{name}.txt"
+
+    logger.info "parsing data '#{name}' (#{path})..."
+    
+    ### SportDB.lang.lang = LangChecker.new.analyze( name, include_path )
+
+    reader = LineReader.new( path )
+    
+    ## for now: use all tracks (later filter/scope by event)
+    @known_tracks = Track.known_tracks_table
+    
+    load_races_worker( reader )
+
+    Prop.create_from_fixture!( name, path )
+  
+  end
+
+  def load_races_worker( reader )
+
+    reader.each_line do |line|
+      logger.debug "  line: >#{line}<"
+
+      ### fix: use new find_leading_pos!
+      pos = find_game_pos!( line )  # alias -> rename to find_pos! or better use find_leading_pos!( line )
+
+      match_track!( line )
+      track_key = find_track!( line )
+      date      = find_date!( line )
+      
+      race_attribs = {
+        pos:  pos,
+        track_key: track_key,   # fix: use track_id
+        start_at:  date
+      }
+
+      pp race_attribs
+    end # lines.each
+
+  end # method load_races_worker
 
 
   def load_teams( name, more_values={} )

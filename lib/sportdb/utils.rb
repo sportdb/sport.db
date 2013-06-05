@@ -350,7 +350,52 @@ module SportDb::FixtureHelpers
       values = rec[1]
       match_team_worker!( line, key, values )
     end # each known_teams    
-  end # method translate_teams!
-  
+  end # method match_teams!
+
+
+
+
+
+  def find_track!( line )
+    regex = /@@oo([^@]+?)oo@@/     # e.g. everything in @@ .... @@ (use non-greedy +? plus all chars but not @, that is [^@])
+
+    if line =~ regex
+      value = "#{$1}"
+      logger.debug "   track#{index}: >#{value}<"
+      
+      line.sub!( regex, "[TRACK]" )
+
+      return $1
+    else
+      return nil
+    end
+  end
+
+  def match_track_worker!( line, key, values )
+    values.each do |value|
+      ## nb: \b does NOT include space or newline for word boundry (only alphanums e.g. a-z0-9)
+      ## (thus add it, allows match for Benfica Lis.  for example - note . at the end)
+
+      ## check add $ e.g. (\b| |\t|$) does this work? - check w/ Benfica Lis.$
+      regex = /\b#{value}(\b| |\t|$)/   # wrap with world boundry (e.g. match only whole words e.g. not wac in wacker) 
+      if line =~ regex
+        logger.debug "     match for track >#{key}< >#{value}<"
+        # make sure @@oo{key}oo@@ doesn't match itself with other key e.g. wacker, wac, etc.
+        line.sub!( regex, "@@oo#{key}oo@@ " )    # NB: add one space char at end
+        return true    # break out after first match (do NOT continue)
+      end
+    end
+    return false
+  end
+
+  ## todo/fix: pass in known_tracks as a parameter? why? why not?
+  def match_track!( line )
+    @known_tracks.each do |rec|
+      key    = rec[0]
+      values = rec[1]
+      match_track_worker!( line, key, values )
+    end # each known_tracks
+  end # method match_tracks!
+
 
 end # module SportDb::FixtureHelpers

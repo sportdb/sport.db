@@ -14,14 +14,22 @@ require 'yaml'
 
 ## shortcuts for models
 
-Event   = SportDb::Models::Event
-Team    = SportDb::Models::Team
-Game    = SportDb::Models::Game
-Group   = SportDb::Models::Group
-Round   = SportDb::Models::Round
-Season  = SportDb::Models::Season
-League  = SportDb::Models::League
 Badge   = SportDb::Models::Badge
+Event   = SportDb::Models::Event
+Game    = SportDb::Models::Game
+Goal    = SportDb::Models::Goal
+Group   = SportDb::Models::Group
+League  = SportDb::Models::League
+Person  = SportDb::Models::Person
+Race    = SportDb::Models::Race
+Record  = SportDb::Models::Record
+Roster  = SportDb::Models::Roster
+Round   = SportDb::Models::Round
+Run     = SportDb::Models::Run
+Season  = SportDb::Models::Season
+Team    = SportDb::Models::Team
+Track   = SportDb::Models::Track
+
 
 Tag       = WorldDb::Models::Tag
 Tagging   = WorldDb::Models::Tagging

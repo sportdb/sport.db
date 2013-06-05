@@ -11,6 +11,7 @@ module SportDb
       # for now delete all tables
       
       Goal.delete_all
+      Record.delete_all
 
       Game.delete_all
       Event.delete_all
@@ -19,7 +20,8 @@ module SportDb
       GroupTeam.delete_all
       Round.delete_all
       Badge.delete_all
-      
+
+      Run.delete_all
       Race.delete_all
       Roster.delete_all
 

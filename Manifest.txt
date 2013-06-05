@@ -31,9 +31,11 @@ lib/sportdb/models/league.rb
 lib/sportdb/models/person.rb
 lib/sportdb/models/prop.rb
 lib/sportdb/models/race.rb
+lib/sportdb/models/record.rb
 lib/sportdb/models/region.rb
 lib/sportdb/models/roster.rb
 lib/sportdb/models/round.rb
+lib/sportdb/models/run.rb
 lib/sportdb/models/season.rb
 lib/sportdb/models/team.rb
 lib/sportdb/models/track.rb

@@ -12,7 +12,8 @@ module SportDb
       puts "  #{Game.count} games"
       puts "  #{Badge.count} badges"
 
-      puts "  #{Track.count} tracks / #{Race.count} races (track+event recs)"
+      puts "  #{Track.count} tracks / #{Race.count} races (track+event recs) / #{Run.count} runs"
+      puts "  #{Record.count} records (race|run+person recs)"
       puts "  #{Person.count} persons / #{Roster.count} rosters (person+team+event recs)"
       puts "  #{Goal.count} goals (person+game recs)"
 

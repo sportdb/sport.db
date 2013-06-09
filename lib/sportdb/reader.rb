@@ -461,11 +461,15 @@ class Reader
     # @known_tracks = Track.known_tracks_table
 
     ## fix: add @known_teams  - for now; use teams (not scoped by event)
+    ## for now use all teams
+    @known_teams   = TextUtils.build_title_table_for( Team.all )
+    ## and for now use all persons
+    @known_persons = TextUtils.build_title_table_for( Person.all )
+
 
     load_rosters_worker( reader )
 
-    Prop.create_from_fixture!( name, path )
-  
+    Prop.create_from_fixture!( name, path )  
   end
 
   def load_rosters_worker( reader )
@@ -473,19 +477,36 @@ class Reader
     reader.each_line do |line|
       logger.debug "  line: >#{line}<"
 
-      ### fix: use new find_leading_pos!
-      pos = find_game_pos!( line )  # alias -> rename to find_pos! or better use find_leading_pos!( line )
+      pos = find_leading_pos!( line )
 
-      # match_person!( line )
+      map_team!( line )
+      team_key = find_team!( line )
+      team = Team.find_by_key!( team_key )
 
-      # match_teams!( line )
+      map_person!( line )
+      person_key = find_person!( line )
+      person = Person.find_by_key!( person_key )
+
+      ### check if roster record exists
+      roster = Roster.find_by_event_id_and_team_id_and_person_id( @event.id, team.id, person.id )
+
+      if roster.present?
+        logger.debug "update Roster #{roster.id}:"
+      else
+        logger.debug "create Roster:"
+        roster = Roster.new
+      end
 
       roster_attribs = {
-        pos:  pos,
-      #  team_key: team_key   # fix: use team_id
+        pos:       pos,
+        team_id:   team.id,
+        person_id: person.id,
+        event_id:  @event.id   # NB: reuse/fallthrough from races - make sure load_races goes first (to setup event)
       }
 
-      pp roster_attribs
+      logger.debug roster_attribs.to_json
+
+      roster.update_attributes!( roster_attribs )
     end # lines.each
 
   end # method load_rosters_worker

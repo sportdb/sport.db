@@ -306,8 +306,12 @@ module SportDb::FixtureHelpers
 
 
 
-  def find_teams!( line )
+  def find_teams!( line ) # NB: returns an array - note: plural! (teamsss)
     TextUtils.find_keys_for!( 'team', line )
+  end
+  
+  def find_team!( line )  # NB: returns key (string or nil)
+    TextUtils.find_key_for!( 'team', line )
   end
 
   ## todo: check if find_team1 gets used?  if not remove it!!  use find_teams!
@@ -324,6 +328,10 @@ module SportDb::FixtureHelpers
   def map_teams!( line )
     TextUtils.map_titles_for!( 'team', line, @known_teams )
   end
+  
+  def map_team!( line )  # alias map_teams!
+    map_teams!( line )
+  end
 
   def find_track!( line )
     TextUtils.find_key_for!( 'track', line )
@@ -333,6 +341,15 @@ module SportDb::FixtureHelpers
   def map_track!( line )
     TextUtils.map_titles_for!( 'track', line, @known_tracks )
   end
+
+  def find_person!( line )
+    TextUtils.find_key_for!( 'person', line )
+  end
+
+  def map_person!( line )
+    TextUtils.map_titles_for!( 'person', line, @known_persons)
+  end
+
 
 
   ## depreciated methods - use map_

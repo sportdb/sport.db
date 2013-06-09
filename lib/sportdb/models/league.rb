@@ -34,6 +34,8 @@ class League < ActiveRecord::Base
       end
     end
 
+    logger.debug " find league key: #{new_attributes[ :key ]}"
+
     rec = League.find_by_key( new_attributes[ :key ] )
     if rec.present?
       logger.debug "update League #{rec.id}-#{rec.key}:"

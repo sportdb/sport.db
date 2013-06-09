@@ -211,6 +211,7 @@ class Reader
         value.each do |item|
           season_attribs = {}
           
+          logger.debug "  find season key: #{item.to_s.strip}"
           season = Season.find_by_key( item.to_s.strip )
 
           ## check if it exists
@@ -352,7 +353,12 @@ class Reader
   
     end # each key,value
 
-    event = Event.find_by_league_id_and_season_id( event_attribs['league_id'], event_attribs['season_id'])
+    league_id = event_attribs['league_id']
+    season_id = event_attribs['season_id']
+
+    logger.debug "find event - league_id: #{league_id}, season_id: #{season_id}"
+
+    event = Event.find_by_league_id_and_season_id( league_id, season_id )
 
     ## check if it exists
     if event.present?

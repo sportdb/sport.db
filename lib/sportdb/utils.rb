@@ -162,15 +162,21 @@ module SportDb::FixtureHelpers
     #  nb: allow 2.3.2012 e.g. no leading zero required
     #  nb: allow hour as 20.30  or 3.30 instead of 03.30
     regex_de = /\b(\d{1,2})\.(\d{1,2})\.\s+(\d{1,2})[:.](\d{2})\b/
-    
+
     # e.g. 14.09.2012 20:30   => DD.MM.YYYY HH:MM
     #  nb: allow 2.3.2012 e.g. no leading zero required
     #  nb: allow hour as 20.30
     regex_de2 = /\b(\d{1,2})\.(\d{1,2})\.(\d{4})\s+(\d{1,2})[:.](\d{2})\b/
 
 
+    month_abbrev_en = "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec"
+
+    # e.g. 12 May 2013 14:00  => D|DD.MMM.YYYY H|HH:MM
+    regex_en = /\b(\d{1,2})\s(#{month_abbrev_en})\s(\d{4})\s+(\d{1,2}):(\d{2})\b/
+
+
     if line =~ regex_db
-      value = "#{$1}-#{$2}-#{$3} #{$4}:#{$5}"
+      value = '%d-%02d-%02d %02d:%02d' % [$1, $2, $3, $4, $5]
       logger.debug "   date: >#{value}<"
 
       ## todo: lets you configure year
@@ -180,14 +186,14 @@ module SportDb::FixtureHelpers
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     elsif line =~ regex_db2
-      value = "#{$1}-#{$2}-#{$3} 12:00"
+      value = '%d-%02d-%02d 12:00' % [$1, $2, $3]
       logger.debug "   date: >#{value}<"
-      
+
       line.sub!( regex_db2, '[DATE.DB2]' )
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     elsif line =~ regex_de2
-      value = "#{$3}-#{$2}-#{$1} #{$4}:#{$5}"
+      value = '%d-%02d-%02d %02d:%02d' % [$3, $2, $1, $4, $5]
       logger.debug "   date: >#{value}<"
 
       ## todo: lets you configure year
@@ -201,8 +207,8 @@ module SportDb::FixtureHelpers
       #### fix/todo:
       #  get year from event start date!!!!
       #  do NOT hard code!!!!
-      
-      value = "2012-#{$2}-#{$1} #{$3}:#{$4}"
+
+      value = '2012-%02d-%02d %02d:%02d' % [$2, $1, $3, $4]
       logger.debug "   date: >#{value}<"
 
       ## todo: lets you configure year
@@ -211,6 +217,13 @@ module SportDb::FixtureHelpers
       line.sub!( regex_de, '[DATE.DE]' )
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
+    elsif line =~ regex_en
+      value = '%d-%s-%02d %02d:%02d' % [$3, $2, $1, $4, $5]
+      logger.debug "   date: >#{value}<"
+
+      line.sub!( regex_en, '[DATE.EN]' )
+
+      return DateTime.strptime( value, '%Y-%b-%d %H:%M' )   ## %b - abbreviated month name (e.g. Jan,Feb, etc.)
     else
       return nil
     end

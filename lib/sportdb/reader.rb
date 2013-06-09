@@ -187,7 +187,11 @@ class Reader
 
   def load_seasons( name )
 
-    reader = HashReaderV2.new( name, include_path )
+    path = "#{include_path}/#{name}.yml"
+
+    logger.info "parsing data '#{name}' (#{path})..."
+
+    reader = HashReader.new( path )
 
 ####
 ## fix!!!!!
@@ -231,8 +235,46 @@ class Reader
   
     end # each key,value
 
+    Prop.create_from_fixture!( name, path )
+
   end  # load_seasons
 
+
+  def fetch_event( name )
+    # get/fetch/find event from yml file
+
+    path = "#{include_path}/#{name}.yml"
+
+    logger.info "parsing data '#{name}' (#{path})..."
+
+
+    ## todo/fix: use h = HashFile.load( path ) or similar instead of HashReader!!
+
+    reader = HashReader.new( path )
+
+    event_attribs = {}
+
+    reader.each_typed do |key, value|
+
+      ## puts "processing event attrib >>#{key}<< >>#{value}<<..."
+
+      if key == 'league'
+        league = League.find_by_key!( value.to_s.strip )
+        event_attribs[ 'league_id' ] = league.id
+      elsif key == 'season'
+        season = Season.find_by_key!( value.to_s.strip )
+        event_attribs[ 'season_id' ] = season.id
+      else
+        # skip; do nothing
+      end
+    end # each key,value
+
+    league_id = event_attribs['league_id']
+    season_id = event_attribs['season_id']
+    
+    event = Event.find_by_league_id_and_season_id!( league_id, season_id )
+    event
+  end
 
 
   def load_event( name )
@@ -243,7 +285,11 @@ class Reader
 ##   use Event.create_or_update_from_hash_reader?? or similar
 #   move parsing code to model
 
-    reader = HashReaderV2.new( name, include_path )
+    path = "#{include_path}/#{name}.yml"
+
+    logger.info "parsing data '#{name}' (#{path})..."
+
+    reader = HashReader.new( path )
 
     event_attribs = {}
 
@@ -319,6 +365,8 @@ class Reader
     logger.debug event_attribs.to_json
     
     event.update_attributes!( event_attribs )
+
+    Prop.create_from_fixture!( name, path )
 
   end  # load_event
 
@@ -439,6 +487,11 @@ class Reader
 
 
   def load_races( name )
+    load_event( name )   # must have .yml file with same name for event definition
+    @event = fetch_event( name )
+
+    logger.info "  event: #{@event.key} >>#{@event.full_title}<<"
+
     path = "#{include_path}/#{name}.txt"
 
     logger.info "parsing data '#{name}' (#{path})..."
@@ -453,8 +506,8 @@ class Reader
     load_races_worker( reader )
 
     Prop.create_from_fixture!( name, path )
-  
   end
+
 
   def load_races_worker( reader )
 
@@ -465,15 +518,31 @@ class Reader
 
       map_track!( line )
       track_key = find_track!( line )
+      track = Track.find_by_key!( track_key )
+
       date      = find_date!( line )
-      
+
+
+      ### check if games exists
+      race = Race.find_by_event_id_and_track_id( @event.id, track.id )
+
+      if race.present?
+        logger.debug "update race #{race.id}:"
+      else
+        logger.debug "create race:"
+        race = Race.new
+      end
+          
       race_attribs = {
-        pos:  pos,
-        track_key: track_key,   # fix: use track_id
-        start_at:  date
+        pos:      pos,
+        track_id: track.id,
+        start_at:  date,
+        event_id:  @event.id
       }
 
-      pp race_attribs
+      logger.debug race_attribs.to_json
+
+      race.update_attributes!( race_attribs )
     end # lines.each
 
   end # method load_races_worker

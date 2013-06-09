@@ -28,11 +28,13 @@ class Person < ActiveRecord::Base
       if value =~ /^[a-z]{2}$/  ## assume two-letter country key e.g. at,de,mx,etc.
         value_country = Country.find_by_key!( value )
         new_attributes[ :country_id ] = value_country.id
+      elsif value =~ /^[A-Z]{3}$/  ## assume three-letter code e.g. AUS, MAL, etc.
+        new_attributes[ :code ] = value
       elsif value =~ /^([0-9]{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s([0-9]{4})$/  ## assume birthday
         value_date_str = '%02d/%s/%d' % [$1, $2, $3]     ## move to matcher!!
-        puts "birthday #{value_date_str}"
         value_date = Date.strptime( value_date_str, '%d/%b/%Y' )  ## %b - abbreviated month name (e.g. Jan,Feb, etc.)
-        puts value_date
+        logger.debug "   birthday #{value_date_str}  -  #{value_date}"
+        new_attributes[ :born_at ] = value_date
         ## todo: convert to date
       else
         ## todo: assume title2 ??

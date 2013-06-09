@@ -27,6 +27,8 @@ class Track < ActiveRecord::Base
       if value =~ /^[a-z]{2}$/  ## assume two-letter country key e.g. at,de,mx,etc.
         value_country = Country.find_by_key!( value )
         new_attributes[ :country_id ] = value_country.id
+      elsif value =~ /^[A-Z]{3}$/  ## assume three-letter code e.g. AUS, MAL, etc.
+        new_attributes[ :code ] = value
       else
         ## todo: assume title2 ??
         ## assume title2 if title2 is empty (not already in use)

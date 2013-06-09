@@ -94,7 +94,10 @@ class Reader
         elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
           load_rosters( name )
         elsif name =~ /\/([0-9]{2})-/
-          load_records( name ) # e.g. 2013/04-gp-monaco.txt in formula1.db
+          race_pos = $1.to_i
+          # NB: assume @event is set from previous load 
+          race = Race.find_by_event_id_and_pos( @event.id, race_pos )
+          load_records( name, race_id: race.id ) # e.g. 2013/04-gp-monaco.txt in formula1.db
         elsif name =~ /^seasons/
           load_seasons( name )
         elsif name =~ /^leagues/
@@ -405,7 +408,7 @@ class Reader
 
 
 
-  def load_records( name )
+  def load_records( name, more_attribs={} )
     path = "#{include_path}/#{name}.txt"
 
     logger.info "parsing data '#{name}' (#{path})..."
@@ -418,30 +421,66 @@ class Reader
     # @known_tracks = Track.known_tracks_table
 
     ## fix: add @known_teams  - for now; use teams (not scoped by event)
+    @known_teams   = TextUtils.build_title_table_for( Team.all )
+    ## and for now use all persons
+    @known_persons = TextUtils.build_title_table_for( Person.all )
 
-    load_records_worker( reader )
+    load_records_worker( reader, more_attribs )
 
     Prop.create_from_fixture!( name, path )
   end
 
-  def load_records_worker( reader )
+  def load_records_worker( reader, more_attribs )
 
     reader.each_line do |line|
       logger.debug "  line: >#{line}<"
 
-      ### fix: use new find_leading_pos!
-      # pos = find_game_pos!( line )  # alias -> rename to find_pos! or better use find_leading_pos!( line )
+      cut_off_end_of_line_comment!( line )
 
-      # match_person!( line )
+      state = find_record_leading_state!( line )
 
-      # match_teams!( line )
+      map_team!( line )
+      team_key = find_team!( line )
+      team = Team.find_by_key!( team_key )
+
+      map_person!( line )
+      person_key = find_person!( line )
+      person = Person.find_by_key!( person_key )
+
+      timeline = find_record_timeline!( line )
+
+      laps  = find_record_laps!( line )
+      
+      comment = find_record_comment!( line )
+
+      logger.debug "  line2: >#{line}<"
 
       record_attribs = {
-      #  pos:  pos,
-      #  team_key: team_key   # fix: use team_id
+        state:  state,
+        ## team_id: team.id,   ## NB: not needed for db 
+        person_id: person.id,
+        timeline: timeline,
+        comment: comment,
+        laps: laps
       }
 
-      pp record_attribs
+      record_attribs = record_attribs.merge( more_attribs )
+
+      ### check if record exists
+      record = Record.find_by_race_id_and_person_id( record_attribs[ :race_id ],
+                                                     record_attribs[ :person_id ])
+
+      if record.present?
+        logger.debug "update Record #{record.id}:"
+      else
+        logger.debug "create Record:"
+        record = Record.new
+      end
+
+      logger.debug record_attribs.to_json
+
+      record.update_attributes!( record_attribs )
+
     end # lines.each
 
   end # method load_record_worker
@@ -477,6 +516,8 @@ class Reader
     reader.each_line do |line|
       logger.debug "  line: >#{line}<"
 
+      cut_off_end_of_line_comment!( line )
+
       pos = find_leading_pos!( line )
 
       map_team!( line )
@@ -486,6 +527,8 @@ class Reader
       map_person!( line )
       person_key = find_person!( line )
       person = Person.find_by_key!( person_key )
+
+      logger.debug "  line2: >#{line}<"
 
       ### check if roster record exists
       roster = Roster.find_by_event_id_and_team_id_and_person_id( @event.id, team.id, person.id )
@@ -541,6 +584,8 @@ class Reader
     reader.each_line do |line|
       logger.debug "  line: >#{line}<"
 
+      cut_off_end_of_line_comment!( line )
+
       pos = find_leading_pos!( line )
 
       map_track!( line )
@@ -549,6 +594,7 @@ class Reader
 
       date      = find_date!( line )
 
+      logger.debug "  line2: >#{line}<"
 
       ### check if games exists
       race = Race.find_by_event_id_and_track_id( @event.id, track.id )

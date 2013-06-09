@@ -3,6 +3,48 @@
 ### some utils moved to worldbdb/utils for reuse
 
 
+### fix: move to textutils??
+
+
+def build_match_table_for( recs )
+    ## build known tracks table w/ synonyms e.g.
+    #
+    # [[ 'wolfsbrug', [ 'VfL Wolfsburg' ]],
+    #  [ 'augsburg',  [ 'FC Augsburg', 'Augi2', 'Augi3' ]],
+    #  [ 'stuttgart', [ 'VfB Stuttgart' ]] ]
+ 
+    known_titles = []
+
+    recs.each_with_index do |rec,index|
+
+      titles = []
+      titles << rec.title
+      titles += rec.synonyms.split('|') if rec.synonyms.present?
+      
+      ## NB: sort here by length (largest goes first - best match)
+      #  exclude code and key (key should always go last)
+      titles = titles.sort { |left,right| right.length <=> left.length }
+      
+      ## escape for regex plus allow subs for special chars/accents
+      titles = titles.map { |title| TextUtils.title_esc_regex( title )  }
+
+      ## NB: only include code field - if defined
+      titles << rec.code          if rec.respond_to?(:code) && rec.code.present?
+
+      known_titles << [ rec.key, titles ]
+
+      ### fix:
+      ## plain logger
+
+      LogUtils::Logger.root.debug "  #{rec.class.name}[#{index+1}] #{rec.key} >#{titles.join('|')}<"
+    end
+
+    known_titles
+end
+
+
+
+
 module SportDb::FixtureHelpers
 
   def is_postponed?( line )

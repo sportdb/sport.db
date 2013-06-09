@@ -150,65 +150,44 @@ class Reader
   end # method load
 
 
-  def load_leagues( name, more_values={} )
-    
-    path = "#{include_path}/#{name}.txt"
+  def load_leagues( name, more_attribs={} )
 
-    logger.info "parsing data '#{name}' (#{path})..."
-
-    reader = ValuesReader.new( path, more_values )
+    reader = ValuesReaderV2.new( name, include_path, more_attribs )
 
     reader.each_line do |new_attributes, values|
       League.create_or_update_from_values( new_attributes, values )
     end # each lines
-    
-    Prop.create_from_fixture!( name, path )
-     
+
   end # load_leagues
 
 
-  def load_tracks( name, more_values={} )
+  def load_tracks( name, more_attribs={} )
 
-    path = "#{include_path}/#{name}.txt"
-
-    logger.info "parsing data '#{name}' (#{path})..."
-
-    reader = ValuesReader.new( path, more_values )
+    reader = ValuesReaderV2.new( name, include_path, more_attribs )
 
     reader.each_line do |new_attributes, values|
       Track.create_or_update_from_values( new_attributes, values )
     end # each lines
-    
-    Prop.create_from_fixture!( name, path )
 
   end # load_tracks
 
 
 
-  def load_persons( name, more_values={} )
+  def load_persons( name, more_attribs={} )
 
-    path = "#{include_path}/#{name}.txt"
-
-    logger.info "parsing data '#{name}' (#{path})..."
-
-    reader = ValuesReader.new( path, more_values )
+    reader = ValuesReaderV2.new( name, include_path, more_attribs )
 
     reader.each_line do |new_attributes, values|
       Person.create_or_update_from_values( new_attributes, values )
     end # each lines
-    
-    Prop.create_from_fixture!( name, path )
 
   end # load_persons
 
 
 
   def load_seasons( name )
-    path = "#{include_path}/#{name}.yml"
 
-    logger.info "parsing data '#{name}' (#{path})..."
-
-    reader = HashReader.new( path )
+    reader = HashReaderV2.new( name, include_path )
 
 ####
 ## fix!!!!!
@@ -251,17 +230,12 @@ class Reader
       end
   
     end # each key,value
-    
-    Prop.create_from_fixture!( name, path )
-  
+
   end  # load_seasons
 
 
 
   def load_event( name )
-    path = "#{include_path}/#{name}.yml"
-
-    logger.info "parsing data '#{name}' (#{path})..."
 
 ####
 ## fix!!!!!
@@ -269,7 +243,7 @@ class Reader
 ##   use Event.create_or_update_from_hash_reader?? or similar
 #   move parsing code to model
 
-    reader = HashReader.new( path )
+    reader = HashReaderV2.new( name, include_path )
 
     event_attribs = {}
 
@@ -345,9 +319,7 @@ class Reader
     logger.debug event_attribs.to_json
     
     event.update_attributes!( event_attribs )
-    
-    Prop.create_from_fixture!( name, path )
-  
+
   end  # load_event
 
 
@@ -508,18 +480,12 @@ class Reader
   end # method load_races_worker
 
 
-  def load_teams( name, more_values={} )
-    path = "#{include_path}/#{name}.txt"
-
-    logger.info "parsing data '#{name}' (#{path})..."
-
-    reader = ValuesReader.new( path, more_values )
+  def load_teams( name, more_attribs={} )
+    reader = ValuesReaderV2.new( name, include_path, more_attribs )
 
     reader.each_line do |new_attributes, values|
       Team.create_or_update_from_values( new_attributes, values )
     end # each lines
-    
-    Prop.create_from_fixture!( name, path )
   end # load_teams
 
 private

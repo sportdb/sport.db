@@ -48,40 +48,7 @@ class Event < ActiveRecord::Base
 
 
   def known_teams_table
-    
-    ## build known teams table w/ synonyms e.g.
-    #
-    # [[ 'wolfsbrug', [ 'VfL Wolfsburg' ]],
-    #  [ 'augsburg',  [ 'FC Augsburg', 'Augi2', 'Augi3' ]],
-    #  [ 'stuttgart', [ 'VfB Stuttgart' ]] ]
- 
-    known_teams = []
-     
-    teams.each_with_index do |team,index|
-
-      titles = []
-      titles << team.title
-      titles += team.synonyms.split('|') if team.synonyms.present?
-      
-      ## NB: sort here by length (largest goes first - best match)
-      #  exclude code and key (key should always go last)
-      titles = titles.sort { |left,right| right.length <=> left.length }
-      
-      ## escape for regex plus allow subs for special chars/accents
-      titles = titles.map { |title| TextUtils.title_esc_regex( title )  }
-      
-      titles << team.code                  if team.code.present?
-      titles << team.key
-            
-      known_teams << [ team.key, titles ]
-      
-      ### fix:
-      ## plain logger
-      
-      LogUtils::Logger.root.debug "  Team[#{index+1}] #{team.key} >#{titles.join('|')}<"
-    end
-    
-    known_teams
+    @known_teams_table ||= build_match_table_for( teams )
   end # method known_teams_table
 
 end # class Event

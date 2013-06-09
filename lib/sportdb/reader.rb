@@ -461,10 +461,9 @@ class Reader
     reader.each_line do |line|
       logger.debug "  line: >#{line}<"
 
-      ### fix: use new find_leading_pos!
-      pos = find_game_pos!( line )  # alias -> rename to find_pos! or better use find_leading_pos!( line )
+      pos = find_leading_pos!( line )
 
-      match_track!( line )
+      map_track!( line )
       track_key = find_track!( line )
       date      = find_date!( line )
       

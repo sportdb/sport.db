@@ -217,7 +217,7 @@ module SportDb::FixtureHelpers
   end
 
 
-  def find_game_pos!( line )
+  def find_leading_pos!( line )
     # extract optional game pos from line
     # and return it
     # NB: side effect - removes pos from line string
@@ -232,7 +232,11 @@ module SportDb::FixtureHelpers
     else
       return nil
     end
+  end
 
+  def find_game_pos!( line )
+    ## fix: add depreciation warning - remove - use find_leading_pos!
+    find_leading_pos!( line )
   end
 
   def find_scores!( line )
@@ -305,7 +309,7 @@ module SportDb::FixtureHelpers
   ## todo/fix: pass in known_teams as a parameter? why? why not?
 
   def map_teams!( line )
-    TextUtils.map_titles_for( 'team', line, @known_teams )
+    TextUtils.map_titles_for!( 'team', line, @known_teams )
   end
 
   def find_track!( line )
@@ -314,7 +318,7 @@ module SportDb::FixtureHelpers
 
   ## todo/fix: pass in known_tracks as a parameter? why? why not?
   def map_track!( line )
-    TextUtils.map_titles_for( 'track', line, @known_tracks )
+    TextUtils.map_titles_for!( 'track', line, @known_tracks )
   end
 
 

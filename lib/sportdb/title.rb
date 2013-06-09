@@ -24,10 +24,26 @@ def build_title_table_for( records )
 
     records.each_with_index do |rec,index|
 
+      title_candidates = []
+      title_candidates << rec.title
+
+      title_candidates += rec.synonyms.split('|') if rec.synonyms.present?
+
+
+      ## check if title includes subtitle e.g. Grand Prix Japan (Suzuka Circuit)
+      #  make subtitle optional by adding title w/o subtitle e.g. Grand Prix Japan
+
       titles = []
-      titles << rec.title
-      titles += rec.synonyms.split('|') if rec.synonyms.present?
-      
+      title_candidates.each do |t|
+        titles << t
+        if t =~ /\(.+\)/
+          extra_title = t.gsub( /\(.+\)/, '' ) # remove/delete subtitles
+          extra_title.strip!   # strip leading n trailing withspaces too!
+          titles << extra_title
+        end
+      end
+
+
       ## NB: sort here by length (largest goes first - best match)
       #  exclude code and key (key should always go last)
       titles = titles.sort { |left,right| right.length <=> left.length }

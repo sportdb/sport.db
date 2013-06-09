@@ -328,47 +328,37 @@ module SportDb::FixtureHelpers
     end
     scores
   end # methdod find_scores!
-  
 
-  def find_team_worker!( line, index )
+
+  ## todo/fix:
+  #   find a better name find_xxx_by_title ?? find_xxx_w_match_table? or similiar
+  #  move to its own file/module for easier maintance
+  #    include build_match_table_for
+  #  - lets us change internals e.g. lets improve matcher using a reverse index, for example
+
+  def find_xxx_worker!( name, line )
     regex = /@@oo([^@]+?)oo@@/     # e.g. everything in @@ .... @@ (use non-greedy +? plus all chars but not @, that is [^@])
-    
+
+    upcase_name   = name.upcase
+    downcase_name = name.downcase
+
     if line =~ regex
       value = "#{$1}"
-      logger.debug "   team#{index}: >#{value}<"
+      logger.debug "   #{downcase_name}: >#{value}<"
       
-      line.sub!( regex, "[TEAM#{index}]" )
+      line.sub!( regex, "[#{upcase_name}]" )
 
       return $1
     else
       return nil
     end
   end
-  
-  def find_teams!( line )
-    counter = 1
-    teams = []
-    
-    team = find_team_worker!( line, counter )
-    while team.present?
-      teams << team
-      counter += 1
-      team = find_team_worker!( line, counter )
-    end
-    
-    teams
-  end
-
-  def find_team1!( line )
-    find_team_worker!( line, 1 )
-  end
-  
-  def find_team2!( line )
-    find_team_worker!( line, 2 )
-  end
 
 
-  def match_team_worker!( line, key, values )
+  def match_xxx_worker!( name, line, key, values )
+
+    downcase_name = name.downcase
+
     values.each do |value|
       ## nb: \b does NOT include space or newline for word boundry (only alphanums e.g. a-z0-9)
       ## (thus add it, allows match for Benfica Lis.  for example - note . at the end)
@@ -376,7 +366,7 @@ module SportDb::FixtureHelpers
       ## check add $ e.g. (\b| |\t|$) does this work? - check w/ Benfica Lis.$
       regex = /\b#{value}(\b| |\t|$)/   # wrap with world boundry (e.g. match only whole words e.g. not wac in wacker) 
       if line =~ regex
-        logger.debug "     match for team >#{key}< >#{value}<"
+        logger.debug "     match for #{downcase_name}  >#{key}< >#{value}<"
         # make sure @@oo{key}oo@@ doesn't match itself with other key e.g. wacker, wac, etc.
         line.sub!( regex, "@@oo#{key}oo@@ " )    # NB: add one space char at end
         return true    # break out after first match (do NOT continue)
@@ -384,50 +374,46 @@ module SportDb::FixtureHelpers
     end
     return false
   end
+
+
+
+  def find_teams!( line )
+    counter = 1
+    teams = []
+
+    team = find_xxx_worker!( "team#{counter}", line )
+    while team.present?
+      teams << team
+      counter += 1
+      team = find_xxx_worker!( "team#{counter}", line )
+    end
+
+    teams
+  end
+
+  ## todo: check if find_team1 gets used?  if not remove it!!  use find_teams!
+  def find_team1!( line )
+    find_xxx_worker!( 'team1', line )
+  end
+  
+  def find_team2!( line )
+    find_xxx_worker!( 'team2', line )
+  end
+
  
   ## todo/fix: pass in known_teams as a parameter? why? why not?
   def match_teams!( line )
     @known_teams.each do |rec|
       key    = rec[0]
       values = rec[1]
-      match_team_worker!( line, key, values )
-    end # each known_teams    
+      match_xxx_worker!( 'team', line, key, values )
+    end # each known_teams
   end # method match_teams!
 
 
 
-
-
   def find_track!( line )
-    regex = /@@oo([^@]+?)oo@@/     # e.g. everything in @@ .... @@ (use non-greedy +? plus all chars but not @, that is [^@])
-
-    if line =~ regex
-      value = "#{$1}"
-      logger.debug "   track#{index}: >#{value}<"
-      
-      line.sub!( regex, "[TRACK]" )
-
-      return $1
-    else
-      return nil
-    end
-  end
-
-  def match_track_worker!( line, key, values )
-    values.each do |value|
-      ## nb: \b does NOT include space or newline for word boundry (only alphanums e.g. a-z0-9)
-      ## (thus add it, allows match for Benfica Lis.  for example - note . at the end)
-
-      ## check add $ e.g. (\b| |\t|$) does this work? - check w/ Benfica Lis.$
-      regex = /\b#{value}(\b| |\t|$)/   # wrap with world boundry (e.g. match only whole words e.g. not wac in wacker) 
-      if line =~ regex
-        logger.debug "     match for track >#{key}< >#{value}<"
-        # make sure @@oo{key}oo@@ doesn't match itself with other key e.g. wacker, wac, etc.
-        line.sub!( regex, "@@oo#{key}oo@@ " )    # NB: add one space char at end
-        return true    # break out after first match (do NOT continue)
-      end
-    end
-    return false
+    find_xxx_worker!( 'track', line )
   end
 
   ## todo/fix: pass in known_tracks as a parameter? why? why not?
@@ -435,7 +421,7 @@ module SportDb::FixtureHelpers
     @known_tracks.each do |rec|
       key    = rec[0]
       values = rec[1]
-      match_track_worker!( line, key, values )
+      match_xxx_worker!( 'track', line, key, values )
     end # each known_tracks
   end # method match_tracks!
 

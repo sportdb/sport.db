@@ -1,48 +1,6 @@
 # encoding: utf-8
 
-### some utils moved to worldbdb/utils for reuse
-
-
-### fix: move to textutils??
-
-
-def build_match_table_for( recs )
-    ## build known tracks table w/ synonyms e.g.
-    #
-    # [[ 'wolfsbrug', [ 'VfL Wolfsburg' ]],
-    #  [ 'augsburg',  [ 'FC Augsburg', 'Augi2', 'Augi3' ]],
-    #  [ 'stuttgart', [ 'VfB Stuttgart' ]] ]
- 
-    known_titles = []
-
-    recs.each_with_index do |rec,index|
-
-      titles = []
-      titles << rec.title
-      titles += rec.synonyms.split('|') if rec.synonyms.present?
-      
-      ## NB: sort here by length (largest goes first - best match)
-      #  exclude code and key (key should always go last)
-      titles = titles.sort { |left,right| right.length <=> left.length }
-      
-      ## escape for regex plus allow subs for special chars/accents
-      titles = titles.map { |title| TextUtils.title_esc_regex( title )  }
-
-      ## NB: only include code field - if defined
-      titles << rec.code          if rec.respond_to?(:code) && rec.code.present?
-
-      known_titles << [ rec.key, titles ]
-
-      ### fix:
-      ## plain logger
-
-      LogUtils::Logger.root.debug "  #{rec.class.name}[#{index+1}] #{rec.key} >#{titles.join('|')}<"
-    end
-
-    known_titles
-end
-
-
+### note: some utils moved to worldbdb/utils for reuse
 
 
 module SportDb::FixtureHelpers
@@ -330,99 +288,45 @@ module SportDb::FixtureHelpers
   end # methdod find_scores!
 
 
-  ## todo/fix:
-  #   find a better name find_xxx_by_title ?? find_xxx_w_match_table? or similiar
-  #  move to its own file/module for easier maintance
-  #    include build_match_table_for
-  #  - lets us change internals e.g. lets improve matcher using a reverse index, for example
-
-  def find_xxx_worker!( name, line )
-    regex = /@@oo([^@]+?)oo@@/     # e.g. everything in @@ .... @@ (use non-greedy +? plus all chars but not @, that is [^@])
-
-    upcase_name   = name.upcase
-    downcase_name = name.downcase
-
-    if line =~ regex
-      value = "#{$1}"
-      logger.debug "   #{downcase_name}: >#{value}<"
-      
-      line.sub!( regex, "[#{upcase_name}]" )
-
-      return $1
-    else
-      return nil
-    end
-  end
-
-
-  def match_xxx_worker!( name, line, key, values )
-
-    downcase_name = name.downcase
-
-    values.each do |value|
-      ## nb: \b does NOT include space or newline for word boundry (only alphanums e.g. a-z0-9)
-      ## (thus add it, allows match for Benfica Lis.  for example - note . at the end)
-
-      ## check add $ e.g. (\b| |\t|$) does this work? - check w/ Benfica Lis.$
-      regex = /\b#{value}(\b| |\t|$)/   # wrap with world boundry (e.g. match only whole words e.g. not wac in wacker) 
-      if line =~ regex
-        logger.debug "     match for #{downcase_name}  >#{key}< >#{value}<"
-        # make sure @@oo{key}oo@@ doesn't match itself with other key e.g. wacker, wac, etc.
-        line.sub!( regex, "@@oo#{key}oo@@ " )    # NB: add one space char at end
-        return true    # break out after first match (do NOT continue)
-      end
-    end
-    return false
-  end
-
-
 
   def find_teams!( line )
-    counter = 1
-    teams = []
-
-    team = find_xxx_worker!( "team#{counter}", line )
-    while team.present?
-      teams << team
-      counter += 1
-      team = find_xxx_worker!( "team#{counter}", line )
-    end
-
-    teams
+    TextUtils.find_keys_for!( 'team', line )
   end
 
   ## todo: check if find_team1 gets used?  if not remove it!!  use find_teams!
   def find_team1!( line )
-    find_xxx_worker!( 'team1', line )
+    TextUtils.find_key_for!( 'team1', line )
   end
-  
+
   def find_team2!( line )
-    find_xxx_worker!( 'team2', line )
+    TextUtils.find_key_for!( 'team2', line )
   end
 
- 
   ## todo/fix: pass in known_teams as a parameter? why? why not?
-  def match_teams!( line )
-    @known_teams.each do |rec|
-      key    = rec[0]
-      values = rec[1]
-      match_xxx_worker!( 'team', line, key, values )
-    end # each known_teams
-  end # method match_teams!
 
-
+  def map_teams!( line )
+    TextUtils.map_titles_for( 'team', line, @known_teams )
+  end
 
   def find_track!( line )
-    find_xxx_worker!( 'track', line )
+    TextUtils.find_key_for!( 'track', line )
   end
 
   ## todo/fix: pass in known_tracks as a parameter? why? why not?
-  def match_track!( line )
-    @known_tracks.each do |rec|
-      key    = rec[0]
-      values = rec[1]
-      match_xxx_worker!( 'track', line, key, values )
-    end # each known_tracks
+  def map_track!( line )
+    TextUtils.map_titles_for( 'track', line, @known_tracks )
+  end
+
+
+  ## depreciated methods - use map_
+  def match_teams!( line )   ## fix: rename to map_teams!! - remove match_teams!
+    ## todo: issue depreciated warning
+    map_teams!( line )
+  end # method match_teams!
+
+  def match_track!( line )  ## fix: rename to map_track!!!
+    ## todo: issue depreciated warning
+    map_track!( line )
   end # method match_tracks!
 
 

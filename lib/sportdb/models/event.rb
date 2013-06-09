@@ -48,7 +48,7 @@ class Event < ActiveRecord::Base
 
 
   def known_teams_table
-    @known_teams_table ||= build_match_table_for( teams )
+    @known_teams_table ||= TextUtils.build_title_table_for( teams )
   end # method known_teams_table
 
 end # class Event

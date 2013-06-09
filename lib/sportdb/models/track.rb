@@ -13,7 +13,7 @@ class Track < ActiveRecord::Base
   ### fix: move known_tracks_table to event!!! (e.g. scoped by event)
 
   def self.known_tracks_table
-    @@known_tracks_table ||= build_match_table_for( Track.all )
+    @@known_tracks_table ||= TextUtils.build_title_table_for( Track.all )
   end # method known_tracks_table
 
 

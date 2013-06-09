@@ -42,6 +42,7 @@ lib/sportdb/models/track.rb
 lib/sportdb/reader.rb
 lib/sportdb/schema.rb
 lib/sportdb/stats.rb
+lib/sportdb/title.rb
 lib/sportdb/utils.rb
 lib/sportdb/version.rb
 tasks/test.rb

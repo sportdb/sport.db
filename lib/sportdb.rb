@@ -28,6 +28,7 @@ require 'worlddb'
 
 require 'sportdb/version'
 
+require 'sportdb/title'   ## fix - move to textutils gem
 require 'sportdb/models/forward'
 require 'sportdb/models/badge'
 require 'sportdb/models/city'

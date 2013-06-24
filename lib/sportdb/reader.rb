@@ -2,13 +2,30 @@
 
 module SportDb
 
+module Matcher
+
+  def match_leagues_for_country( name, &blk )
+    match_xxx_for_country( name, 'leagues', blk )
+  end
+
+  def match_teams_for_country( name, &blk )
+    match_xxx_for_country( name, 'teams', blk )
+  end
+
+end # module Matcher
+
+
 class Reader
 
   include LogUtils::Logging
 
+
 ## make models available in sportdb module by default with namespace
 #  e.g. lets you use Team instead of Models::Team 
-  include SportDB::Models
+  include SportDb::Models
+
+  include WorldDb::Matcher
+  include SportDb::Matcher # lets us use match_teams_for_country etc.
 
 
   attr_reader :include_path
@@ -98,7 +115,7 @@ class Reader
           # NB: assume @event is set from previous load 
           race = Race.find_by_event_id_and_pos( @event.id, race_pos )
           load_records( name, race_id: race.id ) # e.g. 2013/04-gp-monaco.txt in formula1.db
-        elsif name =~ /^seasons/
+        elsif name =~ /(?:^|\/)seasons/  # NB: ^seasons or also possible at-austria!/seasons
           load_seasons( name )
         elsif name =~ /^leagues/
           if name =~ /club/
@@ -108,18 +125,18 @@ class Reader
             # e.g. leagues
             load_leagues( name )
           end
-        elsif name =~ /^([a-z]{2})\/leagues/
-          # auto-add country code (from folder structure) for country-specific leagues
-          #  e.g. at/leagues
-          country_key = $1
-          country = Country.find_by_key!( country_key )
-          load_leagues( name, club: true, country_id: country.id )
-        elsif name =~ /^([a-z]{2})\/teams/
-          # auto-add country code (from folder structure) for country-specific teams
-          #  e.g. at/teams at/teams.2 de/teams etc.
-          country_key = $1
-          country = Country.find_by_key!( country_key )
-          load_teams( name, club: true, country_id: country.id )
+        elsif match_leagues_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/leagues/
+                # auto-add country code (from folder structure) for country-specific leagues
+                #  e.g. at/leagues
+                country = Country.find_by_key!( country_key )
+                load_leagues( name, club: true, country_id: country.id )
+              end
+        elsif match_teams_for_country( name ) do |country_key|   # name =~ /^([a-z]{2})\/teams/
+                # auto-add country code (from folder structure) for country-specific teams
+                #  e.g. at/teams at/teams.2 de/teams etc.                
+                country = Country.find_by_key!( country_key )
+                load_teams( name, club: true, country_id: country.id )
+              end
         elsif name =~ /\/teams/
           if name =~ /club/
             # club teams (many countries)
@@ -190,11 +207,7 @@ class Reader
 
   def load_seasons( name )
 
-    path = "#{include_path}/#{name}.yml"
-
-    logger.info "parsing data '#{name}' (#{path})..."
-
-    reader = HashReader.new( path )
+    reader = HashReaderV2.new( name, include_path )
 
 ####
 ## fix!!!!!
@@ -239,22 +252,17 @@ class Reader
   
     end # each key,value
 
-    Prop.create_from_fixture!( name, path )
-
   end  # load_seasons
 
 
   def fetch_event( name )
     # get/fetch/find event from yml file
 
-    path = "#{include_path}/#{name}.yml"
-
-    logger.info "parsing data '#{name}' (#{path})..."
-
-
     ## todo/fix: use h = HashFile.load( path ) or similar instead of HashReader!!
 
-    reader = HashReader.new( path )
+    ## todo/fix: add option for not adding prop automatically?? w/ HashReaderV2
+
+    reader = HashReaderV2.new( name, include_path )
 
     event_attribs = {}
 
@@ -289,11 +297,7 @@ class Reader
 ##   use Event.create_or_update_from_hash_reader?? or similar
 #   move parsing code to model
 
-    path = "#{include_path}/#{name}.yml"
-
-    logger.info "parsing data '#{name}' (#{path})..."
-
-    reader = HashReader.new( path )
+    reader = HashReaderV2.new( name, include_path )
 
     event_attribs = {}
 
@@ -375,8 +379,6 @@ class Reader
     
     event.update_attributes!( event_attribs )
 
-    Prop.create_from_fixture!( name, path )
-
   end  # load_event
 
 
@@ -392,12 +394,24 @@ class Reader
   end
 
   def load_fixtures( event_key, name )  # load from file system
+
+    ## todo: move name_real_path code to LineReaderV2 ????
+    pos = name.index( '!/')
+    if pos.nil?
+      name_real_path = name   # not found; real path is the same as name
+    else
+      # cut off everything until !/ e.g.
+      #   at-austria!/w-wien/beers becomes
+      #   w-wien/beers
+      name_real_path = name[ (pos+2)..-1 ]
+    end
+
      
-    path = "#{include_path}/#{name}.txt"
+    path = "#{include_path}/#{name_real_path}.txt"
 
     logger.info "parsing data '#{name}' (#{path})..."
     
-    SportDB.lang.lang = LangChecker.new.analyze( name, include_path )
+    SportDB.lang.lang = LangChecker.new.analyze( path )
 
     reader = LineReader.new( path )
     

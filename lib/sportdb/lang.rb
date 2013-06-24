@@ -206,12 +206,8 @@ class LangChecker
   def initialize
   end
 
-  def analyze( name, include_path )
+  def analyze( path )
     # return lang code e.g. en, de, es
-    
-    path = "#{include_path}/#{name}.txt"
-
-    logger.info "parsing data '#{name}' (#{path})..."
 
     text = File.read_utf8( path )
     

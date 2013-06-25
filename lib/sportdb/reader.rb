@@ -34,139 +34,81 @@ class Reader
     @include_path = include_path
   end
 
-  def load_setup( setup )
-    ary = load_fixture_setup( setup )
-    load( ary )
-  end # method load_setup
-
-
-  ## fix/todo: rename ??
-  def load_fixture_setup( name )
-    
-   ## todo/fix: cleanup quick and dirty code
-    
+  def load_setup( name )
     path = "#{include_path}/#{name}.yml"
 
     logger.info "parsing data '#{name}' (#{path})..."
 
-    text = File.read_utf8( path )
-    
-    hash = YAML.load( text )
-    
-    ### build up array for fixtures from hash
-    
-    ary = []
-    
-    hash.each do |key_wild, value_wild|
-      key   = key_wild.to_s.strip
-      
-      logger.debug "yaml key:#{key_wild.class.name} >>#{key}<<, value:#{value_wild.class.name} >>#{value_wild}<<"
-    
-      if value_wild.kind_of?( String ) # assume non-event data
-        ary << value_wild
-      elsif value_wild.kind_of?( Array ) # assume non_event data as array of strings
-        ary = ary + value_wild
-      elsif value_wild.kind_of?( Hash )  # assume event data
-        
-        value_wild.each do |event_key, event_values|
-          # e.g.
-          #  at.2012/13: at/2012_13/bl, at/2012_13/bl2
-          #  becomes
-          # [ 'at.2012/13', 'at/2012_13/bl', 'at/2012_13/bl2' ]
-          ary << ( [ event_key.to_s ] + event_values.split(',') )
-        end
-        
-      else
-        logger.error "unknow fixture type in setup (yaml key:#{key_wild.class.name} >>#{key}<<, value:#{value_wild.class.name} >>#{value_wild}<<); skipping"
-      end
-    
+    reader = FixtureReader.new( path )
+
+    reader.each do |fixture_name|
+      load( fixture_name )
     end
-    
-    logger.debug "fixture setup:"
-    logger.debug ary.to_json
-    
-    ary
-      
-  end # load_fixture_setup
+  end # method load_setup
 
 
-  def load( ary )   # convenience helper for all-in-one reader
+  def load( name )   # convenience helper for all-in-one reader
+
+    logger.debug "enter load( name=>>#{name}<<, include_path=>>#{include_path}<<)"
     
-    logger.debug "enter load(include_path=>>#{include_path}<<):"
-    logger.debug ary.to_json
-    
-    ary.each do |rec|
-      if rec.kind_of?( String )
-        ## assume single fixture name
-        name = rec
-        
-        if name  =~ /^circuits/  # e.g. circuits.txt in formula1.db
-          load_tracks( name )
-        elsif name =~ /^drivers/ # e.g. drivers.txt in formula1.db
-          load_persons( name )
-        elsif name =~ /^teams/   # e.g. teams.txt in formula1.db
-          load_teams( name )
-        elsif name =~ /\/races/  # e.g. 2013/races.txt in formula1.db
-          load_races( name )
-        elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
-          load_rosters( name )
-        elsif name =~ /\/([0-9]{2})-/
-          race_pos = $1.to_i
-          # NB: assume @event is set from previous load 
-          race = Race.find_by_event_id_and_pos( @event.id, race_pos )
-          load_records( name, race_id: race.id ) # e.g. 2013/04-gp-monaco.txt in formula1.db
-        elsif name =~ /(?:^|\/)seasons/  # NB: ^seasons or also possible at-austria!/seasons
-          load_seasons( name )
-        elsif name =~ /^leagues/
-          if name =~ /club/
-            # e.g. leagues_club
-            load_leagues( name, club: true )
-          else
-            # e.g. leagues
-            load_leagues( name )
-          end
-        elsif match_leagues_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/leagues/
-                # auto-add country code (from folder structure) for country-specific leagues
-                #  e.g. at/leagues
-                country = Country.find_by_key!( country_key )
-                load_leagues( name, club: true, country_id: country.id )
-              end
-        elsif match_teams_for_country( name ) do |country_key|   # name =~ /^([a-z]{2})\/teams/
-                # auto-add country code (from folder structure) for country-specific teams
-                #  e.g. at/teams at/teams.2 de/teams etc.                
-                country = Country.find_by_key!( country_key )
-                load_teams( name, club: true, country_id: country.id )
-              end
-        elsif name =~ /\/teams/
-          if name =~ /club/
-            # club teams (many countries)
-            # e.g. club/europe/teams
-            load_teams( name, club: true )
-          else
-            # assume national teams
-            # e.g. world/teams  amercia/teams_n
-            load_teams( name, national: true )
-          end
-        else
-          logger.error "unknown sportdb fixture type >#{name}<"
-          # todo/fix: exit w/ error
-        end
-      else  # more than one item in record? assume fixture starting w/ event key
-        
-        # assume first item is key
-        # assume second item is event plus fixture
-        # assume option third,etc are fixtures (e.g. bl2, etc.)
-        event_key      = rec[0]  # e.g. at.2012/13
-        event_name     = rec[1]  # e.g. at/2012_13/bl
-        fixture_names  = rec[1..-1]  # e.g. at/2012_13/bl, at/2012_13/bl2
-      
-        load_event( event_name )
-        fixture_names.each do |fixture_name|
-          load_fixtures( event_key, fixture_name )
-        end
+    if name  =~ /^circuits/  # e.g. circuits.txt in formula1.db
+      load_tracks( name )
+    elsif name =~ /^drivers/ # e.g. drivers.txt in formula1.db
+      load_persons( name )
+    elsif name =~ /^teams/   # e.g. teams.txt in formula1.db
+      load_teams( name )
+    elsif name =~ /\/races/  # e.g. 2013/races.txt in formula1.db
+      load_races( name )
+    elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
+      load_rosters( name )
+    elsif name =~ /\/([0-9]{2})-/
+      race_pos = $1.to_i
+      # NB: assume @event is set from previous load 
+      race = Race.find_by_event_id_and_pos( @event.id, race_pos )
+      load_records( name, race_id: race.id ) # e.g. 2013/04-gp-monaco.txt in formula1.db
+    elsif name =~ /(?:^|\/)seasons/  # NB: ^seasons or also possible at-austria!/seasons
+      load_seasons( name )
+    elsif name =~ /^leagues/
+      if name =~ /club/
+        # e.g. leagues_club
+        load_leagues( name, club: true )
+      else
+        # e.g. leagues
+        load_leagues( name )
       end
-      
-    end # each ary
+    elsif match_leagues_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/leagues/
+            # auto-add country code (from folder structure) for country-specific leagues
+            #  e.g. at/leagues
+            country = Country.find_by_key!( country_key )
+            load_leagues( name, club: true, country_id: country.id )
+          end
+    elsif match_teams_for_country( name ) do |country_key|   # name =~ /^([a-z]{2})\/teams/
+            # auto-add country code (from folder structure) for country-specific teams
+            #  e.g. at/teams at/teams.2 de/teams etc.                
+            country = Country.find_by_key!( country_key )
+            load_teams( name, club: true, country_id: country.id )
+          end
+    elsif name =~ /\/teams/
+      if name =~ /club/
+        # club teams (many countries)
+        # e.g. club/europe/teams
+        load_teams( name, club: true )
+      else
+        # assume national teams
+        # e.g. world/teams  amercia/teams_n
+        load_teams( name, national: true )
+      end
+    elsif name =~ /\/(\d{4}|\d{4}_\d{2})\//   # e.g. must match /2012/ or /2012_13/
+      load_event( name )
+      event    = fetch_event( name )
+      fixtures = fetch_event_fixtures( name )
+      fixtures.each do |fx|
+        load_fixtures( event.key, fx )
+      end
+    else
+      logger.error "unknown sportdb fixture type >#{name}<"
+      # todo/fix: exit w/ error
+    end
   end # method load
 
 
@@ -243,6 +185,44 @@ class Reader
     end # each line
 
   end  # load_seasons
+
+
+  def fetch_event_fixtures( name )
+    # todo: merge with fetch_event to make it single read op - why? why not??
+    reader = HashReaderV2.new( name, include_path )
+
+    fixtures = []
+
+    reader.each_typed do |key, value|
+      if key == 'fixtures' && value.kind_of?( Array )
+        logger.debug "fixtures:"
+        logger.debug value.to_json
+        ## todo: make sure we get an array!!!!!
+        fixtures = value
+      else
+        # skip; do nothing
+      end
+    end # each key,value
+
+    if fixtures.empty?
+      logger.warn "no fixtures found for event - >#{name}<; assume fixture name is the same as event"
+      fixtures = [name]
+    else
+      ## add path to fixtures (use path from event e.g)
+      #  - bl    + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl
+      #  - bl_ii + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl_ii
+
+      dir = File.dirname( name ) # use dir for fixtures
+
+      fixtures = fixtures.map do |fx|
+        fx_new = "#{dir}/#{fx}"   # add path upfront
+        logger.debug "fx: #{fx_new} | >#{fx}< + >#{dir}<"
+        fx_new
+      end
+    end
+
+    fixtures
+  end
 
 
   def fetch_event( name )
@@ -345,7 +325,7 @@ class Reader
         event_attribs['team3'] = false
       else
         ## todo: add a source location struct to_s or similar (file, line, col)
-        logger.error "unknown event attrib; skipping attrib"
+        logger.error "unknown event attrib #{key}; skipping attrib"
       end
   
     end # each key,value

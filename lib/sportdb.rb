@@ -124,7 +124,10 @@ module SportDB
 
   def self.read( ary, include_path )
     reader = Reader.new( include_path )
-    reader.load( ary )
+    ## todo: check kind_of?( Array ) or kind_of?(String) to support array or string
+    ary.each do |name|
+      reader.load( name )
+    end
   end
 
 

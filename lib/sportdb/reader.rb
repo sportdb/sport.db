@@ -204,10 +204,9 @@ class Reader
   end # load_persons
 
 
-
   def load_seasons( name )
 
-    reader = HashReaderV2.new( name, include_path )
+    reader = LineReaderV2.new( name, include_path )
 
 ####
 ## fix!!!!!
@@ -215,42 +214,33 @@ class Reader
 ##   use Season.create_or_update_from_hash_reader?? or similar
 #   move parsing code to model
 
-    reader.each_typed do |key, value|
+    reader.each_line do |line|
 
-      ## puts "processing event attrib >>#{key}<< >>#{value}<<..."
+      # for now assume single value
+      logger.debug ">#{line}<"
 
-      if key == 'seasons'
-        
-        logger.debug "#{value.class.name}: >>#{value}<<"
-        
-        ## nb: assume value is an array
-        value.each do |item|
-          season_attribs = {}
-          
-          logger.debug "  find season key: #{item.to_s.strip}"
-          season = Season.find_by_key( item.to_s.strip )
+      key = line
 
-          ## check if it exists
-          if season.present?
-            logger.debug "update season #{season.id}-#{season.key}:"
-          else
-            logger.debug "create season:"
-            season = Season.new
-            season_attribs[ :key ] = item.to_s.strip
-          end
-          
-          season_attribs[:title] = item.to_s.strip
-     
-          logger.debug season_attribs.to_json
-          
-          season.update_attributes!( season_attribs )
-        end
-        
+      logger.debug "  find season key: #{key}"
+      season = Season.find_by_key( key )
+
+      season_attribs = {}
+
+      ## check if it exists
+      if season.present?
+        logger.debug "update season #{season.id}-#{season.key}:"
       else
-        logger.error "unknown seasons key; skipping"
+        logger.debug "create season:"
+        season = Season.new
+        season_attribs[ :key ] = key
       end
-  
-    end # each key,value
+
+      season_attribs[ :title ] = key # for now key n title are the same
+     
+      logger.debug season_attribs.to_json
+          
+      season.update_attributes!( season_attribs )
+    end # each line
 
   end  # load_seasons
 

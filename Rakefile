@@ -29,7 +29,7 @@ Hoe.spec 'sportdb' do
                                #         - textutils
     
     ## 3rd party
-    ['commander', '~> 4.1.3']   # remove? -- already included as dep in worlddb
+    ['gli', '>= 2.5.6']
 
     ## ['activerecord', '~> 3.2'],  # NB: will include activesupport,etc.
     ### ['sqlite3',      '~> 1.3']  # NB: install on your own; remove dependency

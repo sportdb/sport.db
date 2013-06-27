@@ -68,7 +68,13 @@ class Reader
       load_records( name, race_id: race.id ) # e.g. 2013/04-gp-monaco.txt in formula1.db
     elsif name =~ /(?:^|\/)seasons/  # NB: ^seasons or also possible at-austria!/seasons
       load_seasons( name )
-    elsif name =~ /^leagues/
+    elsif match_leagues_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/leagues/
+            # auto-add country code (from folder structure) for country-specific leagues
+            #  e.g. at/leagues
+            country = Country.find_by_key!( country_key )
+            load_leagues( name, club: true, country_id: country.id )
+          end
+    elsif name =~ /(?:^|\/)leagues/   # NB: ^leagues or also possible world!/leagues  - NB: make sure goes after leagues_for_country!!
       if name =~ /club/
         # e.g. leagues_club
         load_leagues( name, club: true )
@@ -76,19 +82,13 @@ class Reader
         # e.g. leagues
         load_leagues( name )
       end
-    elsif match_leagues_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/leagues/
-            # auto-add country code (from folder structure) for country-specific leagues
-            #  e.g. at/leagues
-            country = Country.find_by_key!( country_key )
-            load_leagues( name, club: true, country_id: country.id )
-          end
     elsif match_teams_for_country( name ) do |country_key|   # name =~ /^([a-z]{2})\/teams/
             # auto-add country code (from folder structure) for country-specific teams
             #  e.g. at/teams at/teams.2 de/teams etc.                
             country = Country.find_by_key!( country_key )
             load_teams( name, club: true, country_id: country.id )
           end
-    elsif name =~ /\/teams/
+    elsif name =~ /(?:^|\/)teams/
       if name =~ /club/
         # club teams (many countries)
         # e.g. club/europe/teams

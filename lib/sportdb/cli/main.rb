@@ -9,26 +9,24 @@
 #        --include ../../github/football.db
 
 
-require 'commander/import'
+require 'gli'
+ 
+include GLI::App
 
 # our own code / additional for cli only
 
 require 'logutils/db'
 require 'sportdb/cli/opts'
+  
+ 
+program_desc 'sport.db command line tool'
+
+version SportDb::VERSION
+
 
 LogUtils::Logger.root.level = :info   # set logging level to info 
+logger = LogUtils::Logger.root
 
-program :name,  'sportdb'
-program :version, SportDb::VERSION
-program :description, "sport.db command line tool, version #{SportDb::VERSION}"
-
-
-# default_command :help
-default_command :load
-
-program :help_formatter, Commander::HelpFormatter::TerminalCompact
-
-## program :help, 'Examples', 'yada yada -try multi line later'
 
 =begin
 ### add to help use new sections
@@ -47,18 +45,28 @@ Further information:
 
 
 ## todo: find a better name e.g. change to settings? config? safe_opts? why? why not?
-myopts = SportDb::Opts.new
+opts = SportDb::Opts.new
 
 ### global option (required)
 ## todo: add check that path is valid?? possible?
 
-global_option '-i', '--include PATH', String, "Data path (default is #{myopts.data_path})"
-global_option '-d', '--dbpath PATH', String, "Database path (default is #{myopts.db_path})"
-global_option '-n', '--dbname NAME', String, "Database name (datault is #{myopts.db_name})"
 
-global_option '-q', '--quiet', "Only show warnings, errors and fatal messages"
-### todo/fix: just want --debug/--verbose flag (no single letter option wanted) - fix
-global_option '-w', '--verbose', "Show debug messages"
+desc 'Database path'
+arg_name 'PATH'
+default_value opts.db_path
+flag [:d, :dbpath]
+
+desc 'Database name'
+arg_name 'NAME'
+default_value opts.db_name
+flag [:n, :dbname]
+
+desc '(Debug) Show debug messages'
+switch [:verbose], negatable: false    ## todo: use -w for short form? check ruby interpreter if in use too?
+
+desc 'Only show warnings, errors and fatal messages'
+switch [:q, :quiet], negatable: false
+
 
 
 def connect_to_db( options )
@@ -80,16 +88,11 @@ def connect_to_db( options )
 end
 
 
-command :create do |c|
-  c.syntax = 'sportdb create [options]'
-  c.description = 'Create DB schema'
-  c.action do |args, options|
+desc 'Create DB schema'
+command [:create] do |c|
+  c.action do |g,o,args|
     
-    LogUtils::Logger.root.level = :warn    if options.quiet.present?
-    LogUtils::Logger.root.level = :debug   if options.verbose.present?
-    
-    myopts.merge_commander_options!( options.__hash__ )
-    connect_to_db( myopts )
+    connect_to_db( opts )
     
     LogDb.create
     WorldDb.create
@@ -98,108 +101,94 @@ command :create do |c|
   end # action
 end # command create
 
-command :setup do |c|
-  c.syntax = 'sportdb setup [options]'
-  c.description = "Create DB schema 'n' load all data"
 
-  c.option '--world', 'Populate world tables'
-  ## todo: use --world-include - how? find better name?
-  c.option '--worldinclude PATH', String, 'World data path'
+desc "Create DB schema 'n' load all world and sports data"
+arg_name 'NAME'   # optional setup profile name
+command [:setup,:s] do |c|
 
-  c.option '--sport', 'Populate sport tables'
-  c.option '--delete', 'Delete all records'
+  c.desc 'Sports data path'
+  c.arg_name 'PATH'
+  c.default_value opts.data_path
+  c.flag [:i,:include]
 
-  c.action do |args, options|
+  c.desc 'World data path'
+  c.arg_name 'PATH'
+  c.flag [:worldinclude]   ## todo: use --world-include - how? find better name? add :'world-include' ???
 
-    LogUtils::Logger.root.level = :warn    if options.quiet.present?
-    LogUtils::Logger.root.level = :debug   if options.verbose.present?
+  c.action do |g,o,args|
 
-    myopts.merge_commander_options!( options.__hash__ )
-    connect_to_db( myopts )
+    connect_to_db( opts )
  
     ## todo: document optional setup profile arg (defaults to all)
     setup = args[0] || 'all'
     
-    if options.world.present? || options.sport.present?
-      
-      ## todo: check order for reference integrity
-      #  not really possible to delete world data if sport data is present
-      #   delete sport first
-      
-      if options.delete.present?
-        SportDb.delete! if options.sport.present?
-        WorldDb.delete! if options.world.present?
-      end
-      
-      if options.world.present?
-        WorldDb.read_all( myopts.world_data_path )
-      end
-      
-      if options.sport.present?
-        SportDb.read_setup( "setups/#{setup}", myopts.data_path )
-      end
-
-    else  # assume "plain" regular setup
-      LogDb.create
-      WorldDb.create
-      SportDb.create
+    LogDb.create
+    WorldDb.create
+    SportDb.create
     
-      WorldDb.read_all( myopts.world_data_path )
-      SportDb.read_setup( "setups/#{setup}", myopts.data_path )
-    end
+    WorldDb.read_all( opts.world_data_path )
+    SportDb.read_setup( "setups/#{setup}", opts.data_path )
     puts 'Done.'
   end # action
 end  # command setup
 
-command :load do |c|
-  ## todo: how to specify many fixutes <>... ??? in syntax
-  c.syntax = 'sportdb load [options] FIXTURE...'
-  c.description = 'Load fixtures'
 
-  c.option '-e', '--event KEY', String, 'Event to load'
-  c.option '--delete', 'Delete all records'
+desc 'Update all sports data'
+arg_name 'NAME'   # optional setup profile name
+command [:update,:up,:u] do |c|
 
-  c.action do |args, options|
+  c.desc 'Sports data path'
+  c.arg_name 'PATH'
+  c.default_value opts.data_path
+  c.flag [:i,:include]
 
-    LogUtils::Logger.root.level = :warn    if options.quiet.present?
-    LogUtils::Logger.root.level = :debug   if options.verbose.present?
+  c.desc 'Delete all sports data records'
+  c.switch [:delete], negatable: false 
 
-    myopts.merge_commander_options!( options.__hash__ )
-    connect_to_db( myopts )
+  c.action do |g,o,args|
+
+    connect_to_db( opts )
+
+    ## todo: document optional setup profile arg (defaults to all)
+    setup = args[0] || 'all'
+
+    SportDb.delete! if o[:delete].present?
+
+    SportDb.read_setup( "setups/#{setup}", opts.data_path )
+    puts 'Done.'
+  end # action
+end  # command setup
+
+
+desc 'Load sports fixtures'
+arg_name 'NAME'   # multiple fixture names - todo/fix: use multiple option
+command [:load, :l] do |c|
+
+  c.desc 'Delete all sports data records'
+  c.switch [:delete], negatable: false 
+
+  c.action do |g,o,args|
+
+    connect_to_db( opts )
     
-    SportDb.delete! if options.delete.present?
+    SportDb.delete! if o[:delete].present?
 
-    reader = SportDb::Reader.new( myopts.data_path )
+    reader = SportDb::Reader.new( opts.data_path )
 
     args.each do |arg|
       name = arg     # File.basename( arg, '.*' )
-
-      if myopts.event.present?
-        ## fix: rename to load_event_fixtures_w... or similar
-        reader.load_fixtures( myopts.event, name )
-      else
-        ## fix> add a convenience method for loading single fixture
-        ary = []
-        ary << name
-        reader.load( ary )
-      end
+      reader.load( name )
     end # each arg
 
     puts 'Done.'
   end
 end # command load
 
-
+desc 'Show logs'
 command :logs do |c|
-  c.syntax = 'sportdb logs [options]'
-  c.description = 'Show logs'
-  c.action do |args, options|
+  c.action do |g,o,args|
 
-    LogUtils::Logger.root.level = :warn    if options.quiet.present?
-    LogUtils::Logger.root.level = :debug   if options.verbose.present?
-
-    myopts.merge_commander_options!( options.__hash__ )
-    connect_to_db( myopts ) 
+    connect_to_db( opts ) 
     
     LogDb::Models::Log.all.each do |log|
       puts "[#{log.level}] -- #{log.msg}"
@@ -210,16 +199,11 @@ command :logs do |c|
 end
 
 
+desc 'Show stats'
 command :stats do |c|
-  c.syntax = 'sportdb stats [options]'
-  c.description = 'Show stats'
-  c.action do |args, options|
+  c.action do |g,o,args|
 
-    LogUtils::Logger.root.level = :warn    if options.quiet.present?
-    LogUtils::Logger.root.level = :debug   if options.verbose.present?
-
-    myopts.merge_commander_options!( options.__hash__ )
-    connect_to_db( myopts ) 
+    connect_to_db( opts ) 
     
     SportDb.tables
     
@@ -228,16 +212,11 @@ command :stats do |c|
 end
 
 
+desc 'Show props'
 command :props do |c|
-  c.syntax = 'sportdb props [options]'
-  c.description = 'Show props'
-  c.action do |args, options|
+  c.action do |g,o,args|
 
-    LogUtils::Logger.root.level = :warn    if options.quiet.present?
-    LogUtils::Logger.root.level = :debug   if options.verbose.present?
-
-    myopts.merge_commander_options!( options.__hash__ )
-    connect_to_db( myopts ) 
+    connect_to_db( opts )
     
     SportDb.props
     
@@ -246,21 +225,17 @@ command :props do |c|
 end
 
 
+desc '(Debug) Test command suite'
 command :test do |c|
-  c.syntax = 'sportdb test [options]'
-  c.description = 'Debug/test command suite'
-  c.action do |args, options|
-
-    LogUtils::Logger.root.level = :warn    if options.quiet.present?
-    LogUtils::Logger.root.level = :debug   if options.verbose.present?
+  c.action do |g,o,args|
 
     puts "hello from test command"
     puts "args (#{args.class.name}):"
     pp args
-    puts "options:"
-    pp options
-    puts "options.__hash__:"
-    pp options.__hash__
+    puts "o (#{o.class.name}):"
+    pp o
+    puts "g (#{g.class.name}):"
+    pp g
     
     LogUtils::Logger.root.debug 'test debug msg'
     LogUtils::Logger.root.info 'test info msg'
@@ -269,3 +244,39 @@ command :test do |c|
     puts 'Done.'
   end
 end
+
+
+
+pre do |g,c,o,args|
+  opts.merge_gli_options!( g )
+  opts.merge_gli_options!( o )
+
+  puts SportDb.banner
+
+  if opts.verbose?
+    LogUtils::Logger.root.level = :debug
+  end
+
+  logger.debug "Executing #{c.name}"   
+  true
+end
+
+post do |global,c,o,args|
+  logger.debug "Executed #{c.name}"
+  true
+end
+
+
+on_error do |e|
+  puts
+  puts "*** error: #{e.message}"
+
+  if opts.verbose?
+    puts e.backtrace
+  end
+
+  false # skip default error handling
+end
+
+
+exit run(ARGV)

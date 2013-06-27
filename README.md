@@ -104,10 +104,10 @@ Just install the gem:
 
 ## Free Open Public Domain Datasets
 
-- [`football.db`](https://github.com/openfootball) - free open public domain football (soccer) database & schema for use in any (programming) language
-- [`formula1.db`](https://github.com/geraldb/formula1.db) - free open public domain Formula 1/Formula One database & schema for use in any (programming) language 
-- [`sport.db`](https://github.com/geraldb/sport.db) - free open public domain sports database & schema for use in any (programming) language
-- [`ski.db`](https://github.com/geraldb/ski.db) - free open public domain Ski Alpin/Alpine Ski database & schema for use in any (programming) language 
+- [`football.db`](https://github.com/openfootball) - free open public domain football (soccer) data for use in any (programming) language
+- [`formula1.db`](https://github.com/geraldb/formula1.db) - free open public domain Formula 1/Formula One data for use in any (programming) language
+- [`sport.db`](https://github.com/geraldb/sport.db) - free open public domain sports data for use in any (programming) language
+- [`ski.db`](https://github.com/geraldb/ski.db) - free open public domain Ski Alpin/Alpine Ski data for use in any (programming) language
 
 
 ## Questions? Comments?

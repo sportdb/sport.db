@@ -7,6 +7,8 @@ config/fixtures.de.yml
 config/fixtures.en.yml
 config/fixtures.es.yml
 config/fixtures.pt.yml
+data/seasons.txt
+data/setups/all.yml
 lib/sportdb.rb
 lib/sportdb/cli/main.rb
 lib/sportdb/cli/opts.rb

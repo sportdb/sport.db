@@ -1,0 +1,28 @@
+###
+# use period for season? why? why not? 
+#   - semantic hairsplitting?  make it an alias? why? why not? who cares?
+
+2014/15
+2013/14
+2012/13   # use 2012-13 or 2012_13  or 2012.13 or 2012+13 ???
+2011/12
+2010/11
+2009/10
+2008/09
+2007/08
+2015            # years only
+2014
+2013
+2012
+2011
+2010
+2009
+2008
+2014.1
+2014.2
+2013.1   # e.g. Liga MX has two (complete) seasons in *one* year e.g. Clausura 2013 n Apertura 2013
+2013.2
+2012.1
+2012.2
+
+### for 2013.1  use 2013_I 2013-I 2013.I n 2013-II 2013.II or 2013.A n 2013.B 

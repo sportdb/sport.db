@@ -12,9 +12,9 @@ class Lang
 
     # load word lists
 
-    @fixtures_en = YAML.load( File.read_utf8( "#{SportDB.config_path}/fixtures.en.yml" ))
-    @fixtures_de = YAML.load( File.read_utf8( "#{SportDB.config_path}/fixtures.de.yml" ))
-    @fixtures_es = YAML.load( File.read_utf8( "#{SportDB.config_path}/fixtures.es.yml" ))
+    @fixtures_en = YAML.load( File.read_utf8( "#{SportDb.config_path}/fixtures.en.yml" ))
+    @fixtures_de = YAML.load( File.read_utf8( "#{SportDb.config_path}/fixtures.de.yml" ))
+    @fixtures_es = YAML.load( File.read_utf8( "#{SportDb.config_path}/fixtures.es.yml" ))
 
     @fixtures = {
       'en' => @fixtures_en,
@@ -214,9 +214,9 @@ class LangChecker
     ### todo/fix:
     # remove comment lines and end of line comments from text
     
-    en = count_words_in_text( SportDB.lang.words_en, text )
-    de = count_words_in_text( SportDB.lang.words_de, text )
-    es = count_words_in_text( SportDB.lang.words_es, text )
+    en = count_words_in_text( SportDb.lang.words_en, text )
+    de = count_words_in_text( SportDb.lang.words_de, text )
+    es = count_words_in_text( SportDb.lang.words_es, text )
       
     lang_counts = [
       [ 'en', en ],

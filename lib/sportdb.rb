@@ -74,7 +74,7 @@ require 'sportdb/data/models'     # add convenience finders for known fixtures
 
 
 
-module SportDB
+module SportDb
 
   def self.banner
     "sportdb #{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
@@ -86,6 +86,10 @@ module SportDB
 
   def self.config_path
     "#{root}/config"
+  end
+  
+  def self.data_path
+    "#{root}/data"
   end
 
   def self.lang
@@ -114,6 +118,10 @@ module SportDB
 
   def self.read_all( include_path )   # convenience helper
     read_setup( 'setups/all', include_path )
+  end
+
+  def self.read_builtin
+    read_setup( 'setups/all', data_path )
   end
 
 

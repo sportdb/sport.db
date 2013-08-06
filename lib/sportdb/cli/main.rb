@@ -97,6 +97,9 @@ command [:create] do |c|
     LogDb.create
     WorldDb.create
     SportDb.create
+    
+    SportDb.read_builtin   # e.g. seasons.txt etc
+    
     puts 'Done.'
   end # action
 end # command create
@@ -125,6 +128,8 @@ command [:setup,:s] do |c|
     LogDb.create
     WorldDb.create
     SportDb.create
+
+    SportDb.read_builtin   # e.g. seasons.txt etc
     
     WorldDb.read_all( opts.world_data_path )
     SportDb.read_setup( "setups/#{setup}", opts.data_path )
@@ -152,7 +157,10 @@ command [:update,:up,:u] do |c|
     ## todo: document optional setup profile arg (defaults to all)
     setup = args[0] || 'all'
 
-    SportDb.delete! if o[:delete].present?
+    if o[:delete].present?
+      SportDb.delete! 
+      SportDb.read_builtin    # NB: reload builtins (e.g. seasons etc.)
+    end
 
     SportDb.read_setup( "setups/#{setup}", opts.data_path )
     puts 'Done.'
@@ -171,7 +179,10 @@ command [:load, :l] do |c|
 
     connect_to_db( opts )
     
-    SportDb.delete! if o[:delete].present?
+    if o[:delete].present?
+      SportDb.delete!
+      SportDb.read_builtin    # NB: reload builtins (e.g. seasons etc.)
+    end
 
     reader = SportDb::Reader.new( opts.data_path )
 

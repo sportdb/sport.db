@@ -24,7 +24,7 @@ end
 module WorldDb::Models
 
   # add alias? why? why not? # is there a better way?
-  #  - just include SportDB::Models  - why? why not?
+  #  - just include SportDb::Models  - why? why not?
   #  - just include once in loader??
   Team   = SportDb::Models::Team
   League = SportDb::Models::League

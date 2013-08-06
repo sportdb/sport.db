@@ -381,7 +381,7 @@ class Reader
 
     logger.info "parsing data '#{name}' (#{path})..."
     
-    SportDB.lang.lang = LangChecker.new.analyze( path )
+    SportDb.lang.lang = LangChecker.new.analyze( path )
 
     reader = LineReader.new( path )
     
@@ -397,7 +397,7 @@ class Reader
 
     logger.info "parsing data '#{name}' (#{path})..."
 
-    ### SportDB.lang.lang = LangChecker.new.analyze( name, include_path )
+    ### SportDb.lang.lang = LangChecker.new.analyze( name, include_path )
 
     reader = LineReader.new( path )
 
@@ -476,7 +476,7 @@ class Reader
 
     logger.info "parsing data '#{name}' (#{path})..."
 
-    ### SportDB.lang.lang = LangChecker.new.analyze( name, include_path )
+    ### SportDb.lang.lang = LangChecker.new.analyze( name, include_path )
 
     reader = LineReader.new( path )
 
@@ -550,7 +550,7 @@ class Reader
 
     logger.info "parsing data '#{name}' (#{path})..."
     
-    ### SportDB.lang.lang = LangChecker.new.analyze( name, include_path )
+    ### SportDb.lang.lang = LangChecker.new.analyze( name, include_path )
 
     reader = LineReader.new( path )
     
@@ -615,7 +615,7 @@ class Reader
 
 private
 
-  include SportDB::FixtureHelpers
+  include SportDb::FixtureHelpers
 
   def load_fixtures_worker( event_key, reader )
    

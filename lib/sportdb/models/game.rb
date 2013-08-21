@@ -231,6 +231,9 @@ class Game < ActiveRecord::Base
     ## NB: remove if calc?
     buf << 'game-team-winner '  if complete? && (score1 >  score2)
     buf << 'game-team-draw '    if complete? && (score1 == score2)
+    buf << 'game-knockout '     if knockout?
+    ### fix: loser - add method for checking winner/loser on ko pairs using (1st leg/2nd leg totals)
+    buf << 'game-team-loser '   if complete? && (score1 < score2)
     buf
   end
   
@@ -239,9 +242,11 @@ class Game < ActiveRecord::Base
     ## NB: remove if calc?
     buf << 'game-team-winner '  if complete? && (score2 >  score1)
     buf << 'game-team-draw '    if complete? && (score2 == score1)
+    buf << 'game-knockout '     if knockout?
+    ### fix: loser - add method for checking winner/loser on ko pairs using (1st leg/2nd leg totals)
+    buf << 'game-team-loser '   if complete? && (score2 < score1)
     buf
   end
-
 
 
 

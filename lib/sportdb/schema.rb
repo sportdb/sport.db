@@ -178,8 +178,8 @@ create_table :games do |t|
   t.boolean    :home,     :null => false, :default => true    # is team1 play at home (that is, at its home stadium)
   t.integer    :score1
   t.integer    :score2
-  t.integer    :score1ot  # overtime - team 1 (opt)
-  t.integer    :score2ot  # overtime - team 2 (opt)
+  t.integer    :score1et  # extratime - team 1 (opt)
+  t.integer    :score2et  # extratime - team 2 (opt)
   t.integer    :score1p   # penalty  - team 1 (opt)
   t.integer    :score2p   # penalty  - team 2 (opt) elfmeter (opt)
   t.integer    :score1i   # half time / first third (opt)

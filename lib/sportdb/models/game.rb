@@ -16,11 +16,19 @@ class Game < ActiveRecord::Base
   ### getter/setters for deprecated attribs (score3,4,5,6) n national
   
   def score3
-    score1ot
+    score1et
   end
 
   def score4
-    score2ot
+    score2et
+  end
+  
+  def score1ot
+    score1et
+  end
+
+  def score2ot
+    score2et
   end
 
   def score5
@@ -32,11 +40,19 @@ class Game < ActiveRecord::Base
   end
 
   def score3=(value)
-    self.score1ot = value
+    self.score1et = value
   end
 
   def score4=(value)
-    self.score2ot = value
+    self.score2et = value
+  end
+
+  def score1ot=(value)
+    self.score1et = value
+  end
+
+  def score2ot=(value)
+    self.score2et = value
   end
 
   def score5=(value)
@@ -95,8 +111,8 @@ class Game < ActiveRecord::Base
         :team1     => value_teams[0],
         :score1    => value_scores[0],
         :score2    => value_scores[1],
-        :score1ot  => value_scores[2],
-        :score2ot  => value_scores[3],
+        :score1et  => value_scores[2],
+        :score2et  => value_scores[3],
         :score1p   => value_scores[4],
         :score2p   => value_scores[5],
         :team2     => value_teams[1],
@@ -159,8 +175,8 @@ class Game < ActiveRecord::Base
         :team1     =>pair[1][1],
         :score1    =>pair[1][2][0],
         :score2    =>pair[1][2][1],
-        :score1ot  =>pair[1][2][2],
-        :score2ot  =>pair[1][2][3],
+        :score1et  =>pair[1][2][2],
+        :score2et  =>pair[1][2][3],
         :score1p   =>pair[1][2][4],
         :score1p   =>pair[1][2][5],
         :team2     =>pair[1][3],
@@ -192,7 +208,7 @@ class Game < ActiveRecord::Base
       self.toto12x = '2'
     end
   end
-  
+
 
   def over?   # game over?
     play_at <= Time.now
@@ -226,6 +242,28 @@ class Game < ActiveRecord::Base
     buf
   end
 
+
+
+
+  def score_str
+    return ' - ' if score1.blank? && score2.blank?
+    
+    if score1p.present? && score2p.present?    # im Elfmeterschiessen i.E.?
+      "#{score1_str} : #{score2_str} / #{score1et} : #{score2et} n.V. / #{score1p} : #{score2p} i.E."
+    elsif score1et.present? && score2et.present?  # nach Verlaengerung n.V.?
+      "#{score1_str} : #{score2_str} / #{score1et} : #{score2et} n.V."
+    else
+      "#{score1_str} : #{score2_str}"
+    end
+  end
+
+  def score1_str
+    if score1.blank? then '-' else score1.to_s end
+  end
+
+  def score2_str
+    if score2.blank? then '-' else score2.to_s end
+  end
 
 
 end # class Game

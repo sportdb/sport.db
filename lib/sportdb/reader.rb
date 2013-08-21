@@ -75,12 +75,12 @@ class Reader
             load_leagues( name, club: true, country_id: country.id )
           end
     elsif name =~ /(?:^|\/)leagues/   # NB: ^leagues or also possible world!/leagues  - NB: make sure goes after leagues_for_country!!
-      if name =~ /club/
+      if name =~ /-cup!?\//   # NB: -cup/ or -cup!/ 
+        # e.g. national team tournaments/leagues (e.g. world-cup/ or euro-cup/)
+        load_leagues( name )
+      else
         # e.g. leagues_club
         load_leagues( name, club: true )
-      else
-        # e.g. leagues
-        load_leagues( name )
       end
     elsif match_teams_for_country( name ) do |country_key|   # name =~ /^([a-z]{2})\/teams/
             # auto-add country code (from folder structure) for country-specific teams
@@ -89,16 +89,18 @@ class Reader
             load_teams( name, club: true, country_id: country.id )
           end
     elsif name =~ /(?:^|\/)teams/
-      if name =~ /club/
+      if name =~ /-cup!?\//   # NB: -cup/ or -cup!/ 
+        # assume national teams
+        # e.g. world-cup/teams  amercia-cup/teams_northern
+        load_teams( name, national: true )
+      else
         # club teams (many countries)
         # e.g. club/europe/teams
         load_teams( name, club: true )
-      else
-        # assume national teams
-        # e.g. world/teams  amercia/teams_n
-        load_teams( name, national: true )
       end
-    elsif name =~ /\/(\d{4}|\d{4}_\d{2})\//   # e.g. must match /2012/ or /2012_13/
+    elsif name =~ /\/(\d{4}|\d{4}_\d{2})\// || name =~ /\/(\d{4}|\d{4}_\d{2})$/
+      # e.g. must match /2012/ or /2012_13/
+      #  or   /2012 or /2012_13   e.g. brazil/2012 or brazil/2012_13
       load_event( name )
       event    = fetch_event( name )
       fixtures = fetch_event_fixtures( name )
@@ -205,7 +207,7 @@ class Reader
     end # each key,value
 
     if fixtures.empty?
-      logger.warn "no fixtures found for event - >#{name}<; assume fixture name is the same as event"
+      ## logger.warn "no fixtures found for event - >#{name}<; assume fixture name is the same as event"
       fixtures = [name]
     else
       ## add path to fixtures (use path from event e.g)
@@ -323,6 +325,8 @@ class Reader
       elsif key == 'team3'
         ## for now always assume false  # todo: fix - use value and convert to boolean if not boolean
         event_attribs['team3'] = false
+      elsif key == 'fixtures'
+        ## skip fixtures for now (NOT yet stored in db; for now reload file to get fixtures)
       else
         ## todo: add a source location struct to_s or similar (file, line, col)
         logger.error "unknown event attrib #{key}; skipping attrib"
@@ -776,8 +780,8 @@ private
     game_attribs = {
       score1:    scores[0],
       score2:    scores[1],
-      score1ot:  scores[2],
-      score2ot:  scores[3],
+      score1et:  scores[2],
+      score2et:  scores[3],
       score1p:   scores[4],
       score2p:   scores[5],
       play_at:    date,

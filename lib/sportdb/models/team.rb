@@ -11,7 +11,7 @@ class Team < ActiveRecord::Base
 
   ## todo/fix: must be 3 or more letters (plus allow digits e.g. salzburgii, muenchen1980, etc.) - why? why not??
   validates :key,  :format => { :with => REGEX_KEY,  :message => 'expected three or more lowercase letters a-z' }
-  validates :code, :format => { :with => REGEX_CODE, :message => 'expected three uppercase letters A-Z (and 0-9_)' }, :allow_nil => true
+  validates :code, :format => { :with => REGEX_CODE, :message => 'expected two or three uppercase letters A-Z (and 0-9_; must start with A-Z)' }, :allow_nil => true
 
   has_many :event_teams, :class_name => 'EventTeam'  # join table (events+teams)
   has_many :events, :through => :event_teams

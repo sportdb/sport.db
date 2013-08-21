@@ -75,8 +75,8 @@ EURO2008 = Event.find_by_key( 'euro.2008' )
 EURO2012 = Event.find_by_key( 'euro.2012' )
 EURO = EURO2012  # add alias
 
-BL = Event.find_by_key( 'de.2012/13' )
-PL = Event.find_by_key( 'en.2012/13' )
+BL = Event.find_by_key( 'de.2013/14' )
+PL = Event.find_by_key( 'en.2013/14' )
 
 ### some club teams
 

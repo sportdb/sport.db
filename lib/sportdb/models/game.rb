@@ -249,6 +249,17 @@ class Game < ActiveRecord::Base
   end
 
 
+  def play_at_str( format = nil )
+    ## e.g. use like
+    #  play_at_str  or
+    #  play_at_str( :db ) etc.
+    if format == :db
+      play_at.strftime( '%Y-%m-%d %H:%M %z' )  # NB: removed seconds (:%S)
+    else
+      play_at.strftime( "%a. %d. %b. / %H:%M" )
+    end
+  end
+
 
   def score_str
     return ' - ' if score1.blank? && score2.blank?

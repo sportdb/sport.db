@@ -57,6 +57,7 @@ require 'sportdb/utils'
 require 'sportdb/reader'
 require 'sportdb/lang'
 
+require 'sportdb/updater'
 require 'sportdb/deleter'
 require 'sportdb/stats'
 
@@ -144,6 +145,11 @@ module SportDb
     puts '*** deleting sport table records/data...'
     Deleter.new.run
   end # method delete!
+
+  def self.update!
+    puts '*** update event fixtures...'
+    Updater.new.run
+  end
 
 
   def self.stats

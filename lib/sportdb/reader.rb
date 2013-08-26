@@ -272,6 +272,14 @@ class Reader
     reader = HashReaderV2.new( name, include_path )
 
     event_attribs = {}
+    
+    ## set default sources to basename by convention
+    #  e.g  2013_14/bl  => bl
+    #  etc.
+    # use fixtures/sources: to override default
+
+    event_attribs[ 'sources' ] = File.basename( name )
+    event_attribs[ 'config'  ] = File.basename( name )  # name a of .yml file
 
     reader.each_typed do |key, value|
 
@@ -325,13 +333,17 @@ class Reader
       elsif key == 'team3'
         ## for now always assume false  # todo: fix - use value and convert to boolean if not boolean
         event_attribs['team3'] = false
-      elsif key == 'fixtures'
-        ## skip fixtures for now (NOT yet stored in db; for now reload file to get fixtures)
+      elsif key == 'fixtures' || key == 'sources'
+        if value.kind_of?(Array)
+          event_attribs['sources'] = value.join(',') 
+        else # assume plain (single fixture) string
+          event_attribs['sources'] = value.to_s
+        end
       else
         ## todo: add a source location struct to_s or similar (file, line, col)
         logger.error "unknown event attrib #{key}; skipping attrib"
       end
-  
+
     end # each key,value
 
     league_id = event_attribs['league_id']

@@ -128,6 +128,12 @@ create_table :events do |t|
   t.date        :end_at   # make it required???  # NB: only use date (w/o time)
   t.boolean     :team3,    :null => false, :default => true   ## e.g. Champions League has no 3rd place (only 1st and 2nd/final)
 
+  #### track 1-n sources (from repos)  - # todo move to its own table later
+  ## NB: relative to event.yml - use mapper to "resolve" to full path w/ repo; use league+season keys
+  t.string      :sources    #  e.g. cup or bl,bl_ii   # NB: for now store all in on string separated by comma
+  t.string      :config  # e.g. cup or bl #  e.g assumes cup.yml, bl.yml etc. for now
+
+
   t.timestamps
 end
 

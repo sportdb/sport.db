@@ -195,6 +195,20 @@ command [:load, :l] do |c|
   end
 end # command load
 
+
+desc 'Pull - Auto-update event fixtures from upstream online sources'
+command :pull do |c|
+  c.action do |g,o,args|
+
+    connect_to_db( opts )
+
+    SportDb.update!
+
+    puts 'Done.'
+  end # action
+end # command pull
+
+
 desc 'Show logs'
 command :logs do |c|
   c.action do |g,o,args|

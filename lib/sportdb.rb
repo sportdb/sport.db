@@ -23,6 +23,7 @@ require 'textutils'
 
 require 'worlddb'
 
+require 'fetcher'   # for fetching/downloading fixtures via HTTP/HTTPS etc.
 
 # our own code
 

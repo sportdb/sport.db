@@ -68,12 +68,12 @@ module SportDb
       end
       
       sources = event.sources.split(',')
-      sources.each do |source|
+      sources.each_with_index do |source,i|
         dlurl = "#{dlbase}/#{source}.txt"
-        puts "   downloading source >>#{dlurl}<< ..."
+        puts "   downloading source (#{i+1}/#{sources.length}) >>#{dlurl}<< ..."     # todo/check: use size for ary or length - does it matter?
 
-        ## add download here
-        text = "\n\n\n"
+        # download fixtures into string
+        text = Fetcher.read( dlurl )
 
         puts "   importing/reading source..."
         reader= Reader.new( '/tmp' )  # passing dummy include_path (not needed for reading from string)

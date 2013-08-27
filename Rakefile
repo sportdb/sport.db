@@ -23,11 +23,12 @@ Hoe.spec 'sportdb' do
   # self.history_file = 'History.md'
   
   self.extra_deps = [
-    ['worlddb', '~> 1.7'],  # NB: worlddb already includes
+    ['worlddb', '>= 1.7'],  # NB: worlddb already includes
                                #         - commander
                                #         - logutils
                                #         - textutils
-    
+    ['fetcher', '>= 0.3'],
+
     ## 3rd party
     ['gli', '>= 2.5.6']
 

@@ -30,11 +30,12 @@ class Event < ActiveRecord::Base
   end
   
   def title
-    league.title
+    "#{league.title} #{season.title}"
   end
 
   def full_title   # includes season (e.g. year)
-    "#{league.title} #{season.title}"
+    puts "*** depreciated API call Event#full_title; use Event#title instead; full_title will get removed"
+    "#{league.title} #{season.title}"    
   end
 
 

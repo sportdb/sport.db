@@ -6,50 +6,57 @@ class Lang
 
   include LogUtils::Logging
 
+  attr_reader :lang
+
   def initialize
-
-    @lang = 'en'   # make default lang english/en
-
-    # load word lists
-
-    @fixtures_en = YAML.load( File.read_utf8( "#{SportDb.config_path}/fixtures.en.yml" ))
-    @fixtures_de = YAML.load( File.read_utf8( "#{SportDb.config_path}/fixtures.de.yml" ))
-    @fixtures_es = YAML.load( File.read_utf8( "#{SportDb.config_path}/fixtures.es.yml" ))
-
-    @fixtures = {
-      'en' => @fixtures_en,
-      'de' => @fixtures_de,
-      'es' => @fixtures_es,
-    }
-
-
-    @words_en = fixtures_hash_to_words_ary( @fixtures_en )
-    @words_de = fixtures_hash_to_words_ary( @fixtures_de )
-    @words_es = fixtures_hash_to_words_ary( @fixtures_es )
-    
-    logger.debug "en - #{@words_en.size} words: #{@words_en}"
-    logger.debug "de - #{@words_de.size} words: #{@words_de}"
-    logger.debug "es - #{@words_es.size} words: #{@words_es}"
-    
+    # fix/todo: load on demand; only if no fixtures loaded/configured use builtin
+    load_builtin_words
   end
 
-  attr_reader :words_en
-  attr_reader :words_de
-  attr_reader :words_es
-  attr_reader :lang
+
+  def load_builtin_words
+    builtin_words = {
+      'en' => 'fixtures.en',
+      'de' => 'fixtures.de',
+      'es' => 'fixtures.es'
+    }
+
+    load_words( builtin_words, SportDb.config_path )
+  end
+
+  def load_words( h, include_path )
+    @lang = 'en'   # make default lang english/en
+    @words = {}  # resets fixtures
+    @cache = {}  # reset cached values
+
+    h.each_with_index do |(key,value),i|
+      name = value
+      path = "#{include_path}/#{name}.yml"
+      logger.debug( "loading words (#{i+1}/#{h.size}) for #{key} in '#{name}' (#{path})"...)
+      @words[ key ] = YAML.load( File.read_utf8( path ))
+    end
+
+    @classifier = TextUtils::Classifier.new
+    @words.each_with_index do |(key,value),i|
+      logger.debug "train classifier for #{key} (#{i+1}/#{@words.size})"
+      @classifier.train( key, value )
+    end
+  end
+
+  def classify( text )
+    @classifier.classify( text )
+  end
 
   def lang=(value)
     logger.debug "setting lang to #{value}"
     
     if @lang != value
+      
+      ### todo: make reset cached values into method/function for reuse (see load_words)
       # reset cached values on language change
       logger.debug "reseting cached lang values (lang changed from #{@lang} to #{value})"
 
-      @group = nil
-      @round = nil
-      @knockout_round = nil
-      @leg1 = nil
-      @leg2 = nil
+      @cache = {}
       
       @regex_group = nil
       @regex_round = nil
@@ -64,34 +71,35 @@ class Lang
 
 
   def group
-    @group ||= group_getter
+    @cache[ :group ] ||= group_getter
   end
   
   def round
-    @round ||= round_getter
+    @cache[ :round ] ||= round_getter
   end
- 
+
   def knockout_round
-    @knockout_round ||= knockout_round_getter
+    @cache[ :knockout_round ] ||= knockout_round_getter
   end
   
   def leg1
-    @leg1 ||= leg1_getter
+    @cache[ :leg1 ] ||= leg1_getter
   end
   
   def leg2
-    @leg2 ||= leg2_getter
+    @cache[ :leg2 ] ||= leg2_getter
   end
+
 
 
   def regex_group
-    @regex_group ||= regex_group_getter
+    @cache [ :regex_group ] ||= regex_group_getter
   end
-   
+
   def regex_round
-    @regex_round ||= regex_round_getter
+    @cache[ :regex_round ] ||= regex_round_getter
   end
-  
+
   def regex_knockout_round
     @regex_knockout_round ||= regex_knockout_round_getter
   end
@@ -106,7 +114,7 @@ class Lang
 
 private
   def group_getter
-    h = @fixtures[ lang ]
+    h = @words[ lang ]
     values = ""   # NB: always construct a new string (do NOT use a reference to hash value)
     values << h['group']
     values
@@ -115,7 +123,7 @@ private
   def round_getter
     # e.g. Spieltag|Runde|Achtelfinale|Viertelfinale|Halbfinale|Finale
     
-    h = @fixtures[ lang ]
+    h = @words[ lang ]
     values = ""   # NB: always construct a new string (do NOT use a reference to hash value)
     values << h['round']
     values << "|" << h['matchday']  ## todo/check: fold round n matchday into one key? why? why not??
@@ -182,88 +190,7 @@ private
     /#{leg2}/
   end
 
-
-  def fixtures_hash_to_words_ary( hash )
-    ary = []
-    hash.each do |key_wild, values_wild|
-      key     = key_wild.to_s.strip
-      values  = values_wild.to_s.strip
-       
-      logger.debug "processing key >>#{key}<< with words >>#{values}<<"
-       
-      ary += values.split('|')
-    end
-    ary
-  end
-  
 end # class Lang
-
-
-class LangChecker
-
-  include LogUtils::Logging
-  
-  def initialize
-  end
-
-  def analyze( path )
-    # return lang code e.g. en, de, es
-
-    text = File.read_utf8( path )
-    
-    ### todo/fix:
-    # remove comment lines and end of line comments from text
-    
-    en = count_words_in_text( SportDb.lang.words_en, text )
-    de = count_words_in_text( SportDb.lang.words_de, text )
-    es = count_words_in_text( SportDb.lang.words_es, text )
-      
-    lang_counts = [
-      [ 'en', en ],
-      [ 'de', de ],
-      [ 'es', es ]
-    ]
-    
-    # sort by word count (reverse sort e.g. highest count goes first)
-    lang_counts = lang_counts.sort {|l,r| r[1] <=> l[1] }
-    
-    # dump stats
-    
-    logger.debug "lang checker:"
-    lang_counts.each_with_index do |item,index|
-      ## e.g. 1. en: 20 words
-      ##      2. de: 2 words
-      logger.debug " #{index+1}. #{item[0]}: #{item[1]}"
-    end
-    
-    logger.info "lang checker - using lang >>#{lang_counts[0][0]}<<"
-    
-    ## return lang code w/ highest count
-    lang_counts[0][0]
-  end
-
-private
-  def count_word_in_text( word, text )
-    count = 0
-    pos = text.index( word )
-    while pos.nil? == false
-      count += 1
-      logger.debug "bingo - found >>#{word}<< on pos #{pos}, count: #{count}"
-      ### todo: check if pos+word.length/size needs +1 or similar
-      pos = text.index( word, pos+word.length)
-    end
-    count
-  end
-  
-  def count_words_in_text( words, text )
-    count = 0
-    words.each do |word|
-      count += count_word_in_text( word, text )
-    end
-    count
-  end
-
-end # class LangChecker
 
 
 end # module SportDb

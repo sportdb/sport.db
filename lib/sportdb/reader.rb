@@ -4,6 +4,8 @@ module SportDb
 
 module Matcher
 
+  include WorldDb::Matcher
+
   def match_leagues_for_country( name, &blk )
     match_xxx_for_country( name, 'leagues', blk )
   end
@@ -23,8 +25,6 @@ class Reader
 ## make models available in sportdb module by default with namespace
 #  e.g. lets you use Team instead of Models::Team 
   include SportDb::Models
-
-  include WorldDb::Matcher
   include SportDb::Matcher # lets us use match_teams_for_country etc.
 
 
@@ -368,7 +368,10 @@ class Reader
   end  # load_event
 
 
+
   def load_fixtures_from_string( event_key, text )  # load from string (e.g. passed in via web form)
+
+    SportDb.lang.lang = SportDb.lang.classify( text )
 
     ## todo/fix: move code into LineReader e.g. use LineReader.fromString() - why? why not?
     reader = StringLineReader.new( text )
@@ -397,7 +400,7 @@ class Reader
 
     logger.info "parsing data '#{name}' (#{path})..."
     
-    SportDb.lang.lang = LangChecker.new.analyze( path )
+    SportDb.lang.lang = SportDb.lang.classify_file( path )
 
     reader = LineReader.new( path )
     

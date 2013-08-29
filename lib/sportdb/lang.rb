@@ -16,9 +16,9 @@ class Lang
 
   def load_builtin_words
     builtin_words = {
-      'en' => 'fixtures.en',
-      'de' => 'fixtures.de',
-      'es' => 'fixtures.es'
+      'en' => 'fixtures/en',
+      'de' => 'fixtures/de',
+      'es' => 'fixtures/es'
     }
 
     load_words( builtin_words, SportDb.config_path )
@@ -32,7 +32,7 @@ class Lang
     h.each_with_index do |(key,value),i|
       name = value
       path = "#{include_path}/#{name}.yml"
-      logger.debug( "loading words (#{i+1}/#{h.size}) for #{key} in '#{name}' (#{path})"...)
+      logger.debug( "loading words #{key} (#{i+1}/#{h.size}) in '#{name}' (#{path})..." )
       @words[ key ] = YAML.load( File.read_utf8( path ))
     end
 
@@ -41,10 +41,16 @@ class Lang
       logger.debug "train classifier for #{key} (#{i+1}/#{@words.size})"
       @classifier.train( key, value )
     end
+    
+    @classifier.dump  # for debugging dump all words
   end
 
   def classify( text )
     @classifier.classify( text )
+  end
+
+  def classify_file( path )
+    @classifier.classify_file( path )
   end
 
   def lang=(value)
@@ -57,12 +63,6 @@ class Lang
       logger.debug "reseting cached lang values (lang changed from #{@lang} to #{value})"
 
       @cache = {}
-      
-      @regex_group = nil
-      @regex_round = nil
-      @regex_knockout_round = nil
-      @regex_leg1 = nil
-      @regex_leg2 = nil
     end
     
     @lang = value
@@ -101,15 +101,15 @@ class Lang
   end
 
   def regex_knockout_round
-    @regex_knockout_round ||= regex_knockout_round_getter
+    @cache[ :regex_knockout_round ] ||= regex_knockout_round_getter
   end
   
   def regex_leg1
-    @regex_leg1 ||= regex_leg1_getter
+    @cache[ :regex_leg1 ] ||= regex_leg1_getter
   end
   
   def regex_leg2
-    @regex_leg2 ||= regex_leg2_getter
+    @cache[ :regex_leg2 ] ||= regex_leg2_getter
   end
 
 private
@@ -139,21 +139,21 @@ private
   end
 
   def leg1_getter
-    h = @fixtures[ lang ]
+    h = @words[ lang ]
     values = ""  # NB: always construct a new string (do NOT use a reference to hash value)
     values << h['leg1']
     values
   end
 
   def leg2_getter
-    h = @fixtures[ lang ]
+    h = @words[ lang ]
     values = ""  # NB: always construct a new string (do NOT use a reference to hash value)
     values << h['leg2']
     values
   end
 
   def knockout_round_getter
-    h = @fixtures[ lang ]
+    h = @words[ lang ]
     values = ""  # NB: always construct a new string (do NOT use a reference to hash value)
     values << h['round32']
     values << "|" << h['round16']

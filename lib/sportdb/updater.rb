@@ -2,6 +2,9 @@
 module SportDb
 
   class Updater
+
+    include LogUtils::Logging
+
     ######
     # NB: make models available in sportdb module by default with namespace
     #  e.g. lets you use Team instead of Models::Team 
@@ -10,10 +13,13 @@ module SportDb
 
     def map_event_to_dlurl( event )
 
-      repo_path, folder_path = map_key_to_repo_n_folder_path( event.league.key )
+      league_key = event.league.key
+      season_key = event.season.key
+
+      repo_path, folder_path = map_key_to_repo_n_folder_path( league_key )
       return nil if repo_path.nil?   # no match/mapping found; cancel download
 
-      season_path = event.season.key.gsub( '/', '_')  # convert 2013/14 to 2013_14
+      season_path = season_key.gsub( '/', '_')  # convert 2013/14 to 2013_14
 
       ###
       # e.g. https://raw.github.com/openfootball/at-austria/master/2013_14/bl.txt
@@ -66,14 +72,31 @@ module SportDb
         puts "  skip download; no download event source configured/found"
         return
       end
-      
-      sources = event.sources.split(',')
+
+      sources = event.sources.gsub(' ','').split(',')   # NB: remove all blanks (leading,trailing,inside)
       sources.each_with_index do |source,i|
         dlurl = "#{dlbase}/#{source}.txt"
         puts "   downloading source (#{i+1}/#{sources.length}) >>#{dlurl}<< ..."     # todo/check: use size for ary or length - does it matter?
 
         # download fixtures into string
         text = Fetcher.read( dlurl )
+
+        logger.debug "text.encoding.name (before): #{text.encoding.name}"
+        
+        ###
+        # NB: Net::HTTP will NOT set encoding UTF-8 etc.
+        #  will mostly be ASCII
+        #  - try to change encoding to UTF-8 ourselves
+
+        #####
+        # NB:  ASCII-8BIT == BINARY == Encoding Unknown; Raw Bytes Here
+
+        ## NB:
+        #  for now "hardcoded" to utf8 - what else can we do?
+        #  - note: force_encoding will NOT change the chars only change the assumed encoding w/o translation
+        text = text.force_encoding( Encoding::UTF_8 )
+        logger.debug "text.encoding.name (after): #{text.encoding.name}"
+
 
         puts "   importing/reading source..."
         reader= Reader.new( '/tmp' )  # passing dummy include_path (not needed for reading from string)

@@ -209,6 +209,44 @@ command :pull do |c|
 end # command pull
 
 
+
+desc 'Start web service (HTTP JSON API)'
+command [:serve,:server] do |c|
+
+  c.action do |g,o,args|
+
+    connect_to_db( opts )
+
+    # NB: server (HTTP service) not included in standard default require
+    require 'sportdb/service'
+
+# make sure connections get closed after every request e.g.
+#
+#  after do
+#   ActiveRecord::Base.connection.close
+#  end
+#
+
+    puts 'before add middleware ConnectionManagement'
+    SportDb::Service::Server.use ActiveRecord::ConnectionAdapters::ConnectionManagement
+    puts 'after add middleware ConnectionManagement'
+    ## todo: check if we can check on/dump middleware stack
+
+    ## rack middleware might not work with multi-threaded thin web server; close it ourselfs
+    SportDb::Service::Server.after do
+      puts "  #{Thread.current.object_id} -- make sure db connections gets closed after request"
+      # todo: check if connection is open - how? 
+      ActiveRecord::Base.connection.close
+    end    
+
+    SportDb::Service::Server.run!
+
+    puts 'Done.'
+  end
+end # command serve
+
+
+
 desc 'Show logs'
 command :logs do |c|
   c.action do |g,o,args|

@@ -1,0 +1,11 @@
+
+<% _.each( rounds, function( round, index ) { %>
+
+  <%  if( index > 0 ) { %>
+       |
+   <% } %>
+    <a href='#' data-round='<%= round.pos %>'>
+      <%= round.title %>
+    </a>
+
+<% }); %>

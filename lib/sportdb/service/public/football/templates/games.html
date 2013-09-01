@@ -1,0 +1,29 @@
+<table>
+ <% _.each( games, function( game, index ) { %>
+  <tr>
+    <td>
+      <%= game.play_at %>
+     </td>
+     <td style='text-align: right;'>
+       <%= game.team1_title %> (<%= game.team1_code %>)
+     </td>
+
+     <td>
+      <% if( game.score1 != null && game.score2 != null ) { %>
+        <% if( game.score1ot != null && game.score2ot != null ) { %>
+          <% if ( game.score1p != null && game.score2p != null ) { %>
+             <%= game.score1p %> - <%= game.score2p %> iE /
+          <% } %>
+           <%= game.score1ot %> - <%= game.score2ot %> nV /
+        <% } %>
+        <%= game.score1 %> - <%= game.score2 %>
+      <% } else { %>
+        - 
+      <% } %>
+     </td>
+     <td>
+      <%= game.team2_title %> (<%= game.team2_code %>)
+     </td>
+   </tr>
+  <% }); %>
+</table>

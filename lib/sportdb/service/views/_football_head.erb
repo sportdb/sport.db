@@ -1,0 +1,21 @@
+
+<script src="<%= url('/football/js/libs/jquery-2.0.2.min.js') %>" ></script>
+<script src="<%= url('/football/js/libs/underscore-1.4.4.min.js') %>" ></script>
+<script src="<%= url('/football/js/libs/require-2.1.6.js') %>" ></script>
+
+<script>
+  require.config( {
+    baseUrl: "<%= url('/football/js') %>"
+  });
+
+  var api;
+
+  require( ['football/api'], function(Api) {
+
+    // todo/fix: strip trailing slash from baseUrl if present
+    //  - use path_prefix for now as work around
+    // e.g. url('/') is http://footballdb.herokuapp.com/api/v1
+    api = Api.create( { baseUrl: '<%= path_prefix %>' } );
+
+  });
+</script>

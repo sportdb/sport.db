@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <title>Matchday Example / football.db JSON(P) API</title>
+  
+  <script src='js/libs/jquery-2.0.2.min.js'></script>
+  <script src='js/libs/underscore-1.4.4.min.js'></script>
+  <script src='js/libs/require-2.1.6.js'></script>
+  
+  <style>
+    
+    .football-widget a
+    {
+      color: black;
+      text-decoration: none;
+    }
+
+    .football-widget {
+       border: 1px solid green;
+       padding: 4px;
+       margin: 10px;
+    }
+    
+    .football-widget .rounds {
+      margin-bottom: 10px;
+    }
+    
+  </style>
+
+  <script>
+    require.config( {
+      baseUrl: 'js'
+    });
+
+    require( ['football/plugin'], function() {
+
+      $(document).ready( function() {
+
+        $( '#confed' ).football( { event: 'world.conf.2013' } );
+
+      });
+
+    }); // fn require
+  </script>
+  
+  
+</head>
+<body>
+
+
+<h1>Matchday Example / football.db JSON(P) API</h1>
+
+<div id='confed'></div>
+
+</body>
+</html>

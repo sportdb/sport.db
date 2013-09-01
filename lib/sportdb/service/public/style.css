@@ -1,0 +1,38 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+a {
+  color: black;
+  text-decoration: none; }
+  a:hover {
+    color: black;
+    background-color: aqua;
+    text-decoration: underline; }
+  a:visited {
+    color: black; }
+
+.params {
+  color: green;
+  font-style: italic;
+  font-weight: bold; }
+
+pre {
+  background-color: #F3F3F3;
+  border-bottom: 1px solid #BBBBBB;
+  border-top: 1px solid #BBBBBB;
+  padding: 4px; }
+
+.football-widget {
+  background-color: lime;
+  border: 1px solid green;
+  padding: 4px; }
+  .football-widget ul {
+    list-style-type: none; }
+
+.version {
+  text-align: center;
+  margin-top: 10px;
+  color: grey; }
+  .version a, .version span {
+    font-size: 12px;
+    color: grey; }

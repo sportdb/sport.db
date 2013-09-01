@@ -149,8 +149,23 @@ module SportDb::FixtureHelpers
       return nil
     end
   end # method find_round_pos!
-  
-  def find_date!( line )
+
+
+  def calculate_year( day, month, start_at )
+    if month >= start_at.month
+      # assume same year as start_at event (e.g. 2013 for 2013/14 season)
+      start_at.year
+    else
+      # assume year+1 as start_at event (e.g. 2014 for 2013/14 season)
+      start_at.year+1
+    end
+  end
+
+  def find_date!( line, opts={} )
+
+    ## NB: lets us pass in start_at/end_at date (for event)
+    #   for auto-complete year
+
     # extract date from line
     # and return it
     # NB: side effect - removes date from line string
@@ -211,12 +226,10 @@ module SportDb::FixtureHelpers
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     elsif line =~ regex_de
-      
-      #### fix/todo:
-      #  get year from event start date!!!!
-      #  do NOT hard code!!!!
 
-      value = '2012-%02d-%02d %02d:%02d' % [$2.to_i, $1.to_i, $3.to_i, $4.to_i]
+      year = calculate_year( $1.to_i, $2.to_i, opts[:start_at] )
+
+      value = '%d-%02d-%02d %02d:%02d' % [year, $2.to_i, $1.to_i, $3.to_i, $4.to_i]
       logger.debug "   date: >#{value}<"
 
       ## todo: lets you configure year

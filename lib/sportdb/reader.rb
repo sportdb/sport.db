@@ -307,7 +307,7 @@ class Reader
           exit 1
         end
         
-      elsif key == 'start_at'
+      elsif key == 'start_at' || key == 'begin_at'
         
         if value.is_a?(DateTime) || value.is_a?(Date)
           start_at = value
@@ -316,7 +316,17 @@ class Reader
         end
         
         event_attribs['start_at'] = start_at
+
+      elsif key == 'end_at' || key == 'stop_at'
         
+        if value.is_a?(DateTime) || value.is_a?(Date)
+          end_at = value
+        else # assume it's a string
+          end_at = DateTime.strptime( value.to_s.strip, '%Y-%m-%d' )
+        end
+        
+        event_attribs['end_at'] = end_at
+
       elsif key == 'teams'
         
         ## assume teams value is an array
@@ -768,12 +778,12 @@ private
 
     if is_postponed?( line )
       postponed  = true
-      date_v2    = find_date!( line )
-      date       = find_date!( line )
+      date_v2    = find_date!( line, start_at: @event.start_at )
+      date       = find_date!( line, start_at: @event.start_at )
     else
       postponed = false
       date_v2   = nil
-      date      = find_date!( line )
+      date      = find_date!( line, start_at: @event.start_at )
     end
 
     scores = find_scores!( line )

@@ -36,6 +36,8 @@ COMMANDS
     load, l       - Load sports fixtures
     logs          - Show logs
     props         - Show props
+    pull          - Pull (auto-update) event fixtures from upstream sources  
+    serve, server - Start web service (HTTP JSON API)
     stats         - Show stats
     test          - (Debug) Test command suite
     help          - Shows a list of commands or help for one command
@@ -102,13 +104,27 @@ EXAMPLES
 
 ~~~
 NAME
-    pull - Pull - Auto-update event fixtures from upstream online sources
+    pull - Pull (auto-update) event fixtures from upstream sources
 
 SYNOPSIS
     sportdb [global options] pull
 
 EXAMPLES
     sportdb pull
+~~~
+
+
+### `serve` Command
+
+~~~
+NAME
+    serve - Start web service (HTTP JSON API)
+
+SYNOPSIS
+    sportdb [global options] serve 
+
+EXAMPLES
+    sportdb serve
 ~~~
 
 

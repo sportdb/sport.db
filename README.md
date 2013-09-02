@@ -128,14 +128,14 @@ Just install the gem:
 - [`sport.db`](https://github.com/geraldb/sport.db) - free open public domain sports data for use in any (programming) language
 
 
+## License
+
+The `sportdb` scripts are dedicated to the public domain.
+Use it as you please with no restrictions whatsoever.
+
+
 ## Questions? Comments?
 
 Send them along to the
 [Open Sports & Friends Forum/Mailing List](http://groups.google.com/group/opensport).
 Thanks!
-
-
-## License
-
-The `sportdb` scripts are dedicated to the public domain.
-Use it as you please with no restrictions whatsoever.

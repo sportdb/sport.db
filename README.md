@@ -1,6 +1,9 @@
 # sportdb - sport.db Command Line Tool in Ruby
 
+
+<!--
 [![Build Status](https://secure.travis-ci.org/geraldb/sport.db.ruby.png?branch=master)](http://travis-ci.org/geraldb/sport.db.ruby)
+-->
 
 * home  :: [github.com/geraldb/sport.db.ruby](https://github.com/geraldb/sport.db.ruby)
 * bugs  :: [github.com/geraldb/sport.db.ruby/issues](https://github.com/geraldb/sport.db.ruby/issues)
@@ -18,7 +21,7 @@ SYNOPSIS
     sportdb [global options] command [command options] [arguments...]
 
 VERSION
-    1.6
+    1.8
 
 GLOBAL OPTIONS
     -d, --dbpath=PATH - Database path (default: .)
@@ -95,6 +98,21 @@ EXAMPLES
 ~~~
 
 
+### `pull` Command
+
+~~~
+NAME
+    pull - Pull - Auto-update event fixtures from upstream online sources
+
+SYNOPSIS
+    sportdb [global options] pull
+
+EXAMPLES
+    sportdb pull
+~~~
+
+
+
 ## Install
 
 Just install the gem:
@@ -106,8 +124,8 @@ Just install the gem:
 
 - [`football.db`](https://github.com/openfootball) - free open public domain football (soccer) data for use in any (programming) language
 - [`formula1.db`](https://github.com/geraldb/formula1.db) - free open public domain Formula 1/Formula One data for use in any (programming) language
-- [`sport.db`](https://github.com/geraldb/sport.db) - free open public domain sports data for use in any (programming) language
 - [`ski.db`](https://github.com/geraldb/ski.db) - free open public domain Ski Alpin/Alpine Ski data for use in any (programming) language
+- [`sport.db`](https://github.com/geraldb/sport.db) - free open public domain sports data for use in any (programming) language
 
 
 ## Questions? Comments?
@@ -115,6 +133,7 @@ Just install the gem:
 Send them along to the
 [Open Sports & Friends Forum/Mailing List](http://groups.google.com/group/opensport).
 Thanks!
+
 
 ## License
 

@@ -261,7 +261,12 @@ module SportDb::FixtureHelpers
       ## todo: lets you configure year
       ##  and time zone (e.g. cet, eet, utc, etc.)
 
-      line.sub!( regex_de4, '[DATE.DE4]' )
+      ### NOTE: needs a trailing space
+      #   not if regex ends w/ whitespace e.g. /s+
+      #  make sure sub! adds a space at the end
+      #   e.g. '[DATE.DE4]' becomes '[DATE.DE4] '
+
+      line.sub!( regex_de4, '[DATE.DE4] ' )
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     elsif line =~ regex_en

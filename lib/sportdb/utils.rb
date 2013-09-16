@@ -191,6 +191,9 @@ module SportDb::FixtureHelpers
     # e.g. 14.09.2012  => DD.MM.YYYY w/ implied hours (set to 12:00)
     regex_de3 = /\b(\d{1,2})\.(\d{1,2})\.(\d{4})\b/
 
+    # e.g. 14.09.  => DD.MM. w/ implied year and implied hours (set to 12:00)
+    regex_de4 = /\b(\d{1,2})\.(\d{1,2})\.\s+/
+
 
     month_abbrev_en = "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec"
 
@@ -246,6 +249,19 @@ module SportDb::FixtureHelpers
       ##  and time zone (e.g. cet, eet, utc, etc.)
       
       line.sub!( regex_de3, '[DATE.DE3]' )
+
+      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
+    elsif line =~ regex_de4
+
+      year = calculate_year( $1.to_i, $2.to_i, opts[:start_at] )
+
+      value = '%d-%02d-%02d 12:00' % [year, $2.to_i, $1.to_i]
+      logger.debug "   date: >#{value}<"
+
+      ## todo: lets you configure year
+      ##  and time zone (e.g. cet, eet, utc, etc.)
+
+      line.sub!( regex_de4, '[DATE.DE4]' )
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     elsif line =~ regex_en

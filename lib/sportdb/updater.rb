@@ -22,7 +22,7 @@ module SportDb
       season_path = season_key.gsub( '/', '_')  # convert 2013/14 to 2013_14
 
       ###
-      # e.g. https://raw.github.com/openfootball/at-austria/master/2013_14/bl.txt
+      # e.g. https://raw.github.com/openfootball/at-austria/master/2013_14
 
       dlurl = "https://raw.github.com/openfootball/#{repo_path}/master"
       dlurl << "/#{folder_path}" if folder_path.present?
@@ -38,8 +38,18 @@ module SportDb
         [ 'at',      'at-austria'  ],
         [ 'at.*',    'at-austria'  ],
         [ 'de',      'de-deutschland' ],
+        [ 'de.*',    'de-deutschland'  ],
+        [ 'en',      'en-england' ],
+        [ 'es',      'es-espana' ],
+        [ 'it',      'it-italy' ],
         [ 'be',      'europe', 'be-belgium' ], # NB: europe/be-belgium
+        [ 'ro',      'europe', 'ro-romania' ],
         [ 'cl',      'europe'      ],
+        [ 'el',      'europe'      ],
+        [ 'br',      'br-brazil' ],
+        [ 'mx',      'mx-mexico' ],  # todo: add mx.* for clausura etc ??
+        [ 'euro',    'euro-cup',   ],
+        [ 'world',   'world-cup'   ],
         [ 'world.*', 'world-cup'  ]]
 
       map.each do |entry|

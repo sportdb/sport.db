@@ -53,6 +53,7 @@ require 'sportdb/models/run'
 require 'sportdb/models/season'
 require 'sportdb/models/team'
 require 'sportdb/models/track'
+require 'sportdb/models/utils'   # e.g. GameCursor
 require 'sportdb/schema'       # NB: requires sportdb/models (include SportDB::Models)
 require 'sportdb/utils'
 require 'sportdb/reader'
@@ -79,7 +80,7 @@ require 'sportdb/data/models'     # add convenience finders for known fixtures
 module SportDb
 
   def self.banner
-    "sportdb #{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+    "sportdb/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
   end
 
   def self.root
@@ -96,6 +97,9 @@ module SportDb
 
   def self.lang
     # todo/fix: find a better way for single instance ??
+    #  will get us ruby warning:  instance variable @lang not initialized   => find a better way!!!
+    #   just use @lang w/o .nil?  e.g.
+    #  @lang =|| Lang.new   why? why not??  or better use @@lang =|| Lang.new  for class variable!!!
      if @lang.nil?
        @lang = Lang.new
      end

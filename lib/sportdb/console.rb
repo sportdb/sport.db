@@ -14,6 +14,9 @@ require 'yaml'
 
 ## shortcuts for models
 
+##
+##  todo/fix: just use include SportDb::Models  - why? why not? is it possible/working?
+
 Badge   = SportDb::Models::Badge
 Event   = SportDb::Models::Event
 Game    = SportDb::Models::Game

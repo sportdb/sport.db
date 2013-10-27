@@ -18,28 +18,29 @@ class TestRound < MiniTest::Unit::TestCase
 
     pos, title, title2, group_pos, group_title, ko = parse_round( line )
 
-    assert( pos == 2 )
-    assert( title == "2. Round" )
-    assert( title2 == nil )
-    assert( ko == false )
+    assert_equal 2, pos
+    assert_equal '2. Round', title
+    assert_equal nil, title2
+    assert_equal false, ko
 
     line = "(1) Matchday P.1  /  1st Leg  //   January 22-24"
 
     pos, title, title2, group_pos, group_title, ko = parse_round( line )
 
-    assert( pos == 1 )
-    assert( title == "Matchday P.1  /  1st Leg" )
-    assert( title2 == "January 22-24" )
-    assert( ko == false )
+    assert_equal 1, pos
+    assert_equal 'Matchday P.1  /  1st Leg', title
+    assert_equal 'January 22-24', title2
+    assert_equal false, ko
 
     line = "(4) Matchday 2 / Group 1  //  February 19-21"
 
     pos, title, title2, group_pos, group_title, ko = parse_round( line )
 
-    assert( pos == 4 )
-    assert( title == "Matchday 2" )
-    assert( title2 == "February 19-21" )
-    assert( ko == false )
+    assert_equal 4, pos
+    assert_equal 'Matchday 2', title 
+    assert_equal 'February 19-21', title2
+    assert_equal false, ko
+
 
     line = "(13) Round of 16 / 1st Leg   //  April 25, May 1-3"
 
@@ -101,7 +102,7 @@ class TestRound < MiniTest::Unit::TestCase
 
     pos, title, title2, group_pos, group_title, ko = parse_round( line )
 
-    assert( pos = 2 )
+    assert( pos == 2 )
     assert( title == 'Jornada 2' )
     assert( title2 == '27, 28 y 29 de julio' )
     assert( ko == false )
@@ -110,7 +111,7 @@ class TestRound < MiniTest::Unit::TestCase
 
     pos, title, title2, group_pos, group_title, ko = parse_round( line )
 
-    assert( pos = 18 )
+    assert( pos == 18 )
     assert( title == 'Cuartos de Final / Ida' )
     assert( title2 == '14/15 de noviembre' )
     assert( ko == false )
@@ -119,7 +120,7 @@ class TestRound < MiniTest::Unit::TestCase
 
     pos, title, title2, group_pos, group_title, ko = parse_round( line )
 
-    assert( pos = 19 )
+    assert( pos == 19 )
     assert( title == 'Cuartos de Final / Vuelta' )
     assert( title2 == '17/18 de noviembre' )
     assert( ko == true )
@@ -133,7 +134,7 @@ class TestRound < MiniTest::Unit::TestCase
     
     pos, title, title2, group_pos, group_title, ko = parse_round( line )
 
-    assert( pos = 5 )
+    assert( pos == 5 )
     assert( title == 'Spieltag 5' )
     assert( title2 == 'Di./Mi., 20.+21. Nov 2012' )
     assert( ko == false )
@@ -142,7 +143,7 @@ class TestRound < MiniTest::Unit::TestCase
 
     pos, title, title2, group_pos, group_title, ko = parse_round( line )
 
-    assert( pos = 8 )
+    assert( pos == 8 )
     assert( title == 'Achtelfinale Rückspiele' )
     assert( title2 == 'Di./Mi., 5.+6./12.+13. Mär 2013' )
     assert( ko == true )

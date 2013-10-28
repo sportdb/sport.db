@@ -816,31 +816,38 @@ private
       group_id:  @group.present? ? @group.id : nil
     }
 
-    game_attribs[ :pos ]      = pos        if pos.present?
+    game_attribs[ :pos ] = pos   if pos.present?
 
-    if game.present?
-      logger.debug "update game #{game.id}:"
+    ####
+    # note: only update if any changes (or create if new record)
+    if game.present? &&
+       game.check_for_changes( game_attribs ) == false
+          logger.debug "  skip update game #{game.id}; no changes found"
     else
-      logger.debug "create game:"
-      game = Game.new
+      if game.present?
+        logger.debug "update game #{game.id}:"
+      else
+        logger.debug "create game:"
+        game = Game.new
 
-      more_game_attribs = {
-        round_id:  @round.id,
-        team1_id: team1.id,
-        team2_id: team2.id
-      }
+        more_game_attribs = {
+          round_id:  @round.id,
+          team1_id: team1.id,
+          team2_id: team2.id
+        }
           
-      ## NB: use round.games.count for pos
-      ##  lets us add games out of order if later needed
-      more_game_attribs[ :pos ] = @round.games.count+1  if pos.nil? 
+        ## NB: use round.games.count for pos
+        ##  lets us add games out of order if later needed
+        more_game_attribs[ :pos ] = @round.games.count+1   if pos.nil? 
 
-      game_attribs = game_attribs.merge( more_game_attribs )
+        game_attribs = game_attribs.merge( more_game_attribs )
+      end
+
+      logger.debug game_attribs.to_json
+      game.update_attributes!( game_attribs )
     end
 
-    logger.debug game_attribs.to_json
-
-    game.update_attributes!( game_attribs )
-  end
+  end # method parse_game
 
 
   def parse_fixtures( reader )

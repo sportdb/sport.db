@@ -26,17 +26,22 @@ class GameCursorState
     @new_date      = true
     @new_year      = true
     @new_week      = true
+    @index         = -1   # zero-based index; thus start off with -1 (e.g. -1+=1 => 0)
   end
+
+  attr_reader :index
 
   def new_date?()  @new_date; end
   def new_year?()  @new_year; end
   def new_week?()  @new_week; end
+  
 
   ## add new league ?
   ## add new round  ?
   ## add new time   ?
     
   def next( game )
+    @index += 1   # zero-based index; start off with -1 (undefined/uninitialized)
     game_play_at = game.play_at  # cache play_at value ref
 
     if @last_play_at.year   == game_play_at.year  &&

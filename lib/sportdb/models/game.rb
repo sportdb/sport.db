@@ -13,9 +13,11 @@ class Game < ActiveRecord::Base
 
   before_save :calc_winner
 
-  def toto12x   # old getter - do NOT use depreciated; gets removed; note: returns string; new getter winner returns int
-    puts "[SportDb::Models::Game] depreciated API toto12x; use [int] winner90 attrib/field"
 
+  def toto12x() toto1x2; end # alias for toto12x - todo/fix: use ruby alias helper
+  def toto1x2
+    ## note: will return string e.g. 1-X-2 (winner will return int e.g. 1-0-2)
+    
     ## fix: use switch/when expr/stmt instead of ifs
     value = winner90   # 1 0 2  1 => team 1 0 => draw 2 => team
     if value == 0
@@ -363,6 +365,28 @@ class Game < ActiveRecord::Base
   def score1p_str()  score1p.nil? ? '-' : score1p.to_s;  end
   def score2p_str()  score2p.nil? ? '-' : score2p.to_s;  end
 
+
+
+  ## todo/fix: find a better name?
+  ##  todo: move to utils for reuse?
+  
+  def check_for_changes( new_attributes )
+    changes_counter = 0
+    new_attributes.each do |key,new_value|
+      old_value = attributes[ key.to_s ]
+      ## todo/fix: also check for class/type matching ????
+      if new_value == old_value
+        # do nothing
+      else
+        changes_counter +=1
+        puts "change #{changes_counter} for #{key} old:>#{old_value}< : #{old_value.class.name} new:>#{new_value}< : #{new_value.class.name}"
+      end
+    end
+    
+    # no changes found for counter==0;
+    # -- otherwise x changes found; return true
+    changes_counter == 0 ? false : true
+  end
 
 end # class Game
 

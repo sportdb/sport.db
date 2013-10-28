@@ -11,7 +11,76 @@ class Game < ActiveRecord::Base
   
   has_many :goals
 
-  before_save :calc_toto12x
+  before_save :calc_winner
+
+  def toto12x   # old getter - do NOT use depreciated; gets removed; note: returns string; new getter winner returns int
+    puts "[SportDb::Models::Game] depreciated API toto12x; use [int] winner90 attrib/field"
+
+    ## fix: use switch/when expr/stmt instead of ifs
+    value = winner90   # 1 0 2  1 => team 1 0 => draw 2 => team
+    if value == 0
+      'X'
+    elsif value == 1
+      '1'
+    elsif value == 2
+      '2'
+    elsif value == -1
+      nil  # ??? - unknown -- include --??? why? why not??
+    else
+      nil
+    end
+  end
+
+
+  def winner1?() winner == 1; end
+  def winner2?() winner == 2; end
+  def draw?   () winner == 0; end    # use different name; use an alias (any better names more speaking???)
+
+
+  def calc_winner
+    if score1.nil? || score2.nil?
+      self.winner90 = nil
+      self.winner   = nil
+    else
+      if score1 > score2
+        self.winner90 = 1
+      elsif score1 < score2
+        self.winner90 = 2
+      else # assume score1 == score2 - draw
+        self.winner90 = 0
+      end
+
+      ## todo/fix:
+      #  check for next-game/pre-game !!!
+      #    use 1st leg and 2nd leg - use for winner too
+      #  or add new winner_total or winner_aggregated method ???
+
+      ## check for penalty  - note: some games might only have penalty and no extra time (e.g. copa liberatadores)
+      if score1p.present? && score2p.present?
+        if score1p > score2p
+          self.winner = 1
+        elsif score1p < score2p
+          self.winner = 2
+        else
+          # issue warning! - should not happen; penalty goes on until winner found!
+          puts "*** warn: should not happen; penalty goes on until winner found"
+        end
+      ## check for extra time
+      elsif score1et.present? && score2et.present?
+        if score1et > score2et
+          self.winner = 1
+        elsif score1et < score2et
+          self.winner = 2
+        else # assume score1et == score2et - draw
+          self.winner = 0
+        end
+      else
+        # assume no penalty and no extra time; same as 90min result
+        self.winner = self.winner90
+      end
+    end
+  end
+
 
   ### getter/setters for deprecated attribs (score3,4,5,6) n national
   
@@ -196,20 +265,6 @@ class Game < ActiveRecord::Base
   end
 
 
-      
-  def calc_toto12x
-    if score1.nil? || score2.nil?
-      self.toto12x = nil
-    elsif score1 == score2
-      self.toto12x = 'X'
-    elsif score1 > score2
-      self.toto12x = '1'
-    elsif score1 < score2
-      self.toto12x = '2'
-    end
-  end
-
-
   def over?   # game over?
     play_at <= Time.now
   end
@@ -218,10 +273,11 @@ class Game < ActiveRecord::Base
   def knockout?
     knockout == true
   end
-  
+
   def complete?
     score1.present? && score2.present?
   end
+
 
 ############# convenience helpers for styling
 ##
@@ -229,22 +285,44 @@ class Game < ActiveRecord::Base
   def team1_style_class
     buf = ''
     ## NB: remove if calc?
-    buf << 'game-team-winner '  if complete? && (score1 >  score2)
-    buf << 'game-team-draw '    if complete? && (score1 == score2)
+
+    ### fix: loser
+    ## - add method for checking winner/loser on ko pairs using (1st leg/2nd leg totals) ??
+    ## use new winner_total method ??
+ 
+    if complete?
+      if winner1?
+        buf << 'game-team-winner '
+      elsif winner2?
+        buf << 'game-team-loser '
+      else # assume draw
+        buf << 'game-team-draw '
+      end
+    end
+    
     buf << 'game-knockout '     if knockout?
-    ### fix: loser - add method for checking winner/loser on ko pairs using (1st leg/2nd leg totals)
-    buf << 'game-team-loser '   if complete? && (score1 < score2)
     buf
   end
-  
+
   def team2_style_class
     buf = ''
     ## NB: remove if calc?
-    buf << 'game-team-winner '  if complete? && (score2 >  score1)
-    buf << 'game-team-draw '    if complete? && (score2 == score1)
+
+    ### fix: loser
+    ## - add method for checking winner/loser on ko pairs using (1st leg/2nd leg totals) ??
+    ## use new winner_total method ??
+
+    if complete?
+      if winner1?
+        buf << 'game-team-loser '
+      elsif winner2?
+        buf << 'game-team-winner '
+      else # assume draw
+        buf << 'game-team-draw '
+      end
+    end
+
     buf << 'game-knockout '     if knockout?
-    ### fix: loser - add method for checking winner/loser on ko pairs using (1st leg/2nd leg totals)
-    buf << 'game-team-loser '   if complete? && (score2 < score1)
     buf
   end
 
@@ -262,24 +340,28 @@ class Game < ActiveRecord::Base
 
 
   def score_str
-    return ' - ' if score1.blank? && score2.blank?
-    
-    if score1p.present? && score2p.present?    # im Elfmeterschiessen i.E.?
-      "#{score1_str} : #{score2_str} / #{score1et} : #{score2et} n.V. / #{score1p} : #{score2p} i.E."
-    elsif score1et.present? && score2et.present?  # nach Verlaengerung n.V.?
-      "#{score1_str} : #{score2_str} / #{score1et} : #{score2et} n.V."
-    else
-      "#{score1_str} : #{score2_str}"
-    end
+    ## return ' - ' if score1.nil? && score2.nil?
+
+    # note: make after extra time optional;
+    # e.g. copa liberatadores only has regular time plus penalty, for example
+
+    buf = ""
+
+    buf << "#{score1_str} : #{score2_str}"
+    buf << " / #{score1et_str} : #{score2et_str} n.V."  if score1et.present? || score2et.present?
+    buf << " / #{score1p_str} : #{score2p_str} i.E."    if score1p.present?  || score2p.present?
+
+    buf
   end
 
-  def score1_str
-    if score1.blank? then '-' else score1.to_s end
-  end
+  def score1_str()  score1.nil? ? '-' : score1.to_s;  end
+  def score2_str()  score2.nil? ? '-' : score2.to_s;  end
 
-  def score2_str
-    if score2.blank? then '-' else score2.to_s end
-  end
+  def score1et_str()  score1et.nil? ? '-' : score1et.to_s;  end
+  def score2et_str()  score2et.nil? ? '-' : score2et.to_s;  end
+
+  def score1p_str()  score1p.nil? ? '-' : score1p.to_s;  end
+  def score2p_str()  score2p.nil? ? '-' : score2p.to_s;  end
 
 
 end # class Game

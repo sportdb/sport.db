@@ -427,8 +427,7 @@ module SportDb::FixtureHelpers
     ## todo: how to handle game w/o extra time
     #   but w/ optional penalty ???  e.g. used in copa liberatores, for example
     #    retrun 0,0 or nil,nil for extra time score ?? or -1, -1 ??
-    #    for now use -1,-1 - check if nil,nil will crash upstream/downstream code??
-    #   todo/fix: better use nil, nil ??
+    #    for now use nil,nil
 
     if line =~ regex
       logger.debug "   score: >#{$1}-#{$2}<"
@@ -448,8 +447,8 @@ module SportDb::FixtureHelpers
       
       line.sub!( regex_et, '[SCORE.ET]' )
 
-      ## check scores empty? - fill with -1,-1
-      scores += [-1,-1]  if scores.size == 0
+      ## check scores empty? - fill with nil,nil
+      scores += [nil,nil]  if scores.size == 0
 
       scores << $1.to_i
       scores << $2.to_i
@@ -460,9 +459,9 @@ module SportDb::FixtureHelpers
       
       line.sub!( regex_p, '[SCORE.P]' )
 
-      ## check scores empty? - fill with -1,-1
-      scores += [-1,-1]  if scores.size == 0
-      scores += [-1,-1]  if scores.size == 2
+      ## check scores empty? - fill with nil,nil
+      scores += [nil,nil]  if scores.size == 0
+      scores += [nil,nil]  if scores.size == 2
 
       scores << $1.to_i
       scores << $2.to_i

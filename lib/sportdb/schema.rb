@@ -194,12 +194,9 @@ create_table :games do |t|
   t.integer    :score2ii  # second third - team2 (opt)
   t.references :next_game  # for hinspiel bei rueckspiel in knockout game
   t.references :prev_game
-  
-  
-  
-  ### todo> find a better name (toto is not international/english?)
-  ## rename to score12x or pt12x or result12x
-  t.string     :toto12x      # 1,2,X,nil  calculate on save
+
+  t.integer    :winner      # 1,2,0,nil  calculate on save  - "real" winner (after 90 or extra time or penalty, aggregated first+second leg?)
+  t.integer    :winner90    # 1,2,0,nil  calculate on save  - winner after 90 mins (or regugular play time depending on sport - add alias or find  a better name!) 
 
   t.timestamps
 end

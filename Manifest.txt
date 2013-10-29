@@ -41,6 +41,7 @@ lib/sportdb/models/run.rb
 lib/sportdb/models/season.rb
 lib/sportdb/models/team.rb
 lib/sportdb/models/track.rb
+lib/sportdb/models/utils.rb
 lib/sportdb/reader.rb
 lib/sportdb/schema.rb
 lib/sportdb/service.rb
@@ -80,6 +81,11 @@ lib/sportdb/utils.rb
 lib/sportdb/version.rb
 tasks/test.rb
 test/helper.rb
+test/test_changes.rb
+test/test_cursor.rb
+test/test_date.rb
 test/test_lang.rb
 test/test_round.rb
+test/test_scores.rb
 test/test_utils.rb
+test/test_winner.rb

@@ -16,11 +16,20 @@ class Team < ActiveRecord::Base
   has_many :event_teams, :class_name => 'EventTeam'  # join table (events+teams)
   has_many :events, :through => :event_teams
 
-  ### fix - how to do it with has_many macro? use finder_sql?
+  ### fix!!! - how to do it with has_many macro? use finder_sql?
   def games
-    Game.where( 'team1_id = ? or team2_id = ?', id, id ).order( 'play_at' ).all
+    Game.where( 'team1_id = ? or team2_id = ?', id, id ).order( 'play_at' )
   end
-  
+
+  def upcoming_games
+    Game.where( 'team1_id = ? or team2_id = ?', id, id ).where( 'play_at > ?', Time.now ).order( 'play_at' )
+  end
+
+  def past_games
+    Game.where( 'team1_id = ? or team2_id = ?', id, id ).where( 'play_at < ?', Time.now ).order( 'play_at desc' )
+  end
+
+
   has_many :badges   # Winner, 2nd, Cupsieger, Aufsteiger, Absteiger, etc.
 
   belongs_to :country, :class_name => 'WorldDb::Models::Country', :foreign_key => 'country_id'

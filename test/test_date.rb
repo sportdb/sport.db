@@ -11,6 +11,17 @@ class TestDate < MiniTest::Unit::TestCase
     assert_date     DateTime.new( 2013, 1, 26 ),         parse_date( '26.01.2013' )
   end
 
+  def test_date_en
+    start_at = DateTime.new( 2013, 1, 25 )
+
+    assert_date     DateTime.new( 2013, 1, 26 ),         parse_date( 'Jan/26', start_at: start_at )
+    assert_datetime DateTime.new( 2013, 1, 26, 12, 00 ), parse_date( 'Jan/26', start_at: start_at )
+
+    assert_date     DateTime.new( 2013, 6, 13 ),         parse_date( 'Jun/13', start_at: start_at )
+    assert_datetime DateTime.new( 2013, 6, 13, 12, 00 ), parse_date( 'Jun/13', start_at: start_at )
+  end
+
+
 private
 
   ## todo: check if assert_datetime or assert_date exist already? what is the best practice to check dates ???

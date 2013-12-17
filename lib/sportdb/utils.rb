@@ -200,6 +200,10 @@ module SportDb::FixtureHelpers
     # e.g. 12 May 2013 14:00  => D|DD.MMM.YYYY H|HH:MM
     regex_en = /\b(\d{1,2})\s(#{month_abbrev_en})\s(\d{4})\s+(\d{1,2}):(\d{2})\b/
 
+    ## todo: add version w/ hours
+    # e.g.  Jun/12  w/ implied year and implied hours (set to 12:00)
+    regex_en2 = /\b(#{month_abbrev_en})\/(\d{1,2})\b/
+
 
     if line =~ regex_db
       value = '%d-%02d-%02d %02d:%02d' % [$1.to_i, $2.to_i, $3.to_i, $4.to_i, $5.to_i]
@@ -276,6 +280,32 @@ module SportDb::FixtureHelpers
       line.sub!( regex_en, '[DATE.EN]' )
 
       return DateTime.strptime( value, '%Y-%b-%d %H:%M' )   ## %b - abbreviated month name (e.g. Jan,Feb, etc.)
+    elsif line =~ regex_en2
+      # todo: make more generic for reuse
+      month_abbrev_en_to_i = {
+        'Jan' => 1,
+        'Feb' => 2,
+        'Mar' => 3,
+        'Apr' => 4,
+        'May' => 5,
+        'Jun' => 6,
+        'Jul' => 7,
+        'Aug' => 8,
+        'Sep' => 9,
+        'Oct' => 10,
+        'Nov' => 11,
+        'Dec' => 12 }
+
+      day   = $2.to_i
+      month = month_abbrev_en_to_i[ $1 ]
+      year = calculate_year( day, month, opts[:start_at] )
+
+      value = '%d-%02d-%02d 12:00' % [year, month, day]
+      logger.debug "   date: >#{value}<"
+
+      line.sub!( regex_en2, '[DATE.EN2] ' )
+
+      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     else
       return nil
     end

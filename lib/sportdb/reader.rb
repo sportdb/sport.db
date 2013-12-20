@@ -13,6 +13,14 @@ module Matcher
   def match_teams_for_country( name, &blk )
     match_xxx_for_country( name, 'teams', blk )
   end
+  
+  def match_tracks_for_country( name, &blk )
+    match_xxx_for_country( name, 'tracks', blk )
+  end
+
+  def match_skiers_for_country( name, &blk )
+    match_xxx_for_country( name, 'skiers', blk )
+  end
 
 end # module Matcher
 
@@ -53,7 +61,23 @@ class Reader
     
     if name  =~ /^circuits/  # e.g. circuits.txt in formula1.db
       load_tracks( name )
+    elsif match_tracks_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/tracks/
+            # auto-add country code (from folder structure) for country-specific tracks
+            #  e.g. at/tracks  or at-austria/tracks
+            country = Country.find_by_key!( country_key )
+            load_tracks( name, country_id: country.id )
+          end
+    elsif name  =~ /^tracks/  # e.g. tracks.txt in ski.db
+      load_tracks( name )
     elsif name =~ /^drivers/ # e.g. drivers.txt in formula1.db
+      load_persons( name )
+    elsif match_skiers_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/skiers/
+            # auto-add country code (from folder structure) for country-specific skiers (persons)
+            #  e.g. at/skiers  or at-austria/skiers.men
+            country = Country.find_by_key!( country_key )
+            load_persons( name, country_id: country.id )
+          end
+    elsif name =~ /^skiers/ # e.g. skiers.men.txt in ski.db
       load_persons( name )
     elsif name =~ /^teams/   # e.g. teams.txt in formula1.db
       load_teams( name )

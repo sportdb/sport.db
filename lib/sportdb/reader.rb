@@ -7,19 +7,19 @@ module Matcher
   include WorldDb::Matcher
 
   def match_leagues_for_country( name, &blk )
-    match_xxx_for_country( name, 'leagues', blk )
+    match_xxx_for_country( name, 'leagues', &blk )
   end
 
   def match_teams_for_country( name, &blk )
-    match_xxx_for_country( name, 'teams', blk )
+    match_xxx_for_country( name, 'teams', &blk )
   end
-  
+
   def match_tracks_for_country( name, &blk )
-    match_xxx_for_country( name, 'tracks', blk )
+    match_xxx_for_country( name, 'tracks', &blk )
   end
 
   def match_skiers_for_country( name, &blk )
-    match_xxx_for_country( name, 'skiers', blk )
+    match_xxx_for_country( name, 'skiers', &blk )
   end
 
 end # module Matcher

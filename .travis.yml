@@ -8,6 +8,13 @@
 #
 # fix: add travis build status image to readme
 
+
+#
+# note: use
+#  $ rake debug_gem > sportdb.gemspec
+#  to update gemspec w/ rake task 
+
+
 language: ruby
 rvm:
   - "1.9.2"

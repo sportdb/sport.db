@@ -1,4 +1,4 @@
-module SportDb::Models
+module SportDb::Model
 
 
 class League < ActiveRecord::Base
@@ -10,7 +10,7 @@ class League < ActiveRecord::Base
   has_many :events
   has_many :seasons, :through => :events
   
-  belongs_to :country, :class_name => 'WorldDb::Models::Country', :foreign_key => 'country_id'
+  belongs_to :country, :class_name => 'WorldDb::Model::Country', :foreign_key => 'country_id'
 
 
   def self.create_or_update_from_values( new_attributes, values )
@@ -78,4 +78,4 @@ class League < ActiveRecord::Base
 end  # class League
 
 
-end # module SportDb::Models
+end # module SportDb::Model

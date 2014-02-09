@@ -2,15 +2,15 @@
 ### forward references
 ##   require first to resolve circular references
 
-module SportDb::Models
+module SportDb::Model
 
   ## todo: why? why not use include WorldDb::Models here???
 
-  Continent = WorldDb::Models::Continent
-  Country   = WorldDb::Models::Country
-  Region    = WorldDb::Models::Region
-  City      = WorldDb::Models::City
-  Prop      = WorldDb::Models::Prop
+  Continent = WorldDb::Model::Continent
+  Country   = WorldDb::Model::Country
+  Region    = WorldDb::Model::Region
+  City      = WorldDb::Model::City
+  Prop      = WorldDb::Model::Prop
 
   ## nb: for now only team and league use worlddb tables
   #   e.g. with belongs_to assoc (country,region)
@@ -21,12 +21,12 @@ module SportDb::Models
 end
 
 
-module WorldDb::Models
+module WorldDb::Model
 
   # add alias? why? why not? # is there a better way?
   #  - just include SportDb::Models  - why? why not?
   #  - just include once in loader??
-  Team   = SportDb::Models::Team
-  League = SportDb::Models::League
+  Team   = SportDb::Model::Team
+  League = SportDb::Model::League
 
 end

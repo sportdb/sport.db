@@ -1,4 +1,4 @@
-module SportDb::Models
+module SportDb::Model
 
 
 class Round < ActiveRecord::Base
@@ -9,5 +9,5 @@ class Round < ActiveRecord::Base
 end # class Round
   
   
-end # module SportDb::Models
+end # module SportDb::Model
 

@@ -1,5 +1,5 @@
 module SportDb
-  module Models
+  module Model
 
 
 class GameCursor
@@ -74,5 +74,5 @@ class GameCursorState
 end # class GameCursorState
 
 
-  end # module Models
+  end # module Model
 end # module SportDb

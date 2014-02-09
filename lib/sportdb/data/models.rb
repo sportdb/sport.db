@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module SportDb::Models
+module SportDb::Model
 
   ## add convenience finders to some model classes
   
@@ -38,6 +38,6 @@ module SportDb::Models
     
   end # class Event
 
-end # module SportDb::Models
+end # module SportDb::Model
 
 

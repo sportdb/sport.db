@@ -1,10 +1,10 @@
-module SportDb::Models
+module SportDb::Model
 
 class Track < ActiveRecord::Base
 
   has_many :races
 
-  belongs_to :country, :class_name => 'WorldDb::Models::Country', :foreign_key => 'country_id'
+  belongs_to :country, :class_name => 'WorldDb::Model::Country', :foreign_key => 'country_id'
 
   #####################
   ## convenience helper for text parser/reader
@@ -55,4 +55,4 @@ class Track < ActiveRecord::Base
 end  # class Track
 
 
-end # module SportDb::Models
+end # module SportDb::Model

@@ -1,4 +1,4 @@
-module SportDb::Models
+module SportDb::Model
 
 
 class Record < ActiveRecord::Base
@@ -10,4 +10,4 @@ class Record < ActiveRecord::Base
 end  # class Record
 
 
-end # module SportDb::Models
+end # module SportDb::Model

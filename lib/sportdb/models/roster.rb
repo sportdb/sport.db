@@ -1,4 +1,6 @@
-module SportDb::Models
+module SportDb::Model
+
+### use LineUp, Squad for name? - alias??
 
 class Roster < ActiveRecord::Base
 
@@ -9,4 +11,4 @@ class Roster < ActiveRecord::Base
 end  # class Roster
 
 
-end # module SportDb::Models
+end # module SportDb::Model

@@ -1,4 +1,4 @@
-module SportDb::Models
+module SportDb::Model
 
 
 class Season < ActiveRecord::Base
@@ -8,4 +8,4 @@ class Season < ActiveRecord::Base
 end  # class Season
 
 
-end # module SportDb::Models
+end # module SportDb::Model

@@ -31,10 +31,11 @@ require 'sportdb/version'
 
 require 'sportdb/title'   ## fix - move to textutils gem
 require 'sportdb/models/forward'
+require 'sportdb/models/world/city'
+require 'sportdb/models/world/country'
+require 'sportdb/models/world/continent'
+require 'sportdb/models/world/region'
 require 'sportdb/models/badge'
-require 'sportdb/models/city'
-require 'sportdb/models/country'
-require 'sportdb/models/continent'
 require 'sportdb/models/event'
 require 'sportdb/models/event_team'
 require 'sportdb/models/game'
@@ -43,10 +44,8 @@ require 'sportdb/models/group'
 require 'sportdb/models/group_team'
 require 'sportdb/models/league'
 require 'sportdb/models/person'
-require 'sportdb/models/prop'
 require 'sportdb/models/race'
 require 'sportdb/models/record'
-require 'sportdb/models/region'
 require 'sportdb/models/roster'
 require 'sportdb/models/round'
 require 'sportdb/models/run'
@@ -54,6 +53,13 @@ require 'sportdb/models/season'
 require 'sportdb/models/team'
 require 'sportdb/models/track'
 require 'sportdb/models/utils'   # e.g. GameCursor
+
+## add backwards compatible namespace (delete later!)
+module SportDb
+  Models = Model
+end
+
+
 require 'sportdb/schema'       # NB: requires sportdb/models (include SportDB::Models)
 require 'sportdb/utils'
 require 'sportdb/reader'
@@ -72,7 +78,6 @@ require 'sportdb/stats'
 #  todo/fix => remove from here and move into console.rb and tasks.rb
 
 require 'sportdb/data/keys'
-require 'sportdb/data/fixtures'
 require 'sportdb/data/models'     # add convenience finders for known fixtures
 
 
@@ -114,7 +119,7 @@ module SportDb
 
   def self.create
     CreateDb.new.up
-    WorldDb::Models::Prop.create!( key: 'db.schema.sport.version', value: VERSION )
+    WorldDb::Model::Prop.create!( key: 'db.schema.sport.version', value: VERSION )
   end
 
   def self.read_setup( setup, include_path )

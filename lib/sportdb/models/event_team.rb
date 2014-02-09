@@ -1,4 +1,4 @@
-module SportDb::Models
+module SportDb::Model
 
 
 class EventTeam < ActiveRecord::Base
@@ -9,4 +9,4 @@ class EventTeam < ActiveRecord::Base
 end # class EventTeam
 
 
-end # module SportDb::Models
+end # module SportDb::Model

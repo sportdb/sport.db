@@ -1,4 +1,4 @@
-module SportDb::Models
+module SportDb::Model
 
 
 class Team < ActiveRecord::Base
@@ -32,8 +32,8 @@ class Team < ActiveRecord::Base
 
   has_many :badges   # Winner, 2nd, Cupsieger, Aufsteiger, Absteiger, etc.
 
-  belongs_to :country, :class_name => 'WorldDb::Models::Country', :foreign_key => 'country_id'
-  belongs_to :city,    :class_name => 'WorldDb::Models::City',    :foreign_key => 'city_id'
+  belongs_to :country, :class_name => 'WorldDb::Model::Country', :foreign_key => 'country_id'
+  belongs_to :city,    :class_name => 'WorldDb::Model::City',    :foreign_key => 'city_id'
 
 
 
@@ -129,4 +129,4 @@ class Team < ActiveRecord::Base
 end  # class Team
   
 
-end # module SportDb::Models
+end # module SportDb::Model

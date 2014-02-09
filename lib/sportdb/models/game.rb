@@ -1,4 +1,4 @@
-module SportDb::Models
+module SportDb::Model
 
 
 class Game < ActiveRecord::Base
@@ -86,53 +86,19 @@ class Game < ActiveRecord::Base
 
   ### getter/setters for deprecated attribs (score3,4,5,6) n national
   
-  def score3
-    score1et
-  end
+  def score3()   score1et  end
+  def score4()   score2et  end
+  def score1ot() score1et  end
+  def score2ot() score2et  end
+  def score5()   score1p   end
+  def score6()   score2p   end
 
-  def score4
-    score2et
-  end
-  
-  def score1ot
-    score1et
-  end
-
-  def score2ot
-    score2et
-  end
-
-  def score5
-    score1p
-  end
-
-  def score6
-    score2p
-  end
-
-  def score3=(value)
-    self.score1et = value
-  end
-
-  def score4=(value)
-    self.score2et = value
-  end
-
-  def score1ot=(value)
-    self.score1et = value
-  end
-
-  def score2ot=(value)
-    self.score2et = value
-  end
-
-  def score5=(value)
-    self.score1p = value
-  end
-
-  def score6=(value)
-    self.score2p = value
-  end
+  def score3=(value)   self.score1et = value  end
+  def score4=(value)   self.score2et = value  end
+  def score1ot=(value) self.score1et = value  end
+  def score2ot=(value) self.score2et = value  end
+  def score5=(value)   self.score1p = value   end
+  def score6=(value)   self.score2p = value   end
 
 
 
@@ -391,4 +357,4 @@ class Game < ActiveRecord::Base
 end # class Game
 
 
-end # module SportDb::Models
+end # module SportDb::Model

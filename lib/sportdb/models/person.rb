@@ -1,4 +1,4 @@
-module SportDb::Models
+module SportDb::Model
 
 
 class Person < ActiveRecord::Base
@@ -6,16 +6,11 @@ class Person < ActiveRecord::Base
 
   has_many :goals
 
-  belongs_to :country, :class_name => 'WorldDb::Models::Country', :foreign_key => 'country_id'
+  belongs_to :country, :class_name => 'WorldDb::Model::Country', :foreign_key => 'country_id'
 
 
-  def title    # alias for name
-    name
-  end
-
-  def title=(value)  # alias for name
-    self.name = value
-  end
+  def title()       name               end  # alias for name
+  def title=(value) self.name = value  end  # alias for name
 
 
   def self.create_or_update_from_values( new_attributes, values )
@@ -67,4 +62,5 @@ class Person < ActiveRecord::Base
 end  # class Person
 
 
-end # module SportDb::Models
+end # module SportDb::Model
+

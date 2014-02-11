@@ -23,6 +23,26 @@ end
 add_index :teams, :key, :unique => true
 
 
+create_table :grounds do |t|
+  t.string     :key,      :null => false   # import/export key
+  t.string     :title,    :null => false 
+  t.string     :synonyms   # comma separated list of synonyms
+  
+  t.references :country,  :null => false
+  t.references :city     # todo: make city required ???
+
+  ### fix/todo: add since/founded/opened/build attrib  eg. 2011 or 1987
+  ##   - add capacity e.g. 40_000
+  ##  fix: add address !!!! etc
+
+  ## add region ??? or just use region from city ?? 
+
+  t.timestamps
+end
+
+add_index :grounds, :key, :unique => true
+
+
 create_table :persons do |t|    # use people ? instead of persons (person/persons makes it easier?)
   t.string      :key,      :null => false   # import/export key
   t.string      :name,     :null => false

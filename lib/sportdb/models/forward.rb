@@ -17,6 +17,7 @@ module SportDb::Model
 
   class Team < ActiveRecord::Base ; end
   class League < ActiveRecord::Base ; end
+  class Ground < ActiveRecord::Base ; end
 
 end
 
@@ -28,5 +29,6 @@ module WorldDb::Model
   #  - just include once in loader??
   Team   = SportDb::Model::Team
   League = SportDb::Model::League
+  Ground = SportDb::Model::Ground
 
 end

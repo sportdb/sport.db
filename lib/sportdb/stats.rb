@@ -17,6 +17,8 @@ module SportDb
       puts "  #{Person.count} persons / #{Roster.count} rosters (person+team+event recs)"
       puts "  #{Goal.count} goals (person+game recs)"
 
+      puts "  #{Ground.count}  grounds|stadiums"
+
       puts "  #{Country.count} countries / #{Region.count} regions / #{City.count} cities"
       
       ## todo: add tags / taggings from worlddb

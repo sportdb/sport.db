@@ -22,6 +22,10 @@ module Matcher
     match_xxx_for_country( name, 'skiers', &blk )
   end
 
+  def match_stadiums_for_country( name, &blk )
+    match_xxx_for_country( name, 'stadiums', &blk )
+  end
+
 end # module Matcher
 
 
@@ -92,6 +96,10 @@ class Reader
       load_records( name, race_id: race.id ) # e.g. 2013/04-gp-monaco.txt in formula1.db
     elsif name =~ /(?:^|\/)seasons/  # NB: ^seasons or also possible at-austria!/seasons
       load_seasons( name )
+    elsif match_stadiums_for_country( name ) do |country_key|
+            country = Country.find_by_key!( country_key )
+            load_stadiums( name, country_id: country.id )
+          end
     elsif match_leagues_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/leagues/
             # auto-add country code (from folder structure) for country-specific leagues
             #  e.g. at/leagues
@@ -136,6 +144,15 @@ class Reader
       # todo/fix: exit w/ error
     end
   end # method load
+
+ 
+  def load_stadiums( name, more_attribs={} )
+    reader = ValuesReaderV2.new( name, include_path, more_attribs )
+
+    reader.each_line do |new_attributes, values|
+      Ground.create_or_update_from_values( new_attributes, values )
+    end # each lines
+  end
 
 
   def load_leagues( name, more_attribs={} )

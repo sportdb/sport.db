@@ -40,6 +40,7 @@ require 'sportdb/models/event'
 require 'sportdb/models/event_team'
 require 'sportdb/models/game'
 require 'sportdb/models/goal'
+require 'sportdb/models/ground'
 require 'sportdb/models/group'
 require 'sportdb/models/group_team'
 require 'sportdb/models/league'
@@ -52,6 +53,7 @@ require 'sportdb/models/run'
 require 'sportdb/models/season'
 require 'sportdb/models/team'
 require 'sportdb/models/track'
+
 require 'sportdb/models/utils'   # e.g. GameCursor
 
 ## add backwards compatible namespace (delete later!)

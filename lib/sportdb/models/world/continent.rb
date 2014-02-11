@@ -5,6 +5,7 @@ module WorldDb::Model
   class Continent
     has_many :teams,   :through => :countries
     has_many :leagues, :through => :countries
+    has_many :grounds, :through => :countries
   end # class Continent
 
 end # module WorldDb::Model

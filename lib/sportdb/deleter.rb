@@ -31,6 +31,8 @@ module SportDb
       
       League.delete_all
       Season.delete_all
+      
+      Ground.delete_all   # stadiums
     end
     
   end # class Deleter

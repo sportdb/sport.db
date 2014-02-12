@@ -200,6 +200,10 @@ create_table :games do |t|
   t.datetime   :play_at_v2   # optional old date (when postponed)
   t.datetime   :play_at_v3   # optional odl date (when postponed twice)
 
+  t.references :ground    # optional - stadium (lets you get city,region,country,etc)
+  t.references :city      # optional - convenience for ground.city_id ???
+
+
   t.boolean    :knockout, :null => false, :default => false
   t.boolean    :home,     :null => false, :default => true    # is team1 play at home (that is, at its home stadium)
   t.integer    :score1

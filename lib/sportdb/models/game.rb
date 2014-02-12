@@ -3,13 +3,17 @@ module SportDb::Model
 
 class Game < ActiveRecord::Base
 
-  belongs_to :team1, :class_name => 'Team', :foreign_key => 'team1_id'
-  belongs_to :team2, :class_name => 'Team', :foreign_key => 'team2_id'
+  belongs_to :team1, class_name: 'Team', foreign_key: 'team1_id'
+  belongs_to :team2, class_name: 'Team', foreign_key: 'team2_id'
   
   belongs_to :round
   belongs_to :group   # group is optional
   
+  belongs_to :ground  # ground is optional
+  belongs_to :city,  class_name: 'WorldDb::Model::City', foreign_key: 'city_id'   # city   is optioanl (remove?? redundant?? use ground ??)
+
   has_many :goals
+
 
   before_save :calc_winner
 

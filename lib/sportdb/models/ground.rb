@@ -5,6 +5,8 @@ class Ground < ActiveRecord::Base
   belongs_to :country, class_name: 'WorldDb::Model::Country', foreign_key: 'country_id'
   belongs_to :city,    class_name: 'WorldDb::Model::City',    foreign_key: 'city_id'
 
+  has_many :games
+
 
   def self.create_or_update_from_values( new_attributes, values )
 
@@ -13,6 +15,8 @@ class Ground < ActiveRecord::Base
 
     ## check optional values
     logger.debug "  [Ground]  values >#{values.join('<>')}<"
+
+    city_title = ''
 
     values.each_with_index do |value, index|
       if value =~ /^[12][0-9]{3}$/  ## assume founding year
@@ -36,6 +40,8 @@ class Ground < ActiveRecord::Base
       else
         logger.info "  found city >#{value}< for ground >#{new_attributes[ :key ]}<"
 
+        city_title = value.dup   # remember for auto-add city
+        
         ## todo: assume title2 ??
         ## assume title2 if title2 is empty (not already in use)
         ##  and if it title2 contains at least two letter e.g. [a-zA-Z].*[a-zA-Z]
@@ -55,8 +61,28 @@ class Ground < ActiveRecord::Base
     end
 
     logger.debug new_attributes.to_json
-   
+
     rec.update_attributes!( new_attributes )
+
+    #### try to auto-add city
+
+    if city_title.present?
+      city_values = [city_title]
+      city_attributes = {
+        country_id: rec.country_id,
+        # region_id:  rec.region_id    ### todo/fix: add region if present
+      }
+
+      # todo: add convenience helper create_or_update_from_title
+      city = City.create_or_update_from_values( city_values, city_attributes )
+
+      ### fix/todo: set new autoadd flag too?
+      ##  e.g. check if updated? e.g. timestamp created <> updated otherwise assume created?
+
+      ## now at last add city_id to brewery!
+      rec.city_id = city.id
+      rec.save!
+    end
   end # create_or_update_from_values
 
 

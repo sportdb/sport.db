@@ -17,7 +17,11 @@
 
 language: ruby
 rvm:
-  - "1.9.2"
+  - "2.1.0"
+  - "2.0.0"
   - "1.9.3"
-  - jruby-19mode    # JRuby in 1.9 mode
+  - "1.9.2"
+ 
+#  check what to do w/ sqlite3  - needs native extension?? will fail on bundle install
+# - jruby-19mode    # JRuby in 1.9 mode
 

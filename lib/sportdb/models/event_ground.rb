@@ -1,7 +1,7 @@
 module SportDb::Model
 
 
-class EventTeam < ActiveRecord::Base
+class EventGround < ActiveRecord::Base
   self.table_name = 'events_grounds'
 
   belongs_to :event

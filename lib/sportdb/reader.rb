@@ -368,8 +368,18 @@ class Reader
         
         event_attribs['end_at'] = end_at
 
-      elsif key == 'teams'
+      elsif key == 'grounds' || key == 'stadiums' || key == 'venues'
+        ## assume grounds value is an array
         
+        ground_ids = []
+        value.each do |item|
+          ground_key = item.to_s.strip
+          ground = Ground.find_by_key!( ground_key )
+          ground_ids << ground.id
+        end
+        
+        event_attribs['ground_ids'] = ground_ids
+      elsif key == 'teams'
         ## assume teams value is an array
         
         team_ids = []
@@ -701,9 +711,13 @@ private
     @event = Event.find_by_key!( event_key )
     
     logger.debug "Event #{@event.key} >#{@event.title}<"
-    
-    @known_teams = @event.known_teams_table
-    
+
+    ### fix: use build_title_table_for ??? why? why not??
+    @known_teams  = @event.known_teams_table
+
+    @known_grounds  = TextUtils.build_title_table_for( @event.grounds )
+
+
     parse_fixtures( reader )
     
   end   # method load_fixtures
@@ -829,6 +843,12 @@ private
 
     scores = find_scores!( line )
 
+
+    map_ground!( line )
+    ground_key = find_ground!( line )
+    ground =   ground_key.nil? ? nil : Ground.find_by_key!( ground_key )
+
+
     logger.debug "  line: >#{line}<"
 
 
@@ -836,6 +856,7 @@ private
 
     team1 = Team.find_by_key!( team1_key )
     team2 = Team.find_by_key!( team2_key )
+
 
     ### check if games exists
     ##  with this teams in this round if yes only update
@@ -854,6 +875,7 @@ private
       play_at_v2: date_v2,
       postponed: postponed,
       knockout:  @knockout_flag,
+      ground_id: ground.present? ? ground.id : nil,
       group_id:  @group.present? ? @group.id : nil
     }
 

@@ -528,6 +528,17 @@ module SportDb::FixtureHelpers
     map_teams!( line )
   end
 
+
+  def find_ground!( line )
+    TextUtils.find_key_for!( 'ground', line )
+  end
+
+  ## todo/fix: pass in known_grounds as a parameter? why? why not?
+  def map_ground!( line )
+    TextUtils.map_titles_for!( 'ground', line, @known_grounds )
+  end
+
+
   def find_track!( line )
     TextUtils.find_key_for!( 'track', line )
   end

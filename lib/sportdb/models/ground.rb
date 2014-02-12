@@ -27,6 +27,12 @@ class Ground < ActiveRecord::Base
       elsif value =~ /^[A-Z]{1,3}$/  # assume; state/region code e-g B | TX etc.
         # skip region/state code
         logger.info "  found region/state code #{value}; skipping for now"
+      elsif value =~ /\/{2}/  # assume it's an address line e.g.  xx // xx
+        logger.info "  found address line #{value}; skipping for now"
+      elsif value =~ /^clubs:/ # assume it's clubs line  e.g. clubs: Santos
+        logger.info "  found clubs line #{value}; skipping for now"
+      elsif value =~ /^(?:[a-z]{2}\.)?wikipedia:/  # assume it's wikipedia e.g. [es.]wikipedia:
+        logger.info "  found wikipedia line #{value}; skipping for now"
       else
         logger.info "  found city >#{value}< for ground >#{new_attributes[ :key ]}<"
 

@@ -6,14 +6,18 @@ class Event < ActiveRecord::Base
 
   belongs_to :league
   belongs_to :season
-  
+
   has_many :rounds, :order => 'pos'  # all (fix and flex) rounds
   has_many :games, :through => :rounds
-  
+
   has_many :groups, :order => 'pos'
-  
-  has_many :event_teams, :class_name => 'EventTeam'
+
+  has_many :event_teams,    :class_name => 'EventTeam'
   has_many :teams, :through => :event_teams
+
+  has_many :event_grounds,  :class_name => 'EventGround'
+  has_many :grounds, :through => :event_grounds
+
 
   before_save :on_before_save
 

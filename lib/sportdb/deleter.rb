@@ -16,6 +16,7 @@ module SportDb
       Game.delete_all
       Event.delete_all
       EventTeam.delete_all
+      EventGround.delete_all
       Group.delete_all
       GroupTeam.delete_all
       Round.delete_all

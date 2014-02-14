@@ -15,6 +15,10 @@ create_table :teams do |t|
   t.references :city     # NB: city is optional (should be required for clubs e.g. non-national teams)
   t.boolean  :club,     null: false, default: false  # is it a club (not a national team)?
 
+  t.integer :since     # founding year
+  t.string  :address
+  t.string  :web
+
   ### fix: remove and add virtual attribute in model instead
   t.boolean  :national, null: false, default: false  # is it a national selection team (not a club)?
   t.timestamps
@@ -30,6 +34,11 @@ create_table :grounds do |t|
   
   t.references :country,  null: false
   t.references :city     # todo: make city required ???
+
+  t.integer :since     # founding year
+  t.integer :capacity  # attentence capacity e.g. 10_000 or 50_000 etc.
+  t.string  :address
+
 
   ### fix/todo: add since/founded/opened/build attrib  eg. 2011 or 1987
   ##   - add capacity e.g. 40_000

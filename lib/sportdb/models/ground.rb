@@ -19,20 +19,23 @@ class Ground < ActiveRecord::Base
     city_title = ''
 
     values.each_with_index do |value, index|
-      if value =~ /^[12][0-9]{3}$/  ## assume founding year
-        # skip founding/opening year fow now
-        logger.info "  found year #{value}; skipping for now"
+      if value =~ /^(19|20)[0-9]{2}$/  ## assume founding year -- allow 19|20
+        logger.info "  founding/opening year #{value}"
+        new_attributes[ :since ] = value.to_i
       elsif value =~ /^[1-9][0-9_]+[0-9]$/   # number; assume capacity e.g. 12_541 or similar
-        # todo/fix: check how to differentiate between founding year and capacity if capcity islike year
+        # todo/fix: check how to differentiate between founding year
+        # and capacity if capcity islike year
+        #  need to use _ e.g. 1_999 not 1999 and will get added as capacity !!!
         #  - by position ??  year is first entry, capacity is second ??? -add/fix
 
-        # skip capacity
-        logger.info "  found capacity #{value}; skipping for now"
+        logger.info "  found capacity #{value}"
+        new_attributes[ :capacity ] = value.gsub('_', '').to_i
       elsif value =~ /^[A-Z]{1,3}$/  # assume; state/region code e-g B | TX etc.
         # skip region/state code
         logger.info "  found region/state code #{value}; skipping for now"
       elsif value =~ /\/{2}/  # assume it's an address line e.g.  xx // xx
-        logger.info "  found address line #{value}; skipping for now"
+        logger.info "  found address line #{value}"
+        new_attributes[ :address ] = value
       elsif value =~ /^clubs:/ # assume it's clubs line  e.g. clubs: Santos
         logger.info "  found clubs line #{value}; skipping for now"
       elsif value =~ /^(?:[a-z]{2}\.)?wikipedia:/  # assume it's wikipedia e.g. [es.]wikipedia:
@@ -67,6 +70,8 @@ class Ground < ActiveRecord::Base
     #### try to auto-add city
 
     if city_title.present?
+      
+      ### todo/fix: strip city_title subtitles e.g. Hamburg (Hafen) becomes Hamburg etc.
       city_values = [city_title]
       city_attributes = {
         country_id: rec.country_id,

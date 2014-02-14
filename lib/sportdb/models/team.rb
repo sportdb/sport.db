@@ -54,9 +54,20 @@ class Team < ActiveRecord::Base
           logger.warn "city with key #{value_city_key} missing"
           ## todo: log errors to db log??? 
         end
+      elsif value =~ /^(18|19|20)[0-9]{2}$/  ## assume founding year -- allow 18|19|20
+        ## logger.info "  founding/opening year #{value}"
+        new_attributes[ :since ] = value.to_i
+      elsif value =~ /\/{2}/  # assume it's an address line e.g.  xx // xx
+        ## logger.info "  found address line #{value}"
+        new_attributes[ :address ] = value
+      elsif value =~ /^(?:[a-z]{2}\.)?wikipedia:/  # assume it's wikipedia e.g. [es.]wikipedia:
+        logger.info "  found wikipedia line #{value}; skipping for now"
+      elsif value =~ /(^www\.)|(\.com$)/  # FIX: !!!! use a better matcher not just www. and .com
+        new_attributes[ :web ] = value
       elsif value =~ /^[A-Z][A-Z0-9][A-Z0-9_]?$/   ## assume two or three-letter code e.g. FCB, RBS, etc.
         new_attributes[ :code ] = value
       elsif value =~ /^[a-z]{2}$/  ## assume two-letter country key e.g. at,de,mx,etc.
+        ## fix: allow country letter with three e.g. eng,sco,wal,nir, etc. !!!
         value_country = Country.find_by_key!( value )
         new_attributes[ :country_id ] = value_country.id
       else

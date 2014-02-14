@@ -107,9 +107,10 @@ class Reader
             load_leagues( name, club: true, country_id: country.id )
           end
     elsif name =~ /(?:^|\/)leagues/   # NB: ^leagues or also possible world!/leagues  - NB: make sure goes after leagues_for_country!!
-      if name =~ /-cup!?\//   # NB: -cup/ or -cup!/ 
+      if name =~ /-cup!?\//          ||   # NB: -cup/ or -cup!/
+         name =~ /copa-america!?\//       # NB: copa-america/ or copa-america!/
         # e.g. national team tournaments/leagues (e.g. world-cup/ or euro-cup/)
-        load_leagues( name )
+        load_leagues( name, club: false )
       else
         # e.g. leagues_club
         load_leagues( name, club: true )
@@ -121,10 +122,11 @@ class Reader
             load_teams( name, club: true, country_id: country.id )
           end
     elsif name =~ /(?:^|\/)teams/
-      if name =~ /-cup!?\//   # NB: -cup/ or -cup!/ 
+      if name =~ /-cup!?\//         ||    # NB: -cup/ or -cup!/
+         name =~ /copa-america!?\//       # NB: copa-america/ or copa-america!/
         # assume national teams
         # e.g. world-cup/teams  amercia-cup/teams_northern
-        load_teams( name, national: true )
+        load_teams( name, club: false )
       else
         # club teams (many countries)
         # e.g. club/europe/teams

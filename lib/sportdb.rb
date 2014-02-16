@@ -29,7 +29,6 @@ require 'fetcher'   # for fetching/downloading fixtures via HTTP/HTTPS etc.
 
 require 'sportdb/version'
 
-require 'sportdb/title'   ## fix - move to textutils gem
 require 'sportdb/models/forward'
 require 'sportdb/models/world/city'
 require 'sportdb/models/world/country'

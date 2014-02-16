@@ -5,7 +5,6 @@ module SportDb
     include SportDb::Models
 
     def tables
-      puts "Stats:"
       puts "  #{League.count} leagues  /  #{Season.count} seasons"
       puts "  #{Event.count} events (league+season recs)  /  #{Round.count} rounds  /  #{Group.count} groups"
       puts "  #{Team.count} teams"
@@ -18,10 +17,6 @@ module SportDb
       puts "  #{Goal.count} goals (person+game recs)"
 
       puts "  #{Ground.count}  grounds|stadiums"
-
-      puts "  #{Country.count} countries / #{Region.count} regions / #{City.count} cities"
-      
-      ## todo: add tags / taggings from worlddb
     end
     
     def props

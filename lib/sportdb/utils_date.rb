@@ -53,18 +53,18 @@ module SportDb
     regex_de4 = /\b(\d{1,2})\.(\d{1,2})\.\s+/
 
 
-    month_abbrev_en = "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec"
     # todo: make more generic for reuse
+    month_abbrev_en = 'Jan|Feb|March|Mar|April|Apr|May|June|Jun|July|Jul|Aug|Sept|Sep|Oct|Nov|Dec'
     month_abbrev_en_to_i = {
         'Jan' => 1,
         'Feb' => 2,
-        'Mar' => 3,
-        'Apr' => 4,
+        'Mar' => 3, 'March' => 3,
+        'Apr' => 4, 'April' => 4,
         'May' => 5,
-        'Jun' => 6,
-        'Jul' => 7,
+        'Jun' => 6, 'June' => 6,
+        'Jul' => 7, 'July' => 7,
         'Aug' => 8,
-        'Sep' => 9,
+        'Sep' => 9, 'Sept' => 9,
         'Oct' => 10,
         'Nov' => 11,
         'Dec' => 12 }
@@ -82,9 +82,25 @@ module SportDb
 
     # todo/fix - add de and es too!!
     # note: in Austria - Jänner - in Deutschland Januar allow both ??
-    month_abbrev_de = "J[aä]n|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez"
-    month_abbrev_es = "Ene|Feb|Mar|Apr|May|Jun|Jul|Ago|Sep|Oct|Nov|Dic"
+    month_abbrev_de = 'J[aä]n|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez'
 
+    month_abbrev_es = 'Enero|Ene|Feb|Marzo|Mar|Abril|Abr|Mayo|May|Junio|Jun|Julio|Jul|Agosto|Ago|Sept|Set|Sep|Oct|Nov|Dic'
+    month_abbrev_es_to_i = {
+        'Ene' => 1, 'Enero' => 1,
+        'Feb' => 2,
+        'Mar' => 3, 'Marzo' => 3,
+        'Abr' => 4, 'Abril' => 4,
+        'May' => 5, 'Mayo' => 5,
+        'Jun' => 6, 'Junio' => 6,
+        'Jul' => 7, 'Julio' => 7,
+        'Ago' => 8, 'Agosto' => 8,
+        'Sep' => 9, 'Set' => 9, 'Sept' => 9,
+        'Oct' => 10,
+        'Nov' => 11,
+        'Dic' => 12 }
+
+    # e.g.  12 Ene  w/ implied year and implied hours (set to 12:00)
+    regex_es21 = /\b(\d{1,2})\s(#{month_abbrev_es})\b/
 
     if line =~ regex_db
       value = '%d-%02d-%02d %02d:%02d' % [$1.to_i, $2.to_i, $3.to_i, $4.to_i, $5.to_i]
@@ -183,6 +199,17 @@ module SportDb
       logger.debug "   date: >#{value}<"
 
       line.sub!( regex_en21, '[DATE.EN21] ' )
+
+      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
+    elsif line =~ regex_es21
+      day   = $1.to_i
+      month = month_abbrev_es_to_i[ $2 ]
+      year = calculate_year( day, month, opts[:start_at] )
+
+      value = '%d-%02d-%02d 12:00' % [year, month, day]
+      logger.debug "   date: >#{value}<"
+
+      line.sub!( regex_es21, '[DATE.ES21] ' )
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     else

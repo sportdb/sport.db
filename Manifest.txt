@@ -77,6 +77,13 @@ lib/sportdb/service/views/layout.erb
 lib/sportdb/stats.rb
 lib/sportdb/updater.rb
 lib/sportdb/utils.rb
+lib/sportdb/utils_date.rb
+lib/sportdb/utils_group.rb
+lib/sportdb/utils_map.rb
+lib/sportdb/utils_record.rb
+lib/sportdb/utils_round.rb
+lib/sportdb/utils_scores.rb
+lib/sportdb/utils_teams.rb
 lib/sportdb/version.rb
 test/helper.rb
 test/test_changes.rb

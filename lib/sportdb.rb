@@ -64,6 +64,13 @@ end
 
 require 'sportdb/schema'       # NB: requires sportdb/models (include SportDB::Models)
 require 'sportdb/utils'
+require 'sportdb/utils_date'
+require 'sportdb/utils_group'
+require 'sportdb/utils_map'
+require 'sportdb/utils_record'
+require 'sportdb/utils_round'
+require 'sportdb/utils_scores'
+require 'sportdb/utils_teams'
 require 'sportdb/reader'
 require 'sportdb/lang'
 

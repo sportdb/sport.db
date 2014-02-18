@@ -25,6 +25,15 @@ require 'logutils/db'   # NB: explict require required for LogDb (not automatic)
 require 'sportdb'
 
 
+#######################
+#
+#  for reuse
+#   --- move to sportdb/test.rb ???
+#    SportDb.setup_in_memory_db  ??? why? why not??  or
+#    SportDb.setup_test_db  - alias ??
+
+
+
 def setup_in_memory_db
   # Database Setup & Config
 
@@ -48,6 +57,13 @@ def setup_in_memory_db
   WorldDb.create
   SportDb.create
 end
+
+####
+# Models shortcuts
+
+Game       = SportDb::Model::Game
+GameCursor = SportDb::Model::GameCursor
+
 
 
 setup_in_memory_db()

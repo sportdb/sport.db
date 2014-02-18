@@ -5,7 +5,7 @@ require 'helper'
 class TestWinner < MiniTest::Unit::TestCase
 
   def test_1_2
-    game = SportDb::Models::Game.new
+    game = Game.new
     game.score1 = 1
     game.score2 = 2
     game.calc_winner
@@ -18,7 +18,7 @@ class TestWinner < MiniTest::Unit::TestCase
   end
 
   def test_1_1
-    game = SportDb::Models::Game.new
+    game = Game.new
     game.score1 = 1
     game.score2 = 1
     game.calc_winner
@@ -31,7 +31,7 @@ class TestWinner < MiniTest::Unit::TestCase
   end
 
   def test_2_1
-    game = SportDb::Models::Game.new
+    game = Game.new
     game.score1 = 2
     game.score2 = 1
     game.calc_winner
@@ -44,7 +44,7 @@ class TestWinner < MiniTest::Unit::TestCase
   end
 
   def test_1_1__2_1
-    game = SportDb::Models::Game.new
+    game = Game.new
     game.score1   = 1
     game.score2   = 1
     game.score1et = 2
@@ -59,7 +59,7 @@ class TestWinner < MiniTest::Unit::TestCase
   end
 
   def test_1_1__2_2__3_5
-    game = SportDb::Models::Game.new
+    game = Game.new
     game.score1   = 1
     game.score2   = 1
     game.score1et = 2
@@ -76,7 +76,7 @@ class TestWinner < MiniTest::Unit::TestCase
   end
 
   def test_1_1_x_3_5
-    game = SportDb::Models::Game.new
+    game = Game.new
     game.score1   = 1
     game.score2   = 1
     game.score1et = nil

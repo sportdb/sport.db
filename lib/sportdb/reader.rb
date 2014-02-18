@@ -35,7 +35,7 @@ class Reader
 
 
 ## make models available in sportdb module by default with namespace
-#  e.g. lets you use Team instead of Models::Team 
+#  e.g. lets you use Team instead of Model::Team
   include SportDb::Models
   include SportDb::Matcher # lets us use match_teams_for_country etc.
 
@@ -373,13 +373,21 @@ class Reader
       elsif key == 'grounds' || key == 'stadiums' || key == 'venues'
         ## assume grounds value is an array
         
+        ##
+        ## note: for now we allow invalid ground keys
+        ##  will skip keys not found
+        
         ground_ids = []
         value.each do |item|
           ground_key = item.to_s.strip
-          ground = Ground.find_by_key!( ground_key )
-          ground_ids << ground.id
+          ground = Ground.find_by_key( ground_key )
+          if ground.nil?
+            puts "[warn] ground/stadium w/ key >#{ground_key}< not found; skipping ground"
+          else
+            ground_ids << ground.id
+          end
         end
-        
+
         event_attribs['ground_ids'] = ground_ids
       elsif key == 'teams'
         ## assume teams value is an array

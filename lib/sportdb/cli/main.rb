@@ -266,9 +266,10 @@ desc 'Show stats'
 command :stats do |c|
   c.action do |g,o,args|
 
-    connect_to_db( opts ) 
+    connect_to_db( opts )
     
     SportDb.tables
+    WorldDb.tables
     
     puts 'Done.'
   end

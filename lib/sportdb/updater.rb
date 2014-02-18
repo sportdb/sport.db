@@ -7,7 +7,7 @@ module SportDb
 
     ######
     # NB: make models available in sportdb module by default with namespace
-    #  e.g. lets you use Team instead of Models::Team 
+    #  e.g. lets you use Team instead of Model::Team
     include SportDb::Models
 
 

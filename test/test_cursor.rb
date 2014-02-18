@@ -7,12 +7,12 @@ class TestCursor < MiniTest::Unit::TestCase
   def test_games
     games = []
     
-    games << SportDb::Models::Game.new( score1: 3, score2: 1, play_at: DateTime.new(2013, 8, 9) )
-    games << SportDb::Models::Game.new( score1: 1, score2: 3, play_at: DateTime.new(2013, 8, 10) )
-    games << SportDb::Models::Game.new( score1: 2, score2: 0, play_at: DateTime.new(2013, 8, 10) )
-    games << SportDb::Models::Game.new( score1: 3, score2: 2, play_at: DateTime.new(2013, 8, 12) )  # new_week
+    games << Game.new( score1: 3, score2: 1, play_at: DateTime.new(2013, 8, 9) )
+    games << Game.new( score1: 1, score2: 3, play_at: DateTime.new(2013, 8, 10) )
+    games << Game.new( score1: 2, score2: 0, play_at: DateTime.new(2013, 8, 10) )
+    games << Game.new( score1: 3, score2: 2, play_at: DateTime.new(2013, 8, 12) )  # new_week
 
-    SportDb::Models::GameCursor.new( games ).each do |game,state|
+    GameCursor.new( games ).each do |game,state|
       if state.index == 0
         assert_equal 3, game.score1
         assert_equal 1, game.score2

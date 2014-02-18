@@ -5,11 +5,11 @@ require 'helper'
 class TestChanges < MiniTest::Unit::TestCase
 
   def test_scores
-    game1 = SportDb::Models::Game.new
+    game1 = Game.new
     game1.score1 = 1
     game1.score2 = 2
 
-    game2 = SportDb::Models::Game.new
+    game2 = Game.new
     game2.score1   = 1
     game2.score2   = 1
     game2.score1p  = 5
@@ -29,12 +29,12 @@ class TestChanges < MiniTest::Unit::TestCase
   end
   
   def test_play_at
-    game1 = SportDb::Models::Game.new
+    game1 = Game.new
     game1.score1 = 1
     game1.score2 = 2
     game1.play_at = DateTime.new( 2012, 11, 5 )
 
-    game2 = SportDb::Models::Game.new
+    game2 = Game.new
     game2.score1   = 1
     game2.score2   = 2
     game2.play_at = DateTime.new( 2012, 12, 24 )
@@ -50,12 +50,12 @@ class TestChanges < MiniTest::Unit::TestCase
   end
 
   def test_group_id
-    game1 = SportDb::Models::Game.new
+    game1 = Game.new
     game1.score1 = 1
     game1.score2 = 2
     game1.group_id = 1
 
-    game2 = SportDb::Models::Game.new
+    game2 = Game.new
     game2.score1   = 1
     game2.score2   = 2
     game2.group_id = 2

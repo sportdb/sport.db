@@ -17,30 +17,31 @@ require 'yaml'
 ##
 ##  todo/fix: just use include SportDb::Models  - why? why not? is it possible/working?
 
-Badge   = SportDb::Models::Badge
-Event   = SportDb::Models::Event
-Game    = SportDb::Models::Game
-Goal    = SportDb::Models::Goal
-Group   = SportDb::Models::Group
-League  = SportDb::Models::League
-Person  = SportDb::Models::Person
-Race    = SportDb::Models::Race
-Record  = SportDb::Models::Record
-Roster  = SportDb::Models::Roster
-Round   = SportDb::Models::Round
-Run     = SportDb::Models::Run
-Season  = SportDb::Models::Season
-Team    = SportDb::Models::Team
-Track   = SportDb::Models::Track
+Badge   = SportDb::Model::Badge
+Event   = SportDb::Model::Event
+Game    = SportDb::Model::Game
+Goal    = SportDb::Model::Goal
+Group   = SportDb::Model::Group
+League  = SportDb::Model::League
+Person  = SportDb::Model::Person
+Race    = SportDb::Model::Race
+Record  = SportDb::Model::Record
+Roster  = SportDb::Model::Roster
+Round   = SportDb::Model::Round
+Run     = SportDb::Model::Run
+Season  = SportDb::Model::Season
+Team    = SportDb::Model::Team
+Track   = SportDb::Model::Track
 
 
-Tag       = WorldDb::Models::Tag
-Tagging   = WorldDb::Models::Tagging
-Continent = WorldDb::Models::Continent
-Country   = WorldDb::Models::Country
-Region    = WorldDb::Models::Region
-City      = WorldDb::Models::City
-Prop      = WorldDb::Models::Prop
+Tag       = WorldDb::Model::Tag
+Tagging   = WorldDb::Model::Tagging
+Continent = WorldDb::Model::Continent
+Country   = WorldDb::Model::Country
+Region    = WorldDb::Model::Region
+City      = WorldDb::Model::City
+Prop      = WorldDb::Model::Prop
+
 
 ## connect to db
 
@@ -56,9 +57,17 @@ ActiveRecord::Base.establish_connection( DB_CONFIG )
 
 puts "Welcome to sport.db, version #{SportDb::VERSION} (world.db, version #{WorldDb::VERSION})!"
 
+## print tables stats (e.g. no of records)
+puts 'sport.db'
+puts '--------'
 SportDb.tables
 
-puts "Ready."
+puts 'world.db'
+puts '--------'
+WorldDb.tables
+
+puts 'Ready.'
+
 
 ## add some predefined shortcuts
 

@@ -3,8 +3,11 @@
 
 
 group:      Gruppe
+
+## roll into one (matchday+round) ???
 matchday:   Spieltag
 round:      Runde
+
 stage:      Gruppenphase|Qualifikation|Play-off|Finalrunde|K.-o.-Phase
 
 

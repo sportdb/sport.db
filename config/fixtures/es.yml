@@ -3,8 +3,11 @@
 
 
 group:      Grupo
+
+## roll into one (matchday+round) ???
 matchday:   Jornada
 round:      Fecha
+
 
 stage:    Primera fase|Segunda fase|Fase de grupos|Fase final
 

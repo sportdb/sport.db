@@ -60,6 +60,8 @@ def setup_in_memory_db
   TagDb.create
   WorldDb.create
   SportDb.create
+
+  SportDb.read_builtin
 end
 
 ####

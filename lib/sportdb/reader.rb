@@ -2,33 +2,6 @@
 
 module SportDb
 
-module Matcher
-
-  include WorldDb::Matcher
-
-  def match_leagues_for_country( name, &blk )
-    match_xxx_for_country( name, 'leagues', &blk )
-  end
-
-  def match_teams_for_country( name, &blk )
-    match_xxx_for_country( name, 'teams', &blk )
-  end
-
-  def match_tracks_for_country( name, &blk )
-    match_xxx_for_country( name, 'tracks', &blk )
-  end
-
-  def match_skiers_for_country( name, &blk )
-    match_xxx_for_country( name, 'skiers', &blk )
-  end
-
-  def match_stadiums_for_country( name, &blk )
-    match_xxx_for_country( name, 'stadiums', &blk )
-  end
-
-end # module Matcher
-
-
 class Reader
 
   include LogUtils::Logging
@@ -47,7 +20,15 @@ class Reader
   end
 
   def load_setup( name )
-    path = "#{include_path}/#{name}.yml"
+    path = "#{include_path}/#{name}.txt"
+    
+    ## depcrecated - for now check if "new" format exsits
+    ##  - if not fall back to old format
+    unless File.exists?( path )
+      puts "  deprecated manifest/setup format [SportDb.Reader]; use new plain text format"
+      ## try old yml format
+      path = "#{include_path}/#{name}.yml"
+    end
 
     logger.info "parsing data '#{name}' (#{path})..."
 

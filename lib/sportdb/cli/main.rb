@@ -95,6 +95,8 @@ command [:create] do |c|
     connect_to_db( opts )
     
     LogDb.create
+    ConfDb.create
+    TagDb.create
     WorldDb.create
     SportDb.create
     
@@ -126,6 +128,8 @@ command [:setup,:s] do |c|
     setup = args[0] || 'all'
     
     LogDb.create
+    ConfDb.create
+    TagDb.create
     WorldDb.create
     SportDb.create
 

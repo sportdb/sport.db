@@ -71,6 +71,7 @@ require 'sportdb/utils_record'
 require 'sportdb/utils_round'
 require 'sportdb/utils_scores'
 require 'sportdb/utils_teams'
+require 'sportdb/matcher'
 require 'sportdb/reader'
 require 'sportdb/lang'
 
@@ -128,7 +129,7 @@ module SportDb
 
   def self.create
     CreateDb.new.up
-    WorldDb::Model::Prop.create!( key: 'db.schema.sport.version', value: VERSION )
+    ConfDb::Model::Prop.create!( key: 'db.schema.sport.version', value: VERSION )
   end
 
   def self.read_setup( setup, include_path )

@@ -1,4 +1,6 @@
-module SportDb::Model
+
+module SportDb
+  module Model
 
 
 class Run < ActiveRecord::Base
@@ -8,4 +10,6 @@ class Run < ActiveRecord::Base
 end  # class Run
 
 
-end # module SportDb::Model
+  end # module Model
+end # module SportDb
+

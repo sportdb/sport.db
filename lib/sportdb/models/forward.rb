@@ -2,7 +2,8 @@
 ### forward references
 ##   require first to resolve circular references
 
-module SportDb::Model
+module SportDb
+  module Model
 
   ## todo: why? why not use include WorldDb::Models here???
 
@@ -10,7 +11,8 @@ module SportDb::Model
   Country   = WorldDb::Model::Country
   Region    = WorldDb::Model::Region
   City      = WorldDb::Model::City
-  Prop      = WorldDb::Model::Prop
+
+  Prop      = ConfDb::Model::Prop
 
   ## nb: for now only team and league use worlddb tables
   #   e.g. with belongs_to assoc (country,region)
@@ -19,10 +21,12 @@ module SportDb::Model
   class League < ActiveRecord::Base ; end
   class Ground < ActiveRecord::Base ; end
 
+  end
 end
 
 
-module WorldDb::Model
+module WorldDb
+  module Model
 
   # add alias? why? why not? # is there a better way?
   #  - just include SportDb::Models  - why? why not?
@@ -31,4 +35,6 @@ module WorldDb::Model
   League = SportDb::Model::League
   Ground = SportDb::Model::Ground
 
+  end
 end
+

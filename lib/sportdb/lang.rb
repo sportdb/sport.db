@@ -18,11 +18,16 @@ class Lang
     builtin_words = {
       'en' => 'fixtures/en',
       'de' => 'fixtures/de',
-      'es' => 'fixtures/es'
+      'es' => 'fixtures/es',
+      'fr' => 'fixtures/fr',
+      'it' => 'fixtures/it',
+      'pt' => 'fixtures/pt',
+      'ro' => 'fixtures/ro'
     }
 
     load_words( builtin_words, SportDb.config_path )
   end
+
 
   def load_words( h, include_path )
     @lang = 'en'   # make default lang english/en

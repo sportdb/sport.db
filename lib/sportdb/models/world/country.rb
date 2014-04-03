@@ -1,6 +1,7 @@
 # encoding: utf-8
 
-module WorldDb::Model
+module WorldDb
+  module Model
 
   class Country
     has_many :teams,          class_name: 'SportDb::Model::Team',   foreign_key: 'country_id'
@@ -13,5 +14,5 @@ module WorldDb::Model
     has_many :grounds, class_name: 'SportDb::Model::Ground', foreign_key: 'country_id'
   end # class Country
 
-end # module WorldDb::Model
-
+  end # module Model
+end # module WorldDb

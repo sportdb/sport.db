@@ -1,4 +1,6 @@
-module SportDb::Model
+
+module SportDb
+  module Model
 
 ##################
 #  FIX: add ?
@@ -154,4 +156,5 @@ class Team < ActiveRecord::Base
 end  # class Team
   
 
-end # module SportDb::Model
+  end # module Model
+end # module SportDb

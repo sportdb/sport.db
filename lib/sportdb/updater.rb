@@ -44,8 +44,8 @@ module SportDb
         [ 'it',      'it-italy' ],
         [ 'be',      'europe', 'be-belgium' ], # NB: europe/be-belgium
         [ 'ro',      'europe', 'ro-romania' ],
-        [ 'cl',      'europe'      ],
-        [ 'el',      'europe'      ],
+        [ 'cl',      'europe-champions-league' ],
+        [ 'el',      'europe-champions-league' ],
         [ 'br',      'br-brazil' ],
         [ 'mx',      'mx-mexico' ],  # todo: add mx.* for clausura etc ??
         [ 'euro',    'euro-cup',   ],

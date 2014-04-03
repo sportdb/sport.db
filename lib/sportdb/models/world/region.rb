@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 
-module WorldDb::Model
+module WorldDb
+  module Model
 
   class Region
     has_many :teams,          class_name: 'SportDb::Model::Team',   :through => :cities
@@ -13,5 +14,6 @@ module WorldDb::Model
     has_many :grounds, class_name: 'SportDb::Model::Ground', :through => :cities
   end # class Region
 
-end # module WorldDb::Model
+  end # module Model
+end # module WorldDb
 

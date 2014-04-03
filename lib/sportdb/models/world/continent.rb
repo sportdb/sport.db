@@ -1,6 +1,7 @@
 # encoding: utf-8
 
-module WorldDb::Model
+module WorldDb
+  module Model
 
   class Continent
     has_many :teams,          :through => :countries
@@ -14,4 +15,6 @@ module WorldDb::Model
     has_many :grounds, :through => :countries
   end # class Continent
 
-end # module WorldDb::Model
+  end # module Model
+end # module WorldDb
+

@@ -1,4 +1,6 @@
-module SportDb::Model
+
+module SportDb
+  module Model
 
 
 class EventGround < ActiveRecord::Base
@@ -9,4 +11,5 @@ class EventGround < ActiveRecord::Base
 end # class EventGround
 
 
-end # module SportDb::Model
+  end # module Model
+end # module SportDb

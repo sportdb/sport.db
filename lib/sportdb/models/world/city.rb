@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 
-module WorldDb::Model
+module WorldDb
+  module Model
 
   class City
     has_many :teams,   class_name: 'SportDb::Model::Team',   foreign_key: 'city_id'
@@ -15,5 +16,6 @@ module WorldDb::Model
     has_many :games,   :through => :grounds
   end
 
-end # module WorldDb::Model
+  end # module Model
+end # module WorldDb
 

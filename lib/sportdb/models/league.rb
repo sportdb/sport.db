@@ -1,4 +1,5 @@
-module SportDb::Model
+module SportDb
+  module Model
 
 
 class League < ActiveRecord::Base
@@ -78,4 +79,5 @@ class League < ActiveRecord::Base
 end  # class League
 
 
-end # module SportDb::Model
+  end # module Model
+end # module SportDb

@@ -1,4 +1,6 @@
-module SportDb::Model
+
+module SportDb
+  module Model
 
 
 class Game < ActiveRecord::Base
@@ -361,4 +363,5 @@ class Game < ActiveRecord::Base
 end # class Game
 
 
-end # module SportDb::Model
+  end # module Model
+end # module SportDb

@@ -1,4 +1,6 @@
-module SportDb::Model
+
+module SportDb
+  module Model
 
 
 class Race < ActiveRecord::Base
@@ -13,4 +15,6 @@ class Race < ActiveRecord::Base
 end  # class Race
 
 
-end # module SportDb::Model
+  end # module Model
+end # module SportDb
+

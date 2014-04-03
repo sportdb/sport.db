@@ -1,4 +1,5 @@
-module SportDb::Model
+module SportDb
+  module Model
 
 class Track < ActiveRecord::Base
 
@@ -55,4 +56,6 @@ class Track < ActiveRecord::Base
 end  # class Track
 
 
-end # module SportDb::Model
+  end # module Model
+end # module SportDb
+

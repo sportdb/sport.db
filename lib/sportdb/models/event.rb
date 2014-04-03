@@ -1,6 +1,7 @@
 # encoding: utf-8
 
-module SportDb::Model
+module SportDb
+  module Model
 
 class Event < ActiveRecord::Base
 
@@ -58,4 +59,5 @@ class Event < ActiveRecord::Base
 
 end # class Event
 
-end # module SportDb::Model
+  end # module Model
+end # module SportDb

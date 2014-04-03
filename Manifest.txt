@@ -50,7 +50,9 @@ lib/sportdb/reader.rb
 lib/sportdb/readers/event.rb
 lib/sportdb/readers/ground.rb
 lib/sportdb/readers/league.rb
+lib/sportdb/readers/race.rb
 lib/sportdb/readers/record.rb
+lib/sportdb/readers/roster.rb
 lib/sportdb/readers/season.rb
 lib/sportdb/readers/team.rb
 lib/sportdb/readers/track.rb

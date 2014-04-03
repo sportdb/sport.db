@@ -71,9 +71,11 @@ class Reader
       reader = TeamReader.new( include_path )
       reader.read( name )
     elsif name =~ /\/races/  # e.g. 2013/races.txt in formula1.db
-      load_races( name )
+      reader = RaceReader.new( include_path )
+      reader.read( name )
     elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
-      load_rosters( name )
+      reader = RosterReader.new( include_path )
+      reader.read( name )
     elsif name =~ /\/([0-9]{2})-/
       race_pos = $1.to_i
       # NB: assume @event is set from previous load 
@@ -268,144 +270,6 @@ class Reader
 
     Prop.create_from_fixture!( name, path )
   end
-
-
-
-  def load_rosters( name )
-    path = "#{include_path}/#{name}.txt"
-
-    logger.info "parsing data '#{name}' (#{path})..."
-
-    ### SportDb.lang.lang = LangChecker.new.analyze( name, include_path )
-
-    reader = LineReader.new( path )
-
-    ## for now: use all tracks (later filter/scope by event)
-    # @known_tracks = Track.known_tracks_table
-
-    ## fix: add @known_teams  - for now; use teams (not scoped by event)
-    ## for now use all teams
-    @known_teams   = TextUtils.build_title_table_for( Team.all )
-    ## and for now use all persons
-    @known_persons = TextUtils.build_title_table_for( Person.all )
-
-
-    load_rosters_worker( reader )
-
-    Prop.create_from_fixture!( name, path )  
-  end
-
-  def load_rosters_worker( reader )
-
-    reader.each_line do |line|
-      logger.debug "  line: >#{line}<"
-
-      cut_off_end_of_line_comment!( line )
-
-      pos = find_leading_pos!( line )
-
-      map_team!( line )
-      team_key = find_team!( line )
-      team = Team.find_by_key!( team_key )
-
-      map_person!( line )
-      person_key = find_person!( line )
-      person = Person.find_by_key!( person_key )
-
-      logger.debug "  line2: >#{line}<"
-
-      ### check if roster record exists
-      roster = Roster.find_by_event_id_and_team_id_and_person_id( @event.id, team.id, person.id )
-
-      if roster.present?
-        logger.debug "update Roster #{roster.id}:"
-      else
-        logger.debug "create Roster:"
-        roster = Roster.new
-      end
-
-      roster_attribs = {
-        pos:       pos,
-        team_id:   team.id,
-        person_id: person.id,
-        event_id:  @event.id   # NB: reuse/fallthrough from races - make sure load_races goes first (to setup event)
-      }
-
-      logger.debug roster_attribs.to_json
-
-      roster.update_attributes!( roster_attribs )
-    end # lines.each
-
-  end # method load_rosters_worker
-
-
-
-  def load_races( name )
-    # must have .yml file with same name for event definition 
-    evreader = EventReader.new( include_path )
-    evreader.read( name )
-
-    @event = fetch_event( name )
-
-    logger.info "  event: #{@event.key} >>#{@event.full_title}<<"
-
-    path = "#{include_path}/#{name}.txt"
-
-    logger.info "parsing data '#{name}' (#{path})..."
-    
-    ### SportDb.lang.lang = LangChecker.new.analyze( name, include_path )
-
-    reader = LineReader.new( path )
-    
-    ## for now: use all tracks (later filter/scope by event)
-    @known_tracks = Track.known_tracks_table
-    
-    load_races_worker( reader )
-
-    Prop.create_from_fixture!( name, path )
-  end
-
-
-  def load_races_worker( reader )
-
-    reader.each_line do |line|
-      logger.debug "  line: >#{line}<"
-
-      cut_off_end_of_line_comment!( line )
-
-      pos = find_leading_pos!( line )
-
-      map_track!( line )
-      track_key = find_track!( line )
-      track = Track.find_by_key!( track_key )
-
-      date      = find_date!( line )
-
-      logger.debug "  line2: >#{line}<"
-
-      ### check if games exists
-      race = Race.find_by_event_id_and_track_id( @event.id, track.id )
-
-      if race.present?
-        logger.debug "update race #{race.id}:"
-      else
-        logger.debug "create race:"
-        race = Race.new
-      end
-          
-      race_attribs = {
-        pos:      pos,
-        track_id: track.id,
-        start_at:  date,
-        event_id:  @event.id
-      }
-
-      logger.debug race_attribs.to_json
-
-      race.update_attributes!( race_attribs )
-    end # lines.each
-
-  end # method load_races_worker
 
 
 private

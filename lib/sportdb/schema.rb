@@ -1,9 +1,10 @@
 
 module SportDb
 
-class CreateDb < ActiveRecord::Migration
+class CreateDb
 
 def up
+  ActiveRecord::Schema.define do
 
 create_table :teams do |t|
   t.string  :key,   null: false   # import/export key
@@ -306,11 +307,8 @@ create_table :badges do |t|
   t.timestamps
 end
 
+  end  # Schema.define
 end # method up
-
-def down
-  raise ActiveRecord::IrreversibleMigration
-end
 
 
 end # class CreateDb

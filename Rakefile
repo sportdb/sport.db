@@ -13,25 +13,29 @@ Hoe.spec 'sportdb' do
   self.description = summary
 
   self.urls    = ['https://github.com/geraldb/sport.db.ruby']
-  
+
   self.author  = 'Gerald Bauer'
   self.email   = 'opensport@googlegroups.com'
-    
+
   # switch extension to .markdown for gihub formatting
   #  -- NB: auto-changed when included in manifest
-  # self.readme_file  = 'README.md'
-  # self.history_file = 'History.md'
-  
+  self.readme_file  = 'README.md'
+  self.history_file = 'HISTORY.md'
+
   self.extra_deps = [
-    ['worlddb', '>= 1.7'],  # NB: worlddb already includes
+    ['props' ],
+    ['logutils'],
+    ['textutils'],
+    ['worlddb', '>= 2.0.2'],  # NB: worlddb already includes
                                #         - logutils
                                #         - textutils
+    ['tagutils'],     # tags n tagging tables
     ['fetcher', '>= 0.3'],
 
     ## 3rd party
-    ['gli', '>= 2.5.6']
+    ['gli', '>= 2.5.6'],
 
-    ## ['activerecord', '~> 3.2'],  # NB: will include activesupport,etc.
+    ['activerecord']  # NB: will include activesupport,etc.
     ### ['sqlite3',      '~> 1.3']  # NB: install on your own; remove dependency
   ]
 

@@ -19,6 +19,8 @@ require 'active_record'
 require 'worlddb'
 require 'logutils'
 require 'logutils/db'   # NB: explict require required for LogDb (not automatic) 
+require 'props/db'   ## fix: use textutils/db in the future too ??
+
 
 ## our own code
 
@@ -54,6 +56,8 @@ def setup_in_memory_db
   ## build schema
 
   LogDb.create
+  ConfDb.create
+  TagDb.create
   WorldDb.create
   SportDb.create
 end

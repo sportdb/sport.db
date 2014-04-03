@@ -72,7 +72,17 @@ require 'sportdb/utils_round'
 require 'sportdb/utils_scores'
 require 'sportdb/utils_teams'
 require 'sportdb/matcher'
+
+
+require 'sportdb/readers/event'
+require 'sportdb/readers/ground'
+require 'sportdb/readers/league'
+require 'sportdb/readers/record'
+require 'sportdb/readers/season'
+require 'sportdb/readers/team'
+require 'sportdb/readers/track'
 require 'sportdb/reader'
+
 require 'sportdb/lang'
 
 require 'sportdb/updater'

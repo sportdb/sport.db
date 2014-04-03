@@ -78,9 +78,11 @@ class Reader
       race_pos = $1.to_i
       # NB: assume @event is set from previous load 
       race = Race.find_by_event_id_and_pos( @event.id, race_pos )
-      load_records( name, race_id: race.id ) # e.g. 2013/04-gp-monaco.txt in formula1.db
+      reader = RecordReader.new( include_path )
+      reader.read( name, race_id: race.id ) # e.g. 2013/04-gp-monaco.txt in formula1.db
     elsif name =~ /(?:^|\/)seasons/  # NB: ^seasons or also possible at-austria!/seasons
-      load_seasons( name )
+      reader = SeasonReader.new( include_path )
+      reader.read( name )
     elsif match_stadiums_for_country( name ) do |country_key|
             country = Country.find_by_key!( country_key )
             reader = GroundReader.new( include_path )
@@ -127,7 +129,8 @@ class Reader
     elsif name =~ /\/(\d{4}|\d{4}_\d{2})\// || name =~ /\/(\d{4}|\d{4}_\d{2})$/
       # e.g. must match /2012/ or /2012_13/
       #  or   /2012 or /2012_13   e.g. brazil/2012 or brazil/2012_13
-      load_event( name )
+      reader = EvenReader.new( include_path )
+      reader.read( name )
       event    = fetch_event( name )
       fixtures = fetch_event_fixtures( name )
       fixtures.each do |fx|
@@ -152,46 +155,6 @@ class Reader
 
   end # load_persons
 
-
-  def load_seasons( name )
-
-    reader = LineReaderV2.new( name, include_path )
-
-####
-## fix!!!!!
-##   use Season.create_or_update_from_hash or similar
-##   use Season.create_or_update_from_hash_reader?? or similar
-#   move parsing code to model
-
-    reader.each_line do |line|
-
-      # for now assume single value
-      logger.debug ">#{line}<"
-
-      key = line
-
-      logger.debug "  find season key: #{key}"
-      season = Season.find_by_key( key )
-
-      season_attribs = {}
-
-      ## check if it exists
-      if season.present?
-        logger.debug "update season #{season.id}-#{season.key}:"
-      else
-        logger.debug "create season:"
-        season = Season.new
-        season_attribs[ :key ] = key
-      end
-
-      season_attribs[ :title ] = key # for now key n title are the same
-     
-      logger.debug season_attribs.to_json
-          
-      season.update_attributes!( season_attribs )
-    end # each line
-
-  end  # load_seasons
 
 
   def fetch_event_fixtures( name )
@@ -266,142 +229,6 @@ class Reader
   end
 
 
-  def load_event( name )
-
-####
-## fix!!!!!
-##   use Event.create_or_update_from_hash or similar
-##   use Event.create_or_update_from_hash_reader?? or similar
-#   move parsing code to model
-
-    reader = HashReaderV2.new( name, include_path )
-
-    event_attribs = {}
-    
-    ## set default sources to basename by convention
-    #  e.g  2013_14/bl  => bl
-    #  etc.
-    # use fixtures/sources: to override default
-
-    event_attribs[ 'sources' ] = File.basename( name )
-    event_attribs[ 'config'  ] = File.basename( name )  # name a of .yml file
-
-    reader.each_typed do |key, value|
-
-      ## puts "processing event attrib >>#{key}<< >>#{value}<<..."
-
-      if key == 'league'
-        league = League.find_by_key( value.to_s.strip )
-
-        ## check if it exists
-        if league.present?
-          event_attribs['league_id'] = league.id
-        else
-          logger.error "league with key >>#{value.to_s.strip}<< missing"
-          exit 1
-        end
-       
-      elsif key == 'season'
-        season = Season.find_by_key( value.to_s.strip )
-
-        ## check if it exists
-        if season.present?
-          event_attribs['season_id'] = season.id
-        else
-          logger.error "season with key >>#{value.to_s.strip}<< missing"
-          exit 1
-        end
-        
-      elsif key == 'start_at' || key == 'begin_at'
-        
-        if value.is_a?(DateTime) || value.is_a?(Date)
-          start_at = value
-        else # assume it's a string
-          start_at = DateTime.strptime( value.to_s.strip, '%Y-%m-%d' )
-        end
-        
-        event_attribs['start_at'] = start_at
-
-      elsif key == 'end_at' || key == 'stop_at'
-        
-        if value.is_a?(DateTime) || value.is_a?(Date)
-          end_at = value
-        else # assume it's a string
-          end_at = DateTime.strptime( value.to_s.strip, '%Y-%m-%d' )
-        end
-        
-        event_attribs['end_at'] = end_at
-
-      elsif key == 'grounds' || key == 'stadiums' || key == 'venues'
-        ## assume grounds value is an array
-        
-        ##
-        ## note: for now we allow invalid ground keys
-        ##  will skip keys not found
-        
-        ground_ids = []
-        value.each do |item|
-          ground_key = item.to_s.strip
-          ground = Ground.find_by_key( ground_key )
-          if ground.nil?
-            puts "[warn] ground/stadium w/ key >#{ground_key}< not found; skipping ground"
-          else
-            ground_ids << ground.id
-          end
-        end
-
-        event_attribs['ground_ids'] = ground_ids
-      elsif key == 'teams'
-        ## assume teams value is an array
-        
-        team_ids = []
-        value.each do |item|
-          team_key = item.to_s.strip
-          team = Team.find_by_key!( team_key )
-          team_ids << team.id
-        end
-        
-        event_attribs['team_ids'] = team_ids
-        
-      elsif key == 'team3'
-        ## for now always assume false  # todo: fix - use value and convert to boolean if not boolean
-        event_attribs['team3'] = false
-      elsif key == 'fixtures' || key == 'sources'
-        if value.kind_of?(Array)
-          event_attribs['sources'] = value.join(',') 
-        else # assume plain (single fixture) string
-          event_attribs['sources'] = value.to_s
-        end
-      else
-        ## todo: add a source location struct to_s or similar (file, line, col)
-        logger.error "unknown event attrib #{key}; skipping attrib"
-      end
-
-    end # each key,value
-
-    league_id = event_attribs['league_id']
-    season_id = event_attribs['season_id']
-
-    logger.debug "find event - league_id: #{league_id}, season_id: #{season_id}"
-
-    event = Event.find_by_league_id_and_season_id( league_id, season_id )
-
-    ## check if it exists
-    if event.present?
-      logger.debug "*** update event #{event.id}-#{event.key}:"
-    else
-      logger.debug "*** create event:"
-      event = Event.new
-    end
-    
-    logger.debug event_attribs.to_json
-    
-    event.update_attributes!( event_attribs )
-
-  end  # load_event
-
-
-
   def load_fixtures_from_string( event_key, text )  # load from string (e.g. passed in via web form)
 
     SportDb.lang.lang = SportDb.lang.classify( text )
@@ -441,85 +268,6 @@ class Reader
 
     Prop.create_from_fixture!( name, path )
   end
-
-
-
-  def load_records( name, more_attribs={} )
-    path = "#{include_path}/#{name}.txt"
-
-    logger.info "parsing data '#{name}' (#{path})..."
-
-    ### SportDb.lang.lang = LangChecker.new.analyze( name, include_path )
-
-    reader = LineReader.new( path )
-
-    ## for now: use all tracks (later filter/scope by event)
-    # @known_tracks = Track.known_tracks_table
-
-    ## fix: add @known_teams  - for now; use teams (not scoped by event)
-    @known_teams   = TextUtils.build_title_table_for( Team.all )
-    ## and for now use all persons
-    @known_persons = TextUtils.build_title_table_for( Person.all )
-
-    load_records_worker( reader, more_attribs )
-
-    Prop.create_from_fixture!( name, path )
-  end
-
-  def load_records_worker( reader, more_attribs )
-
-    reader.each_line do |line|
-      logger.debug "  line: >#{line}<"
-
-      cut_off_end_of_line_comment!( line )
-
-      state = find_record_leading_state!( line )
-
-      map_team!( line )
-      team_key = find_team!( line )
-      team = Team.find_by_key!( team_key )
-
-      map_person!( line )
-      person_key = find_person!( line )
-      person = Person.find_by_key!( person_key )
-
-      timeline = find_record_timeline!( line )
-
-      laps  = find_record_laps!( line )
-      
-      comment = find_record_comment!( line )
-
-      logger.debug "  line2: >#{line}<"
-
-      record_attribs = {
-        state:  state,
-        ## team_id: team.id,   ## NB: not needed for db 
-        person_id: person.id,
-        timeline: timeline,
-        comment: comment,
-        laps: laps
-      }
-
-      record_attribs = record_attribs.merge( more_attribs )
-
-      ### check if record exists
-      record = Record.find_by_race_id_and_person_id( record_attribs[ :race_id ],
-                                                     record_attribs[ :person_id ])
-
-      if record.present?
-        logger.debug "update Record #{record.id}:"
-      else
-        logger.debug "create Record:"
-        record = Record.new
-      end
-
-      logger.debug record_attribs.to_json
-
-      record.update_attributes!( record_attribs )
-
-    end # lines.each
-
-  end # method load_record_worker
 
 
 
@@ -593,7 +341,10 @@ class Reader
 
 
   def load_races( name )
-    load_event( name )   # must have .yml file with same name for event definition
+    # must have .yml file with same name for event definition 
+    evreader = EventReader.new( include_path )
+    evreader.read( name )
+
     @event = fetch_event( name )
 
     logger.info "  event: #{@event.key} >>#{@event.full_title}<<"

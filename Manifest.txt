@@ -47,6 +47,13 @@ lib/sportdb/models/world/continent.rb
 lib/sportdb/models/world/country.rb
 lib/sportdb/models/world/region.rb
 lib/sportdb/reader.rb
+lib/sportdb/readers/event.rb
+lib/sportdb/readers/ground.rb
+lib/sportdb/readers/league.rb
+lib/sportdb/readers/record.rb
+lib/sportdb/readers/season.rb
+lib/sportdb/readers/team.rb
+lib/sportdb/readers/track.rb
 lib/sportdb/schema.rb
 lib/sportdb/service.rb
 lib/sportdb/service/public/football/js/football/api.js

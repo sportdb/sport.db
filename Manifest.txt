@@ -11,7 +11,7 @@ config/fixtures/it.yml
 config/fixtures/pt.yml
 config/fixtures/ro.yml
 data/seasons.txt
-data/setups/all.yml
+data/setups/all.txt
 lib/sportdb.rb
 lib/sportdb/cli/main.rb
 lib/sportdb/cli/opts.rb

@@ -43,17 +43,20 @@ class Reader
   def load( name )   # convenience helper for all-in-one reader
 
     logger.debug "enter load( name=>>#{name}<<, include_path=>>#{include_path}<<)"
-    
+
     if name  =~ /^circuits/  # e.g. circuits.txt in formula1.db
-      load_tracks( name )
+      reader = TrackReader.new( include_path )
+      reader.read( name )
     elsif match_tracks_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/tracks/
             # auto-add country code (from folder structure) for country-specific tracks
             #  e.g. at/tracks  or at-austria/tracks
             country = Country.find_by_key!( country_key )
-            load_tracks( name, country_id: country.id )
+            reader = TrackReader.new( include_path )
+            reader.read( name, country_id: country.id )
           end
     elsif name  =~ /^tracks/  # e.g. tracks.txt in ski.db
-      load_tracks( name )
+      reader = TrackReader.new( include_path )
+      reader.read( name )
     elsif name =~ /^drivers/ # e.g. drivers.txt in formula1.db
       load_persons( name )
     elsif match_skiers_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/skiers/
@@ -65,7 +68,8 @@ class Reader
     elsif name =~ /^skiers/ # e.g. skiers.men.txt in ski.db
       load_persons( name )
     elsif name =~ /^teams/   # e.g. teams.txt in formula1.db
-      load_teams( name )
+      reader = TeamReader.new( include_path )
+      reader.read( name )
     elsif name =~ /\/races/  # e.g. 2013/races.txt in formula1.db
       load_races( name )
     elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
@@ -79,39 +83,46 @@ class Reader
       load_seasons( name )
     elsif match_stadiums_for_country( name ) do |country_key|
             country = Country.find_by_key!( country_key )
-            load_stadiums( name, country_id: country.id )
+            reader = GroundReader.new( include_path )
+            reader.read( name, country_id: country.id )
           end
     elsif match_leagues_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/leagues/
             # auto-add country code (from folder structure) for country-specific leagues
             #  e.g. at/leagues
             country = Country.find_by_key!( country_key )
-            load_leagues( name, club: true, country_id: country.id )
+            reader = LeagueReader.new( include_path )
+            reader.read( name, club: true, country_id: country.id )
           end
     elsif name =~ /(?:^|\/)leagues/   # NB: ^leagues or also possible world!/leagues  - NB: make sure goes after leagues_for_country!!
       if name =~ /-cup!?\//          ||   # NB: -cup/ or -cup!/
          name =~ /copa-america!?\//       # NB: copa-america/ or copa-america!/
         # e.g. national team tournaments/leagues (e.g. world-cup/ or euro-cup/)
-        load_leagues( name, club: false )
+        reader = LeagueReader.new( include_path )
+        reader.read( name, club: false )
       else
         # e.g. leagues_club
-        load_leagues( name, club: true )
+        reader = LeagueReader.new( include_path )
+        reader.read( name, club: true )
       end
     elsif match_teams_for_country( name ) do |country_key|   # name =~ /^([a-z]{2})\/teams/
             # auto-add country code (from folder structure) for country-specific teams
             #  e.g. at/teams at/teams.2 de/teams etc.                
             country = Country.find_by_key!( country_key )
-            load_teams( name, club: true, country_id: country.id )
+            reader = TeamReader.new( include_path )
+            reader.read( name, club: true, country_id: country.id )
           end
     elsif name =~ /(?:^|\/)teams/
       if name =~ /-cup!?\//         ||    # NB: -cup/ or -cup!/
          name =~ /copa-america!?\//       # NB: copa-america/ or copa-america!/
         # assume national teams
         # e.g. world-cup/teams  amercia-cup/teams_northern
-        load_teams( name, club: false )
+        reader = TeamReader.new( include_path )
+        reader.read( name, club: false )
       else
         # club teams (many countries)
         # e.g. club/europe/teams
-        load_teams( name, club: true )
+        reader = TeamReader.new( include_path )
+        reader.read( name, club: true )
       end
     elsif name =~ /\/(\d{4}|\d{4}_\d{2})\// || name =~ /\/(\d{4}|\d{4}_\d{2})$/
       # e.g. must match /2012/ or /2012_13/
@@ -128,36 +139,6 @@ class Reader
     end
   end # method load
 
- 
-  def load_stadiums( name, more_attribs={} )
-    reader = ValuesReaderV2.new( name, include_path, more_attribs )
-
-    reader.each_line do |new_attributes, values|
-      Ground.create_or_update_from_values( new_attributes, values )
-    end # each lines
-  end
-
-
-  def load_leagues( name, more_attribs={} )
-
-    reader = ValuesReaderV2.new( name, include_path, more_attribs )
-
-    reader.each_line do |new_attributes, values|
-      League.create_or_update_from_values( new_attributes, values )
-    end # each lines
-
-  end # load_leagues
-
-
-  def load_tracks( name, more_attribs={} )
-
-    reader = ValuesReaderV2.new( name, include_path, more_attribs )
-
-    reader.each_line do |new_attributes, values|
-      Track.create_or_update_from_values( new_attributes, values )
-    end # each lines
-
-  end # load_tracks
 
 
 
@@ -675,14 +656,6 @@ class Reader
 
   end # method load_races_worker
 
-
-  def load_teams( name, more_attribs={} )
-    reader = ValuesReaderV2.new( name, include_path, more_attribs )
-
-    reader.each_line do |new_attributes, values|
-      Team.create_or_update_from_values( new_attributes, values )
-    end # each lines
-  end # load_teams
 
 private
 

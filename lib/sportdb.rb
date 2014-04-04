@@ -75,6 +75,7 @@ require 'sportdb/matcher'
 
 
 require 'sportdb/readers/event'
+require 'sportdb/readers/game'
 require 'sportdb/readers/ground'
 require 'sportdb/readers/league'
 require 'sportdb/readers/race'

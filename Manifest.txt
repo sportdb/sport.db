@@ -48,6 +48,7 @@ lib/sportdb/models/world/country.rb
 lib/sportdb/models/world/region.rb
 lib/sportdb/reader.rb
 lib/sportdb/readers/event.rb
+lib/sportdb/readers/game.rb
 lib/sportdb/readers/ground.rb
 lib/sportdb/readers/league.rb
 lib/sportdb/readers/race.rb

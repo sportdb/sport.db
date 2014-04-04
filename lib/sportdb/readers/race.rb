@@ -14,6 +14,8 @@ class RaceReader
 ## value helpers e.g. is_year?, is_taglist? etc.
   include TextUtils::ValueHelper
 
+  include FixtureHelpers
+
 
   attr_reader :include_path
 
@@ -22,6 +24,11 @@ class RaceReader
     @include_path = include_path
   end
 
+
+  ###
+  ## fix: use read_fixtures( event_key, name )
+  ##
+  ## move EventReader out of read - why?? why not??
 
   def read( name, more_attribs={} )
 

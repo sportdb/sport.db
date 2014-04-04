@@ -14,6 +14,8 @@ class RosterReader
 ## value helpers e.g. is_year?, is_taglist? etc.
   include TextUtils::ValueHelper
 
+  include FixtureHelpers
+
 
   attr_reader :include_path
 

@@ -11,10 +11,6 @@ class LeagueReader
 #  e.g. lets you use Usage instead of Model::Usage
   include Models
 
-## value helpers e.g. is_year?, is_taglist? etc.
-  include TextUtils::ValueHelper
-
-
   attr_reader :include_path
 
 

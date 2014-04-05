@@ -3,6 +3,15 @@
 module SportDb
   module FixtureHelpers
 
+  def is_round_def?( line )
+    ## must include bar (|) marker (make required)
+    ##  todo/fix: make bar marker required for group def too??
+
+    line =~ /\|/ && line =~ SportDb.lang.regex_round 
+  end
+
+
+
   def is_round?( line )
     line =~ SportDb.lang.regex_round
   end

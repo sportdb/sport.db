@@ -144,7 +144,24 @@ class GameReader
       @group.teams << team
     end
   end
-  
+
+
+  def parse_round_def( line )
+    logger.debug "parsing round def line: >#{line}<"
+
+    start_at = find_date!( line, start_at: @event.start_at )
+    end_at   = find_date!( line, start_at: @event.start_at )
+
+    # note: if end_at nil? -- assume start_at == end_at
+
+    logger.debug "    start_at: #{start_at}"
+    logger.debug "    start_at: #{end_at}"
+
+    logger.debug "  line: >#{line}<"
+  end
+
+
+
   def parse_round( line )
     logger.debug "parsing round line: >#{line}<"
 
@@ -296,18 +313,60 @@ class GameReader
   end # method parse_game
 
 
+
+  def is_date_header?( org_line )
+    # line with NO teams; include date e.g.
+    #   [Fri Jun/17]  or
+    #   Jun/17  or
+    #   Jun/17:   etc.
+
+    new_line = org_line.dup  # clone line; for test do NOT modify in place for now
+
+    match_teams!( new_line )
+    team1_key = find_team1!( new_line )
+    team2_key = find_team2!( new_line )
+
+    date  = find_date!( new_line, start_at: @event.start_at )
+    
+    if( date.present? && team1_key.nil? && team2_key.nil? )
+      logger.debug( "date header line found: >#{new_line}<")
+      logger.debug( "    date: #{date}")
+      return true
+    else
+      return false
+    end
+  end
+
+
+
   def parse_fixtures( reader )
       
     reader.each_line do |line|
-      if is_round?( line )
-        parse_round( line )
+
+     #### todo:
+     ##  add - check for single line w/ date only ?? 
+
+      if is_round_def?( line )  # fix: change to is_round? 
+        ## todo/fix:  add round definition (w begin n end date)
+        ## todo: do not patch rounds with definition (already assume begin/end date is good)
+        ##  -- how to deal with matches that get rescheduled/postponed?
+        parse_round_def( line )   # fix: change to parse_round
+      elsif is_round?( line )   ## fix: change to is_round_header?
+        parse_round( line )     ## fix: change to parse_round_header
       elsif is_group?( line ) ## NB: group goes after round (round may contain group marker too)
+        ### todo: add pipe (|) marker (required)
         parse_group( line )
+      ### todo/fix:
+      ##    add check for is_group_header?
+      ##      -- lets you set group  e.g. Group A etc.
+      elsif is_date_header?( line )
+        ## todo: add set (default/fallback) date here for next game(s)
       else
         parse_game( line )
       end
     end # lines.each
-    
+
+
     @patch_rounds.each do |k,v|
       logger.debug "patch start_at/end_at date for round #{k}:"
       round = Round.find( k )

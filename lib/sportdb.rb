@@ -118,10 +118,15 @@ module SportDb
   def self.config_path
     "#{root}/config"
   end
-  
+
   def self.data_path
     "#{root}/data"
   end
+
+  def self.test_data_path
+    "#{root}/test/data"
+  end
+
 
   def self.lang
     # todo/fix: find a better way for single instance ??

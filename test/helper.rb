@@ -67,9 +67,21 @@ end
 ####
 # Models shortcuts
 
+Country    = WorldDb::Model::Country
+
+League     = SportDb::Model::League
+Event      = SportDb::Model::Event
+Team       = SportDb::Model::Team
+
 Game       = SportDb::Model::Game
 GameCursor = SportDb::Model::GameCursor
 
+####
+# Reader shortcuts
+
+TeamReader   = SportDb::TeamReader
+LeagueReader = SportDb::LeagueReader
+GameReader   = SportDb::GameReader
 
 
 setup_in_memory_db()

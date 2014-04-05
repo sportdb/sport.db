@@ -1,0 +1,75 @@
+#######################
+# Bundesliga 2013/14
+
+# 10 Teams
+
+# NB: 2013/14
+#
+# new team                    |  SV Grödig
+# old team (moved to teams_2) |  SV Mattersburg
+
+# NB: use three letter codes from bundesliga.at
+
+
+[austria]
+  FK Austria Wien|Austria Wien,  1911,  AUS
+  www.fk-austria.at
+  Fischhofgasse 12 // 1100 Wien
+  city:wien
+
+[rapid]
+  SK Rapid Wien|Rapid Wien,   1899,  RAP
+  www.skrapid.at
+  Keisslergasse 3 // 1140 Wien
+  city:wien
+
+
+[admira]
+  FC Admira Wacker|Admira Wacker|FC Admira Wacker Mödling, 1905,  ADM
+  www.admirawacker.at
+  Johann Steinböck Strasse 5b // 2344 Maria Enzersdorf
+  city:moedling
+
+[wrneustadt]
+  SC Wiener Neustadt|Wiener Neustadt|Wr. Neustadt, 1908, WRN
+  www.scwn.at
+  Giltschwertgasse 81 // 2700 Wiener Neustadt
+  city:wrneustadt
+
+
+[salzburg]
+  FC RB Salzburg|RB Salzburg|Red Bull Salzburg, 1933, RBS
+  www.redbulls.com/soccer/salzburg
+  Stadionstraße 2/3 // 5071 Wals-Siezenheim
+  city:salzburg
+
+[groedig]
+  SV Grödig,  1948, SVG
+  www.sv-groedig.at
+  Prötschhofstrasse 26 // 5082 Grödig
+  city:groedig
+
+
+[sturm]
+  SK Sturm Graz|Sturm Graz, 1909, STU
+  www.sksturm.at
+  Sternäckerweg 118 // 8042 Graz
+  city:graz
+
+[wac]
+  Wolfsberger AC|RZ Pellets WAC,   1931, WAC
+  www.rzpelletswac.at
+  Don Bosco Weg 1 // 9400 Wolfsberg
+  city:wolfsberg
+
+[ried]
+  SV Ried|SV Josko Ried|SV Josko Fenster Ried,  1912,    RIE
+  www.svried.at
+  Volksfestplatz 2 // 4910 Ried im Innkreis
+  city:ried
+
+[innsbruck]
+  FC Wacker Innsbruck|FC Wacker|Wacker Innsbruck,  1913,  FCW
+  www.fc-wacker-innsbruck.at
+  Stadionstraße 1b // 6020 Innsbruck
+  city:innsbruck

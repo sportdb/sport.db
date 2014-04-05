@@ -26,7 +26,7 @@ class GameReader
 
 
   def read( name, more_attribs={} )
-    reader = EvenReader.new( @include_path )
+    reader = EventReader.new( @include_path )
     reader.read( name )
 
     event    = reader.event      ## was fetch_event( name )

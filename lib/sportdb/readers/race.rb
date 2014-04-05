@@ -19,7 +19,6 @@ class RaceReader
 
   attr_reader :include_path
 
-
   def initialize( include_path, opts = {} )
     @include_path = include_path
   end
@@ -36,7 +35,7 @@ class RaceReader
     evreader = EventReader.new( include_path )
     evreader.read( name )
 
-    @event = fetch_event( name )
+    @event = evreader.event
 
     logger.info "  event: #{@event.key} >>#{@event.full_title}<<"
 
@@ -46,15 +45,16 @@ class RaceReader
     
     ### SportDb.lang.lang = LangChecker.new.analyze( name, include_path )
 
-    reader = LineReader.new( path )
-    
     ## for now: use all tracks (later filter/scope by event)
     @known_tracks = Track.known_tracks_table
-    
+
+    reader = LineReader.new( path )
+        
     read_races_worker( reader )
 
     Prop.create_from_fixture!( name, path )
   end
+
 
   def read_races_worker( reader )
 

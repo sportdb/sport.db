@@ -13,14 +13,46 @@ class EventReader
 
 
   attr_reader :include_path
-
+  attr_reader :event           # returns event record; call read first
 
   def initialize( include_path, opts = {} )
     @include_path = include_path
+
+    @name     = nil
+    @event    = nil
+    @fixtures = []
   end
 
 
+  def fixtures
+    ## note: needs to call read first (to set @name, @fixtures, etc.)
+
+    if @fixtures.empty?
+      ## logger.warn "no fixtures found for event - >#{name}<; assume fixture name is the same as event"
+      fixtures_with_path = [ @name ]
+    else
+      ## add path to fixtures (use path from event e.g)
+      #  - bl    + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl
+      #  - bl_ii + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl_ii
+
+      dir = File.dirname( @name ) # use dir for fixtures
+
+      fixtures_with_path = @fixtures.map do |fx|
+        fx_new = "#{dir}/#{fx}"   # add path upfront
+        logger.debug "fx: #{fx_new} | >#{fx}< + >#{dir}<"
+        fx_new
+      end
+    end
+
+    fixtures_with_path
+  end
+
+
+
   def read( name, more_attribs={} )
+    @fixtures = []    # reset cached fixtures
+    @event    = nil   # reset cached event rec
+    @name     = name  # keep name (needed for fixtures attrib getter)
 
 ####
 ## fix!!!!!
@@ -120,11 +152,15 @@ class EventReader
       elsif key == 'team3'
         ## for now always assume false  # todo: fix - use value and convert to boolean if not boolean
         event_attribs['team3'] = false
+
       elsif key == 'fixtures' || key == 'sources'
+        ### todo: check for mulitiple fixtures/sources ?? allow disallow?? why? why not?
         if value.kind_of?(Array)
-          event_attribs['sources'] = value.join(',') 
+          event_attribs['sources'] = value.join(',')
+          @fixtures += value
         else # assume plain (single fixture) string
           event_attribs['sources'] = value.to_s
+          @fixtures << value.to_s
         end
       else
         ## todo: add a source location struct to_s or similar (file, line, col)
@@ -149,9 +185,11 @@ class EventReader
     end
     
     logger.debug event_attribs.to_json
-    
-    event.update_attributes!( event_attribs )
 
+    event.update_attributes!( event_attribs )
+    
+    # keep a cached reference for later use
+    @event = event
   end  # method read
 
 

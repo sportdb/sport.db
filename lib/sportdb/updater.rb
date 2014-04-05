@@ -109,11 +109,13 @@ module SportDb
 
 
         puts "   importing/reading source..."
-        reader= Reader.new( '/tmp' )  # passing dummy include_path (not needed for reading from string)
-        
+        # passing dummy include_path (not needed for reading from string)
+        # fix: use/add proper api for reading from string e.g. read and read_file ?? etc.
+        reader= GameReader.new( '/tmp' )
+
         ## todo/fix: offer a version that lets us pass in event (not event.key)
         #    no need for another event lookup
-        reader.load_fixtures_from_string( event.key, text )
+        reader.read_fixtures_from_string( event.key, text )
       end
     end
 

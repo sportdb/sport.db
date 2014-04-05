@@ -25,10 +25,17 @@ class GameReader
   end
 
 
-#  def read( name, more_attribs={} )
-#  end
+  def read( name, more_attribs={} )
+    reader = EvenReader.new( @include_path )
+    reader.read( name )
 
+    event    = reader.event      ## was fetch_event( name )
+    fixtures = reader.fixtures   ## was fetch_event_fixtures( name )
 
+    fixtures.each do |fixture|
+      read_fixtures( event.key, fixture )  ## use read_for or read_for_event - why ??? why not?? 
+    end
+  end
 
 
   def read_fixtures_from_string( event_key, text )  # load from string (e.g. passed in via web form)

@@ -1,29 +1,77 @@
 
-  def load_fixtures_builtin( event_key, name ) # load from gem (built-in)
-    ### todo/fix: use load_teams_with_include_path and pass in SportDB.data_path
-    # see worlddb for example
+  def fetch_event( name )
+    # get/fetch/find event from yml file
+
+    ## todo/fix: use h = HashFile.load( path ) or similar instead of HashReader!!
+
+    ## todo/fix: add option for not adding prop automatically?? w/ HashReaderV2
+
+    reader = HashReaderV2.new( name, include_path )
+
+    event_attribs = {}
+
+    reader.each_typed do |key, value|
+
+      ## puts "processing event attrib >>#{key}<< >>#{value}<<..."
+
+      if key == 'league'
+        league = League.find_by_key!( value.to_s.strip )
+        event_attribs[ 'league_id' ] = league.id
+      elsif key == 'season'
+        season = Season.find_by_key!( value.to_s.strip )
+        event_attribs[ 'season_id' ] = season.id
+      else
+        # skip; do nothing
+      end
+    end # each key,value
+
+    league_id = event_attribs['league_id']
+    season_id = event_attribs['season_id']
     
-    path = "#{SportDB.data_path}/#{name}.txt"
-
-    puts "*** parsing data '#{name}' (#{path})..."
-
-    reader = LineReader.new( logger, path )
-
-    load_fixtures_worker( event_key, reader )
-    
-    Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "sport.txt.#{SportDB::VERSION}" )
+    event = Event.find_by_league_id_and_season_id!( league_id, season_id )
+    event
   end
-  
- def load_teams_builtin( name, more_values={} )
-    ## todo/fix: use load_teams_with_include_path and pass in SportDB.data_path
-    path = "#{SportDB.data_path}/#{name}.txt"
 
-    puts "*** parsing data '#{name}' (#{path})..."
+  ####
+  # todo/fix: move to EventReader - why? why not??
+  ##  store fixtures attrib and event attrib
+  ##  for later queries?? (single-read/parse op) - why? why not??
 
-    reader = ValuesReader.new( logger, path, more_values )
+  def fetch_event_fixtures( name )
+    # todo: merge with fetch_event to make it single read op - why? why not??
+    reader = HashReaderV2.new( name, include_path )
 
-    load_teams_worker( reader )
-    
-    Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "sport.txt.#{SportDB::VERSION}" )    
-  end  
+    fixtures = []
+
+    reader.each_typed do |key, value|
+      if key == 'fixtures' && value.kind_of?( Array )
+        logger.debug "fixtures:"
+        logger.debug value.to_json
+        ## todo: make sure we get an array!!!!!
+        fixtures = value
+      else
+        # skip; do nothing
+      end
+    end # each key,value
+
+    if fixtures.empty?
+      ## logger.warn "no fixtures found for event - >#{name}<; assume fixture name is the same as event"
+      fixtures = [name]
+    else
+      ## add path to fixtures (use path from event e.g)
+      #  - bl    + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl
+      #  - bl_ii + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl_ii
+
+      dir = File.dirname( name ) # use dir for fixtures
+
+      fixtures = fixtures.map do |fx|
+        fx_new = "#{dir}/#{fx}"   # add path upfront
+        logger.debug "fx: #{fx_new} | >#{fx}< + >#{dir}<"
+        fx_new
+      end
+    end
+
+    fixtures
+  end
+
 

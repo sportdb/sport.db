@@ -397,7 +397,7 @@ class GameReader
       elsif try_parse_date_header( line )
         # do nothing here
       else
-        logger.info "skipping line (no match found): ><"
+        logger.info "skipping line (no match found): >#{line}<"
       end
     end # lines.each
 

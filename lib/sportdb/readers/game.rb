@@ -106,8 +106,19 @@ class GameReader
   end   # method load_fixtures
 
 
-  def parse_group( line )
-    logger.debug "parsing group line: >#{line}<"
+
+  def parse_group_header( line )
+    logger.debug "parsing group header line: >#{line}<"
+
+    title, pos = find_group_title_and_pos!( line )
+
+    logger.debug "    title: >#{title}<"
+    logger.debug "    pos: >#{pos}<"
+    logger.debug "  line: >#{line}<"
+  end
+
+  def parse_group_def( line )
+    logger.debug "parsing group def line: >#{line}<"
     
     match_teams!( line )
     team_keys = find_teams!( line )
@@ -154,16 +165,19 @@ class GameReader
 
     # note: if end_at nil? -- assume start_at == end_at
 
+    ## pos = find_round_pos!( line )
+    ## title = find_round_title!( line )
+
     logger.debug "    start_at: #{start_at}"
-    logger.debug "    start_at: #{end_at}"
+    logger.debug "    end_at:   #{end_at}"
 
     logger.debug "  line: >#{line}<"
   end
 
 
 
-  def parse_round( line )
-    logger.debug "parsing round line: >#{line}<"
+  def parse_round_header( line )
+    logger.debug "parsing round header line: >#{line}<"
 
     ### todo/fix/check:  move cut off optional comment in reader for all lines? why? why not?
     cut_off_end_of_line_comment!( line )  # cut off optional comment starting w/ #
@@ -171,6 +185,8 @@ class GameReader
     # NB: cut off optional title2 starting w/  //  first
     title2 = find_round_title2!( line )
 
+    # todo/fix: check if it is possible title2 w/ group?
+    #  add an example here
     group_title, group_pos = find_group_title_and_pos!( line )
 
     pos = find_round_pos!( line )
@@ -222,14 +238,27 @@ class GameReader
     @patch_rounds[ @round.id ] = @round.id
   end
 
+
+  def try_parse_game( line )
+    # note: clone line; for possible test do NOT modify in place for now
+    # note: returns true if parsed, false if no match
+    parse_game( line.dup )
+  end
+
   def parse_game( line )
     logger.debug "parsing game (fixture) line: >#{line}<"
-
-    pos = find_game_pos!( line )
 
     match_teams!( line )
     team1_key = find_team1!( line )
     team2_key = find_team2!( line )
+
+    ## note: if we do NOT find two teams; return false - no match found
+    if team1_key.nil? || team2_key.nil?
+      logger.debug "  no game match (two teams required) found for line: >#{line}<"
+      return false
+    end
+
+    pos = find_game_pos!( line )
 
     if is_postponed?( line )
       postponed  = true
@@ -310,26 +339,33 @@ class GameReader
       game.update_attributes!( game_attribs )
     end
 
+    return true   # game match found
   end # method parse_game
 
 
+  def try_parse_date_header( line )
+    # note: clone line; for possible test do NOT modify in place for now
+    # note: returns true if parsed, false if no match
+    parse_date_header( line.dup )
+  end
 
-  def is_date_header?( org_line )
-    # line with NO teams; include date e.g.
+  def parse_date_header( line )
+    # note: returns true if parsed, false if no match
+ 
+    # line with NO teams  plus include date e.g.
     #   [Fri Jun/17]  or
     #   Jun/17  or
     #   Jun/17:   etc.
 
-    new_line = org_line.dup  # clone line; for test do NOT modify in place for now
 
-    match_teams!( new_line )
-    team1_key = find_team1!( new_line )
-    team2_key = find_team2!( new_line )
+    match_teams!( line )
+    team1_key = find_team1!( line )
+    team2_key = find_team2!( line )
 
-    date  = find_date!( new_line, start_at: @event.start_at )
-    
-    if( date.present? && team1_key.nil? && team2_key.nil? )
-      logger.debug( "date header line found: >#{new_line}<")
+    date  = find_date!( line, start_at: @event.start_at )
+
+    if date.present? && team1_key.nil? && team2_key.nil?
+      logger.debug( "date header line found: >#{line}<")
       logger.debug( "    date: #{date}")
       return true
     else
@@ -343,26 +379,25 @@ class GameReader
       
     reader.each_line do |line|
 
-     #### todo:
-     ##  add - check for single line w/ date only ?? 
-
-      if is_round_def?( line )  # fix: change to is_round? 
+      if is_round_def?( line ) 
         ## todo/fix:  add round definition (w begin n end date)
         ## todo: do not patch rounds with definition (already assume begin/end date is good)
         ##  -- how to deal with matches that get rescheduled/postponed?
-        parse_round_def( line )   # fix: change to parse_round
-      elsif is_round?( line )   ## fix: change to is_round_header?
-        parse_round( line )     ## fix: change to parse_round_header
-      elsif is_group?( line ) ## NB: group goes after round (round may contain group marker too)
+        parse_round_def( line )
+      elsif is_round?( line )
+        parse_round_header( line )
+      elsif is_group_def?( line ) ## NB: group goes after round (round may contain group marker too)
         ### todo: add pipe (|) marker (required)
-        parse_group( line )
-      ### todo/fix:
-      ##    add check for is_group_header?
-      ##      -- lets you set group  e.g. Group A etc.
-      elsif is_date_header?( line )
-        ## todo: add set (default/fallback) date here for next game(s)
+        parse_group_def( line )
+      elsif is_group?( line )
+        ##  -- lets you set group  e.g. Group A etc.
+        parse_group_header( line )
+      elsif try_parse_game( line )
+        # do nothing here
+      elsif try_parse_date_header( line )
+        # do nothing here
       else
-        parse_game( line )
+        logger.info "skipping line (no match found): ><"
       end
     end # lines.each
 

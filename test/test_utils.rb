@@ -10,16 +10,75 @@ require 'helper'
 
 class TestUtils < MiniTest::Unit::TestCase
 
+  def test_is_group_def
+    SportDb.lang.lang = 'en'
 
-  class Reader
-    include LogUtils::Logging      # add logger
-    include SportDb::FixtureHelpers
+    lines = [
+      'Group A |',
+      'Group B |'
+     ]
+
+     reader = Reader.new
+
+     lines.each do |line|
+       assert_equal true, reader.is_group_def?( line )
+     end
   end
 
-  def test_is_knockout_round
-     SportDb.lang.lang = 'en'
+  def test_is_group
+    SportDb.lang.lang = 'en'
 
-     lines = [
+    lines = [
+      'Group A',
+      'Group A:',
+      '[Group A]'
+     ]
+
+     reader = Reader.new
+
+     lines.each do |line|
+       assert_equal true, reader.is_group?( line )
+     end
+  end
+
+
+  def test_is_round_def
+    SportDb.lang.lang = 'en'
+
+    lines = [
+      'Matchday 1 |',
+      'Round 1    |'
+     ]
+
+     reader = Reader.new
+
+     lines.each do |line|
+       assert_equal true, reader.is_round_def?( line )
+     end
+  end
+
+  def test_is_round
+    SportDb.lang.lang = 'en'
+
+    lines = [
+      'Matchday 1',
+      '[Matchday 1]',
+      'Matchday 1:',
+      'Round 1'
+     ]
+
+     reader = Reader.new
+
+     lines.each do |line|
+       assert_equal true, reader.is_round?( line )
+     end
+  end
+
+
+  def test_is_knockout_round
+    SportDb.lang.lang = 'en'
+
+    lines = [
       '(4) Quarter-finals',
       '(5) Semi-finals',
       '(6) Final'
@@ -28,7 +87,7 @@ class TestUtils < MiniTest::Unit::TestCase
      reader = Reader.new
 
      lines.each do |line|
-       assert( reader.is_knockout_round?( line ) )
+       assert_equal true, reader.is_knockout_round?( line )
      end
   end
 
@@ -49,9 +108,17 @@ class TestUtils < MiniTest::Unit::TestCase
      reader = Reader.new
 
      lines.each do |line|
-       assert( reader.is_knockout_round?( line ) )
+       assert_equal true, reader.is_knockout_round?( line )
      end
+  end
 
+private
+  #######################
+  # private helpers
+
+  class Reader
+    include LogUtils::Logging      # add logger
+    include SportDb::FixtureHelpers
   end
 
 end # class TestUtils

@@ -3,16 +3,29 @@
 module SportDb
   module FixtureHelpers
 
+  def is_group_def?( line )
+    # NB: check after is_round? (round may contain group reference!)
+    ## must include bar (|) marker (make required)
+    line =~ /\|/ && is_group?( line )
+  end
+
   def is_group?( line )
     # NB: check after is_round? (round may contain group reference!)
-    line =~ SportDb.lang.regex_group
+    ## note: =~ return nil if not match found, and 0,1, etc for match
+    (line =~ SportDb.lang.regex_group) != nil
   end
 
   def find_group_title_and_pos!( line )
     ## group pos - for now support single digit e.g 1,2,3 or letter e.g. A,B,C or HEX
     ## nb:  (?:)  = is for non-capturing group(ing)
+
+    ## fix:
+    ##   get Group|Gruppe|Grupo from lang!!!! do NOT hardcode in place
+
+    ## todo:
+    ##   check if Group A:  or [Group A]  works e.g. : or ] get matched by \b ???
     regex = /(?:Group|Gruppe|Grupo)\s+((?:\d{1}|[A-Z]{1,3}))\b/
-    
+
     match = regex.match( line )
     
     return [nil,nil] if match.nil?

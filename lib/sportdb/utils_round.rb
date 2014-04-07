@@ -5,15 +5,12 @@ module SportDb
 
   def is_round_def?( line )
     ## must include bar (|) marker (make required)
-    ##  todo/fix: make bar marker required for group def too??
-
-    line =~ /\|/ && line =~ SportDb.lang.regex_round 
+    line =~ /\|/ && is_round?( line ) 
   end
 
-
-
   def is_round?( line )
-    line =~ SportDb.lang.regex_round
+    ## note: =~ return nil if not match found, and 0,1, etc for match
+    (line =~ SportDb.lang.regex_round) != nil
   end
 
   def is_knockout_round?( line )

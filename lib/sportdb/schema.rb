@@ -181,6 +181,10 @@ create_table :rounds do |t|
   t.date   :start_at, null: false     # NB: only use date (w/o time)
   t.date   :end_at    # todo: make it required e.g. :null => false    # NB: only use date (w/o time)
 
+  ## auto-added flag (e.g. start_at n end_at dates got calculated)
+  ##  if auto-added flag is false - do NOT auto-update start_at, end_at etc.
+  t.boolean    :auto, null: false, default: true
+
   t.timestamps
 end
 

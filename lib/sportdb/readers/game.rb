@@ -160,20 +160,27 @@ class GameReader
   def parse_round_def( line )
     logger.debug "parsing round def line: >#{line}<"
 
+    ### todo/fix/check:  move cut off optional comment in reader for all lines? why? why not?
+    cut_off_end_of_line_comment!( line )  # cut off optional comment starting w/ #
+
     start_at = find_date!( line, start_at: @event.start_at )
     end_at   = find_date!( line, start_at: @event.start_at )
-
     # note: if end_at nil? -- assume start_at == end_at
 
-    ## pos = find_round_pos!( line )
-    ## title = find_round_title!( line )
+    pos   = find_round_pos!( line )
+    title = find_round_def_title!( line )
+    ## NB: use extracted round title for knockout check
+    knockout_flag = is_knockout_round?( title )
+
 
     logger.debug "    start_at: #{start_at}"
     logger.debug "    end_at:   #{end_at}"
+    logger.debug "    pos:      #{pos}"
+    logger.debug "    title:    >#{title}<"
+    logger.debug "    koflag:   #{knockout_flag}"
 
     logger.debug "  line: >#{line}<"
   end
-
 
 
   def parse_round_header( line )
@@ -183,7 +190,7 @@ class GameReader
     cut_off_end_of_line_comment!( line )  # cut off optional comment starting w/ #
 
     # NB: cut off optional title2 starting w/  //  first
-    title2 = find_round_title2!( line )
+    title2 = find_round_header_title2!( line )
 
     # todo/fix: check if it is possible title2 w/ group?
     #  add an example here
@@ -191,7 +198,7 @@ class GameReader
 
     pos = find_round_pos!( line )
 
-    title = find_round_title!( line )
+    title = find_round_header_title!( line )
 
     ## NB: use extracted round title for knockout check
     @knockout_flag = is_knockout_round?( title )

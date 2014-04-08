@@ -32,7 +32,15 @@ module SportDb
     end
   end
 
-  def find_round_title2!( line )
+
+  def find_round_header_title2!( line )
+    ## todo/fix:
+    ##  cleanup method
+    ##   use  buf.index( '//' ) to split string (see found_round_def)
+    ##     why? simpler why not?
+    ##  - do we currently allow groups if title2 present? add example if it works?
+
+
     # assume everything after // is title2 - strip off leading n trailing whitespaces
     regex = /\/{2,}\s*(.+)\s*$/
     if line =~ regex
@@ -46,12 +54,18 @@ module SportDb
   end
 
 
-  def find_round_title!( line )
+  def find_round_header_title!( line )
     # assume everything left is the round title
     #  extract all other items first (round title2, round pos, group title n pos, etc.)
 
+    ## todo/fix:
+    ##  cleanup method
+    ##   use  buf.index( '//' ) to split string (see found_round_def)
+    ##     why? simpler why not?
+    ##  - do we currently allow groups if title2 present? add example if it works?
+
     buf = line.dup
-    logger.debug "  find_round_title! line-before: >>#{buf}<<"
+    logger.debug "  find_round_header_title! line-before: >>#{buf}<<"
 
     buf.gsub!( /\[.+?\]/, '' )   # e.g. remove [ROUND|POS], [ROUND|TITLE2], [GROUP|TITLE+POS] etc.
     buf.sub!( /\s+[\/\-]{1,}\s+$/, '' )    # remove optional trailing / or / chars (left over from group)
@@ -60,6 +74,33 @@ module SportDb
     logger.debug "  find_round_title! line-after: >>#{buf}<<"
 
     ### bingo - assume what's left is the round title
+
+    logger.debug "   title: >>#{buf}<<"
+    line.sub!( buf, '[ROUND|TITLE]' )
+
+    buf
+  end
+
+
+  def find_round_def_title!( line )
+    # assume everything before pipe (\) is the round title
+    #  strip [ROUND|POS],  todo:?? [ROUND|TITLE2]
+
+    # todo/fix: add title2 w/  // or /  why? why not?
+    #  -- strip / or / chars
+
+    buf = line.dup
+    logger.debug "  find_round_def_title! line-before: >>#{buf}<<"
+
+    ## cut-off everything after (including) pipe (|)
+    buf = buf[ 0...buf.index('|') ]
+
+    # e.g. remove [ROUND|POS], [ROUND|TITLE2], [GROUP|TITLE+POS] etc.
+    buf.gsub!( /\[.+?\]/, '' )
+    # remove leading and trailing whitespace
+    buf.strip!
+
+    logger.debug "  find_round_def_title! line-after: >>#{buf}<<"
 
     logger.debug "   title: >>#{buf}<<"
     line.sub!( buf, '[ROUND|TITLE]' )

@@ -1,5 +1,12 @@
 # encoding: utf-8
 
+###
+#  to run use
+#     ruby -I ./lib -I ./test test/test_reader.rb
+#  or better
+#     rake -I ./lib test
+
+
 require 'helper'
 
 class TestReader < MiniTest::Unit::TestCase
@@ -9,6 +16,26 @@ class TestReader < MiniTest::Unit::TestCase
     SportDb.delete!
     SportDb.read_builtin
   end
+
+  def test_bl
+    at = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
+    
+    teamreader = TeamReader.new( SportDb.test_data_path )
+    teamreader.read( 'at-austria/teams',   country_id: at.id )
+
+    leaguereader = LeagueReader.new( SportDb.test_data_path )
+    leaguereader.read( 'at-austria/leagues', country_id: at.id )
+
+    gamereader = GameReader.new( SportDb.test_data_path )
+    gamereader.read( 'at-austria/2013_14/bl', country_id: at.id )
+
+    bl = Event.find_by_key!( 'at.2013/14' )
+
+    assert_equal  10, bl.teams.count
+    assert_equal  36, bl.rounds.count
+    assert_equal 180, bl.games.count  # 36x5 = 180
+  end
+
 
   def test_game_reader
     at = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
@@ -47,8 +74,11 @@ class TestReader < MiniTest::Unit::TestCase
     bl = Event.find_by_key!( 'at.2013/14' )
     el = Event.find_by_key!( 'at.2.2013/14' )
 
-    assert_equal 10, bl.teams.count
-    assert_equal 10, el.teams.count
+    assert_equal  10, bl.teams.count
+    assert_equal  36, bl.rounds.count
+    assert_equal 180, bl.games.count  # 36x5 = 180
+
+    assert_equal  10, el.teams.count
   end
 
 end # class TestReader

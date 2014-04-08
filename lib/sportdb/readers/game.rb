@@ -87,7 +87,6 @@ class GameReader
     
     ## reset cached values
     @patch_rounds  = {}
-    @knockout_flag = false
     @round         = nil
     
     
@@ -115,7 +114,11 @@ class GameReader
     logger.debug "    title: >#{title}<"
     logger.debug "    pos: >#{pos}<"
     logger.debug "  line: >#{line}<"
+
+    # set group for games
+    @group = Group.find_by_event_id_and_pos!( @event.id, pos )
   end
+
 
   def parse_group_def( line )
     logger.debug "parsing group def line: >#{line}<"
@@ -165,11 +168,14 @@ class GameReader
 
     start_at = find_date!( line, start_at: @event.start_at )
     end_at   = find_date!( line, start_at: @event.start_at )
-    # note: if end_at nil? -- assume start_at == end_at
+    
+    # note: if end_at missing -- assume start_at is (==) end_at
+    end_at = start_at  if end_at.nil?
+
 
     pos   = find_round_pos!( line )
     title = find_round_def_title!( line )
-    ## NB: use extracted round title for knockout check
+    # NB: use extracted round title for knockout check
     knockout_flag = is_knockout_round?( title )
 
 
@@ -177,9 +183,36 @@ class GameReader
     logger.debug "    end_at:   #{end_at}"
     logger.debug "    pos:      #{pos}"
     logger.debug "    title:    >#{title}<"
-    logger.debug "    koflag:   #{knockout_flag}"
+    logger.debug "    knockout_flag:   #{knockout_flag}"
 
     logger.debug "  line: >#{line}<"
+
+    #######################################
+    # fix: add auto flag is false !!!!
+
+    round_attribs = {
+      title:    title,
+      knockout: knockout_flag,
+      start_at: start_at,
+      end_at:   end_at
+    }
+
+    round = Round.find_by_event_id_and_pos( @event.id, pos )
+    if round.present?
+      logger.debug "update round #{round.id}:"
+    else
+      logger.debug "create round:"
+      round = Round.new
+          
+      round_attribs = round_attribs.merge( {
+        event_id: @event.id,
+        pos:   pos
+      })
+    end
+
+    logger.debug round_attribs.to_json
+   
+    round.update_attributes!( round_attribs )
   end
 
 
@@ -201,7 +234,7 @@ class GameReader
     title = find_round_header_title!( line )
 
     ## NB: use extracted round title for knockout check
-    @knockout_flag = is_knockout_round?( title )
+    knockout_flag = is_knockout_round?( title )
 
 
     if group_pos.present?
@@ -218,7 +251,7 @@ class GameReader
     round_attribs = {
       title:  title,
       title2: title2,
-      knockout: @knockout_flag
+      knockout: knockout_flag
     }
 
 
@@ -236,7 +269,7 @@ class GameReader
         end_at:   Time.utc('1912-12-12')
       })
     end
-        
+
     logger.debug round_attribs.to_json
    
     @round.update_attributes!( round_attribs )
@@ -294,10 +327,34 @@ class GameReader
     team2 = Team.find_by_key!( team2_key )
 
 
+    if @round.nil?
+      ## no round header found; calculate round from date
+      
+      ###
+      ## todo/fix: add some unit tests for round look up
+      #  fix: use date_v2 if present!! (old/original date; otherwise use date)
+      
+      #
+      # fix: check - what to do with hours e.g. start_at use 00:00 and for end_at use 23.59 ??
+      #  -- for now - remove hours (e.g. use end_of_day and beginnig_of_day)
+      
+      pp Round.all
+      
+      round = Round.where( 'event_id = ? AND (start_at <= ? AND end_at >= ?)',
+                             @event.id, date.end_of_day, date.beginning_of_day).first
+      pp round
+      logger.debug( "  using round #{round.pos} >#{round.title}< start_at: #{round.start_at}, end_at: #{round.end_at}" )
+    else
+      ## use round from last round header
+      round = @round
+    end
+    
+
+
     ### check if games exists
     ##  with this teams in this round if yes only update
     game = Game.find_by_round_id_and_team1_id_and_team2_id(
-                         @round.id, team1.id, team2.id
+                         round.id, team1.id, team2.id
     )
 
     game_attribs = {
@@ -310,7 +367,7 @@ class GameReader
       play_at:    date,
       play_at_v2: date_v2,
       postponed: postponed,
-      knockout:  @knockout_flag,
+      knockout:  round.knockout,   ## note: for now always use knockout flag from round - why? why not?? 
       ground_id: ground.present? ? ground.id : nil,
       group_id:  @group.present? ? @group.id : nil
     }
@@ -330,14 +387,14 @@ class GameReader
         game = Game.new
 
         more_game_attribs = {
-          round_id:  @round.id,
+          round_id: round.id,
           team1_id: team1.id,
           team2_id: team2.id
         }
           
         ## NB: use round.games.count for pos
         ##  lets us add games out of order if later needed
-        more_game_attribs[ :pos ] = @round.games.count+1   if pos.nil? 
+        more_game_attribs[ :pos ] = round.games.count+1   if pos.nil? 
 
         game_attribs = game_attribs.merge( more_game_attribs )
       end
@@ -408,6 +465,9 @@ class GameReader
       end
     end # lines.each
 
+
+###
+#  fix: do NOT patch if auto flag is set to false!!!
 
     @patch_rounds.each do |k,v|
       logger.debug "patch start_at/end_at date for round #{k}:"

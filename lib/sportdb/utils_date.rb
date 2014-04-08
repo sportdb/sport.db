@@ -50,7 +50,7 @@ module SportDb
     regex_de3 = /\b(\d{1,2})\.(\d{1,2})\.(\d{4})\b/
 
     # e.g. 14.09.  => DD.MM. w/ implied year and implied hours (set to 12:00)
-    regex_de4 = /\b(\d{1,2})\.(\d{1,2})\.\s+/
+    regex_de4 = /\b(\d{1,2})\.(\d{1,2})\.(?:\s+|$)/    ## note: allow end-of-string/line too
 
 
     # todo: make more generic for reuse

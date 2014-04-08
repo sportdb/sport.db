@@ -52,7 +52,7 @@ module SportDb
     logger.debug "   title: >#{title}<"
     logger.debug "   pos: >#{pos}<"
       
-    line.sub!( regex, '[GROUP|TITLE+POS]' )
+    line.sub!( regex, '[GROUP.TITLE+POS]' )
 
     return [title,pos]
   end

@@ -23,14 +23,14 @@ class TestLang < MiniTest::Unit::TestCase
      round << '|Round of 16|Last 16'
      round << '|Quarterfinals|Quarter-finals|Quarters|Quarterfinal'
      round << '|Semifinals|Semi-finals|Semis'
-     round << '|Third-place play-off|Third place play-off|Third place|3rd place match'
+     round << '|Third-place play-off|Third place play-off|Third place|3rd place match|Match for third place'
      round << '|Final|Finals'
 
      knockout_round = 'Round of 32|Last 32'
      knockout_round << '|Round of 16|Last 16'
      knockout_round << '|Quarterfinals|Quarter-finals|Quarters|Quarterfinal'
      knockout_round << '|Semifinals|Semi-finals|Semis'
-     knockout_round << '|Third-place play-off|Third place play-off|Third place|3rd place match'
+     knockout_round << '|Third-place play-off|Third place play-off|Third place|3rd place match|Match for third place'
      knockout_round << '|Final|Finals'
 
 

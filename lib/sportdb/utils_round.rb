@@ -33,6 +33,11 @@ module SportDb
   end
 
 
+  ##
+  ## fix/todo: check that [ROUND.TITLE2] and friends do NOT use pipes (|)
+  ##  change all pipes (|) to dot (.)
+  ## - pipes get used for def markers!!!
+
   def find_round_header_title2!( line )
     ## todo/fix:
     ##  cleanup method
@@ -46,7 +51,7 @@ module SportDb
     if line =~ regex
       logger.debug "   title2: >#{$1}<"
       
-      line.sub!( regex, '[ROUND|TITLE2]' )
+      line.sub!( regex, '[ROUND.TITLE2]' )
       return $1
     else
       return nil    # no round title2 found (title2 is optional)
@@ -67,7 +72,7 @@ module SportDb
     buf = line.dup
     logger.debug "  find_round_header_title! line-before: >>#{buf}<<"
 
-    buf.gsub!( /\[.+?\]/, '' )   # e.g. remove [ROUND|POS], [ROUND|TITLE2], [GROUP|TITLE+POS] etc.
+    buf.gsub!( /\[[^\]]+\]/, '' )   # e.g. remove [ROUND.POS], [ROUND.TITLE2], [GROUP.TITLE+POS] etc.
     buf.sub!( /\s+[\/\-]{1,}\s+$/, '' )    # remove optional trailing / or / chars (left over from group)
     buf.strip!    # remove leading and trailing whitespace
 
@@ -76,7 +81,7 @@ module SportDb
     ### bingo - assume what's left is the round title
 
     logger.debug "   title: >>#{buf}<<"
-    line.sub!( buf, '[ROUND|TITLE]' )
+    line.sub!( buf, '[ROUND.TITLE]' )
 
     buf
   end
@@ -84,7 +89,7 @@ module SportDb
 
   def find_round_def_title!( line )
     # assume everything before pipe (\) is the round title
-    #  strip [ROUND|POS],  todo:?? [ROUND|TITLE2]
+    #  strip [ROUND.POS],  todo:?? [ROUND.TITLE2]
 
     # todo/fix: add title2 w/  // or /  why? why not?
     #  -- strip / or / chars
@@ -95,15 +100,15 @@ module SportDb
     ## cut-off everything after (including) pipe (|)
     buf = buf[ 0...buf.index('|') ]
 
-    # e.g. remove [ROUND|POS], [ROUND|TITLE2], [GROUP|TITLE+POS] etc.
-    buf.gsub!( /\[.+?\]/, '' )
+    # e.g. remove [ROUND.POS], [ROUND.TITLE2], [GROUP.TITLE+POS] etc.
+    buf.gsub!( /\[[^\]]+\]/, '' )    ## fix: use helper for (re)use e.g. remove_match_placeholder/marker or similar?
     # remove leading and trailing whitespace
     buf.strip!
 
     logger.debug "  find_round_def_title! line-after: >>#{buf}<<"
 
     logger.debug "   title: >>#{buf}<<"
-    line.sub!( buf, '[ROUND|TITLE]' )
+    line.sub!( buf, '[ROUND.TITLE]' )
 
     buf
   end
@@ -123,7 +128,7 @@ module SportDb
     if line =~ regex_pos
       logger.debug "   pos: >#{$1}<"
       
-      line.sub!( regex_pos, '[ROUND|POS] ' )  ## NB: add back trailing space that got swallowed w/ regex -> [ \t]+
+      line.sub!( regex_pos, '[ROUND.POS] ' )  ## NB: add back trailing space that got swallowed w/ regex -> [ \t]+
       return $1.to_i
     elsif line =~ regex_num
       ## assume number in title is pos (e.g. Jornada 3, 3 Runde etc.)

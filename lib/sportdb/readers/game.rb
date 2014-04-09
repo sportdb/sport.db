@@ -81,15 +81,15 @@ class GameReader
 
 
   def load_fixtures_worker( event_key, reader )
-   
-    ## assume active activerecord connection
-    ##
-    
+    ## NB: assume active activerecord connection
+
     ## reset cached values
     @patch_rounds  = {}
-    @round         = nil
-    
-    
+    @round         = nil     ## fix: change/rename to @last_round !!!
+    @group         = nil     ## fix: change/rename to @last_group !!!
+    @last_date     = nil
+
+
     @event = Event.find_by_key!( event_key )
     
     logger.debug "Event #{@event.key} >#{@event.title}<"
@@ -134,12 +134,12 @@ class GameReader
       title: title
     }
         
-    @group = Group.find_by_event_id_and_pos( @event.id, pos )
-    if @group.present?
-      logger.debug "update group #{@group.id}:"
+    group = Group.find_by_event_id_and_pos( @event.id, pos )
+    if group.present?
+      logger.debug "update group #{group.id}:"
     else
       logger.debug "create group:"
-      @group = Group.new
+      group = Group.new
       group_attribs = group_attribs.merge( {
         event_id: @event.id,
         pos:   pos
@@ -148,14 +148,14 @@ class GameReader
       
     logger.debug group_attribs.to_json
    
-    @group.update_attributes!( group_attribs )
+    group.update_attributes!( group_attribs )
 
-    @group.teams.clear  # remove old teams
+    group.teams.clear  # remove old teams
     ## add new teams
     team_keys.each do |team_key|
       team = Team.find_by_key!( team_key )
       logger.debug "  adding team #{team.title} (#{team.code})"
-      @group.teams << team
+      group.teams << team
     end
   end
 
@@ -310,6 +310,17 @@ class GameReader
       date      = find_date!( line, start_at: @event.start_at )
     end
 
+    ###
+    # check if date found?
+    #   NB: ruby falsey is nil & false only (not 0 or empty array etc.)
+    if date
+      ### check: use date_v2 if present? why? why not?
+      @last_date = date    # keep a reference for later use
+    else
+      date = @last_date    # no date found; (re)use last seen date
+    end
+
+
     scores = find_scores!( line )
 
 
@@ -338,11 +349,11 @@ class GameReader
       # fix: check - what to do with hours e.g. start_at use 00:00 and for end_at use 23.59 ??
       #  -- for now - remove hours (e.g. use end_of_day and beginnig_of_day)
       
-      pp Round.all
+      ## pp Round.all
       
       round = Round.where( 'event_id = ? AND (start_at <= ? AND end_at >= ?)',
                              @event.id, date.end_of_day, date.beginning_of_day).first
-      pp round
+      ## pp round
       logger.debug( "  using round #{round.pos} >#{round.title}< start_at: #{round.start_at}, end_at: #{round.end_at}" )
     else
       ## use round from last round header
@@ -428,9 +439,11 @@ class GameReader
 
     date  = find_date!( line, start_at: @event.start_at )
 
-    if date.present? && team1_key.nil? && team2_key.nil?
+    if date && team1_key.nil? && team2_key.nil?
       logger.debug( "date header line found: >#{line}<")
       logger.debug( "    date: #{date}")
+      
+      @last_date = date   # keep a reference for later use
       return true
     else
       return false
@@ -467,7 +480,8 @@ class GameReader
 
 
 ###
-#  fix: do NOT patch if auto flag is set to false!!!
+#  fix: do NOT patch if auto flag is set to false !!!
+#   e.g. rounds got added w/ round def (not w/ round header)
 
     @patch_rounds.each do |k,v|
       logger.debug "patch start_at/end_at date for round #{k}:"

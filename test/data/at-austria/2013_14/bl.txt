@@ -10,34 +10,37 @@
 6. Runde | Sa. 24.08. - So. 25.08.
 
 
-## 1. Runde  //  Sa+So 20.+21. Jul 2013
+# -- 1. Runde  //  Sa+So 20.+21. Jul 2013
 
-(Sa) 20.07. 16.30  Austria Wien         2:0  FC Admira Wacker
-(Sa) 20.07. 19.00  SC Wiener Neustadt   1:5  RB Salzburg
-(Sa) 20.07. 19.00  SV Grödig            0:0  SV Ried
-(Sa) 20.07. 19.00  Wolfsberger AC       2:2  Rapid Wien
+(Sa) 20.07.
+Austria Wien         2:0  FC Admira Wacker
+SC Wiener Neustadt   1:5  RB Salzburg
+SV Grödig            0:0  SV Ried
+Wolfsberger AC       2:2  Rapid Wien
 
-(So) 21.07. 16.30  FC Wacker Innsbruck  2:2  Sturm Graz
-
-
-## 2. Runde  // Sa+So 27.+28. Jul 2013
-
-(Sa) 27.07. 16.30  Rapid Wien           4:0  SC Wiener Neustadt
-(Sa) 27.07. 19.00  FC Admira Wacker     1:2  FC Wacker Innsbruck
-(Sa) 27.07. 19.00  SV Ried              1:0  Wolfsberger AC
-(Sa) 27.07. 19.00  RB Salzburg          5:1  Austria Wien
-
-(So) 28.07. 16.30  Sturm Graz           0:2  SV Grödig
+(So) 21.07.
+FC Wacker Innsbruck  2:2  Sturm Graz
 
 
-## 3. Runde // Sa.+So. 3.+4. Aug 2013
+# -- 2. Runde  // Sa+So 27.+28. Jul 2013
 
-(Sa) 03.08. 16.30  SC Wiener Neustadt   2:1  Wolfsberger AC
-(Sa) 03.08. 19.00  SV Grödig            7:1  FC Admira Wacker
-(Sa) 03.08. 19.00  FC Wacker Innsbruck  1:1  RB Salzburg
-(Sa) 03.08. 19.00  Austria Wien         3:3  SV Ried
+(Sa) 27.07. Rapid Wien           4:0  SC Wiener Neustadt
+            FC Admira Wacker     1:2  FC Wacker Innsbruck
+            SV Ried              1:0  Wolfsberger AC
+            RB Salzburg          5:1  Austria Wien
 
-(So) 04.08. 16.30  Sturm Graz           2:4  Rapid Wien
+(So) 28.07. Sturm Graz           0:2  SV Grödig
+
+
+# -- 3. Runde // Sa.+So. 3.+4. Aug 2013
+
+[Sa 03.08.]
+SC Wiener Neustadt   2:1  Wolfsberger AC
+SV Grödig            7:1  FC Admira Wacker
+FC Wacker Innsbruck  1:1  RB Salzburg
+Austria Wien         3:3  SV Ried
+[So 04.08.]
+Sturm Graz           2:4  Rapid Wien
 
 
 ## 4. Runde // Sa.+So. 10.+11. Aug 2013

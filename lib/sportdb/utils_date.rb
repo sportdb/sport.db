@@ -50,8 +50,16 @@ module SportDb
     regex_de3 = /\b(\d{1,2})\.(\d{1,2})\.(\d{4})\b/
 
     # e.g. 14.09.  => DD.MM. w/ implied year and implied hours (set to 12:00)
-    regex_de4 = /\b(\d{1,2})\.(\d{1,2})\.(?:\s+|$)/    ## note: allow end-of-string/line too
+    #  note: allow end delimiter ] e.g. [Sa 12.01.] or end-of-string ($) too
+    #  note: we use a lookahead for last part e.g. (?:\s+|$|[\]]) - do NOT cosume
+    regex_de4 = /\b(\d{1,2})\.(\d{1,2})\.(?=\s+|$|[\]])/    ## note: allow end-of-string/line too
 
+    # fix: !!!!
+    #   date in [] will become [[DATE.DE4]] - when getting removed will keep ]!!!!
+    #   fix: change regex to \[[A-Z0-9.]\]  !!!!!!  plus add unit test too!!!
+    #
+    # fix: use more lookahead for all required trailing spaces!!!!!
+    # fix: use <name capturing group> for month,day,year etc.!!!
 
     # todo: make more generic for reuse
     month_abbrev_en = 'Jan|Feb|March|Mar|April|Apr|May|June|Jun|July|Jul|Aug|Sept|Sep|Oct|Nov|Dec'

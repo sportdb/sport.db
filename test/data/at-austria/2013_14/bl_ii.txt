@@ -2,24 +2,28 @@
 # Österreichische Bundesliga 2013/14 -  Frühjahr
 
 
-22. Runde // Sa.+So.
+22. Runde
 
-(Sa) 08.02.  SV Ried           2:1   SC Wiener Neustadt
-(Sa) 08.02.  Wolfsberger AC    3:2   FC Wacker Innsbruck
-(Sa) 08.02.  RB Salzburg       6:0   SV Grödig
-(Sa) 08.02.  FC Admira Wacker  1:1   Sturm Graz
+[Sa 08.02.]
+SV Ried           2:1   SC Wiener Neustadt
+Wolfsberger AC    3:2   FC Wacker Innsbruck
+RB Salzburg       6:0   SV Grödig
+FC Admira Wacker  1:1   Sturm Graz
 
-(So) 09.02.  Rapid Wien        3:1    Austria Wien
+[So 09.02.]
+Rapid Wien        3:1    Austria Wien
 
 
-23. Runde // Sa.+So.
+23. Runde
 
-(Sa) 15.02.  SV Grödig           3:0  Wolfsberger AC
-(Sa) 15.02.  FC Wacker Innsbruck 1:1  SV Ried
-(Sa) 15.02.  Sturm Graz          1:4  RB Salzburg
-(Sa) 15.02.  Austria Wien        1:1  SC Wiener Neustadt
+Sa 15.02.
+SV Grödig           3:0  Wolfsberger AC
+FC Wacker Innsbruck 1:1  SV Ried
+Sturm Graz          1:4  RB Salzburg
+Austria Wien        1:1  SC Wiener Neustadt
 
-(So) 16.02.  FC Admira Wacker    2:1  Rapid Wien
+So 16.02.
+FC Admira Wacker    2:1  Rapid Wien
 
 
 24. Runde // Sa.+So.

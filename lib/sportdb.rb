@@ -29,6 +29,7 @@ require 'fetcher'   # for fetching/downloading fixtures via HTTP/HTTPS etc.
 
 require 'sportdb/version'
 
+require 'sportdb/patterns'
 require 'sportdb/models/forward'
 require 'sportdb/models/world/city'
 require 'sportdb/models/world/country'
@@ -56,7 +57,8 @@ require 'sportdb/models/track'
 
 require 'sportdb/models/utils'   # e.g. GameCursor
 
-## add backwards compatible namespace (delete later!)
+## add backwards compatible n convenience namespace
+###  move to forward.rb ?? - why? why not??
 module SportDb
   Models = Model
 end

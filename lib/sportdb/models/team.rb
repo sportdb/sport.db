@@ -16,12 +16,9 @@ class Team < ActiveRecord::Base
   has_many :home_games, class_name: 'Game', foreign_key: 'team1_id'
   has_many :away_games, class_name: 'Game', foreign_key: 'team2_id'
 
-  REGEX_KEY  = /^[a-z]{3,}$/
-  REGEX_CODE = /^[A-Z][A-Z0-9][A-Z0-9_]?$/  # must start w/ letter a-z (2 n 3 can be number or underscore _)
-
   ## todo/fix: must be 3 or more letters (plus allow digits e.g. salzburgii, muenchen1980, etc.) - why? why not??
-  validates :key,  :format => { :with => REGEX_KEY,  :message => 'expected three or more lowercase letters a-z' }
-  validates :code, :format => { :with => REGEX_CODE, :message => 'expected two or three uppercase letters A-Z (and 0-9_; must start with A-Z)' }, :allow_nil => true
+  validates :key,  format: { with: /#{TEAM_KEY_PATTERN}/, message: TEAM_KEY_PATTERN_MESSAGE }
+  validates :code, format: { with: /#{TEAM_CODE_PATTERN}/, message: TEAM_CODE_PATTERN_MESSAGE }, allow_nil: true
 
   has_many :event_teams, class_name: 'EventTeam'  # join table (events+teams)
   has_many :events, :through => :event_teams
@@ -132,7 +129,7 @@ class Team < ActiveRecord::Base
           attr[ :country_id ] = value.id
         elsif value.is_a? City
           attr[ :city_id ] = value.id 
-        elsif value =~ REGEX_CODE   ## assume its three letter code (e.g. ITA or S04 etc.)
+        elsif value =~ /#{TEAM_CODE_PATTERN}/   ## assume its three letter code (e.g. ITA or S04 etc.)
           attr[ :code ] = value
         elsif value =~ /^city:/   ## city:
           value_city_key = value[5..-1]  ## cut off city: prefix

@@ -46,6 +46,7 @@ lib/sportdb/models/world/city.rb
 lib/sportdb/models/world/continent.rb
 lib/sportdb/models/world/country.rb
 lib/sportdb/models/world/region.rb
+lib/sportdb/patterns.rb
 lib/sportdb/reader.rb
 lib/sportdb/readers/event.rb
 lib/sportdb/readers/game.rb

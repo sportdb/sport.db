@@ -128,18 +128,23 @@ private
   def round_getter
     # e.g. Spieltag|Runde|Achtelfinale|Viertelfinale|Halbfinale|Finale
     
+    ## fix/todo:
+    ##  sort by length first - to allow best match e.g.
+    ##    3rd place play-off  instead of Play-off ?? etc.  - why? why not?
+
     h = @words[ lang ]
     values = ""   # NB: always construct a new string (do NOT use a reference to hash value)
     values << h['round']
-    values << "|" << h['matchday']  ## todo/check: fold round n matchday into one key? why? why not??
     
     ### add knockout rounds values too
     values << "|" << h['round32']
     values << "|" << h['round16']
     values << "|" << h['quarterfinals']
     values << "|" << h['semifinals']
+    values << "|" << h['fifthplace']  if h['fifthplace']   # nb: allow empty/is optional!!
     values << "|" << h['thirdplace']
     values << "|" << h['final']
+    values << "|" << h['playoffs']    if h['playoffs']   # nb: allow empty/is optional!!
     values
   end
 
@@ -164,35 +169,45 @@ private
     values << "|" << h['round16']
     values << "|" << h['quarterfinals']
     values << "|" << h['semifinals']
+    values << "|" << h['fifthplace']  if h['fifthplace']   # nb: allow empty/is optional!!
     values << "|" << h['thirdplace']
     values << "|" << h['final']
+    values << "|" << h['playoffs']    if h['playoffs']   # nb: allow empty/is optional!!
     values
   end
   
   def regex_group_getter
     ## todo: escape for regex?
-    /#{group}/
+    ## NB: let's ignore case (that is, UPCASE,downcase); always use /i flag
+    /#{group}/i
   end
   
   def regex_round_getter
     ## todo: escape for regex?
     ## todo: sort by length - biggest words go first? does regex match biggest word automatically?? - check
-    /#{round}/
+    ##  todo/fix: make - optional e.g. convert to ( |-) or better [ \-] ??
+    ## NB: let's ignore case (that is, UPCASE,downcase); always use /i flag
+    /#{round}/i
   end
 
   def regex_knockout_round_getter
     ## todo: escape for regex?
-    /#{knockout_round}/
+    ## todo: sort by length - biggest words go first? does regex match biggest word automatically?? - check
+    ##  todo/fix: make - optional e.g. convert to ( |-) or better [ \-] ??
+    ## NB: let's ignore case (that is, UPCASE,downcase); always use /i flag
+    /#{knockout_round}/i
   end
-  
+
   def regex_leg1_getter
     ## todo: escape for regex?
-    /#{leg1}/
+    ## NB: let's ignore case (that is, UPCASE,downcase); always use /i flag
+    /#{leg1}/i
   end
 
   def regex_leg2_getter
     ## todo: escape for regex?
-    /#{leg2}/
+    ## NB: let's ignore case (that is, UPCASE,downcase); always use /i flag
+    /#{leg2}/i
   end
 
 end # class Lang

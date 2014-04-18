@@ -40,6 +40,21 @@ class Reader
   end # method load_setup
 
 
+  def is_club_fixture?( name )
+    ## guess (heuristic) if it's a national team event (e.g. world cup, copa america, etc.)
+    ##  or club event (e.g. bundesliga, club world cup, etc.)
+
+    if name =~ /club-world-cup!?\//      # NB: must go before -cup (special case)
+      true
+    elsif name =~ /copa-america!?\// ||  # NB: copa-america/ or copa-america!/
+          name =~ /-cup!?\//             # NB: -cup/ or -cup!/
+      false
+    else
+      true
+    end
+  end
+
+
   def load( name )   # convenience helper for all-in-one reader
 
     logger.debug "enter load( name=>>#{name}<<, include_path=>>#{include_path}<<)"
@@ -98,16 +113,8 @@ class Reader
             reader.read( name, club: true, country_id: country.id )
           end
     elsif name =~ /(?:^|\/)leagues/   # NB: ^leagues or also possible world!/leagues  - NB: make sure goes after leagues_for_country!!
-      if name =~ /-cup!?\//          ||   # NB: -cup/ or -cup!/
-         name =~ /copa-america!?\//       # NB: copa-america/ or copa-america!/
-        # e.g. national team tournaments/leagues (e.g. world-cup/ or euro-cup/)
-        reader = LeagueReader.new( include_path )
-        reader.read( name, club: false )
-      else
-        # e.g. leagues_club
-        reader = LeagueReader.new( include_path )
-        reader.read( name, club: true )
-      end
+      reader = LeagueReader.new( include_path )
+      reader.read( name, club: is_club_fixture?( name ) )
     elsif match_teams_for_country( name ) do |country_key|   # name =~ /^([a-z]{2})\/teams/
             # auto-add country code (from folder structure) for country-specific teams
             #  e.g. at/teams at/teams.2 de/teams etc.                
@@ -116,18 +123,8 @@ class Reader
             reader.read( name, club: true, country_id: country.id )
           end
     elsif name =~ /(?:^|\/)teams/
-      if name =~ /-cup!?\//         ||    # NB: -cup/ or -cup!/
-         name =~ /copa-america!?\//       # NB: copa-america/ or copa-america!/
-        # assume national teams
-        # e.g. world-cup/teams  amercia-cup/teams_northern
-        reader = TeamReader.new( include_path )
-        reader.read( name, club: false )
-      else
-        # club teams (many countries)
-        # e.g. club/europe/teams
-        reader = TeamReader.new( include_path )
-        reader.read( name, club: true )
-      end
+      reader = TeamReader.new( include_path )
+      reader.read( name, club: is_club_fixture?( name ) )
     elsif name =~ /\/(\d{4}|\d{4}_\d{2})\// || name =~ /\/(\d{4}|\d{4}_\d{2})$/
       # e.g. must match /2012/ or /2012_13/
       #  or   /2012 or /2012_13   e.g. brazil/2012 or brazil/2012_13

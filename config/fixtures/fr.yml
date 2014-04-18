@@ -4,9 +4,6 @@
 
 group:      Groupe
 
-## roll into one (matchday+round) ???
-
-matchday:   Journée
 round:      Journée
 
 stage:    Phase de groupes|Phase à élimination directe|Phase finale
@@ -22,6 +19,9 @@ stage:    Phase de groupes|Phase à élimination directe|Phase finale
 
 
 ### Knockout rounds
+
+## fix: add playoffs + fifthplace
+
 
 round32:        Seizièmes de finale
 round16:        Huitièmes de finale

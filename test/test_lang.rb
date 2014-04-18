@@ -17,31 +17,33 @@ class TestLang < MiniTest::Unit::TestCase
 
      group = 'Group'
 
-     round = 'Round'
-     round << '|Matchday'
+     round = 'Round|Matchday'
      round << '|Round of 32|Last 32'
-     round << '|Round of 16|Last 16'
-     round << '|Quarterfinals|Quarter-finals|Quarters|Quarterfinal'
-     round << '|Semifinals|Semi-finals|Semis'
-     round << '|Third-place play-off|Third place play-off|Third place|3rd place match|Match for third place'
+     round << '|Round of 16|Last 16|8th finals'
+     round << '|Quarterfinals|Quarter-finals|Quarters|Quarterfinal|Last 8'
+     round << '|Semifinals|Semi-finals|Semis|Last 4'
+     round << '|Fifth place match|Fifth place|5th place match|5th place final|5th place|Match for fifth place|Match for 5th place'
+     round << '|Third place match|Third place|3rd place match|3rd place final|3rd place|Match for third place|Match for 3rd place|Third-place play-off|Third place play-off'
      round << '|Final|Finals'
+     round << '|Play-off|Play-offs|Play-off for quarter-finals'
 
      knockout_round = 'Round of 32|Last 32'
-     knockout_round << '|Round of 16|Last 16'
-     knockout_round << '|Quarterfinals|Quarter-finals|Quarters|Quarterfinal'
-     knockout_round << '|Semifinals|Semi-finals|Semis'
-     knockout_round << '|Third-place play-off|Third place play-off|Third place|3rd place match|Match for third place'
+     knockout_round << '|Round of 16|Last 16|8th finals'
+     knockout_round << '|Quarterfinals|Quarter-finals|Quarters|Quarterfinal|Last 8'
+     knockout_round << '|Semifinals|Semi-finals|Semis|Last 4'
+     knockout_round << '|Fifth place match|Fifth place|5th place match|5th place final|5th place|Match for fifth place|Match for 5th place'
+     knockout_round << '|Third place match|Third place|3rd place match|3rd place final|3rd place|Match for third place|Match for 3rd place|Third-place play-off|Third place play-off'
      knockout_round << '|Final|Finals'
+     knockout_round << '|Play-off|Play-offs|Play-off for quarter-finals'
 
-
-     assert( group == lang.group )
-     assert( round == lang.round )
-     assert( knockout_round == lang.knockout_round )
+     assert_equal group, lang.group
+     assert_equal round, lang.round
+     assert_equal knockout_round, lang.knockout_round
 
      # NB: call twice to test caching with ||=
-     assert( group == lang.group )
-     assert( round == lang.round )
-     assert( knockout_round == lang.knockout_round )
+     assert_equal group, lang.group
+     assert_equal round, lang.round
+     assert_equal knockout_round, lang.knockout_round
 
   end
   
@@ -51,12 +53,12 @@ class TestLang < MiniTest::Unit::TestCase
 
      group = 'Gruppe'
 
-     round = 'Runde'
-     round << '|Spieltag'
+     round = 'Spieltag|Runde'
      round << '|Sechzehntelfinale|1/16 Finale'
      round << '|Achtelfinale|1/8 Finale'
      round << '|Viertelfinale|1/4 Finale'
      round << '|Halbfinale|Semifinale|1/2 Finale'
+     round << '|Spiel um Platz 5'
      round << '|Spiel um Platz 3'
      round << '|Finale|Endspiel'
 
@@ -64,19 +66,20 @@ class TestLang < MiniTest::Unit::TestCase
      knockout_round << '|Achtelfinale|1/8 Finale'
      knockout_round << '|Viertelfinale|1/4 Finale'
      knockout_round << '|Halbfinale|Semifinale|1/2 Finale'
+     knockout_round << '|Spiel um Platz 5'
      knockout_round << '|Spiel um Platz 3'
      knockout_round << '|Finale|Endspiel'
 
 
-     assert( group == lang.group )
-     assert( round == lang.round )
-     assert( knockout_round == lang.knockout_round )
+     assert_equal group, lang.group
+     assert_equal round, lang.round
+     assert_equal knockout_round, lang.knockout_round
 
      # NB: call twice to test caching with ||=
 
-     assert( round == lang.round )
-     assert( group == lang.group )
-     assert( knockout_round == lang.knockout_round )
+     assert_equal group, lang.group
+     assert_equal round, lang.round
+     assert_equal knockout_round, lang.knockout_round
   end
 
   def test_regex_knockout_round
@@ -86,7 +89,16 @@ class TestLang < MiniTest::Unit::TestCase
      lines = [
       '(4) Quarter-finals',
       '(5) Semi-finals',
-      '(6) Final'
+      '(6) Final',
+      '(1) Play-off 1st Leg // 11–15 October',
+      '(2) Play-off 2nd Leg // 15-19 November',
+      '(1) Play-off for quarter-finals',
+      '(4) Match for fifth place',
+      '(5) Match for third place',
+      ## check for ALL UPCASE too
+      '(4) QUARTER-FINALS',
+      '(5) SEMI-FINALS',
+      '(6) FINAL'
      ]
      
      lines.each do |line|

@@ -41,7 +41,35 @@ class TestRoundHeader < MiniTest::Unit::TestCase
         { pos:14,
           title:  'Round of 16 / 2nd Leg',
           title2: 'May 8-10',
-          ko: true }] ]
+          ko: true }],
+
+      [ "(4) Match for fifth place",
+       { pos:4,
+         title: 'Match for fifth place',
+         ko: true }],
+
+      [ "(5) Match for third place",
+       { pos:5,
+         title: 'Match for third place',
+         ko: true }],
+
+      [ "(1) Play-off for quarter-finals",
+        { pos:1,
+          title: 'Play-off for quarter-finals',
+          ko: true }],
+
+      [ "(1) Play-off 1st Leg // 11–15 October",
+         { pos:1,
+           title: 'Play-off 1st Leg',
+           title2: '11–15 October',
+           ko: false } ],
+
+      [ "(2) Play-off 2nd Leg // 15-19 November",
+         { pos:2,
+           title: 'Play-off 2nd Leg',
+           title2: '15-19 November',
+           ko: true } ],
+      ]
 
     assert_rounds( data )
   end

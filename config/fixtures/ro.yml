@@ -4,10 +4,7 @@
 
 group:       Grupa
 
-## roll into one (matchday+round) ???
-
-matchday:   Etapa
-round:      Runda
+round:      Runda|Etapa
 
 
 stage:    Faza grupelor|Faza eliminatorie
@@ -23,6 +20,9 @@ stage:    Faza grupelor|Faza eliminatorie
 
 
 ### Knockout rounds
+
+## fix: add playoffs + fifthplace
+
 
 round32:        1/16 de finală
 round16:        Optimi de finală

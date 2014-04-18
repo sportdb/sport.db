@@ -4,10 +4,7 @@
 
 group:      Group
 
-## roll into one (matchday+round) ???
-
-matchday:   Matchday
-round:      Round
+round:      Round|Matchday
 
 stage:    Stage|Phase|Rounds
 # e.g.
@@ -20,20 +17,22 @@ stage:    Stage|Phase|Rounds
 
 
 
-
 ### Knockout rounds
 
+playoffs:       Play-off|Play-offs|Play-off for quarter-finals
 round32:        Round of 32|Last 32
-round16:        Round of 16|Last 16
-quarterfinals:  Quarterfinals|Quarter-finals|Quarters|Quarterfinal  # todo: check if singular Quaterfinal is possible??
-semifinals:     Semifinals|Semi-finals|Semis
-thirdplace:     Third-place play-off|Third place play-off|Third place|3rd place match|Match for third place
+round16:        Round of 16|Last 16|8th finals
+quarterfinals:  Quarterfinals|Quarter-finals|Quarters|Quarterfinal|Last 8
+semifinals:     Semifinals|Semi-finals|Semis|Last 4
+fifthplace:     Fifth place match|Fifth place|5th place match|5th place final|5th place|Match for fifth place|Match for 5th place
+thirdplace:     Third place match|Third place|3rd place match|3rd place final|3rd place|Match for third place|Match for 3rd place|Third-place play-off|Third place play-off
 final:          Final|Finals
+
 
 ### Pair matches/games if marked with leg1 n leg2
 
-leg1:  1st leg|1st Leg|First leg     # todo: check for automatica ignore case - why? why not?
-leg2:  2nd leg|2nd Leg|Second leg
+leg1:  1st leg|First leg
+leg2:  2nd leg|Second leg
 
 
 #######################

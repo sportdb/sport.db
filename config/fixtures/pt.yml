@@ -4,15 +4,14 @@
 
 group:      Grupo
 
-## roll into one (matchday+round) ???
-
-matchday:   Rodada
 round:      Rodada
 
 stage:  Fase de grupos|Fase final|Primeira Fase|Segunda Fase
 
 
 ### Knock out rounds
+
+## fix: add playoffs + fifthplace
 
 round32:        16-avos de final
 round16:        Oitavos de final|Oitavas-de-final

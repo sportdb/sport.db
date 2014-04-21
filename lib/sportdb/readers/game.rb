@@ -324,10 +324,26 @@ class GameReader
     scores = find_scores!( line )
 
 
-    map_ground!( line )
-    ground_key = find_ground!( line )
-    ground =   ground_key.nil? ? nil : Ground.find_by_key!( ground_key )
+    ####
+    # note:
+    #  only map ground if we got any grounds (setup/configured in event)
+    
+    if @event.grounds.count > 0
+     
+     ## todo/check: use @known_grounds for check?? why? why not??
+     ## use in @known_grounds  = TextUtils.build_title_table_for( @event.grounds )
 
+     ##
+     # fix: mark mapped title w/ type (ground-) or such!! - too avoid fallthrough match
+     #  e.g. three teams match - but only two get mapped, third team gets match for ground
+     #    e.g Somalia v Djibouti  @ Djibouti
+      map_ground!( line )
+      ground_key = find_ground!( line )
+      ground =  ground_key.nil? ? nil : Ground.find_by_key!( ground_key )
+    else
+      # no grounds configured; always nil
+      ground = nil
+    end
 
     logger.debug "  line: >#{line}<"
 

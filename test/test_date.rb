@@ -1,5 +1,9 @@
 # encoding: utf-8
 
+###
+#  to run use
+#     ruby -I ./lib -I ./test test/test_date.rb
+
 require 'helper'
 
 class TestDate < MiniTest::Unit::TestCase

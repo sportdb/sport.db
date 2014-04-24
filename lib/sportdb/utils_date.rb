@@ -8,7 +8,11 @@ module SportDb
     line =~ /=>/
   end
 
+
   def calculate_year( day, month, start_at )
+  ##
+  #  fix: change arg order to month, day  --  to match parse_date_time etc. ?? why? why not?
+  #
     if month >= start_at.month
       # assume same year as start_at event (e.g. 2013 for 2013/14 season)
       start_at.year
@@ -17,6 +21,36 @@ module SportDb
       start_at.year+1
     end
   end
+
+  ### helpers for parsing dates (from strings)
+  def parse_date_time( match_data, opts={} )
+    # todo:
+    #  - rename to parse_date_time_from_match_data ?? why? why not?
+    #  - wrap into DateParser - why? why not?
+    
+    # convert regex match_data captures to hash
+    # - note: cannont use match_data like a hash (e.g. raises exception if key/name not present/found)
+    h = {}
+    match_data.names.each { |name| h[name] = match_data[name] }  # or use match_data.names.zip( match_data.captures )  - more cryptic but "elegant"??
+
+    month   = h[:month]
+    day     = h[:day]
+    year    = h[:year]     || calculate_year( day.to_i, month.to_i, opts[:start_at] )
+
+    hours   = h[:hours]    || '12'   # default to 12:00 for HH:MM (hours:minutes)
+    minutes = h[:minutes]  || '00'
+    
+    value = '%d-%02d-%02d %02d:%02d' % [year.to_i, month.to_i, day.to_i, hours.to_i, minutes.to_i]
+    logger.debug "   date: >#{value}<"
+
+    DateTime.strptime( value, '%Y-%m-%d %H:%M' )
+  end
+
+  def parse_date( match_data, opts )
+    ## just pass through for now
+    parse_date_time( match_data, opts )  
+  end
+
 
 
   def find_date!( line, opts={} )
@@ -28,38 +62,15 @@ module SportDb
     # and return it
     # NB: side effect - removes date from line string
     
-    # e.g. 2012-09-14 20:30   => YYYY-MM-DD HH:MM
-    #  nb: allow 2012-9-3 7:30 e.g. no leading zero required
-    regex_db = /\b(\d{4})-(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{2})\b/
-    
-    # e.g. 2012-09-14  w/ implied hours (set to 12:00)
-    #  nb: allow 2012-9-3 e.g. no leading zero required
-    regex_db2 = /\b(\d{4})-(\d{1,2})-(\d{1,2})\b/
 
-    # e.g. 14.09. 20:30  => DD.MM. HH:MM
-    #  nb: allow 2.3.2012 e.g. no leading zero required
-    #  nb: allow hour as 20.30  or 3.30 instead of 03.30
-    regex_de = /\b(\d{1,2})\.(\d{1,2})\.\s+(\d{1,2})[:.](\d{2})\b/
+    # fix: use more lookahead for all required trailing spaces!!!!!
+    # fix: use <name capturing group> for month,day,year etc.!!!
 
-    # e.g. 14.09.2012 20:30   => DD.MM.YYYY HH:MM
-    #  nb: allow 2.3.2012 e.g. no leading zero required
-    #  nb: allow hour as 20.30
-    regex_de2 = /\b(\d{1,2})\.(\d{1,2})\.(\d{4})\s+(\d{1,2})[:.](\d{2})\b/
-
-    # e.g. 14.09.2012  => DD.MM.YYYY w/ implied hours (set to 12:00)
-    regex_de3 = /\b(\d{1,2})\.(\d{1,2})\.(\d{4})\b/
-
-    # e.g. 14.09.  => DD.MM. w/ implied year and implied hours (set to 12:00)
-    #  note: allow end delimiter ] e.g. [Sa 12.01.] or end-of-string ($) too
-    #  note: we use a lookahead for last part e.g. (?:\s+|$|[\]]) - do NOT cosume
-    regex_de4 = /\b(\d{1,2})\.(\d{1,2})\.(?=\s+|$|[\]])/    ## note: allow end-of-string/line too
-
+    #
     # fix: !!!!
     #   date in [] will become [[DATE.DE4]] - when getting removed will keep ]!!!!
     #   fix: change regex to \[[A-Z0-9.]\]  !!!!!!  plus add unit test too!!!
     #
-    # fix: use more lookahead for all required trailing spaces!!!!!
-    # fix: use <name capturing group> for month,day,year etc.!!!
 
     # todo: make more generic for reuse
     month_abbrev_en = 'Jan|Feb|March|Mar|April|Apr|May|June|Jun|July|Jul|Aug|Sept|Sep|Oct|Nov|Dec'
@@ -77,21 +88,6 @@ module SportDb
         'Nov' => 11,
         'Dec' => 12 }
 
-
-    # e.g. 12 May 2013 14:00  => D|DD.MMM.YYYY H|HH:MM
-    regex_en = /\b(\d{1,2})\s(#{month_abbrev_en})\s(\d{4})\s+(\d{1,2}):(\d{2})\b/
-
-
-    # e.g.  Jun/12 14:00  w/ implied year H|HH:MM
-    regex_en2  = /\b(#{month_abbrev_en})\/(\d{1,2})\s+(\d{1,2}):(\d{2})\b/
-
-    # e.g.  Jun/12  w/ implied year and implied hours (set to 12:00)
-    regex_en21 = /\b(#{month_abbrev_en})\/(\d{1,2})\b/
-
-    # todo/fix - add de and es too!!
-    # note: in Austria - Jänner - in Deutschland Januar allow both ??
-    month_abbrev_de = 'J[aä]n|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez'
-
     month_abbrev_es = 'Enero|Ene|Feb|Marzo|Mar|Abril|Abr|Mayo|May|Junio|Jun|Julio|Jul|Agosto|Ago|Sept|Set|Sep|Oct|Nov|Dic'
     month_abbrev_es_to_i = {
         'Ene' => 1, 'Enero' => 1,
@@ -107,117 +103,122 @@ module SportDb
         'Nov' => 11,
         'Dic' => 12 }
 
+    # todo/fix - add de and es too!!
+    # note: in Austria - Jänner - in Deutschland Januar allow both ??
+    month_abbrev_de = 'J[aä]n|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez'
+
+    # e.g. 12 May 2013 14:00  => D|DD.MMM.YYYY H|HH:MM
+    regex_en = /\b
+                (?<day>\d{1,2})
+                   \s
+                (?<month_en>#{month_abbrev_en})
+                   \s
+                (?<year>\d{4})
+                   \s+
+                (?<hours>\d{1,2})
+                  :
+                (?<minutes>\d{2})
+                  \b/x
+
+
+    # e.g.  Jun/12 14:00  w/ implied year H|HH:MM
+    regex_en2  = /\b
+                   (?<month_en>#{month_abbrev_en})
+                     \/
+                   (?<day>\d{1,2})
+                     \s+
+                   (?<hours>\d{1,2})
+                     :
+                   (?<minutes>\d{2})
+                     \b/x
+
+    # e.g.  Jun/12  w/ implied year and implied hours (set to 12:00)
+    regex_en21 = /\b
+                   (?<month_en>#{month_abbrev_en})
+                      \/
+                   (?<day>\d{1,2})
+                     \b/x
+
     # e.g.  12 Ene  w/ implied year and implied hours (set to 12:00)
-    regex_es21 = /\b(\d{1,2})\s(#{month_abbrev_es})\b/
+    regex_es21 = /\b
+                   (?<day>\d{1,2})
+                     \s
+                   (?<month_es>#{month_abbrev_es})
+                     \b/x
 
-    if line =~ regex_db
-      value = '%d-%02d-%02d %02d:%02d' % [$1.to_i, $2.to_i, $3.to_i, $4.to_i, $5.to_i]
-      logger.debug "   date: >#{value}<"
 
-      ## todo: lets you configure year
-      ##  and time zone (e.g. cet, eet, utc, etc.)
+    md = nil
+    if (md=DB_DATE_TIME_REGEX.match( line ))
+      ## fix: use md[0] e.g. match for sub! instead of using regex again - why? why not???
+      line.sub!( DB_DATE_TIME_REGEX, '[DATE_TIME_DB]' )
+
+      return parse_date_time( md, opts )
+    elsif (md=DB_DATE_REGEX.match( line ))
+      line.sub!( DB_DATE_REGEX, '[DATE_DB]' )
+
+      return parse_date( md, opts )
+    elsif (md=DE_DATE_TIME_REGEX.match( line ))
+      line.sub!( DE_DATE_TIME_REGEX, '[DATE_TIME_DE]' )
+
+      return parse_date_time( md, opts )
+    elsif (md=DE2_DATE_TIME_REGEX.match( line ))
+      line.sub!( DE2_DATE_TIME_REGEX, '[DATE_TIME_DE2]' )
+
+      return parse_date_time( md, opts )  ## note: pass along opts[:start_at] to calculate year!!!
+    elsif (md=DE_DATE_REGEX.match( line ))
+      line.sub!( DE_DATE_REGEX, '[DATE_DE]' )
+
+      return parse_date( md, opts )
+    elsif (md=DE2_DATE_REGEX.match( line ))
+      line.sub!( DE2_DATE_REGEX, '[DATE_DE2]' )
+
+      return parse_date( md, opts )  ## note: pass along opts[:start_at] to calculate year!!!
+    elsif (md=regex_en.match( line ))
+      day     = md[:day].to_i
+      month   = month_abbrev_en_to_i[ md[:month_en] ]   ## fix: change month_abbrev_en_to_i to month_en_to_i
+      year    = md[:year].to_i
+      hours   = md[:hours].to_i
+      minutes = md[:minutes].to_i
       
-      line.sub!( regex_db, '[DATE.DB]' )
-
-      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
-    elsif line =~ regex_db2
-      value = '%d-%02d-%02d 12:00' % [$1.to_i, $2.to_i, $3.to_i]
+      value = '%d-%02d-%02d %02d:%02d' % [year, month, day, hours, minutes]
       logger.debug "   date: >#{value}<"
 
-      line.sub!( regex_db2, '[DATE.DB2]' )
+      line.sub!( regex_en, '[DATE_EN]' )
 
-      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
-    elsif line =~ regex_de2
-      value = '%d-%02d-%02d %02d:%02d' % [$3.to_i, $2.to_i, $1.to_i, $4.to_i, $5.to_i]
-      logger.debug "   date: >#{value}<"
-
-      ## todo: lets you configure year
-      ##  and time zone (e.g. cet, eet, utc, etc.)
-      
-      line.sub!( regex_de2, '[DATE.DE2]' )
-
-      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
-    elsif line =~ regex_de
-
-      year = calculate_year( $1.to_i, $2.to_i, opts[:start_at] )
-
-      value = '%d-%02d-%02d %02d:%02d' % [year, $2.to_i, $1.to_i, $3.to_i, $4.to_i]
-      logger.debug "   date: >#{value}<"
-
-      ## todo: lets you configure year
-      ##  and time zone (e.g. cet, eet, utc, etc.)
-      
-      line.sub!( regex_de, '[DATE.DE]' )
-
-      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
-    elsif line =~ regex_de3
-      value = '%d-%02d-%02d 12:00' % [$3.to_i, $2.to_i, $1.to_i]
-      logger.debug "   date: >#{value}<"
-
-      ## todo: lets you configure year
-      ##  and time zone (e.g. cet, eet, utc, etc.)
-      
-      line.sub!( regex_de3, '[DATE.DE3]' )
-
-      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
-    elsif line =~ regex_de4
-
-      year = calculate_year( $1.to_i, $2.to_i, opts[:start_at] )
-
-      value = '%d-%02d-%02d 12:00' % [year, $2.to_i, $1.to_i]
-      logger.debug "   date: >#{value}<"
-
-      ## todo: lets you configure year
-      ##  and time zone (e.g. cet, eet, utc, etc.)
-
-      ### NOTE: needs a trailing space
-      #   not if regex ends w/ whitespace e.g. /s+
-      #  make sure sub! adds a space at the end
-      #   e.g. '[DATE.DE4]' becomes '[DATE.DE4] '
-
-      line.sub!( regex_de4, '[DATE.DE4] ' )
-
-      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
-    elsif line =~ regex_en
-      value = '%d-%s-%02d %02d:%02d' % [$3.to_i, $2, $1.to_i, $4.to_i, $5.to_i]
-      logger.debug "   date: >#{value}<"
-
-      line.sub!( regex_en, '[DATE.EN]' )
-
-      return DateTime.strptime( value, '%Y-%b-%d %H:%M' )   ## %b - abbreviated month name (e.g. Jan,Feb, etc.)
-    elsif line =~ regex_en2
-      day     = $2.to_i
-      month   = month_abbrev_en_to_i[ $1 ]
+      return DateTime.strptime( value, '%Y-%m-%d %H:%M' ) 
+    elsif (md=regex_en2.match( line ))
+      day     = md[:day].to_i
+      month   = month_abbrev_en_to_i[ md[:month_en] ]   ## fix: change month_abbrev_en_to_i to month_en_to_i
       year    = calculate_year( day, month, opts[:start_at] )
-      hours   = $3.to_i
-      minutes = $4.to_i
+      hours   = md[:hours].to_i
+      minutes = md[:minutes].to_i
 
       value = '%d-%02d-%02d %02d:%02d' % [year, month, day, hours, minutes]
       logger.debug "   date: >#{value}<"
 
-      line.sub!( regex_en2, '[DATE.EN2] ' )
+      line.sub!( regex_en2, '[DATE_EN2]' )
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
-    elsif line =~ regex_en21
-      day   = $2.to_i
-      month = month_abbrev_en_to_i[ $1 ]
+    elsif (md=regex_en21.match( line ))
+      day   = md[:day].to_i
+      month = month_abbrev_en_to_i[ md[:month_en] ]  ## fix: change month_abbrev_en_to_i to month_en_to_i
+      year  = calculate_year( day, month, opts[:start_at] )
+
+      value = '%d-%02d-%02d 12:00' % [year, month, day]
+      logger.debug "   date: >#{value}<"
+
+      line.sub!( regex_en21, '[DATE_EN21]' )
+
+      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
+    elsif (md=regex_es21.match( line ))
+      day   = md[:day].to_i
+      month = month_abbrev_es_to_i[ md[:month_es] ]  ## fix: change month_abbrev_es_to_i to month_es_to_i
       year = calculate_year( day, month, opts[:start_at] )
 
       value = '%d-%02d-%02d 12:00' % [year, month, day]
       logger.debug "   date: >#{value}<"
 
-      line.sub!( regex_en21, '[DATE.EN21] ' )
-
-      return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
-    elsif line =~ regex_es21
-      day   = $1.to_i
-      month = month_abbrev_es_to_i[ $2 ]
-      year = calculate_year( day, month, opts[:start_at] )
-
-      value = '%d-%02d-%02d 12:00' % [year, month, day]
-      logger.debug "   date: >#{value}<"
-
-      line.sub!( regex_es21, '[DATE.ES21] ' )
+      line.sub!( regex_es21, '[DATE_ES21]' )
 
       return DateTime.strptime( value, '%Y-%m-%d %H:%M' )
     else

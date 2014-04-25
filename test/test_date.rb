@@ -9,33 +9,49 @@ require 'helper'
 class TestDate < MiniTest::Unit::TestCase
 
   def test_date
-    start_at = DateTime.new( 2013, 1, 1 )
+    data = [
+      [ '19.01.2013 22.00', '2013-01-19 22:00' ],
+      [ '21.01.2013 21.30', '2013-01-21 21:30' ],
+      [ '26.01.2013',       '2013-01-26' ],
+      [ '[26.01.2013]',     '2013-01-26' ],
+      [ '[21.1.]',          '2013-01-21 12:00' ]
+    ]
 
-    assert_datetime DateTime.new( 2013, 1, 19, 22 ),     parse_date( '19.01.2013 22.00' )
-    assert_datetime DateTime.new( 2013, 1, 21, 21, 30 ), parse_date( '21.01.2013 21.30' )
-
-    assert_date     DateTime.new( 2013, 1, 26 ),         parse_date( '26.01.2013' )
-    assert_date     DateTime.new( 2013, 1, 26 ),         parse_date( '[26.01.2013]' )
-
-    assert_datetime DateTime.new( 2013, 1, 21, 12, 00 ), parse_date( '[21.1.]', start_at: start_at )
+    assert_dates( data, start_at: DateTime.new( 2013, 1, 1 ) )
   end
 
-
   def test_date_en
-    start_at = DateTime.new( 2013, 1, 1 )
+    data = [
+      [ 'Jun/12 2011 14:00', '2011-06-12 14:00' ],
+      [ 'Oct/12 2013 16:00', '2013-10-12 16:00' ],
 
-    assert_date     DateTime.new( 2011, 1, 26 ),         parse_date( 'Jan/26 2011', start_at: start_at )
-    assert_datetime DateTime.new( 2011, 1, 26, 12, 00 ), parse_date( 'Jan/26 2011', start_at: start_at )
+      [ 'Jan/26 2011',       '2011-01-26' ],
+      [ 'Jan/26 2011',       '2011-01-26 12:00' ],
+      
+      [ 'Jan/26',            '2013-01-26' ],
+      [ 'Jan/26',            '2013-01-26 12:00' ],
 
-    assert_date     DateTime.new( 2013, 1, 26 ),         parse_date( 'Jan/26', start_at: start_at )
-    assert_datetime DateTime.new( 2013, 1, 26, 12, 00 ), parse_date( 'Jan/26', start_at: start_at )
-
-    assert_date     DateTime.new( 2013, 6, 13 ),         parse_date( 'Jun/13', start_at: start_at )
-    assert_datetime DateTime.new( 2013, 6, 13, 12, 00 ), parse_date( 'Jun/13', start_at: start_at )
+      [ 'Jun/13',            '2013-06-13' ],
+      [ 'Jun/13',            '2013-06-13 12:00' ]
+    ]
+    
+    assert_dates( data, start_at: DateTime.new( 2013, 1, 1 ) )
   end
 
 
 private
+
+  def assert_dates( data, opts )
+    data.each do |rec|
+      line = rec[0]
+      str  = rec[1]
+      if str.index( ':' )
+        assert_datetime( DateTime.strptime( str, '%Y-%m-%d %H:%M' ), parse_date( line, opts ))
+      else
+        assert_date( DateTime.strptime( str, '%Y-%m-%d' ), parse_date( line, opts ))
+      end
+    end  
+  end
 
   ## todo: check if assert_datetime or assert_date exist already? what is the best practice to check dates ???
   def assert_date( exp, act )

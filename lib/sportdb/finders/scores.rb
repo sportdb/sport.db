@@ -8,33 +8,28 @@ class ScoresFinder
 
   # e.g. 1:2 or 0:2 or 3:3  or
   #      1-1 or 0-2 or 3-3
-  STD_REGEX = /\b
+  FT_REGEX = /\b
             (?<score1>\d{1,2})
                [:\-]
             (?<score2>\d{1,2})
            \b/x
 
-  ## todo: add/allow english markers e.g. aet a.e.t ??
 
   # e.g. 1:2nV  => after extra time a.e.t
-  
-  ### fix: use nV or n.V.  do NOT allow nV. for example!!!
-  
+    
   # note: possible ending w/ . -> thus cannot use /b will not work w/ .; use zero look-ahead
   ET_REGEX = /\b
                (?<score1>\d{1,2})
                   [:\-]
                (?<score2>\d{1,2})
                   \s?                # allow optional space
-                  n\.?V\.?           # allow optional . e.g. nV or n.V.
-               (?=$|[\s\)\]])/xi
+                (?:nV|n\.V\.|aet|a\.e\.t\.)        # allow optional . e.g. nV or n.V.
+               (?=[\s\)\]]|$)/xi
 
   ## todo: add/allow english markers e.g. pen or p  ??
 
   # e.g. 5:4iE  => penalty / after penalty a.p
 
-
-  ### fix: use iE or i.E.  do NOT allow i.E or iE. for example!!!
 
   # note: possible ending w/ . -> thus cannot use /b will not work w/ .; use zero look-ahead
   P_REGEX = /\b
@@ -42,8 +37,8 @@ class ScoresFinder
                   [:\-]
               (?<score2>\d{1,2})
                   \s?                # allow optional space
-                 i\.?E\.?            # allow optional . e.g. iE or i.E.
-              (?=$|[\s\)\]])/xi
+                (?:iE|i\.E\.|p|pen|PSO)       # allow optional . e.g. iE or i.E.
+              (?=[\s\)\]]|$)/xi
 
 
   ## todo: allow all-in-one "literal form a la kicker" e.g.
@@ -55,9 +50,7 @@ class ScoresFinder
 
   def find!( line, opts={} )
 
-    ### fix: match all-in-one literal first, followed by
-    ### fix: match nV or iE first
-    ##  fix: last try std pattern
+    ### fix: add and match all-in-one literal first, followed by
 
     # note: always call after find_dates !!!
     #  scores match date-like patterns!!  e.g. 10-11  or 10:00 etc.
@@ -72,60 +65,57 @@ class ScoresFinder
     # extract score from line
     # and return it
     # NB: side effect - removes date from line string
+
+    score1   = nil
+    score2   = nil
     
-    # note: regex should NOT match regex extra time or penalty
-    #  thus, we do NOT any longer allow spaces for now between
-    #   score and marker (e.g. nV,iE, etc.)
+    score1et = nil
+    score2et = nil
+    
+    score1p  = nil
+    score2p  = nil
 
+    if (md = ET_REGEX.match( line ))
+      score1et = md[:score1].to_i
+      score2et = md[:score2].to_i
+      
+      logger.debug "   score.et: >#{score1et}-#{score2et}<"
+      
+      line.sub!( md[0], '[SCORE.ET]' )
+    end
 
-    scores = []
+    if (md = P_REGEX.match( line ))
+      score1p = md[:score1].to_i
+      score2p = md[:score2].to_i
+      
+      logger.debug "   score.p: >#{score1p}-#{score2p}<"
+      
+      line.sub!( md[0], '[SCORE.P]' )
+    end
+
+    ## let full time (ft) standard regex go last - has no marker
+
+    if (md = FT_REGEX.match( line ))
+      score1 = md[:score1].to_i
+      score2 = md[:score2].to_i
+
+      logger.debug "   score: >#{score1}-#{score2}<"
+      
+      line.sub!( md[0], '[SCORE]' )
+    end
 
     ## todo: how to handle game w/o extra time
     #   but w/ optional penalty ???  e.g. used in copa liberatores, for example
     #    retrun 0,0 or nil,nil for extra time score ?? or -1, -1 ??
     #    for now use nil,nil
 
-    if line =~ regex
-      logger.debug "   score: >#{$1}-#{$2}<"
-      
-      line.sub!( regex, '[SCORE]' )
+    scores = []
+    scores += [score1, score2]       if score1p || score2p || score1et || score2et || score1 || score2
+    scores += [score1et, score2et]   if score1p || score2p || score1et || score2et 
+    scores += [score1p,  score2p]    if score1p || score2p
 
-      scores << $1.to_i
-      scores << $2.to_i
-    end
-
-    ## todo:
-    ##   reverse matching order ??? allows us to support spaces for nV and iE
-    ##    why? why not??
-
-    if line =~ regex_et
-      logger.debug "   score.et: >#{$1}-#{$2}<"
-      
-      line.sub!( regex_et, '[SCORE.ET]' )
-
-      ## check scores empty? - fill with nil,nil
-      scores += [nil,nil]  if scores.size == 0
-
-      scores << $1.to_i
-      scores << $2.to_i
-    end
-
-    if line =~ regex_p
-      logger.debug "   score.p: >#{$1}-#{$2}<"
-      
-      line.sub!( regex_p, '[SCORE.P]' )
-
-      ## check scores empty? - fill with nil,nil
-      scores += [nil,nil]  if scores.size == 0
-      scores += [nil,nil]  if scores.size == 2
-
-      scores << $1.to_i
-      scores << $2.to_i
-    end
     scores
-
   end
-
 
 end # class ScoresFinder
 

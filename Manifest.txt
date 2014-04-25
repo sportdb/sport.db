@@ -20,6 +20,7 @@ lib/sportdb/data/keys.rb
 lib/sportdb/data/models.rb
 lib/sportdb/deleter.rb
 lib/sportdb/finders/date.rb
+lib/sportdb/finders/scores.rb
 lib/sportdb/lang.rb
 lib/sportdb/matcher.rb
 lib/sportdb/models/badge.rb

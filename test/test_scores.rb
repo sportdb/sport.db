@@ -32,14 +32,9 @@ class TestScores < MiniTest::Unit::TestCase
   end
 
 private
-  class Reader
-    include LogUtils::Logging      # add logger
-    include SportDb::FixtureHelpers
-  end
-
   def parse_scores( line )
-     reader = Reader.new
-     reader.find_scores!( line )
+     finder = SportDb::ScoresFinder.new
+     finder.find!( line )
   end
 
 end # class TestScores

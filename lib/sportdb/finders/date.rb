@@ -134,7 +134,6 @@ class DateFinder
                 (?<minutes>\d{2})
                   \b/x
 
-
   # e.g.  Jun/12 14:00  w/ implied year H|HH:MM
   EN__MONTH_DD__DATE_TIME_REGEX = /\b
                    (?<month_en>#{MONTH_EN})
@@ -146,15 +145,25 @@ class DateFinder
                    (?<minutes>\d{2})
                      \b/x
 
+  # e.g. Jun/12 2013  w/ implied hours (set to 12:00)
+  EN__MONTH_DD_YYYY__DATE_REGEX = /\b
+                (?<month_en>#{MONTH_EN})
+                   \/
+                (?<day>\d{1,2})
+                   \s
+                (?<year>\d{4})
+                  \b/x
+
   # e.g.  Jun/12  w/ implied year and implied hours (set to 12:00)
-  EN_MONTH_DD__DATE_REGEX = /\b
+  EN__MONTH_DD__DATE_REGEX = /\b
                    (?<month_en>#{MONTH_EN})
                       \/
                    (?<day>\d{1,2})
                      \b/x
 
+
   # e.g.  12 Ene  w/ implied year and implied hours (set to 12:00)
-  ES_DD_MONTH__DATE_REGEX = /\b
+  ES__DD_MONTH__DATE_REGEX = /\b
                    (?<day>\d{1,2})
                      \s
                    (?<month_es>#{MONTH_ES})
@@ -172,8 +181,9 @@ class DateFinder
     [ '[DD_MM]',                   DD_MM__DATE_REGEX ],
     [ '[EN_DD_MONTH_YYYY_hh_mm]',  EN__DD_MONTH_YYYY__DATE_TIME_REGEX ],
     [ '[EN_MONTH_DD_hh_mm]',       EN__MONTH_DD__DATE_TIME_REGEX ],
-    [ '[EN_MONTH_DD]',             EN_MONTH_DD__DATE_REGEX ],
-    [ '[ES_DD_MONTH]',             ES_DD_MONTH__DATE_REGEX ]
+    [ '[EN_MONTH_DD_YYYY]',        EN__MONTH_DD_YYYY__DATE_REGEX ],
+    [ '[EN_MONTH_DD]',             EN__MONTH_DD__DATE_REGEX ],
+    [ '[ES_DD_MONTH]',             ES__DD_MONTH__DATE_REGEX ]
   ]
 
 

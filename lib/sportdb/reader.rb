@@ -125,8 +125,9 @@ class Reader
     elsif name =~ /(?:^|\/)teams/
       reader = TeamReader.new( include_path )
       reader.read( name, club: is_club_fixture?( name ) )
-    elsif name =~ /\/(\d{4}|\d{4}_\d{2})\// || name =~ /\/(\d{4}|\d{4}_\d{2})$/
-      # e.g. must match /2012/ or /2012_13/
+    elsif name =~ /\/(\d{4}|\d{4}_\d{2})(--[^\/]+)?\// ||
+          name =~ /\/(\d{4}|\d{4}_\d{2})$/
+      # e.g. must match /2012/ or /2012_13/  or   /2012--xxx/ or /2012_13--xx/
       #  or   /2012 or /2012_13   e.g. brazil/2012 or brazil/2012_13
       reader = GameReader.new( include_path )
       reader.read( name )

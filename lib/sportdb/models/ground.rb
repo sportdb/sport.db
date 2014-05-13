@@ -42,11 +42,14 @@ class Ground < ActiveRecord::Base
         logger.info "  found clubs line #{value}; skipping for now"
       elsif value =~ /^(?:[a-z]{2}\.)?wikipedia:/  # assume it's wikipedia e.g. [es.]wikipedia:
         logger.info "  found wikipedia line #{value}; skipping for now"
+      elsif value =~ /GMT[+-][0-9]/ # dirrty hack for time zones
+        logger.info "  found time zone #{value}"
+        new_attributes[ :timezone ] = value
       else
         logger.info "  found city >#{value}< for ground >#{new_attributes[ :key ]}<"
 
         city_title = value.dup   # remember for auto-add city
-        
+
         ## todo: assume title2 ??
         ## assume title2 if title2 is empty (not already in use)
         ##  and if it title2 contains at least two letter e.g. [a-zA-Z].*[a-zA-Z]
@@ -72,7 +75,7 @@ class Ground < ActiveRecord::Base
     #### try to auto-add city
 
     if city_title.present?
-      
+
       ### todo/fix: strip city_title subtitles e.g. Hamburg (Hafen) becomes Hamburg etc.
       city_values = [city_title]
       city_attributes = {
@@ -97,4 +100,3 @@ end # class Ground
 
   end # module Model
 end # module SportDb
-

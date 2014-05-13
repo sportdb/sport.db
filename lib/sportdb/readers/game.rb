@@ -33,7 +33,7 @@ class GameReader
     fixtures = reader.fixtures   ## was fetch_event_fixtures( name )
 
     fixtures.each do |fixture|
-      read_fixtures( event.key, fixture )  ## use read_for or read_for_event - why ??? why not?? 
+      read_fixtures( event.key, fixture )  ## use read_for or read_for_event - why ??? why not??
     end
   end
 
@@ -44,11 +44,11 @@ class GameReader
 
     ## todo/fix: move code into LineReader e.g. use LineReader.fromString() - why? why not?
     reader = StringLineReader.new( text )
-    
+
     read_fixtures_worker( event_key, reader )
 
-    ## fix add prop 
-    ### Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )  
+    ## fix add prop
+    ### Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )
   end
 
 
@@ -69,11 +69,11 @@ class GameReader
     path = "#{include_path}/#{name_real_path}.txt"
 
     logger.info "parsing data '#{name}' (#{path})..."
-    
+
     SportDb.lang.lang = SportDb.lang.classify_file( path )
 
     reader = LineReader.new( path )
-    
+
     load_fixtures_worker( event_key, reader )
 
     Prop.create_from_fixture!( name, path )
@@ -91,7 +91,7 @@ class GameReader
 
 
     @event = Event.find_by_key!( event_key )
-    
+
     logger.debug "Event #{@event.key} >#{@event.title}<"
 
     ### fix: use build_title_table_for ??? why? why not??
@@ -101,7 +101,7 @@ class GameReader
 
 
     parse_fixtures( reader )
-    
+
   end   # method load_fixtures
 
 
@@ -122,10 +122,10 @@ class GameReader
 
   def parse_group_def( line )
     logger.debug "parsing group def line: >#{line}<"
-    
+
     match_teams!( line )
     team_keys = find_teams!( line )
-      
+
     title, pos = find_group_title_and_pos!( line )
 
     logger.debug "  line: >#{line}<"
@@ -133,7 +133,7 @@ class GameReader
     group_attribs = {
       title: title
     }
-        
+
     group = Group.find_by_event_id_and_pos( @event.id, pos )
     if group.present?
       logger.debug "update group #{group.id}:"
@@ -145,9 +145,9 @@ class GameReader
         pos:   pos
       })
     end
-      
+
     logger.debug group_attribs.to_json
-   
+
     group.update_attributes!( group_attribs )
 
     group.teams.clear  # remove old teams
@@ -168,7 +168,7 @@ class GameReader
 
     start_at = find_date!( line, start_at: @event.start_at )
     end_at   = find_date!( line, start_at: @event.start_at )
-    
+
     # note: if end_at missing -- assume start_at is (==) end_at
     end_at = start_at  if end_at.nil?
 
@@ -203,7 +203,7 @@ class GameReader
     else
       logger.debug "create round:"
       round = Round.new
-          
+
       round_attribs = round_attribs.merge( {
         event_id: @event.id,
         pos:   pos
@@ -211,7 +211,7 @@ class GameReader
     end
 
     logger.debug round_attribs.to_json
-   
+
     round.update_attributes!( round_attribs )
   end
 
@@ -244,7 +244,7 @@ class GameReader
     end
 
     logger.debug "  line: >#{line}<"
-        
+
     ## NB: dummy/placeholder start_at, end_at date
     ##  replace/patch after adding all games for round
 
@@ -261,7 +261,7 @@ class GameReader
     else
       logger.debug "create round:"
       @round = Round.new
-          
+
       round_attribs = round_attribs.merge( {
         event_id: @event.id,
         pos:   pos,
@@ -271,7 +271,7 @@ class GameReader
     end
 
     logger.debug round_attribs.to_json
-   
+
     @round.update_attributes!( round_attribs )
 
     ### store list of round is for patching start_at/end_at at the end
@@ -327,9 +327,9 @@ class GameReader
     ####
     # note:
     #  only map ground if we got any grounds (setup/configured in event)
-    
+
     if @event.grounds.count > 0
-     
+
      ## todo/check: use @known_grounds for check?? why? why not??
      ## use in @known_grounds  = TextUtils.build_title_table_for( @event.grounds )
 
@@ -340,6 +340,13 @@ class GameReader
       map_ground!( line )
       ground_key = find_ground!( line )
       ground =  ground_key.nil? ? nil : Ground.find_by_key!( ground_key )
+
+      ## dirty hack to read time zone information
+      if ground != nil && line =~ /\(UTC([+-][0-9])\)$/
+        logger.info "found time zone: GMT#{$1}"
+        Ground.create_or_update_from_values({key: ground.key}, ["GMT#{$1}"])
+      end
+
     else
       # no grounds configured; always nil
       ground = nil
@@ -356,17 +363,17 @@ class GameReader
 
     if @round.nil?
       ## no round header found; calculate round from date
-      
+
       ###
       ## todo/fix: add some unit tests for round look up
       #  fix: use date_v2 if present!! (old/original date; otherwise use date)
-      
+
       #
       # fix: check - what to do with hours e.g. start_at use 00:00 and for end_at use 23.59 ??
       #  -- for now - remove hours (e.g. use end_of_day and beginnig_of_day)
-      
+
       ## pp Round.all
-      
+
       round = Round.where( 'event_id = ? AND (start_at <= ? AND end_at >= ?)',
                              @event.id, date.end_of_day, date.beginning_of_day).first
       ## pp round
@@ -375,7 +382,7 @@ class GameReader
       ## use round from last round header
       round = @round
     end
-    
+
 
 
     ### check if games exists
@@ -394,7 +401,7 @@ class GameReader
       play_at:    date,
       play_at_v2: date_v2,
       postponed: postponed,
-      knockout:  round.knockout,   ## note: for now always use knockout flag from round - why? why not?? 
+      knockout:  round.knockout,   ## note: for now always use knockout flag from round - why? why not??
       ground_id: ground.present? ? ground.id : nil,
       group_id:  @group.present? ? @group.id : nil
     }
@@ -418,10 +425,10 @@ class GameReader
           team1_id: team1.id,
           team2_id: team2.id
         }
-          
+
         ## NB: use round.games.count for pos
         ##  lets us add games out of order if later needed
-        more_game_attribs[ :pos ] = round.games.count+1   if pos.nil? 
+        more_game_attribs[ :pos ] = round.games.count+1   if pos.nil?
 
         game_attribs = game_attribs.merge( more_game_attribs )
       end
@@ -442,7 +449,7 @@ class GameReader
 
   def parse_date_header( line )
     # note: returns true if parsed, false if no match
- 
+
     # line with NO teams  plus include date e.g.
     #   [Fri Jun/17]  or
     #   Jun/17  or
@@ -458,7 +465,7 @@ class GameReader
     if date && team1_key.nil? && team2_key.nil?
       logger.debug( "date header line found: >#{line}<")
       logger.debug( "    date: #{date}")
-      
+
       @last_date = date   # keep a reference for later use
       return true
     else
@@ -469,10 +476,10 @@ class GameReader
 
 
   def parse_fixtures( reader )
-      
+
     reader.each_line do |line|
 
-      if is_round_def?( line ) 
+      if is_round_def?( line )
         ## todo/fix:  add round definition (w begin n end date)
         ## todo: do not patch rounds with definition (already assume begin/end date is good)
         ##  -- how to deal with matches that get rescheduled/postponed?
@@ -503,24 +510,24 @@ class GameReader
       logger.debug "patch start_at/end_at date for round #{k}:"
       round = Round.find( k )
       games = round.games.order( 'play_at asc' ).all
-      
+
       ## skip rounds w/ no games
-      
+
       ## todo/fix: what's the best way for checking assoc w/ 0 recs?
       next if games.size == 0
-    
+
       round_attribs = {}
-      
+
       ## todo: check for no records
       ##  e.g. if game[0].present? or just if game[0]  ??
-      
+
       round_attribs[:start_at] = games[0].play_at
       round_attribs[:end_at  ] = games[-1].play_at
 
       logger.debug round_attribs.to_json
       round.update_attributes!( round_attribs )
     end
-    
+
   end # method parse_fixtures
 
 end # class GameReader

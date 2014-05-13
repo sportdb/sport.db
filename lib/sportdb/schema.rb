@@ -30,22 +30,23 @@ add_index :teams, :key, unique: true
 
 create_table :grounds do |t|
   t.string     :key,      null: false   # import/export key
-  t.string     :title,    null: false 
+  t.string     :title,    null: false
   t.string     :synonyms   # comma separated list of synonyms
-  
+
   t.references :country,  null: false
   t.references :city     # todo: make city required ???
 
   t.integer :since     # founding year
   t.integer :capacity  # attentence capacity e.g. 10_000 or 50_000 etc.
   t.string  :address
+  t.string  :timezone
 
 
   ### fix/todo: add since/founded/opened/build attrib  eg. 2011 or 1987
   ##   - add capacity e.g. 40_000
   ##  fix: add address !!!! etc
 
-  ## add region ??? or just use region from city ?? 
+  ## add region ??? or just use region from city ??
 
   t.timestamps
 end
@@ -80,7 +81,7 @@ create_table :goals do |t|
   t.integer   :offset    # e.g. 45' +3 or 90' +2
   t.integer   :score1
   t.integer   :score2
-  
+
   ## type of goal (penalty, owngoal)
   t.boolean   :penalty,   null: false, default: false
   t.boolean   :owngoal,   null: false, default: false  # de: Eigentor -> # todo: find better name?
@@ -234,7 +235,7 @@ create_table :games do |t|
   t.references :prev_game
 
   t.integer    :winner      # 1,2,0,nil  calculate on save  - "real" winner (after 90 or extra time or penalty, aggregated first+second leg?)
-  t.integer    :winner90    # 1,2,0,nil  calculate on save  - winner after 90 mins (or regugular play time depending on sport - add alias or find  a better name!) 
+  t.integer    :winner90    # 1,2,0,nil  calculate on save  - winner after 90 mins (or regugular play time depending on sport - add alias or find  a better name!)
 
   t.timestamps
 end
@@ -292,7 +293,7 @@ create_table :leagues do |t|  ## also for cups/conferences/tournaments/world ser
   t.string     :key,   null: false
   t.string     :title, null: false     # e.g. Premier League, Deutsche Bundesliga, World Cup, Champions League, etc.
   t.references :country   ##  optional for now ,   :null => false   ### todo: create "virtual" country for international leagues e.g. use int? or world (ww?)/europe (eu)/etc. similar? already taken??
- 
+
   ## fix: rename to :clubs from :club
   t.boolean    :club,          null: false, default: false  # club teams or national teams?
   ## todo: add t.boolean  :national flag? for national teams?

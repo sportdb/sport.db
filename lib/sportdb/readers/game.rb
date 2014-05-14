@@ -172,6 +172,12 @@ class GameReader
     # note: if end_at missing -- assume start_at is (==) end_at
     end_at = start_at  if end_at.nil?
 
+    # note: - NOT needed; start_at and end_at are saved as date only (NOT datetime)
+    #  set hours,minutes,secs to beginning and end of day (do NOT use default 12.00)
+    #   e.g. use 00.00 and 23.59
+    # start_at = start_at.beginning_of_day
+    # end_at   = end_at.end_of_day
+
 
     pos   = find_round_pos!( line )
     title = find_round_def_title!( line )
@@ -365,10 +371,16 @@ class GameReader
       # fix: check - what to do with hours e.g. start_at use 00:00 and for end_at use 23.59 ??
       #  -- for now - remove hours (e.g. use end_of_day and beginnig_of_day)
       
+      ##
+      # note: start_at and end_at are dates ONLY (note datetime)
+      #  - do NOT pass in hours etc. in query
+      #  old:  date.end_of_day, date.beginning_of_day
+      #  new:  date.to_date, date.to_date
+      
       ## pp Round.all
       
       round = Round.where( 'event_id = ? AND (start_at <= ? AND end_at >= ?)',
-                             @event.id, date.end_of_day, date.beginning_of_day).first
+                             @event.id, date.to_date, date.to_date).first
       ## pp round
       logger.debug( "  using round #{round.pos} >#{round.title}< start_at: #{round.start_at}, end_at: #{round.end_at}" )
     else

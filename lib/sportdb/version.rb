@@ -1,6 +1,6 @@
 
 module SportDb
-  VERSION = '1.8.17'
+  VERSION = '1.8.18'
 end
 
 

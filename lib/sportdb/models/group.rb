@@ -4,8 +4,13 @@ module SportDb
 
 
 class Group < ActiveRecord::Base
-    
+
+if ActiveRecord::VERSION::MAJOR == 3
   has_many :games, :order => 'pos'
+else
+  has_many :games, -> { order('pos') }
+end
+
   belongs_to :event
   
   has_many :group_teams, :class_name => 'GroupTeam'

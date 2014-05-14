@@ -8,10 +8,15 @@ class Event < ActiveRecord::Base
   belongs_to :league
   belongs_to :season
 
+if ActiveRecord::VERSION::MAJOR == 3
   has_many :rounds, :order => 'pos'  # all (fix and flex) rounds
-  has_many :games, :through => :rounds
-
   has_many :groups, :order => 'pos'
+else
+  has_many :rounds, -> { order('pos') }  # all (fix and flex) rounds
+  has_many :groups, -> { order('pos') }
+end
+
+  has_many :games, :through => :rounds
 
   has_many :event_teams,    :class_name => 'EventTeam'
   has_many :teams, :through => :event_teams

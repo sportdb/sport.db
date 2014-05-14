@@ -7,20 +7,31 @@ class DateFinder
   include LogUtils::Logging
 
   # todo: make more generic for reuse
-  MONTH_EN = 'Jan|Feb|March|Mar|April|Apr|May|June|Jun|July|Jul|Aug|Sept|Sep|Oct|Nov|Dec'
+  MONTH_EN = 'January|Jan|'+
+             'February|Feb|'+
+             'March|Mar|'+
+             'April|Apr|'+
+             'May|'+
+             'June|Jun|'+
+             'July|Jul|'+
+             'August|Aug|'+
+             'September|Sept|Sep|'+
+             'October|Oct|'+
+             'November|Nov|'+
+             'December|Dec'
   MONTH_EN_TO_MM = {
-        'Jan' => '1',
-        'Feb' => '2',
+        'Jan' => '1', 'January' => '1',
+        'Feb' => '2', 'February' => '2',
         'Mar' => '3', 'March' => '3',
         'Apr' => '4', 'April' => '4',
         'May' => '5',
         'Jun' => '6', 'June' => '6',
         'Jul' => '7', 'July' => '7',
-        'Aug' => '8',
-        'Sep' => '9', 'Sept' => '9',
-        'Oct' => '10',
-        'Nov' => '11',
-        'Dec' => '12' }
+        'Aug' => '8', 'August' => '8',
+        'Sep' => '9', 'Sept' => '9', 'September' => '9',
+        'Oct' => '10', 'October' => '10',
+        'Nov' => '11', 'November' => '11',
+        'Dec' => '12', 'December' =>'12' }
 
   MONTH_ES = 'Enero|Ene|Feb|Marzo|Mar|Abril|Abr|Mayo|May|Junio|Jun|Julio|Jul|Agosto|Ago|Sept|Set|Sep|Oct|Nov|Dic'
   MONTH_ES_TO_MM  = {
@@ -134,6 +145,19 @@ class DateFinder
                 (?<minutes>\d{2})
                   \b/x
 
+###
+# fix: pass in lang (e.g. en or es)
+#  only process format for lang plus fallback to en?
+#   e.g.  EN__DD_MONTH and ES__DD_MONTH depend on order for match (first listed will match)
+
+  # e.g. 12 May  => D|DD.MMM  w/ implied year and implied hours
+  EN__DD_MONTH__DATE_REGEX = /\b
+                (?<day>\d{1,2})
+                   \s
+                (?<month_en>#{MONTH_EN})
+                   \b/x
+
+
   # e.g.  Jun/12 2011 14:00
   EN__MONTH_DD_YYYY__DATE_TIME_REGEX = /\b
                    (?<month_en>#{MONTH_EN})
@@ -197,6 +221,7 @@ class DateFinder
     [ '[EN_MONTH_DD_hh_mm]',       EN__MONTH_DD__DATE_TIME_REGEX ],
     [ '[EN_MONTH_DD_YYYY]',        EN__MONTH_DD_YYYY__DATE_REGEX ],
     [ '[EN_MONTH_DD]',             EN__MONTH_DD__DATE_REGEX ],
+    [ '[EN_DD_MONTH]',             EN__DD_MONTH__DATE_REGEX ],
     [ '[ES_DD_MONTH]',             ES__DD_MONTH__DATE_REGEX ]
   ]
 

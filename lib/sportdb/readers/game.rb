@@ -374,14 +374,19 @@ class GameReader
       ##
       # note: start_at and end_at are dates ONLY (note datetime)
       #  - do NOT pass in hours etc. in query
-      #  old:  date.end_of_day, date.beginning_of_day
-      #  new:  date.to_date, date.to_date
-      
-      ## pp Round.all
+      #  again use -->  date.end_of_day, date.beginning_of_day
+      #  new: not working:  date.to_date, date.to_date
+      #    will not find round if  start_at same as date !! (in theory hours do not matter)
       
       round = Round.where( 'event_id = ? AND (start_at <= ? AND end_at >= ?)',
-                             @event.id, date.to_date, date.to_date).first
-      ## pp round
+                             @event.id, date.end_of_day, date.beginning_of_day).first
+      pp round
+      if round.nil?
+        logger.warn( "  !!!! no round match found for date #{date}" )
+        pp Round.all
+      end
+
+      ## note: will crash (round.pos) if round is nil
       logger.debug( "  using round #{round.pos} >#{round.title}< start_at: #{round.start_at}, end_at: #{round.end_at}" )
     else
       ## use round from last round header

@@ -187,6 +187,11 @@ class GameReader
     # start_at = start_at.beginning_of_day
     # end_at   = end_at.end_of_day
 
+    # note: make sure start_at/end_at is date only (e.g. use start_at.to_date)
+    #   sqlite3 saves datetime in date field as datetime, for example (will break date compares later!)
+    start_at = start_at.to_date
+    end_at   = end_at.to_date
+
 
     pos   = find_round_pos!( line )
     title = find_round_def_title!( line )
@@ -571,9 +576,12 @@ class GameReader
       
       ## todo: check for no records
       ##  e.g. if game[0].present? or just if game[0]  ??
-      
-      round_attribs[:start_at] = games[0].play_at
-      round_attribs[:end_at  ] = games[-1].play_at
+
+      # note: make sure start_at/end_at is date only (e.g. use play_at.to_date)
+      #   sqlite3 saves datetime in date field as datetime, for example (will break date compares later!)
+
+      round_attribs[:start_at] = games[0].play_at.to_date
+      round_attribs[:end_at  ] = games[-1].play_at.to_date
 
       logger.debug round_attribs.to_json
       round.update_attributes!( round_attribs )

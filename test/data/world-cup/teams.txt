@@ -1,0 +1,16 @@
+#############################
+# 13 Teams
+
+arg, Argentina,     ARG, ar
+bra, Brazil,        BRA, br
+bol, Bolivia,       BOL, bo
+chi, Chile,         CHI, cl
+uru, Uruguay,       URU, uy
+per, Peru,          PER, pe
+par, Paraguay,      PAR, py
+mex, Mexico,        MEX, mx
+usa, United States, USA, us
+fra, France,        FRA, fr
+yug, Yugoslavia,    YUG, rs
+rou, Romania,       ROU, ro
+bel, Belgium,       BEL, be

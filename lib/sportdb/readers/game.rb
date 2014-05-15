@@ -32,6 +32,11 @@ class GameReader
     event    = reader.event      ## was fetch_event( name )
     fixtures = reader.fixtures   ## was fetch_event_fixtures( name )
 
+    ## reset cached values
+    ##  for auto-number rounds etc.
+
+    @last_round_pos = nil
+
     fixtures.each do |fixture|
       read_fixtures( event.key, fixture )  ## use read_for or read_for_event - why ??? why not?? 
     end
@@ -89,6 +94,10 @@ class GameReader
     @group         = nil     ## fix: change/rename to @last_group !!!
     @last_date     = nil
 
+
+    #####
+    #  fix: move to read and share event/known_teams
+    #    for all 1-n fixture files (no need to configure every time!!)
 
     @event = Event.find_by_key!( event_key )
     
@@ -235,7 +244,22 @@ class GameReader
     #  add an example here
     group_title, group_pos = find_group_title_and_pos!( line )
 
+    ## todo/check/fix:
+    #   make sure  Round of 16  will not return pos 16 -- how? possible?
+    #   add unit test too to verify
     pos = find_round_pos!( line )
+
+    ## check if pos available; if not auto-number/calculate
+    if pos.nil?
+      pos = (@last_round_pos||0)+1
+      logger.debug( "  no round pos found; auto-number round - use (#{pos})" )
+    end
+
+    # store pos for auto-number next round if missing
+    #  - note: only if greater/bigger than last; use max
+    #  - note: last_round_pos might be nil - thus set to 0
+    @last_round_pos = [pos,@last_round_pos||0].max
+
 
     title = find_round_header_title!( line )
 
@@ -399,13 +423,17 @@ class GameReader
         pp Round.all
       end
 
+      # store pos for auto-number next round if missing
+      #  - note: only if greater/bigger than last; use max
+      #  - note: last_round_pos might be nil - thus set to 0
+      @last_round_pos = [round.pos,@last_round_pos||0].max
+
       ## note: will crash (round.pos) if round is nil
       logger.debug( "  using round #{round.pos} >#{round.title}< start_at: #{round.start_at}, end_at: #{round.end_at}" )
     else
       ## use round from last round header
       round = @round
     end
-    
 
 
     ### check if games exists

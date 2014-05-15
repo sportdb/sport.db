@@ -1,5 +1,0 @@
-#########
-# Teams
-
-at-austria!/teams
-

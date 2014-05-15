@@ -69,9 +69,11 @@ end
 Country    = WorldDb::Model::Country
 
 League     = SportDb::Model::League
+Season     = SportDb::Model::Season
 Event      = SportDb::Model::Event
 Team       = SportDb::Model::Team
 
+Round      = SportDb::Model::Round
 Game       = SportDb::Model::Game
 GameCursor = SportDb::Model::GameCursor
 
@@ -79,6 +81,7 @@ GameCursor = SportDb::Model::GameCursor
 # Reader shortcuts
 
 TeamReader   = SportDb::TeamReader
+SeasonReader = SportDb::SeasonReader
 LeagueReader = SportDb::LeagueReader
 GameReader   = SportDb::GameReader
 

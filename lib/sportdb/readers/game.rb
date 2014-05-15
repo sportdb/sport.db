@@ -377,9 +377,22 @@ class GameReader
       #  again use -->  date.end_of_day, date.beginning_of_day
       #  new: not working:  date.to_date, date.to_date
       #    will not find round if  start_at same as date !! (in theory hours do not matter)
-      
-      round = Round.where( 'event_id = ? AND (start_at <= ? AND end_at >= ?)',
-                             @event.id, date.end_of_day, date.beginning_of_day).first
+
+      ###
+      # hack:
+      #  special case for sqlite3 (date compare not working reliable; use casts)
+      #  fix: move to  adapter_name to activerecord_utils as sqlite? or similar?
+
+      if ActiveRecord::Base.connection.adapter_name.downcase.starts_with?( 'sqlite' )
+        logger.debug( "  [sqlite] using sqlite-specific query for date compare for rounds finder" )
+        round = Round.where( 'event_id = ? AND (    julianday(start_at) <= julianday(?)'+
+                                               'AND julianday(end_at)   >= julianday(?))',
+                               @event.id, date.to_date, date.to_date).first
+      else  # all other dbs (postgresql, mysql, etc.)
+        round = Round.where( 'event_id = ? AND (start_at <= ? AND end_at >= ?)',
+                             @event.id, date.to_date, date.to_date).first
+      end
+
       pp round
       if round.nil?
         logger.warn( "  !!!! no round match found for date #{date}" )

@@ -112,9 +112,13 @@ test/data/at-austria/teams.txt
 test/data/at-austria/teams_2.txt
 test/data/world-cup/1930/cup.txt
 test/data/world-cup/1930/cup.yml
+test/data/world-cup/1962/cup.txt
+test/data/world-cup/1962/cup.yml
 test/data/world-cup/leagues.txt
-test/data/world-cup/seasons.txt
-test/data/world-cup/teams.txt
+test/data/world-cup/seasons_1930.txt
+test/data/world-cup/seasons_1962.txt
+test/data/world-cup/teams_1930.txt
+test/data/world-cup/teams_1962.txt
 test/helper.rb
 test/test_changes.rb
 test/test_cursor.rb

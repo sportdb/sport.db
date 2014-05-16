@@ -1,0 +1,29 @@
+#############################
+# 16 Teams
+
+## -- South America
+
+arg, Argentina,     ARG, ar
+bra, Brazil,        BRA, br
+chi, Chile,         CHI, cl
+col, Colombia,      COL, co
+uru, Uruguay,       URU, uy
+
+
+## -- North and Central America
+
+mex, Mexico,        MEX, mx
+
+## -- Europe
+
+bul, Bulgaria,       BUL, bg
+tch, Czechoslovakia, TCH, cz
+eng, England,        ENG, en
+frg, West Germany,   FRG, de 
+hun, Hungary,        HUN, hu
+ita, Italy,          ITA, it
+urs, Soviet Union,   URS, ru
+esp, Spain,          ESP, es
+sui, Switzerland,    SUI, ch
+yug, Yugoslavia,     YUG, rs
+

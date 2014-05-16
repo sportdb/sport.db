@@ -89,7 +89,8 @@ class GameReader
     ## NB: assume active activerecord connection
 
     ## reset cached values
-    @patch_rounds  = {}
+    @patch_rounds  = {}    ## fix: rename to @patch_rounds_dates or @patch_rounds_date ??
+    @patch_rounds_pos = []  ## note: it's an array
     @round         = nil     ## fix: change/rename to @last_round !!!
     @group         = nil     ## fix: change/rename to @last_group !!!
     @last_date     = nil
@@ -300,8 +301,8 @@ class GameReader
       round_attribs = round_attribs.merge( {
         event_id: @event.id,
         pos:   pos,
-        start_at: Time.utc('1912-12-12'),
-        end_at:   Time.utc('1912-12-12')
+        start_at: Date.parse('1912-12-12'),
+        end_at:   Date.parse('1912-12-12')
       })
     end
 
@@ -426,12 +427,35 @@ class GameReader
       if round.nil?
         logger.warn( "  !!!! no round match found for date #{date}" )
         pp Round.all
+
+        ###################################
+        # -- try auto-adding matchday
+        round = Round.new
+
+        round_attribs = {
+          event_id: @event.id,
+          title: "Matchday #{date.to_date}",
+          pos: 999001+@patch_rounds_pos.length,   # e.g. 999<count> - 999001,999002,etc.
+          start_at:  date.to_date,
+          end_at:    date.to_date 
+        }
+
+        logger.info( "  auto-add round >Matchday #{date.to_date}<" )
+        logger.debug round_attribs.to_json
+
+        round.update_attributes!( round_attribs )
+        
+        @patch_rounds_pos << round   # todo/check - add just id or "full" record as now - why? why not?
       end
 
       # store pos for auto-number next round if missing
       #  - note: only if greater/bigger than last; use max
       #  - note: last_round_pos might be nil - thus set to 0
-      @last_round_pos = [round.pos,@last_round_pos||0].max
+      if round.pos > 999000
+        # note: do NOT update last_round_pos for to-be-patched rounds
+      else
+        @last_round_pos = [round.pos,@last_round_pos||0].max     
+      end
 
       ## note: will crash (round.pos) if round is nil
       logger.debug( "  using round #{round.pos} >#{round.title}< start_at: #{round.start_at}, end_at: #{round.end_at}" )
@@ -556,6 +580,18 @@ class GameReader
         logger.info "skipping line (no match found): >#{line}<"
       end
     end # lines.each
+
+    unless @patch_rounds_pos.empty?
+      ## step 1: sort by date
+      ## todo/fix: just use ids in array - get all records (fresh)
+      ##  use db to sort!!
+      @patch_rounds_pos.sort! { |l,r| l.start_at <=> r.start_at }
+      ## step 2: update pos
+      @patch_rounds_pos.each_with_index do |r,idx|   # note: starts counting w/ zero(0)
+        logger.debug "patch round[#{idx+1}] pos for #{r.title}"
+        r.update_attributes!( pos: idx+1 )
+      end
+    end
 
 
 ###

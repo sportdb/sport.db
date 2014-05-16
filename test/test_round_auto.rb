@@ -55,7 +55,7 @@ class TestRoundAuto < MiniTest::Unit::TestCase
   end
 
 
-  def test_world_cup_1930
+  def xxx_test_world_cup_1930
     teamreader = TeamReader.new( SportDb.test_data_path )
     teamreader.read( 'world-cup/teams_1930' )
 

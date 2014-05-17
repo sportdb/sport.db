@@ -122,8 +122,18 @@ module SportDb
     # e.g.  (1)   - must start line 
     regex_pos = /^[ \t]*\((\d{1,3})\)[ \t]+/
 
+ 
+    #### fix:
+    ## use/make keywords required
+    # e.g. Round of 16  -> should NOT match 16!
+    # Round 16 - ok
+    #  thus, check for required keywords
+
     ## find free standing number
-    regex_num = /\b(\d{1,3})\b/
+    # note: /\b(\d{1,3})\b/
+    #   will match -12
+    #  thus, use space required - will NOT match  -2 e.g. Group-2 Play-off
+    regex_num = /(?:^|\s)(\d{1,3})(?:\s|$)/
 
     if line =~ regex_pos
       logger.debug "   pos: >#{$1}<"

@@ -1,0 +1,30 @@
+##########################
+# 16 Teams
+
+## -- Asia
+
+kor, South Korea, KOR, kr
+
+## -- Europe
+
+aut, Austria,        AUT, at
+bel, Belgium,        BEL, be
+tch, Czechoslovakia, TCH, cz
+eng, England,        ENG, en
+fra, France,         FRA, fr
+frg, West Germany,   FRG, de
+hun, Hungary,        HUN, hu
+ita, Italy,          ITA, it
+sco, Scotland,       SCO, sc
+sui, Switzerland,    SUI, ch
+tur, Turkey,         TUR, tr
+yug, Yugoslavia,     YUG, rs
+
+## -- North and Central America
+
+mex, Mexico, MEX, mx
+
+## -- South America
+
+bra, Brazil,  BRA, br
+uru, Uruguay, URU, uy

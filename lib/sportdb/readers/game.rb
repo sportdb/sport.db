@@ -621,7 +621,18 @@ class GameReader
 
       Round.find( @patch_round_ids_dates.uniq ).each do |r|
         logger.debug "patch round start_at/end_at date for #{r.title}:"
-        games = r.games.order( 'play_at asc' ).all
+
+        ## note:
+        ## will add "scope" pos first e.g
+        #
+        ## SELECT "games".* FROM "games"  WHERE "games"."round_id" = ?
+        # ORDER BY pos, play_at asc  [["round_id", 7]]
+        #   thus will NOT order by play_at but by pos first!!!
+        # =>
+        #  need to unscope pos!!! or use unordered_games - games_by_play_at_date etc.??
+        #   thus use reorder()!!! - not just order('play_at asc')
+
+        games = r.games.reorder( 'play_at asc' ).all
 
         ## skip rounds w/ no games
 

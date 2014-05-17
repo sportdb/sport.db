@@ -23,18 +23,18 @@ class TestLang < MiniTest::Unit::TestCase
      round << '|Quarterfinals|Quarter-finals|Quarters|Quarterfinal|Last 8'
      round << '|Semifinals|Semi-finals|Semis|Last 4'
      round << '|Fifth place match|Fifth place|5th place match|5th place final|5th place|Match for fifth place|Match for 5th place'
-     round << '|Third place match|Third place|3rd place match|3rd place final|3rd place|Match for third place|Match for 3rd place|Third-place play-off|Third place play-off'
+     round << '|Third place match|Third-place match|Third place|3rd place match|3rd place final|3rd place|Match for third place|Match for 3rd place|Third-place play-off|Third place play-off'
      round << '|Final|Finals'
-     round << '|Play-off|Play-offs|Play-off for quarter-finals'
+     round << '|Playoff|Playoffs|Play-off|Play-offs|Play-off for quarter-finals'
 
      knockout_round = 'Round of 32|Last 32'
      knockout_round << '|Round of 16|Last 16|8th finals'
      knockout_round << '|Quarterfinals|Quarter-finals|Quarters|Quarterfinal|Last 8'
      knockout_round << '|Semifinals|Semi-finals|Semis|Last 4'
      knockout_round << '|Fifth place match|Fifth place|5th place match|5th place final|5th place|Match for fifth place|Match for 5th place'
-     knockout_round << '|Third place match|Third place|3rd place match|3rd place final|3rd place|Match for third place|Match for 3rd place|Third-place play-off|Third place play-off'
+     knockout_round << '|Third place match|Third-place match|Third place|3rd place match|3rd place final|3rd place|Match for third place|Match for 3rd place|Third-place play-off|Third place play-off'
      knockout_round << '|Final|Finals'
-     knockout_round << '|Play-off|Play-offs|Play-off for quarter-finals'
+     knockout_round << '|Playoff|Playoffs|Play-off|Play-offs|Play-off for quarter-finals'
 
      assert_equal group, lang.group
      assert_equal round, lang.round

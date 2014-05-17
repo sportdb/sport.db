@@ -653,23 +653,36 @@ class GameReader
     end
 
     unless @patch_round_ids_pos.empty?
+
+      # step 0: check for offset (last_round_pos)
+      if @last_round_pos
+        offset = @last_round_pos
+        logger.info "  +++ patch round pos - use offset; start w/ #{offset}"
+      else
+        offset = 0
+        logger.debug "  patch round pos - no offset; start w/ 0"
+      end
+
       # step 1: sort by date
       # step 2: update pos
       # note: use uniq - to allow multiple round headers (possible?)
       Round.order( 'start_at asc').find( @patch_round_ids_pos.uniq ).each_with_index do |r,idx|
         # note: starts counting w/ zero(0)
-        logger.debug "[#{idx+1}] patch round pos for #{r.title}:"
+        logger.debug "[#{idx+1}] patch round pos >#{offset+idx+1}< for #{r.title}:"
         round_attribs = {
-          pos: idx+1
+          pos: offset+idx+1
         }
 
         # update title if Matchday XXXX  e.g. use Matchday 1 etc.
         if r.title.starts_with?('Matchday')
-          round_attribs[:title] = "Matchday #{idx+1}"
+          round_attribs[:title] = "Matchday #{offset+idx+1}"
         end
 
         logger.debug round_attribs.to_json
         r.update_attributes!( round_attribs )
+
+        # update last_round_pos offset too
+        @last_round_pos = [offset+idx+1,@last_round_pos||0].max
       end
     end
 

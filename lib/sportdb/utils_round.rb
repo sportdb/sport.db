@@ -115,21 +115,11 @@ module SportDb
 
 
   def find_round_pos!( line )
-    ## fix/todo:
-    ##  if no round found assume last_pos+1 ??? why? why not?
-
-    # extract optional round pos from line
+    # pass #1) extract optional round pos from line
     # e.g.  (1)   - must start line 
     regex_pos = /^[ \t]*\((\d{1,3})\)[ \t]+/
 
- 
-    #### fix:
-    ## use/make keywords required
-    # e.g. Round of 16  -> should NOT match 16!
-    # Round 16 - ok
-    #  thus, check for required keywords
-
-    ## find free standing number
+    # pass #2) find free standing number  e.g. Matchday 3 or Round 5 or 3. Spieltag etc.
     # note: /\b(\d{1,3})\b/
     #   will match -12
     #  thus, use space required - will NOT match  -2 e.g. Group-2 Play-off
@@ -145,8 +135,25 @@ module SportDb
     elsif line =~ regex_num
       ## assume number in title is pos (e.g. Jornada 3, 3 Runde etc.)
       ## NB: do NOT remove pos from string (will get removed by round title)
-      logger.debug "   pos: >#{$1}<"
-      return $1.to_i
+
+      num = $1.to_i  # note: clone capture; keep a copy (another regex follows; will redefine $1)
+
+      #### fix:
+      #  use/make keywords required
+      #  e.g. Round of 16  -> should NOT match 16!
+      #    Spiel um Platz 3  (or 5) etc -> should NOT match 3!
+      #  Round 16 - ok
+      #  thus, check for required keywords
+
+      ## quick hack for round of 16
+      # todo: mask match e.g. Round of xxx ... and try again - might include something
+      #  reuse pattern for Group XX Replays for example
+      if line =~ /^\s*Round of \d{1,3}\b/
+         return nil
+      end
+
+      logger.debug "   pos: >#{num}<"
+      return num
     else
       ## fix: add logger.warn no round pos found in line
       return nil

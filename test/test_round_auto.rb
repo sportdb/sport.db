@@ -160,9 +160,10 @@ class TestRoundAuto < MiniTest::Unit::TestCase
 
     w = Event.find_by_key!( 'world.1962' )
 
-    assert_equal  16, w.teams.count
-    # assert_equal  18, w.games.count
-    # assert_equal  12, w.rounds.count
+    assert_equal  16,  w.teams.count
+    assert_equal  10,  w.rounds.count
+    assert_equal  32,  w.games.count
+
 
 
   end  # method test_world_cup_1962

@@ -89,8 +89,9 @@ class GameReader
     ## NB: assume active activerecord connection
 
     ## reset cached values
-    @patch_rounds  = {}    ## fix: rename to @patch_rounds_dates or @patch_rounds_date ??
-    @patch_rounds_pos = []  ## note: it's an array
+    @patch_round_ids_dates = []
+    @patch_round_ids_pos   = []
+
     @round         = nil     ## fix: change/rename to @last_round !!!
     @group         = nil     ## fix: change/rename to @last_group !!!
     @last_date     = nil
@@ -101,7 +102,7 @@ class GameReader
     #    for all 1-n fixture files (no need to configure every time!!)
 
     @event = Event.find_by_key!( event_key )
-    
+
     logger.debug "Event #{@event.key} >#{@event.title}<"
 
     ### fix: use build_title_table_for ??? why? why not??
@@ -118,6 +119,14 @@ class GameReader
 
   def parse_group_header( line )
     logger.debug "parsing group header line: >#{line}<"
+
+    # note: group header resets (last) round  (allows, for example):
+    #  e.g.
+    #  Group Playoffs/Replays       -- round header
+    #    team1 team2                -- match 
+    #  Group B:                     -- group header
+    #    team1 team2 - match  (will get new auto-matchday! not last round)
+    @round         = nil     ## fix: change/rename to @last_round !!!
 
     title, pos = find_group_title_and_pos!( line )
 
@@ -257,14 +266,25 @@ class GameReader
 
     ## check if pos available; if not auto-number/calculate
     if pos.nil?
-      pos = (@last_round_pos||0)+1
-      logger.debug( "  no round pos found; auto-number round - use (#{pos})" )
+      if @patch_round_ids_pos.empty?
+        pos = (@last_round_pos||0)+1
+        logger.debug( "  no round pos found; auto-number round - use (#{pos})" )
+      else
+        # note: if any rounds w/o pos already seen (add for auto-numbering at the end)
+        #  will get auto-numbered sorted by start_at date
+        pos = 999001+@patch_round_ids_pos.length   # e.g. 999<count> - 999001,999002,etc.
+        logger.debug( "  no round pos found; auto-number round w/ patch (backtrack) at the end" )
+      end
     end
 
     # store pos for auto-number next round if missing
     #  - note: only if greater/bigger than last; use max
     #  - note: last_round_pos might be nil - thus set to 0
-    @last_round_pos = [pos,@last_round_pos||0].max
+    if pos > 999000
+      # note: do NOT update last_round_pos for to-be-patched rounds
+    else
+      @last_round_pos = [pos,@last_round_pos||0].max
+    end
 
 
     title = find_round_header_title!( line )
@@ -290,8 +310,14 @@ class GameReader
       knockout: knockout_flag
     }
 
+    if pos > 999000
+      # no pos (e.g. will get autonumbered later) - try match by title for now
+      #  e.g. lets us use title 'Group Replays', for example, multiple times
+      @round = Round.find_by_event_id_and_title( @event.id, title ) 
+    else
+      @round = Round.find_by_event_id_and_pos( @event.id, pos )
+    end
 
-    @round = Round.find_by_event_id_and_pos( @event.id, pos )
     if @round.present?
       logger.debug "update round #{@round.id}:"
     else
@@ -301,8 +327,8 @@ class GameReader
       round_attribs = round_attribs.merge( {
         event_id: @event.id,
         pos:   pos,
-        start_at: Date.parse('1912-12-12'),
-        end_at:   Date.parse('1912-12-12')
+        start_at: Date.parse('1911-11-11'),
+        end_at:   Date.parse('1911-11-11')
       })
     end
 
@@ -310,8 +336,9 @@ class GameReader
    
     @round.update_attributes!( round_attribs )
 
-    ### store list of round is for patching start_at/end_at at the end
-    @patch_rounds[ @round.id ] = @round.id
+    @patch_round_ids_pos   << @round.id    if pos > 999000
+    ### store list of round ids for patching start_at/end_at at the end
+    @patch_round_ids_dates << @round.id   # todo/fix/check: check if round has definition (do NOT patch if definition (not auto-added) present)
   end
 
 
@@ -435,7 +462,7 @@ class GameReader
         round_attribs = {
           event_id: @event.id,
           title: "Matchday #{date.to_date}",
-          pos: 999001+@patch_rounds_pos.length,   # e.g. 999<count> - 999001,999002,etc.
+          pos: 999001+@patch_round_ids_pos.length,   # e.g. 999<count> - 999001,999002,etc.
           start_at:  date.to_date,
           end_at:    date.to_date 
         }
@@ -444,8 +471,8 @@ class GameReader
         logger.debug round_attribs.to_json
 
         round.update_attributes!( round_attribs )
-        
-        @patch_rounds_pos << round   # todo/check - add just id or "full" record as now - why? why not?
+
+        @patch_round_ids_pos << round.id   # todo/check - add just id or "full" record as now - why? why not?
       end
 
       # store pos for auto-number next round if missing
@@ -581,48 +608,60 @@ class GameReader
       end
     end # lines.each
 
-    unless @patch_rounds_pos.empty?
-      ## step 1: sort by date
-      ## todo/fix: just use ids in array - get all records (fresh)
-      ##  use db to sort!!
-      @patch_rounds_pos.sort! { |l,r| l.start_at <=> r.start_at }
-      ## step 2: update pos
-      @patch_rounds_pos.each_with_index do |r,idx|   # note: starts counting w/ zero(0)
-        logger.debug "patch round[#{idx+1}] pos for #{r.title}"
-        r.update_attributes!( pos: idx+1 )
+    ###########################
+    # backtrack and patch round pos and round dates (start_at/end_at)
+    #  note: patch dates must go first! (otherwise sort_by_date will not work for round pos)
+
+    unless @patch_round_ids_dates.empty?
+      ###
+      #  fix: do NOT patch if auto flag is set to false !!!
+      #   e.g. rounds got added w/ round def (not w/ round header)
+
+      # note: use uniq - to allow multiple round headers (possible?)
+
+      Round.find( @patch_round_ids_dates.uniq ).each do |r|
+        logger.debug "patch round start_at/end_at date for #{r.title}:"
+        games = r.games.order( 'play_at asc' ).all
+
+        ## skip rounds w/ no games
+
+        ## todo/check/fix: what's the best way for checking assoc w/ 0 recs?
+        next if games.size == 0
+
+        # note: make sure start_at/end_at is date only (e.g. use play_at.to_date)
+        #   sqlite3 saves datetime in date field as datetime, for example (will break date compares later!)
+
+        round_attribs = {
+          start_at: games[0].play_at.to_date,   # use games.first ?
+          end_at:   games[-1].play_at.to_date  # use games.last ? why? why not?
+        }
+
+        logger.debug round_attribs.to_json
+        r.update_attributes!( round_attribs )
       end
     end
 
+    unless @patch_round_ids_pos.empty?
+      # step 1: sort by date
+      # step 2: update pos
+      # note: use uniq - to allow multiple round headers (possible?)
+      Round.order( 'start_at asc').find( @patch_round_ids_pos.uniq ).each_with_index do |r,idx|
+        # note: starts counting w/ zero(0)
+        logger.debug "[#{idx+1}] patch round pos for #{r.title}:"
+        round_attribs = {
+          pos: idx+1
+        }
 
-###
-#  fix: do NOT patch if auto flag is set to false !!!
-#   e.g. rounds got added w/ round def (not w/ round header)
+        # update title if Matchday XXXX  e.g. use Matchday 1 etc.
+        if r.title.starts_with?('Matchday')
+          round_attribs[:title] = "Matchday #{idx+1}"
+        end
 
-    @patch_rounds.each do |k,v|
-      logger.debug "patch start_at/end_at date for round #{k}:"
-      round = Round.find( k )
-      games = round.games.order( 'play_at asc' ).all
-      
-      ## skip rounds w/ no games
-      
-      ## todo/fix: what's the best way for checking assoc w/ 0 recs?
-      next if games.size == 0
-    
-      round_attribs = {}
-      
-      ## todo: check for no records
-      ##  e.g. if game[0].present? or just if game[0]  ??
-
-      # note: make sure start_at/end_at is date only (e.g. use play_at.to_date)
-      #   sqlite3 saves datetime in date field as datetime, for example (will break date compares later!)
-
-      round_attribs[:start_at] = games[0].play_at.to_date
-      round_attribs[:end_at  ] = games[-1].play_at.to_date
-
-      logger.debug round_attribs.to_json
-      round.update_attributes!( round_attribs )
+        logger.debug round_attribs.to_json
+        r.update_attributes!( round_attribs )
+      end
     end
-    
+
   end # method parse_fixtures
 
 end # class GameReader

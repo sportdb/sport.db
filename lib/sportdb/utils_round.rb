@@ -133,7 +133,9 @@ module SportDb
     # note: /\b(\d{1,3})\b/
     #   will match -12
     #  thus, use space required - will NOT match  -2 e.g. Group-2 Play-off
-    regex_num = /(?:^|\s)(\d{1,3})(?:\s|$)/
+    #  note:  allow  1. Runde  n
+    #                1^ Giornata
+    regex_num = /(?:^|\s)(\d{1,3})(?:[.\^\s]|$)/
 
     if line =~ regex_pos
       logger.debug "   pos: >#{$1}<"

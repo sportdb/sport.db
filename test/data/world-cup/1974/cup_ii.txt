@@ -1,0 +1,34 @@
+##################################################
+# World Cup 1974 West Germany, 13 June - 7 July
+
+
+#### Second Round
+## todo/fix: add stage/add stage key to rounds
+#
+# Group A -> I
+# Group B -> J   - fix: use Group A,B etc.
+
+Group I  |  Netherlands     Brazil     East Germany     Argentina
+Group J  |  West Germany    Poland     Sweden           Yugoslavia
+
+Group I:
+
+(25) 26 June    Brazil         1-0   East Germany     @ Niedersachsenstadion, Hanover
+(26) 26 June    Netherlands    4-0   Argentina        @ Parkstadion, Gelsenkirchen
+
+(29) 30 June    East Germany   0-2   Netherlands      @ Parkstadion, Gelsenkirchen
+(30) 30 June    Argentina      1-2   Brazil           @ Niedersachsenstadion, Hanover
+
+(33) 3 July     Argentina      1-1   East Germany     @ Parkstadion, Gelsenkirchen
+(34) 3 July     Netherlands    2-0   Brazil           @ Westfalenstadion, Dortmund
+
+Group J:
+
+(27) 26 June    Yugoslavia    0-2   West Germany   @ Rheinstadion, Düsseldorf
+(28) 26 June    Sweden        0-1   Poland         @ Neckarstadion, Stuttgart
+
+(31) 30 June    West Germany  4-2   Sweden         @ Rheinstadion, Düsseldorf
+(32) 30 June    Poland        2-1   Yugoslavia     @ Waldstadion, Frankfurt
+
+(35) 3 July     Poland        0-1   West Germany   @ Waldstadion, Frankfurt
+(36) 3 July     Sweden        2-1   Yugoslavia     @ Rheinstadion, Düsseldorf

@@ -21,8 +21,10 @@ class TestRoundAuto < MiniTest::Unit::TestCase
 
   def add_countries
     countries = [
+      ['cd', 'Congo DR',       'COD' ],
       ['kr', 'South Korea',    'KOR' ],
- 
+      ['au', 'Australia',      'AUS' ],
+
       ['ar', 'Argentina',      'ARG' ],
       ['br', 'Brazil',         'BRA' ],
       ['bo', 'Bolivia',        'BOL' ],
@@ -34,6 +36,7 @@ class TestRoundAuto < MiniTest::Unit::TestCase
  
       ['mx', 'Mexico',         'MEX' ],
       ['us', 'United States',  'USA' ],
+      ['ht', 'Haiti',          'HAI' ],
 
       ['at', 'Austria',        'AUT' ],
       ['be', 'Belgium',        'BEL' ],
@@ -51,8 +54,10 @@ class TestRoundAuto < MiniTest::Unit::TestCase
       ['ch', 'Switzerland',    'SUI' ],
       ['sc', 'Scotland',       'SCO' ],
       ['tr', 'Turkey',         'TUR' ],
+      ['nl', 'Netherlands',    'NED' ],
+      ['pl', 'Poland',         'POL' ],
+      ['se', 'Sweden',         'SWE' ],
     ]
-
 
     countries.each do |country|
       key   = country[0]
@@ -63,23 +68,89 @@ class TestRoundAuto < MiniTest::Unit::TestCase
   end
 
 
+  def test_world_cup_1974
+    teamreader = TeamReader.new( SportDb.test_data_path )
+    teamreader.read( 'world-cup/teams_1974' )
+
+    assert_equal  16, Team.count
+
+    seasonreader = SeasonReader.new( SportDb.test_data_path )
+    seasonreader.read( 'world-cup/seasons_1974')
+
+    assert_equal 1, Season.count
+
+    y = Season.find_by_key!( '1974' )
+    assert_equal '1974', y.title
+
+    leaguereader = LeagueReader.new( SportDb.test_data_path )
+    leaguereader.read( 'world-cup/leagues' )
+
+    assert_equal 1, League.count
+
+    l = League.find_by_key!( 'world' )
+    assert_equal 'World Cup', l.title
+
+    gamereader = GameReader.new( SportDb.test_data_path )
+    gamereader.read( 'world-cup/1974/cup' )
+
+    assert_equal 1, Event.count
+
+    w = Event.find_by_key!( 'world.1974' )
+
+    assert_equal  16, w.teams.count
+    assert_equal  38, w.games.count
+    assert_equal  12, w.rounds.count
+
+    rounds_exp = [
+      [1,   'Matchday 1',            '1974-06-13', 1], # first group stage
+      [2,   'Matchday 2',            '1974-06-14', 3],
+      [3,   'Matchday 3',            '1974-06-15', 4],
+      [4,   'Matchday 4',            '1974-06-18', 4],
+      [5,   'Matchday 5',            '1974-06-19', 4],
+      [6,   'Matchday 6',            '1974-06-22', 4],
+      [7,   'Matchday 7',            '1974-06-23', 4],
+      [8,   'Matchday 8',            '1974-06-26', 4], # second group stage
+      [9,   'Matchday 9',            '1974-06-30', 4],
+      [10,  'Matchday 10',           '1974-07-03', 4],
+      [11,  'Match for third place', '1974-07-06', 1], # finals
+      [12,  'Final',                 '1974-07-07', 1],
+    ]
+
+    assert_rounds( rounds_exp )
+
+    #########################
+    ## 2nd run
+    ### try update (e.g. read again - should NOT create new rounds/games/teams)
+    #
+    #  note: update only works if rounds get not deleted or added
+    #  - (adding for updates works only at the end/tail - not at the beginning or inbetween, for example)
+
+    gamereader = GameReader.new( SportDb.test_data_path )
+    gamereader.read( 'world-cup/1974/cup' )
+
+    assert_equal 1, Event.count
+
+    w = Event.find_by_key!( 'world.1974' )
+
+    assert_equal  16, w.teams.count
+    assert_equal  38, w.games.count
+    assert_equal  12, w.rounds.count
+
+    assert_rounds( rounds_exp )
+
+  end # method test_world_cup_1974
+
+
   def test_world_cup_1954
     teamreader = TeamReader.new( SportDb.test_data_path )
     teamreader.read( 'world-cup/teams_1954' )
 
     assert_equal  16, Team.count
 
-    br = Team.find_by_key!( 'bra' )
-    uy = Team.find_by_key!( 'uru' )
-    be = Team.find_by_key!( 'bel' )
-
-    assert_equal 'Brazil',    br.title
-    assert_equal 'Uruguay',   uy.title
-    assert_equal 'Belgium',   be.title
-
-    assert_equal 'BRA', br.code
-    assert_equal 'URU', uy.code
-
+    assert_teams( [
+      [ 'bra', 'Brazil',  'BRA' ],
+      [ 'uru', 'Uruguay', 'URU' ],
+      [ 'bel', 'Belgium', 'BEL' ] ] )
 
     seasonreader = SeasonReader.new( SportDb.test_data_path )
     seasonreader.read( 'world-cup/seasons_1954')
@@ -134,17 +205,10 @@ class TestRoundAuto < MiniTest::Unit::TestCase
 
     assert_equal  13, Team.count
 
-    ar = Team.find_by_key!( 'arg' )
-    br = Team.find_by_key!( 'bra' )
-    be = Team.find_by_key!( 'bel' )
-
-    assert_equal 'Argentina', ar.title
-    assert_equal 'Brazil',    br.title
-    assert_equal 'Belgium',   be.title
-
-    assert_equal 'ARG', ar.code
-    assert_equal 'BRA', br.code
-
+    assert_teams( [
+      [ 'arg', 'Argentina', 'ARG' ],
+      [ 'bra', 'Brazil',    'BRA' ],
+      [ 'bel', 'Belgium',   'BEL' ] ] )
 
     seasonreader = SeasonReader.new( SportDb.test_data_path )
     seasonreader.read( 'world-cup/seasons_1930')
@@ -191,19 +255,6 @@ class TestRoundAuto < MiniTest::Unit::TestCase
     ]
 
     assert_rounds( rounds_exp )
-
-    ##
-    # auto-numbered knock-out rounds
-    # r11 = Round.find_by_pos!( 11 )
-
-    # assert_equal 'Semi-finals', r11.title
-    # assert_equal 2,             r11.games.count
-
-    # r12 = Round.find_by_pos!( 12 )
-
-    # assert_equal 'Final', r12.title
-    # assert_equal 1,       r12.games.count
-
   end  # method test_world_cup_1930
 
 
@@ -213,17 +264,10 @@ class TestRoundAuto < MiniTest::Unit::TestCase
 
     assert_equal  16, Team.count
 
-    ar = Team.find_by_key!( 'arg' )
-    br = Team.find_by_key!( 'bra' )
-    it = Team.find_by_key!( 'ita' )
-
-    assert_equal 'Argentina', ar.title
-    assert_equal 'Brazil',    br.title
-    assert_equal 'Italy',     it.title
-
-    assert_equal 'ARG', ar.code
-    assert_equal 'BRA', br.code
-
+    assert_teams( [
+      [ 'arg', 'Argentina', 'ARG' ],
+      [ 'bra', 'Brazil',    'BRA' ],
+      [ 'ita', 'Italy',     'ITA' ] ] )
 
     seasonreader = SeasonReader.new( SportDb.test_data_path )
     seasonreader.read( 'world-cup/seasons_1962')
@@ -312,6 +356,15 @@ class TestRoundAuto < MiniTest::Unit::TestCase
       end
     end
   end # method assert_rounds
+
+  def assert_teams( teams_exp )
+    teams_exp.each do |team_exp|
+       team = Team.find_by_key!( team_exp[0] )
+    
+       assert_equal team_exp[1], team.title
+       assert_equal team_exp[2], team.code
+    end
+  end # method assert_teams
 
 
 end # class TestRoundAuto

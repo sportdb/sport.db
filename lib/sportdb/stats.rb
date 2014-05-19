@@ -13,12 +13,14 @@ module SportDb
 
       puts "  #{Track.count} tracks / #{Race.count} races (track+event recs) / #{Run.count} runs"
       puts "  #{Record.count} records (race|run+person recs)"
-      puts "  #{Person.count} persons / #{Roster.count} rosters (person+team+event recs)"
+      puts "  #{Roster.count} rosters (person+team+event recs)"
       puts "  #{Goal.count} goals (person+game recs)"
 
       puts "  #{Ground.count}  grounds|stadiums"
     end
     
+    ## fix/chek:
+    #  move to Prop gem / reuse code from Prop gem
     def props
       puts "Props:"
       Prop.order( 'created_at asc' ).all.each do |prop|

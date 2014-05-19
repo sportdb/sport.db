@@ -27,7 +27,6 @@ module SportDb
       Roster.delete_all
 
       Track.delete_all
-      Person.delete_all
       Team.delete_all
       
       League.delete_all

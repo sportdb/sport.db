@@ -6,7 +6,7 @@ module SportDb
 class Goal < ActiveRecord::Base
 
   belongs_to :game
-  belongs_to :person
+  belongs_to :person, class_name: 'PersonDb::Model::Person', foreign_key: 'person_id'
 
 end  # class Goal
 

@@ -5,14 +5,15 @@
 module SportDb
   module Model
 
-  ## todo: why? why not use include WorldDb::Models here???
+  Prop      = ConfDb::Model::Prop
 
+  ## todo: why? why not use include WorldDb::Models here???
   Continent = WorldDb::Model::Continent
   Country   = WorldDb::Model::Country
   Region    = WorldDb::Model::Region
   City      = WorldDb::Model::City
 
-  Prop      = ConfDb::Model::Prop
+  Person    = PersonDb::Model::Person
 
   ## nb: for now only team and league use worlddb tables
   #   e.g. with belongs_to assoc (country,region)
@@ -20,6 +21,7 @@ module SportDb
   class Team < ActiveRecord::Base ; end
   class League < ActiveRecord::Base ; end
   class Ground < ActiveRecord::Base ; end
+  class Goal  < ActiveRecord::Base ; end
 
   end
 end
@@ -37,4 +39,12 @@ module WorldDb
 
   end
 end
+
+
+module PersonDb
+  module Model
+    Goal  = SportDb::Model::Goal
+  end
+end
+
 

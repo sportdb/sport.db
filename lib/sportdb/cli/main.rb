@@ -98,6 +98,7 @@ command [:create] do |c|
     ConfDb.create
     TagDb.create
     WorldDb.create
+    PersonDb.create
     SportDb.create
     
     SportDb.read_builtin   # e.g. seasons.txt etc
@@ -131,6 +132,7 @@ command [:setup,:s] do |c|
     ConfDb.create
     TagDb.create
     WorldDb.create
+    PersonDb.create
     SportDb.create
 
     SportDb.read_builtin   # e.g. seasons.txt etc

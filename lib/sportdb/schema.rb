@@ -27,7 +27,8 @@ end
 
 add_index :teams, :key, unique: true
 
-
+###########
+# check: use table (rename to) venues / stadiums - why? why not?
 create_table :grounds do |t|
   t.string     :key,      null: false   # import/export key
   t.string     :title,    null: false 
@@ -52,25 +53,6 @@ end
 
 add_index :grounds, :key, unique: true
 
-
-create_table :persons do |t|    # use people ? instead of persons (person/persons makes it easier?)
-  t.string      :key,      null: false   # import/export key
-  t.string      :name,     null: false
-  t.string      :synonyms  # comma separated list of synonyms
-  t.string      :code       # three letter code (short title)
-
-  ## todo: add gender flag (male/female -man/lady  how?)
-  t.date        :born_at     # optional date of birth (birthday)
-  ## todo: add country of birth  might not be the same as nationality
-
-  t.references  :city
-  t.references  :region
-  t.references  :country,   null: false
-
-  t.references  :nationality, null: false  # by default assume same as country of birth (see above)
-
-  t.timestamps
-end
 
 # join table: person+game(team1+team2+event(season+league))
 create_table :goals do |t|
@@ -139,6 +121,9 @@ create_table :records do |t|   # use TimeRecord? instead of simple record
 end
 
 
+################
+#  fix/todo: rename to squads / lineups
+
 # join table -> person+team+event(season+league)
 create_table :rosters do |t|   # use squads as an alternative name? why? why not??
   t.references :person,  null: false
@@ -200,7 +185,8 @@ end
 
 add_index :groups, :event_id  # fk event_id index
 
-
+###########################
+# fix: rename table to matches
 create_table :games do |t|
   t.string     :key          # import/export key
   t.references :round,    null: false

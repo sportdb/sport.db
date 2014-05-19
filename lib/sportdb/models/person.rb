@@ -1,14 +1,17 @@
 
-module SportDb
+#### note ---
+## uses PersonDb namespace!!!!!
+#
+# move to models/person/person.rb  - why? why not??
+
+
+module PersonDb
   module Model
 
-
-class Person < ActiveRecord::Base
-  self.table_name = 'persons'  #  avoids possible "smart" plural inflection to people
+### extends "basic" person model in PersonDb
+class Person
 
   has_many :goals
-
-  belongs_to :country, :class_name => 'WorldDb::Model::Country', :foreign_key => 'country_id'
 
 
   def title()       name               end  # alias for name
@@ -65,5 +68,5 @@ end  # class Person
 
 
   end # module Model
-end # module SportDb
+end # module PersonDb
 

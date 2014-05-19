@@ -7,23 +7,13 @@
 require 'minitest/autorun'
 
 
-
 require 'pp'
-
-
-# ruby gems
-
-require 'active_record'
-
-require 'worlddb'
-require 'logutils'
-require 'logutils/db'   # NB: explict require required for LogDb (not automatic) 
-require 'props/db'   ## fix: use textutils/db in the future too ??
 
 
 ## our own code
 
 require 'sportdb'
+require 'logutils/db'   # NB: explict require required for LogDb (not automatic) 
 
 
 #######################
@@ -58,6 +48,7 @@ def setup_in_memory_db
   ConfDb.create
   TagDb.create
   WorldDb.create
+  PersonDb.create
   SportDb.create
 
   SportDb.read_builtin
@@ -67,6 +58,8 @@ end
 # Models shortcuts
 
 Country    = WorldDb::Model::Country
+
+Person     = PersonDb::Model::Person
 
 League     = SportDb::Model::League
 Season     = SportDb::Model::Season

@@ -30,6 +30,8 @@ Hoe.spec 'sportdb' do
                                #         - logutils
                                #         - textutils
     ['tagutils'],     # tags n tagging tables
+    ['persondb'],     # persons (people) table
+    ['activerecord-utils'],   # extras e.g. rnd, find_by! for 3.x etc.
     ['fetcher', '>= 0.3'],
 
     ## 3rd party

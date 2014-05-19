@@ -7,7 +7,7 @@ class Record < ActiveRecord::Base
 
   belongs_to :race   # or
   belongs_to :run
-  belongs_to :person
+  belongs_to :person, class_name: 'PersonDb::Model::Person', foreign_key: 'person_id'
 
 end  # class Record
 

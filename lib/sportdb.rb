@@ -17,11 +17,16 @@ require 'erb'
 # rubygems  / 3rd party libs
 
 require 'active_record'   ## todo: add sqlite3? etc.
+require 'activerecord/utils' # check - if dependency on logutils? or props? etc let others go first
 
 require 'logutils'
 require 'textutils'
+require 'tagutils'
+require 'props'
+require 'props/db' 
 
 require 'worlddb'
+require 'pesondb'
 
 require 'fetcher'   # for fetching/downloading fixtures via HTTP/HTTPS etc.
 

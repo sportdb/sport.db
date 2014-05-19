@@ -14,19 +14,23 @@ require 'logger'             ## todo/fix: no longer needed - replaced by logutil
 require 'fileutils'
 require 'erb'
 
+
 # rubygems  / 3rd party libs
 
 require 'active_record'   ## todo: add sqlite3? etc.
 require 'activerecord/utils' # check - if dependency on logutils? or props? etc let others go first
 
 require 'logutils'
+require 'logutils/db'   # NB: explict require required for LogDb (NOT automatic)
+
 require 'textutils'
 require 'tagutils'
+
 require 'props'
-require 'props/db' 
+require 'props/db'  # NB: explict require required for ConfDb (NOT automatic)  - move to textutils/deb - why/why not??
 
 require 'worlddb'
-require 'pesondb'
+require 'persondb'
 
 require 'fetcher'   # for fetching/downloading fixtures via HTTP/HTTPS etc.
 
@@ -211,10 +215,34 @@ module SportDb
     Stats.new.tables
   end
 
+  ### fix:
+  ## remove - use ConfDb.dump or similar -- add api depreciated
   def self.props
     Stats.new.props
   end
 
+  def self.setup_in_memory_db
+    # Database Setup & Config
+
+    ActiveRecord::Base.logger = Logger.new( STDOUT )
+    ## ActiveRecord::Base.colorize_logging = false  - no longer exists - check new api/config setting?
+
+    ## NB: every connect will create a new empty in memory db
+    ActiveRecord::Base.establish_connection(
+                           adapter:  'sqlite3',
+                           database: ':memory:' )
+
+    ## build schema
+    LogDb.create
+    ConfDb.create
+    TagDb.create
+    WorldDb.create
+    PersonDb.create
+    SportDb.create
+
+    ## read builtins - why? why not?
+    SportDb.read_builtin
+  end # setup_in_memory_db (using SQLite :memory:)
 
 
   def self.load_plugins

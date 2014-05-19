@@ -22,6 +22,10 @@ module Matcher
     match_xxx_for_country( name, 'skiers', &blk )
   end
 
+  def match_players_for_country( name, &blk )
+    match_xxx_for_country( name, 'players', &blk )
+  end
+
   def match_stadiums_for_country( name, &blk )
     match_xxx_for_country( name, 'stadiums', &blk )
   end

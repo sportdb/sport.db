@@ -74,6 +74,10 @@ class Reader
       reader.read( name )
     elsif name =~ /^drivers/ # e.g. drivers.txt in formula1.db
       load_persons( name )
+    elsif match_players_for_country( name ) do |country_key|
+            country = Country.find_by_key!( country_key )
+            load_persons( name, country_id: country.id )
+          end
     elsif match_skiers_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/skiers/
             # auto-add country code (from folder structure) for country-specific skiers (persons)
             #  e.g. at/skiers  or at-austria/skiers.men
@@ -139,16 +143,13 @@ class Reader
 
 
   ####
-  ## fix: move to persondb for (re)use
+  # fix: move to persondb for (re)use
 
   def load_persons( name, more_attribs={} )
-
-    reader = ValuesReaderV2.new( name, include_path, more_attribs )
-
-    reader.each_line do |new_attributes, values|
-      Person.create_or_update_from_values( new_attributes, values )
-    end # each lines
-
+    reader = PersonDb::PersonReader.new( include_path )
+    ## fix: add more_attribs !!!!!   -- check other readers as an example
+    ##  - gets added to new or read??
+    reader.read( name )
   end # load_persons
 
   

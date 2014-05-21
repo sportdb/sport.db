@@ -92,8 +92,14 @@ class Reader
     elsif name =~ /\/races/  # e.g. 2013/races.txt in formula1.db
       reader = RaceReader.new( include_path )
       reader.read( name )
+    elsif name =~ /\/squads\/([a-z]{2,3})-$/
+      ## fix: add to country matcher new format
+      ##   name is country! and parent folder is type name e.g. /squads/br-brazil
+      country = Country.find_by_key!( country_key )
+      reader = NationalTeamReader.new( include_path )
+      reader.read( name, country_id: country.id )
     elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
-      reader = RosterReader.new( include_path )
+      reader = RaceTeamReader.new( include_path )
       reader.read( name )
     elsif name =~ /\/([0-9]{2})-/
       race_pos = $1.to_i

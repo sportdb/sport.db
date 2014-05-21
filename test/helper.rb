@@ -28,14 +28,16 @@ Round      = SportDb::Model::Round
 Game       = SportDb::Model::Game
 GameCursor = SportDb::Model::GameCursor
 
+
 ####################
 # Reader shortcuts
 
-TeamReader   = SportDb::TeamReader
-SeasonReader = SportDb::SeasonReader
-LeagueReader = SportDb::LeagueReader
-GameReader   = SportDb::GameReader
-
+TeamReader         = SportDb::TeamReader
+SeasonReader       = SportDb::SeasonReader
+LeagueReader       = SportDb::LeagueReader
+GameReader         = SportDb::GameReader
+NationalTeamReader = SportDb::NationalTeamReader
+RaceTeamReader     = SportDb::RaceTeamReader
 
 #################################
 # setup db -> schema / tables

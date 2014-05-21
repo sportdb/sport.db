@@ -3,7 +3,8 @@
 module SportDb
 
 
-class RosterReader
+### squad/roster reader for races
+class RaceTeamReader
 
   include LogUtils::Logging
 
@@ -44,13 +45,13 @@ class RosterReader
     @known_persons = TextUtils.build_title_table_for( Person.all )
 
 
-    read_rosters_worker( reader )
+    read_worker( reader )
 
     Prop.create_from_fixture!( name, path )  
   end
 
 
-  def read_rosters_worker( reader )
+  def read_worker( reader )
 
     reader.each_line do |line|
       logger.debug "  line: >#{line}<"
@@ -91,8 +92,8 @@ class RosterReader
       roster.update_attributes!( roster_attribs )
     end # lines.each
 
-  end # method read_rosters_worker
+  end # method read_worker
 
 
-end # class RosterReader
+end # class RaceTeamReader
 end # module SportDb

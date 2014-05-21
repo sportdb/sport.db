@@ -54,9 +54,10 @@ lib/sportdb/readers/event.rb
 lib/sportdb/readers/game.rb
 lib/sportdb/readers/ground.rb
 lib/sportdb/readers/league.rb
+lib/sportdb/readers/national_team.rb
 lib/sportdb/readers/race.rb
+lib/sportdb/readers/race_team.rb
 lib/sportdb/readers/record.rb
-lib/sportdb/readers/roster.rb
 lib/sportdb/readers/season.rb
 lib/sportdb/readers/team.rb
 lib/sportdb/readers/track.rb
@@ -125,6 +126,8 @@ test/data/world-cup/seasons_1930.txt
 test/data/world-cup/seasons_1954.txt
 test/data/world-cup/seasons_1962.txt
 test/data/world-cup/seasons_1974.txt
+test/data/world-cup/squads/br-brazil.txt
+test/data/world-cup/squads/de-deutschland.txt
 test/data/world-cup/teams_1930.txt
 test/data/world-cup/teams_1954.txt
 test/data/world-cup/teams_1962.txt
@@ -134,6 +137,7 @@ test/test_changes.rb
 test/test_cursor.rb
 test/test_date.rb
 test/test_lang.rb
+test/test_national_team_reader.rb
 test/test_reader.rb
 test/test_round_auto.rb
 test/test_round_def.rb

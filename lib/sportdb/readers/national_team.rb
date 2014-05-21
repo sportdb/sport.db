@@ -52,15 +52,8 @@ class NationalTeamReader
 
     reader = LineReader.new( path )
 
-    ## for now: use all tracks (later filter/scope by event)
-    # @known_tracks = Track.known_tracks_table
-
-    ## fix: add @known_teams  - for now; use teams (not scoped by event)
-    ## for now use all teams
-    ## @known_teams   = TextUtils.build_title_table_for( Team.all )
-    ## and for now use all persons
-    ## @known_persons = TextUtils.build_title_table_for( Person.all )
-
+    logger.info "  persons count for country: #{country.persons.count}"
+    @known_persons = TextUtils.build_title_table_for( country.persons )
 
     read_worker( reader )
 
@@ -81,9 +74,9 @@ class NationalTeamReader
       # team_key = find_team!( line )
       # team = Team.find_by_key!( team_key )
 
-      # map_person!( line )
-      # person_key = find_person!( line )
-      # person = Person.find_by_key!( person_key )
+      map_person!( line )
+      person_key = find_person!( line )
+      person = Person.find_by_key!( person_key )
 
       logger.debug "  line2: >#{line}<"
     end # lines.each

@@ -39,6 +39,8 @@ GameReader         = SportDb::GameReader
 NationalTeamReader = SportDb::NationalTeamReader
 RaceTeamReader     = SportDb::RaceTeamReader
 
+PersonReader       = PersonDb::PersonReader
+
 #################################
 # setup db -> schema / tables
 

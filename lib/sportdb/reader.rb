@@ -73,19 +73,23 @@ class Reader
       reader = TrackReader.new( include_path )
       reader.read( name )
     elsif name =~ /^drivers/ # e.g. drivers.txt in formula1.db
-      load_persons( name )
+      reader = PersonDb::PersonReader.new( include_path )
+      reader.read( name )
     elsif match_players_for_country( name ) do |country_key|
             country = Country.find_by_key!( country_key )
-            load_persons( name, country_id: country.id )
+            reader = PersonDb::PersonReader.new( include_path )
+            reader.read( name, country_id: country.id )
           end
     elsif match_skiers_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/skiers/
             # auto-add country code (from folder structure) for country-specific skiers (persons)
             #  e.g. at/skiers  or at-austria/skiers.men
             country = Country.find_by_key!( country_key )
-            load_persons( name, country_id: country.id )
+            reader = PersonDb::PersonReader.new( include_path )
+            reader.read( name, country_id: country.id )
           end
     elsif name =~ /^skiers/ # e.g. skiers.men.txt in ski.db
-      load_persons( name )
+      reader = PersonDb::PersonReader.new( include_path )
+      reader.read( name )
     elsif name =~ /^teams/   # e.g. teams.txt in formula1.db
       reader = TeamReader.new( include_path )
       reader.read( name )
@@ -95,7 +99,7 @@ class Reader
     elsif name =~ /\/squads\/([a-z]{2,3})-$/
       ## fix: add to country matcher new format
       ##   name is country! and parent folder is type name e.g. /squads/br-brazil
-      country = Country.find_by_key!( country_key )
+      country = Country.find_by_key!( $1 )
       reader = NationalTeamReader.new( include_path )
       reader.read( name, country_id: country.id )
     elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
@@ -148,16 +152,5 @@ class Reader
   end # method load
 
 
-  ####
-  # fix: move to persondb for (re)use
-
-  def load_persons( name, more_attribs={} )
-    reader = PersonDb::PersonReader.new( include_path )
-    ## fix: add more_attribs !!!!!   -- check other readers as an example
-    ##  - gets added to new or read??
-    reader.read( name )
-  end # load_persons
-
-  
 end # class Reader
 end # module SportDb

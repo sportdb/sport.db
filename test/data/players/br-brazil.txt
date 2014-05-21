@@ -1,0 +1,51 @@
+#############
+# Brazil
+
+
+# NB: let official (player) shirt name go first (e.g. Neymar Jr)
+
+
+## GK / Goalkeepers
+
+Jefferson|Jefferson DE OLIVEIRA GALVAO,          2 Jan 1983, 190
+Júlio César|Júlio César SOARES DE ESPINDOLA,     3 Sep 1979, 186
+D. Cavalieri|Diego CAVALIERI,                    1 Dec 1982, 189
+Victor,    21 Jan 1983      ## Brazil Atlético Mineiro
+
+
+## DF / Defenders
+
+Dani Alves|Daniel ALVES DA SILVA,    6 May 1983, 172
+T. Silva|Thiago SILVA|Thiago EMILIANO DA SILVA, 22 Sep 1984, 183
+David Luiz, David Luiz MOREIRA MARINHO,  22 Apr 1987, 189
+Marcelo|Marcelo VIEIRA DA SILVA JUNIOR, 12 May 1988, 174
+Dante|Dante BONFIM COSTA SANTOS, 18 Oct 1983, 188
+Filipe Luís|Filipe Luís KASMIRSKI, 9 Aug 1985, 182
+Réver|Réver Humberto ALVES ARAUJO, 4 Jan 1985, 192
+Maicon,  26 Jul 1981    ## Italy Roma
+Maxwell,  27 Aug 1981   ## France Paris Saint-Germain
+Henrique, 14 Oct 1986   ## Italy Napoli
+
+
+## MF / Midfielders
+
+Fernando|Fernando Lucas MARTINS, 3 Mar 1992, 175
+Lucas|Lucas RODRIGUES MOURA SILVA, 13 Aug 1992, 173
+Hernanes|Anderson Hernanes DE CARVALHO VIANA LIMA, 29 May 1985, 180
+Oscar|Oscar DOS SANTOS EMBOABA JUNIOR,  9 Sep 1991, 180
+Jean|Jean Raphael VANDERLEI MOREIRA,  24 Jun 1986, 170
+L. Gustavo|Luiz Gustavo|Luiz Gustavo DIAS,   23 Jul 1987, 186
+Paulinho|José Paulo BEZERRA MACIEL JUNIOR, 25 Jul 1988, 182
+Bernard|Bernard ANICIO CALDEIRA DUARTE, 8 Sep 1992, 164
+Jádson|Jádson RODRIGUES, 5 Oct 1983, 169
+Ramires,     24 Mar 1987   ##  England Chelsea
+Fernandinho,  4 May 1985   ##  England Manchester City
+Willian,      9 Aug 1988   ##  England Chelsea
+
+
+## FW / Forwards
+
+Fred|Frederico CHAVES GUEDES, 3 Oct 1983, 185
+Neymar Jr|Neymar|Neymar DA SILVA SANTOS JUNIOR,  5 Feb 1992, 174
+Hulk|Givanildo VIEIRA DE SOUSA, 25 Jul 1986, 180
+Jô|João Alves de Assis Silva,  20 Mar 1987

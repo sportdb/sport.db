@@ -111,6 +111,8 @@ test/data/at-austria/2013_14/el.yml
 test/data/at-austria/leagues.txt
 test/data/at-austria/teams.txt
 test/data/at-austria/teams_2.txt
+test/data/players/br-brazil.txt
+test/data/players/de-deutschland.txt
 test/data/world-cup/1930/cup.txt
 test/data/world-cup/1930/cup.yml
 test/data/world-cup/1954/cup.txt

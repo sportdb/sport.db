@@ -15,9 +15,9 @@ Victor,    21 Jan 1983      ## Brazil Atlético Mineiro
 
 ## DF / Defenders
 
-Dani Alves|Daniel ALVES DA SILVA,    6 May 1983, 172
+Dani Alves|Daniel ALVES|Daniel ALVES DA SILVA,    6 May 1983, 172
 T. Silva|Thiago SILVA|Thiago EMILIANO DA SILVA, 22 Sep 1984, 183
-David Luiz, David Luiz MOREIRA MARINHO,  22 Apr 1987, 189
+David Luiz|David Luiz MOREIRA MARINHO,  22 Apr 1987, 189
 Marcelo|Marcelo VIEIRA DA SILVA JUNIOR, 12 May 1988, 174
 Dante|Dante BONFIM COSTA SANTOS, 18 Oct 1983, 188
 Filipe Luís|Filipe Luís KASMIRSKI, 9 Aug 1985, 182

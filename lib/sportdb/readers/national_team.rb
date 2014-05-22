@@ -53,11 +53,37 @@ class NationalTeamReader
     reader = LineReader.new( path )
 
     logger.info "  persons count for country: #{country.persons.count}"
-    @known_persons = TextUtils.build_title_table_for( country.persons )
+    known_persons_old = TextUtils.build_title_table_for( country.persons )
+
+    ### fix:  add auto camelcase/titlecase
+    ## move to textutils
+    ##  make it an option for name to auto Camelcase/titlecase?
+    ##  e.g. BONFIM COSTA SANTOS    becomes
+    ##       Bonfim Costa Santos  etc.
+    ##  fix: better move into person parser?
+    ##   store all alt_names titleized!!!!!
+
+    @known_persons = []
+    known_persons_old.each do |person_pair|
+       key    = person_pair[0]
+       values = person_pair[1].map { |value| titleize(value) }
+
+       @known_persons << [ key, values ]
+    end
+
+    pp @known_persons
+
 
     read_worker( reader )
 
     Prop.create_from_fixture!( name, path )  
+  end
+
+
+  def titleize( str )
+    ## fix: for now works only with ASCII only
+    ##  words 2 letters and ups
+    str.gsub(/\b[A-Z]{2,}\b/) { |match| match.capitalize }
   end
 
 

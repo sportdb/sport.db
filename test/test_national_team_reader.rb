@@ -15,7 +15,6 @@ class TestNationalTeamReader < MiniTest::Unit::TestCase
     WorldDb.delete!
     SportDb.delete!
     PersonDb.delete!
-    SportDb.read_builtin
   end
 
   def test_br

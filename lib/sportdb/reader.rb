@@ -94,14 +94,17 @@ class Reader
       reader = TeamReader.new( include_path )
       reader.read( name )
     elsif name =~ /\/races/  # e.g. 2013/races.txt in formula1.db
+      ## fix/bug:  NOT working for now; sorry
+      #   need to read event first and pass along to read (event_id: event.id) etc.
       reader = RaceReader.new( include_path )
       reader.read( name )
-    elsif name =~ /\/squads\/([a-z]{2,3})-$/
+    elsif name =~ /\/squads\/([a-z]{2,3})-[^\/]+$/
       ## fix: add to country matcher new format
       ##   name is country! and parent folder is type name e.g. /squads/br-brazil
       country = Country.find_by_key!( $1 )
       reader = NationalTeamReader.new( include_path )
-      reader.read( name, country_id: country.id )
+      ## note: pass in @event.id - that is, last seen event (e.g. parsed via GameReader/MatchReader)
+      reader.read( name, country_id: country.id, event_id: @event.id )
     elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
       reader = RaceTeamReader.new( include_path )
       reader.read( name )
@@ -141,6 +144,12 @@ class Reader
       reader.read( name, club: is_club_fixture?( name ) )
     elsif name =~ /\/(\d{4}|\d{4}_\d{2})(--[^\/]+)?\// ||
           name =~ /\/(\d{4}|\d{4}_\d{2})$/
+
+      # note: keep a "public" reference of last event in @event  - e.g. used/required by squads etc.
+      eventreader = EventReader.new( include_path )
+      eventreader.read( name )
+      @event    = eventreader.event
+
       # e.g. must match /2012/ or /2012_13/  or   /2012--xxx/ or /2012_13--xx/
       #  or   /2012 or /2012_13   e.g. brazil/2012 or brazil/2012_13
       reader = GameReader.new( include_path )

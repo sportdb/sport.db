@@ -33,6 +33,7 @@ GameCursor = SportDb::Model::GameCursor
 ####################
 # Reader shortcuts
 
+Reader             = SportDb::Reader
 TeamReader         = SportDb::TeamReader
 SeasonReader       = SportDb::SeasonReader
 LeagueReader       = SportDb::LeagueReader

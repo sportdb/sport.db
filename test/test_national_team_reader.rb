@@ -41,7 +41,7 @@ class TestNationalTeamReader < MiniTest::Unit::TestCase
     
     ## read persons
     personreader = PersonReader.new( SportDb.test_data_path )
-    personreader.read( 'players/br-brazil', country_id: br.id ) 
+    personreader.read( 'players/south-america/br-brazil/players', country_id: br.id ) 
 
     assert_equal 30, Person.count
 
@@ -62,7 +62,7 @@ class TestNationalTeamReader < MiniTest::Unit::TestCase
 
     ## read persons
     personreader = PersonReader.new( SportDb.test_data_path )
-    personreader.read( 'players/de-deutschland', country_id: de.id ) 
+    personreader.read( 'players/europe/de-deutschland/players', country_id: de.id ) 
 
     assert_equal 27, Person.count
 

@@ -23,6 +23,7 @@ League     = SportDb::Model::League
 Season     = SportDb::Model::Season
 Event      = SportDb::Model::Event
 Team       = SportDb::Model::Team
+Roster     = SportDb::Model::Roster
 
 Round      = SportDb::Model::Round
 Game       = SportDb::Model::Game

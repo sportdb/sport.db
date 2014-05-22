@@ -31,6 +31,10 @@ class NationalTeamReader
 
     logger.info "parsing data '#{name}' (#{path})..."
 
+    # event
+    @event = Event.find( more_attribs[:event_id] )
+    pp @event
+
     ## check/fix:
     ##   allow three letter codes
     ##  assume three letter code are *team* codes (e.g. fdr, gdr, etc)
@@ -45,8 +49,10 @@ class NationalTeamReader
     ## todo/fix: find national team for country - use event.teams w/ where country.id ??
     ###  for now assume country code matches team for now (do NOT forget to downcase e.g. BRA==bra)
     logger.info "  assume country code == team code for #{country.code}"
-    team = Team.find_by_key!( country.code.downcase )
-    pp team
+    
+    ## note: use @team - share/use in worker method
+    @team = Team.find_by_key!( country.code.downcase )
+    pp @team
 
     ### SportDb.lang.lang = LangChecker.new.analyze( name, include_path )
 
@@ -89,12 +95,19 @@ class NationalTeamReader
 
   def read_worker( reader )
 
+    pos_counter = 999000   # pos counter for undefined players w/o pos
+
     reader.each_line do |line|
       logger.debug "  line: >#{line}<"
 
       cut_off_end_of_line_comment!( line )
 
       pos = find_leading_pos!( line )
+
+      if pos.nil?
+        pos_counter+=1       ## e.g. 999001,999002 etc.
+        pos = pos_counter
+      end
 
       # map_team!( line )
       # team_key = find_team!( line )
@@ -105,6 +118,27 @@ class NationalTeamReader
       person = Person.find_by_key!( person_key )
 
       logger.debug "  line2: >#{line}<"
+
+      ### check if roster record exists
+      roster = Roster.find_by_event_id_and_team_id_and_person_id( @event.id, @team.id, person.id )
+
+      if roster.present?
+        logger.debug "update Roster #{roster.id}:"
+      else
+        logger.debug "create Roster:"
+        roster = Roster.new
+      end
+
+      roster_attribs = {
+        pos:       pos,
+        person_id: person.id,
+        team_id:   @team.id,
+        event_id:  @event.id   # NB: reuse/fallthrough from races - make sure load_races goes first (to setup event)
+      }
+
+      logger.debug roster_attribs.to_json
+
+      roster.update_attributes!( roster_attribs )
     end # lines.each
 
   end # method read_worker

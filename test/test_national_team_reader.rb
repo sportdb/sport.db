@@ -15,6 +15,25 @@ class TestNationalTeamReader < MiniTest::Unit::TestCase
     WorldDb.delete!
     SportDb.delete!
     PersonDb.delete!
+    
+    add_world_cup_2014
+  end
+
+  def add_world_cup_2014
+    SportDb.read_builtin   # add 2014 season
+
+    leaguereader = LeagueReader.new( SportDb.test_data_path )
+    leaguereader.read( 'world-cup/leagues' )
+
+    assert_equal 1, League.count
+
+    l = League.find_by_key!( 'world' )
+    assert_equal 'World Cup', l.title
+
+    gamereader = GameReader.new( SportDb.test_data_path )
+    gamereader.read( 'world-cup/2014/cup' )
+
+    assert_equal 1, Event.count
   end
 
   def test_br
@@ -28,11 +47,15 @@ class TestNationalTeamReader < MiniTest::Unit::TestCase
 
     bra = Team.create!( key: 'bra', title: 'Brazil', code: 'BRA', country_id: br.id )
 
-    reader = NationalTeamReader.new( SportDb.test_data_path )
-    reader.read( 'world-cup/squads/br-brazil', country_id: br.id )
 
-    assert true
-  end
+    event = Event.find_by_key!( 'world.2014' )
+
+    reader = NationalTeamReader.new( SportDb.test_data_path )
+    reader.read( 'world-cup/2014/squads/br-brazil', country_id: br.id, event_id: event.id )
+
+    assert_equal 23, Roster.count
+  end  # method test_br
+
 
   def test_de
     de  = Country.create!( key: 'de', title: 'Germany', code: 'GER', pop: 1, area: 1)
@@ -45,12 +68,13 @@ class TestNationalTeamReader < MiniTest::Unit::TestCase
 
     ger = Team.create!( key: 'ger', title: 'Germany', code: 'GER', country_id: de.id )
 
-    reader = NationalTeamReader.new( SportDb.test_data_path )
-    reader.read( 'world-cup/squads/de-deutschland', country_id: de.id )
+    event = Event.find_by_key!( 'world.2014' )
 
-    assert true
-  end
+    reader = NationalTeamReader.new( SportDb.test_data_path )
+    reader.read( 'world-cup/2014/squads/de-deutschland', country_id: de.id, event_id: event.id )
+
+    assert_equal 3, Roster.count
+  end  # method test_de
 
 
 end # class TestNationalTeamReader
-

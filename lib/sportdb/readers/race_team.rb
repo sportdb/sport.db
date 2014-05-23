@@ -27,10 +27,20 @@ class RaceTeamReader
 
 
   def read( name, more_attribs={} )
-    path = "#{include_path}/#{name}.txt"
+    ## todo: move name_real_path code to LineReaderV2 ????
+    pos = name.index( '!/')
+    if pos.nil?
+      name_real_path = name   # not found; real path is the same as name
+    else
+      # cut off everything until !/ e.g.
+      #   at-austria!/w-wien/beers becomes
+      #   w-wien/beers
+      name_real_path = name[ (pos+2)..-1 ]
+    end
+
+    path = "#{include_path}/#{name_real_path}.txt"
 
     logger.info "parsing data '#{name}' (#{path})..."
-
     ### SportDb.lang.lang = LangChecker.new.analyze( name, include_path )
 
     reader = LineReader.new( path )

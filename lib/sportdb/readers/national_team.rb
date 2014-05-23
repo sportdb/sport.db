@@ -27,7 +27,18 @@ class NationalTeamReader
 
 
   def read( name, more_attribs={} )
-    path = "#{include_path}/#{name}.txt"
+    ## todo: move name_real_path code to LineReaderV2 ????
+    pos = name.index( '!/')
+    if pos.nil?
+      name_real_path = name   # not found; real path is the same as name
+    else
+      # cut off everything until !/ e.g.
+      #   at-austria!/w-wien/beers becomes
+      #   w-wien/beers
+      name_real_path = name[ (pos+2)..-1 ]
+    end
+
+    path = "#{include_path}/#{name_real_path}.txt"
 
     logger.info "parsing data '#{name}' (#{path})..."
 
@@ -116,6 +127,11 @@ class NationalTeamReader
       map_person!( line )
       person_key = find_person!( line )
       person = Person.find_by_key!( person_key )
+
+      if person.nil?
+        logger.error " !!!!!! no mapping found for player in line >#{line}<"
+      end
+
 
       logger.debug "  line2: >#{line}<"
 

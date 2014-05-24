@@ -70,37 +70,12 @@ class NationalTeamReader
     reader = LineReader.new( path )
 
     logger.info "  persons count for country: #{country.persons.count}"
-    known_persons_old = TextUtils.build_title_table_for( country.persons )
-
-    ### fix:  add auto camelcase/titlecase
-    ## move to textutils
-    ##  make it an option for name to auto Camelcase/titlecase?
-    ##  e.g. BONFIM COSTA SANTOS    becomes
-    ##       Bonfim Costa Santos  etc.
-    ##  fix: better move into person parser?
-    ##   store all alt_names titleized!!!!!
-
-    @known_persons = []
-    known_persons_old.each do |person_pair|
-       key    = person_pair[0]
-       values = person_pair[1].map { |value| titleize(value) }
-
-       @known_persons << [ key, values ]
-    end
-
-    pp @known_persons
+    @known_persons = TextUtils.build_title_table_for( country.persons )
 
 
     read_worker( reader )
 
     Prop.create_from_fixture!( name, path )  
-  end
-
-
-  def titleize( str )
-    ## fix: for now works only with ASCII only
-    ##  words 2 letters and ups
-    str.gsub(/\b[A-Z]{2,}\b/) { |match| match.capitalize }
   end
 
 
@@ -126,14 +101,17 @@ class NationalTeamReader
 
       map_person!( line )
       person_key = find_person!( line )
-      person = Person.find_by_key!( person_key )
+      
+      person = Person.find_by_key( person_key )
+
+      logger.debug "  line2: >#{line}<"
 
       if person.nil?
-        logger.error " !!!!!! no mapping found for player in line >#{line}<"
+        logger.error " !!!!!! no mapping found for player in line >#{line}< for team #{@team.code} - #{@team.title}"
+        next   ## skip further processing of line; can NOT save w/o person; continue w/ next record
       end
 
 
-      logger.debug "  line2: >#{line}<"
 
       ### check if roster record exists
       roster = Roster.find_by_event_id_and_team_id_and_person_id( @event.id, @team.id, person.id )

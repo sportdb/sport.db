@@ -1,42 +1,31 @@
 # encoding: utf-8
 
-
 ###
 # NB: for local testing run like:
 #
 # 1.9.x: ruby -Ilib lib/sportdb.rb
 
-# core and stlibs
-
-require 'yaml'
-require 'pp'
-require 'logger'             ## todo/fix: no longer needed - replaced by logutils??
-require 'fileutils'
-require 'erb'
+# core and stlibs  (note: get included via worlddb gem; see worlddb gem/lib)
 
 
 # rubygems  / 3rd party libs
 
-require 'active_record'   ## todo: add sqlite3? etc.
+require 'active_record'
 require 'activerecord/utils' # check - if dependency on logutils? or props? etc let others go first
-
-require 'logutils'
-require 'logutils/db'   # NB: explict require required for LogDb (NOT automatic)
-
-require 'textutils'
-require 'tagutils'
-
-require 'props'
-require 'props/db'  # NB: explict require required for ConfDb (NOT automatic)  - move to textutils/deb - why/why not??
+# fix: move activerecord/utils to world db - no need to require here again
 
 require 'worlddb'
 require 'persondb'
+
+require 'logutils/db'   # NB: explict require required for LogDb (NOT automatic)
+# fix: move to world db  -- no need to require here
+
 
 require 'fetcher'   # for fetching/downloading fixtures via HTTP/HTTPS etc.
 
 # our own code
 
-require 'sportdb/version'
+require 'sportdb/version'    # let version always go first
 
 require 'sportdb/patterns'
 require 'sportdb/models/forward'

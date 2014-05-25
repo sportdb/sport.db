@@ -53,6 +53,11 @@ require 'sportdb/models/season'
 require 'sportdb/models/team'
 require 'sportdb/models/track'
 
+require 'sportdb/models/stats/alltime_standing'
+require 'sportdb/models/stats/alltime_standing_entry'
+require 'sportdb/models/stats/group_standing'
+require 'sportdb/models/stats/group_standing_entry'
+
 require 'sportdb/models/utils'   # e.g. GameCursor
 
 ## add backwards compatible n convenience namespace

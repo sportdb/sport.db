@@ -41,6 +41,10 @@ lib/sportdb/models/roster.rb
 lib/sportdb/models/round.rb
 lib/sportdb/models/run.rb
 lib/sportdb/models/season.rb
+lib/sportdb/models/stats/alltime_standing.rb
+lib/sportdb/models/stats/alltime_standing_entry.rb
+lib/sportdb/models/stats/group_standing.rb
+lib/sportdb/models/stats/group_standing_entry.rb
 lib/sportdb/models/team.rb
 lib/sportdb/models/track.rb
 lib/sportdb/models/utils.rb
@@ -142,6 +146,7 @@ test/test_cursor.rb
 test/test_date.rb
 test/test_lang.rb
 test/test_load.rb
+test/test_models.rb
 test/test_national_team_reader.rb
 test/test_reader.rb
 test/test_round_auto.rb

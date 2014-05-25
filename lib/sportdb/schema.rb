@@ -297,6 +297,54 @@ create_table :badges do |t|
   t.timestamps
 end
 
+
+############################################
+# stats tables
+
+# use tables for standings e.g group_tables? - why? why not?
+#
+# todo: add group_standings per round with pos diffs e.g +1,+2, -3 etc.
+
+create_table :group_standings do |t|
+  t.references  :group,    null: false
+end
+
+create_table :group_standing_entries do |t|
+  t.references  :group_standing,  null: false
+  t.references  :team,            null: false
+  t.integer     :pos
+  t.integer     :won
+  t.integer     :lost
+  t.integer     :drawn
+  t.integer     :goals_for             # todo: find a short name - gf? why? why not?
+  t.integer     :goals_against         # todo: find a shorter name - ga? why? why not?
+  t.integer     :pts
+  t.string      :comments
+  t.timestamps
+end
+
+## flex (free-style/form) standings table - lets you add as many events as you like (not bound to single event/season/etc.)
+##  -use (find a better) a different name? why? why not?
+create_table :alltime_standings do |t|
+  t.string    :key,   null: false
+  t.string    :title, null: false
+end
+
+create_table :alltime_standing_entries do |t|
+  t.references  :alltime_standing,  null: false
+  t.references  :team,              null: false
+  t.integer     :pos
+  t.integer     :won
+  t.integer     :lost
+  t.integer     :drawn
+  t.integer     :goals_for             # todo: find a short name - gf? why? why not?
+  t.integer     :goals_against         # todo: find a shorter name - ga? why? why not?
+  t.integer     :pts
+  t.string      :comments
+  t.timestamps
+end
+
+
   end  # Schema.define
 end # method up
 

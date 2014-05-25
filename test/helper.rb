@@ -30,6 +30,13 @@ Game       = SportDb::Model::Game
 GameCursor = SportDb::Model::GameCursor
 
 
+GroupStanding        = SportDb::Model::GroupStanding
+GroupStandingEntry   = SportDb::Model::GroupStandingEntry
+AlltimeStanding      = SportDb::Model::AlltimeStanding
+AlltimeStandingEntry = SportDb::Model::AlltimeStandingEntry
+
+
+
 ####################
 # Reader shortcuts
 

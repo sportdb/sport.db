@@ -146,12 +146,12 @@ test/test_cursor.rb
 test/test_date.rb
 test/test_lang.rb
 test/test_load.rb
-test/test_models.rb
 test/test_national_team_reader.rb
 test/test_reader.rb
 test/test_round_auto.rb
 test/test_round_def.rb
 test/test_round_header.rb
 test/test_scores.rb
+test/test_standings.rb
 test/test_utils.rb
 test/test_winner.rb

@@ -307,6 +307,7 @@ end
 
 create_table :group_standings do |t|
   t.references  :group,    null: false
+  t.timestamps
 end
 
 create_table :group_standing_entries do |t|
@@ -328,6 +329,7 @@ end
 create_table :alltime_standings do |t|
   t.string    :key,   null: false
   t.string    :title, null: false
+  t.timestamps
 end
 
 create_table :alltime_standing_entries do |t|

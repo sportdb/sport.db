@@ -26,6 +26,7 @@ Team       = SportDb::Model::Team
 Roster     = SportDb::Model::Roster
 
 Round      = SportDb::Model::Round
+Group      = SportDb::Model::Group
 Game       = SportDb::Model::Game
 GameCursor = SportDb::Model::GameCursor
 

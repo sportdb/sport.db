@@ -8,7 +8,7 @@ class AlltimeStanding < ActiveRecord::Base
 
   self.table_name = 'alltime_standings'
 
-  has_many :entries,   class_name: 'SportDb::Model::AlltimeStandingEntry', foreign_key: 'alltime_standing_id'
+  has_many :entries,  class_name: 'SportDb::Model::AlltimeStandingEntry', foreign_key: 'alltime_standing_id'
 
 end # class AlltimeStanding
 

@@ -8,10 +8,14 @@ class GroupStandingEntry < ActiveRecord::Base
 
   self.table_name = 'group_standing_entries'
 
-  belongs_to :group_standing
+  belongs_to :standing, class_name: 'SportDb::Model::GroupStanding', foreign_key: 'group_standing_id'
   belongs_to :team
 
-end # class AlltimeStandingEntry
+  ## note:
+  ##  map standing_id to group_standing_id - convenience alias
+  def standing_id=(value)  write_attribute(:group_standing_id, value);  end
+
+end # class GroupStandingEntry
 
 
   end # module Model

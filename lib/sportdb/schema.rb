@@ -314,6 +314,7 @@ create_table :group_standing_entries do |t|
   t.references  :group_standing,  null: false
   t.references  :team,            null: false
   t.integer     :pos
+  t.integer     :played
   t.integer     :won
   t.integer     :lost
   t.integer     :drawn
@@ -336,6 +337,7 @@ create_table :alltime_standing_entries do |t|
   t.references  :alltime_standing,  null: false
   t.references  :team,              null: false
   t.integer     :pos
+  t.integer     :played    # todo: use a different name - why? why not?
   t.integer     :won
   t.integer     :lost
   t.integer     :drawn

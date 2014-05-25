@@ -13,6 +13,7 @@ config/fixtures/ro.yml
 data/seasons.txt
 data/setups/all.txt
 lib/sportdb.rb
+lib/sportdb/calc.rb
 lib/sportdb/cli/main.rb
 lib/sportdb/cli/opts.rb
 lib/sportdb/console.rb

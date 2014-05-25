@@ -81,6 +81,7 @@ require 'sportdb/utils_round'
 require 'sportdb/utils_scores'
 require 'sportdb/utils_teams'
 require 'sportdb/matcher'
+require 'sportdb/calc'
 
 
 require 'sportdb/readers/event'
@@ -101,6 +102,7 @@ require 'sportdb/lang'
 require 'sportdb/updater'
 require 'sportdb/deleter'
 require 'sportdb/stats'
+
 
 ###############
 # optional: for convenience add some finders etc. for known fixtures

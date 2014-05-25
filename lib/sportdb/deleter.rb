@@ -10,6 +10,13 @@ module SportDb
     def run
       # for now delete all tables
       
+      ## stats
+      AlltimeStandingEntry.delete_all
+      AlltimeStanding.delete_all
+      GroupStandingEntry.delete_all
+      GroupStanding.delete_all
+
+
       Goal.delete_all
       Record.delete_all
 

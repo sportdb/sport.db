@@ -117,6 +117,34 @@ class TestStandings < MiniTest::Unit::TestCase
   end # test_alltime_standings
 
 
+  def test_group_standins_recalc
+    g2 = Group.find_by_pos!( 2 )   ##  Group 2  |  Yugoslavia     Brazil          Scotland      Zaire
+
+    assert_equal 4, g2.teams.count
+
+    st2 = GroupStanding.create!( group_id: g2.id )
+
+    assert_equal 1, GroupStanding.count
+    assert_equal 0, st2.entries.count
+
+    st2.recalc!
+    assert_equal 4, st2.entries.count
+
+    st2.recalc!  ## try again (check update)
+    assert_equal 4, st2.entries.count
+
+    ## try global recalc
+    GroupStandingEntry.delete_all
+    assert_equal 1, GroupStanding.count
+    assert_equal 0, GroupStandingEntry.count
+
+    GroupStanding.recalc!
+    assert_equal 1, GroupStanding.count
+    assert_equal 4, GroupStandingEntry.count
+
+  end # test_group_standins_recalc
+
+
   def test_group_standings
     ## Group 1  |  East Germany   West Germany    Chile         Australia
     ## Group 2  |  Yugoslavia     Brazil          Scotland      Zaire

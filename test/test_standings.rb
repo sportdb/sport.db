@@ -117,7 +117,35 @@ class TestStandings < MiniTest::Unit::TestCase
   end # test_alltime_standings
 
 
-  def test_group_standins_recalc
+  def test_event_standings_recalc
+    ev = Event.find_by_key!( 'world.1974' )
+    
+    assert_equal 16, ev.teams.count
+
+    st = EventStanding.create!( event_id: ev.id )
+
+    assert_equal 1, EventStanding.count
+    assert_equal 0, st.entries.count
+
+    st.recalc!
+    assert_equal 16, st.entries.count
+
+    st.recalc!  ## try again (check update)
+    assert_equal 16, st.entries.count
+
+    ## try global recalc
+    EventStandingEntry.delete_all
+    assert_equal 1, EventStanding.count
+    assert_equal 0, EventStandingEntry.count
+
+    EventStanding.recalc!
+    assert_equal 1, EventStanding.count
+    assert_equal 16, EventStandingEntry.count
+
+  end # test_event_standings_recalc
+  
+
+  def test_group_standings_recalc
     g2 = Group.find_by_pos!( 2 )   ##  Group 2  |  Yugoslavia     Brazil          Scotland      Zaire
 
     assert_equal 4, g2.teams.count
@@ -142,7 +170,7 @@ class TestStandings < MiniTest::Unit::TestCase
     assert_equal 1, GroupStanding.count
     assert_equal 4, GroupStandingEntry.count
 
-  end # test_group_standins_recalc
+  end # test_group_standings_recalc
 
 
   def test_group_standings

@@ -325,6 +325,28 @@ create_table :group_standing_entries do |t|
   t.timestamps
 end
 
+
+create_table :event_standings do |t|
+  t.references  :event,   null: false
+  t.timestamps
+end
+
+create_table :event_standing_entries do |t|
+  t.references  :event_standing,  null: false
+  t.references  :team,            null: false
+  t.integer     :pos
+  t.integer     :played
+  t.integer     :won
+  t.integer     :lost
+  t.integer     :drawn
+  t.integer     :goals_for             # todo: find a short name - gf? or for? why? why not?
+  t.integer     :goals_against         # todo: find a shorter name - ga? or against? why? why not?
+  t.integer     :pts
+  t.string      :comments
+  t.timestamps
+end
+
+
 ## flex (free-style/form) standings table - lets you add as many events as you like (not bound to single event/season/etc.)
 ##  -use (find a better) a different name? why? why not?
 create_table :alltime_standings do |t|

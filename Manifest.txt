@@ -44,6 +44,8 @@ lib/sportdb/models/run.rb
 lib/sportdb/models/season.rb
 lib/sportdb/models/stats/alltime_standing.rb
 lib/sportdb/models/stats/alltime_standing_entry.rb
+lib/sportdb/models/stats/event_standing.rb
+lib/sportdb/models/stats/event_standing_entry.rb
 lib/sportdb/models/stats/group_standing.rb
 lib/sportdb/models/stats/group_standing_entry.rb
 lib/sportdb/models/team.rb

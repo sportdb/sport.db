@@ -55,6 +55,8 @@ require 'sportdb/models/track'
 
 require 'sportdb/models/stats/alltime_standing'
 require 'sportdb/models/stats/alltime_standing_entry'
+require 'sportdb/models/stats/event_standing'
+require 'sportdb/models/stats/event_standing_entry'
 require 'sportdb/models/stats/group_standing'
 require 'sportdb/models/stats/group_standing_entry'
 

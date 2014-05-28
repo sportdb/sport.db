@@ -31,6 +31,8 @@ Game       = SportDb::Model::Game
 GameCursor = SportDb::Model::GameCursor
 
 
+EventStanding        = SportDb::Model::EventStanding
+EventStandingEntry   = SportDb::Model::EventStandingEntry
 GroupStanding        = SportDb::Model::GroupStanding
 GroupStandingEntry   = SportDb::Model::GroupStandingEntry
 AlltimeStanding      = SportDb::Model::AlltimeStanding

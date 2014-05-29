@@ -103,18 +103,37 @@ class TestStandings < MiniTest::Unit::TestCase
     arg = Team.find_by_key!( 'arg' )
     bra = Team.find_by_key!( 'bra' )
     ita = Team.find_by_key!( 'ita' )
-    
+
     AlltimeStandingEntry.create!( standing_id: st.id, team_id: arg.id )
     AlltimeStandingEntry.create!( standing_id: st.id, team_id: bra.id )
     AlltimeStandingEntry.create!( standing_id: st.id, team_id: ita.id )
 
     assert_equal 3, st.entries.count
     assert_equal 3, AlltimeStandingEntry.count
-    
+
     st2 = AlltimeStandingEntry.first.standing    # check back/parent ref w/ standing belongs_to assoc
     assert_equal 'worldcup',            st2.key 
     assert_equal 'All Time World Cup',  st2.title
+
   end # test_alltime_standings
+
+
+  def test_alltime_standings_recalc
+    st = AlltimeStanding.create!( key: 'worldcup', title: 'All Time World Cup' )
+
+    assert_equal 1, AlltimeStanding.count
+    assert_equal 0, st.entries.count
+
+    league = League.find_by_key!( 'world' )
+
+    st.recalc_for_league!( league )
+    assert_equal 16, st.entries.count
+    assert_equal 16, AlltimeStandingEntry.count
+
+    st.recalc_for_league!( league )
+    assert_equal 16, st.entries.count
+    assert_equal 16, AlltimeStandingEntry.count
+  end # test_alltime_standings_recalc
 
 
   def test_event_standings_recalc

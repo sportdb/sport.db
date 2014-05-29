@@ -10,6 +10,10 @@ module SportDb
 
 module StandingsHelper
 
+  ## todo:
+  ##  add team_id to struct - why? why not?  - saves a db lookup?
+  ##  add appearances (event) count  or similar - add to struct or use an extension?
+  ##    == use recs for number of (stats) records?
   Stats = Struct.new(
             :pos,
             :played,
@@ -22,6 +26,53 @@ module StandingsHelper
 
 
   def self.calc( games, opts={} )
+    recs = calc_stats( games, opts )
+
+    ## update pos (that is, ranking e.g. 1.,2., 3. etc.)
+    recs= update_ranking( recs )
+
+    pp recs
+    recs
+  end
+
+
+  def self.calc_for_events( events, opts={} )
+
+    ## todo:
+    ##  - add tracker for appeareances (stats records counter)
+
+    alltime_recs = {}  # stats recs indexed by team_key
+
+    events.each do |event|
+      puts "  update standings for #{event.title}"
+      recs = calc_stats( event.games )
+
+      recs.each do |team_key, rec|
+        alltime_rec = alltime_recs[ team_key ] || Stats.new( 0, 0, 0, 0, 0, 0, 0, 0 )
+
+        ## add stats values
+        alltime_rec.played        += rec.played
+        alltime_rec.won           += rec.won
+        alltime_rec.lost          += rec.lost
+        alltime_rec.drawn         += rec.drawn
+        alltime_rec.goals_for     += rec.goals_for
+        alltime_rec.goals_against += rec.goals_against
+        alltime_rec.pts           += rec.pts
+        
+        alltime_recs[ team_key ] = alltime_rec 
+      end
+    end
+
+    ## update pos (that is, ranking e.g. 1.,2., 3. etc.)
+    alltime_recs= update_ranking( alltime_recs )
+
+    pp alltime_recs
+    alltime_recs
+  end
+
+
+
+  def self.calc_stats( games, opts={} )
     
     ## fix:
     #   passing in e.g. pts for win (3? 2? etc.)
@@ -79,11 +130,6 @@ module StandingsHelper
       recs[ g.team1.key ] = rec1
       recs[ g.team2.key ] = rec2
     end  # each game
-
-    ## update pos (that is, ranking e.g. 1.,2., 3. etc.)
-    recs= update_ranking( recs )
-
-    pp recs
 
     recs # return records; hash indexed by team key
   end # method calc

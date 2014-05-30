@@ -12,17 +12,41 @@ module StandingsHelper
 
   ## todo:
   ##  add team_id to struct - why? why not?  - saves a db lookup?
-  ##  add appearances (event) count  or similar - add to struct or use an extension?
-  ##    == use recs for number of (stats) records?
-  Stats = Struct.new(
-            :pos,
-            :played,
-            :won,
-            :lost,
-            :drawn,
-            :goals_for,
-            :goals_against,
-            :pts )
+  class Stats
+     attr_accessor :pos, :played, :won, :lost, :drawn,
+                   :goals_for, :goals_against, :pts,
+                   :recs
+
+     def initialize
+       @pos           = nil    # use 0? why? why not?
+       @played        = 0
+       @won           = 0
+       @lost          = 0
+       @drawn         = 0
+       @goals_for     = 0
+       @goals_against = 0
+       @pts           = 0
+       @recs          = 0
+       # note: appearances (event) count  or similar
+       #   is recs counter (number of (stats) records)
+     end
+
+     def add( rec )
+       ### fix: add plus + operator too!
+       
+       # note: will NOT update/add pos (ranking)
+       self.played        += rec.played
+       self.won           += rec.won
+       self.lost          += rec.lost
+       self.drawn         += rec.drawn
+       self.goals_for     += rec.goals_for
+       self.goals_against += rec.goals_against
+       self.pts           += rec.pts
+       self.recs          += rec.recs
+
+       self # return self stats rec
+     end # method add
+  end  # class Stats
 
 
   def self.calc( games, opts={} )
@@ -34,6 +58,7 @@ module StandingsHelper
     pp recs
     recs
   end
+
 
 
   def self.calc_for_events( events, opts={} )
@@ -48,18 +73,56 @@ module StandingsHelper
       recs = calc_stats( event.games )
 
       recs.each do |team_key, rec|
-        alltime_rec = alltime_recs[ team_key ] || Stats.new( 0, 0, 0, 0, 0, 0, 0, 0 )
+        alltime_rec = alltime_recs[ team_key ] || Stats.new
 
         ## add stats values
-        alltime_rec.played        += rec.played
-        alltime_rec.won           += rec.won
-        alltime_rec.lost          += rec.lost
-        alltime_rec.drawn         += rec.drawn
-        alltime_rec.goals_for     += rec.goals_for
-        alltime_rec.goals_against += rec.goals_against
-        alltime_rec.pts           += rec.pts
-        
+        alltime_rec.add( rec )
+
         alltime_recs[ team_key ] = alltime_rec 
+      end
+    end
+
+
+    ### fix:
+    # - make merge team into a helper method (for reuse)
+
+    ## check for merging teams
+    # e.g. all time world cup
+    #   Germany incl. West Germany
+    #   Russia  incl. Soviet Union etc.
+    
+    # todo: change opts para to :includes  instead of :merge ? why? why not??
+
+    merge = opts[:merge]
+    if merge
+      puts "  merging teams (stats records):"
+      pp merge
+
+      merge.each do |k,v|
+        # note: assume key is destition team key and
+        #         value is source team key  e.g.  'GER' => 'FRG'
+        #         or array (for mulitple teamss e.g.  'GER' => ['FRG','GDR']
+        team_key_dest = k.to_s
+
+        if v.kind_of? Array
+          team_keys_src = v
+        else
+          team_keys_src = [v]    # turn single value arg into array w/ single item
+        end
+        team_keys_src = team_keys_src.map { |src| src.to_s }  # turn all to string (might be symbol)
+
+        alltime_rec_dest = alltime_recs[ team_key_dest ] || Stats.new
+
+        team_keys_src.each do |team_key_src|
+          alltime_rec_src  = alltime_recs[ team_key_src]
+
+          if alltime_rec_src  # stats record found?
+            alltime_rec_dest.add( alltime_rec_src )  # add stats values
+            alltime_recs.delete( team_key_src )      # remove old src entry
+          end
+        end
+
+        alltime_recs[ team_key_dest ] = alltime_rec_dest
       end
     end
 
@@ -73,26 +136,33 @@ module StandingsHelper
 
 
   def self.calc_stats( games, opts={} )
-    
+
     ## fix:
     #   passing in e.g. pts for win (3? 2? etc.)
     #    default to 3 for now
-    
+
+    # note:
+    #   returns stats records w/ stats records counter always set to one (recs==1)
+
     recs = {}
 
     games.each_with_index do |g,i|   # note: index(i) starts w/ zero (0)
       puts "  [#{i+1}] #{g.team1.title} - #{g.team2.title}  #{g.score_str}"
       unless g.over?
-        puts "    skipping match - not yet over (play_at date in the future)"
+        puts "    !!!! skipping match - not yet over (play_at date in the future)"
         next
       end
       unless g.complete?
-        puts "    skipping match - scores incomplete"
+        puts "    !!!! skipping match - scores incomplete"
         next
       end
 
-      rec1 = recs[ g.team1.key ] || Stats.new( 0, 0, 0, 0, 0, 0, 0, 0 )
-      rec2 = recs[ g.team2.key ] || Stats.new( 0, 0, 0, 0, 0, 0, 0, 0 )
+      rec1 = recs[ g.team1.key ] || Stats.new
+      rec2 = recs[ g.team2.key ] || Stats.new
+
+      ## set stats records counter to one if new (first) record update 
+      rec1.recs = 1   if rec1.recs == 0
+      rec2.recs = 1   if rec2.recs == 0
 
       rec1.played += 1
       rec2.played += 1

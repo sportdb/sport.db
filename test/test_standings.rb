@@ -66,7 +66,7 @@ class TestStandings < MiniTest::Unit::TestCase
       key   = country[0]
       name  = country[1]
       code  = country[2]
-      Country.create!( key: key, name: name, code: code, pop: 1, area: 1)
+      Country.create!( key: key, name: name, code: code, pop: 1, area: 1 )
     end
   end
 
@@ -133,6 +133,35 @@ class TestStandings < MiniTest::Unit::TestCase
     st.recalc_for_league!( league )
     assert_equal 16, st.entries.count
     assert_equal 16, AlltimeStandingEntry.count
+
+
+    # test merge to new team (not included)
+    at  = Country.find_by_key!( 'at' )
+    aut = Team.create!( key: 'aut', title: 'Austria', code: 'AUT', country_id: at.id ) 
+
+    #### try merge teams
+    #  merge (incl.) uruguay into bra
+    #   
+    st.recalc_for_league!( league, merge: { 'bra' => 'uru',
+                                            'pol' => ['bul', 'yug'],
+                                            'aut' => 'aus' } )
+
+    assert_equal 13, st.entries.count
+    assert_equal 13, AlltimeStandingEntry.count
+
+    bra = Team.find_by_key!( 'bra' )
+    bra_stats = st.entries.where( team_id: bra.id ).first
+    assert_equal 2, bra_stats.recs
+
+    pol = Team.find_by_key!( 'pol' )
+    pol_stats = st.entries.where( team_id: pol.id ).first
+    assert_equal 3, pol_stats.recs
+
+    # test merge to new team (not included)
+    aut = Team.find_by_key!( 'aut' )
+    aut_stats = st.entries.where( team_id: aut.id ).first
+    assert_equal 1, aut_stats.recs
+
   end # test_alltime_standings_recalc
 
 

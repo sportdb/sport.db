@@ -366,7 +366,8 @@ create_table :alltime_standing_entries do |t|
   t.integer     :goals_for             # todo: find a short name - gf? why? why not?
   t.integer     :goals_against         # todo: find a shorter name - ga? why? why not?
   t.integer     :pts
-  t.string      :comments
+  t.integer     :recs               # note: specific to alltime - stats records counter (e.g. appearance counter)
+  t.string      :comments  
   t.timestamps
 end
 

@@ -3,7 +3,7 @@
 #
 #  e.g. config.ru:
 #   require './boot'
-#   run SportDb::Service::Server
+#   run SportDb::Server
 
 
 # 3rd party libs/gems
@@ -13,18 +13,18 @@ require 'sinatra/base'
 
 # our own code
 
+
+require 'sportdb/service/server'
+
+
+### for legacy old code e.g. SportDb::Service::Server - remove later - do NOT use
+##  remove module Service (obsolete)
 module SportDb
   module Service
-
-  def self.banner
-    "sportdb-service/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}] on Sinatra/#{Sinatra::VERSION} (#{ENV['RACK_ENV']})"
-  end
-
+    Server = SportDb::Server
   end # module Service
 end #  module SportDb
 
 
-require 'sportdb/service/server'
-
 # say hello
-puts SportDb::Service.banner
+puts SportDb::Server.banner

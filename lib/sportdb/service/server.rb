@@ -1,9 +1,12 @@
 
 module SportDb
-  module Service
 
 
 class Server < Sinatra::Base
+
+  def self.banner
+    "sportdb-service/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}] on Sinatra/#{Sinatra::VERSION} (#{ENV['RACK_ENV']})"
+  end
 
   ######
   # allow cross site json requests (e.g. url posting on rubyflow - avoid crash!!)
@@ -27,7 +30,7 @@ class Server < Sinatra::Base
   #####################
   # Models
 
-  include SportDb::Models
+  include Models
 
   ##################
   # Helpers
@@ -178,5 +181,4 @@ end
 
 end # class Server
 
-  end # module Service
 end #  module SportDb

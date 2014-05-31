@@ -9,5 +9,5 @@ gemspec
 gem 'sqlite3'        ## https://rubygems.org/gems/sqlite3
 
 ### needed ??
-gem 'activerecord', '~> 3.2'   ##https://rubygems.org/gems/activerecord
+### gem 'activerecord'   ## https://rubygems.org/gems/activerecord
 

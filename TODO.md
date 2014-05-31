@@ -8,9 +8,9 @@
     [error] unknown event attrib fixtures; skipping attrib
 
 
-[ ] allow results with two digits e.g. 10-0  - Spain - Thaiti in Confeds Cup! it is possible
+[x] allow results with two digits e.g. 10-0  - Spain - Thaiti in Confeds Cup! it is possible
 
-[ ] add support for predefined matchdays for groups and autocomplete of matchday for group stage (by date range lookup)
+[x] add support for predefined matchdays for groups and autocomplete of matchday for group stage (by date range lookup)
     try championsliga or copa libertadores for example events
 
 

@@ -13,28 +13,16 @@ require 'sinatra/base'
 
 # our own code
 
-require 'sportdb/service/version'
-
-
-module SportDb::Service
+module SportDb
+  module Service
 
   def self.banner
-    "sportdb-service #{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}] on Sinatra/#{Sinatra::VERSION} (#{ENV['RACK_ENV']})"
+    "sportdb-service/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}] on Sinatra/#{Sinatra::VERSION} (#{ENV['RACK_ENV']})"
   end
 
-### fix: move to SportDb
-  def self.root
-    "#{File.expand_path( File.dirname(File.dirname(File.dirname(__FILE__))) )}"
-  end
-
-=begin  
-  def self.config_path
-    ## needed? use default db connection?
-    "#{root}/config"
-  end
-=end
-
+  end # module Service
 end #  module SportDb
+
 
 require 'sportdb/service/server'
 

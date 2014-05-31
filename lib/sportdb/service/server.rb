@@ -1,5 +1,7 @@
 
-module SportDb::Service
+module SportDb
+  module Service
+
 
 class Server < Sinatra::Base
 
@@ -11,8 +13,8 @@ class Server < Sinatra::Base
   
   disable :protection
 
-  PUBLIC_FOLDER = "#{SportDb::Service.root}/lib/sportdb/service/public"
-  VIEWS_FOLDER  = "#{SportDb::Service.root}/lib/sportdb/service/views"
+  PUBLIC_FOLDER = "#{SportDb.root}/lib/sportdb/service/public"
+  VIEWS_FOLDER  = "#{SportDb.root}/lib/sportdb/service/views"
 
   puts "[boot] setting sportdb api public folder to: #{PUBLIC_FOLDER}"
   puts "[boot] setting sportdb api views folder to: #{VIEWS_FOLDER}" 
@@ -176,5 +178,5 @@ end
 
 end # class Server
 
-
-end #  module SportDb::Service
+  end # module Service
+end #  module SportDb

@@ -16,9 +16,10 @@ module SportDb
       puts "  #{Roster.count} rosters (person+team+event recs)"
       puts "  #{Goal.count} goals (person+game recs)"
 
+      puts "  #{Assoc.count}  assocs|orgs"
       puts "  #{Ground.count}  grounds|stadiums"
     end
-    
+
     ## fix/chek:
     #  move to Prop gem / reuse code from Prop gem
     def props

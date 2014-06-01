@@ -298,6 +298,22 @@ create_table :badges do |t|
 end
 
 
+create_table :assocs do |t|
+  t.string     :key,   null: false
+  t.string     :title, null: false     # e.g. Premier League, Deutsche Bundesliga, World Cup, Champions League, etc.
+
+  t.integer    :since     # founding year
+  t.string     :web
+
+  ## add :world flag for FIFA?
+  ## add :regional flag for continental subdivision?
+  t.boolean :continental,      null: false, default: false
+  t.boolean :intercontinental, null: false, default: false  # e.g. arab football league (africa+western asia/middle east)
+  t.boolean :national,         null: false, default: false
+  t.timestamps
+end
+
+
 ############################################
 # stats tables
 

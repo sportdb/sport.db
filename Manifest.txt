@@ -24,12 +24,14 @@ lib/sportdb/finders/date.rb
 lib/sportdb/finders/scores.rb
 lib/sportdb/lang.rb
 lib/sportdb/matcher.rb
+lib/sportdb/models/assoc.rb
 lib/sportdb/models/badge.rb
 lib/sportdb/models/event.rb
 lib/sportdb/models/event_ground.rb
 lib/sportdb/models/event_team.rb
 lib/sportdb/models/forward.rb
 lib/sportdb/models/game.rb
+lib/sportdb/models/game_comp.rb
 lib/sportdb/models/goal.rb
 lib/sportdb/models/ground.rb
 lib/sportdb/models/group.rb
@@ -49,6 +51,7 @@ lib/sportdb/models/stats/event_standing_entry.rb
 lib/sportdb/models/stats/group_standing.rb
 lib/sportdb/models/stats/group_standing_entry.rb
 lib/sportdb/models/team.rb
+lib/sportdb/models/team_comp.rb
 lib/sportdb/models/track.rb
 lib/sportdb/models/utils.rb
 lib/sportdb/models/world/city.rb
@@ -57,6 +60,7 @@ lib/sportdb/models/world/country.rb
 lib/sportdb/models/world/region.rb
 lib/sportdb/patterns.rb
 lib/sportdb/reader.rb
+lib/sportdb/readers/assoc.rb
 lib/sportdb/readers/event.rb
 lib/sportdb/readers/game.rb
 lib/sportdb/readers/ground.rb
@@ -97,6 +101,7 @@ test/data/at-austria/2013_14/el.yml
 test/data/at-austria/leagues.txt
 test/data/at-austria/teams.txt
 test/data/at-austria/teams_2.txt
+test/data/national-teams/assocs.txt
 test/data/players/europe/de-deutschland/players.txt
 test/data/players/south-america/br-brazil/players.txt
 test/data/world-cup/1930/cup.txt
@@ -123,6 +128,7 @@ test/data/world-cup/teams_1954.txt
 test/data/world-cup/teams_1962.txt
 test/data/world-cup/teams_1974.txt
 test/helper.rb
+test/test_assoc_reader.rb
 test/test_changes.rb
 test/test_cursor.rb
 test/test_date.rb

@@ -117,6 +117,9 @@ class Reader
     elsif name =~ /(?:^|\/)seasons/  # NB: ^seasons or also possible at-austria!/seasons
       reader = SeasonReader.new( include_path )
       reader.read( name )
+    elsif name =~ /(?:^|\/)assocs/  # NB: ^assocs or also possible national-teams!/assocs
+      reader = AssocReader.new( include_path )
+      reader.read( name )
     elsif match_stadiums_for_country( name ) do |country_key|
             country = Country.find_by_key!( country_key )
             reader = GroundReader.new( include_path )

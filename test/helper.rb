@@ -24,6 +24,7 @@ Season     = SportDb::Model::Season
 Event      = SportDb::Model::Event
 Team       = SportDb::Model::Team
 Roster     = SportDb::Model::Roster
+Assoc      = SportDb::Model::Assoc
 
 Round      = SportDb::Model::Round
 Group      = SportDb::Model::Group
@@ -45,6 +46,7 @@ AlltimeStandingEntry = SportDb::Model::AlltimeStandingEntry
 
 Reader             = SportDb::Reader
 TeamReader         = SportDb::TeamReader
+AssocReader        = SportDb::AssocReader
 SeasonReader       = SportDb::SeasonReader
 LeagueReader       = SportDb::LeagueReader
 GameReader         = SportDb::GameReader

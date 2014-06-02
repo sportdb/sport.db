@@ -314,6 +314,17 @@ create_table :assocs do |t|
 end
 
 
+create_table :assocs_teams do |t|
+  t.references :assoc, null: false
+  t.references :team,  null: false
+  t.timestamps
+end
+
+add_index :assocs_teams, [:assoc_id,:team_id], unique: true
+add_index :assocs_teams, :assoc_id
+
+
+
 ############################################
 # stats tables
 

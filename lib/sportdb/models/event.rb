@@ -9,8 +9,8 @@ class Event < ActiveRecord::Base
   belongs_to :season
 
 if ActiveRecord::VERSION::MAJOR == 3
-  has_many :rounds, :order => 'pos'  # all (fix and flex) rounds
-  has_many :groups, :order => 'pos'
+  has_many :rounds, order: 'pos'  # all (fix and flex) rounds
+  has_many :groups, order: 'pos'
 else
   has_many :rounds, -> { order('pos') }  # all (fix and flex) rounds
   has_many :groups, -> { order('pos') }
@@ -18,16 +18,18 @@ end
 
   has_many :games, :through => :rounds
 
-  has_many :event_teams,    :class_name => 'EventTeam'
+  has_many :event_teams,  class_name: 'EventTeam'
   has_many :teams, :through => :event_teams
 
-  has_many :event_grounds,  :class_name => 'EventGround'
+  has_many :event_grounds,  class_name: 'EventGround'
   has_many :grounds, :through => :event_grounds
 
 
   before_save :on_before_save
 
+
   def add_teams_from_ary!( team_keys )
+    ## move to depreciated? used in event reader? why? why not?
     team_keys.each do |team_key|
       team = Team.find_by_key!( team_key )
       self.teams << team
@@ -41,11 +43,6 @@ end
   
   def title
     "#{league.title} #{season.title}"
-  end
-
-  def full_title   # includes season (e.g. year)
-    puts "*** depreciated API call Event#full_title; use Event#title instead; full_title will get removed"
-    "#{league.title} #{season.title}"    
   end
 
 

@@ -25,6 +25,7 @@ Event      = SportDb::Model::Event
 Team       = SportDb::Model::Team
 Roster     = SportDb::Model::Roster
 Assoc      = SportDb::Model::Assoc
+AssocTeam  = SportDb::Model::AssocTeam
 
 Round      = SportDb::Model::Round
 Group      = SportDb::Model::Group

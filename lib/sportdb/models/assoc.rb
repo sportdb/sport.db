@@ -3,6 +3,9 @@ module SportDb
 
 class Assoc < ActiveRecord::Base
 
+  has_many :assoc_teams, class_name: 'AssocTeam'
+  has_many :teams, :through => :assoc_teams
+
 
   def self.create_or_update_from_values( new_attributes, values )
 

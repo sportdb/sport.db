@@ -25,8 +25,10 @@ lib/sportdb/finders/scores.rb
 lib/sportdb/lang.rb
 lib/sportdb/matcher.rb
 lib/sportdb/models/assoc.rb
+lib/sportdb/models/assoc_team.rb
 lib/sportdb/models/badge.rb
 lib/sportdb/models/event.rb
+lib/sportdb/models/event_comp.rb
 lib/sportdb/models/event_ground.rb
 lib/sportdb/models/event_team.rb
 lib/sportdb/models/forward.rb
@@ -35,6 +37,7 @@ lib/sportdb/models/game_comp.rb
 lib/sportdb/models/goal.rb
 lib/sportdb/models/ground.rb
 lib/sportdb/models/group.rb
+lib/sportdb/models/group_comp.rb
 lib/sportdb/models/group_team.rb
 lib/sportdb/models/league.rb
 lib/sportdb/models/person.rb

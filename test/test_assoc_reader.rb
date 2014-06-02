@@ -54,7 +54,7 @@ class TestAssocReader < MiniTest::Unit::TestCase
   end
 
 
-  def test_fifa
+  def test_assocs
     reader = AssocReader.new( SportDb.test_data_path )
     reader.read( 'national-teams/assocs' )
 
@@ -71,7 +71,55 @@ class TestAssocReader < MiniTest::Unit::TestCase
     assert_equal 'Union of European Football Associations (UEFA)', uefa.title
     assert_equal 1954, uefa.since
     assert_equal 'www.uefa.com', uefa.web
-  end  # method test_fifa
+  end  # method test_assocs
+
+
+  def test_teams
+    assocreader = AssocReader.new( SportDb.test_data_path )
+    assocreader.read( 'national-teams/assocs' )
+
+    assert_equal 20, Assoc.count
+    
+    ## add countries
+    countries = [['mx', 'Mexico', 'MEX'],
+                 ['us', 'United States', 'USA'],
+                 ['ca', 'Canada', 'CAN'],
+                 ['dz', 'Algeria', 'ALG'],
+                 ['eg', 'Egypt', 'EGY'],
+                 ['au', 'Australia', 'AUS'],
+                 ['nz', 'New Zealand', 'NZL'],
+                 ['ki', 'Kiribati', 'KIR'],
+                 ['tv', 'Tuvalu',  'TUV']]
+
+    countries.each do |country|
+      Country.create!( key:  country[0],
+                       name: country[1],
+                       code: country[2],
+                       pop: 1,
+                       area: 1)
+    end
+
+    teamreader = TeamReader.new( SportDb.test_data_path )
+    teamreader.read( 'national-teams/teams' )
+
+    assert_equal 9, Team.count
+    
+    fifa = Assoc.find_by_key!( 'fifa' )
+    assert_equal 7, fifa.teams.count
+
+    ofc = Assoc.find_by_key!( 'ofc' )
+    assert_equal 3, ofc.teams.count
+
+    mex = Team.find_by_key!( 'mex' )
+    assert_equal 3, mex.assocs.count
+
+    tuv = Team.find_by_key!( 'tuv' )
+    assert_equal 1, tuv.assocs.count
+    
+    ### fix/todo: run teamreader again!! (2nd run)
+    ##   assert no new assocs (just update existing)
+
+  end  # method test_teams
 
 
 end # class TestAssocReader

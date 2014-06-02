@@ -1,0 +1,26 @@
+####################
+# North America
+# - CONCACAF / NAFU (North American Football Union)
+
+mex, Mexico, MEX,        mx, fifa|concacaf|nafu
+usa, United States, USA, us, fifa|concacaf|nafu
+can, Canada, CAN,        ca, fifa|concacaf|nafu
+
+########################
+# Africa
+# - CAF (Africa) - 5 regions
+# - UNAF (Union of North African Football Federations)
+
+alg, Algeria, ALG, dz,  fifa|caf|unaf|uafa
+egy, Egypt, EGY,   eg,  fifa|caf|unaf|uafa
+
+###############################
+# Oceania w/ Australia
+
+aus, Australia,   AUS, au,  fifa|afc|aff
+nzl, New Zealand, NZL, nz,  fifa|ofc
+
+# not FIFA members  - just ofc!!!!!! do NOT mixup with country key!!!
+
+kir, Kiribati, KIR, ki, ofc
+tuv, Tuvalu,   TUV, tv, ofc

@@ -59,6 +59,8 @@ class Team < ActiveRecord::Base
     ## fix: add/configure logger for ActiveRecord!!!
     logger = LogUtils::Logger.root
 
+    assoc_keys = []   # by default no association (e.g. fifa,uefa,etc.)
+
     ## check optional values
     values.each_with_index do |value, index|
       if value =~ /^city:/   ## city:
@@ -85,8 +87,13 @@ class Team < ActiveRecord::Base
         new_attributes[ :code ] = value
       elsif value =~ /^[a-z]{2}$/  ## assume two-letter country key e.g. at,de,mx,etc.
         ## fix: allow country letter with three e.g. eng,sco,wal,nir, etc. !!!
+        ## fix: if country does NOT match / NOT found - just coninue w/ next match!!!!
+        #   - just issue an error/warn do NOT crash
         value_country = Country.find_by_key!( value )
         new_attributes[ :country_id ] = value_country.id
+      elsif value =~ /^[a-z|]+$/ && values.size == index+1   ## is last entry and looks like a tag list e.g. fifa|uefa or fifa|caf or ocf? 
+        logger.info "  trying adding assocs using keys >#{value}<"
+        assoc_keys = value.split('|')
       else
         ## todo: assume title2 ??
         # issue warning: unknown type for value
@@ -101,10 +108,21 @@ class Team < ActiveRecord::Base
       logger.debug "create Team:"
       rec = Team.new
     end
-      
+
     logger.debug new_attributes.to_json
-   
+
     rec.update_attributes!( new_attributes )
+
+    unless assoc_keys.empty?
+      ## add team to assocs
+      assoc_keys.each do |assoc_key|
+        assoc = Assoc.find_by_key!( assoc_key )
+        logger.debug "  adding team to assoc >#{assoc.title}<"
+        ## fix!!!!!: check if already member (do NOT add duplicates)
+        assoc.teams << rec
+      end
+    end
+
   end # create_or_update_from_values
   
 end  # class Team

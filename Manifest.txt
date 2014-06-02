@@ -105,6 +105,7 @@ test/data/at-austria/leagues.txt
 test/data/at-austria/teams.txt
 test/data/at-austria/teams_2.txt
 test/data/national-teams/assocs.txt
+test/data/national-teams/teams.txt
 test/data/players/europe/de-deutschland/players.txt
 test/data/players/south-america/br-brazil/players.txt
 test/data/world-cup/1930/cup.txt

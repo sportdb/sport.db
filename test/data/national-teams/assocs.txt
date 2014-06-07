@@ -45,7 +45,8 @@
   Europe
   www.uefa.com
   en.wikipedia:UEFA
-  parent:fifa    # find better style?  use header line for all? use [uefa/fifa] ?
+  fifa
+  # note: last tag list entry ( e.g. fifa or fifa|uefa etc. assumed as parent assocs - find better style?  use header line for all? use [uefa/fifa] ?
   # Nyon, Switzerland
   # 54 members
 
@@ -57,6 +58,7 @@
   South America
   www.conmebol.com
   en.wikipedia:CONMEBOL
+  fifa
   # Asunción, Paraguay  (Luque)
   # 10 members
 
@@ -66,6 +68,7 @@
   North America\, Central America & Caribbean Islands
   www.concacaf.com
   en.wikipedia:CONCACAF
+  fifa
   # Miami, Florida, United States
   # 41 members
   # - 31 from the Caribbean
@@ -80,6 +83,7 @@
   Africa
   www.cafonline.com
   en.wikipedia:Confederation_of_African_Football
+  fifa
   # Cairo, Egypt (6th of October City)
   # 56 members
 
@@ -88,6 +92,7 @@
   Asia      # incl. Middle East, Australia
   www.the-afc.com
   en.wikipedia:Asian_Football_Confederation
+  fifa
   # Kuala Lumpur, Malaysia
   # 46+1 members
 
@@ -99,6 +104,7 @@
   Pacific   # Oceania
   www.oceaniafootball.com
   en.wikipedia:Oceania_Football_Confederation
+  fifa
   # Auckland, New Zealand
   # 14 members (11 full)
 
@@ -114,18 +120,21 @@
   North American Football Union (NAFU) / North American Zone
   # 3 members
   en.wikipedia:North_American_Football_Union
+  concacaf
   # note: has no org structure (just "informal"); no longer any competions
 
 [uncaf]
   Unión Centroamericana de Fútbol (UNCAF) / Central American Zone
   www.uncafut.com
   en.wikipedia:Central_American_Football_Union
+  concacaf
   # 7 members
 
 [cfu]
   Caribbean Football Union (CFU) / Caribbean Zone
   www.cfufootball.org
   en.wikipedia:Caribbean_Football_Union
+  concacaf
   # 31 members
 
 #########

@@ -312,7 +312,7 @@ create_table :assocs do |t|
   t.references :country   # note: optional - only used/set (required) for national assocs (or subnational too?)
   t.boolean    :national,    null: false, default: false
 
-  ## add :world flag for FIFA?
+  ## add :world flag for FIFA? - just check if parent is null? for root assoc(s)? why? why not?
   ## add :regional flag for continental subdivision?
   t.boolean :continental,      null: false, default: false
   t.boolean :intercontinental, null: false, default: false  # e.g. arab football league (africa+western asia/middle east)

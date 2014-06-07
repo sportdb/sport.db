@@ -26,7 +26,8 @@ class TestAssocReader < MiniTest::Unit::TestCase
     assert_equal 1, Assoc.count
 
     at       = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
-    assocaut = Assoc.create!( key: 'assocaut', title: 'Assoc Austria', country_id: at.id )
+    assocaut = Assoc.create!( key: 'assocaut', title: 'Assoc Austria',
+                              national: true, country_id: at.id )
 
     aut      = Team.create!( key: 'aut', title: 'Austria', code: 'AUT',
                              country_id: at.id,
@@ -42,13 +43,20 @@ class TestAssocReader < MiniTest::Unit::TestCase
 
     assert_equal 1, AssocAssoc.count
     assert_equal 1, uefa.member_assoc_assocs.count
+    assert_equal 1, uefa.all_assocs.count
+    assert_equal 0, uefa.sub_assocs.count
+    assert_equal 1, uefa.national_assocs.count
     assert_equal 0, uefa.parent_assoc_assocs.count
+    assert_equal 0, uefa.parent_assocs.count
     assert_equal 1, assocaut.parent_assoc_assocs.count
+    assert_equal 1, assocaut.parent_assocs.count
     assert_equal 0, assocaut.member_assoc_assocs.count
+    assert_equal 0, assocaut.all_assocs.count
 
 
     it       = Country.create!( key: 'it', name: 'Italy', code: 'ITA', pop: 1, area: 1)
-    associta = Assoc.create!( key: 'associta', title: 'Assoc Italy', country_id: it.id )
+    associta = Assoc.create!( key: 'associta', title: 'Assoc Italy',
+                              national: true, country_id: it.id )
 
     ita      = Team.create!( key: 'ita', title: 'Italy', code: 'ITA',
                              country_id: it.id,
@@ -62,6 +70,8 @@ class TestAssocReader < MiniTest::Unit::TestCase
 
     assert_equal 2, AssocAssoc.count
     assert_equal 2, uefa.member_assoc_assocs.count
+    assert_equal 2, uefa.national_assocs.count
+    assert_equal 0, uefa.sub_assocs.count
     assert_equal 0, uefa.parent_assoc_assocs.count
     assert_equal 1, associta.parent_assoc_assocs.count
     assert_equal 0, associta.member_assoc_assocs.count
@@ -79,12 +89,61 @@ class TestAssocReader < MiniTest::Unit::TestCase
     assert_equal 'Fédération Internationale de Football Association (FIFA)', fifa.title
     assert_equal 1904, fifa.since
     assert_equal 'www.fifa.com', fifa.web
+    assert_equal 0, fifa.parent_assoc_assocs.count
+    assert_equal 6, fifa.member_assoc_assocs.count
+    assert_equal 6, fifa.all_assocs.count
+    assert_equal 6, fifa.sub_assocs.count
+    assert_equal 0, fifa.national_assocs.count
+    assert_equal 0, fifa.parent_assocs.count
 
     uefa = Assoc.find_by_key!( 'uefa' )
 
     assert_equal 'Union of European Football Associations (UEFA)', uefa.title
     assert_equal 1954, uefa.since
     assert_equal 'www.uefa.com', uefa.web
+    assert_equal 1, uefa.parent_assoc_assocs.count
+    assert_equal 0, uefa.member_assoc_assocs.count
+    assert_equal 0, uefa.all_assocs.count
+    assert_equal 0, uefa.sub_assocs.count
+    assert_equal 0, uefa.national_assocs.count
+    assert_equal 1, uefa.parent_assocs.count
+
+    concacaf = Assoc.find_by_key!( 'concacaf' )
+
+    assert_equal 'Confederation of North, Central American and Caribbean Association Football (CONCACAF)', concacaf.title
+    assert_equal 1961, concacaf.since
+    assert_equal 1, concacaf.parent_assoc_assocs.count
+    assert_equal 3, concacaf.member_assoc_assocs.count
+    assert_equal 3, concacaf.all_assocs.count
+    assert_equal 3, concacaf.sub_assocs.count
+    assert_equal 0, concacaf.national_assocs.count
+    assert_equal 1, concacaf.parent_assocs.count
+
+
+    mx = Country.create!( key: 'mx', name: 'Mexico', code: 'MEX', pop: 1, area: 1)
+    ca = Country.create!( key: 'ca', name: 'Canada', code: 'CAN', pop: 1, area: 1)
+    us = Country.create!( key: 'us', name: 'United States', code: 'USA', pop: 1, area: 1)
+
+    reader.read( 'national-teams/north-america/assocs' )
+
+    assert_equal 23, Assoc.count
+
+    assert_equal 6+3, fifa.all_assocs.count
+    assert_equal 6,   fifa.sub_assocs.count
+    assert_equal 0+3, fifa.national_assocs.count
+
+    assert_equal 3+3, concacaf.all_assocs.count
+    assert_equal 3,   concacaf.sub_assocs.count
+    assert_equal 0+3, concacaf.national_assocs.count
+    assert_equal 1,   concacaf.parent_assocs.count
+
+    assocusa = Assoc.find_by_key!( 'assocusa' )
+    assert_equal 'United States Soccer Federation', assocusa.title
+    assert_equal 3, assocusa.parent_assocs.count
+    assert_equal 0, assocusa.all_assocs.count
+    assert_equal 0, assocusa.sub_assocs.count
+    assert_equal 0, assocusa.national_assocs.count
+
   end  # method test_assocs
 
 
@@ -119,16 +178,16 @@ class TestAssocReader < MiniTest::Unit::TestCase
 
     assert_equal 9, Team.count
     
-    fifa = Assoc.find_by_key!( 'fifa' )
+    ## fifa = Assoc.find_by_key!( 'fifa' )
     ## assert_equal 7, fifa.teams.count
 
-    ofc = Assoc.find_by_key!( 'ofc' )
+    ## ofc = Assoc.find_by_key!( 'ofc' )
     ## assert_equal 3, ofc.teams.count
 
-    mex = Team.find_by_key!( 'mex' )
+    ## mex = Team.find_by_key!( 'mex' )
     ## assert_equal 3, mex.assocs.count
 
-    tuv = Team.find_by_key!( 'tuv' )
+    ## tuv = Team.find_by_key!( 'tuv' )
     ## assert_equal 1, tuv.assocs.count
 
     ### fix/todo: run teamreader again!! (2nd run)

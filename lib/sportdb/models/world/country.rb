@@ -4,7 +4,8 @@ module WorldDb
   module Model
 
   class Country
-    has_many :teams,          class_name: 'SportDb::Model::Team',   foreign_key: 'country_id'
+    has_many :teams,   class_name: 'SportDb::Model::Team',   foreign_key: 'country_id'
+    has_one  :assoc,   class_name: 'SportDb::Model::Assoc',  foreign_key: 'country_id'
 
     # fix: require active record 4
     # has_many :clubs,           -> { where club: true },  class_name: 'SportDb::Model::Team',   foreign_key: 'country_id'

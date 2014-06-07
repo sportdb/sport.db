@@ -23,9 +23,8 @@ class Team < ActiveRecord::Base
   has_many :event_teams, class_name: 'EventTeam'  # join table (events+teams)
   has_many :events, :through => :event_teams
 
-  has_many :assoc_teams, class_name: 'AssocTeam'  # join table (assocs+teams)
-  has_many :assocs, :through => :assoc_teams
-
+  # note: team belongs_to a single (optinal) assoc for now (national assoc may have many assocs)
+  belongs_to :assoc
 
   ### fix!!! - how to do it with has_many macro? use finder_sql?
   ##  finder_sql is depreciated in Rails 4!!!

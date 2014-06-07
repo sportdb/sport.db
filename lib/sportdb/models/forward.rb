@@ -18,6 +18,7 @@ module SportDb
   ## nb: for now only team and league use worlddb tables
   #   e.g. with belongs_to assoc (country,region)
 
+  class Assoc  < ActiveRecord::Base ; end
   class Team < ActiveRecord::Base ; end
   class League < ActiveRecord::Base ; end
   class Ground < ActiveRecord::Base ; end
@@ -33,6 +34,7 @@ module WorldDb
   # add alias? why? why not? # is there a better way?
   #  - just include SportDb::Models  - why? why not?
   #  - just include once in loader??
+  Assoc  = SportDb::Model::Assoc
   Team   = SportDb::Model::Team
   League = SportDb::Model::League
   Ground = SportDb::Model::Ground

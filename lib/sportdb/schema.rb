@@ -20,6 +20,8 @@ create_table :teams do |t|
   t.string  :address
   t.string  :web
 
+  t.references :assoc   # optional: national football assoc(iation), for example - used for national teams
+
   ### fix: remove and add virtual attribute in model instead
   t.boolean  :national, null: false, default: false  # is it a national selection team (not a club)?
   t.timestamps
@@ -230,7 +232,8 @@ add_index :games, :round_id      # fk round_id index
 add_index :games, :group_id      # fk group_id index
 add_index :games, :next_game_id  # fk next_game_id index
 add_index :games, :prev_game_id  # fk next_game_id index
-
+add_index :games, :team1_id
+add_index :games, :team2_id
 
 
 # todo: remove id from join table (without extra fields)? why?? why not??
@@ -305,23 +308,30 @@ create_table :assocs do |t|
   t.integer    :since     # founding year
   t.string     :web
 
+  ### if national assoc - has (optional) country ref
+  t.references :country   # note: optional - only used/set (required) for national assocs (or subnational too?)
+  t.boolean    :national,    null: false, default: false
+
   ## add :world flag for FIFA?
   ## add :regional flag for continental subdivision?
   t.boolean :continental,      null: false, default: false
   t.boolean :intercontinental, null: false, default: false  # e.g. arab football league (africa+western asia/middle east)
-  t.boolean :national,         null: false, default: false
   t.timestamps
 end
 
+add_index :assocs, :key, unique: true
 
-create_table :assocs_teams do |t|
-  t.references :assoc, null: false
-  t.references :team,  null: false
+
+
+create_table :assocs_assocs do |t|
+  t.references :assoc1, null: false   # parent assoc
+  t.references :assoc2, null: false   # child assoc is_member_of parent assoc
   t.timestamps
 end
 
-add_index :assocs_teams, [:assoc_id,:team_id], unique: true
-add_index :assocs_teams, :assoc_id
+add_index :assocs_assocs, [:assoc1_id,:assoc2_id], unique: true
+add_index :assocs_assocs, :assoc1_id
+add_index :assocs_assocs, :assoc2_id
 
 
 

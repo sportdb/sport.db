@@ -25,7 +25,7 @@ lib/sportdb/finders/scores.rb
 lib/sportdb/lang.rb
 lib/sportdb/matcher.rb
 lib/sportdb/models/assoc.rb
-lib/sportdb/models/assoc_team.rb
+lib/sportdb/models/assoc_assoc.rb
 lib/sportdb/models/badge.rb
 lib/sportdb/models/event.rb
 lib/sportdb/models/event_comp.rb
@@ -105,6 +105,10 @@ test/data/at-austria/leagues.txt
 test/data/at-austria/teams.txt
 test/data/at-austria/teams_2.txt
 test/data/national-teams/assocs.txt
+test/data/national-teams/europe/assocs.txt
+test/data/national-teams/europe/teams.txt
+test/data/national-teams/north-america/assocs.txt
+test/data/national-teams/north-america/teams.txt
 test/data/national-teams/teams.txt
 test/data/players/europe/de-deutschland/players.txt
 test/data/players/south-america/br-brazil/players.txt

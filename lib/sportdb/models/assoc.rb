@@ -3,8 +3,20 @@ module SportDb
 
 class Assoc < ActiveRecord::Base
 
-  has_many :assoc_teams, class_name: 'AssocTeam'
-  has_many :teams, :through => :assoc_teams
+  has_many :member_assoc_assocs, class_name: 'AssocAssoc', foreign_key: 'assoc1_id'
+  has_many :parent_assoc_assocs, class_name: 'AssocAssoc', foreign_key: 'assoc2_id'
+
+  ## child_assocs - use child_assocs?  - (direct) member/child assocs
+  # has_many :member_assocs, class_name: 'Assoc', :through => :member_assoc_assocs
+  #   assoc2 -> holds member key
+
+  ## for now can have more than one (direct) parent assoc
+  ##   e.g. Africa Fed and Arab League Fed
+  ## has_many :parent_assocs, class_name: 'Assoc', :through => :parent_assoc_assocs
+  #   assoc1 -> holds parent key
+
+  # assoc only can have one direct team for now (uses belongs_to on other side) 
+  # has_one :team
 
 
   def self.create_or_update_from_values( new_attributes, values )

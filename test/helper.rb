@@ -19,13 +19,13 @@ Country    = WorldDb::Model::Country
 
 Person     = PersonDb::Model::Person
 
-League     = SportDb::Model::League
-Season     = SportDb::Model::Season
-Event      = SportDb::Model::Event
-Team       = SportDb::Model::Team
-Roster     = SportDb::Model::Roster
-Assoc      = SportDb::Model::Assoc
-AssocTeam  = SportDb::Model::AssocTeam
+League      = SportDb::Model::League
+Season      = SportDb::Model::Season
+Event       = SportDb::Model::Event
+Team        = SportDb::Model::Team
+Roster      = SportDb::Model::Roster
+Assoc       = SportDb::Model::Assoc
+AssocAssoc  = SportDb::Model::AssocAssoc
 
 Round      = SportDb::Model::Round
 Group      = SportDb::Model::Group

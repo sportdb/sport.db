@@ -1,0 +1,13 @@
+#######################
+# Europe
+
+aut, Österreichischer Fußball-Bund, at, fifa|uefa      ## Austria
+bel, Koninklijke Belgische Voetbalbond, be, fifa|uefa  ## Belgium
+cyp, Cyprus Football Association, cy, fifa|uefa        ## Cyprus
+ger, Deutscher Fußball-Bund, de, fifa|uefa             ## Germany
+est, Eesti Jalgpalli Liit, ee, fifa|uefa               ## Estonia
+esp, Real Federación Española de Fútbol, es, fifa|uefa ## Spain
+fin, Suomen Palloliitto, fi, fifa|uefa                 ## Finland
+fra, Fédération Française de Football, fr, fifa|uefa   ## France
+irl, Football Association of Ireland, ie, fifa|uefa    ## Ireland
+ita, Federazione Italiana Giuoco Calcio, it, fifa|uefa ## Italy

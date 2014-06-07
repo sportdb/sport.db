@@ -12,7 +12,7 @@ Hoe.spec 'sportdb' do
   self.summary = 'sportdb - sport.db command line tool'
   self.description = summary
 
-  self.urls    = ['https://github.com/geraldb/sport.db.ruby']
+  self.urls    = ['https://github.com/sportdb/sport.db.ruby']
 
   self.author  = 'Gerald Bauer'
   self.email   = 'opensport@googlegroups.com'

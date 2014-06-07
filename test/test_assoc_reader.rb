@@ -20,37 +20,51 @@ class TestAssocReader < MiniTest::Unit::TestCase
   def test_models
     assert_equal 0, Assoc.count
     assert_equal 0, Team.count
-    assert_equal 0, AssocTeam.count
+    assert_equal 0, AssocAssoc.count
 
     uefa = Assoc.create!( key: 'uefa', title: 'UEFA' )
     assert_equal 1, Assoc.count
 
-    at  = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
-    aut = Team.create!( key: 'aut', title: 'Austria', code: 'AUT', country_id: at.id )
+    at       = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
+    assocaut = Assoc.create!( key: 'assocaut', title: 'Assoc Austria', country_id: at.id )
+
+    aut      = Team.create!( key: 'aut', title: 'Austria', code: 'AUT',
+                             country_id: at.id,
+                             assoc_id: assocaut.id )
+
     assert_equal 1, Team.count
-    assert_equal 0, AssocTeam.count
+    assert_equal 'Assoc Austria', aut.assoc.title   # team.assoc belongs_to ref
+    assert_equal 'Assoc Austria', at.assoc.title    # country.assoc has_one ref
 
-    uefa.teams << aut
-    assert_equal 1, AssocTeam.count
-    assert_equal 1, uefa.teams.count
-    assert_equal 1, aut.assocs.count
+    assert_equal 0, AssocAssoc.count
 
-    it  = Country.create!( key: 'it', name: 'Italy', code: 'ITA', pop: 1, area: 1)
-    ita = Team.create!( key: 'ita', title: 'Italy', code: 'ITA', country_id: it.id )
+    AssocAssoc.create!( assoc1_id: uefa.id, assoc2_id: assocaut.id )
+
+    assert_equal 1, AssocAssoc.count
+    assert_equal 1, uefa.member_assoc_assocs.count
+    assert_equal 0, uefa.parent_assoc_assocs.count
+    assert_equal 1, assocaut.parent_assoc_assocs.count
+    assert_equal 0, assocaut.member_assoc_assocs.count
+
+
+    it       = Country.create!( key: 'it', name: 'Italy', code: 'ITA', pop: 1, area: 1)
+    associta = Assoc.create!( key: 'associta', title: 'Assoc Italy', country_id: it.id )
+
+    ita      = Team.create!( key: 'ita', title: 'Italy', code: 'ITA',
+                             country_id: it.id,
+                             assoc_id: associta.id )
+
     assert_equal 2, Team.count
+    assert_equal 'Assoc Italy', ita.assoc.title   # team.assoc belongs_to ref
+    assert_equal 'Assoc Italy', it.assoc.title    # country.assoc has_one ref
 
-    uefa.teams << ita
-    assert_equal 2, AssocTeam.count
-    assert_equal 2, uefa.teams.count
-    assert_equal 1, ita.assocs.count
+    AssocAssoc.create!( assoc1_id: uefa.id, assoc2_id: associta.id )
 
-    oefb = Assoc.create!( key: 'oefb', title: 'Oesterr. Fussballbund' )
-    assert_equal 2, Assoc.count
-
-    oefb.teams << aut
-    assert_equal 3, AssocTeam.count
-    assert_equal 1, oefb.teams.count
-    assert_equal 2, aut.assocs.count
+    assert_equal 2, AssocAssoc.count
+    assert_equal 2, uefa.member_assoc_assocs.count
+    assert_equal 0, uefa.parent_assoc_assocs.count
+    assert_equal 1, associta.parent_assoc_assocs.count
+    assert_equal 0, associta.member_assoc_assocs.count
   end
 
 
@@ -59,9 +73,9 @@ class TestAssocReader < MiniTest::Unit::TestCase
     reader.read( 'national-teams/assocs' )
 
     assert_equal 20, Assoc.count
-    
+
     fifa = Assoc.find_by_key!( 'fifa' )
-    
+
     assert_equal 'Fédération Internationale de Football Association (FIFA)', fifa.title
     assert_equal 1904, fifa.since
     assert_equal 'www.fifa.com', fifa.web
@@ -101,21 +115,22 @@ class TestAssocReader < MiniTest::Unit::TestCase
 
     teamreader = TeamReader.new( SportDb.test_data_path )
     teamreader.read( 'national-teams/teams' )
+    teamreader.read( 'national-teams/north-america/teams' )
 
     assert_equal 9, Team.count
     
     fifa = Assoc.find_by_key!( 'fifa' )
-    assert_equal 7, fifa.teams.count
+    ## assert_equal 7, fifa.teams.count
 
     ofc = Assoc.find_by_key!( 'ofc' )
-    assert_equal 3, ofc.teams.count
+    ## assert_equal 3, ofc.teams.count
 
     mex = Team.find_by_key!( 'mex' )
-    assert_equal 3, mex.assocs.count
+    ## assert_equal 3, mex.assocs.count
 
     tuv = Team.find_by_key!( 'tuv' )
-    assert_equal 1, tuv.assocs.count
-    
+    ## assert_equal 1, tuv.assocs.count
+
     ### fix/todo: run teamreader again!! (2nd run)
     ##   assert no new assocs (just update existing)
 

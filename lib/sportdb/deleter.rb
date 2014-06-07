@@ -41,7 +41,8 @@ module SportDb
       
       Ground.delete_all   # stadiums
       
-      Assoc.delete_all  # associations / organizations
+      Assoc.delete_all       # associations / organizations
+      AssocAssoc.delete_all  # associations / organizations
     end
     
   end # class Deleter

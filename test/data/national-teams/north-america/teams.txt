@@ -1,0 +1,7 @@
+####################
+# North America
+# - CONCACAF / NAFU (North American Football Union)
+
+mex, Mexico, MEX,        mx
+usa, United States, USA, us
+can, Canada, CAN,        ca

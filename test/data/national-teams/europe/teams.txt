@@ -1,0 +1,13 @@
+#######################
+# Europe
+
+aut, Austria, AUT, at
+bel, Belgium, BEL, be
+cyp, Cyprus, CYP, cy
+ger, Germany, GER, de
+est, Estonia, EST, ee
+esp, Spain, ESP, es
+fin, Finland, FIN, fi
+fra, France, FRA, fr
+irl, Ireland, IRL, ie
+ita, Italy, ITA, it

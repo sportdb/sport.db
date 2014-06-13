@@ -50,6 +50,7 @@ TeamReader         = SportDb::TeamReader
 AssocReader        = SportDb::AssocReader
 SeasonReader       = SportDb::SeasonReader
 LeagueReader       = SportDb::LeagueReader
+EventReader        = SportDb::EventReader
 GameReader         = SportDb::GameReader
 NationalTeamReader = SportDb::NationalTeamReader
 RaceTeamReader     = SportDb::RaceTeamReader

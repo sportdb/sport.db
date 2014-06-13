@@ -27,6 +27,7 @@ class TestReader < MiniTest::Unit::TestCase
     leaguereader.read( 'at-austria/leagues', country_id: at.id )
 
     gamereader = GameReader.new( SportDb.test_data_path )
+    ## check/fix: is country_id more_attribs needed? why? why not?
     gamereader.read( 'at-austria/2013_14/bl', country_id: at.id )
 
     bl = Event.find_by_key!( 'at.2013/14' )
@@ -68,6 +69,7 @@ class TestReader < MiniTest::Unit::TestCase
     assert_equal 'ÖFB Cup', atcup.title
 
     gamereader = GameReader.new( SportDb.test_data_path )
+    ## check/fix: is country_id more_attribs needed? why? why not?
     gamereader.read( 'at-austria/2013_14/bl', country_id: at.id )
     gamereader.read( 'at-austria/2013_14/el', country_id: at.id )
 

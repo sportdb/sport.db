@@ -34,7 +34,6 @@ class GameReader
 
     ## reset cached values
     ##  for auto-number rounds etc.
-
     @last_round_pos = nil
 
     fixtures.each do |fixture|
@@ -43,16 +42,30 @@ class GameReader
   end
 
 
-  def read_fixtures_from_string( event_key, text )  # load from string (e.g. passed in via web form)
+  def read_fixtures_from_string( event_key, text_or_text_ary )  # load from string (e.g. passed in via web form)
 
-    SportDb.lang.lang = SportDb.lang.classify( text )
+    if text_or_text_ary.is_a?( String )
+      text_ary = [text_or_text_ary]
+    else
+      text_ary = text_or_text_ary
+    end
 
-    ## todo/fix: move code into LineReader e.g. use LineReader.fromString() - why? why not?
-    reader = StringLineReader.new( text )
-    
-    read_fixtures_worker( event_key, reader )
+    ## reset cached values
+    ##  for auto-number rounds etc.
+    @last_round_pos = nil
 
-    ## fix add prop 
+    text_ary.each do |text|
+      ## assume en for now? why? why not?
+      ##  fix (cache) store lang in event table (e.g. auto-add and auto-update)!!!
+      SportDb.lang.lang = SportDb.lang.classify( text )
+
+      ## todo/fix: move code into LineReader e.g. use LineReader.fromString() - why? why not?
+      reader = StringLineReader.new( text )
+
+      load_fixtures_worker( event_key, reader )
+    end
+
+    ## fix add prop ??
     ### Prop.create!( key: "db.#{fixture_name_to_prop_key(name)}.version", value: "file.txt.#{File.mtime(path).strftime('%Y.%m.%d')}" )  
   end
 

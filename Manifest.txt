@@ -144,6 +144,7 @@ test/test_lang.rb
 test/test_load.rb
 test/test_national_team_reader.rb
 test/test_reader.rb
+test/test_reader_from_string.rb
 test/test_round_auto.rb
 test/test_round_def.rb
 test/test_round_header.rb

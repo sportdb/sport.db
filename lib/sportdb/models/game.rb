@@ -45,6 +45,25 @@ class Game < ActiveRecord::Base
   def draw?   () winner == 0; end    # use different name; use an alias (any better names more speaking???)
 
 
+
+  ## winner after extra time  (will ignore possible penalty shootout; used for alltime standings in world cup calc, for example)
+  ## - also add winnerp nil,1,2   => nil -> no penalty shoutout (or no scores) -- needed for what?
+  def winneret
+      ## check for extra time
+      if score1et.present? && score2et.present?
+        if score1et > score2et
+          1
+        elsif score1et < score2et
+          2
+        else # assume score1et == score2et - draw
+          0
+        end
+      else
+        nil  # no extra time; note: return nil  use  winneret || winner90 to get result for both extra time or if not present regular time
+      end
+  end
+
+
   def calc_winner
     if score1.nil? || score2.nil?
       self.winner90 = nil

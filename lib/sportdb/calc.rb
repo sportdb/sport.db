@@ -50,6 +50,12 @@ module StandingsHelper
 
 
   def self.calc( games, opts={} )
+     
+     ##
+     #  possible opts include:
+     #    pts_won:              3 or 2 or n   (default 3)
+     #    pts_exclude_scorep    false or true (default false)  -- exclude penalty shotout scores (e.g. count a draw/tie - no winner)
+     #
     recs = calc_stats( games, opts )
 
     ## update pos (that is, ranking e.g. 1.,2., 3. etc.)
@@ -70,7 +76,7 @@ module StandingsHelper
 
     events.each do |event|
       puts "  update standings for #{event.title}"
-      recs = calc_stats( event.games )
+      recs = calc_stats( event.games, opts )
 
       recs.each do |team_key, rec|
         alltime_rec = alltime_recs[ team_key ] || Stats.new
@@ -129,7 +135,7 @@ module StandingsHelper
     ## update pos (that is, ranking e.g. 1.,2., 3. etc.)
     alltime_recs= update_ranking( alltime_recs )
 
-    pp alltime_recs
+    ## pp alltime_recs
     alltime_recs
   end
 
@@ -144,6 +150,19 @@ module StandingsHelper
     # note:
     #   returns stats records w/ stats records counter always set to one (recs==1)
 
+    ## todo/fix: find a better way to include logger (do NOT hardcode usage of root logger)!!!
+    logger = LogUtils::Logger.root
+
+
+    ## lets you pass in 2 as an alterantive, for example
+    pts_won  = opts[:pts_won] || 3
+
+    ## lets you exclude penalty shootout (e.g. match gets scored as draw/tie 1 pt each)
+    #  e.g. why? used for alltime standings formula in world cup, for example
+    #   todo: check other standings - exclude penalty shootout too - e.g. championsleague ?? if yes - make it true as default??
+    pts_exclude_scorep = opts[:pts_exclude_scorep].present? ? opts[:pts_exclude_scorep] : false
+
+
     recs = {}
 
     games.each_with_index do |g,i|   # note: index(i) starts w/ zero (0)
@@ -153,7 +172,7 @@ module StandingsHelper
         next
       end
       unless g.complete?
-        puts "    !!!! skipping match - scores incomplete"
+        logger.error "[StandingsHelper.calc_stats] skipping match #{g.team1.title} - #{g.team2.title} - scores incomplete #{g.score_str}"
         next
       end
 
@@ -166,16 +185,23 @@ module StandingsHelper
 
       rec1.played += 1
       rec2.played += 1
-      
-      if g.winner == 1
+
+      ## check - if winner (excludes penalty shootout scores in calc? start w/ extra time e.g winneret)
+      if pts_exclude_scorep
+         winner = g.winneret || g.winner90     ## if no extra time (et) score; try 90min (regular time score)
+      else
+         winner = g.winner   ## note: might include penalty shoot scores
+      end
+
+      if winner == 1
         rec1.won  += 1
         rec2.lost += 1
-        rec1.pts  += 3   # 3pts for win (hardcoded for now; change - use event setting?)
-      elsif g.winner == 2
+        rec1.pts  += pts_won
+      elsif winner == 2
         rec1.lost  += 1
         rec2.won   += 1
-        rec2.pts   += 3  # 3pts for win (hardcoded for now; change - use event setting?)
-      else ## assume == 0 (drawn)
+        rec2.pts   += pts_won
+      else  ## assume drawn/tie (that is, 0)
         rec1.drawn += 1
         rec2.drawn += 1
         rec1.pts   += 1
@@ -190,12 +216,12 @@ module StandingsHelper
 
       ## add overtime and penalty??
       ##  - for now add only overtime if present
-      rec1.goals_for     += (g.score1et-g.score1)    if g.score1et.present?
-      rec1.goals_against += (g.score2et-g.score2)    if g.score2et.present?
+      
+      rec1.goals_for     += (g.score1et-g.score1)  if g.score1et.present?
+      rec1.goals_against += (g.score2et-g.score2)  if g.score2et.present?
 
-      rec2.goals_for     += (g.score2et-g.score2)    if g.score2et.present?
-      rec2.goals_against += (g.score1et-g.score1)    if g.score1et.present?
-
+      rec2.goals_for     += (g.score2et-g.score2)  if g.score2et.present?
+      rec2.goals_against += (g.score1et-g.score1)  if g.score1et.present?
 
       recs[ g.team1.key ] = rec1
       recs[ g.team2.key ] = rec2

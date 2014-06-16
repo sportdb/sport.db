@@ -12,16 +12,16 @@ class GroupStanding < ActiveRecord::Base
   belongs_to :group
 
   ## convenience helper; recalcs all records
-  def self.recalc!()  self.order(:id).each { |rec| rec.recalc! };  end
+  def self.recalc!( opts={} )  self.order(:id).each { |rec| rec.recalc!(opts) };  end
 
 
-  def recalc!
+  def recalc!( opts={} )
     ##  will calculate group standing e.g.
  
     ## calc points (pts) - loop over all group games/matches
     # group.games.each do |game|
     # end
-    recs = StandingsHelper.calc( group.games )
+    recs = StandingsHelper.calc( group.games, opts )
 
     ## - remove (if exit) old entries and add new entries
     entries.delete_all    # note: assoc dependent set to :delete_all (defaults to :nullify)

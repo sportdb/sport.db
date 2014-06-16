@@ -12,10 +12,10 @@ class EventStanding < ActiveRecord::Base
   belongs_to :event
 
   ## convenience helper; recalcs all records
-  def self.recalc!()  self.order(:id).each { |rec| rec.recalc! };  end
+  def self.recalc!( opts={} )  self.order(:id).each { |rec| rec.recalc!(opts) };  end
 
 
-  def recalc!
+  def recalc!( opts={} )
     ##  will calculate event standing e.g.
 
     ## calc points (pts) - loop over all group games/matches
@@ -26,7 +26,7 @@ class EventStanding < ActiveRecord::Base
     # skip knockout rounds  - why? why not?
     #   make it configure-able?
 
-    recs = StandingsHelper.calc( event.games )
+    recs = StandingsHelper.calc( event.games, opts )
 
     ## - remove (if exit) old entries and add new entries
     entries.delete_all    # note: assoc dependent set to :delete_all (defaults to :nullify)

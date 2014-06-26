@@ -594,12 +594,92 @@ class GameReader
   end
 
 
+  def parse_goals( line )
+    logger.debug "parsing goals (fixture) line: >#{line}<"
+
+    # remove end-of-line comments
+    cut_off_end_of_line_comment!( line )     ## todo: check we func is defined
+
+    # remove [] if presents e.g. [Neymar 12']
+    line = line.gsub( /[\[\]]/, '' )
+    # remove (single match) if line starts w/ - (allow spaces)  e.g. [-;Neymar 12'] or [ - ;Neymar 12']
+    line = line.sub( /^[ ]*-[ ]*/, '' )
+
+    # split into left hand side (lhs) for team1 and
+    #            right hand side (rhs) for team2
+
+    values = line.split( ';' )
+    
+    # note: allow empty right hand side (e.g. team2 did NOT score any goals e.g. 3-0 etc.)
+    lhs = values[0]
+    rhs = values[1]
+
+    lhs = lhs.strip   unless lhs.nil?
+    rhs = rhs.strip   unless rhs.nil?
+
+    logger.debug "  lhs (team1): >#{lhs}<"
+    logger.debug "  rhs (team2): >#{rhs}<"
+
+    ## for now assume
+    ##    everything up-to  0-9 and , and () is part of player name 
+
+    ## try parsing lhs
+    ##  todo: check for  empty -    remove (make it same as empty string)
+
+    player_name = get_goals_token_player!( lhs )
+    while player_name
+      logger.debug "  found player name >#{player_name}< - remaining >#{lhs}<"
+      minutes = get_goals_token_minutes!( lhs )
+      while minutes
+        logger.debug "  found minutes >#{minutes}< - remaining >#{lhs}<"
+        # remove commas and spaces (note: use ^ for start of string only!!!)
+        lhs.sub!( /^[ ,]+/, '' )
+        minutes = get_goals_token_minutes!( lhs )
+      end
+      player_name = get_goals_token_player!( lhs )
+    end
+
+  end # method parse_goals
+
+
+  ### fix:
+  ##   move to goals_finder or reader class ???
+  def get_goals_token_player!( line )
+    m = /^[^0-9]+/.match( line )    # note: use ^ for start of string only!!!
+    if m
+      name = m[0]
+      ## remove from line
+      line.slice!( 0...name.length )
+      name = name.strip    # remove leading and trailing spaces
+      name
+    else
+      nil
+    end
+  end
+
+  def get_goals_token_minutes!( line )
+    m = /^[0-9]{1,3}(\+[0-9]{1})?'([ ]*\((P|pen\.|o\.g\.)\))?/.match( line ) # note: use ^ for start of string only!!!
+    if m
+      minutes = m[0]
+      ## remove from line
+      line.slice!( 0...minutes.length )
+      minutes = minutes.strip  # remove leading and trailing spaces
+      minutes
+    else
+      nil
+    end
+  end
+
+
+
 
   def parse_fixtures( reader )
       
     reader.each_line do |line|
 
-      if is_round_def?( line ) 
+      if is_goals?( line )
+        parse_goals( line )
+      elsif is_round_def?( line ) 
         ## todo/fix:  add round definition (w begin n end date)
         ## todo: do not patch rounds with definition (already assume begin/end date is good)
         ##  -- how to deal with matches that get rescheduled/postponed?

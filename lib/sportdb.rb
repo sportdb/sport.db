@@ -88,6 +88,7 @@ require 'sportdb/utils_record'
 require 'sportdb/utils_round'
 require 'sportdb/utils_scores'
 require 'sportdb/utils_teams'
+require 'sportdb/utils_goals'
 require 'sportdb/matcher'
 require 'sportdb/calc'
 

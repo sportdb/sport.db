@@ -92,6 +92,7 @@ require 'sportdb/utils_goals'
 require 'sportdb/matcher'
 require 'sportdb/calc'
 
+require 'sportdb/finders/goals'   # no: requires FixturesHelpers
 
 require 'sportdb/readers/assoc'
 require 'sportdb/readers/event'

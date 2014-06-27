@@ -60,8 +60,11 @@ add_index :grounds, :key, unique: true
 create_table :goals do |t|
   t.references  :person,   null: false
   t.references  :game,     null: false
+  t.references  :team,     null: false     ##  use integer instead w/ values 1 or 2  for team1 or team2 ?? why? why not?
+
   t.integer   :minute
-  t.integer   :offset    # e.g. 45' +3 or 90' +2
+  t.integer   :offset,  null: false, default: 0    # e.g. 45' +3 or 90' +2
+
   t.integer   :score1
   t.integer   :score2
   

@@ -130,6 +130,8 @@ test/data/world-cup/2014/cup.txt
 test/data/world-cup/2014/cup.yml
 test/data/world-cup/2014/squads/br-brazil.txt
 test/data/world-cup/2014/squads/de-deutschland.txt
+test/data/world-cup/2014/squads/jp-japan.txt
+test/data/world-cup/2014/squads/uy-uruguay.txt
 test/data/world-cup/leagues.txt
 test/data/world-cup/seasons_1930.txt
 test/data/world-cup/seasons_1954.txt

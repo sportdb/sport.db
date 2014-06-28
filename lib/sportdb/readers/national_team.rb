@@ -1,9 +1,15 @@
 # encoding: UTF-8
 
+### fix: change/rename file to squads.rb !!!
+
+
 module SportDb
 
-
 ### squad/roster reader for national teams
+
+## todo: rename to SquadsNationalTeamReader or similar ?? why? why not?
+
+
 class NationalTeamReader
 
   include LogUtils::Logging
@@ -80,6 +86,9 @@ class NationalTeamReader
 
 
   def read_worker( reader )
+    ##
+    ## fix: use num (optional) for offical jersey number
+    #  use pos for internal use only (ordering)
 
     pos_counter = 999000   # pos counter for undefined players w/o pos
 
@@ -95,22 +104,48 @@ class NationalTeamReader
         pos = pos_counter
       end
 
+      #####
+      #  - for now do NOT map team
       # map_team!( line )
       # team_key = find_team!( line )
       # team = Team.find_by_key!( team_key )
 
       map_person!( line )
       person_key = find_person!( line )
-      
-      person = Person.find_by_key( person_key )
 
       logger.debug "  line2: >#{line}<"
 
-      if person.nil?
-        logger.error " !!!!!! no mapping found for player in line >#{line}< for team #{@team.code} - #{@team.title}"
-        next   ## skip further processing of line; can NOT save w/o person; continue w/ next record
-      end
+      if person_key.nil?
+        ## no person match found; try auto-add person
+        logger.info "  !! no player match found; try auto-create player"
 
+        buf = line.clone
+        # remove (single match) if line starts w/ - (allow spaces)  e.g. | - or |-  note: must start line e.g. anchor ^ used
+        buf = buf.sub( /^[ ]*-[ ]*/, '' )
+        buf = buf.gsub( /\[[^\]]+\]/, '' )         # remove [POS] or similar
+        buf = buf.gsub( /\b(GK|DF|MF|FW)\b/, '' )   # remove position marker - use sub (just single marker?)
+        buf = buf.strip   # remove leading and trailing spaces
+
+        ## assume what's left is player name
+        logger.info "   player_name >#{buf}<"
+
+        ## fix: add auto flag (for auto-created persons/players)
+        ## fix: move title_to_key logic to person model etc.
+        person_attribs = {
+               key:   TextUtils.title_to_key( buf ),
+               title: buf
+        }
+        logger.info "   using attribs: #{person_attribs.inspect}"
+
+        person = Person.create!( person_attribs )
+      else
+        person = Person.find_by_key( person_key )
+
+        if person.nil?
+          logger.error " !!!!!! no mapping found for player in line >#{line}< for team #{@team.code} - #{@team.title}"
+          next   ## skip further processing of line; can NOT save w/o person; continue w/ next record
+        end
+      end
 
 
       ### check if roster record exists

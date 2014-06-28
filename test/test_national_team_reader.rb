@@ -77,4 +77,40 @@ class TestNationalTeamReader < MiniTest::Unit::TestCase
   end  # method test_de
 
 
+  def test_uy
+    uy = Country.create!( key: 'uy', title: 'Uruguay', code: 'URU', pop: 1, area: 1)
+
+    assert_equal 0, Person.count
+    assert_equal 0, Roster.count
+
+    uru = Team.create!( key: 'uru', title: 'Uruguay', code: 'URU', country_id: uy.id )
+
+    event = Event.find_by_key!( 'world.2014' )
+
+    reader = NationalTeamReader.new( SportDb.test_data_path )
+    reader.read( 'world-cup/2014/squads/uy-uruguay', country_id: uy.id, event_id: event.id )
+
+    assert_equal 23, Roster.count
+    assert_equal 23, Person.count
+  end  # method test_uy
+
+
+  def test_jp
+    jp = Country.create!( key: 'jp', title: 'Japan', code: 'JPN', pop: 1, area: 1)
+
+    assert_equal 0, Person.count
+    assert_equal 0, Roster.count
+
+    jpn = Team.create!( key: 'jpn', title: 'Japan', code: 'JPN', country_id: jp.id )
+
+    event = Event.find_by_key!( 'world.2014' )
+
+    reader = NationalTeamReader.new( SportDb.test_data_path )
+    reader.read( 'world-cup/2014/squads/jp-japan', country_id: jp.id, event_id: event.id )
+
+    assert_equal 23, Roster.count
+    assert_equal 23, Person.count
+  end  # method test_jp
+
+
 end # class TestNationalTeamReader

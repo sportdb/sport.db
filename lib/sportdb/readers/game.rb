@@ -109,6 +109,10 @@ class GameReader
     @group         = nil     ## fix: change/rename to @last_group !!!
     @last_date     = nil
 
+    @last_team1    = nil    # used for goals (to match players via squads)
+    @last_team2    = nil
+    @last_game     = nil
+
 
     #####
     #  fix: move to read and share event/known_teams
@@ -429,6 +433,9 @@ class GameReader
     team1 = Team.find_by_key!( team1_key )
     team2 = Team.find_by_key!( team2_key )
 
+    @last_team1 = team1    # store for later use for goals etc.
+    @last_team2 = team2
+
 
     if @round.nil?
       ## no round header found; calculate round from date
@@ -556,6 +563,8 @@ class GameReader
       logger.debug game_attribs.to_json
       game.update_attributes!( game_attribs )
     end
+    
+    @last_game = game   # store for later reference (e.g. used for goals etc.)
 
     return true   # game match found
   end # method parse_game
@@ -597,8 +606,114 @@ class GameReader
   def parse_goals( line )
     logger.debug "parsing goals (fixture) line: >#{line}<"
 
-    GoalsFinder.new.find!( line )
+    goals = GoalsFinder.new.find!( line )
+
+    ## check if squads/rosters present for player mappings
+    #
+    squad1_count = Roster.where( event_id: @event.id, team_id: @last_team1 ).count
+    if squad1_count > 0
+       squad1 = Roster.where( event_id: @event.id, team_id: @last_team1 ) 
+    else
+       squad1 = []
+    end
+
+    squad2_count = Roster.where( event_id: @event.id, team_id: @last_team2 ).count 
+    if squad2_count > 0
+      squad2 = Roster.where( event_id: @event.id, team_id: @last_team2 )
+    else
+      squad2 = []
+    end
+
+    #####
+    # todo/fix: try lookup by squads first!!!
+    #   issue warning if player not included in squad!!
+
+    ##########
+    # try mapping player names to player
+
+    ## note: first delete all goals for match (and recreate new ones
+    #     no need to figure out update/merge strategy)
+    @last_game.goals.delete_all
+
+
+    goals.each do |goal|
+      player_name = goal.name
+
+      player = Person.where( name: player_name ).first
+      if player
+        logger.info "  player match (name eq) - using player key #{player.key}"
+      else
+        # try like match (player name might only include part of name e.g. Messi)
+        #  try three variants
+        # try %Messi
+        # try Messi%
+        # try %Messi%   -- check if there's an easier way w/ "one" where clause?
+        player = Person.where( 'name LIKE ? OR name LIKE ? OR name LIKE ?',
+                              "%#{player_name}",
+                              "#{player_name}%",
+                              "%#{player_name}%"
+                             ).first
+
+        if player
+          logger.info "  player match (name like) - using player key #{player.key}"
+        else
+           # try synonyms
+           player = Person.where( 'synonyms LIKE ? OR synonyms LIKE ? OR synonyms LIKE ?',
+                              "%#{player_name}",
+                              "#{player_name}%",
+                              "%#{player_name}%"
+                             ).first
+           if player
+             logger.info "  player match (synonyms like) - using player key #{player.key}"
+           else
+             # auto-create player (player not found)
+             logger.info "  player NOT found >#{player_name}< - auto-create"
+             
+             ## fix: add auto flag (for auto-created persons/players)
+             ## fix: move title_to_key logic to person model etc.
+             player_key = TextUtils.title_to_key( player_name )
+             player_attribs = {
+               key:   player_key,
+               title: player_name
+             }
+             logger.info "   using attribs: #{player_attribs.inspect}"
+             
+             player = Person.create!( player_attribs )
+           end
+        end
+      end
+
+      goal_attribs = {
+        game_id:   @last_game.id,
+        team_id:   goal.team == 1 ? @last_team1.id : @last_team2.id, 
+        person_id: player.id,
+        minute:    goal.minute,
+        offset:    goal.offset,
+        penalty:   goal.penalty,
+        owngoal:   goal.owngoal,
+        score1:    goal.score1,
+        score2:    goal.score2
+      }
+
+      logger.info "  adding goal using attribs: #{goal_attribs.inspect}"
+      Goal.create!( goal_attribs )
+    end # each goals
+
   end # method parse_goals
+
+
+=begin
+###### add to person and use!!!
+def self.create_or_update_from_values( values, more_attribs={} )
+    ## key & title required
+
+    attribs, more_values = find_key_n_title( values )
+    attribs = attribs.merge( more_attribs )
+
+    ## check for optional values
+    Person.create_or_update_from_attribs( attribs, more_values )
+  end
+=end
 
 
   def parse_fixtures( reader )

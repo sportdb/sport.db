@@ -2,6 +2,52 @@
 
 module SportDb
 
+
+
+class GoalsPlayerStruct
+  ##
+  # note: player with own goal (o.g) gets listed on other team
+  #  (thus, player might have two entries if also scored for its own team)
+  #
+  attr_accessor :name
+  attr_accessor :minutes   # ary of minutes e.g. 30', 45+2', 72'
+
+  def initialize
+    @minutes = []
+  end
+end
+
+
+class GoalsMinuteStruct
+  attr_accessor :minute, :offset
+  attr_accessor :penalty, :owngoal    # flags
+
+  def initialize
+    @offset  = 0
+    @penalty = false
+    @owngoal = false
+  end
+end
+
+
+class GoalStruct
+  ######
+  # flat struct for goals - one entry per goals
+  attr_accessor :name
+  attr_accessor :team   #  1 or 2 ? check/todo: add team1 or team2 flag?
+  attr_accessor :minute, :offset
+  attr_accessor :penalty, :owngoal
+  attr_accessor :score1, :score2  # gets calculated
+
+  ## add pos  for sequence number? e.g. 1,2,3,4  (1st goald, 2nd goal, etc.) ???
+
+  def initialize
+    # do nothing
+  end
+end
+
+
+
 # todo: find a better name? to avoid confusing w/ GoalsParser? use MatchGoalsParser or similar?
 class GoalsFinder
   include LogUtils::Logging
@@ -106,63 +152,21 @@ class GoalsFinder
 end  # class GoalsFinder
 
 
-
-class GoalsPlayerStruct
-  ##
-  # note: player with own goal (o.g) gets listed on other team
-  #  (thus, player might have two entries if also scored for its own team)
-  #
-  attr_accessor :name
-  attr_accessor :minutes   # ary of minutes e.g. 30', 45+2', 72'
-
-  def initialize
-    @minutes = []
-  end
-end
-
-
-class GoalsMinuteStruct
-  attr_accessor :minute, :offset
-  attr_accessor :penalty, :owngoal    # flags
-
-  def initialize
-    @offset  = 0
-    @penalty = false
-    @owngoal = false
-  end
-end
-
-
-class GoalStruct
-  ######
-  # flat struct for goals - one entry per goals
-  attr_accessor :name
-  attr_accessor :team   #  1 or 2 ? check/todo: add team1 or team2 flag?
-  attr_accessor :minute, :offset
-  attr_accessor :penalty, :owngoal
-  attr_accessor :score1, :score2  # gets calculated
-
-  ## add pos  for sequence number? e.g. 1,2,3,4  (1st goald, 2nd goal, etc.) ???
-
-  def initialize
-    # do nothing
-  end
-end
-
-
-
-
 class GoalsParser
   include LogUtils::Logging
 
 
   # note: use ^ for start of string only!!!
   # - for now slurp everything up to digits (inlc. spaces - use strip to remove)
+  # todo/check: use/rename to NAME_UNTIL_REGEX ??? ( add lookahead for spaces?)
   NAME_REGEX = /^
                 [^0-9]+
                /x
 
-
+  
+  # todo/check: change to MINUTE_REGEX ??
+  # add MINUTE_SKIP_REGEX or MINUTE_SEP_REGEX /^[ ,]+/
+  # todo/fix:  split out  penalty and owngoal flag in PATTERN constant for reuse
   MINUTES_REGEX = /^      # note: use ^ for start of string only!!!
                     (?<minute>[0-9]{1,3})
                     (?:\+

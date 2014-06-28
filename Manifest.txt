@@ -21,6 +21,7 @@ lib/sportdb/data/keys.rb
 lib/sportdb/data/models.rb
 lib/sportdb/deleter.rb
 lib/sportdb/finders/date.rb
+lib/sportdb/finders/goals.rb
 lib/sportdb/finders/scores.rb
 lib/sportdb/lang.rb
 lib/sportdb/matcher.rb
@@ -89,6 +90,7 @@ lib/sportdb/stats.rb
 lib/sportdb/updater.rb
 lib/sportdb/utils.rb
 lib/sportdb/utils_date.rb
+lib/sportdb/utils_goals.rb
 lib/sportdb/utils_group.rb
 lib/sportdb/utils_map.rb
 lib/sportdb/utils_record.rb
@@ -114,6 +116,8 @@ test/data/players/europe/de-deutschland/players.txt
 test/data/players/south-america/br-brazil/players.txt
 test/data/world-cup/1930/cup.txt
 test/data/world-cup/1930/cup.yml
+test/data/world-cup/1930/cup_goals.txt
+test/data/world-cup/1930/cup_goals.yml
 test/data/world-cup/1954/cup.txt
 test/data/world-cup/1954/cup.yml
 test/data/world-cup/1962/cup.txt
@@ -140,6 +144,7 @@ test/test_assoc_reader.rb
 test/test_changes.rb
 test/test_cursor.rb
 test/test_date.rb
+test/test_goals.rb
 test/test_lang.rb
 test/test_load.rb
 test/test_national_team_reader.rb

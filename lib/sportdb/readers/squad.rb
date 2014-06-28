@@ -5,12 +5,9 @@
 
 module SportDb
 
-### squad/roster reader for national teams
+### squad/roster reader for national teams for now
 
-## todo: rename to SquadsNationalTeamReader or similar ?? why? why not?
-
-
-class NationalTeamReader
+class SquadReader
 
   include LogUtils::Logging
 
@@ -33,6 +30,9 @@ class NationalTeamReader
 
 
   def read( name, more_attribs={} )
+    ## note:
+    #    event_id and team_id required!!
+
     ## todo: move name_real_path code to LineReaderV2 ????
     pos = name.index( '!/')
     if pos.nil?
@@ -52,28 +52,20 @@ class NationalTeamReader
     @event = Event.find( more_attribs[:event_id] )
     pp @event
 
-    ## check/fix:
-    ##   allow three letter codes
-    ##  assume three letter code are *team* codes (e.g. fdr, gdr, etc)
-    ##      not country code (allows multiple teams per country)
-
-    ### check for country_id
-    ##  fix: check for country_key  - allow (convert to country_id)
-
-    country = Country.find( more_attribs[:country_id] )
-    logger.info "  find national team squad/lineup for #{country.name}"
-
-    ## todo/fix: find national team for country - use event.teams w/ where country.id ??
-    ###  for now assume country code matches team for now (do NOT forget to downcase e.g. BRA==bra)
-    logger.info "  assume country code == team code for #{country.code}"
-    
     ## note: use @team - share/use in worker method
-    @team = Team.find_by_key!( country.code.downcase )
+    @team = Team.find( more_attribs[:team_id] )
     pp @team
 
     ### SportDb.lang.lang = LangChecker.new.analyze( name, include_path )
 
     reader = LineReader.new( path )
+
+
+    ##########
+    # fix: lookup table for now assumes national team
+    #   make it usable for clubs too etc. 
+    country = @team.country
+    pp country
 
     logger.info "  persons count for country: #{country.persons.count}"
     @known_persons = TextUtils.build_title_table_for( country.persons )
@@ -173,5 +165,5 @@ class NationalTeamReader
   end # method read_worker
 
 
-end # class NationTeamReader
+end # class SquadReader
 end # module SportDb

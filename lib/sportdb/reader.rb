@@ -101,10 +101,26 @@ class Reader
     elsif name =~ /\/squads\/([a-z]{2,3})-[^\/]+$/
       ## fix: add to country matcher new format
       ##   name is country! and parent folder is type name e.g. /squads/br-brazil
-      country = Country.find_by_key!( $1 )
-      reader = NationalTeamReader.new( include_path )
+      
+      # note: if two letters, assume country key
+      #       if three letters, assume team key
+  
+      ##   allow three letter codes
+      ##  assume three letter code are *team* codes (e.g. fdr, gdr, etc)
+      ##      not country code (allows multiple teams per country)
+
+      if $1.length == 2
+        country = Country.find_by_key!( $1 )
+        ###  for now assume country code matches team for now (do NOT forget to downcase e.g. BRA==bra)
+        logger.info "  assume country code == team code for #{country.code}"
+        team = Team.find_by_key!( country.code.downcase )
+      else  # assume length == 3
+        team = Team.find_by_key!( $1 )
+      end
+
+      reader = SquadReader.new( include_path )
       ## note: pass in @event.id - that is, last seen event (e.g. parsed via GameReader/MatchReader)
-      reader.read( name, country_id: country.id, event_id: @event.id )
+      reader.read( name, team_id: team.id, event_id: @event.id )
     elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
       reader = RaceTeamReader.new( include_path )
       reader.read( name )

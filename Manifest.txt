@@ -69,11 +69,11 @@ lib/sportdb/readers/event.rb
 lib/sportdb/readers/game.rb
 lib/sportdb/readers/ground.rb
 lib/sportdb/readers/league.rb
-lib/sportdb/readers/national_team.rb
 lib/sportdb/readers/race.rb
 lib/sportdb/readers/race_team.rb
 lib/sportdb/readers/record.rb
 lib/sportdb/readers/season.rb
+lib/sportdb/readers/squad.rb
 lib/sportdb/readers/team.rb
 lib/sportdb/readers/track.rb
 lib/sportdb/schema.rb
@@ -149,13 +149,13 @@ test/test_date.rb
 test/test_goals.rb
 test/test_lang.rb
 test/test_load.rb
-test/test_national_team_reader.rb
 test/test_reader.rb
 test/test_reader_from_string.rb
 test/test_round_auto.rb
 test/test_round_def.rb
 test/test_round_header.rb
 test/test_scores.rb
+test/test_squad_reader.rb
 test/test_standings.rb
 test/test_utils.rb
 test/test_winner.rb

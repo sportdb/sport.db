@@ -2,14 +2,14 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_national_team_reader.rb
+#     ruby -I ./lib -I ./test test/test_squad_reader.rb
 #  or better
 #     rake -I ./lib test
 
 
 require 'helper'
 
-class TestNationalTeamReader < MiniTest::Unit::TestCase
+class TestSquadReader < MiniTest::Unit::TestCase
 
   def setup
     WorldDb.delete!
@@ -50,8 +50,8 @@ class TestNationalTeamReader < MiniTest::Unit::TestCase
 
     event = Event.find_by_key!( 'world.2014' )
 
-    reader = NationalTeamReader.new( SportDb.test_data_path )
-    reader.read( 'world-cup/2014/squads/br-brazil', country_id: br.id, event_id: event.id )
+    reader = SquadReader.new( SportDb.test_data_path )
+    reader.read( 'world-cup/2014/squads/br-brazil', team_id: bra.id, event_id: event.id )
 
     assert_equal 23, Roster.count
   end  # method test_br
@@ -70,8 +70,8 @@ class TestNationalTeamReader < MiniTest::Unit::TestCase
 
     event = Event.find_by_key!( 'world.2014' )
 
-    reader = NationalTeamReader.new( SportDb.test_data_path )
-    reader.read( 'world-cup/2014/squads/de-deutschland', country_id: de.id, event_id: event.id )
+    reader = SquadReader.new( SportDb.test_data_path )
+    reader.read( 'world-cup/2014/squads/de-deutschland', team_id: ger.id, event_id: event.id )
 
     assert_equal 3, Roster.count
   end  # method test_de
@@ -87,8 +87,8 @@ class TestNationalTeamReader < MiniTest::Unit::TestCase
 
     event = Event.find_by_key!( 'world.2014' )
 
-    reader = NationalTeamReader.new( SportDb.test_data_path )
-    reader.read( 'world-cup/2014/squads/uy-uruguay', country_id: uy.id, event_id: event.id )
+    reader = SquadReader.new( SportDb.test_data_path )
+    reader.read( 'world-cup/2014/squads/uy-uruguay', team_id: uru.id, event_id: event.id )
 
     assert_equal 23, Roster.count
     assert_equal 23, Person.count
@@ -105,12 +105,12 @@ class TestNationalTeamReader < MiniTest::Unit::TestCase
 
     event = Event.find_by_key!( 'world.2014' )
 
-    reader = NationalTeamReader.new( SportDb.test_data_path )
-    reader.read( 'world-cup/2014/squads/jp-japan', country_id: jp.id, event_id: event.id )
+    reader = SquadReader.new( SportDb.test_data_path )
+    reader.read( 'world-cup/2014/squads/jp-japan', team_id: jpn.id, event_id: event.id )
 
     assert_equal 23, Roster.count
     assert_equal 23, Person.count
   end  # method test_jp
 
 
-end # class TestNationalTeamReader
+end # class TestSquadReader

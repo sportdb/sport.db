@@ -90,7 +90,7 @@ class Reader
     elsif name =~ /^skiers/ # e.g. skiers.men.txt in ski.db
       reader = PersonDb::PersonReader.new( include_path )
       reader.read( name )
-    elsif name =~ /^teams/   # e.g. teams.txt in formula1.db
+    elsif name =~ /^teams/   # e.g. teams.txt in formula1.db   ### fix: check if used for football ? - add clubs
       reader = TeamReader.new( include_path )
       reader.read( name )
     elsif name =~ /\/races/  # e.g. 2013/races.txt in formula1.db
@@ -124,12 +124,22 @@ class Reader
     elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
       reader = RaceTeamReader.new( include_path )
       reader.read( name )
+
+
+##  fix!!! - find a better unique pattern  to generic???
+##
+##    fix: use two routes/tracks/modes:
+##
+##    races w/ records etc   and  teams/matches etc.   split into two to make code easier to read/extend!!!
+##
     elsif name =~ /\/([0-9]{2})-/
       race_pos = $1.to_i
       # NB: assume @event is set from previous load 
       race = Race.find_by_event_id_and_pos( @event.id, race_pos )
       reader = RecordReader.new( include_path )
       reader.read( name, race_id: race.id ) # e.g. 2013/04-gp-monaco.txt in formula1.db
+
+
     elsif name =~ /(?:^|\/)seasons/  # NB: ^seasons or also possible at-austria!/seasons
       reader = SeasonReader.new( include_path )
       reader.read( name )
@@ -156,13 +166,25 @@ class Reader
             #  e.g. at/teams at/teams.2 de/teams etc.                
             country = Country.find_by_key!( country_key )
             reader = TeamReader.new( include_path )
-            reader.read( name, club: true, country_id: country.id )
+            reader.read( name, club: true, country_id: country.id )  ## fix: club flag - do NOT set - why? why not?
           end
-    elsif name =~ /(?:^|\/)teams/
+    elsif match_clubs_for_country( name ) do |country_key|   # name =~ /^([a-z]{2})\/clubs/
+            # auto-add country code (from folder structure) for country-specific clubs
+            #  e.g. at/teams at/teams.2 de/teams etc.                
+            country = Country.find_by_key!( country_key )
+            reader = TeamReader.new( include_path )
+            reader.read( name, club: true, country_id: country.id )  ## note: always sets club flag to true
+          end
+    elsif name =~ /(?:^|\/)teams/   ## fix: check if teams rule above (e.g. /^teams/ )conflicts/matches first ???
       reader = TeamReader.new( include_path )
-      reader.read( name, club: is_club_fixture?( name ) )
-    elsif name =~ /\/(\d{4}|\d{4}_\d{2})(--[^\/]+)?\// ||
-          name =~ /\/(\d{4}|\d{4}_\d{2})$/
+      reader.read( name, club: is_club_fixture?( name ) )  ## fix: cleanup - use is_club_fixture? still needed w/ new clubs in name?
+    elsif name =~ /(?:^|\/)clubs/
+      reader = TeamReader.new( include_path )
+      reader.read( name, club: true )   ## note: always sets club flag to true
+    elsif name =~ /\/(\d{4}|\d{4}[_\-]\d{2})(--[^\/]+)?\// ||
+          name =~ /\/(\d{4}|\d{4}[_\-]\d{2})$/
+
+      # note: allow 2013_14 or 2013-14 (that, is dash or underscore)
 
       # note: keep a "public" reference of last event in @event  - e.g. used/required by squads etc.
       eventreader = EventReader.new( include_path )

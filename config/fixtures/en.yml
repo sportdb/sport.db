@@ -4,7 +4,7 @@
 
 group:      Group
 
-round:      Round|Matchday
+round:      Round|Matchday|Week
 
 stage:    Stage|Phase|Rounds
 # e.g.

@@ -18,7 +18,6 @@ module SportDb
 
 
       Goal.delete_all
-      Record.delete_all
 
       Game.delete_all
       Event.delete_all
@@ -29,11 +28,8 @@ module SportDb
       Round.delete_all
       Badge.delete_all
 
-      Run.delete_all
-      Race.delete_all
       Roster.delete_all
 
-      Track.delete_all
       Team.delete_all
       
       League.delete_all
@@ -43,6 +39,12 @@ module SportDb
       
       Assoc.delete_all       # associations / organizations
       AssocAssoc.delete_all  # associations / organizations
+
+## note: moved to racing.db - delete/remove!!!
+##      Record.delete_all
+##      Run.delete_all
+##      Race.delete_all
+##      Track.delete_all
     end
     
   end # class Deleter

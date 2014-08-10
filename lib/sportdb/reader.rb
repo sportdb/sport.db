@@ -54,11 +54,8 @@ class Reader
     end
   end
 
-
-  def load( name )   # convenience helper for all-in-one reader
-
-    logger.debug "enter load( name=>>#{name}<<, include_path=>>#{include_path}<<)"
-
+  def fix_fix_load_racing_fix_fix
+=begin
     if name  =~ /^circuits/  # e.g. circuits.txt in formula1.db
       reader = TrackReader.new( include_path )
       reader.read( name )
@@ -75,11 +72,6 @@ class Reader
     elsif name =~ /^drivers/ # e.g. drivers.txt in formula1.db
       reader = PersonDb::PersonReader.new( include_path )
       reader.read( name )
-    elsif match_players_for_country( name ) do |country_key|
-            country = Country.find_by_key!( country_key )
-            reader = PersonDb::PersonReader.new( include_path )
-            reader.read( name, country_id: country.id )
-          end
     elsif match_skiers_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/skiers/
             # auto-add country code (from folder structure) for country-specific skiers (persons)
             #  e.g. at/skiers  or at-austria/skiers.men
@@ -90,14 +82,45 @@ class Reader
     elsif name =~ /^skiers/ # e.g. skiers.men.txt in ski.db
       reader = PersonDb::PersonReader.new( include_path )
       reader.read( name )
-    elsif name =~ /^teams/   # e.g. teams.txt in formula1.db   ### fix: check if used for football ? - add clubs
-      reader = TeamReader.new( include_path )
-      reader.read( name )
     elsif name =~ /\/races/  # e.g. 2013/races.txt in formula1.db
       ## fix/bug:  NOT working for now; sorry
       #   need to read event first and pass along to read (event_id: event.id) etc.
       reader = RaceReader.new( include_path )
       reader.read( name )
+    elsif name =~ /^teams/   # e.g. teams.txt in formula1.db   ### fix: check if used for football ? - add clubs
+      reader = TeamReader.new( include_path )
+      reader.read( name )
+##  fix!!! - find a better unique pattern  to generic???
+##
+##    fix: use two routes/tracks/modes:
+##
+##    races w/ records etc   and  teams/matches etc.   split into two to make code easier to read/extend!!!
+##
+    elsif name =~ /\/([0-9]{2})-/
+      race_pos = $1.to_i
+      # NB: assume @event is set from previous load 
+      race = Race.find_by_event_id_and_pos( @event.id, race_pos )
+      reader = RecordReader.new( include_path )
+      reader.read( name, race_id: race.id ) # e.g. 2013/04-gp-monaco.txt in formula1.db
+
+    elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
+      reader = RaceTeamReader.new( include_path )
+      reader.read( name )
+
+=end
+  end
+
+
+  def load( name )   # convenience helper for all-in-one reader
+
+    logger.debug "enter load( name=>>#{name}<<, include_path=>>#{include_path}<<)"
+
+
+    if match_players_for_country( name ) do |country_key|
+            country = Country.find_by_key!( country_key )
+            reader = PersonDb::PersonReader.new( include_path )
+            reader.read( name, country_id: country.id )
+          end
     elsif name =~ /\/squads\/([a-z]{2,3})-[^\/]+$/
       ## fix: add to country matcher new format
       ##   name is country! and parent folder is type name e.g. /squads/br-brazil
@@ -121,25 +144,6 @@ class Reader
       reader = SquadReader.new( include_path )
       ## note: pass in @event.id - that is, last seen event (e.g. parsed via GameReader/MatchReader)
       reader.read( name, team_id: team.id, event_id: @event.id )
-    elsif name =~ /\/squads/ || name =~ /\/rosters/  # e.g. 2013/squads.txt in formula1.db
-      reader = RaceTeamReader.new( include_path )
-      reader.read( name )
-
-
-##  fix!!! - find a better unique pattern  to generic???
-##
-##    fix: use two routes/tracks/modes:
-##
-##    races w/ records etc   and  teams/matches etc.   split into two to make code easier to read/extend!!!
-##
-    elsif name =~ /\/([0-9]{2})-/
-      race_pos = $1.to_i
-      # NB: assume @event is set from previous load 
-      race = Race.find_by_event_id_and_pos( @event.id, race_pos )
-      reader = RecordReader.new( include_path )
-      reader.read( name, race_id: race.id ) # e.g. 2013/04-gp-monaco.txt in formula1.db
-
-
     elsif name =~ /(?:^|\/)seasons/  # NB: ^seasons or also possible at-austria!/seasons
       reader = SeasonReader.new( include_path )
       reader.read( name )

@@ -2,6 +2,17 @@
 
 
 ### todo/fix: move to sportdb-data gem/plugin/addon ??
+##
+###  move to sportdb/data  ??  or sportdb/const ?? sportdb/
+##  or let use sportdb/keys addon ??
+
+###
+##  add all known repos settings from build scripts ???
+##
+#
+
+##   or sportdb/data  ??
+
 ### fix: rename to ::Key (singular) - why? why not??
 
 

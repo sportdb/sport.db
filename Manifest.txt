@@ -42,11 +42,8 @@ lib/sportdb/models/group_comp.rb
 lib/sportdb/models/group_team.rb
 lib/sportdb/models/league.rb
 lib/sportdb/models/person.rb
-lib/sportdb/models/race.rb
-lib/sportdb/models/record.rb
 lib/sportdb/models/roster.rb
 lib/sportdb/models/round.rb
-lib/sportdb/models/run.rb
 lib/sportdb/models/season.rb
 lib/sportdb/models/stats/alltime_standing.rb
 lib/sportdb/models/stats/alltime_standing_entry.rb
@@ -56,7 +53,6 @@ lib/sportdb/models/stats/group_standing.rb
 lib/sportdb/models/stats/group_standing_entry.rb
 lib/sportdb/models/team.rb
 lib/sportdb/models/team_comp.rb
-lib/sportdb/models/track.rb
 lib/sportdb/models/utils.rb
 lib/sportdb/models/world/city.rb
 lib/sportdb/models/world/continent.rb
@@ -69,13 +65,9 @@ lib/sportdb/readers/event.rb
 lib/sportdb/readers/game.rb
 lib/sportdb/readers/ground.rb
 lib/sportdb/readers/league.rb
-lib/sportdb/readers/race.rb
-lib/sportdb/readers/race_team.rb
-lib/sportdb/readers/record.rb
 lib/sportdb/readers/season.rb
 lib/sportdb/readers/squad.rb
 lib/sportdb/readers/team.rb
-lib/sportdb/readers/track.rb
 lib/sportdb/schema.rb
 lib/sportdb/service.rb
 lib/sportdb/service/public/style.css

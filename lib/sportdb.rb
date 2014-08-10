@@ -49,15 +49,18 @@ require 'sportdb/models/group_comp'
 require 'sportdb/models/group_team'
 require 'sportdb/models/league'
 require 'sportdb/models/person'
-require 'sportdb/models/race'
-require 'sportdb/models/record'
 require 'sportdb/models/roster'
 require 'sportdb/models/round'
-require 'sportdb/models/run'
 require 'sportdb/models/season'
 require 'sportdb/models/team'
 require 'sportdb/models/team_comp'
-require 'sportdb/models/track'
+
+### note: moved to racing.db !! - delete
+## require 'sportdb/models/race'
+## require 'sportdb/models/record'
+## require 'sportdb/models/run'
+## require 'sportdb/models/track'
+
 
 require 'sportdb/models/stats/alltime_standing'
 require 'sportdb/models/stats/alltime_standing_entry'
@@ -99,14 +102,18 @@ require 'sportdb/readers/event'
 require 'sportdb/readers/game'
 require 'sportdb/readers/ground'
 require 'sportdb/readers/league'
-require 'sportdb/readers/race'
-require 'sportdb/readers/record'
-require 'sportdb/readers/race_team'
 require 'sportdb/readers/season'
 require 'sportdb/readers/squad'    # roster
 require 'sportdb/readers/team'
-require 'sportdb/readers/track'
 require 'sportdb/reader'
+
+
+### note: moved to racing.db !! - delete
+## require 'sportdb/readers/race'
+## require 'sportdb/readers/record'
+## require 'sportdb/readers/race_team'
+## require 'sportdb/readers/track'
+
 
 require 'sportdb/lang'
 

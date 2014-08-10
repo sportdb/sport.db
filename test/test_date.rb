@@ -20,6 +20,22 @@ class TestDate < MiniTest::Unit::TestCase
     assert_dates( data, start_at: DateTime.new( 2013, 1, 1 ) )
   end
 
+  def test_date_fr
+    data = [
+      [ '[Ven 08. Août]', '2014-08-08' ],
+      [ 'Ven 08. Août',   '2014-08-08' ],
+      [ 'Ven 8. Août',    '2014-08-08' ],
+      [ '[Sam 9. Août]', '2014-08-09' ],
+      [ '[Dim 10. Août]', '2014-08-10' ],
+      [ '[Sam 31. Janv]', '2015-01-31' ],
+      [ '[Sam 7. Févr]', '2015-02-07' ],
+      [ '[Sam 31. Jan]', '2015-01-31' ],
+      [ '[Sam 7. Fév]', '2015-02-07' ],
+    ]
+
+    assert_dates( data, start_at: DateTime.new( 2014, 8, 1 ) )
+  end
+
   def test_date_en
     data = [
       [ 'Jun/12 2011 14:00', '2011-06-12 14:00' ],

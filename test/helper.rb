@@ -53,7 +53,9 @@ LeagueReader       = SportDb::LeagueReader
 EventReader        = SportDb::EventReader
 GameReader         = SportDb::GameReader
 SquadReader        = SportDb::SquadReader
-RaceTeamReader     = SportDb::RaceTeamReader
+
+## moved to racing.db  - remove/delete!!
+## RaceTeamReader     = SportDb::RaceTeamReader
 
 PersonReader       = PersonDb::PersonReader
 

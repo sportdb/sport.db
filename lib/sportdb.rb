@@ -122,18 +122,6 @@ require 'sportdb/deleter'
 require 'sportdb/stats'
 
 
-###############
-# optional: for convenience add some finders etc. for known fixtures
-#
-#  only used for sportdb/console.rb
-#   and  sportdb/tasks/test.rb  -> rename to tasks.rb?
-#
-#  todo/fix => remove from here and move into console.rb and tasks.rb
-
-require 'sportdb/data/keys'
-require 'sportdb/data/models'     # add convenience finders for known fixtures
-
-
 
 module SportDb
 

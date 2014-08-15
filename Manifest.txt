@@ -16,7 +16,6 @@ lib/sportdb.rb
 lib/sportdb/calc.rb
 lib/sportdb/cli/main.rb
 lib/sportdb/cli/opts.rb
-lib/sportdb/console.rb
 lib/sportdb/deleter.rb
 lib/sportdb/finders/date.rb
 lib/sportdb/finders/goals.rb

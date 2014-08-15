@@ -256,13 +256,13 @@ class DateFinder
                    (?<month_es>#{MONTH_ES})
                      \b/x
 
-  # e.g. Ven 8. Août  or [Ven 8. Août]
+  # e.g. Ven 8 Août  or [Ven 8 Août] or Ven 8. Août  or [Ven 8. Août]
   ### note: do NOT consume [] in regex (use lookahead assert)
   FR__WEEKDAY_DD_MONTH__DATE_REGEX = /\b
        (?:#{WEEKDAY_FR})   # note: skip weekday for now; do NOT capture
          \s+
        (?<day>\d{1,2})
-         \.
+         \.?        # note: make dot optional
          \s+
        (?<month_fr>#{MONTH_FR})
          (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too

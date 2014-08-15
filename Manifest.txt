@@ -66,15 +66,6 @@ lib/sportdb/readers/season.rb
 lib/sportdb/readers/squad.rb
 lib/sportdb/readers/team.rb
 lib/sportdb/schema.rb
-lib/sportdb/service.rb
-lib/sportdb/service/public/style.css
-lib/sportdb/service/public/style.css.scss
-lib/sportdb/service/server.rb
-lib/sportdb/service/views/_debug.erb
-lib/sportdb/service/views/_version.erb
-lib/sportdb/service/views/debug.erb
-lib/sportdb/service/views/index.erb
-lib/sportdb/service/views/layout.erb
 lib/sportdb/stats.rb
 lib/sportdb/utils.rb
 lib/sportdb/utils_date.rb

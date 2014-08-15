@@ -13,6 +13,7 @@ module StandingsHelper
   ## todo:
   ##  add team_id to struct - why? why not?  - saves a db lookup?
   class Stats
+     ### fix/todo: change/rename :pos to :rank
      attr_accessor :pos, :played, :won, :lost, :drawn,
                    :goals_for, :goals_against, :pts,
                    :recs

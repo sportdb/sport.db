@@ -300,6 +300,8 @@ create_table :group_standings do |t|
   t.timestamps
 end
 
+### use items instead of entries - why (shorter! simple plural e.g. just add s)
+
 create_table :group_standing_entries do |t|
   t.references  :group_standing,  null: false
   t.references  :team,            null: false

@@ -21,14 +21,6 @@ class Reader
 
   def load_setup( name )
     path = "#{include_path}/#{name}.txt"
-    
-    ## depcrecated - for now check if "new" format exsits
-    ##  - if not fall back to old format
-    unless File.exists?( path )
-      puts "  deprecated manifest/setup format [SportDb.Reader]; use new plain text format"
-      ## try old yml format
-      path = "#{include_path}/#{name}.yml"
-    end
 
     logger.info "parsing data '#{name}' (#{path})..."
 
@@ -41,6 +33,9 @@ class Reader
 
 
   def is_club_fixture?( name )
+    ### fix: move to attic - no longer needed ??
+    ##   - use clubs.txt for clubs; and teams.txt for national teams
+
     ## guess (heuristic) if it's a national team event (e.g. world cup, copa america, etc.)
     ##  or club event (e.g. bundesliga, club world cup, etc.)
 

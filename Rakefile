@@ -34,6 +34,12 @@ Hoe.spec 'sportdb' do
     ['activerecord-utils'],   # extras e.g. rnd, find_by! for 3.x etc.
     ['fetcher', '>= 0.3'],
 
+    ### sportdb addons
+    ['sportdb-keys'],
+    ['sportdb-console'],
+    ['sportdb-update'],
+    ['sportdb-service'],
+
     ## 3rd party
     ['gli', '>= 2.5.6'],
 

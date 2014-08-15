@@ -202,6 +202,8 @@ command [:load, :l] do |c|
 end # command load
 
 
+if defined?( SportDb::Updater )   ## add only if Updater class loaded/defined
+
 desc 'Pull - Auto-update event fixtures from upstream online sources'
 command :pull do |c|
   c.action do |g,o,args|
@@ -214,6 +216,8 @@ command :pull do |c|
   end # action
 end # command pull
 
+end  ## if defined?( SportDb::Updater )
+
 
 
 desc 'Start web service (HTTP JSON API)'
@@ -223,8 +227,9 @@ command [:serve,:server] do |c|
 
     connect_to_db( opts )
 
-    # NB: server (HTTP service) not included in standard default require
-    require 'sportdb/service'
+    # note: server (HTTP service) not included in standard default require
+    ##   -- note - now included!!!
+    ## require 'sportdb/service'
 
 # make sure connections get closed after every request e.g.
 #
@@ -306,11 +311,12 @@ command :test do |c|
     pp o
     puts "g (#{g.class.name}):"
     pp g
-    
-    LogUtils::Logger.root.debug 'test debug msg'
-    LogUtils::Logger.root.info 'test info msg'
-    LogUtils::Logger.root.warn 'test warn msg'
-    
+
+    logger = LogUtils::Logger.root
+    logger.debug 'test debug msg'
+    logger.info 'test info msg'
+    logger.warn 'test warn msg'
+
     puts 'Done.'
   end
 end

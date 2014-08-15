@@ -76,7 +76,6 @@ lib/sportdb/service/views/debug.erb
 lib/sportdb/service/views/index.erb
 lib/sportdb/service/views/layout.erb
 lib/sportdb/stats.rb
-lib/sportdb/updater.rb
 lib/sportdb/utils.rb
 lib/sportdb/utils_date.rb
 lib/sportdb/utils_goals.rb

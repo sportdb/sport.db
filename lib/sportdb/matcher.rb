@@ -18,14 +18,6 @@ module Matcher
     match_xxx_for_country( name, 'clubs', &blk )
   end
 
-  def match_tracks_for_country( name, &blk )
-    match_xxx_for_country( name, 'tracks', &blk )
-  end
-
-  def match_skiers_for_country( name, &blk )
-    match_xxx_for_country( name, 'skiers', &blk )
-  end
-
   def match_players_for_country( name, &blk )
     match_xxx_for_country( name, 'players', &blk )
   end

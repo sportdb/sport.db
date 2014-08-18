@@ -1,4 +1,23 @@
 
+
+  def is_club_fixture?( name )
+    ### fix: move to attic - no longer needed ??
+    ##   - use clubs.txt for clubs; and teams.txt for national teams
+
+    ## guess (heuristic) if it's a national team event (e.g. world cup, copa america, etc.)
+    ##  or club event (e.g. bundesliga, club world cup, etc.)
+
+    if name =~ /club-world-cup!?\//      # NB: must go before -cup (special case)
+      true
+    elsif name =~ /copa-america!?\// ||  # NB: copa-america/ or copa-america!/
+          name =~ /-cup!?\//             # NB: -cup/ or -cup!/
+      false
+    else
+      true
+    end
+  end
+
+
   def fetch_event( name )
     # get/fetch/find event from yml file
 

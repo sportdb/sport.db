@@ -20,10 +20,3 @@ module SportDb
 
 end  # module SportDb
 
-
-###########################################
-# fix: remove old alias for SportDb
-##  move to backcompat !!!
-
-SportDB = SportDb
-

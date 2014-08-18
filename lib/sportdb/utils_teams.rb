@@ -32,17 +32,11 @@ module SportDb
   end
 
 
-
   ## depreciated methods - use map_
   def match_teams!( line )   ## fix: rename to map_teams!! - remove match_teams!
     ## todo: issue depreciated warning
     map_teams!( line )
   end # method match_teams!
-
-  def match_track!( line )  ## fix: rename to map_track!!!
-    ## todo: issue depreciated warning
-    map_track!( line )
-  end # method match_tracks!
 
 
   end # module FixtureHelpers

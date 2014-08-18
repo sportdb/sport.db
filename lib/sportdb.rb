@@ -55,12 +55,6 @@ require 'sportdb/models/season'
 require 'sportdb/models/team'
 require 'sportdb/models/team_comp'
 
-### note: moved to racing.db !! - delete
-## require 'sportdb/models/race'
-## require 'sportdb/models/record'
-## require 'sportdb/models/run'
-## require 'sportdb/models/track'
-
 
 require 'sportdb/models/stats/alltime_standing'
 require 'sportdb/models/stats/alltime_standing_entry'
@@ -87,7 +81,6 @@ require 'sportdb/utils'
 require 'sportdb/utils_date'
 require 'sportdb/utils_group'
 require 'sportdb/utils_map'
-require 'sportdb/utils_record'
 require 'sportdb/utils_round'
 require 'sportdb/utils_scores'
 require 'sportdb/utils_teams'
@@ -108,12 +101,6 @@ require 'sportdb/readers/team'
 require 'sportdb/reader'
 
 
-### note: moved to racing.db !! - delete
-## require 'sportdb/readers/race'
-## require 'sportdb/readers/record'
-## require 'sportdb/readers/race_team'
-## require 'sportdb/readers/track'
-
 
 require 'sportdb/lang'
 
@@ -122,14 +109,6 @@ require 'sportdb/stats'
 
 
 module SportDb
-
-  def self.banner
-    "sportdb/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
-  end
-
-  def self.root
-    "#{File.expand_path( File.dirname(File.dirname(__FILE__)) )}"
-  end
 
   def self.config_path
     "#{root}/config"

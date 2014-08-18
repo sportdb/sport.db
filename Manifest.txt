@@ -72,7 +72,6 @@ lib/sportdb/utils_date.rb
 lib/sportdb/utils_goals.rb
 lib/sportdb/utils_group.rb
 lib/sportdb/utils_map.rb
-lib/sportdb/utils_record.rb
 lib/sportdb/utils_round.rb
 lib/sportdb/utils_scores.rb
 lib/sportdb/utils_teams.rb

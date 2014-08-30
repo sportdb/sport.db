@@ -20,6 +20,10 @@ class Game < ActiveRecord::Base
   before_save :calc_winner
 
 
+  def team1_name()  team1.name; end
+  def team2_name()  team2.name; end
+
+
   def toto12x() toto1x2; end # alias for toto12x - todo/fix: use ruby alias helper
   def toto1x2
     ## note: will return string e.g. 1-X-2 (winner will return int e.g. 1-0-2)

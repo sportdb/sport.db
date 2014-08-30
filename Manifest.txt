@@ -26,16 +26,13 @@ lib/sportdb/models/assoc.rb
 lib/sportdb/models/assoc_assoc.rb
 lib/sportdb/models/badge.rb
 lib/sportdb/models/event.rb
-lib/sportdb/models/event_comp.rb
 lib/sportdb/models/event_ground.rb
 lib/sportdb/models/event_team.rb
 lib/sportdb/models/forward.rb
 lib/sportdb/models/game.rb
-lib/sportdb/models/game_comp.rb
 lib/sportdb/models/goal.rb
 lib/sportdb/models/ground.rb
 lib/sportdb/models/group.rb
-lib/sportdb/models/group_comp.rb
 lib/sportdb/models/group_team.rb
 lib/sportdb/models/league.rb
 lib/sportdb/models/person.rb
@@ -66,6 +63,7 @@ lib/sportdb/readers/season.rb
 lib/sportdb/readers/squad.rb
 lib/sportdb/readers/team.rb
 lib/sportdb/schema.rb
+lib/sportdb/standings.rb
 lib/sportdb/stats.rb
 lib/sportdb/utils.rb
 lib/sportdb/utils_date.rb

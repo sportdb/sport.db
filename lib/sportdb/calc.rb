@@ -2,6 +2,11 @@
 
 module SportDb
 
+############
+##
+##  fix/todo: obsolete
+##   - use new Standings class 
+
 
 ##############################################
 # helper/ builds standings table in memory

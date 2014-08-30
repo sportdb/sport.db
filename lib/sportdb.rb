@@ -86,7 +86,9 @@ require 'sportdb/utils_scores'
 require 'sportdb/utils_teams'
 require 'sportdb/utils_goals'
 require 'sportdb/matcher'
-require 'sportdb/calc'
+require 'sportdb/calc'       # fix/todo: obsolete - replace w/ standings
+require 'sportdb/standings'
+
 
 require 'sportdb/finders/goals'   # no: requires FixturesHelpers
 

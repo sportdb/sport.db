@@ -124,6 +124,7 @@ class Game < ActiveRecord::Base
 
   # game over?
   def over?()     play_at <= Time.now;  end
+
   ## fix/todo: already added by ar magic ??? remove code
   def knockout?() knockout == true;  end
   def complete?() score1.present? && score2.present?;  end

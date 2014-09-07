@@ -133,5 +133,6 @@ test/test_round_header.rb
 test/test_scores.rb
 test/test_squad_reader.rb
 test/test_standings.rb
+test/test_standings_ii.rb
 test/test_utils.rb
 test/test_winner.rb

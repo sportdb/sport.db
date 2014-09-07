@@ -52,6 +52,9 @@ class Team < ActiveRecord::Base
   belongs_to :city,    class_name: 'WorldDb::Model::City',    foreign_key: 'city_id'
 
 
+  ## fix/todo: change title to name; title2 to name2 etc.
+  def name() title; end
+
 
   def self.create_or_update_from_values( new_attributes, values )
 

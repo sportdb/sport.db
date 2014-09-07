@@ -49,8 +49,11 @@ class Standings
 
 
   def update( match_or_matches )
+    puts " [debug] update match_or_matches.class.name: #{match_or_matches.class.name}"
+
     ## convenience - update all matches at once
-    if match_or_matches.is_a? Array
+    if match_or_matches.is_a?( Array ) ||
+       match_or_matches.is_a?( ActiveRecord::Associations::CollectionProxy )
       matches = match_or_matches
       matches.each_with_index do |match,i| # note: index(i) starts w/ zero (0)
         update_match( match )

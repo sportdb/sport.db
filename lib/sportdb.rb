@@ -95,7 +95,8 @@ require 'sportdb/readers/game'
 require 'sportdb/readers/ground'
 require 'sportdb/readers/league'
 require 'sportdb/readers/season'
-require 'sportdb/readers/squad'    # roster
+require 'sportdb/readers/squad_club'    # roster
+require 'sportdb/readers/squad_national_team'
 require 'sportdb/readers/team'
 require 'sportdb/reader'
 

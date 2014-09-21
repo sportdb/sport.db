@@ -2,14 +2,14 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_squad_reader.rb
+#     ruby -I ./lib -I ./test test/test_squad_national_team_reader.rb
 #  or better
 #     rake -I ./lib test
 
 
 require 'helper'
 
-class TestSquadReader < MiniTest::Unit::TestCase
+class TestSquadNationalTeamReader < MiniTest::Unit::TestCase
 
   def setup
     WorldDb.delete!
@@ -50,7 +50,7 @@ class TestSquadReader < MiniTest::Unit::TestCase
 
     event = Event.find_by_key!( 'world.2014' )
 
-    reader = SquadReader.new( SportDb.test_data_path )
+    reader = NationalTeamSquadReader.new( SportDb.test_data_path )
     reader.read( 'world-cup/2014/squads/br-brazil', team_id: bra.id, event_id: event.id )
 
     assert_equal 23, Roster.count
@@ -70,7 +70,7 @@ class TestSquadReader < MiniTest::Unit::TestCase
 
     event = Event.find_by_key!( 'world.2014' )
 
-    reader = SquadReader.new( SportDb.test_data_path )
+    reader = NationalTeamSquadReader.new( SportDb.test_data_path )
     reader.read( 'world-cup/2014/squads/de-deutschland', team_id: ger.id, event_id: event.id )
 
     assert_equal 3, Roster.count
@@ -87,7 +87,7 @@ class TestSquadReader < MiniTest::Unit::TestCase
 
     event = Event.find_by_key!( 'world.2014' )
 
-    reader = SquadReader.new( SportDb.test_data_path )
+    reader = NationalTeamSquadReader.new( SportDb.test_data_path )
     reader.read( 'world-cup/2014/squads/uy-uruguay', team_id: uru.id, event_id: event.id )
 
     assert_equal 23, Roster.count
@@ -105,7 +105,7 @@ class TestSquadReader < MiniTest::Unit::TestCase
 
     event = Event.find_by_key!( 'world.2014' )
 
-    reader = SquadReader.new( SportDb.test_data_path )
+    reader = NationalTeamSquadReader.new( SportDb.test_data_path )
     reader.read( 'world-cup/2014/squads/jp-japan', team_id: jpn.id, event_id: event.id )
 
     assert_equal 23, Roster.count
@@ -113,4 +113,4 @@ class TestSquadReader < MiniTest::Unit::TestCase
   end  # method test_jp
 
 
-end # class TestSquadReader
+end # class TestSquadNationalTeamReader

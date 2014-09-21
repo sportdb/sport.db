@@ -42,6 +42,12 @@ class Reader
             reader = PersonDb::PersonReader.new( include_path )
             reader.read( name, country_id: country.id )
           end
+    elsif name =~ /\/squads\/([a-z0-9]{3,})$/    # e.g. ajax.txt bayern.txt etc.
+      ## note: for now assume club (e.g. no dash (-) allowed for country code e.g. br-brazil etc.)
+      team = Team.find_by_key!( $1 )
+      ## note: pass in @event.id - that is, last seen event (e.g. parsed via GameReader/MatchReader)
+      reader = ClubSquadReader.new( include_path )
+      reader.read( name, team_id: team.id, event_id: @event.id )
     elsif name =~ /\/squads\/([a-z]{2,3})-[^\/]+$/
       ## fix: add to country matcher new format
       ##   name is country! and parent folder is type name e.g. /squads/br-brazil
@@ -54,16 +60,17 @@ class Reader
       ##      not country code (allows multiple teams per country)
 
       if $1.length == 2
+        ## get national team via country
         country = Country.find_by_key!( $1 )
         ###  for now assume country code matches team for now (do NOT forget to downcase e.g. BRA==bra)
         logger.info "  assume country code == team code for #{country.code}"
         team = Team.find_by_key!( country.code.downcase )
       else  # assume length == 3
+        ## get national team directly (use three letter fifa code)
         team = Team.find_by_key!( $1 )
       end
-
-      reader = SquadReader.new( include_path )
       ## note: pass in @event.id - that is, last seen event (e.g. parsed via GameReader/MatchReader)
+      reader = NationalTeamSquadReader.new( include_path )
       reader.read( name, team_id: team.id, event_id: @event.id )
     elsif name =~ /(?:^|\/)seasons/  # NB: ^seasons or also possible at-austria!/seasons
       reader = SeasonReader.new( include_path )

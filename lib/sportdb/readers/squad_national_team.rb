@@ -1,13 +1,11 @@
 # encoding: UTF-8
 
-### fix: change/rename file to squads.rb !!!
-
 
 module SportDb
 
 ### squad/roster reader for national teams for now
 
-class SquadReader
+class NationalTeamSquadReader
 
   include LogUtils::Logging
 
@@ -165,5 +163,5 @@ class SquadReader
   end # method read_worker
 
 
-end # class SquadReader
+end # class NationTeamSquadReader
 end # module SportDb

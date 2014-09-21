@@ -60,7 +60,8 @@ lib/sportdb/readers/game.rb
 lib/sportdb/readers/ground.rb
 lib/sportdb/readers/league.rb
 lib/sportdb/readers/season.rb
-lib/sportdb/readers/squad.rb
+lib/sportdb/readers/squad_club.rb
+lib/sportdb/readers/squad_national_team.rb
 lib/sportdb/readers/team.rb
 lib/sportdb/schema.rb
 lib/sportdb/standings.rb
@@ -131,7 +132,7 @@ test/test_round_auto.rb
 test/test_round_def.rb
 test/test_round_header.rb
 test/test_scores.rb
-test/test_squad_reader.rb
+test/test_squad_national_team_reader.rb
 test/test_standings.rb
 test/test_standings_ii.rb
 test/test_utils.rb

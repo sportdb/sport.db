@@ -45,14 +45,15 @@ AlltimeStandingEntry = SportDb::Model::AlltimeStandingEntry
 ####################
 # Reader shortcuts
 
-Reader             = SportDb::Reader
-TeamReader         = SportDb::TeamReader
-AssocReader        = SportDb::AssocReader
-SeasonReader       = SportDb::SeasonReader
-LeagueReader       = SportDb::LeagueReader
-EventReader        = SportDb::EventReader
-GameReader         = SportDb::GameReader
-SquadReader        = SportDb::SquadReader
+Reader                  = SportDb::Reader
+TeamReader              = SportDb::TeamReader
+AssocReader             = SportDb::AssocReader
+SeasonReader            = SportDb::SeasonReader
+LeagueReader            = SportDb::LeagueReader
+EventReader             = SportDb::EventReader
+GameReader              = SportDb::GameReader
+NationalTeamSquadReader = SportDb::NationalTeamSquadReader
+ClubSquadReader         = SportDb::ClubSquadReader
 
 ## moved to racing.db  - remove/delete!!
 ## RaceTeamReader     = SportDb::RaceTeamReader

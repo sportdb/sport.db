@@ -80,6 +80,8 @@ test/data/at-austria/2013_14/bl.yml
 test/data/at-austria/2013_14/bl_ii.txt
 test/data/at-austria/2013_14/el.txt
 test/data/at-austria/2013_14/el.yml
+test/data/at-austria/2013_14/squads/austria.txt
+test/data/at-austria/2013_14/squads/salzburg.txt
 test/data/at-austria/leagues.txt
 test/data/at-austria/teams.txt
 test/data/at-austria/teams_2.txt
@@ -89,6 +91,7 @@ test/data/national-teams/europe/teams.txt
 test/data/national-teams/north-america/assocs.txt
 test/data/national-teams/north-america/teams.txt
 test/data/national-teams/teams.txt
+test/data/players/europe/at-austria/players.txt
 test/data/players/europe/de-deutschland/players.txt
 test/data/players/south-america/br-brazil/players.txt
 test/data/world-cup/1930/cup.txt
@@ -132,6 +135,7 @@ test/test_round_auto.rb
 test/test_round_def.rb
 test/test_round_header.rb
 test/test_scores.rb
+test/test_squad_club_reader.rb
 test/test_squad_national_team_reader.rb
 test/test_standings.rb
 test/test_standings_ii.rb

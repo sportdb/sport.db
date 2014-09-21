@@ -1,6 +1,12 @@
 # encoding: UTF-8
 
 
+################
+#  work-in-progess !!!!!!!!!!!!!!!!!!!!!!!
+#  
+#    use nationality for lookup table
+
+
 module SportDb
 
 ###
@@ -65,11 +71,12 @@ class ClubSquadReader
     ##########
     # fix: lookup table for now assumes national team
     #   make it usable for clubs too etc. 
-    country = @team.country
-    pp country
+    
+    ## country = @team.country
+    ## pp country
 
-    logger.info "  persons count for country: #{country.persons.count}"
-    @known_persons = TextUtils.build_title_table_for( country.persons )
+    ## logger.info "  persons count for country: #{country.persons.count}"
+    ## @known_persons = TextUtils.build_title_table_for( country.persons )
 
 
     read_worker( reader )
@@ -103,8 +110,16 @@ class ClubSquadReader
       # team_key = find_team!( line )
       # team = Team.find_by_key!( team_key )
 
-      map_person!( line )
-      person_key = find_person!( line )
+      ## fix/todo:
+      ##
+      ##   use nationality
+      ##    1) no nationality - use/assume team country is nationality
+      ##    2) use nationality
+      ##
+      ##   search by nationality/country
+
+      ## map_person!( line )
+      ## person_key = find_person!( line )
 
       logger.debug "  line2: >#{line}<"
 

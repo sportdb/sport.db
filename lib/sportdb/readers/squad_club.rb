@@ -1,12 +1,6 @@
 # encoding: UTF-8
 
 
-################
-#  work-in-progess !!!!!!!!!!!!!!!!!!!!!!!
-#  
-#    use nationality for lookup table
-
-
 module SportDb
 
 ###
@@ -65,19 +59,10 @@ class ClubSquadReader
 
     ### SportDb.lang.lang = LangChecker.new.analyze( name, include_path )
 
+    ## mapping tables for persons per country (indexed by country code); reset
+    @country_persons_cache = {}
+
     reader = LineReader.new( path )
-
-
-    ##########
-    # fix: lookup table for now assumes national team
-    #   make it usable for clubs too etc. 
-    
-    ## country = @team.country
-    ## pp country
-
-    ## logger.info "  persons count for country: #{country.persons.count}"
-    ## @known_persons = TextUtils.build_title_table_for( country.persons )
-
 
     read_worker( reader )
 
@@ -97,29 +82,40 @@ class ClubSquadReader
 
       cut_off_end_of_line_comment!( line )
 
-      pos = find_leading_pos!( line )
+      pos = find_leading_num!( line )
 
       if pos.nil?
         pos_counter+=1       ## e.g. 999001,999002 etc.
         pos = pos_counter
       end
 
-      #####
-      #  - for now do NOT map team
-      # map_team!( line )
-      # team_key = find_team!( line )
-      # team = Team.find_by_key!( team_key )
+      nationality = find_nationality!( line )  # e.g. ARG,AUT,USA,MEX etc. (three-letter country code)
 
-      ## fix/todo:
-      ##
-      ##   use nationality
-      ##    1) no nationality - use/assume team country is nationality
-      ##    2) use nationality
-      ##
-      ##   search by nationality/country
+      if nationality.nil?
+        ## note: use/assume team's nationality is player's nationality
+        nationality = @team.country.code
+      end
 
-      ## map_person!( line )
-      ## person_key = find_person!( line )
+      ## note: for now allow lines w/ missing country records in db (used in unit tests)
+      country = Country.find_by_code( nationality )
+      if country.nil?
+        logger.warn "*** no country found for code >#{nationality}< in line: >#{line}<"
+        person_key = nil   ## no country, no mapping table - canNOT map person
+      else
+        ## try mapping person using country table
+        ##   cache mapping table by country code
+
+        country_persons = @country_persons_cache[ country.code ]
+        if country_persons.nil?
+          logger.info "  persons count for country (#{country.code}): #{country.persons.count}"
+          country_persons = TextUtils.build_title_table_for( country.persons )
+          @country_persons_cache[ country.code ] = country_persons   # cache mapping table
+        end
+
+         map_person!( line, country_persons )
+         person_key = find_person!( line )
+      end
+
 
       logger.debug "  line2: >#{line}<"
 
@@ -129,9 +125,15 @@ class ClubSquadReader
 
         buf = line.clone
         # remove (single match) if line starts w/ - (allow spaces)  e.g. | - or |-  note: must start line e.g. anchor ^ used
-        buf = buf.sub( /^[ ]*-[ ]*/, '' )
+        buf = buf.sub( /^[ ]*-[ ]*/, '' )    # remove leading dash -  for jersey number n/a
         buf = buf.gsub( /\[[^\]]+\]/, '' )         # remove [POS] or similar
-        buf = buf.gsub( /\b(GK|DF|MF|FW)\b/, '' )   # remove position marker - use sub (just single marker?)
+        buf = buf.sub( '(c)', '' )    # remove captain marker
+        buf = buf.sub( '(vc)', '' )   # remove vice-captain marker
+        ### note: uses sub; assumes one pos marker per line
+        buf = buf.sub( /\b(GK|DF|MF|FW)\b/, '' )   # remove position marker
+        # since year/date  e.g. 2011-  assume one per line
+        #   note: use (?= |$) lookahead e.g. must be followed by space or end-of-line
+        buf = buf.sub( /\b\d{4}-?(?= |$)/, '' )
         buf = buf.strip   # remove leading and trailing spaces
 
         ## assume what's left is player name
@@ -143,6 +145,13 @@ class ClubSquadReader
                key:   TextUtils.title_to_key( buf ),
                title: buf
         }
+
+        # note: add country from team or nationality marker
+        if country
+          person_attribs[ :country_id     ] = country.id
+          person_attribs[ :nationality_id ] = country.id
+        end
+
         logger.info "   using attribs: #{person_attribs.inspect}"
 
         person = Person.create!( person_attribs )
@@ -181,5 +190,5 @@ class ClubSquadReader
   end # method read_worker
 
 
-end # class NationTeamSquadReader
+end # class ClubSquadReader
 end # module SportDb

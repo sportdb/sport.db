@@ -45,7 +45,7 @@ class TestSquadClubReader < MiniTest::Unit::TestCase
     personreader = PersonReader.new( SportDb.test_data_path )
     personreader.read( 'players/europe/at-austria/players', country_id: at.id ) 
 
-#    assert_equal 30, Person.count
+    assert_equal 30, Person.count
   end
 
 
@@ -57,7 +57,7 @@ class TestSquadClubReader < MiniTest::Unit::TestCase
     reader = ClubSquadReader.new( SportDb.test_data_path )
     reader.read( 'at-austria/2013_14/squads/austria', team_id: austria.id, event_id: event.id )
 
-    ## assert_equal 23, Roster.count
+    assert_equal 28, Roster.count
   end  # method test_br
 
 
@@ -69,7 +69,7 @@ class TestSquadClubReader < MiniTest::Unit::TestCase
     reader = ClubSquadReader.new( SportDb.test_data_path )
     reader.read( 'at-austria/2013_14/squads/salzburg', team_id: salzburg.id, event_id: event.id )
 
-    ## assert_equal 23, Roster.count
+    assert_equal 27, Roster.count
   end  # method test_salzburg
 
 

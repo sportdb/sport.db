@@ -1,3 +1,45 @@
 ###################################
-# Austria
+# Austria / Österreich
 
+
+### GK Goalkeepers
+
+Heinz Lindner,  8 Jan 1988
+Tino Casali,  8 Jan 1988
+
+### DF Defenders
+
+Philipp Koblischek,  8 Jan 1988
+Manuel Ortlechner,  8 Jan 1988
+Christian Ramsebner,  8 Jan 1988
+Sebastian Wimmer,  8 Jan 1988
+Markus Suttner,  8 Jan 1988
+Fabian Koch,  8 Jan 1988
+Petar Gluhakovićsing,  8 Jan 1988
+Franz Schiemer,  8 Jan 1988
+Andreas Ulmer,  8 Jan 1988
+Martin Hinteregger,  8 Jan 1988
+
+### MF Midfielders
+
+Mario Leitgeb,  8 Jan 1988
+Marco Meilinger,  8 Jan 1988
+Alexander Grünwald,  8 Jan 1988
+Florian Mader,  8 Jan 1988
+Alexander Gorgon,  8 Jan 1988
+Sascha Horvath,  8 Jan 1988
+Bernhard Luxbacher,  8 Jan 1988
+Daniel Royer,  8 Jan 1988
+Peter Michorl,  8 Jan 1988
+Thomas Salamon,  8 Jan 1988
+Tarkan Serbest,  8 Jan 1988
+Stefan Ilsanker,  8 Jan 1988
+Christoph Leitgeb,  8 Jan 1988
+Valentino Lazaro,  8 Jan 1988
+
+### FM Forwards
+
+Martin Harrer,  8 Jan 1988
+Roman Kienast,  8 Jan 1988
+Marcel Sabitzer,  8 Jan 1988
+Robert Žulj,  8 Jan 1988

@@ -11,17 +11,31 @@ class GroundReader
 #  e.g. lets you use Usage instead of Model::Usage
   include Models
 
+  def self.from_zip( zip_file, entry_path, more_attribs={} )
+    ## to be done
+  end
 
-  attr_reader :include_path
+  def self.from_file( path, more_attribs={} )
+    ## note: assume/enfore utf-8 encoding (with or without BOM - byte order mark)
+    ## - see textutils/utils.rb
+    text = File.read_utf8( path )
+    self.from_string( text, more_attribs )
+  end
+
+  def self.from_string( text, more_attribs={} )
+    GroundReader.new( text, more_attribs )
+  end  
 
 
-  def initialize( include_path, opts = {} )
-    @include_path = include_path
+  def initialize( text, more_attribs={} )
+    ## todo/fix: how to add opts={} ???
+    @text = text
+    @more_attribs = more_attribs
   end
 
 
   def read( name, more_attribs={} )
-    reader = ValuesReaderV2.new( name, include_path, more_attribs )
+    reader = ValuesReader.from_string( @text, @more_attribs )
 
     reader.each_line do |new_attributes, values|
       Ground.create_or_update_from_values( new_attributes, values )

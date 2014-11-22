@@ -11,48 +11,43 @@ class EventReader
 #  e.g. lets you use Usage instead of Model::Usage
   include Models
 
-
-  attr_reader :include_path
   attr_reader :event           # returns event record; call read first
+  attr_reader :fixtures        #  fixtures/sources entry from event config
 
-  def initialize( include_path, opts = {} )
-    @include_path = include_path
+  def self.from_zip( zip_file, entry_path, more_attribs={} )
+    ## to be done
+  end
 
-    @name     = nil
+  def self.from_file( path, more_attribs={} )
+    ## note: assume/enfore utf-8 encoding (with or without BOM - byte order mark)
+    ## - see textutils/utils.rb
+    text = File.read_utf8( path )
+    
+    config = File.basename( name )  # name a of .yml file
+    
+    self.from_string( text, config, more_attribs )
+  end
+
+  def self.from_string( text, config, more_attribs={} )
+    EventReader.new( text, config, more_attribs )
+  end  
+
+  def initialize( text, config, more_attribs={} )
+    ## todo/fix: how to add opts={} ???
+    @text = text
+    @more_attribs = more_attribs
+
+    @config          = config   # name of  event configuration (relative basename w/o path or string)
+    @sources_default = config   # note: use same a config for now
+
     @event    = nil
     @fixtures = []
   end
 
 
-  def fixtures
-    ## note: needs to call read first (to set @name, @fixtures, etc.)
-
-    if @fixtures.empty?
-      ## logger.warn "no fixtures found for event - >#{name}<; assume fixture name is the same as event"
-      fixtures_with_path = [ @name ]
-    else
-      ## add path to fixtures (use path from event e.g)
-      #  - bl    + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl
-      #  - bl_ii + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl_ii
-
-      dir = File.dirname( @name ) # use dir for fixtures
-
-      fixtures_with_path = @fixtures.map do |fx|
-        fx_new = "#{dir}/#{fx}"   # add path upfront
-        logger.debug "fx: #{fx_new} | >#{fx}< + >#{dir}<"
-        fx_new
-      end
-    end
-
-    fixtures_with_path
-  end
-
-
-
-  def read( name, more_attribs={} )
+  def read()
     @fixtures = []    # reset cached fixtures
     @event    = nil   # reset cached event rec
-    @name     = name  # keep name (needed for fixtures attrib getter)
 
 ####
 ## fix!!!!!
@@ -60,17 +55,17 @@ class EventReader
 ##   use Event.create_or_update_from_hash_reader?? or similar
 #   move parsing code to model
 
-    reader = HashReaderV2.new( name, include_path )
+    reader = HashReader.from_string( @text )
 
     event_attribs = {}
-    
+
     ## set default sources to basename by convention
     #  e.g  2013_14/bl  => bl
     #  etc.
     # use fixtures/sources: to override default
 
-    event_attribs[ 'sources' ] = File.basename( name )
-    event_attribs[ 'config'  ] = File.basename( name )  # name a of .yml file
+    event_attribs[ 'sources' ] = @sources_default
+    event_attribs[ 'config'  ] = @config            # name a of .yml file
 
     reader.each_typed do |key, value|
 

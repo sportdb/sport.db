@@ -17,37 +17,78 @@ class GameReader
   include FixtureHelpers
 
 
-  attr_reader :include_path
-
-
-  def initialize( include_path, opts = {} )
-    @include_path = include_path
+  def self.from_zip( zip_file, entry_path, more_attribs={} )
+    ## to be done
   end
 
+  def self.from_file( path, more_attribs={} )
 
-  def read( name, more_attribs={} )
-    reader = EventReader.new( @include_path )
-    reader.read( name )
+    logger = LogKernel::Logger.root
+
+    ### NOTE: fix-fix-fix - pass in event path!!!!!!! (not fixture path!!!!)
+    
+    ## - ## note: assume/enfore utf-8 encoding (with or without BOM - byte order mark)
+    ## - ## - see textutils/utils.rb
+    ## - text = File.read_utf8( path )
+
+    reader = EventReader.from_file( path )
+    reader.read()
 
     event    = reader.event      ## was fetch_event( name )
     fixtures = reader.fixtures   ## was fetch_event_fixtures( name )
 
-    ## reset cached values
-    ##  for auto-number rounds etc.
-    @last_round_pos = nil
 
-    fixtures.each do |fixture|
-      read_fixtures( event.key, fixture )  ## use read_for or read_for_event - why ??? why not?? 
+    if fixtures.empty?
+      ## logger.warn "no fixtures found for event - >#{name}<; assume fixture name is the same as event"
+      ## change extension from .yml to .txt
+      fixtures_with_path = [ path.sub('.yml','.txt') ]
+    else
+      ## add path to fixtures (use path from event e.g)
+      #  - bl    + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl
+      #  - bl_ii + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl_ii
+
+      dir = File.dirname( path ) # use dir for fixtures
+
+      fixtures_with_path = fixtures.map do |fx|
+        fx_new = "#{dir}/#{fx}.txt"   # add path upfront
+        logger.debug "fx: #{fx_new} | >#{fx}< + >#{dir}<"
+        fx_new
+      end
     end
+
+    ## fix-fix-fix: change file extension to ??
+    text_ary = []
+    fixtures_with_path.each do |fixture_path|
+       text_ary << File.read_utf8( fixture_path )
+    end
+
+    self.from_string( event, text_ary, more_attribs )
   end
 
 
-  def read_fixtures_from_string( event_key, text_or_text_ary )  # load from string (e.g. passed in via web form)
+  def self.from_string( event, text_or_text_ary, more_attribs={} )
+    ### fix - fix -fix:
+    ##  change event to event_or_event_key !!!!!  - allow event_key as string passed in
+    GameReader.new( event, text_or_text_ary, more_attribs )
+  end  
 
-    if text_or_text_ary.is_a?( String )
-      text_ary = [text_or_text_ary]
+
+  def initialize( event, text_or_text_ary, more_attribs={} )
+    ### fix - fix -fix:
+    ##  change event to event_or_event_key !!!!!  - allow event_key as string passed in
+
+    ## todo/fix: how to add opts={} ???
+    @event             = event
+    @text_or_text_ary  = text_or_text_ary
+    @more_attribs      = more_attribs
+  end
+
+
+  def read()
+    if @text_or_text_ary.is_a?( String )
+      text_ary = [@text_or_text_ary]
     else
-      text_ary = text_or_text_ary
+      text_ary = t@ext_or_text_ary
     end
 
     ## reset cached values
@@ -59,10 +100,9 @@ class GameReader
       ##  fix (cache) store lang in event table (e.g. auto-add and auto-update)!!!
       SportDb.lang.lang = SportDb.lang.classify( text )
 
-      ## todo/fix: move code into LineReader e.g. use LineReader.fromString() - why? why not?
-      reader = StringLineReader.new( text )
+      reader = LineReader.from_string( text )
 
-      load_fixtures_worker( event_key, reader )
+      read_fixtures_worker( @event.key, reader )
     end
 
     ## fix add prop ??
@@ -70,35 +110,7 @@ class GameReader
   end
 
 
-  def read_fixtures( event_key, name )  # load from file system
-
-    ## todo: move name_real_path code to LineReaderV2 ????
-    pos = name.index( '!/')
-    if pos.nil?
-      name_real_path = name   # not found; real path is the same as name
-    else
-      # cut off everything until !/ e.g.
-      #   at-austria!/w-wien/beers becomes
-      #   w-wien/beers
-      name_real_path = name[ (pos+2)..-1 ]
-    end
-
-
-    path = "#{include_path}/#{name_real_path}.txt"
-
-    logger.info "parsing data '#{name}' (#{path})..."
-    
-    SportDb.lang.lang = SportDb.lang.classify_file( path )
-
-    reader = LineReader.new( path )
-    
-    load_fixtures_worker( event_key, reader )
-
-    Prop.create_from_fixture!( name, path )
-  end
-
-
-  def load_fixtures_worker( event_key, reader )
+  def read_fixtures_worker( event_key, reader )
     ## NB: assume active activerecord connection
 
     ## reset cached values

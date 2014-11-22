@@ -24,12 +24,11 @@ class ReaderBase
 
   def load( name )   # convenience helper for all-in-one reader
 
-    logger.debug "enter load( name=>>#{name}<<, include_path=>>#{include_path}<<)"
-
+    logger.debug "enter load( name=>>#{name}<<)"    ## formerly also printed -> include_path=>>#{include_path}<<
 
     if match_players_for_country( name ) do |country_key|
             ## country = Country.find_by_key!( country_key )
-            ## fix-fix-fix: change to new format e.g. from_file, from_zip etc!!!
+            ## fix-fix-fix-fix-fix-fix: change to new format e.g. from_file, from_zip etc!!!
             ## reader = PersonDb::PersonReader.new( include_path )
             ## reader.read( name, country_id: country.id )
           end
@@ -37,7 +36,7 @@ class ReaderBase
       ## note: for now assume club (e.g. no dash (-) allowed for country code e.g. br-brazil etc.)
       team = Team.find_by_key!( $1 )
       ## note: pass in @event.id - that is, last seen event (e.g. parsed via GameReader/MatchReader)
-      reader = create_club_squad_reader.new( name, team_id: team.id, event_id: @event.id )
+      reader = create_club_squad_reader( name, team_id: team.id, event_id: @event.id )
       reader.read()
     elsif name =~ /\/squads\/([a-z]{2,3})-[^\/]+$/
       ## fix: add to country matcher new format
@@ -67,59 +66,59 @@ class ReaderBase
       reader = create_season_reader( name )
       reader.read()
     elsif name =~ /(?:^|\/)assocs/  # NB: ^assocs or also possible national-teams!/assocs
-      reader = AssocReader.new( include_path )
-      reader.read( name )
+      reader = create_assoc_reader( name )
+      reader.read()
     elsif match_stadiums_for_country( name ) do |country_key|
             country = Country.find_by_key!( country_key )
-            reader = GroundReader.new( include_path )
-            reader.read( name, country_id: country.id )
+            reader = create_ground_reader( name, country_id: country.id )
+            reader.read()
           end
     elsif match_leagues_for_country( name ) do |country_key|  # name =~ /^([a-z]{2})\/leagues/
             # auto-add country code (from folder structure) for country-specific leagues
             #  e.g. at/leagues
             country = Country.find_by_key!( country_key )
-            reader = LeagueReader.new( include_path )
-            reader.read( name, club: true, country_id: country.id )
+            reader = create_league_reader( name, club: true, country_id: country.id )
+            reader.read()
           end
     elsif name =~ /(?:^|\/)leagues/   # NB: ^leagues or also possible world!/leagues  - NB: make sure goes after leagues_for_country!!
-      reader = LeagueReader.new( include_path )
-      reader.read( name )
+      reader = create_league_reader( name )
+      reader.read()
     elsif match_teams_for_country( name ) do |country_key|   # name =~ /^([a-z]{2})\/teams/
             # auto-add country code (from folder structure) for country-specific teams
             #  e.g. at/teams at/teams.2 de/teams etc.
             country = Country.find_by_key!( country_key )
-            reader = TeamReader.new( include_path )
-            reader.read( name, country_id: country.id )
+            reader = create_team_reader( name, country_id: country.id )
+            reader.read()
           end
     elsif match_clubs_for_country( name ) do |country_key|   # name =~ /^([a-z]{2})\/clubs/
             # auto-add country code (from folder structure) for country-specific clubs
             #  e.g. at/teams at/teams.2 de/teams etc.                
             country = Country.find_by_key!( country_key )
-            reader = TeamReader.new( include_path )
-            reader.read( name, club: true, country_id: country.id )  ## note: always sets club flag to true
+            reader = create_team_reader( name, club: true, country_id: country.id )   ## note: always sets club flag to true
+            reader.read()
           end
     elsif name =~ /(?:^|\/)teams/   ## fix: check if teams rule above (e.g. /^teams/ )conflicts/matches first ???
       ### fix: use new NationalTeamReader ??? why? why not?
-      reader = TeamReader.new( include_path )
-      reader.read( name )  ## note: always sets club flag to true / national to true
+      reader = create_team_reader( name )   ## note: always sets club flag to true / national to true
+      reader.read()
     elsif name =~ /(?:^|\/)clubs/
       ### fix: use new ClubReader ??? why? why not?
-      reader = TeamReader.new( include_path )
-      reader.read( name, club: true )   ## note: always sets club flag to true / national to false
+      reader = create_team_reader( name, club: true )     ## note: always sets club flag to true / national to false
+      reader.read()
     elsif name =~ /\/(\d{4}|\d{4}[_\-]\d{2})(--[^\/]+)?\// ||
           name =~ /\/(\d{4}|\d{4}[_\-]\d{2})$/
 
       # note: allow 2013_14 or 2013-14 (that, is dash or underscore)
 
       # note: keep a "public" reference of last event in @event  - e.g. used/required by squads etc.
-      eventreader = EventReader.new( include_path )
-      eventreader.read( name )
+      eventreader = create_event_reader( name )
+      eventreader.read()
       @event    = eventreader.event
 
       # e.g. must match /2012/ or /2012_13/  or   /2012--xxx/ or /2012_13--xx/
       #  or   /2012 or /2012_13   e.g. brazil/2012 or brazil/2012_13
-      reader = GameReader.new( include_path )
-      reader.read( name )
+      reader = create_game_reader( name )
+      reader.read()
     else
       logger.error "unknown sportdb fixture type >#{name}<"
       # todo/fix: exit w/ error

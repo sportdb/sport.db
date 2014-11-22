@@ -86,9 +86,8 @@ class Team < ActiveRecord::Base
         new_attributes[ :web ] = value
       elsif value =~ /^[A-Z][A-Z0-9][A-Z0-9_]?$/   ## assume two or three-letter code e.g. FCB, RBS, etc.
         new_attributes[ :code ] = value
-      elsif value =~ /^[a-z]{2}$/  ## assume two-letter country key e.g. at,de,mx,etc.
-        ## fix: allow country letter with three e.g. eng,sco,wal,nir, etc. !!!
-        ## fix: if country does NOT match / NOT found - just coninue w/ next match!!!!
+      elsif value =~ /^[a-z]{2,3}$/  ## assume two or three-letter country key e.g. at,de,mx, or eng,sco,wal,nir etc.
+        ## fix: if country does NOT match / NOT found - just continue w/ next match!!!!
         #   - just issue an error/warn do NOT crash
         value_country = Country.find_by_key!( value )
         new_attributes[ :country_id ] = value_country.id

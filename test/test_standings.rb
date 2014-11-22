@@ -72,17 +72,17 @@ class TestStandings < MiniTest::Test
 
 
   def add_world_cup_1974
-    teamreader = TeamReader.new( SportDb.test_data_path )
-    teamreader.read( 'world-cup/teams_1974' )
+    teamreader = TestTeamReader.from_file( 'world-cup/teams_1974' )
+    teamreader.read()
     
-    seasonreader = SeasonReader.new( SportDb.test_data_path )
-    seasonreader.read( 'world-cup/seasons_1974')
+    seasonreader = TestSeasonReader.from_file( 'world-cup/seasons_1974' )
+    seasonreader.read()
 
-    leaguereader = LeagueReader.new( SportDb.test_data_path )
-    leaguereader.read( 'world-cup/leagues' )
+    leaguereader = TestLeagueReader.from_file( 'world-cup/leagues' )
+    leaguereader.read()
 
-    gamereader = GameReader.new( SportDb.test_data_path )
-    gamereader.read( 'world-cup/1974/cup' )
+    gamereader = TestGameReader.from_file( 'world-cup/1974/cup' )
+    gamereader.read()
 
     ev = Event.find_by_key!( 'world.1974' )
 

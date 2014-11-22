@@ -9,7 +9,7 @@
 
 require 'helper'
 
-class TestStandingsIi < MiniTest::Test
+class TestStandingsII < MiniTest::Test
 
   def setup
     WorldDb.delete!
@@ -20,15 +20,15 @@ class TestStandingsIi < MiniTest::Test
   def test_bl
     at = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
     
-    teamreader = TeamReader.new( SportDb.test_data_path )
-    teamreader.read( 'at-austria/teams',   country_id: at.id )
+    teamreader = TestTeamReader.from_file( 'at-austria/teams', country_id: at.id )
+    teamreader.read()
 
-    leaguereader = LeagueReader.new( SportDb.test_data_path )
-    leaguereader.read( 'at-austria/leagues', country_id: at.id )
+    leaguereader = TestLeagueReader.from_file( 'at-austria/leagues', country_id: at.id )
+    leaguereader.read()
 
-    gamereader = GameReader.new( SportDb.test_data_path )
     ## check/fix: is country_id more_attribs needed? why? why not?
-    gamereader.read( 'at-austria/2013_14/bl', country_id: at.id )
+    gamereader = TestGameReader.from_file( 'at-austria/2013_14/bl', country_id: at.id )
+    gamereader.read()
 
     bl = Event.find_by_key!( 'at.2013/14' )
 
@@ -43,4 +43,4 @@ class TestStandingsIi < MiniTest::Test
   end
 
 
-end # class TestStandingsIi
+end # class TestStandingsII

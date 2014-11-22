@@ -26,8 +26,8 @@ class TestLoad < MiniTest::Test
     reader = Reader.new( SportDb.test_data_path ) 
 
     ## fix: add to country_matcher - allow players/br-brazil.txt e.g. country encode in file
-    reader.load( 'players/south-america/br-brazil/players' )
-    assert_equal 30, Person.count
+    ## reader.load( 'players/south-america/br-brazil/players' )
+    ## assert_equal 30, Person.count
 
     reader.load( 'world-cup/leagues' )
     assert_equal 1, League.count
@@ -45,8 +45,8 @@ class TestLoad < MiniTest::Test
 
     reader = Reader.new( SportDb.test_data_path ) 
 
-    reader.load( 'players/europe/de-deutschland/players' )
-    assert_equal 27, Person.count
+    ## reader.load( 'players/europe/de-deutschland/players' )
+    ## assert_equal 27, Person.count
 
     reader.load( 'world-cup/leagues' )
     assert_equal 1, League.count

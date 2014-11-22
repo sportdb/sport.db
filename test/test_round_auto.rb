@@ -69,29 +69,29 @@ class TestRoundAuto < MiniTest::Test
 
 
   def test_world_cup_1974
-    teamreader = TeamReader.new( SportDb.test_data_path )
-    teamreader.read( 'world-cup/teams_1974' )
+    teamreader = TestTeamReader.from_file( 'world-cup/teams_1974' )
+    teamreader.read()
 
     assert_equal  16, Team.count
 
-    seasonreader = SeasonReader.new( SportDb.test_data_path )
-    seasonreader.read( 'world-cup/seasons_1974')
+    seasonreader = TestSeasonReader.from_file( 'world-cup/seasons_1974' )
+    seasonreader.read()
 
     assert_equal 1, Season.count
 
     y = Season.find_by_key!( '1974' )
     assert_equal '1974', y.title
 
-    leaguereader = LeagueReader.new( SportDb.test_data_path )
-    leaguereader.read( 'world-cup/leagues' )
+    leaguereader = TestLeagueReader.from_file( 'world-cup/leagues' )
+    leaguereader.read()
 
     assert_equal 1, League.count
 
     l = League.find_by_key!( 'world' )
     assert_equal 'World Cup', l.title
 
-    gamereader = GameReader.new( SportDb.test_data_path )
-    gamereader.read( 'world-cup/1974/cup' )
+    gamereader = TestGameReader.from_file( 'world-cup/1974/cup' )
+    gamereader.read()
 
     assert_equal 1, Event.count
 
@@ -125,8 +125,8 @@ class TestRoundAuto < MiniTest::Test
     #  note: update only works if rounds get not deleted or added
     #  - (adding for updates works only at the end/tail - not at the beginning or inbetween, for example)
 
-    gamereader = GameReader.new( SportDb.test_data_path )
-    gamereader.read( 'world-cup/1974/cup' )
+    gamereader = TestGameReader.from_file( 'world-cup/1974/cup' )
+    gamereader.read()
 
     assert_equal 1, Event.count
 
@@ -142,8 +142,8 @@ class TestRoundAuto < MiniTest::Test
 
 
   def test_world_cup_1954
-    teamreader = TeamReader.new( SportDb.test_data_path )
-    teamreader.read( 'world-cup/teams_1954' )
+    teamreader = TestTeamReader.from_file( 'world-cup/teams_1954' )
+    teamreader.read()
 
     assert_equal  16, Team.count
 
@@ -152,8 +152,8 @@ class TestRoundAuto < MiniTest::Test
       [ 'uru', 'Uruguay', 'URU' ],
       [ 'bel', 'Belgium', 'BEL' ] ] )
 
-    seasonreader = SeasonReader.new( SportDb.test_data_path )
-    seasonreader.read( 'world-cup/seasons_1954')
+    seasonreader = TestSeasonReader.from_file( 'world-cup/seasons_1954' )
+    seasonreader.read()
 
     assert_equal 1, Season.count
 
@@ -161,8 +161,8 @@ class TestRoundAuto < MiniTest::Test
     assert_equal '1954', y.title
 
 
-    leaguereader = LeagueReader.new( SportDb.test_data_path )
-    leaguereader.read( 'world-cup/leagues' )
+    leaguereader = TestLeagueReader.from_file( 'world-cup/leagues' )
+    leaguereader.read()
 
     assert_equal 1, League.count
 
@@ -170,8 +170,8 @@ class TestRoundAuto < MiniTest::Test
     assert_equal 'World Cup', l.title
 
 
-    gamereader = GameReader.new( SportDb.test_data_path )
-    gamereader.read( 'world-cup/1954/cup' )
+    gamereader = TestGameReader.from_file( 'world-cup/1954/cup' )
+    gamereader.read()
 
     assert_equal 1, Event.count
 
@@ -200,8 +200,8 @@ class TestRoundAuto < MiniTest::Test
 
 
   def test_world_cup_1930
-    teamreader = TeamReader.new( SportDb.test_data_path )
-    teamreader.read( 'world-cup/teams_1930' )
+    teamreader = TestTeamReader.from_file( 'world-cup/teams_1930' )
+    teamreader.read()
 
     assert_equal  13, Team.count
 
@@ -210,8 +210,8 @@ class TestRoundAuto < MiniTest::Test
       [ 'bra', 'Brazil',    'BRA' ],
       [ 'bel', 'Belgium',   'BEL' ] ] )
 
-    seasonreader = SeasonReader.new( SportDb.test_data_path )
-    seasonreader.read( 'world-cup/seasons_1930')
+    seasonreader = TestSeasonReader.from_file( 'world-cup/seasons_1930' )
+    seasonreader.read()
 
     assert_equal 1, Season.count
 
@@ -219,8 +219,8 @@ class TestRoundAuto < MiniTest::Test
     assert_equal '1930', y.title
 
 
-    leaguereader = LeagueReader.new( SportDb.test_data_path )
-    leaguereader.read( 'world-cup/leagues' )
+    leaguereader = TestLeagueReader.from_file( 'world-cup/leagues' )
+    leaguereader.read()
 
     assert_equal 1, League.count
 
@@ -228,8 +228,8 @@ class TestRoundAuto < MiniTest::Test
     assert_equal 'World Cup', l.title
 
 
-    gamereader = GameReader.new( SportDb.test_data_path )
-    gamereader.read( 'world-cup/1930/cup' )
+    gamereader = TestGameReader.from_file( 'world-cup/1930/cup' )
+    gamereader.read()
 
     assert_equal 1, Event.count
 
@@ -259,8 +259,8 @@ class TestRoundAuto < MiniTest::Test
 
 
   def test_world_cup_1962
-    teamreader = TeamReader.new( SportDb.test_data_path )
-    teamreader.read( 'world-cup/teams_1962' )
+    teamreader = TestTeamReader.from_file( 'world-cup/teams_1962' )
+    teamreader.read()
 
     assert_equal  16, Team.count
 
@@ -269,8 +269,8 @@ class TestRoundAuto < MiniTest::Test
       [ 'bra', 'Brazil',    'BRA' ],
       [ 'ita', 'Italy',     'ITA' ] ] )
 
-    seasonreader = SeasonReader.new( SportDb.test_data_path )
-    seasonreader.read( 'world-cup/seasons_1962')
+    seasonreader = TestSeasonReader.from_file( 'world-cup/seasons_1962' )
+    seasonreader.read()
 
     assert_equal 1, Season.count
 
@@ -278,8 +278,8 @@ class TestRoundAuto < MiniTest::Test
     assert_equal '1962', y.title
 
 
-    leaguereader = LeagueReader.new( SportDb.test_data_path )
-    leaguereader.read( 'world-cup/leagues' )
+    leaguereader = TestLeagueReader.from_file( 'world-cup/leagues' )
+    leaguereader.read()
 
     assert_equal 1, League.count
 
@@ -287,8 +287,8 @@ class TestRoundAuto < MiniTest::Test
     assert_equal 'World Cup', l.title
 
 
-    gamereader = GameReader.new( SportDb.test_data_path )
-    gamereader.read( 'world-cup/1962/cup' )
+    gamereader = TestGameReader.from_file( 'world-cup/1962/cup' )
+    gamereader.read()
 
     assert_equal 1, Event.count
 
@@ -320,8 +320,8 @@ class TestRoundAuto < MiniTest::Test
     #  note: update only works if rounds get not deleted or added
     #  - (adding for updates works only at the end/tail - not at the beginning or inbetween, for example)
 
-    gamereader = GameReader.new( SportDb.test_data_path )
-    gamereader.read( 'world-cup/1962/cup' )
+    gamereader = TestGameReader.from_file( 'world-cup/1962/cup' )
+    gamereader.read()
 
     assert_equal 1, Event.count
 

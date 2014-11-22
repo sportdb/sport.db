@@ -86,12 +86,13 @@ class Reader < ReaderBase
 
   def create_game_reader( name, more_attribs={} )
     real_name = name_to_real_name( name )
-    path = "#{@include_path}/#{real_name}.txt"
+    
+    ## NOTE: pass in .yml as path (that is, event config!!!!)
+    path = "#{@include_path}/#{real_name}.yml"
 
     logger.info "parsing data (fixture) '#{name}' (#{path})..."
     GameReader.from_file( path, more_attribs )
   end
-
 
 
   def create_person_reader( name, more_attribs={} )

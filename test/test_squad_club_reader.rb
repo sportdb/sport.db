@@ -9,7 +9,7 @@
 
 require 'helper'
 
-class TestSquadClubReader < MiniTest::Test
+class TestSquadClubReaderXX < MiniTest::Test  # note: TestSquadClubReader alreay defined, thus, add xx
 
   def setup
     WorldDb.delete!
@@ -24,28 +24,28 @@ class TestSquadClubReader < MiniTest::Test
 
     at = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
     
-    teamreader = TeamReader.new( SportDb.test_data_path )
-    teamreader.read( 'at-austria/teams',   country_id: at.id )
+    teamreader = TestTeamReader.from_file( 'at-austria/teams', country_id: at.id )
+    teamreader.read()
 
-    leaguereader = LeagueReader.new( SportDb.test_data_path )
-    leaguereader.read( 'at-austria/leagues', country_id: at.id )
+    leaguereader = TestLeagueReader.from_file( 'at-austria/leagues', country_id: at.id )
+    leaguereader.read()
 
-    gamereader = GameReader.new( SportDb.test_data_path )
     ## check/fix: is country_id more_attribs needed? why? why not?
-    gamereader.read( 'at-austria/2013_14/bl', country_id: at.id )
+    gamereader = TestGameReader.from_file( 'at-austria/2013_14/bl', country_id: at.id )
+    gamereader.read()
 
     bl = Event.find_by_key!( 'at.2013/14' )
 
     assert_equal  10, bl.teams.count
     assert_equal  36, bl.rounds.count
     assert_equal 180, bl.games.count  # 36x5 = 180
-    
+ 
     ## add players
     ## -- read persons
-    personreader = PersonReader.new( SportDb.test_data_path )
-    personreader.read( 'players/europe/at-austria/players', country_id: at.id ) 
+    ## personreader = PersonReader.new( SportDb.test_data_path )
+    ## personreader.read( 'players/europe/at-austria/players', country_id: at.id ) 
 
-    assert_equal 30, Person.count
+    ## assert_equal 30, Person.count
   end
 
 
@@ -54,8 +54,8 @@ class TestSquadClubReader < MiniTest::Test
 
     event = Event.find_by_key!( 'at.2013/14' )
 
-    reader = ClubSquadReader.new( SportDb.test_data_path )
-    reader.read( 'at-austria/2013_14/squads/austria', team_id: austria.id, event_id: event.id )
+    reader = TestClubSquadReader.from_file( 'at-austria/2013_14/squads/austria', team_id: austria.id, event_id: event.id )
+    reader.read()
 
     assert_equal 28, Roster.count
   end  # method test_br
@@ -66,8 +66,8 @@ class TestSquadClubReader < MiniTest::Test
 
     event = Event.find_by_key!( 'at.2013/14' )
 
-    reader = ClubSquadReader.new( SportDb.test_data_path )
-    reader.read( 'at-austria/2013_14/squads/salzburg', team_id: salzburg.id, event_id: event.id )
+    reader = TestClubSquadReader.from_file( 'at-austria/2013_14/squads/salzburg', team_id: salzburg.id, event_id: event.id )
+    reader.read()
 
     assert_equal 27, Roster.count
   end  # method test_salzburg

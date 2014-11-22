@@ -19,16 +19,16 @@ class TestReader < MiniTest::Test
 
   def test_bl
     at = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
-    
-    teamreader = TeamReader.new( SportDb.test_data_path )
-    teamreader.read( 'at-austria/teams',   country_id: at.id )
 
-    leaguereader = LeagueReader.new( SportDb.test_data_path )
-    leaguereader.read( 'at-austria/leagues', country_id: at.id )
+    teamreader = TestTeamReader.from_file( 'at-austria/teams', country_id: at.id )
+    teamreader.read()
 
-    gamereader = GameReader.new( SportDb.test_data_path )
+    leaguereader = TestLeagueReader.from_file( 'at-austria/leagues', country_id: at.id )
+    leaguereader.read()
+
     ## check/fix: is country_id more_attribs needed? why? why not?
-    gamereader.read( 'at-austria/2013_14/bl', country_id: at.id )
+    gamereader = TestGameReader.from_file( 'at-austria/2013_14/bl', country_id: at.id )
+    gamereader.read()
 
     bl = Event.find_by_key!( 'at.2013/14' )
 
@@ -41,9 +41,10 @@ class TestReader < MiniTest::Test
   def test_game_reader
     at = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
     
-    teamreader = TeamReader.new( SportDb.test_data_path )
-    teamreader.read( 'at-austria/teams',   country_id: at.id )
-    teamreader.read( 'at-austria/teams_2', country_id: at.id )
+    teamreader = TestTeamReader.from_file( 'at-austria/teams',   country_id: at.id )
+    teamreader.read()
+    teamreader = TestTeamReader.from_file( 'at-austria/teams_2', country_id: at.id )
+    teamreader.read()
 
     austria = Team.find_by_key!( 'austria' )
     rapid   = Team.find_by_key!( 'rapid' )
@@ -57,8 +58,8 @@ class TestReader < MiniTest::Test
     assert_equal 'RAP', rapid.code
     assert_equal 'STU', sturm.code
 
-    leaguereader = LeagueReader.new( SportDb.test_data_path )
-    leaguereader.read( 'at-austria/leagues', country_id: at.id )
+    leaguereader = TestLeagueReader.from_file( 'at-austria/leagues', country_id: at.id )
+    leaguereader.read()
 
     at1   = League.find_by_key!( 'at' )
     at2   = League.find_by_key!( 'at.2' )
@@ -68,10 +69,11 @@ class TestReader < MiniTest::Test
     assert_equal 'Österr. Erste Liga', at2.title
     assert_equal 'ÖFB Cup', atcup.title
 
-    gamereader = GameReader.new( SportDb.test_data_path )
     ## check/fix: is country_id more_attribs needed? why? why not?
-    gamereader.read( 'at-austria/2013_14/bl', country_id: at.id )
-    gamereader.read( 'at-austria/2013_14/el', country_id: at.id )
+    gamereader = TestGameReader.from_file( 'at-austria/2013_14/bl', country_id: at.id )
+    gamereader.read()
+    gamereader = TestGameReader.from_file( 'at-austria/2013_14/el', country_id: at.id )
+    gamereader.read()
 
     bl = Event.find_by_key!( 'at.2013/14' )
     el = Event.find_by_key!( 'at.2.2013/14' )

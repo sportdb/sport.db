@@ -20,14 +20,14 @@ class TestReaderFromString < MiniTest::Test
   def test_bl
     at = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
     
-    teamreader = TeamReader.new( SportDb.test_data_path )
-    teamreader.read( 'at-austria/teams',   country_id: at.id )
+    teamreader = TestTeamReader.from_file( 'at-austria/teams', country_id: at.id )
+    teamreader.read()
 
-    leaguereader = LeagueReader.new( SportDb.test_data_path )
-    leaguereader.read( 'at-austria/leagues', country_id: at.id )
+    leaguereader = TestLeagueReader.from_file( 'at-austria/leagues', country_id: at.id )
+    leaguereader.read()
 
-    eventreader  = EventReader.new( SportDb.test_data_path )
-    eventreader.read( 'at-austria/2013_14/bl' )
+    eventreader  = TestEventReader.from_file( 'at-austria/2013_14/bl' )
+    eventreader.read()
 
     bl = Event.find_by_key!( 'at.2013/14' )
 
@@ -36,20 +36,25 @@ class TestReaderFromString < MiniTest::Test
     assert_equal   0, bl.games.count  # 36x5 = 180
 
 
+    ## fix: use File.readutf8 ??? why?? why not??
     bl_txt    = File.read( "#{SportDb.test_data_path}/at-austria/2013_14/bl.txt" )
     bl_txt_ii = File.read( "#{SportDb.test_data_path}/at-austria/2013_14/bl_ii.txt" )
 
     text_ary = [bl_txt,bl_txt_ii]
 
-    ## try reading from string -- fix: /tmp is a placeholder/remove
-    gamereader = GameReader.new( '/tmp' )
-    gamereader.read_fixtures_from_string( bl.key, text_ary )
+    gamereader = GameReader.from_string( bl, text_ary )
+    gamereader.read()
+
+    ## fix: add bl.key - allow event_keys too
+    ## gamereader = GameReader.from_string( bl.key, text_ary )
+    ## gamereader.read()
+
 
     assert_equal  36, bl.rounds.count
     assert_equal 180, bl.games.count  # 36x5 = 180
     
     ## check if is stable (update will not create new matches and rounds) on second pass/rerun
-    gamereader.read_fixtures_from_string( bl.key, text_ary )
+    gamereader.read()
 
     assert_equal  36, bl.rounds.count
     assert_equal 180, bl.games.count  # 36x5 = 180
@@ -57,3 +62,4 @@ class TestReaderFromString < MiniTest::Test
 
 
 end # class TestReaderFromString
+

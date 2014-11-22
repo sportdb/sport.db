@@ -88,7 +88,7 @@ class GameReader
     if @text_or_text_ary.is_a?( String )
       text_ary = [@text_or_text_ary]
     else
-      text_ary = t@ext_or_text_ary
+      text_ary = @text_or_text_ary
     end
 
     ## reset cached values

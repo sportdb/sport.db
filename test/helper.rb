@@ -59,6 +59,29 @@ ClubSquadReader         = SportDb::ClubSquadReader
 
 PersonReader       = PersonDb::PersonReader
 
+######
+# New Reader ShortCuts
+
+module TestTeamReader
+  def self.from_file( name, more_attribs={} )
+    TeamReader.from_file( "#{SportDb.test_data_path}/#{name}.txt", more_attribs )
+  end
+end
+
+module TestLeagueReader
+  def self.from_file( name, more_attribs={} )
+    LeagueReader.from_file( "#{SportDb.test_data_path}/#{name}.txt", more_attribs )
+  end
+end
+
+module TestEventReader
+  def self.from_file( name )
+    EventReader.from_file( "#{SportDb.test_data_path}/#{name}.yml" )
+  end
+end
+
+
+
 #################################
 # setup db -> schema / tables
 

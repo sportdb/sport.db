@@ -2,7 +2,7 @@
 
 module SportDb
 
-class Reader
+class ReaderBase
 
   include LogUtils::Logging
 
@@ -13,18 +13,8 @@ class Reader
   include SportDb::Matcher # lets us use match_teams_for_country etc.
 
 
-  attr_reader :include_path
-
-  def initialize( include_path, opts={})
-    @include_path = include_path
-  end
-
   def load_setup( name )
-    path = "#{include_path}/#{name}.txt"
-
-    logger.info "parsing data '#{name}' (#{path})..."
-
-    reader = FixtureReader.new( path )
+    reader = create_fixture_reader( name )
 
     reader.each do |fixture_name|
       load( fixture_name )
@@ -38,16 +28,17 @@ class Reader
 
 
     if match_players_for_country( name ) do |country_key|
-            country = Country.find_by_key!( country_key )
-            reader = PersonDb::PersonReader.new( include_path )
-            reader.read( name, country_id: country.id )
+            ## country = Country.find_by_key!( country_key )
+            ## fix-fix-fix: change to new format e.g. from_file, from_zip etc!!!
+            ## reader = PersonDb::PersonReader.new( include_path )
+            ## reader.read( name, country_id: country.id )
           end
     elsif name =~ /\/squads\/([a-z0-9]{3,})$/    # e.g. ajax.txt bayern.txt etc.
       ## note: for now assume club (e.g. no dash (-) allowed for country code e.g. br-brazil etc.)
       team = Team.find_by_key!( $1 )
       ## note: pass in @event.id - that is, last seen event (e.g. parsed via GameReader/MatchReader)
-      reader = ClubSquadReader.new( include_path )
-      reader.read( name, team_id: team.id, event_id: @event.id )
+      reader = create_club_squad_reader.new( name, team_id: team.id, event_id: @event.id )
+      reader.read()
     elsif name =~ /\/squads\/([a-z]{2,3})-[^\/]+$/
       ## fix: add to country matcher new format
       ##   name is country! and parent folder is type name e.g. /squads/br-brazil
@@ -70,11 +61,11 @@ class Reader
         team = Team.find_by_key!( $1 )
       end
       ## note: pass in @event.id - that is, last seen event (e.g. parsed via GameReader/MatchReader)
-      reader = NationalTeamSquadReader.new( include_path )
-      reader.read( name, team_id: team.id, event_id: @event.id )
+      reader = create_national_team_squad_reader( name, team_id: team.id, event_id: @event.id  )
+      reader.read()
     elsif name =~ /(?:^|\/)seasons/  # NB: ^seasons or also possible at-austria!/seasons
-      reader = SeasonReader.new( include_path )
-      reader.read( name )
+      reader = create_season_reader( name )
+      reader.read()
     elsif name =~ /(?:^|\/)assocs/  # NB: ^assocs or also possible national-teams!/assocs
       reader = AssocReader.new( include_path )
       reader.read( name )

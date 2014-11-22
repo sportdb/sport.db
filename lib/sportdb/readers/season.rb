@@ -12,16 +12,29 @@ class SeasonReader
   include Models
 
 
-  attr_reader :include_path
-
-
-  def initialize( include_path, opts = {} )
-    @include_path = include_path
+  def self.from_zip( zip_file, entry_path )
+    ## to be done
   end
 
+  def self.from_file( path )
+    ## note: assume/enfore utf-8 encoding (with or without BOM - byte order mark)
+    ## - see textutils/utils.rb
+    text = File.read_utf8( path )
+    self.from_string( text )
+  end
 
-  def read( name, more_attribs={} )
-    reader = LineReaderV2.new( name, include_path )
+  def self.from_string( text )
+    SeasonReader.new( text )
+  end  
+
+
+  def initialize( text )
+    ## todo/fix: how to add opts={} ???
+    @text = text
+  end
+
+  def read()
+    reader = LineReader.from_string( @text )
 
 ####
 ## fix!!!!!

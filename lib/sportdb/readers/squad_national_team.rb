@@ -19,44 +19,44 @@ class NationalTeamSquadReader
   include FixtureHelpers
 
 
-  attr_reader :include_path
+  def self.from_zip( zip_file, entry_path, more_attribs={} )
+    ## to be done
+  end
+
+  def self.from_file( path, more_attribs={} )
+    ## note: assume/enfore utf-8 encoding (with or without BOM - byte order mark)
+    ## - see textutils/utils.rb
+    text = File.read_utf8( path )
+    self.from_string( text, more_attribs )
+  end
+
+  def self.from_string( text, more_attribs={} )
+    NationalTeamSquadReader.new( text, more_attribs )
+  end  
 
 
-  def initialize( include_path, opts = {} )
-    @include_path = include_path
+  def initialize( text, more_attribs={} )
+    ## todo/fix: how to add opts={} ???
+    @text = text
+    @more_attribs = more_attribs
   end
 
 
-  def read( name, more_attribs={} )
+  def read()
     ## note:
     #    event_id and team_id required!!
 
-    ## todo: move name_real_path code to LineReaderV2 ????
-    pos = name.index( '!/')
-    if pos.nil?
-      name_real_path = name   # not found; real path is the same as name
-    else
-      # cut off everything until !/ e.g.
-      #   at-austria!/w-wien/beers becomes
-      #   w-wien/beers
-      name_real_path = name[ (pos+2)..-1 ]
-    end
-
-    path = "#{include_path}/#{name_real_path}.txt"
-
-    logger.info "parsing data '#{name}' (#{path})..."
-
     # event
-    @event = Event.find( more_attribs[:event_id] )
+    @event = Event.find( @more_attribs[:event_id] )
     pp @event
 
     ## note: use @team - share/use in worker method
-    @team = Team.find( more_attribs[:team_id] )
+    @team = Team.find( @more_attribs[:team_id] )
     pp @team
 
     ### SportDb.lang.lang = LangChecker.new.analyze( name, include_path )
 
-    reader = LineReader.new( path )
+    reader = LineReader.from_string( @text )
 
 
     ##########
@@ -71,7 +71,7 @@ class NationalTeamSquadReader
 
     read_worker( reader )
 
-    Prop.create_from_fixture!( name, path )  
+    ## Prop.create_from_fixture!( name, path )  
   end
 
 

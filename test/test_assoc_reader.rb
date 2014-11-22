@@ -9,7 +9,7 @@
 
 require 'helper'
 
-class TestAssocReader < MiniTest::Test
+class TestAssocReaderXX < MiniTest::Test    # note: TestAssocReader alreay defined, thus, add xx
 
   def setup
     WorldDb.delete!
@@ -79,8 +79,8 @@ class TestAssocReader < MiniTest::Test
 
 
   def test_assocs
-    reader = AssocReader.new( SportDb.test_data_path )
-    reader.read( 'national-teams/assocs' )
+    reader = TestAssocReader.from_file( 'national-teams/assocs' )
+    reader.read()
 
     assert_equal 20, Assoc.count
 
@@ -124,7 +124,8 @@ class TestAssocReader < MiniTest::Test
     ca = Country.create!( key: 'ca', name: 'Canada', code: 'CAN', pop: 1, area: 1)
     us = Country.create!( key: 'us', name: 'United States', code: 'USA', pop: 1, area: 1)
 
-    reader.read( 'national-teams/north-america/assocs' )
+    reader = TestAssocReader.from_file( 'national-teams/north-america/assocs' )
+    reader.read()
 
     assert_equal 23, Assoc.count
 
@@ -148,8 +149,8 @@ class TestAssocReader < MiniTest::Test
 
 
   def test_teams
-    assocreader = AssocReader.new( SportDb.test_data_path )
-    assocreader.read( 'national-teams/assocs' )
+    assocreader = TestAssocReader.from_file( 'national-teams/assocs' )
+    assocreader.read()
 
     assert_equal 20, Assoc.count
     
@@ -172,12 +173,13 @@ class TestAssocReader < MiniTest::Test
                        area: 1)
     end
 
-    teamreader = TeamReader.new( SportDb.test_data_path )
-    teamreader.read( 'national-teams/teams' )
-    teamreader.read( 'national-teams/north-america/teams' )
+    teamreader = TestTeamReader.from_file( 'national-teams/teams' )
+    teamreader.read()
+    teamreader = TestTeamReader.from_file( 'national-teams/north-america/teams' )
+    teamreader.read()
 
     assert_equal 9, Team.count
-    
+
     ## fifa = Assoc.find_by_key!( 'fifa' )
     ## assert_equal 7, fifa.teams.count
 

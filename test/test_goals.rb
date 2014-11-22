@@ -69,13 +69,13 @@ class TestGoals < MiniTest::Test
 
 
   def test_world_cup_1930
-    teamreader = TeamReader.new( SportDb.test_data_path )
-    teamreader.read( 'world-cup/teams_1930' )
+    teamreader = TestTeamReader.from_file( 'world-cup/teams_1930' )
+    teamreader.read()
 
     assert_equal  13, Team.count
 
-    seasonreader = SeasonReader.new( SportDb.test_data_path )
-    seasonreader.read( 'world-cup/seasons_1930')
+    seasonreader = TestSeasonReader.from_file( 'world-cup/seasons_1930' )
+    seasonreader.read()
 
     assert_equal 1, Season.count
 
@@ -83,8 +83,8 @@ class TestGoals < MiniTest::Test
     assert_equal '1930', y.title
 
 
-    leaguereader = LeagueReader.new( SportDb.test_data_path )
-    leaguereader.read( 'world-cup/leagues' )
+    leaguereader = TestLeagueReader.from_file( 'world-cup/leagues' )
+    leaguereader.read()
 
     assert_equal 1, League.count
 
@@ -92,8 +92,8 @@ class TestGoals < MiniTest::Test
     assert_equal 'World Cup', l.title
 
 
-    gamereader = GameReader.new( SportDb.test_data_path )
-    gamereader.read( 'world-cup/1930/cup_goals' )
+    gamereader = TestGameReader.from_file( 'world-cup/1930/cup_goals' )
+    gamereader.read()
 
     assert_equal 1, Event.count
 

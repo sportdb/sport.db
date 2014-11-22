@@ -74,9 +74,28 @@ module TestLeagueReader
   end
 end
 
+module TestSeasonReader
+  def self.from_file( name )
+    SeasonReader.from_file( "#{SportDb.test_data_path}/#{name}.txt" )
+  end
+end
+
 module TestEventReader
   def self.from_file( name )
     EventReader.from_file( "#{SportDb.test_data_path}/#{name}.yml" )
+  end
+end
+
+module TestGameReader
+  ## NOTE: pass in .yml as path (that is, event config!!!!)
+  def self.from_file( name )
+    GameReader.from_file( "#{SportDb.test_data_path}/#{name}.yml" )
+  end
+end
+
+module TestAssocReader
+  def self.from_file( name )
+    AssocReader.from_file( "#{SportDb.test_data_path}/#{name}.txt" )
   end
 end
 

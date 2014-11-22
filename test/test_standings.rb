@@ -11,7 +11,7 @@ require 'helper'
 
 
 
-class TestStandings < MiniTest::Unit::TestCase
+class TestStandings < MiniTest::Test
 
   def setup
     WorldDb.delete!

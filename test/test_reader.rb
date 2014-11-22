@@ -9,7 +9,7 @@
 
 require 'helper'
 
-class TestReader < MiniTest::Unit::TestCase
+class TestReader < MiniTest::Test
 
   def setup
     WorldDb.delete!

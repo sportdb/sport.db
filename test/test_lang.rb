@@ -8,7 +8,7 @@
 
 require 'helper'
 
-class TestLang < MiniTest::Unit::TestCase
+class TestLang < MiniTest::Test
 
   def test_getters
 

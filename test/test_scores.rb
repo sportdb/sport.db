@@ -2,7 +2,7 @@
 
 require 'helper'
 
-class TestScores < MiniTest::Unit::TestCase
+class TestScores < MiniTest::Test
 
 
   def test_scores

@@ -8,7 +8,7 @@
 
 require 'helper'
 
-class TestUtils < MiniTest::Unit::TestCase
+class TestUtils < MiniTest::Test
 
   def test_is_group_def
     SportDb.lang.lang = 'en'

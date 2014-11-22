@@ -9,7 +9,7 @@
 
 require 'helper'
 
-class TestRoundDef < MiniTest::Unit::TestCase
+class TestRoundDef < MiniTest::Test
 
 
   def test_round_en

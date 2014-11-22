@@ -6,7 +6,7 @@
 
 require 'helper'
 
-class TestDate < MiniTest::Unit::TestCase
+class TestDate < MiniTest::Test
 
   def test_date
     data = [

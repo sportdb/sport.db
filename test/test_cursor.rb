@@ -2,7 +2,7 @@
 
 require 'helper'
 
-class TestCursor < MiniTest::Unit::TestCase
+class TestCursor < MiniTest::Test
 
   def test_games
     games = []

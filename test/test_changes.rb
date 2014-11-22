@@ -2,7 +2,7 @@
 
 require 'helper'
 
-class TestChanges < MiniTest::Unit::TestCase
+class TestChanges < MiniTest::Test
 
   def test_scores
     game1 = Game.new

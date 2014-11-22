@@ -2,7 +2,7 @@
 
 require 'helper'
 
-class TestWinner < MiniTest::Unit::TestCase
+class TestWinner < MiniTest::Test
 
   def test_1_2
     game = Game.new

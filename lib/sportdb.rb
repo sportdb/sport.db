@@ -232,12 +232,12 @@ end  # module SportDb
 #####
 # auto-load/require some addons
 
-puts 'before auto-load (require) sportdb addons'
-puts '  before sportdb/service'
-require 'sportdb/service'
-puts '  before sportdb/update'
+## puts 'before auto-load (require) sportdb addons'
+## puts '  before sportdb/update'
 require 'sportdb/update'
-puts 'after auto-load (require) sportdb addons'
+## puts '  before sportdb/service'
+require 'sportdb/service'
+## puts 'after auto-load (require) sportdb addons'
 
 
 

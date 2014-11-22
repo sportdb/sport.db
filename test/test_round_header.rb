@@ -3,7 +3,7 @@
 
 require 'helper'
 
-class TestRoundHeader < MiniTest::Unit::TestCase
+class TestRoundHeader < MiniTest::Test
 
 
   def test_round_en

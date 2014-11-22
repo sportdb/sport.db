@@ -3,7 +3,6 @@
 
 ## minitest setup
 
-# require 'minitest/unit'
 require 'minitest/autorun'
 
 

@@ -8,6 +8,9 @@
 # core and stlibs  (note: get included via worlddb gem; see worlddb gem/lib)
 
 
+require 'fileutils'
+
+
 # rubygems  / 3rd party libs
 
 require 'active_record'
@@ -108,6 +111,10 @@ require 'sportdb/lang'
 
 require 'sportdb/deleter'
 require 'sportdb/stats'
+
+
+require 'sportdb/builder/dataset'
+require 'sportdb/builder/builder'
 
 
 module SportDb

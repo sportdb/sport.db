@@ -12,7 +12,13 @@ class GroundReader
   include Models
 
   def self.from_zip( zip_file, entry_path, more_attribs={} )
-    ## to be done
+    ## get text content from zip
+    entry = zip_file.find_entry( entry_path )
+
+    text = entry.get_input_stream().read()
+    text = text.force_encoding( Encoding::UTF_8 )
+
+    self.from_string( text, more_attribs )
   end
 
   def self.from_file( path, more_attribs={} )

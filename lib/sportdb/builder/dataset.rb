@@ -81,6 +81,8 @@ class FootballDataset < Dataset
 
   def read()
     logger.info( "[builder] read football-dataset '#{@name}', '#{setup}'" )
+
+    SportDb.read_setup_from_zip( local_zip_name(), setup(), local_zip_root() )
   end
 end  # class FootballDataset
 

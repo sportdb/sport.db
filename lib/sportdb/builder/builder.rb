@@ -10,7 +10,7 @@ class Builder
     @datasets = []
   end
 
-  def self.load_file( path='./Datafile' )
+  def self.load_file( path )
     code = File.read_utf8( path )
     self.load( code )
   end

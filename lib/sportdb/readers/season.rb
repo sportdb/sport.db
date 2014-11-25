@@ -13,7 +13,13 @@ class SeasonReader
 
 
   def self.from_zip( zip_file, entry_path )
-    ## to be done
+    ## get text content from zip
+    entry = zip_file.find_entry( entry_path )
+
+    text = entry.get_input_stream().read()
+    text = text.force_encoding( Encoding::UTF_8 )
+
+    self.from_string( text )
   end
 
   def self.from_file( path )

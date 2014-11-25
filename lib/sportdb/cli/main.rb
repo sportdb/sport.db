@@ -108,6 +108,34 @@ command [:create] do |c|
 end # command create
 
 
+desc "Build DB (download/create/load); use ./Datafile - zips get downloaded to ./tmp"
+command [:build,:b] do |c|
+
+  c.action do |g,o,args|
+
+    builder = SportDb::Builder.load_file( './Datafile' )
+    builder.download  # builder step 1 - download all datasets/zips 
+
+    connect_to_db( opts )
+
+    LogDb.create
+    ConfDb.create
+    TagDb.create
+    WorldDb.create
+    PersonDb.create
+    SportDb.create
+
+    SportDb.read_builtin   # e.g. seasons.txt etc
+
+    builder.read  # builder step 2 - read all datasets
+  
+    puts 'Done.'
+  end # action
+end  # command setup
+
+
+
+
 desc "Create DB schema 'n' load all world and sports data"
 arg_name 'NAME'   # optional setup profile name
 command [:setup,:s] do |c|

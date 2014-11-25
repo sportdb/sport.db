@@ -16,9 +16,46 @@ class GameReader
 
   include FixtureHelpers
 
-
   def self.from_zip( zip_file, entry_path, more_attribs={} )
-    ## to be done
+
+    logger = LogKernel::Logger.root
+
+    reader = EventReader.from_zip( zip_file, entry_path )
+    reader.read()
+
+    event    = reader.event      ## was fetch_event( name )
+    fixtures = reader.fixtures   ## was fetch_event_fixtures( name )
+
+    if fixtures.empty?
+      ## logger.warn "no fixtures found for event - >#{name}<; assume fixture name is the same as event"
+      ## change extension from .yml to .txt
+      fixtures_with_path = [ entry_path.sub('.yml','.txt') ]
+    else
+      ## add path to fixtures (use path from event e.g)
+      #  - bl    + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl
+      #  - bl_ii + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl_ii
+
+      dir = File.dirname( entry_path ) # use dir for fixtures
+
+      fixtures_with_path = fixtures.map do |fx|
+        fx_new = "#{dir}/#{fx}.txt"   # add path upfront
+        logger.debug "fx: #{fx_new} | >#{fx}< + >#{dir}<"
+        fx_new
+      end
+    end
+
+    ## fix-fix-fix: change file extension to ??
+    text_ary = []
+    fixtures_with_path.each do |fixture_path|
+      entry = zip_file.find_entry( fixture_path )
+
+      text = entry.get_input_stream().read()
+      text = text.force_encoding( Encoding::UTF_8 )
+
+      text_ary << text
+    end
+
+    self.from_string( event, text_ary, more_attribs )
   end
 
   def self.from_file( path, more_attribs={} )

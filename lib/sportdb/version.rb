@@ -3,7 +3,7 @@ module SportDb
 
   MAJOR = 1    ## todo: namespace inside version or something - why? why not??
   MINOR = 9
-  PATCH = 11
+  PATCH = 12
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 
   def self.version

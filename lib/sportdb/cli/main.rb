@@ -128,11 +128,44 @@ command [:build,:b] do |c|
     SportDb.read_builtin   # e.g. seasons.txt etc
 
     builder.read  # builder step 2 - read all datasets
-  
+
     puts 'Done.'
   end # action
 end  # command setup
 
+
+desc "Build DB w/ quick starter Datafile templates"
+arg_name 'NAME'   # optional setup profile name
+command [:new,:n] do |c|
+
+  c.action do |g,o,args|
+
+    ## todo: required template name (defaults to worldcup2014)
+    setup = args[0] || 'worldcup2014'
+
+    worker = Fetcher::Worker.new
+    worker.copy( "https://github.com/openfootball/datafile/raw/master/#{setup}.rb", './Datafile' )
+
+    ## step 2: same as command build (todo - reuse code)
+    builder = SportDb::Builder.load_file( './Datafile' )
+    builder.download  # builder step 1 - download all datasets/zips 
+
+    connect_to_db( opts )
+
+    LogDb.create
+    ConfDb.create
+    TagDb.create
+    WorldDb.create
+    PersonDb.create
+    SportDb.create
+
+    SportDb.read_builtin   # e.g. seasons.txt etc
+
+    builder.read  # builder step 2 - read all datasets
+  
+    puts 'Done.'
+  end # action
+end  # command setup
 
 
 

@@ -108,7 +108,7 @@ command [:create] do |c|
 end # command create
 
 
-desc "Build DB (download/create/load); use ./Datafile - zips get downloaded to ./tmp"
+desc "Build DB (download/create/read); use ./Datafile - zips get downloaded to ./tmp"
 command [:build,:b] do |c|
 
   c.action do |g,o,args|
@@ -134,6 +134,35 @@ command [:build,:b] do |c|
 end  # command setup
 
 
+desc "Read datasets; use ./Datafile - zips required in ./tmp"
+command [:read,:r] do |c|
+
+  c.action do |g,o,args|
+
+    connect_to_db( opts )
+
+    builder = SportDb::Builder.load_file( './Datafile' )
+    builder.read
+
+    puts 'Done.'
+  end # action
+end  # command setup
+
+desc "Download datasets; use ./Datafile - zips get downloaded to ./tmp"
+command [:download,:dl] do |c|
+
+  c.action do |g,o,args|
+
+    # note: no database connection needed (check - needed for logs?? - not setup by default???)
+
+    builder = SportDb::Builder.load_file( './Datafile' )
+    builder.download
+
+    puts 'Done.'
+  end # action
+end  # command setup
+
+
 desc "Build DB w/ quick starter Datafile templates"
 arg_name 'NAME'   # optional setup profile name
 command [:new,:n] do |c|
@@ -150,7 +179,7 @@ command [:new,:n] do |c|
     builder = SportDb::Builder.load_file( './Datafile' )
     builder.download  # builder step 1 - download all datasets/zips 
 
-    connect_to_db( opts )
+    connect_to_db( opts )  ### todo: check let connect go first?? - for logging (logs) to db  ???
 
     LogDb.create
     ConfDb.create

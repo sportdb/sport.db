@@ -17,8 +17,10 @@ include GLI::App
 
 require 'logutils/db'
 require 'sportdb/cli/opts'
-  
- 
+
+require 'datafile'   ## lets us use Datafile::Builder,Datafile etc.
+
+
 program_desc 'sport.db command line tool'
 
 version SportDb::VERSION
@@ -79,6 +81,14 @@ def connect_to_db( options )
     :database => "#{options.db_path}/#{options.db_name}"
   }
 
+  ## todo/check: use if defined?( JRUBY_VERSION ) instead ??
+  if RUBY_PLATFORM =~ /java/ && db_config[:adapter] == 'sqlite3' 
+    # quick hack for JRuby sqlite3 support via jdbc
+    require 'jdbc/sqlite3'
+    ## todo: check if require for activerecord jdbc adapter for sqlite is required to
+  end
+
+
   puts "Connecting to db using settings: "
   pp db_config
 
@@ -113,8 +123,9 @@ command [:build,:b] do |c|
 
   c.action do |g,o,args|
 
-    builder = SportDb::Builder.load_file( './Datafile' )
-    builder.download  # builder step 1 - download all datasets/zips 
+    builder = Datafile::Builder.load_file( './Datafile' )
+    datafile = builder.datafile
+    datafile.download  # datafile step 1 - download all datasets/zips 
 
     connect_to_db( opts )
 
@@ -127,7 +138,7 @@ command [:build,:b] do |c|
 
     SportDb.read_builtin   # e.g. seasons.txt etc
 
-    builder.read  # builder step 2 - read all datasets
+    datafile.read  # datafile step 2 - read all datasets
 
     puts 'Done.'
   end # action
@@ -141,8 +152,9 @@ command [:read,:r] do |c|
 
     connect_to_db( opts )
 
-    builder = SportDb::Builder.load_file( './Datafile' )
-    builder.read
+    builder = Datafile::Builder.load_file( './Datafile' )
+    datafile = builder.datafile
+    datafile.read
 
     puts 'Done.'
   end # action
@@ -155,8 +167,9 @@ command [:download,:dl] do |c|
 
     # note: no database connection needed (check - needed for logs?? - not setup by default???)
 
-    builder = SportDb::Builder.load_file( './Datafile' )
-    builder.download
+    builder = Datafile::Builder.load_file( './Datafile' )
+    datafile = builder.datafile
+    datafile.download
 
     puts 'Done.'
   end # action
@@ -176,8 +189,9 @@ command [:new,:n] do |c|
     worker.copy( "https://github.com/openfootball/datafile/raw/master/#{setup}.rb", './Datafile' )
 
     ## step 2: same as command build (todo - reuse code)
-    builder = SportDb::Builder.load_file( './Datafile' )
-    builder.download  # builder step 1 - download all datasets/zips 
+    builder = Datafile::Builder.load_file( './Datafile' )
+    datafile = builder.datafile
+    datafile.download  # datafile step 1 - download all datasets/zips 
 
     connect_to_db( opts )  ### todo: check let connect go first?? - for logging (logs) to db  ???
 
@@ -190,8 +204,8 @@ command [:new,:n] do |c|
 
     SportDb.read_builtin   # e.g. seasons.txt etc
 
-    builder.read  # builder step 2 - read all datasets
-  
+    datafile.read  # datafile step 2 - read all datasets
+
     puts 'Done.'
   end # action
 end  # command setup

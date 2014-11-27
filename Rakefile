@@ -33,6 +33,7 @@ Hoe.spec 'sportdb' do
     ['persondb'],     # persons (people) table
     ['activerecord-utils'],   # extras e.g. rnd, find_by! for 3.x etc.
     ['fetcher', '>= 0.3'],
+    ['datafile'],
 
     ### sportdb addons
     ['sportdb-keys'],

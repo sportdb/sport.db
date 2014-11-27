@@ -113,10 +113,6 @@ require 'sportdb/deleter'
 require 'sportdb/stats'
 
 
-require 'sportdb/builder/dataset'
-require 'sportdb/builder/builder'
-
-
 module SportDb
 
   def self.config_path

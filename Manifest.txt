@@ -13,8 +13,6 @@ config/fixtures/ro.yml
 data/seasons.txt
 data/setups/all.txt
 lib/sportdb.rb
-lib/sportdb/builder/builder.rb
-lib/sportdb/builder/dataset.rb
 lib/sportdb/calc.rb
 lib/sportdb/cli/main.rb
 lib/sportdb/cli/opts.rb
@@ -127,7 +125,6 @@ test/data/world-cup/teams_1962.txt
 test/data/world-cup/teams_1974.txt
 test/helper.rb
 test/test_assoc_reader.rb
-test/test_builder.rb
 test/test_changes.rb
 test/test_cursor.rb
 test/test_date.rb

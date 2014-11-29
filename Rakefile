@@ -25,15 +25,15 @@ Hoe.spec 'sportdb' do
   self.extra_deps = [
     ['props' ],
     ['logutils'],
-    ['textutils'],
-    ['worlddb', '>= 2.0.2'],  # NB: worlddb already includes
+    ['textutils', '>= 0.9.10'],
+    ['worlddb', '>= 2.0.8'],  # NB: worlddb already includes
                                #         - logutils
                                #         - textutils
     ['tagutils'],     # tags n tagging tables
     ['persondb'],     # persons (people) table
     ['activerecord-utils'],   # extras e.g. rnd, find_by! for 3.x etc.
-    ['fetcher', '>= 0.3'],
-    ['datafile'],
+    ['fetcher', '>= 0.4.4'],
+    ['datafile', '>= 0.1.1'],
 
     ### sportdb addons
     ['sportdb-keys'],
@@ -42,7 +42,7 @@ Hoe.spec 'sportdb' do
     ['sportdb-service'],
 
     ## 3rd party
-    ['gli', '>= 2.5.6'],
+    ['gli', '>= 2.12.2'],
 
     ['activerecord']  # NB: will include activesupport,etc.
     ### ['sqlite3',      '~> 1.3']  # NB: install on your own; remove dependency

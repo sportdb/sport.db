@@ -84,8 +84,10 @@ def connect_to_db( options )
   ## todo/check: use if defined?( JRUBY_VERSION ) instead ??
   if RUBY_PLATFORM =~ /java/ && db_config[:adapter] == 'sqlite3' 
     # quick hack for JRuby sqlite3 support via jdbc
+    puts "jruby quick hack - adding jdbc libs for jruby sqlite3 database support"
     require 'jdbc/sqlite3'
-    ## todo: check if require for activerecord jdbc adapter for sqlite is required to
+    require 'active_record/connection_adapters/jdbc_adapter'
+    require 'active_record/connection_adapters/jdbcsqlite3_adapter'
   end
 
 
@@ -123,8 +125,7 @@ command [:build,:b] do |c|
 
   c.action do |g,o,args|
 
-    builder = Datafile::Builder.load_file( './Datafile' )
-    datafile = builder.datafile
+    datafile = Datafile::Datafile.load_file( './Datafile' )
     datafile.download  # datafile step 1 - download all datasets/zips 
 
     connect_to_db( opts )
@@ -152,8 +153,7 @@ command [:read,:r] do |c|
 
     connect_to_db( opts )
 
-    builder = Datafile::Builder.load_file( './Datafile' )
-    datafile = builder.datafile
+    datafile = Datafile::Datafile.load_file( './Datafile' )
     datafile.read
 
     puts 'Done.'
@@ -167,8 +167,7 @@ command [:download,:dl] do |c|
 
     # note: no database connection needed (check - needed for logs?? - not setup by default???)
 
-    builder = Datafile::Builder.load_file( './Datafile' )
-    datafile = builder.datafile
+    datafile = Datafile::Datafile.load_file( './Datafile' )
     datafile.download
 
     puts 'Done.'
@@ -186,11 +185,11 @@ command [:new,:n] do |c|
     setup = args[0] || 'worldcup2014'
 
     worker = Fetcher::Worker.new
-    worker.copy( "https://github.com/openfootball/datafile/raw/master/#{setup}.rb", './Datafile' )
+    ## note: lets use http:// instead of https:// for now - lets us use person proxy (NOT working w/ https for now)
+    worker.copy( "http://github.com/openfootball/datafile/raw/master/#{setup}.rb", './Datafile' )
 
     ## step 2: same as command build (todo - reuse code)
-    builder = Datafile::Builder.load_file( './Datafile' )
-    datafile = builder.datafile
+    datafile = Datafile::Datafile.load_file( './Datafile' )
     datafile.download  # datafile step 1 - download all datasets/zips 
 
     connect_to_db( opts )  ### todo: check let connect go first?? - for logging (logs) to db  ???

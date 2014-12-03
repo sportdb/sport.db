@@ -2,7 +2,7 @@
 module SportDb
   
   class Stats
-    include SportDb::Models
+    include Models
 
     def tables
       puts "  #{League.count} leagues  /  #{Season.count} seasons"
@@ -22,15 +22,6 @@ module SportDb
 ##      puts "  #{Record.count} records (race|run+person recs)"
     end
 
-    ## fix/chek:
-    #  move to Prop gem / reuse code from Prop gem
-    def props
-      puts "Props:"
-      Prop.order( 'created_at asc' ).all.each do |prop|
-        puts "  #{prop.key} / #{prop.value} || #{prop.created_at}"
-      end
-    end
-  
   end  # class Stats
 
 end  # module SportDb

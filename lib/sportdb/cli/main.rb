@@ -76,27 +76,10 @@ def connect_to_db( options )
 
   puts "working directory: #{Dir.pwd}"
 
-  db_config = {
-    :adapter  => 'sqlite3',
-    :database => "#{options.db_path}/#{options.db_name}"
-  }
+  SportDb.connect( adapter: 'sqlite3',
+                   database: "#{options.db_path}/#{options.db_name}" )
 
-  ## todo/check: use if defined?( JRUBY_VERSION ) instead ??
-  if RUBY_PLATFORM =~ /java/ && db_config[:adapter] == 'sqlite3' 
-    # quick hack for JRuby sqlite3 support via jdbc
-    puts "jruby quick hack - adding jdbc libs for jruby sqlite3 database support"
-    require 'jdbc/sqlite3'
-    require 'active_record/connection_adapters/jdbc_adapter'
-    require 'active_record/connection_adapters/jdbcsqlite3_adapter'
-  end
-
-
-  puts "Connecting to db using settings: "
-  pp db_config
-
-  ActiveRecord::Base.establish_connection( db_config )
-  
-  LogDb.setup  # start logging to db
+  LogDb.setup  # start logging to db (that is, save logs in logs table in db)
 end
 
 
@@ -105,14 +88,9 @@ command [:create] do |c|
   c.action do |g,o,args|
     
     connect_to_db( opts )
-    
-    LogDb.create
-    ConfDb.create
-    TagDb.create
-    WorldDb.create
-    PersonDb.create
-    SportDb.create
-    
+
+    SportDb.create_all
+
     SportDb.read_builtin   # e.g. seasons.txt etc
     
     puts 'Done.'
@@ -130,12 +108,7 @@ command [:build,:b] do |c|
 
     connect_to_db( opts )
 
-    LogDb.create
-    ConfDb.create
-    TagDb.create
-    WorldDb.create
-    PersonDb.create
-    SportDb.create
+    SportDb.create_all
 
     SportDb.read_builtin   # e.g. seasons.txt etc
 
@@ -194,12 +167,7 @@ command [:new,:n] do |c|
 
     connect_to_db( opts )  ### todo: check let connect go first?? - for logging (logs) to db  ???
 
-    LogDb.create
-    ConfDb.create
-    TagDb.create
-    WorldDb.create
-    PersonDb.create
-    SportDb.create
+    SportDb.create_all
 
     SportDb.read_builtin   # e.g. seasons.txt etc
 
@@ -231,12 +199,7 @@ command [:setup,:s] do |c|
     ## todo: document optional setup profile arg (defaults to all)
     setup = args[0] || 'all'
     
-    LogDb.create
-    ConfDb.create
-    TagDb.create
-    WorldDb.create
-    PersonDb.create
-    SportDb.create
+    SportDb.create_all
 
     SportDb.read_builtin   # e.g. seasons.txt etc
     
@@ -396,8 +359,9 @@ command :props do |c|
 
     connect_to_db( opts )
     
-    SportDb.props
-    
+    ### fix: SportDb.props
+    ##  use ConfDb.props or similar!!!
+
     puts 'Done.'
   end
 end

@@ -65,12 +65,6 @@ require 'sportdb/models/stats/group_standing_entry'
 
 require 'sportdb/models/utils'   # e.g. GameCursor
 
-## add backwards compatible n convenience namespace
-###  move to forward.rb ?? - why? why not??
-module SportDb
-  Models = Model
-end
-
 
 require 'sportdb/schema'       # NB: requires sportdb/models (include SportDB::Models)
 
@@ -150,6 +144,17 @@ module SportDb
     ConfDb::Model::Prop.create!( key: 'db.schema.sport.version', value: VERSION )
   end
 
+  def self.create_all
+    ## build schema - convenience helper
+    LogDb.create
+    ConfDb.create
+    TagDb.create
+    WorldDb.create
+    PersonDb.create
+    SportDb.create
+  end
+
+
   def self.read_setup( setup, include_path )
     reader = Reader.new( include_path )
     reader.load_setup( setup )
@@ -197,40 +202,69 @@ module SportDb
 
 
   def self.stats
-    stats = Stats.new
-    stats.tables
-    stats.props
+    Stats.new.tables   # NOTE: same as tables (remove??? why? why not??)
   end
 
   def self.tables
     Stats.new.tables
   end
 
-  ### fix:
-  ## remove - use ConfDb.dump or similar -- add api depreciated
-  def self.props
-    Stats.new.props
+
+  def self.connect( db_config={} )
+
+    if db_config.empty?
+      puts "ENV['DATBASE_URL'] - >#{ENV['DATABASE_URL']}<"
+
+      ### change default to ./sport.db ?? why? why not?
+      db = URI.parse( ENV['DATABASE_URL'] || 'sqlite3:///sport.db' )
+
+      if db.scheme == 'postgres'
+        config = {
+          adapter: 'postgresql',
+          host: db.host,
+          port: db.port,
+          username: db.user,
+          password: db.password,
+          database: db.path[1..-1],
+          encoding: 'utf8'
+        }
+      else # assume sqlite3
+       config = {
+         adapter: db.scheme, # sqlite3
+         database: db.path[1..-1] # sport.db (NB: cut off leading /, thus 1..-1)
+      }
+      end
+    else
+      config = db_config  # use passed in config hash
+    end
+
+    ## todo/check: use if defined?( JRUBY_VERSION ) instead ??
+    if RUBY_PLATFORM =~ /java/ && config[:adapter] == 'sqlite3' 
+      # quick hack for JRuby sqlite3 support via jdbc
+      puts "jruby quick hack - adding jdbc libs for jruby sqlite3 database support"
+      require 'jdbc/sqlite3'
+      require 'active_record/connection_adapters/jdbc_adapter'
+      require 'active_record/connection_adapters/jdbcsqlite3_adapter'
+    end
+
+    puts "Connecting to db using settings: "
+    pp config
+    ActiveRecord::Base.establish_connection( config )
+    # ActiveRecord::Base.logger = Logger.new( STDOUT )
   end
 
 
   def self.setup_in_memory_db
-    # Database Setup & Config
 
+    # Database Setup & Config
     ActiveRecord::Base.logger = Logger.new( STDOUT )
     ## ActiveRecord::Base.colorize_logging = false  - no longer exists - check new api/config setting?
 
-    ## NB: every connect will create a new empty in memory db
-    ActiveRecord::Base.establish_connection(
-                           adapter:  'sqlite3',
-                           database: ':memory:' )
+    self.connect( adapter:  'sqlite3',
+                  database: ':memory:' )
 
     ## build schema
-    LogDb.create
-    ConfDb.create
-    TagDb.create
-    WorldDb.create
-    PersonDb.create
-    SportDb.create
+    SportDb.create_all
 
     ## read builtins - why? why not?
     SportDb.read_builtin

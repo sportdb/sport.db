@@ -25,7 +25,10 @@ module SportDb
   class Goal  < ActiveRecord::Base ; end
 
   end
-end
+
+  ## add backwards compatible n convenience namespace
+  Models = Model
+end # module SportDb
 
 
 module WorldDb

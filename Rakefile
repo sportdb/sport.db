@@ -28,7 +28,7 @@ Hoe.spec 'sportdb-models' do
     ['textutils'],
     ['tagutils'],     # tags n tagging tables
     ['worlddb-models', '>= 2.1.0'],  # NB: worlddb already includes logutils, textutils etc.
-    ['persondb'],     # persons (people) table
+    ['persondb', '>= 0.4.0'],     # persons (people) table
     ['activerecord-utils'],   # extras e.g. rnd, find_by! for 3.x etc.
     ['logutils-activerecord'],
     ['props-activerecord'],

@@ -1,30 +1,16 @@
 # encoding: utf-8
 
-###
-# NB: for local testing run like:
-#
-# 1.9.x: ruby -Ilib lib/sportdb.rb
 
-# core and stlibs  (note: get included via worlddb gem; see worlddb gem/lib)
+# core and stlibs  (note: get included via worlddb-models gem; see worlddb-models gem/lib)
 
 
-require 'fileutils'
-
-
-# rubygems  / 3rd party libs
-
-require 'active_record'
-require 'activerecord/utils' # check - if dependency on logutils? or props? etc let others go first
-# fix: move activerecord/utils to world db - no need to require here again
-
-require 'worlddb'
+require 'worlddb/models'     # NOTE: include worlddb-models gem (not cli tools gem, that is, worlddb)
 require 'persondb'
 
-require 'logutils/db'   # NB: explict require required for LogDb (NOT automatic)
-# fix: move to world db  -- no need to require here
 
+## todo: check if already included in worlddb ???
+## require 'fetcher'   # for fetching/downloading fixtures via HTTP/HTTPS etc.
 
-require 'fetcher'   # for fetching/downloading fixtures via HTTP/HTTPS etc.
 
 # our own code
 
@@ -133,11 +119,6 @@ module SportDb
      @lang
   end
 
-
-  def self.main
-    ## Runner.new.run(ARGV) - old code
-    require 'sportdb/cli/main'
-  end
 
   def self.create
     CreateDb.new.up
@@ -274,21 +255,5 @@ module SportDb
 end  # module SportDb
 
 
-#####
-# auto-load/require some addons
-
-## puts 'before auto-load (require) sportdb addons'
-## puts '  before sportdb/update'
-require 'sportdb/update'
-## puts '  before sportdb/service'
-require 'sportdb/service'
-## puts 'after auto-load (require) sportdb addons'
-
-
-
-if __FILE__ == $0
-  SportDb.main
-else
-   ## say hello
-  puts SportDb.banner
-end
+## say hello
+puts SportDb.banner   if $DEBUG || (defined?($RUBYLIBS_DEBUG) && $RUBYLIBS_DEBUG)

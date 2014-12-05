@@ -2,7 +2,6 @@ HISTORY.md
 Manifest.txt
 README.md
 Rakefile
-bin/sportdb
 config/fixtures/de.yml
 config/fixtures/en.yml
 config/fixtures/es.yml
@@ -12,16 +11,14 @@ config/fixtures/pt.yml
 config/fixtures/ro.yml
 data/seasons.txt
 data/setups/all.txt
-lib/sportdb.rb
 lib/sportdb/calc.rb
-lib/sportdb/cli/main.rb
-lib/sportdb/cli/opts.rb
 lib/sportdb/deleter.rb
 lib/sportdb/finders/date.rb
 lib/sportdb/finders/goals.rb
 lib/sportdb/finders/scores.rb
 lib/sportdb/lang.rb
 lib/sportdb/matcher.rb
+lib/sportdb/models.rb
 lib/sportdb/models/assoc.rb
 lib/sportdb/models/assoc_assoc.rb
 lib/sportdb/models/badge.rb

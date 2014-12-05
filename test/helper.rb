@@ -8,7 +8,7 @@ require 'minitest/autorun'
 
 ## our own code
 
-require 'sportdb'
+require 'sportdb/models'
 
 
 #####################

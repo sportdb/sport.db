@@ -1,1 +1,0 @@
-irb -I ./lib --noreadline --simple-prompt -r ./script/console

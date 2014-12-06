@@ -4,7 +4,7 @@ module SportDb
 
   MAJOR = 1    ## todo: namespace inside version or something - why? why not??
   MINOR = 10
-  PATCH = 0
+  PATCH = 1
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 
   def self.version
@@ -12,7 +12,7 @@ module SportDb
   end
 
   def self.banner
-    "sportdb/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+    "sportdb-models/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
   end
 
   def self.root

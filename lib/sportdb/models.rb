@@ -5,11 +5,7 @@
 
 
 require 'worlddb/models'     # NOTE: include worlddb-models gem (not cli tools gem, that is, worlddb)
-require 'persondb'
-
-
-## todo: check if already included in worlddb ???
-## require 'fetcher'   # for fetching/downloading fixtures via HTTP/HTTPS etc.
+require 'persondb/models'
 
 
 # our own code
@@ -39,7 +35,7 @@ require 'sportdb/models/roster'
 require 'sportdb/models/round'
 require 'sportdb/models/season'
 require 'sportdb/models/team'
-require 'sportdb/models/team_comp'
+require 'sportdb/models/team_compat'   ### fix/todo: move to compat gem !!!!!
 
 
 require 'sportdb/models/stats/alltime_standing'
@@ -182,18 +178,14 @@ module SportDb
   end
 
 
-  def self.stats
-    Stats.new.tables   # NOTE: same as tables (remove??? why? why not??)
-  end
-
   def self.tables
     Stats.new.tables
   end
 
 
-  def self.connect( db_config={} )
+  def self.connect( config={} )
 
-    if db_config.empty?
+    if config.empty?
       puts "ENV['DATBASE_URL'] - >#{ENV['DATABASE_URL']}<"
 
       ### change default to ./sport.db ?? why? why not?
@@ -215,8 +207,6 @@ module SportDb
          database: db.path[1..-1] # sport.db (NB: cut off leading /, thus 1..-1)
       }
       end
-    else
-      config = db_config  # use passed in config hash
     end
 
     ## todo/check: use if defined?( JRUBY_VERSION ) instead ??

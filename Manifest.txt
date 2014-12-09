@@ -43,7 +43,7 @@ lib/sportdb/models/stats/event_standing_entry.rb
 lib/sportdb/models/stats/group_standing.rb
 lib/sportdb/models/stats/group_standing_entry.rb
 lib/sportdb/models/team.rb
-lib/sportdb/models/team_comp.rb
+lib/sportdb/models/team_compat.rb
 lib/sportdb/models/utils.rb
 lib/sportdb/models/world/city.rb
 lib/sportdb/models/world/continent.rb

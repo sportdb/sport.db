@@ -121,7 +121,7 @@ class GameReader
   end
 
 
-  def read()
+  def read
     if @text_or_text_ary.is_a?( String )
       text_ary = [@text_or_text_ary]
     else

@@ -52,7 +52,7 @@ class ClubSquadReader
 
 
 
-  def read()
+  def read
     ## note:
     #    event_id and team_id required!!
 

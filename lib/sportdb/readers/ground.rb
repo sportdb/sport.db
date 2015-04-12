@@ -40,7 +40,7 @@ class GroundReader
   end
 
 
-  def read( name, more_attribs={} )
+  def read
     reader = ValuesReader.from_string( @text, @more_attribs )
 
     reader.each_line do |new_attributes, values|

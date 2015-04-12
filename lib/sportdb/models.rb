@@ -222,6 +222,15 @@ module SportDb
     pp config
     ActiveRecord::Base.establish_connection( config )
     # ActiveRecord::Base.logger = Logger.new( STDOUT )
+
+    ## if sqlite3 add (use) some pragmas for speedups 
+    if config[:adapter] == 'sqlite3'
+      ## check/todo: if in memory e.g. ':memory:' no pragma needed!!
+      con = ActiveRecord::Base.connection
+      con.execute( 'PRAGMA synchronous=OFF;' )
+      con.execute( 'PRAGMA journal_mode=OFF;' )
+      con.execute( 'PRAGMA temp_store=MEMORY;' )
+    end
   end
 
 
@@ -246,4 +255,4 @@ end  # module SportDb
 
 
 ## say hello
-puts SportDb.banner   if $DEBUG || (defined?($RUBYLIBS_DEBUG) && $RUBYLIBS_DEBUG)
+puts SportDb.banner   if defined?($RUBYLIBS_DEBUG) && $RUBYLIBS_DEBUG

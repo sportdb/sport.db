@@ -53,7 +53,7 @@ class EventReader
   end
 
 
-  def read()
+  def read
     @fixtures = []    # reset cached fixtures
     @event    = nil   # reset cached event rec
 

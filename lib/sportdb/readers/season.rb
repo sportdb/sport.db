@@ -39,7 +39,7 @@ class SeasonReader
     @text = text
   end
 
-  def read()
+  def read
     reader = LineReader.from_string( @text )
 
 ####

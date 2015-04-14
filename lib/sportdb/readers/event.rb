@@ -146,10 +146,18 @@ class EventReader
         team_ids = []
         value.each do |item|
           team_key = item.to_s.strip
-          team = Team.find_by_key!( team_key )
+          team = Team.find_by_key( team_key )
+          if team.nil?
+            ### print better error message than just
+            ##  *** error: Couldn't find SportDb::Model::Team
+            puts "[fatal] event reader - team keys: #{value.inspect}"
+            puts "[fatal] event reader - record for team key >#{team_key}< not found"
+            exit 1
+            ### fix/todo: throw exception/error
+          end
           team_ids << team.id
         end
-        
+
         event_attribs['team_ids'] = team_ids
         
       elsif key == 'team3'

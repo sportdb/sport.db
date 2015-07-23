@@ -50,6 +50,7 @@ lib/sportdb/models/world/continent.rb
 lib/sportdb/models/world/country.rb
 lib/sportdb/models/world/state.rb
 lib/sportdb/patterns.rb
+lib/sportdb/pretty_printer.rb
 lib/sportdb/reader.rb
 lib/sportdb/reader_file.rb
 lib/sportdb/reader_zip.rb
@@ -81,6 +82,7 @@ test/data/at-austria/2013_14/el.txt
 test/data/at-austria/2013_14/el.yml
 test/data/at-austria/2013_14/squads/austria.txt
 test/data/at-austria/2013_14/squads/salzburg.txt
+test/data/at-austria/2014_15/1-bundesliga-ii.txt
 test/data/at-austria/leagues.txt
 test/data/at-austria/teams.txt
 test/data/at-austria/teams_2.txt
@@ -128,6 +130,7 @@ test/test_date.rb
 test/test_goals.rb
 test/test_lang.rb
 test/test_load.rb
+test/test_pp.rb
 test/test_reader.rb
 test/test_reader_from_string.rb
 test/test_round_auto.rb

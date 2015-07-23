@@ -88,6 +88,8 @@ require 'sportdb/lang'
 require 'sportdb/deleter'
 require 'sportdb/stats'
 
+require 'sportdb/pretty_printer'
+
 
 module SportDb
 

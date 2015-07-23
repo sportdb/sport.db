@@ -62,6 +62,13 @@ PersonReader       = PersonDb::PersonReader
 ######
 # New Reader ShortCuts
 
+module TestPrettyPrinter
+  def self.from_file( name, opts={} )
+    SportDb::PrettyPrinter.from_file( "#{SportDb.test_data_path}/#{name}.txt", opts )
+  end
+end
+
+
 module TestTeamReader
   def self.from_file( name, more_attribs={} )
     TeamReader.from_file( "#{SportDb.test_data_path}/#{name}.txt", more_attribs )

@@ -16,7 +16,18 @@ class TestPp < MiniTest::Test
     r = TestPrettyPrinter.from_file( 'at-austria/2014_15/1-bundesliga-ii' )
     new_text, change_log = r.patch
 
+    puts new_text
+
     pp change_log
+
+
+    p = SportDb::Patcher.new( "#{SportDb.test_data_path}/at-austria",
+                               path: '/\d{4}_\d{2}/$',
+                               names: 'bundesliga|el'
+                            )
+    change_logs = p.patch   # note: defaults to save=false (for now)
+
+    pp change_logs
 
     assert true ## assume ok if we get here
   end  # method test_patch

@@ -83,6 +83,8 @@ test/data/at-austria/2013_14/el.yml
 test/data/at-austria/2013_14/squads/austria.txt
 test/data/at-austria/2013_14/squads/salzburg.txt
 test/data/at-austria/2014_15/1-bundesliga-ii.txt
+test/data/at-austria/2015_16/1-bundesliga.yml
+test/data/at-austria/2015_16/cup.yml
 test/data/at-austria/leagues.txt
 test/data/at-austria/teams.txt
 test/data/at-austria/teams_2.txt
@@ -127,6 +129,7 @@ test/test_assoc_reader.rb
 test/test_changes.rb
 test/test_cursor.rb
 test/test_date.rb
+test/test_event_reader.rb
 test/test_goals.rb
 test/test_lang.rb
 test/test_load.rb

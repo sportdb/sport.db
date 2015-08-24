@@ -140,13 +140,42 @@ class EventReader
         end
 
         event_attribs['ground_ids'] = ground_ids
-      elsif key == 'teams'
+
+      elsif key == 'team3'   ## note: check before teams (to avoid future gotchas)
+        ## for now always assume false  # todo: fix - use value and convert to boolean if not boolean
+        event_attribs['team3'] = false
+
+      elsif key == 'teams' || key.downcase =~ /teams/
         ## assume teams value is an array
-        
+
+        ### check if key includes number of teams; if yes - use for checksum/assert
+        if key =~ /(\d+)/
+          if value.size != $1.to_i
+            puts "[fatal] event reader - team key - expecting #{$1.to_i} teams; got #{value.size}"
+            exit 1
+          end
+        end
+
         team_ids = []
         value.each do |item|
           team_key = item.to_s.strip
-          team = Team.find_by_key( team_key )
+
+          ## check if team_key includes uppercase letters
+          if team_key =~ /[A-Z]/
+            ## assume team name (NOT team key); try to lookup team key in database
+            ##   todo/fix:
+            ##     remove  subtitle from title e.g. everything in () 
+            ##       SV Oberwart (RL Ost)  =>  SV Oberwart
+            team = Team.find_by( title: team_key )
+            if team.nil?
+              ## next try synonyms
+              team = Team.where( "synonyms LIKE ?", "%#{team_key}%" ).first
+            end
+          else
+            ## assume "verbatim/literal" team_key (use as is 1:1)
+            team = Team.find_by( key: team_key )
+          end
+
           if team.nil?
             ### print better error message than just
             ##  *** error: Couldn't find SportDb::Model::Team
@@ -155,14 +184,11 @@ class EventReader
             exit 1
             ### fix/todo: throw exception/error
           end
+
           team_ids << team.id
         end
 
         event_attribs['team_ids'] = team_ids
-        
-      elsif key == 'team3'
-        ## for now always assume false  # todo: fix - use value and convert to boolean if not boolean
-        event_attribs['team3'] = false
 
       elsif key == 'fixtures' || key == 'sources'
         ### todo: check for mulitiple fixtures/sources ?? allow disallow?? why? why not?

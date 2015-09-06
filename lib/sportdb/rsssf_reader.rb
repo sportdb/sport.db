@@ -62,14 +62,14 @@ class RsssfGameReader
 
     ## reset cached values
     @patch_round_ids_dates = []
-    @patch_round_ids_pos   = []
 
     @round         = nil     ## fix: change/rename to @last_round !!!
+    @last_date     = nil
     
     ## fix: remove @group reference / clenaup
     @group         = nil     ## fix: change/rename to @last_group !!!
-    @last_date     = nil
 
+    ## todo/fix: cleanup - remove for now; add back if needed later
     @last_team1    = nil    # used for goals (to match players via squads)
     @last_team2    = nil
     @last_game     = nil
@@ -105,9 +105,13 @@ class RsssfGameReader
     ### todo/fix/check:  move cut off optional comment in reader for all lines? why? why not?
     cut_off_end_of_line_comment!( line )  # cut off optional comment starting w/ #
 
-    # NB: cut off optional title2 starting w/  //  first
-    title2 = find_round_header_title2!( line )
-
+    ## check for date in header first e.g. Round 36 [Jul 20]  !!
+    ##   avoid "conflict" with getting "wrong" round number from date etc.
+    date = find_rsssf_date!( line, start_at: @event.start_at )
+    if date
+      @last_date = date
+    end
+    
     ## todo/check/fix:
     #   make sure  Round of 16  will not return pos 16 -- how? possible?
     #   add unit test too to verify
@@ -115,32 +119,14 @@ class RsssfGameReader
 
     ## check if pos available; if not auto-number/calculate
     if pos.nil?
-      if @patch_round_ids_pos.empty?
-        pos = (@last_round_pos||0)+1
-        logger.debug( "  no round pos found; auto-number round - use (#{pos})" )
-      else
-        # note: if any rounds w/o pos already seen (add for auto-numbering at the end)
-        #  will get auto-numbered sorted by start_at date
-        pos = 999001+@patch_round_ids_pos.length   # e.g. 999<count> - 999001,999002,etc.
-        logger.debug( "  no round pos found; auto-number round w/ patch (backtrack) at the end" )
-      end
+        logger.error( "  no round pos found in line >#{line}<; round pos required in rsssf; sorry" )
+        fail( "round pos required in rsssf; sorry")
     end
-
-    # store pos for auto-number next round if missing
-    #  - note: only if greater/bigger than last; use max
-    #  - note: last_round_pos might be nil - thus set to 0
-    if pos > 999000
-      # note: do NOT update last_round_pos for to-be-patched rounds
-    else
-      @last_round_pos = [pos,@last_round_pos||0].max
-    end
-
 
     title = find_round_header_title!( line )
 
     ## NB: use extracted round title for knockout check
-    knockout_flag = is_knockout_round?( title )
-
+    ## knockout_flag = is_knockout_round?( title )
 
     logger.debug "  line: >#{line}<"
         
@@ -148,18 +134,12 @@ class RsssfGameReader
     ##  replace/patch after adding all games for round
 
     round_attribs = {
-      title:  title,
-      title2: title2,
-      knockout: knockout_flag
+      title:    title,
+      title2:   nil,
+      knockout: false
     }
 
-    if pos > 999000
-      # no pos (e.g. will get autonumbered later) - try match by title for now
-      #  e.g. lets us use title 'Group Replays', for example, multiple times
-      @round = Round.find_by_event_id_and_title( @event.id, title ) 
-    else
-      @round = Round.find_by_event_id_and_pos( @event.id, pos )
-    end
+    @round = Round.find_by_event_id_and_pos( @event.id, pos )
 
     if @round.present?
       logger.debug "update round #{@round.id}:"
@@ -179,7 +159,6 @@ class RsssfGameReader
    
     @round.update_attributes!( round_attribs )
 
-    @patch_round_ids_pos   << @round.id    if pos > 999000
     ### store list of round ids for patching start_at/end_at at the end
     @patch_round_ids_dates << @round.id   # todo/fix/check: check if round has definition (do NOT patch if definition (not auto-added) present)
   end
@@ -204,17 +183,12 @@ class RsssfGameReader
       return false
     end
 
+    ## fix: remove - game pos not supported by rsssf format !!!!
     pos = find_game_pos!( line )
 
-    if is_postponed?( line )
-      postponed  = true
-      date_v2    = find_date!( line, start_at: @event.start_at )
-      date       = find_date!( line, start_at: @event.start_at )
-    else
-      postponed = false
-      date_v2   = nil
-      date      = find_date!( line, start_at: @event.start_at )
-    end
+    postponed = false
+    date_v2   = nil
+    date      = find_rsssf_date!( line, start_at: @event.start_at )
 
     ###
     # check if date found?
@@ -240,81 +214,7 @@ class RsssfGameReader
     @last_team1 = team1    # store for later use for goals etc.
     @last_team2 = team2
 
-
-    if @round.nil?
-      ## no round header found; calculate round from date
-      
-      ###
-      ## todo/fix: add some unit tests for round look up
-      #  fix: use date_v2 if present!! (old/original date; otherwise use date)
-      
-      #
-      # fix: check - what to do with hours e.g. start_at use 00:00 and for end_at use 23.59 ??
-      #  -- for now - remove hours (e.g. use end_of_day and beginnig_of_day)
-      
-      ##
-      # note: start_at and end_at are dates ONLY (note datetime)
-      #  - do NOT pass in hours etc. in query
-      #  again use -->  date.end_of_day, date.beginning_of_day
-      #  new: not working:  date.to_date, date.to_date
-      #    will not find round if  start_at same as date !! (in theory hours do not matter)
-
-      ###
-      # hack:
-      #  special case for sqlite3 (date compare not working reliable; use casts)
-      #  fix: move to  adapter_name to activerecord_utils as sqlite? or similar?
-
-      if ActiveRecord::Base.connection.adapter_name.downcase.starts_with?( 'sqlite' )
-        logger.debug( "  [sqlite] using sqlite-specific query for date compare for rounds finder" )
-        round = Round.where( 'event_id = ? AND (    julianday(start_at) <= julianday(?)'+
-                                               'AND julianday(end_at)   >= julianday(?))',
-                               @event.id, date.to_date, date.to_date).first
-      else  # all other dbs (postgresql, mysql, etc.)
-        round = Round.where( 'event_id = ? AND (start_at <= ? AND end_at >= ?)',
-                             @event.id, date.to_date, date.to_date).first
-      end
-
-      pp round
-      if round.nil?
-        logger.warn( "  !!!! no round match found for date #{date}" )
-        pp Round.all
-
-        ###################################
-        # -- try auto-adding matchday
-        round = Round.new
-
-        round_attribs = {
-          event_id: @event.id,
-          title: "Matchday #{date.to_date}",
-          pos: 999001+@patch_round_ids_pos.length,   # e.g. 999<count> - 999001,999002,etc.
-          start_at:  date.to_date,
-          end_at:    date.to_date 
-        }
-
-        logger.info( "  auto-add round >Matchday #{date.to_date}<" )
-        logger.debug round_attribs.to_json
-
-        round.update_attributes!( round_attribs )
-
-        @patch_round_ids_pos << round.id   # todo/check - add just id or "full" record as now - why? why not?
-      end
-
-      # store pos for auto-number next round if missing
-      #  - note: only if greater/bigger than last; use max
-      #  - note: last_round_pos might be nil - thus set to 0
-      if round.pos > 999000
-        # note: do NOT update last_round_pos for to-be-patched rounds
-      else
-        @last_round_pos = [round.pos,@last_round_pos||0].max     
-      end
-
-      ## note: will crash (round.pos) if round is nil
-      logger.debug( "  using round #{round.pos} >#{round.title}< start_at: #{round.start_at}, end_at: #{round.end_at}" )
-    else
-      ## use round from last round header
-      round = @round
-    end
-
+    round = @round
 
     ### check if games exists
     ##  with this teams in this round if yes only update
@@ -393,7 +293,7 @@ class RsssfGameReader
     team1_key = find_team1!( line )
     team2_key = find_team2!( line )
 
-    date  = find_date!( line, start_at: @event.start_at )
+    date  = find_rsssf_date!( line, start_at: @event.start_at )
 
     if date && team1_key.nil? && team2_key.nil?
       logger.debug( "date header line found: >#{line}<")
@@ -427,8 +327,7 @@ class RsssfGameReader
     end # lines.each
 
     ###########################
-    # backtrack and patch round pos and round dates (start_at/end_at)
-    #  note: patch dates must go first! (otherwise sort_by_date will not work for round pos)
+    # backtrack and patch round dates (start_at/end_at)
 
     unless @patch_round_ids_dates.empty?
       ###
@@ -469,41 +368,6 @@ class RsssfGameReader
         r.update_attributes!( round_attribs )
       end
     end
-
-    unless @patch_round_ids_pos.empty?
-
-      # step 0: check for offset (last_round_pos)
-      if @last_round_pos
-        offset = @last_round_pos
-        logger.info "  +++ patch round pos - use offset; start w/ #{offset}"
-      else
-        offset = 0
-        logger.debug "  patch round pos - no offset; start w/ 0"
-      end
-
-      # step 1: sort by date
-      # step 2: update pos
-      # note: use uniq - to allow multiple round headers (possible?)
-      Round.order( 'start_at asc').find( @patch_round_ids_pos.uniq ).each_with_index do |r,idx|
-        # note: starts counting w/ zero(0)
-        logger.debug "[#{idx+1}] patch round pos >#{offset+idx+1}< for #{r.title}:"
-        round_attribs = {
-          pos: offset+idx+1
-        }
-
-        # update title if Matchday XXXX  e.g. use Matchday 1 etc.
-        if r.title.starts_with?('Matchday')
-          round_attribs[:title] = "Matchday #{offset+idx+1}"
-        end
-
-        logger.debug round_attribs.to_json
-        r.update_attributes!( round_attribs )
-
-        # update last_round_pos offset too
-        @last_round_pos = [offset+idx+1,@last_round_pos||0].max
-      end
-    end
-
   end # method parse_fixtures
 
 end # class RsssfGameReader

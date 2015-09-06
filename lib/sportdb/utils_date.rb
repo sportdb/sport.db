@@ -21,6 +21,12 @@ module SportDb
     finder.find!( line, opts )
   end
 
+  def find_rsssf_date!( line, opts={} )
+    finder = RsssfDateFinder.new
+    finder.find!( line, opts )
+  end
+
+
   end # module FixtureHelpers
 end # module SportDb
 

@@ -1,11 +1,103 @@
 # encoding: utf-8
 
-#### fix: move to textutils for reuse !!!!!
+#### fix: move to textutils for reuse !!!!!!!!!! - why?? why not ??
 
 
 module SportDb
 
-class DateFinder
+
+class DateFinderBase
+
+  MONTH_EN_TO_MM = {
+        'Jan' => '1', 'January' => '1',
+        'Feb' => '2', 'February' => '2',
+        'Mar' => '3', 'March' => '3',
+        'Apr' => '4', 'April' => '4',
+        'May' => '5',
+        'Jun' => '6', 'June' => '6',
+        'Jul' => '7', 'July' => '7',
+        'Aug' => '8', 'August' => '8',
+        'Sep' => '9', 'Sept' => '9', 'September' => '9',
+        'Oct' => '10', 'October' => '10',
+        'Nov' => '11', 'November' => '11',
+        'Dec' => '12', 'December' =>'12' }
+
+  MONTH_FR_TO_MM = {
+        'Janvier' => '1', 'Janv' => '1', 'Jan' => '1',   ## check janv in use??
+        'Février' => '2', 'Févr' => '2', 'Fév' => '2',   ## check fevr in use???
+        'Mars'    => '3', 'Mar' => '3',
+        'Avril'   => '4', 'Avri' => '4', 'Avr' => '4',   ## check avri in use??? if not remove
+        'Mai'     => '5',
+        'Juin'    => '6',
+        'Juillet' => '7', 'Juil' => '7',
+        'Août'    => '8',
+        'Septembre' => '9', 'Sept' => '9',
+        'Octobre' => '10',  'Octo' => '10', 'Oct' => '10',  ### check octo in use??
+        'Novembre' => '11', 'Nove' => '11', 'Nov' => '11',  ##  check nove in use??
+        'Décembre' => '12', 'Déce' => '12', 'Déc' => '12' } ## check dece in use??
+
+  MONTH_ES_TO_MM  = {
+        'Ene' => '1', 'Enero' => '1',
+        'Feb' => '2',
+        'Mar' => '3', 'Marzo' => '3',
+        'Abr' => '4', 'Abril' => '4',
+        'May' => '5', 'Mayo' => '5',
+        'Jun' => '6', 'Junio' => '6',
+        'Jul' => '7', 'Julio' => '7',
+        'Ago' => '8', 'Agosto' => '8',
+        'Sep' => '9', 'Set' => '9', 'Sept' => '9',
+        'Oct' => '10',
+        'Nov' => '11',
+        'Dic' => '12' }
+
+private
+  def calc_year( month, day, opts )
+    start_at = opts[:start_at]
+
+    logger.debug "   [calc_year] ????-#{month}-#{day} -- start_at: #{start_at}"
+
+    if month >= start_at.month
+      # assume same year as start_at event (e.g. 2013 for 2013/14 season)
+      start_at.year
+    else
+      # assume year+1 as start_at event (e.g. 2014 for 2013/14 season)
+      start_at.year+1
+    end
+  end
+
+  def parse_date_time( match_data, opts={} )
+    
+    # convert regex match_data captures to hash
+    # - note: cannont use match_data like a hash (e.g. raises exception if key/name not present/found)
+    h = {}
+    # - note: do NOT forget to turn name into symbol for lookup in new hash (name.to_sym)
+    match_data.names.each { |name| h[name.to_sym] = match_data[name] }  # or use match_data.names.zip( match_data.captures )  - more cryptic but "elegant"??
+
+    ## puts "[parse_date_time] match_data:"
+    ## pp h
+    logger.debug "   [parse_date_time] hash: >#{h.inspect}<"
+
+    h[ :month ] = MONTH_EN_TO_MM[ h[:month_en] ]  if h[:month_en]
+    h[ :month ] = MONTH_ES_TO_MM[ h[:month_es] ]  if h[:month_es]
+    h[ :month ] = MONTH_FR_TO_MM[ h[:month_fr] ]  if h[:month_fr]
+
+    month   = h[:month]
+    day     = h[:day]
+    year    = h[:year]     || calc_year( month.to_i, day.to_i, opts ).to_s
+
+    hours   = h[:hours]    || '12'   # default to 12:00 for HH:MM (hours:minutes)
+    minutes = h[:minutes]  || '00'
+
+    value = '%d-%02d-%02d %02d:%02d' % [year.to_i, month.to_i, day.to_i, hours.to_i, minutes.to_i]
+    logger.debug "   date: >#{value}<"
+
+    DateTime.strptime( value, '%Y-%m-%d %H:%M' )
+  end
+
+end  # class DateFinderBase
+
+
+class DateFinder < DateFinderBase
 
   include LogUtils::Logging
 
@@ -27,19 +119,7 @@ class DateFinder
              'Octobre|Octo|Oct|' +
              'Novembre|Nove|Nov|' +
              'Décembre|Déce|Déc'
-  MONTH_FR_TO_MM = {
-        'Janvier' => '1', 'Janv' => '1', 'Jan' => '1',   ## check janv in use??
-        'Février' => '2', 'Févr' => '2', 'Fév' => '2',   ## check fevr in use???
-        'Mars'    => '3', 'Mar' => '3',
-        'Avril'   => '4', 'Avri' => '4', 'Avr' => '4',   ## check avri in use??? if not remove
-        'Mai'     => '5',
-        'Juin'    => '6',
-        'Juillet' => '7', 'Juil' => '7',
-        'Août'    => '8',
-        'Septembre' => '9', 'Sept' => '9',
-        'Octobre' => '10',  'Octo' => '10', 'Oct' => '10',  ### check octo in use??
-        'Novembre' => '11', 'Nove' => '11', 'Nov' => '11',  ##  check nove in use??
-        'Décembre' => '12', 'Déce' => '12', 'Déc' => '12' } ## check dece in use??
+
   WEEKDAY_FR = 'Lundi|Lun|L|' +
            'Mardi|Mar|Ma|' +
            'Mercredi|Mer|Me|' +
@@ -61,19 +141,6 @@ class DateFinder
              'October|Oct|'+
              'November|Nov|'+
              'December|Dec'
-  MONTH_EN_TO_MM = {
-        'Jan' => '1', 'January' => '1',
-        'Feb' => '2', 'February' => '2',
-        'Mar' => '3', 'March' => '3',
-        'Apr' => '4', 'April' => '4',
-        'May' => '5',
-        'Jun' => '6', 'June' => '6',
-        'Jul' => '7', 'July' => '7',
-        'Aug' => '8', 'August' => '8',
-        'Sep' => '9', 'Sept' => '9', 'September' => '9',
-        'Oct' => '10', 'October' => '10',
-        'Nov' => '11', 'November' => '11',
-        'Dec' => '12', 'December' =>'12' }
 
 ###
 ## todo: add days
@@ -83,20 +150,18 @@ class DateFinder
 ## 7. Saturday - Sat.
 
 
-  MONTH_ES = 'Enero|Ene|Feb|Marzo|Mar|Abril|Abr|Mayo|May|Junio|Jun|Julio|Jul|Agosto|Ago|Sept|Set|Sep|Oct|Nov|Dic'
-  MONTH_ES_TO_MM  = {
-        'Ene' => '1', 'Enero' => '1',
-        'Feb' => '2',
-        'Mar' => '3', 'Marzo' => '3',
-        'Abr' => '4', 'Abril' => '4',
-        'May' => '5', 'Mayo' => '5',
-        'Jun' => '6', 'Junio' => '6',
-        'Jul' => '7', 'Julio' => '7',
-        'Ago' => '8', 'Agosto' => '8',
-        'Sep' => '9', 'Set' => '9', 'Sept' => '9',
-        'Oct' => '10',
-        'Nov' => '11',
-        'Dic' => '12' }
+  MONTH_ES = 'Enero|Ene|'+
+             'Feb|'+
+             'Marzo|Mar|'+
+             'Abril|Abr|'+
+             'Mayo|May|'+
+             'Junio|Jun|'+
+             'Julio|Jul|'+
+             'Agosto|Ago|'+
+             'Sept|Set|Sep|'+
+             'Oct|'+
+             'Nov|'+
+             'Dic'
 
   # todo/fix - add de and es too!!
   # note: in Austria - Jänner - in Deutschland Januar allow both ??
@@ -327,52 +392,55 @@ class DateFinder
     return nil  # no match found
   end
 
-private
-  def calc_year( month, day, opts )
-    start_at = opts[:start_at]
-
-    logger.debug "   [calc_year] ????-#{month}-#{day} -- start_at: #{start_at}"
-
-    if month >= start_at.month
-      # assume same year as start_at event (e.g. 2013 for 2013/14 season)
-      start_at.year
-    else
-      # assume year+1 as start_at event (e.g. 2014 for 2013/14 season)
-      start_at.year+1
-    end
-  end
-
-  def parse_date_time( match_data, opts={} )
-    
-    # convert regex match_data captures to hash
-    # - note: cannont use match_data like a hash (e.g. raises exception if key/name not present/found)
-    h = {}
-    # - note: do NOT forget to turn name into symbol for lookup in new hash (name.to_sym)
-    match_data.names.each { |name| h[name.to_sym] = match_data[name] }  # or use match_data.names.zip( match_data.captures )  - more cryptic but "elegant"??
-
-    ## puts "[parse_date_time] match_data:"
-    ## pp h
-    logger.debug "   [parse_date_time] hash: >#{h.inspect}<"
-
-    h[ :month ] = MONTH_EN_TO_MM[ h[:month_en] ]  if h[:month_en]
-    h[ :month ] = MONTH_ES_TO_MM[ h[:month_es] ]  if h[:month_es]
-    h[ :month ] = MONTH_FR_TO_MM[ h[:month_fr] ]  if h[:month_fr]
-
-    month   = h[:month]
-    day     = h[:day]
-    year    = h[:year]     || calc_year( month.to_i, day.to_i, opts ).to_s
-
-    hours   = h[:hours]    || '12'   # default to 12:00 for HH:MM (hours:minutes)
-    minutes = h[:minutes]  || '00'
-
-    value = '%d-%02d-%02d %02d:%02d' % [year.to_i, month.to_i, day.to_i, hours.to_i, minutes.to_i]
-    logger.debug "   date: >#{value}<"
-
-    DateTime.strptime( value, '%Y-%m-%d %H:%M' )
-  end
-
-
 end # class DateFinder
 
+
+class RsssfDateFinder < DateFinderBase
+
+  include LogUtils::Logging
+
+  MONTH_EN = 'Jan|'+
+             'Feb|'+
+             'March|Mar|'+
+             'April|Apr|'+
+             'May|'+
+             'June|Jun|'+
+             'July|Jul|'+
+             'Aug|'+
+             'Sept|Sep|'+
+             'Oct|'+
+             'Nov|'+
+             'Dec'
+  
+  ## e.g.
+  ##  [Jun 7]  or [Aug 12] etc.  - not MUST include brackets e.g. []
+  ##
+  ##  check add \b at the beginning and end - why?? why not?? working??
+  EN__MONTH_DD__DATE_REGEX = /\[
+                   (?<month_en>#{MONTH_EN})
+                      \s
+                   (?<day>\d{1,2})
+                     \]/x
+
+  def find!( line, opts={} )
+    # fix: use more lookahead for all required trailing spaces!!!!!
+    # fix: use <name capturing group> for month,day,year etc.!!!
+ 
+    tag     = '[EN_MONTH_DD]'
+    pattern = EN__MONTH_DD__DATE_REGEX
+    md = pattern.match( line )
+    if md
+      date = parse_date_time( md, opts )
+      ## fix: use md[0] e.g. match for sub! instead of using regex again - why? why not???
+      ## fix: use md.begin(0), md.end(0)
+      line.sub!( md[0], tag )
+      ## todo/fix: make sure match data will not get changed (e.g. using sub! before parse_date_time)
+      return date
+    end
+    return nil  # no match found
+  end
+
+
+end  ## class RsssfDateFinder
 
 end # module SportDb

@@ -15,7 +15,7 @@ class TestRsssfReader < MiniTest::Test
     SportDb.read_builtin
   end
 
-  def xxx_test_bl_2016
+  def test_bl_2016
     at = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
 
     teamreader = TestTeamReader.from_file( 'at-austria/teams', country_id: at.id )

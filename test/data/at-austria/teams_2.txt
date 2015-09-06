@@ -1,14 +1,12 @@
 ########################
 # Erste Liga 2013/14
 #
-#  10 Teams
-
-# NB: use three letter codes from bundesliga.at
+#   10 Teams
 
 
-mattersburg, SV Mattersburg,     Erste Liga/Bgld.,  MAT,  city:mattersburg   # from Bundesliga
+mattersburg, SV Mattersburg|Mattersburg,    Erste Liga/Bgld.,  MAT,  city:mattersburg   # from Bundesliga
 
-altach,    SCR Altach|SC Rheindorf Altach,        Erste Liga/Vbg.,  ALT, city:altach
+altach,    SCR Altach|SC Rheindorf Altach|Altach,        Erste Liga/Vbg.,  ALT, city:altach
 austrial,  SC Austria Lustenau|Austria Lustenau,  Erste Liga/Vbg.,  ALU, city:lustenau
 stpoelten, SKN St. Pölten,       Erste Liga/NÖ,    SKN, city:stpoelten
 ksv,       Kapfenberger SV|Kapfenberger SV 1919|KSV 1919, Erste Liga/Stmk., KSV, city:kapfenberg
@@ -20,15 +18,4 @@ parndorf,    SC/ESV Parndorf 1919|SC-ESV Parndorf 1919|SC/ESV Parndorf, Erste Li
 
 liefering,   FC Liefering,                              Erste Liga/Sbg.,   LIE,  city:salzburg  # from Regionalliga West - Liefering - Stadtteil von Salzburg
 
-
-# NB: 2013/14
-# bundesliga:
-# - new team SV Mattersburg
-# - old team (moved to teams.1)  SV Grödig
-#
-#  erste liga:
-# - new team  SC/ESV Parndorf 1919
-#             FC Liefering
-# - old team (moved to teams.3) FC Blau-Weiß Linz
-#                               FC Lustenau 1907
 

@@ -5,15 +5,12 @@ league: at
 season: 2015/16
 start_at: 2015-07-25
 
-# num/edition - 104 or 42 ??  ##
-# note: timezone for games (play_at) is *always* CET (central european time)
-
 fixtures:
 - 1-bundesliga-i
 - 1-bundesliga-ii
 
 
-10 Teams:
+10 teams:
 - RB Salzburg
 - Rapid Wien
 - Sturm Graz
@@ -24,5 +21,4 @@ fixtures:
 - SCR Altach    
 - SV Grödig
 - SV Mattersburg     ## Aufsteiger
-
 

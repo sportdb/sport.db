@@ -1,0 +1,339 @@
+########################
+# Bundesliga
+#
+#  check the reader handles:
+#   1) round header w/ date
+#         Round 35 [May 24]
+#   2) match abd and replay
+#      Wiener Neustadt  abd Grödig           [abandoned at 1-0 in 20' due to fog]
+#      Wiener Neustadt  2-4 Grödig           [replay]
+
+
+
+Round 1
+[Jul 19]
+Admira Wacker    1-4 Wolfsberg
+Salzburg         6-1 Rapid
+Altach           1-0 Sturm
+Ried             3-1 Wiener Neustadt
+[Jul 20]
+Austria          1-1 Grödig
+
+Round 2
+[Jul 26]
+Rapid            1-0 Ried
+Wiener Neustadt  0-5 Salzburg
+Wolfsberg        4-0 Austria
+[Jul 27]
+Grödig           2-1 Sturm
+[Aug 13]
+Altach           0-2 Admira Wacker
+
+Round 3
+[Aug 2]
+Austria          0-0 Altach
+Admira Wacker    1-1 Rapid
+Sturm            4-2 Wiener Neustadt
+Ried             0-2 Salzburg
+[Aug 3]
+Grödig           0-2 Wolfsberg
+
+Round 4
+[Aug 9]
+Rapid            1-1 Sturm
+Wiener Neustadt  2-2 Austria
+Altach           1-2 Wolfsberg
+Ried             1-1 Admira Wacker
+[Aug 10]
+Salzburg         8-0 Grödig
+
+Round 5
+[Aug 16]
+Admira Wacker    0-3 Salzburg
+Rapid            0-1 Altach
+Grödig           3-0 Wiener Neustadt
+Wolfsberg        4-1 Ried
+[Aug 17]
+Sturm            1-1 Austria
+
+Round 6
+[Aug 23]
+Salzburg         5-0 Altach
+Wiener Neustadt  5-4 Admira Wacker
+Sturm            1-2 Wolfsberg
+Ried             2-2 Grödig
+[Aug 24]
+Austria          2-2 Rapid
+
+Round 7
+[Aug 30]
+Admira Wacker    2-1 Austria
+Salzburg         2-3 Sturm
+Altach           2-2 Ried
+Wolfsberg        0-1 Wiener Neustadt
+[Aug 31]
+Rapid            2-0 Grödig
+
+Round 8
+[Sep 13]
+Austria          3-1 Ried
+Sturm            0-2 Admira Wacker
+[Sep 14]
+Wolfsberg        1-0 Salzburg
+[Sep 17]
+Wiener Neustadt  1-5 Rapid
+Grödig           3-3 Altach
+
+Round 9
+[Sep 20]
+Admira Wacker    0-0 Grödig
+Rapid            3-0 Wolfsberg
+Altach           2-0 Wiener Neustadt
+Ried             0-1 Sturm
+[Sep 21]
+Salzburg         2-3 Austria
+
+Round 10
+[Sep 27]
+Wiener Neustadt  0-1 Ried
+Sturm            2-2 Altach
+Grödig           0-0 Austria
+Wolfsberg        2-1 Admira Wacker
+[Sep 28]
+Rapid            1-2 Salzburg
+
+Round 11
+[Oct 4]
+Austria          0-2 Wolfsberg
+Admira Wacker    0-2 Altach
+Sturm            1-0 Grödig
+[Oct 5]
+Salzburg         4-1 Wiener Neustadt
+Ried             1-2 Rapid
+
+Round 12
+[Oct 18]
+Rapid            0-0 Admira Wacker
+Salzburg         4-2 Ried
+Altach           1-1 Austria
+Wolfsberg        1-2 Grödig
+[Oct 19]
+Wiener Neustadt  0-0 Sturm
+
+Round 13
+[Oct 25]
+Austria          2-0 Wiener Neustadt
+Admira Wacker    0-0 Ried
+Sturm            1-3 Rapid
+Wolfsberg        0-0 Altach
+[Oct 26]
+Grödig           2-2 Salzburg
+
+Round 14
+[Nov 1]
+Salzburg         2-0 Admira Wacker
+Ried             1-0 Wolfsberg
+Austria          0-3 Sturm
+Wiener Neustadt  abd Grödig           [abandoned at 1-0 in 20' due to fog]
+[Nov 2]
+Altach           2-0 Rapid
+[Nov 5]
+Wiener Neustadt  2-4 Grödig           [replay]
+
+Round 15
+[Nov 8]
+Wolfsberg        0-2 Sturm
+Grödig           0-1 Ried
+Admira Wacker    1-1 Wiener Neustadt
+[Nov 9]
+Rapid            2-3 Austria
+Altach           4-1 Salzburg
+
+Round 16
+[Nov 22]
+Grödig           3-1 Rapid
+Austria          4-0 Admira Wacker
+Wiener Neustadt  2-0 Wolfsberg
+Ried             2-1 Altach
+[Nov 23]
+Sturm            1-2 Salzburg
+
+Round 17
+[Nov 29]
+Ried             1-1 Austria
+Admira Wacker    0-2 Sturm
+Rapid            3-0 Wiener Neustadt
+Altach           3-1 Grödig
+[Nov 30]
+Salzburg         2-2 Wolfsberg
+
+Round 18
+[Dec 6]
+Austria          2-4 Salzburg
+Wiener Neustadt  2-0 Altach
+Sturm            3-1 Ried
+Grödig           5-0 Admira Wacker
+[Dec 7]
+Wolfsberg        1-1 Rapid
+
+Round 19
+[Dec 13]
+Altach           2-0 Sturm
+Austria          1-0 Grödig
+Admira Wacker    2-1 Wolfsberg
+Ried             6-0 Wiener Neustadt
+[Dec 14]
+Salzburg         1-2 Rapid
+
+Round 20
+[Feb 14]
+Rapid            3-0 Ried
+Wiener Neustadt  0-2 Salzburg
+Altach           2-0 Admira Wacker
+[Feb 15]
+Wolfsberg        1-0 Austria
+[Mar 11]
+Grödig           0-2 Sturm
+
+Round 21
+[Feb 21]
+Austria          5-2 Altach
+Sturm            3-3 Wiener Neustadt
+[Feb 22]
+Ried             2-2 Salzburg
+Admira Wacker    1-1 Rapid
+[Mar 18]
+Grödig           2-0 Wolfsberg
+
+Round 22
+[Feb 28]
+Altach           1-0 Wolfsberg
+Rapid            1-0 Sturm
+Wiener Neustadt  1-0 Austria
+Ried             2-2 Admira Wacker
+[Mar 1]
+Salzburg         3-1 Grödig
+
+Round 23
+[Mar 3]
+Sturm            2-1 Austria
+[Mar 4]
+Admira Wacker    1-4 Salzburg
+Rapid            1-0 Altach
+Grödig           1-3 Wiener Neustadt
+Wolfsberg        1-2 Ried
+
+Round 24
+[Mar 7]
+Sturm            2-0 Wolfsberg
+Salzburg         0-1 Altach
+Wiener Neustadt  0-0 Admira Wacker
+Ried             2-1 Grödig
+[Mar 8]
+Austria          2-1 Rapid
+
+Round 25
+[Mar 14]
+Admira Wacker    1-1 Austria
+Rapid            4-0 Grödig
+Altach           2-1 Ried
+Wolfsberg        2-0 Wiener Neustadt
+[Mar 15]
+Salzburg         2-1 Sturm
+
+Round 26
+[Mar 21]
+Austria          0-1 Ried
+Sturm            3-1 Admira Wacker
+Grödig           0-1 Altach
+Wolfsberg        3-2 Salzburg
+[Mar 22]
+Wiener Neustadt  0-1 Rapid
+
+Round 27
+[Apr 4]
+Salzburg         3-1 Austria
+Admira Wacker    2-3 Grödig
+Rapid            4-1 Wolfsberg
+[Apr 5]
+Ried             1-2 Sturm
+[Apr 15]
+Altach           3-1 Wiener Neustadt
+
+Round 28
+[Apr 11]
+Sturm            5-0 Altach
+Wiener Neustadt  0-1 Ried
+Grödig           1-1 Austria
+Wolfsberg        2-0 Admira Wacker
+[Apr 12]
+Rapid            3-3 Salzburg
+
+Round 29
+[Apr 18]
+Ried             0-1 Rapid
+Admira Wacker    2-2 Altach
+Salzburg         6-0 Wiener Neustadt
+Sturm            2-1 Grödig
+[Apr 19]
+Austria          1-1 Wolfsberg
+
+Round 30
+[Apr 25]
+Salzburg         2-1 Ried
+Rapid            1-1 Admira Wacker
+Wiener Neustadt  4-4 Sturm
+Wolfsberg        2-1 Grödig
+[Apr 26]
+Altach           2-0 Austria
+
+Round 31
+[May 2]
+Wolfsberg        2-0 Altach
+Austria          2-1 Wiener Neustadt
+Admira Wacker    1-0 Ried
+Grödig           0-3 Salzburg
+[May 3]
+Sturm            2-2 Rapid
+
+Round 32
+[May 9]
+Austria          0-0 Sturm
+Salzburg         4-0 Admira Wacker
+Wiener Neustadt  2-4 Grödig
+Ried             4-0 Wolfsberg
+[May 10]
+Altach           1-3 Rapid
+
+Round 33
+[May 16]
+Altach           2-2 Salzburg
+Admira Wacker    0-0 Wiener Neustadt
+Grödig           3-2 Ried
+Wolfsberg        1-0 Sturm
+[May 17]
+Rapid            4-1 Austria
+
+Round 34
+[May 19]
+Ried             4-1 Altach
+[May 20]
+Austria          0-1 Admira Wacker
+Wiener Neustadt  2-0 Wolfsberg
+Sturm            0-0 Salzburg
+[May 27]
+Grödig           0-2 Rapid
+
+Round 35 [May 24]
+Admira Wacker    1-2 Sturm
+Rapid            0-0 Wiener Neustadt
+Salzburg         3-0 Wolfsberg
+Altach           2-0 Grödig
+Ried             0-2 Austria
+
+Round 36 [May 31]
+Austria          1-1 Salzburg
+Wiener Neustadt  0-1 Altach
+Sturm            0-0 Ried
+Grödig           0-1 Admira Wacker
+Wolfsberg        0-5 Rapid

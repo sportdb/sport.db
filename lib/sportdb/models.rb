@@ -90,6 +90,9 @@ require 'sportdb/stats'
 
 require 'sportdb/pretty_printer'
 
+## "simplified" match reader for rsssf-formated/style leagues
+require 'sportdb/rsssf_reader'
+
 
 module SportDb
 

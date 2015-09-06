@@ -242,6 +242,10 @@ class DateFinder
                   \b/x
 
   # e.g.  Jun/12  w/ implied year and implied hours (set to 12:00)
+  #  note: allow space too e.g Jun 12   -- check if conflicts w/ other formats??? (added for rsssf reader)
+  #   -- fix: might eat french weekday mar 12  is mardi (mar)  !!! see FR__ pattern
+  #  fix: remove  space again for now - and use simple en date reader or something!!!
+  ##  was [\/ ]   changed back to \/
   EN__MONTH_DD__DATE_REGEX = /\b
                    (?<month_en>#{MONTH_EN})
                       \/

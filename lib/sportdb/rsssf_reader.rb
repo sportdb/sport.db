@@ -27,67 +27,41 @@ class RsssfGameReader
   ##
   ## todo: add from_file and from_zip too
 
-  def self.from_string( event_key, text, more_attribs={} )
+  def self.from_string( event_key, text )
     ### fix - fix -fix:
     ##  change event to event_or_event_key !!!!!  - allow event_key as string passed in
-    self.new( event_key, text, more_attribs )
-  end  
+    self.new( event_key, text )
+  end
 
-  def initialize( event_key, text, more_attribs={} )
+  def initialize( event_key, text )
     ### fix - fix -fix:
     ##  change event to event_or_event_key !!!!!  - allow event_key as string passed in
 
     ## todo/fix: how to add opts={} ???
     @event_key         = event_key
     @text              = text
-    @more_attribs      = more_attribs
   end
 
 
   def read
-    ## reset cached values
-    ##  for auto-number rounds etc.
-    @last_round_pos = nil
-
-    ## always use english (en) for now
-    SportDb.lang.lang = 'en'
-    reader = LineReader.from_string( @text )
-
-    read_fixtures_worker( @event_key, reader )
-  end
-
-
-  def read_fixtures_worker( event_key, reader )
-    ## NB: assume active activerecord connection
-
-    ## reset cached values
-    @patch_round_ids_dates = []
-
-    @round         = nil     ## fix: change/rename to @last_round !!!
-    @last_date     = nil
-    
-    ## fix: remove @group reference / clenaup
-    @group         = nil     ## fix: change/rename to @last_group !!!
-
-    ## todo/fix: cleanup - remove for now; add back if needed later
-    @last_team1    = nil    # used for goals (to match players via squads)
-    @last_team2    = nil
-    @last_game     = nil
-
-
-    #####
-    #  fix: move to read and share event/known_teams
-    #    for all 1-n fixture files (no need to configure every time!!)
-
-    @event = Event.find_by_key!( event_key )
+    ## note: assume active activerecord connection
+    @event = Event.find_by!( key: @event_key )
 
     logger.debug "Event #{@event.key} >#{@event.title}<"
 
-    ### fix: use build_title_table_for ??? why? why not??
-    @known_teams  = @event.known_teams_table
+    @team_mapper = TextUtils::TitleMapper.new( @event.teams, 'team' )
 
-    parse_fixtures( reader )
+    ## reset cached values
+    @patch_round_ids = []
+
+    @last_round    = nil
+    @last_date     = nil
     
+    ## always use english (en) for now
+    SportDb.lang.lang = 'en'
+
+    reader = LineReader.from_string( @text )
+    parse_fixtures( reader )    
   end   # method load_fixtures
 
 
@@ -125,12 +99,12 @@ class RsssfGameReader
 
     title = find_round_header_title!( line )
 
-    ## NB: use extracted round title for knockout check
+    ## Note: use extracted round title for knockout check
     ## knockout_flag = is_knockout_round?( title )
 
     logger.debug "  line: >#{line}<"
         
-    ## NB: dummy/placeholder start_at, end_at date
+    ## Note: dummy/placeholder start_at, end_at date
     ##  replace/patch after adding all games for round
 
     round_attribs = {
@@ -139,17 +113,18 @@ class RsssfGameReader
       knockout: false
     }
 
-    @round = Round.find_by_event_id_and_pos( @event.id, pos )
+    round = Round.find_by( event_id: @event.id,
+                           pos:      pos )
 
-    if @round.present?
-      logger.debug "update round #{@round.id}:"
+    if round.present?
+      logger.debug "update round #{round.id}:"
     else
       logger.debug "create round:"
-      @round = Round.new
+      round = Round.new
           
       round_attribs = round_attribs.merge( {
         event_id: @event.id,
-        pos:   pos,
+        pos:      pos,
         start_at: Date.parse('1911-11-11'),
         end_at:   Date.parse('1911-11-11')
       })
@@ -157,10 +132,11 @@ class RsssfGameReader
 
     logger.debug round_attribs.to_json
    
-    @round.update_attributes!( round_attribs )
+    round.update_attributes!( round_attribs )
 
     ### store list of round ids for patching start_at/end_at at the end
-    @patch_round_ids_dates << @round.id   # todo/fix/check: check if round has definition (do NOT patch if definition (not auto-added) present)
+    @patch_round_ids << round.id
+    @last_round = round     ## keep track of last seen round for matches that follow etc.
   end
 
 
@@ -173,9 +149,9 @@ class RsssfGameReader
   def parse_game( line )
     logger.debug "parsing game (fixture) line: >#{line}<"
 
-    match_teams!( line )
-    team1_key = find_team1!( line )
-    team2_key = find_team2!( line )
+    @team_mapper.map_titles!( line )
+    team1_key = @team_mapper.find_key!( line )
+    team2_key = @team_mapper.find_key!( line )
 
     ## note: if we do NOT find two teams; return false - no match found
     if team1_key.nil? || team2_key.nil?
@@ -183,45 +159,36 @@ class RsssfGameReader
       return false
     end
 
-    ## fix: remove - game pos not supported by rsssf format !!!!
-    pos = find_game_pos!( line )
-
-    postponed = false
-    date_v2   = nil
     date      = find_rsssf_date!( line, start_at: @event.start_at )
 
     ###
     # check if date found?
-    #   NB: ruby falsey is nil & false only (not 0 or empty array etc.)
+    #   note: ruby falsey is nil & false only (not 0 or empty array etc.)
     if date
-      ### check: use date_v2 if present? why? why not?
       @last_date = date    # keep a reference for later use
     else
       date = @last_date    # no date found; (re)use last seen date
     end
 
+    ## fix/todo: use find_rsssf_scores!( line )
+    ##   use rsssf specific score finder!!!
     scores = find_scores!( line )
-
 
     logger.debug "  line: >#{line}<"
 
 
     ### todo: cache team lookups in hash?
+    team1 = Team.find_by!( key: team1_key )
+    team2 = Team.find_by!( key: team2_key )
 
-    team1 = Team.find_by_key!( team1_key )
-    team2 = Team.find_by_key!( team2_key )
-
-    @last_team1 = team1    # store for later use for goals etc.
-    @last_team2 = team2
-
-    round = @round
+    round = @last_round
 
     ### check if games exists
     ##  with this teams in this round if yes only update
-    game = Game.find_by_round_id_and_team1_id_and_team2_id(
-                         round.id, team1.id, team2.id
-    )
-
+    game = Game.find_by( round_id: round.id,
+                         team1_id: team1.id,
+                         team2_id: team2.id )
+                          
     game_attribs = {
       score1:    scores[0],
       score2:    scores[1],
@@ -230,46 +197,33 @@ class RsssfGameReader
       score1p:   scores[4],
       score2p:   scores[5],
       play_at:    date,
-      play_at_v2: date_v2,
-      postponed: postponed,
-      knockout:  round.knockout,   ## note: for now always use knockout flag from round - why? why not?? 
+      play_at_v2: nil,
+      postponed:  false,
+      knockout:   false,  ## round.knockout, ## note: for now always use knockout flag from round - why? why not?? 
       ground_id: nil,
       group_id:  nil
     }
 
-    game_attribs[ :pos ] = pos   if pos.present?
-
-    ####
-    # note: only update if any changes (or create if new record)
-    if game.present? &&
-       game.check_for_changes( game_attribs ) == false
-          logger.debug "  skip update game #{game.id}; no changes found"
+    if game.present?
+      logger.debug "update game #{game.id}:"
     else
-      if game.present?
-        logger.debug "update game #{game.id}:"
-      else
-        logger.debug "create game:"
-        game = Game.new
+      logger.debug "create game:"
+      game = Game.new
 
-        more_game_attribs = {
-          round_id: round.id,
-          team1_id: team1.id,
-          team2_id: team2.id
-        }
-          
-        ## NB: use round.games.count for pos
-        ##  lets us add games out of order if later needed
-        more_game_attribs[ :pos ] = round.games.count+1   if pos.nil? 
-
-        game_attribs = game_attribs.merge( more_game_attribs )
-      end
-
-      logger.debug game_attribs.to_json
-      game.update_attributes!( game_attribs )
+      ## Note: use round.games.count for pos
+      ##  lets us add games out of order if later needed
+      more_game_attribs = {
+        round_id: round.id,
+        team1_id: team1.id,
+        team2_id: team2.id,
+        pos:      round.games.count+1
+      }
+      game_attribs = game_attribs.merge( more_game_attribs )
     end
-    
-    @last_game = game   # store for later reference (e.g. used for goals etc.)
 
+    logger.debug game_attribs.to_json
+    game.update_attributes!( game_attribs )
+    
     return true   # game match found
   end # method parse_game
 
@@ -284,14 +238,11 @@ class RsssfGameReader
     # note: returns true if parsed, false if no match
  
     # line with NO teams  plus include date e.g.
-    #   [Fri Jun/17]  or
-    #   Jun/17  or
-    #   Jun/17:   etc.
+    #   [Jun 17]  etc.
 
-
-    match_teams!( line )
-    team1_key = find_team1!( line )
-    team2_key = find_team2!( line )
+    @team_mapper.map_titles!( line )
+    team1_key = @team_mapper.find_key!( line )
+    team2_key = @team_mapper.find_key!( line )
 
     date  = find_rsssf_date!( line, start_at: @event.start_at )
 
@@ -312,9 +263,7 @@ class RsssfGameReader
       
     reader.each_line do |line|
 
-      ## if is_goals?( line )
-      ##   parse_goals( line )
-      
+      ## fix: use inline/simpler is_rsssf_round?       
       if is_round?( line )
         parse_round_header( line )
       elsif try_parse_game( line )
@@ -329,14 +278,11 @@ class RsssfGameReader
     ###########################
     # backtrack and patch round dates (start_at/end_at)
 
-    unless @patch_round_ids_dates.empty?
+    unless @patch_round_ids.empty?
       ###
-      #  fix: do NOT patch if auto flag is set to false !!!
-      #   e.g. rounds got added w/ round def (not w/ round header)
-
       # note: use uniq - to allow multiple round headers (possible?)
 
-      Round.find( @patch_round_ids_dates.uniq ).each do |r|
+      Round.find( @patch_round_ids.uniq ).each do |r|
         logger.debug "patch round start_at/end_at date for #{r.title}:"
 
         ## note:

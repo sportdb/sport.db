@@ -63,6 +63,7 @@ lib/sportdb/readers/season.rb
 lib/sportdb/readers/squad_club.rb
 lib/sportdb/readers/squad_national_team.rb
 lib/sportdb/readers/team.rb
+lib/sportdb/rsssf_reader.rb
 lib/sportdb/schema.rb
 lib/sportdb/standings.rb
 lib/sportdb/stats.rb
@@ -83,6 +84,7 @@ test/data/at-austria/2013_14/el.yml
 test/data/at-austria/2013_14/squads/austria.txt
 test/data/at-austria/2013_14/squads/salzburg.txt
 test/data/at-austria/2014_15/1-bundesliga-ii.txt
+test/data/at-austria/2014_15/1-bundesliga.yml
 test/data/at-austria/2015_16/1-bundesliga.yml
 test/data/at-austria/2015_16/cup.yml
 test/data/at-austria/leagues.txt
@@ -97,6 +99,8 @@ test/data/national-teams/teams.txt
 test/data/players/europe/at-austria/players.txt
 test/data/players/europe/de-deutschland/players.txt
 test/data/players/south-america/br-brazil/players.txt
+test/data/rsssf/at-2014-15--1-bundesliga.txt
+test/data/rsssf/at-2015-16--1-bundesliga.txt
 test/data/world-cup/1930/cup.txt
 test/data/world-cup/1930/cup.yml
 test/data/world-cup/1930/cup_goals.txt
@@ -139,6 +143,7 @@ test/test_reader_from_string.rb
 test/test_round_auto.rb
 test/test_round_def.rb
 test/test_round_header.rb
+test/test_rsssf_reader.rb
 test/test_scores.rb
 test/test_squad_club_reader.rb
 test/test_squad_national_team_reader.rb

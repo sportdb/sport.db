@@ -12,6 +12,7 @@ config/fixtures/ro.yml
 data/seasons.txt
 data/setups/all.txt
 lib/sportdb/calc.rb
+lib/sportdb/csv_reader.rb
 lib/sportdb/deleter.rb
 lib/sportdb/finders/date.rb
 lib/sportdb/finders/goals.rb
@@ -90,6 +91,10 @@ test/data/at-austria/2015_16/cup.yml
 test/data/at-austria/leagues.txt
 test/data/at-austria/teams.txt
 test/data/at-austria/teams_2.txt
+test/data/csv/de-2013-14--1-bundesliga.txt
+test/data/de-deutschland/2013-14/1-bundesliga.yml
+test/data/de-deutschland/leagues.txt
+test/data/de-deutschland/teams.txt
 test/data/national-teams/assocs.txt
 test/data/national-teams/europe/assocs.txt
 test/data/national-teams/europe/teams.txt
@@ -131,6 +136,7 @@ test/data/world-cup/teams_1974.txt
 test/helper.rb
 test/test_assoc_reader.rb
 test/test_changes.rb
+test/test_csv_reader.rb
 test/test_cursor.rb
 test/test_date.rb
 test/test_event_reader.rb

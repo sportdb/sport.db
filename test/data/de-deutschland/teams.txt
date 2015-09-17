@@ -1,0 +1,53 @@
+
+bayern,       FC Bayern München|Bayern München, FCB
+
+dortmund,     Borussia Dortmund|Bor. Dortmund, BVB
+dortmundii,   Dortmund II|Bor. Dortmund II
+
+leverkusen,   Bayer 04 Leverkusen|Bayer Leverkusen|Bay. Leverkusen, B04
+schalke,      Schalke 04|FC Schalke 04, S04
+frankfurt,    Eintracht Frankfurt|E. Frankfurt, FFM
+hsv,          Hamburger SV,  HSV
+mgladbach,    Borussia M'gladbach|Bor. M'gladbach|Bor. Mönchengladbach|Borussia Mönchengladbach, BMG
+hannover,     Hannover 96, H96
+wolfsburg,    VfL Wolfsburg|Wolfsburg, WOB
+mainz,        1. FSV Mainz 05|FSV Mainz 05,  M05
+mainzii,      1. FSV Mainz 05 II
+
+bremen,       Werder Bremen, BRE
+bremenii,     Werder Bremen II
+
+hoffenheim,   1899 Hoffenheim|TSG 1899 Hoffenheim, HOF
+
+stuttgart,    Stuttgart|VfB Stuttgart, VFB
+stuttgartii,  Stuttgart II|VfB Stuttgart II
+
+
+augsburg,     FC Augsburg, FCA
+herthabsc,    Hertha BSC|Hertha Berliner Sport-Club, BSC
+koeln,        1. FC Köln|Köln, KOE
+
+ingolstadt,   FC Ingolstadt 04|Ingolstadt, FCI 
+darmstadt,    Darmstadt|SV Darmstadt 98, D98
+
+
+paderborn,    SC Paderborn 07|Paderborn, SCP
+freiburg,     SC Freiburg, SCF
+braunschweig, Eintr. Braunschweig|Braunschweig|Eintracht Braunschweig, EBS
+nuernberg,    1. FC Nürnberg, FCN
+duesseldorf,  Fortuna Düsseldorf|F. Düsseldorf, F95
+fuerth,       Greuther Fürth|SpVgg Greuther Fürth, SGF
+klautern,     1. FC Kaiserslautern|1. FC K'lautern|K'lautern, FCK
+fsvfrankfurt, FSV Frankfurt|FSV Frankfurt 1899, FSV
+tsvmuenchen,  1860 München|TSV München 1860|TSV 1860 München, M60
+unionberlin,  Union Berlin|1. FC Union Berlin, FCU
+
+bochum,       VfL Bochum|Bochum|VfL Bochum 1848, BOC
+stpauli,      FC St. Pauli|St. Pauli, STP
+sandhausen,   SV Sandhausen|Sandhausen|SV Sandhausen 1916, SAN
+karlsruhe,    Karlsruhe|Karlsruher SC, KSC
+heidenheim,   Heidenheim|1. FC Heidenheim, HDH
+leipzig,      RB Leipzig, RBL
+duisburg,     MSV Duisburg|Duisburg, MSV
+bielefeld,    Bielefeld|Arminia Bielefeld|DSC Arminia Bielefeld, DSC
+

@@ -2,6 +2,7 @@
 
 
 # core and stlibs  (note: get included via worlddb-models gem; see worlddb-models gem/lib)
+require 'csv'    # used by  CsvGameReader
 
 
 require 'worlddb/models'     # NOTE: include worlddb-models gem (not cli tools gem, that is, worlddb)
@@ -92,6 +93,7 @@ require 'sportdb/pretty_printer'
 
 ## "simplified" match reader for rsssf-formated/style leagues
 require 'sportdb/rsssf_reader'
+require 'sportdb/csv_reader'
 
 
 module SportDb

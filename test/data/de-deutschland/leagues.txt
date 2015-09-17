@@ -1,0 +1,4 @@
+
+de,     Deutsche Bundesliga
+de.2,   Deutsche 2. Bundesliga
+

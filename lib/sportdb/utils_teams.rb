@@ -5,25 +5,30 @@ module SportDb
 
 
   def find_teams!( line ) # NB: returns an array - note: plural! (teamsss)
+    puts "*** find_teams! deprecated -- use TeamMapper!!!"
     TextUtils.find_keys_for!( 'team', line )
   end
   
   def find_team!( line )  # NB: returns key (string or nil)
+    puts "*** find_team! deprecated -- use TeamMapper!!!"
     TextUtils.find_key_for!( 'team', line )
   end
 
   ## todo: check if find_team1 gets used?  if not remove it!!  use find_teams!
   def find_team1!( line )
+    puts "*** find_team1! deprecated -- use TeamMapper!!!"
     TextUtils.find_key_for!( 'team1', line )
   end
 
   def find_team2!( line )
+    puts "*** find_team2! deprecated -- use TeamMapper!!!"
     TextUtils.find_key_for!( 'team2', line )
   end
 
   ## todo/fix: pass in known_teams as a parameter? why? why not?
 
   def map_teams!( line )
+    puts "*** map_teams! deprecated -- use TeamMapper!!!"
     TextUtils.map_titles_for!( 'team', line, @known_teams )
   end
   

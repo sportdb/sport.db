@@ -3,6 +3,26 @@
 module SportDb
 
 
+class TeamMapper
+  def initialize( recs )
+    @mapper = TextUtils::TitleMapper2.new( recs, 'team' )
+  end
+
+  def find_teams!( line ) # Note: returns an array - note: plural! (teamsssss)
+    @mapper.find_keys!( line )
+  end
+
+  def find_team!( line )  # Note: returns key (string or nil)
+    @mapper.find_key!( line )
+  end
+
+  def map_teams!( line )
+    @mapper.map_titles!( line )
+  end
+end # class TeamMapper
+
+
+
 class GameReader
 
   include LogUtils::Logging
@@ -172,7 +192,10 @@ class GameReader
     logger.debug "Event #{@event.key} >#{@event.title}<"
 
     ### fix: use build_title_table_for ??? why? why not??
-    @known_teams  = @event.known_teams_table
+    ## @known_teams  = @event.known_teams_table
+
+    @mapper_teams = TeamMapper.new( @event.teams )
+
 
     @known_grounds  = TextUtils.build_title_table_for( @event.grounds )
 
@@ -208,8 +231,8 @@ class GameReader
   def parse_group_def( line )
     logger.debug "parsing group def line: >#{line}<"
     
-    match_teams!( line )
-    team_keys = find_teams!( line )
+    @mapper_teams.map_teams!( line )
+    team_keys = @mapper_teams.find_teams!( line )
       
     title, pos = find_group_title_and_pos!( line )
 
@@ -417,9 +440,10 @@ class GameReader
   def parse_game( line )
     logger.debug "parsing game (fixture) line: >#{line}<"
 
-    match_teams!( line )
-    team1_key = find_team1!( line )
-    team2_key = find_team2!( line )
+    @mapper_teams.map_teams!( line )   ### todo/fix: limit mapping to two(2) teams - why? why not?  might avoid matching @ Barcelona ??
+    team_keys = @mapper_teams.find_teams!( line )
+    team1_key = team_keys[0]
+    team2_key = team_keys[1] 
 
     ## note: if we do NOT find two teams; return false - no match found
     if team1_key.nil? || team2_key.nil?
@@ -634,9 +658,10 @@ class GameReader
     #   Jun/17:   etc.
 
 
-    match_teams!( line )
-    team1_key = find_team1!( line )
-    team2_key = find_team2!( line )
+    @mapper_teams.map_teams!( line )
+    team_keys = @mapper_teams.find_teams!( line )
+    team1_key = team_keys[0]
+    team2_key = team_keys[1]
 
     date  = find_date!( line, start_at: @event.start_at )
 

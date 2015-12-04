@@ -65,6 +65,7 @@ require 'sportdb/utils_goals'
 require 'sportdb/matcher'
 require 'sportdb/calc'       # fix/todo: obsolete - replace w/ standings
 require 'sportdb/standings'
+require 'sportdb/mapper_teams'
 
 
 require 'sportdb/finders/goals'   # no: requires FixturesHelpers

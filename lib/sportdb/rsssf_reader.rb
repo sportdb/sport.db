@@ -1,17 +1,14 @@
 # encoding: UTF-8
 
 ##
-#
-#  todo/fix: cleanup, remove stuff not needed for "simple" rsssf format/style
-#
-##   for now lets only support leagues with rounds (no cups/knockout rounds n groups)
+## note: for now lets only support leagues with rounds (no cups/knockout rounds n groups)
 ##     (re)add later when needed (e.g. for playoffs etc.)
 
 
 module SportDb
 
 
-class RsssfGameReader
+class RsssfGameReader    ### todo: rename to RsssfLeagueMatchReader ( or use league/cup option?) - why? why not??
 
   include LogUtils::Logging
 
@@ -19,37 +16,32 @@ class RsssfGameReader
 #  e.g. lets you use Usage instead of Model::Usage
   include Models
 
-## value helpers e.g. is_year?, is_taglist? etc.
-  include TextUtils::ValueHelper
-
-  include FixtureHelpers
-
   ##
   ## todo: add from_file and from_zip too
 
-  def self.from_string( event_key, text )
-    ### fix - fix -fix:
-    ##  change event to event_or_event_key !!!!!  - allow event_key as string passed in
-    self.new( event_key, text )
+  def self.from_string( event_or_event_key, text )
+    self.new( event_or_event_key, text )
   end
 
-  def initialize( event_key, text )
-    ### fix - fix -fix:
-    ##  change event to event_or_event_key !!!!!  - allow event_key as string passed in
-
+  def initialize( event_or_event_key, text )
     ## todo/fix: how to add opts={} ???
-    @event_key         = event_key
-    @text              = text
+    @event_or_event_key = event_or_event_key
+    @text               = text
   end
 
 
   def read
     ## note: assume active activerecord connection
-    @event = Event.find_by!( key: @event_key )
+    
+    if @event_or_event_key.kind_of?( Event )
+      @event= @event_or_event_key
+    else   ## assume string
+      @event = Event.find_by!( key: @event_or_event_key )
+    end
 
     logger.debug "Event #{@event.key} >#{@event.title}<"
 
-    @team_mapper = TextUtils::TitleMapper.new( @event.teams, 'team' )
+    @mapper_teams = TeamMapper.new( @event.teams )
 
     ## reset cached values
     @patch_round_ids = []
@@ -57,12 +49,75 @@ class RsssfGameReader
     @last_round    = nil
     @last_date     = nil
     
-    ## always use english (en) for now
-    SportDb.lang.lang = 'en'
-
     reader = LineReader.from_string( @text )
     parse_fixtures( reader )    
   end   # method load_fixtures
+
+
+
+  RSSSF_FT_REGEX = /\b
+             (?<score1>\d{1,2})
+                -
+             (?<score2>\d{1,2})
+               \b/x
+
+  def find_rsssf_scores!( line ) 
+    # e.g. 1-1 or 0-2 or 3-3
+    
+    m = RSSSF_FT_REGEX.match( line )
+    if m
+      score1 = m[:score1].to_i
+      score2 = m[:score2].to_i
+
+      logger.debug "   score: >#{score1}-#{score2}<"
+      
+      line.sub!( m[0], '[SCORE]' )
+    else
+      score1   = nil
+      score2   = nil  
+    end
+
+    scores = [score1, score2]
+    scores
+  end  # method find_rsssf_scores!
+
+
+  def find_rsssf_date!( line, opts={} )
+    finder = RsssfDateFinder.new
+    finder.find!( line, opts )
+  end
+
+
+  RSSSF_ROUND_REGEX = /\b
+               (?<round>Round)
+                  \s
+               (?<pos>\d{1,3})
+                  \b/x   
+
+  def is_rsssf_round?( line )
+    RSSSF_ROUND_REGEX.match( line ).nil? == false   ## match found if not nil
+  end
+
+  def find_rsssf_round!( line )
+    ## todo: check if \b works for run on [Apr 13] too ??
+    ## todo:  allow multiple spaces after round ??
+
+    m = RSSSF_ROUND_REGEX.match( line )
+    if m
+      title = m[0]     ## note: title is complete match e.g. Round 1, Round 2, etc.
+      pos   = m[:pos].to_i
+
+      logger.debug "   title: >#{title}<, pos: >#{pos}<"
+      
+      line.sub!( m[0], '[ROUND]' )
+    else
+      ## fix: add logger.warn no round pos found in line
+      title = nil
+      pos   = nil
+    end
+    
+    [title,pos]   ## return array; note: [nil,nil] if nothing found
+  end # method find_rsssf_round!
 
 
   def parse_round_header( line )
@@ -76,9 +131,6 @@ class RsssfGameReader
     
     logger.debug "parsing round header line: >#{line}<"
 
-    ### todo/fix/check:  move cut off optional comment in reader for all lines? why? why not?
-    cut_off_end_of_line_comment!( line )  # cut off optional comment starting w/ #
-
     ## check for date in header first e.g. Round 36 [Jul 20]  !!
     ##   avoid "conflict" with getting "wrong" round number from date etc.
     date = find_rsssf_date!( line, start_at: @event.start_at )
@@ -86,21 +138,13 @@ class RsssfGameReader
       @last_date = date
     end
     
-    ## todo/check/fix:
-    #   make sure  Round of 16  will not return pos 16 -- how? possible?
-    #   add unit test too to verify
-    pos = find_round_pos!( line )
+    title, pos = find_rsssf_round!( line )
 
     ## check if pos available; if not auto-number/calculate
     if pos.nil?
         logger.error( "  no round pos found in line >#{line}<; round pos required in rsssf; sorry" )
         fail( "round pos required in rsssf; sorry")
     end
-
-    title = find_round_header_title!( line )
-
-    ## Note: use extracted round title for knockout check
-    ## knockout_flag = is_knockout_round?( title )
 
     logger.debug "  line: >#{line}<"
         
@@ -125,6 +169,7 @@ class RsssfGameReader
       round_attribs = round_attribs.merge( {
         event_id: @event.id,
         pos:      pos,
+        ##  todo: add num e.g. num == pos for round 1, round 2, etc. - why? why not??
         start_at: Date.parse('1911-11-11'),
         end_at:   Date.parse('1911-11-11')
       })
@@ -149,9 +194,10 @@ class RsssfGameReader
   def parse_game( line )
     logger.debug "parsing game (fixture) line: >#{line}<"
 
-    @team_mapper.map_titles!( line )
-    team1_key = @team_mapper.find_key!( line )
-    team2_key = @team_mapper.find_key!( line )
+    @mapper_teams.map_teams!( line )
+    team_keys = @mapper_teams.find_teams!( line ) 
+    team1_key = team_keys[0]
+    team2_key = team_keys[1]
 
     ## note: if we do NOT find two teams; return false - no match found
     if team1_key.nil? || team2_key.nil?
@@ -170,9 +216,7 @@ class RsssfGameReader
       date = @last_date    # no date found; (re)use last seen date
     end
 
-    ## fix/todo: use find_rsssf_scores!( line )
-    ##   use rsssf specific score finder!!!
-    scores = find_scores!( line )
+    scores = find_rsssf_scores!( line )
 
     logger.debug "  line: >#{line}<"
 
@@ -185,6 +229,9 @@ class RsssfGameReader
 
     ### check if games exists
     ##  with this teams in this round if yes only update
+    ##
+    ##  todo: add replay flag (true/false)    !!!!!!!!
+    ##    allows same match fixture in round  !!!!!!!!
     game = Game.find_by( round_id: round.id,
                          team1_id: team1.id,
                          team2_id: team2.id )
@@ -240,9 +287,10 @@ class RsssfGameReader
     # line with NO teams  plus include date e.g.
     #   [Jun 17]  etc.
 
-    @team_mapper.map_titles!( line )
-    team1_key = @team_mapper.find_key!( line )
-    team2_key = @team_mapper.find_key!( line )
+    @mapper_teams.map_teams!( line )
+    team_keys= @mapper_teams.find_teams!( line )
+    team1_key = team_keys[0]
+    team2_key = team_keys[1]
 
     date  = find_rsssf_date!( line, start_at: @event.start_at )
 
@@ -263,8 +311,7 @@ class RsssfGameReader
       
     reader.each_line do |line|
 
-      ## fix: use inline/simpler is_rsssf_round?       
-      if is_round?( line )
+      if is_rsssf_round?( line )
         parse_round_header( line )
       elsif try_parse_game( line )
         # do nothing here

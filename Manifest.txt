@@ -18,6 +18,7 @@ lib/sportdb/finders/date.rb
 lib/sportdb/finders/goals.rb
 lib/sportdb/finders/scores.rb
 lib/sportdb/lang.rb
+lib/sportdb/mapper_teams.rb
 lib/sportdb/matcher.rb
 lib/sportdb/models.rb
 lib/sportdb/models/assoc.rb

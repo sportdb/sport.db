@@ -79,29 +79,39 @@ class EventReader
 
       ## puts "processing event attrib >>#{key}<< >>#{value}<<..."
 
-      if key == 'league'
-        league = League.find_by_key( value.to_s.strip )
+      if key.downcase == 'league'   ## note: allow league, League, etc.
+        league_key = value.to_s.strip
+        ## check if league_key includes uppercase letters (e.g. Deutsche Bundesliga and NOT de etc.)
+        if league_key =~ /[A-Z]/
+          ## assume league name (NOT league key); try to lookup leauge key in database
+          league = League.find_by( title: league_key )
+          ##  todo: add synonyms/alt names - why? why not??
+        else
+          ## assume "verbatim/literal" team_key (use as is 1:1)
+          league = League.find_by( key: league_key )
+        end
 
         ## check if it exists
-        if league.present?
+        if league.present?    ## todo: just use if league  (no present?) ???
           event_attribs['league_id'] = league.id
         else
-          logger.error "league with key >>#{value.to_s.strip}<< missing"
+          logger.error "league with key >>#{league_key}<< missing"
           exit 1
         end
        
-      elsif key == 'season'
-        season = Season.find_by_key( value.to_s.strip )
+      elsif key.downcase == 'season'   ## note: allow season, Season, etc.
+        season_key = value.to_s.strip
+        season = Season.find_by( key: season_key )
 
         ## check if it exists
         if season.present?
           event_attribs['season_id'] = season.id
         else
-          logger.error "season with key >>#{value.to_s.strip}<< missing"
+          logger.error "season with key >>#{season_key}<< missing"
           exit 1
         end
         
-      elsif key == 'start_at' || key == 'begin_at'
+      elsif key == 'start_at' || key == 'begin_at' || key.downcase == 'start date'
         
         if value.is_a?(DateTime) || value.is_a?(Date)
           start_at = value
@@ -131,7 +141,7 @@ class EventReader
         ground_ids = []
         value.each do |item|
           ground_key = item.to_s.strip
-          ground = Ground.find_by_key( ground_key )
+          ground = Ground.find_by( key: ground_key )
           if ground.nil?
             puts "[warn] ground/stadium w/ key >#{ground_key}< not found; skipping ground"
           else
@@ -145,7 +155,7 @@ class EventReader
         ## for now always assume false  # todo: fix - use value and convert to boolean if not boolean
         event_attribs['team3'] = false
 
-      elsif key == 'teams' || key.downcase =~ /teams/
+      elsif key.downcase =~ /teams/  ## note: allow teams, Teams, 18 teams, 18 Teams etc. 
         ## assume teams value is an array
 
         ### check if key includes number of teams; if yes - use for checksum/assert
@@ -211,7 +221,8 @@ class EventReader
 
     logger.debug "find event - league_id: #{league_id}, season_id: #{season_id}"
 
-    event = Event.find_by_league_id_and_season_id( league_id, season_id )
+    event = Event.find_by( league_id: league_id,
+                           season_id: season_id )
 
     ## check if it exists
     if event.present?

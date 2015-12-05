@@ -15,24 +15,34 @@ class TestEventReaderXX < MiniTest::Test  # note: TestEventReader alreay defined
     WorldDb.delete!
     SportDb.delete!
     PersonDb.delete!
-  end
 
-  def test_bl
+    ## setup österr. bundesliga
     at     = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
     season = Season.create!( key: '2015/16', title: '2015/16' )
-    bl     = League.create!( key: 'at', title: 'Bundesliga', club: true, country_id: at.id )
+    bl     = League.create!( key: 'at', title: 'Österr. Bundesliga', club: true, country_id: at.id )
 
     ## read teams (required for db key lookup)
     teamreader = TestTeamReader.from_file( 'at-austria/teams', country_id: at.id )
     teamreader.read
     teamreader = TestTeamReader.from_file( 'at-austria/teams_2', country_id: at.id )
     teamreader.read
+  end
 
+  def test_bl
     r = TestEventReader.from_file( 'at-austria/2015_16/1-bundesliga' )
     r.read
 
     assert true   ## if we get here; assume everything ok
   end
+
+  def test_bl_v2
+    r = TestEventReader.from_file( 'at-austria/2015_16/1-bundesliga-v2' )
+    r.read
+
+    assert true   ## if we get here; assume everything ok
+  end
+
+
 
   ### fix/todo:
   ##   to be done - add support for Wiener Sportklub (RL Ost) => Wiener Sportklub lookups

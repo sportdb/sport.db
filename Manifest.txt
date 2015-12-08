@@ -58,6 +58,7 @@ lib/sportdb/reader_file.rb
 lib/sportdb/reader_zip.rb
 lib/sportdb/readers/assoc.rb
 lib/sportdb/readers/event.rb
+lib/sportdb/readers/event_table.rb
 lib/sportdb/readers/game.rb
 lib/sportdb/readers/ground.rb
 lib/sportdb/readers/league.rb
@@ -87,7 +88,9 @@ test/data/at-austria/2013_14/squads/austria.txt
 test/data/at-austria/2013_14/squads/salzburg.txt
 test/data/at-austria/2014_15/1-bundesliga-ii.txt
 test/data/at-austria/2014_15/1-bundesliga.yml
+test/data/at-austria/2015_16/1-bundesliga-v2.conf.txt
 test/data/at-austria/2015_16/1-bundesliga-v2.yml
+test/data/at-austria/2015_16/1-bundesliga.conf.txt
 test/data/at-austria/2015_16/1-bundesliga.yml
 test/data/at-austria/2015_16/cup.yml
 test/data/at-austria/leagues.txt
@@ -142,6 +145,7 @@ test/test_csv_reader.rb
 test/test_cursor.rb
 test/test_date.rb
 test/test_event_reader.rb
+test/test_event_table_reader.rb
 test/test_goals.rb
 test/test_lang.rb
 test/test_load.rb

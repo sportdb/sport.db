@@ -71,7 +71,8 @@ require 'sportdb/mapper_teams'
 require 'sportdb/finders/goals'   # no: requires FixturesHelpers
 
 require 'sportdb/readers/assoc'
-require 'sportdb/readers/event'
+require 'sportdb/readers/event'           ## old event reader (remove later??) 
+require 'sportdb/readers/event_table'     ## new "standard" event reader
 require 'sportdb/readers/game'
 require 'sportdb/readers/ground'
 require 'sportdb/readers/league'

@@ -1,0 +1,20 @@
+#########################################################################
+# Österreichische Bundesliga 2015/16  (104. Meisterschaft / 42. Saison)
+#
+#  Start Date: 2015-07-25
+#  10 Teams
+
+
+Österr. Bundesliga 2015/16           ## No. 42
+
+ 1. RB Salzburg
+ 2. Rapid Wien
+ 3. Sturm Graz
+ 4. Wolfsberger AC
+ 5. SV Ried
+ 6. Austria Wien
+ 7. Admira Wacker
+ 8. SCR Altach    
+ 9. SV Grödig          19 10 12 5  4-4  8  [-2]
+10. SV Mattersburg     20 11 10 4  5-5  4        ## Aufsteiger
+

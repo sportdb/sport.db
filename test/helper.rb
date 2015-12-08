@@ -50,6 +50,7 @@ AssocReader             = SportDb::AssocReader
 SeasonReader            = SportDb::SeasonReader
 LeagueReader            = SportDb::LeagueReader
 EventReader             = SportDb::EventReader
+EventTableReader        = SportDb::EventTableReader
 GameReader              = SportDb::GameReader
 NationalTeamSquadReader = SportDb::NationalTeamSquadReader
 ClubSquadReader         = SportDb::ClubSquadReader
@@ -104,6 +105,13 @@ module TestEventReader
     EventReader.from_file( "#{SportDb.test_data_path}/#{name}.yml" )
   end
 end
+
+module TestEventTableReader
+  def self.from_file( name )
+    EventTableReader.from_file( "#{SportDb.test_data_path}/#{name}.txt" )
+  end
+end
+
 
 module TestGameReader
   ## NOTE: pass in .yml as path (that is, event config!!!!)

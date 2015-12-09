@@ -21,6 +21,8 @@ class EventReader
     text = entry.get_input_stream().read()
     text = text.force_encoding( Encoding::UTF_8 )
 
+    ## fix: 
+    ##   use File.basename( entry_path, File.extname(entry_path) )  !!!
     config = File.basename( entry_path )  # name a of .yml file
 
     self.from_string( text, config, more_attribs )
@@ -31,6 +33,8 @@ class EventReader
     ## - see textutils/utils.rb
     text = File.read_utf8( path )
     
+    ## fix: name not defined!!
+    ##   use File.basename( path, File.extname(path) )  !!!
     config = File.basename( name )  # name a of .yml file
     
     self.from_string( text, config, more_attribs )

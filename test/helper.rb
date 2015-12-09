@@ -50,6 +50,7 @@ AssocReader             = SportDb::AssocReader
 SeasonReader            = SportDb::SeasonReader
 LeagueReader            = SportDb::LeagueReader
 EventReader             = SportDb::EventReader
+EventMetaReader         = SportDb::EventMetaReader
 EventTableReader        = SportDb::EventTableReader
 GameReader              = SportDb::GameReader
 NationalTeamSquadReader = SportDb::NationalTeamSquadReader
@@ -103,6 +104,12 @@ end
 module TestEventReader
   def self.from_file( name )
     EventReader.from_file( "#{SportDb.test_data_path}/#{name}.yml" )
+  end
+end
+
+module TestEventMetaReader
+  def self.from_file( name )
+    EventMetaReader.from_file( "#{SportDb.test_data_path}/#{name}.yml" )
   end
 end
 

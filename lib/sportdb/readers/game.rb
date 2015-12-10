@@ -31,7 +31,9 @@ class GameReader
     ##   e.g. check for
     ##    teams:
     ##    12 teams:  etc.
-    if event_text =~ /^teams:/i || event_text =~ /^\d{1,2} teams:/i
+    if event_text =~ /^teams:/i ||
+       event_text =~ /^\d{1,2} teams:/i ||
+       event_text =~ /^start_at:/i
       ## old format
       puts "*** [DEPRECATED] old event config format w/ yaml, please use new plain text format >#{entry_path}<"
       reader = EventReader.from_zip( zip_file, entry_path )
@@ -88,7 +90,10 @@ class GameReader
     ##   e.g. check for
     ##    teams:
     ##    12 teams:  etc.
-    if event_text =~ /^teams:/i || event_text =~ /^\d{1,2} teams:/i
+    if event_text =~ /^teams:/i ||
+       event_text =~ /^\d{1,2} teams:/i ||
+       event_text =~ /^start_at:/i
+
       ## old format
       puts "*** [DEPRECATED] old event config format w/ yaml, please use new plain text format >#{path}<"
       reader = EventReader.from_file( path )

@@ -24,7 +24,7 @@ class GameReader
     ## get text content from zip
     entry      = zip_file.find_entry( entry_path )
     event_text = entry.get_input_stream().read()
-    event_text = text.force_encoding( Encoding::UTF_8 )
+    event_text = event_text.force_encoding( Encoding::UTF_8 )
  
     ## hack:
     ##   support old event config format for now (will get removed later)

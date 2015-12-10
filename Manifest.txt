@@ -58,6 +58,7 @@ lib/sportdb/reader_file.rb
 lib/sportdb/reader_zip.rb
 lib/sportdb/readers/assoc.rb
 lib/sportdb/readers/event.rb
+lib/sportdb/readers/event_meta.rb
 lib/sportdb/readers/event_table.rb
 lib/sportdb/readers/game.rb
 lib/sportdb/readers/ground.rb
@@ -100,6 +101,8 @@ test/data/csv/de-2013-14--1-bundesliga.txt
 test/data/de-deutschland/2013-14/1-bundesliga.yml
 test/data/de-deutschland/leagues.txt
 test/data/de-deutschland/teams.txt
+test/data/eng-england/2015-16/1-premierleague-v2.yml
+test/data/eng-england/2015-16/1-premierleague.yml
 test/data/national-teams/assocs.txt
 test/data/national-teams/europe/assocs.txt
 test/data/national-teams/europe/teams.txt
@@ -144,6 +147,7 @@ test/test_changes.rb
 test/test_csv_reader.rb
 test/test_cursor.rb
 test/test_date.rb
+test/test_event_meta_reader.rb
 test/test_event_reader.rb
 test/test_event_table_reader.rb
 test/test_goals.rb

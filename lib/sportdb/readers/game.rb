@@ -10,6 +10,8 @@ class GameReader
 #  e.g. lets you use Usage instead of Model::Usage
   include Models
 
+  attr_reader :event           # returns event record
+
 ## value helpers e.g. is_year?, is_taglist? etc.
   include TextUtils::ValueHelper
 
@@ -19,17 +21,30 @@ class GameReader
 
     logger = LogKernel::Logger.root
 
-    reader = EventReader.from_zip( zip_file, entry_path )
-    reader.read()
-
+    ## get text content from zip
+    entry      = zip_file.find_entry( entry_path )
+    event_text = entry.get_input_stream().read()
+    event_text = text.force_encoding( Encoding::UTF_8 )
+ 
+    ## hack:
+    ##   support old event config format for now (will get removed later)
+    ##   e.g. check for
+    ##    teams:
+    ##    12 teams:  etc.
+    if event_text =~ /^teams:/i || event_text =~ /^\d{1,2} teams:/i
+      ## old format
+      puts "*** [DEPRECATED] old event config format w/ yaml, please use new plain text format >#{entry_path}<"
+      reader = EventReader.from_zip( zip_file, entry_path )
+      reader.read()
+    else
+      ## new format
+      reader = EventMetaReader.from_zip( zip_file, entry_path )
+      reader.read()
+    end
+    
     event    = reader.event      ## was fetch_event( name )
     fixtures = reader.fixtures   ## was fetch_event_fixtures( name )
 
-    if fixtures.empty?
-      ## logger.warn "no fixtures found for event - >#{name}<; assume fixture name is the same as event"
-      ## change extension from .yml to .txt
-      fixtures_with_path = [ entry_path.sub('.yml','.txt') ]
-    else
       ## add path to fixtures (use path from event e.g)
       #  - bl    + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl
       #  - bl_ii + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl_ii
@@ -41,7 +56,6 @@ class GameReader
         logger.debug "fx: #{fx_new} | >#{fx}< + >#{dir}<"
         fx_new
       end
-    end
 
     ## fix-fix-fix: change file extension to ??
     text_ary = []
@@ -67,18 +81,29 @@ class GameReader
     ## - ## - see textutils/utils.rb
     ## - text = File.read_utf8( path )
 
-    reader = EventReader.from_file( path )
-    reader.read()
+    event_text = File.read_utf8( path )
+
+    ## hack:
+    ##   support old event config format for now (will get removed later)
+    ##   e.g. check for
+    ##    teams:
+    ##    12 teams:  etc.
+    if event_text =~ /^teams:/i || event_text =~ /^\d{1,2} teams:/i
+      ## old format
+      puts "*** [DEPRECATED] old event config format w/ yaml, please use new plain text format >#{path}<"
+      reader = EventReader.from_file( path )
+      reader.read()
+    else
+      ## new format
+      reader = EventMetaReader.from_file( path )
+      reader.read()
+    end
+
 
     event    = reader.event      ## was fetch_event( name )
     fixtures = reader.fixtures   ## was fetch_event_fixtures( name )
 
 
-    if fixtures.empty?
-      ## logger.warn "no fixtures found for event - >#{name}<; assume fixture name is the same as event"
-      ## change extension from .yml to .txt
-      fixtures_with_path = [ path.sub('.yml','.txt') ]
-    else
       ## add path to fixtures (use path from event e.g)
       #  - bl    + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl
       #  - bl_ii + at-austria!/2012_13/bl  -> at-austria!/2012_13/bl_ii
@@ -90,7 +115,6 @@ class GameReader
         logger.debug "fx: #{fx_new} | >#{fx}< + >#{dir}<"
         fx_new
       end
-    end
 
     ## fix-fix-fix: change file extension to ??
     text_ary = []
@@ -105,7 +129,7 @@ class GameReader
   def self.from_string( event, text_or_text_ary, more_attribs={} )
     ### fix - fix -fix:
     ##  change event to event_or_event_key !!!!!  - allow event_key as string passed in
-    GameReader.new( event, text_or_text_ary, more_attribs )
+    self.new( event, text_or_text_ary, more_attribs )
   end  
 
 

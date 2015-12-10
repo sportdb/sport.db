@@ -21,7 +21,7 @@ class EventMetaReader
     text = entry.get_input_stream().read()
     text = text.force_encoding( Encoding::UTF_8 )
 
-    config = File.basename( entry_path, File.extname(entry_path) )  # name a of .yml file
+    config = File.basename( entry_path )  # name of .yml file
 
     self.from_string( text, config, more_attribs )
   end
@@ -31,7 +31,7 @@ class EventMetaReader
     ## - see textutils/utils.rb
     text = File.read_utf8( path )
     
-    config = File.basename( path, File.extname(path) )  # name a of .yml file
+    config = File.basename( path )  # name of .yml file
     
     self.from_string( text, config, more_attribs )
   end
@@ -55,8 +55,8 @@ class EventMetaReader
 
 
   def read
-    @fixtures = []    # reset cached fixtures
     @event    = nil   # reset cached event rec
+    @fixtures = []    # reset cached fixtures
 
     reader = HashReader.from_string( @text )
 
@@ -108,8 +108,10 @@ class EventMetaReader
 
     # check fixtures - if nothing specified; use basename of config (this) file
     if @fixtures.empty?
-      logger.debug "  add default fixture (assume same basename as config file) e.g. >#{@config}<"
-      @fixtures << @config  
+      ## use basename of config file as default (without extension)
+      sources_default = File.basename( @config, File.extname( @config ) ) 
+      logger.debug "  add default fixture (assume same basename as config file) e.g. >#{sources_default}<"
+      @fixtures << sources_default  
     end
 
     logger.debug "find event - league.id: #{league.id}, season.id: #{season.id}"

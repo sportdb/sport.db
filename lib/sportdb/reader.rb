@@ -105,20 +105,22 @@ class ReaderBase
       ### fix: use new ClubReader ??? why? why not?
       reader = create_team_reader( name, club: true )     ## note: always sets club flag to true / national to false
       reader.read()
+    elsif name =~ /\.conf$/     ## e.g.  1-premierleague.conf  => 1-premierleague.conf.txt
+      reader = create_event_table_reader( name )
+      reader.read()    
+      # note: keep a "public" reference of last event in @event  - e.g. used/required by squads etc.
+      @event = reader.event
     elsif name =~ /\/(\d{4}|\d{4}[_\-]\d{2})(--[^\/]+)?\// ||
           name =~ /\/(\d{4}|\d{4}[_\-]\d{2})$/
 
       # note: allow 2013_14 or 2013-14 (that, is dash or underscore)
 
-      # note: keep a "public" reference of last event in @event  - e.g. used/required by squads etc.
-      eventreader = create_event_reader( name )
-      eventreader.read()
-      @event    = eventreader.event
-
       # e.g. must match /2012/ or /2012_13/  or   /2012--xxx/ or /2012_13--xx/
       #  or   /2012 or /2012_13   e.g. brazil/2012 or brazil/2012_13
       reader = create_game_reader( name )
       reader.read()
+      # note: keep a "public" reference of last event in @event  - e.g. used/required by squads etc.
+      @event = reader.event
     else
       logger.error "unknown sportdb fixture type >#{name}<"
       # todo/fix: exit w/ error

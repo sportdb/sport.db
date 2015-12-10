@@ -14,7 +14,15 @@ class EventTableReader
   attr_reader :event           # returns event record; call read first
 
 
-  ## todo/fix: add from_zip()
+  def self.from_zip( zip_file, entry_path, more_attribs={} )
+    ## get text content from zip
+    entry = zip_file.find_entry( entry_path )
+
+    text = entry.get_input_stream().read()
+    text = text.force_encoding( Encoding::UTF_8 )
+
+    self.from_string( text, more_attribs )
+  end
 
   def self.from_file( path, more_attribs={} )
     ## note: assume/enfore utf-8 encoding (with or without BOM - byte order mark)

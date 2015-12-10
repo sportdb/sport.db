@@ -117,6 +117,13 @@ class ZipReader < ReaderBase
     EventReader.from_zip( @zip_file, path, more_attribs )
   end
 
+  def create_event_table_reader( name, more_attribs={} )
+    path = name_to_zip_entry_path( name, '.txt' )   ## NOTE: use .txt extension
+
+    logger.info "parsing data in zip (event table) '#{name}' (#{path})..."
+    EventTableReader.from_zip( @zip_file, path, more_attribs )
+  end
+
   def create_game_reader( name, more_attribs={} )
     ## NOTE: pass in .yml as path (that is, event config!!!!)
     path = name_to_zip_entry_path( name, '.yml' )     ## NOTE: use .yml extension

@@ -31,7 +31,10 @@ class TestEventReaderXX < MiniTest::Test  # note: TestEventReader alreay defined
   def test_bl
     r = TestEventReader.from_file( 'at-austria/2015_16/1-bundesliga' )
     r.read
+    
+    pp r.fixtures
 
+    assert_equal ['1-bundesliga-i', '1-bundesliga-ii'], r.fixtures
     assert true   ## if we get here; assume everything ok
   end
 
@@ -39,6 +42,9 @@ class TestEventReaderXX < MiniTest::Test  # note: TestEventReader alreay defined
     r = TestEventReader.from_file( 'at-austria/2015_16/1-bundesliga-v2' )
     r.read
 
+    pp r.fixtures
+
+    assert_equal ['1-bundesliga-v2'], r.fixtures
     assert true   ## if we get here; assume everything ok
   end
 

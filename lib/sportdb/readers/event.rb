@@ -21,9 +21,8 @@ class EventReader
     text = entry.get_input_stream().read()
     text = text.force_encoding( Encoding::UTF_8 )
 
-    ## fix: 
-    ##   use File.basename( entry_path, File.extname(entry_path) )  !!!
-    config = File.basename( entry_path )  # name a of .yml file
+    # basename of .yml file
+    config = File.basename( entry_path )
 
     self.from_string( text, config, more_attribs )
   end
@@ -33,24 +32,22 @@ class EventReader
     ## - see textutils/utils.rb
     text = File.read_utf8( path )
     
-    ## fix: name not defined!!
-    ##   use File.basename( path, File.extname(path) )  !!!
-    config = File.basename( name )  # name a of .yml file
+    # basename of .yml file
+    config = File.basename( path ) 
     
     self.from_string( text, config, more_attribs )
   end
 
   def self.from_string( text, config, more_attribs={} )
-    EventReader.new( text, config, more_attribs )
+    self.new( text, config, more_attribs )
   end  
 
   def initialize( text, config, more_attribs={} )
     ## todo/fix: how to add opts={} ???
     @text = text
-    @more_attribs = more_attribs
+    @more_attribs = more_attribs    ## todo/check: not used for now? (remove - why, why not??)
 
-    @config          = config   # name of  event configuration (relative basename w/o path or string)
-    @sources_default = config   # note: use same a config for now
+    @config = config   # name of  event configuration (relative basename w/o path or string)
 
     @event    = nil
     @fixtures = []
@@ -58,8 +55,8 @@ class EventReader
 
 
   def read
-    @fixtures = []    # reset cached fixtures
     @event    = nil   # reset cached event rec
+    @fixtures = []    # reset cached fixtures
 
 ####
 ## fix!!!!!
@@ -76,8 +73,7 @@ class EventReader
     #  etc.
     # use fixtures/sources: to override default
 
-    event_attribs[ 'sources' ] = @sources_default
-    event_attribs[ 'config'  ] = @config            # name a of .yml file
+    event_attribs[ 'config' ] = @config            # name of .yml file
 
     reader.each_typed do |key, value|
 
@@ -115,7 +111,7 @@ class EventReader
           exit 1
         end
         
-      elsif key == 'start_at' || key == 'begin_at' || key.downcase == 'start date'
+      elsif key.downcase == 'start_at' || key.downcase == 'begin_at' || key.downcase == 'start date'
         
         if value.is_a?(DateTime) || value.is_a?(Date)
           start_at = value
@@ -125,7 +121,7 @@ class EventReader
         
         event_attribs['start_at'] = start_at
 
-      elsif key == 'end_at' || key == 'stop_at'
+      elsif key.downcase == 'end_at' || key.downcase == 'stop_at'
         
         if value.is_a?(DateTime) || value.is_a?(Date)
           end_at = value
@@ -135,7 +131,7 @@ class EventReader
         
         event_attribs['end_at'] = end_at
 
-      elsif key == 'grounds' || key == 'stadiums' || key == 'venues'
+      elsif key.downcase == 'grounds' || key.downcase == 'stadiums' || key.downcase == 'venues'
         ## assume grounds value is an array
         
         ##
@@ -155,7 +151,7 @@ class EventReader
 
         event_attribs['ground_ids'] = ground_ids
 
-      elsif key == 'team3'   ## note: check before teams (to avoid future gotchas)
+      elsif key.downcase == 'team3'   ## note: check before teams (to avoid future gotchas)
         ## for now always assume false  # todo: fix - use value and convert to boolean if not boolean
         event_attribs['team3'] = false
 
@@ -204,7 +200,7 @@ class EventReader
 
         event_attribs['team_ids'] = team_ids
 
-      elsif key == 'fixtures' || key == 'sources'
+      elsif key.downcase == 'fixtures' || key.downcase == 'sources'
         ### todo: check for mulitiple fixtures/sources ?? allow disallow?? why? why not?
         if value.kind_of?(Array)
           event_attribs['sources'] = value.join(',')
@@ -219,6 +215,14 @@ class EventReader
       end
 
     end # each key,value
+
+    if @fixtures.empty?
+      ## use basename of config file as default (without extension)
+      sources_default = File.basename( @config, File.extname( @config ) ) 
+      @fixtures << sources_default
+      event_attribs[ 'sources' ] = sources_default
+    end
+
 
     league_id = event_attribs['league_id']
     season_id = event_attribs['season_id']

@@ -84,6 +84,14 @@ class Reader < ReaderBase
     EventReader.from_file( path, more_attribs )
   end
 
+  def create_event_table_reader( name, more_attribs={} )
+    real_name = name_to_real_name( name )
+    path = "#{@include_path}/#{real_name}.txt"
+
+    logger.info "parsing data (event table) '#{name}' (#{path})..."
+    EventTableReader.from_file( path, more_attribs )
+  end
+
   def create_game_reader( name, more_attribs={} )
     real_name = name_to_real_name( name )
     

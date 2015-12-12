@@ -17,6 +17,7 @@ lib/sportdb/deleter.rb
 lib/sportdb/finders/date.rb
 lib/sportdb/finders/goals.rb
 lib/sportdb/finders/scores.rb
+lib/sportdb/indexers/team.rb
 lib/sportdb/lang.rb
 lib/sportdb/mapper_teams.rb
 lib/sportdb/matcher.rb
@@ -151,6 +152,7 @@ test/test_event_meta_reader.rb
 test/test_event_reader.rb
 test/test_event_table_reader.rb
 test/test_goals.rb
+test/test_indexer_team.rb
 test/test_lang.rb
 test/test_load.rb
 test/test_pp.rb

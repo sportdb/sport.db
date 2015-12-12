@@ -85,6 +85,7 @@ require 'sportdb/reader'
 require 'sportdb/reader_file'
 require 'sportdb/reader_zip'
 
+require 'sportdb/indexers/team'
 
 
 require 'sportdb/lang'

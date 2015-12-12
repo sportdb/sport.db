@@ -46,6 +46,7 @@ AlltimeStandingEntry = SportDb::Model::AlltimeStandingEntry
 
 Reader                  = SportDb::Reader
 TeamReader              = SportDb::TeamReader
+TeamIndexer             = SportDb::TeamIndexer
 AssocReader             = SportDb::AssocReader
 SeasonReader            = SportDb::SeasonReader
 LeagueReader            = SportDb::LeagueReader
@@ -76,6 +77,13 @@ module TestTeamReader
     TeamReader.from_file( "#{SportDb.test_data_path}/#{name}.txt", more_attribs )
   end
 end
+
+module TestTeamIndexer
+  def self.from_file( name, more_attribs={} )
+    TeamIndexer.from_file( "#{SportDb.test_data_path}/#{name}.txt", more_attribs )
+  end
+end
+
 
 module TestClubSquadReader
   def self.from_file( name, more_attribs={} )

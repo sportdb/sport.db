@@ -48,7 +48,7 @@ md_splitter, abak-flow, rid-core
 
 ### Alternatives
 
-#### CRI - stands for ?? 
+#### CRI - stands for ??
 - [Github Site](https://github.com/ddfreyne/cri)
 
 [ ] todo add rubygems link

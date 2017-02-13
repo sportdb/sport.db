@@ -14,3 +14,8 @@
 
 [x] add support for predefined matchdays for groups and autocomplete of matchday for group stage (by date range lookup)
     try championsliga or copa libertadores for example events
+
+### command line
+
+- [ ] move/fold sport.db.console into sport.db.ruby - use lib/sportdb/console.rb (see worlddb)
+- [ ] move/fold sport.db.keys into sport.db.ruby  - why? why not??

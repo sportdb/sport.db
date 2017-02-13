@@ -5,6 +5,7 @@ Gem Family:
 - [**sportdb**](sportdb) - open sports database (e.g. football.db, formula1.db etc.) command line tool
 - [sportdb-models](sportdb-models) - sport.db schema 'n' models for easy (re)use
 - [sportdb-update](sportdb-update) - sport.db addon for auto-updates (e.g. pulling n merging updates from upstream sources)
+- [sportdb-compat](sportdb-compat) - sport.db addon for backward compatibility (compat)
 
 
 

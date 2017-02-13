@@ -1,0 +1,26 @@
+require 'hoe'
+require './lib/sportdb/update/version.rb'
+
+Hoe.spec 'sportdb-update' do
+
+  self.version = SportDb::Update::VERSION
+
+  self.summary = 'sportdb-update - sport.db addon for auto-updates (e.g. pulling n merging updates from upstream sources)'
+  self.description = summary
+
+  self.urls = ['https://github.com/sportdb/sport.db.update.ruby']
+
+  self.author = 'Gerald Bauer'
+  self.email = 'opensport@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file = 'README.md'
+  self.history_file = 'HISTORY.md'
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+   :required_ruby_version => '>= 1.9.2'
+  }
+
+end

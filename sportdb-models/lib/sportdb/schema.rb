@@ -33,9 +33,9 @@ add_index :teams, :key, unique: true
 # check: use table (rename to) venues / stadiums - why? why not?
 create_table :grounds do |t|
   t.string     :key,      null: false   # import/export key
-  t.string     :title,    null: false 
+  t.string     :title,    null: false
   t.string     :synonyms   # comma separated list of synonyms
-  
+
   t.references :country,  null: false
   t.references :city     # todo: make city required ???
 
@@ -48,7 +48,7 @@ create_table :grounds do |t|
   ##   - add capacity e.g. 40_000
   ##  fix: add address !!!! etc
 
-  ## add region ??? or just use region from city ?? 
+  ## add region ??? or just use region from city ??
 
   t.timestamps
 end
@@ -67,7 +67,7 @@ create_table :goals do |t|
 
   t.integer   :score1
   t.integer   :score2
-  
+
   ## type of goal (penalty, owngoal)
   t.boolean   :penalty,   null: false, default: false
   t.boolean   :owngoal,   null: false, default: false  # de: Eigentor -> # todo: find better name?
@@ -111,7 +111,7 @@ add_index :events, :key, unique: true
 
 
 create_table :rounds do |t|
-  t.references :event,    null: false
+  t.references :event,    null: false, index: false  ## Note: do NOT auto-add index
   t.string     :title,    null: false
   t.string     :title2
   t.integer    :pos,      null: false
@@ -132,7 +132,7 @@ add_index :rounds, :event_id  # fk event_id index
 
 
 create_table :groups do |t|     # Teamgruppe (zB Gruppe A, Gruppe B, etc.)
-  t.references :event,    null: false
+  t.references :event,    null: false, index: false    ## Note: do NOT auto-add index
   t.string     :title,    null: false
   t.integer    :pos,      null: false
   t.timestamps
@@ -140,15 +140,16 @@ end
 
 add_index :groups, :event_id  # fk event_id index
 
+
 ###########################
 # fix: rename table to matches
 create_table :games do |t|
   t.string     :key          # import/export key
-  t.references :round,    null: false
+  t.references :round,    null: false, index: false   ## Note: do NOT auto-add index
   t.integer    :pos,      null: false
-  t.references :group      # note: group is optional
-  t.references :team1,    null: false
-  t.references :team2,    null: false
+  t.references :group,                 index: false   ## Note: do NOT auto-add index  -- group is optional
+  t.references :team1,    null: false, index: false   ## Note: do NOT auto-add index
+  t.references :team2,    null: false, index: false   ## Note: do NOT auto-add index
 
   t.datetime   :play_at,   null: false
   t.boolean    :postponed, null: false, default: false
@@ -171,11 +172,11 @@ create_table :games do |t|
   t.integer    :score2i   # half time - team 2
   t.integer    :score1ii  # second third (opt)
   t.integer    :score2ii  # second third - team2 (opt)
-  t.references :next_game  # for hinspiel bei rueckspiel in knockout game
-  t.references :prev_game
+  t.references :next_game, index: false   ## Note: do NOT auto-add index  -- for hinspiel bei rueckspiel in knockout game
+  t.references :prev_game, index: false   ## Note: do NOT auto-add index
 
   t.integer    :winner      # 1,2,0,nil  calculate on save  - "real" winner (after 90 or extra time or penalty, aggregated first+second leg?)
-  t.integer    :winner90    # 1,2,0,nil  calculate on save  - winner after 90 mins (or regugular play time depending on sport - add alias or find  a better name!) 
+  t.integer    :winner90    # 1,2,0,nil  calculate on save  - winner after 90 mins (or regugular play time depending on sport - add alias or find  a better name!)
 
   t.timestamps
 end
@@ -191,8 +192,8 @@ add_index :games, :team2_id
 
 # todo: remove id from join table (without extra fields)? why?? why not??
 create_table :events_teams do |t|
-  t.references :event, null: false
-  t.references :team,  null: false
+  t.references :event, null: false, index: false    ## Note: do NOT auto-add index
+  t.references :team,  null: false, index: false    ## Note: do NOT auto-add index
   t.timestamps
 end
 
@@ -202,8 +203,8 @@ add_index :events_teams, :event_id
 
 # todo: remove id from join table (without extra fields)? why?? why not??
 create_table :events_grounds do |t|
-  t.references :event,   null: false
-  t.references :ground,  null: false
+  t.references :event,   null: false, index: false    ## Note: do NOT auto-add index
+  t.references :ground,  null: false, index: false    ## Note: do NOT auto-add index
   t.timestamps
 end
 
@@ -213,8 +214,8 @@ add_index :events_grounds, :event_id
 
 
 create_table :groups_teams do |t|
-  t.references :group, null: false
-  t.references :team,  null: false
+  t.references :group, null: false, index: false    ## Note: do NOT auto-add index
+  t.references :team,  null: false, index: false    ## Note: do NOT auto-add index
   t.timestamps
 end
 
@@ -234,7 +235,7 @@ create_table :leagues do |t|  ## also for cups/conferences/tournaments/world ser
   t.string     :key,   null: false
   t.string     :title, null: false     # e.g. Premier League, Deutsche Bundesliga, World Cup, Champions League, etc.
   t.references :country   ##  optional for now ,   :null => false   ### todo: create "virtual" country for international leagues e.g. use int? or world (ww?)/europe (eu)/etc. similar? already taken??
- 
+
   ## fix: rename to :clubs from :club
   t.boolean    :club,          null: false, default: false  # club teams or national teams?
   ## todo: add t.boolean  :national flag? for national teams?
@@ -277,8 +278,8 @@ add_index :assocs, :key, unique: true
 
 
 create_table :assocs_assocs do |t|
-  t.references :assoc1, null: false   # parent assoc
-  t.references :assoc2, null: false   # child assoc is_member_of parent assoc
+  t.references :assoc1, null: false, index: false   ## Note: do NOT auto-add index  -- parent assoc
+  t.references :assoc2, null: false, index: false   ## Note: do NOT auto-add index  -- child assoc is_member_of parent assoc
   t.timestamps
 end
 
@@ -359,7 +360,7 @@ create_table :alltime_standing_entries do |t|
   t.integer     :goals_against         # todo: find a shorter name - ga? why? why not?
   t.integer     :pts
   t.integer     :recs               # note: specific to alltime - stats records counter (e.g. appearance counter)
-  t.string      :comments  
+  t.string      :comments
   t.timestamps
 end
 

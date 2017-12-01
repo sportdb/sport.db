@@ -19,7 +19,7 @@ class TestReaderFromString < MiniTest::Test
 
   def test_bl
     at = Country.create!( key: 'at', name: 'Austria', code: 'AUT', pop: 1, area: 1)
-    
+
     teamreader = TestTeamReader.from_file( 'at-austria/teams', country_id: at.id )
     teamreader.read()
 
@@ -36,9 +36,8 @@ class TestReaderFromString < MiniTest::Test
     assert_equal   0, bl.games.count  # 36x5 = 180
 
 
-    ## fix: use File.readutf8 ??? why?? why not??
-    bl_txt    = File.read( "#{SportDb.test_data_path}/at-austria/2013_14/bl.txt" )
-    bl_txt_ii = File.read( "#{SportDb.test_data_path}/at-austria/2013_14/bl_ii.txt" )
+    bl_txt    = File.open( "#{SportDb.test_data_path}/at-austria/2013_14/bl.txt", 'r:bom|utf-8' ).read
+    bl_txt_ii = File.open( "#{SportDb.test_data_path}/at-austria/2013_14/bl_ii.txt", 'r:bom|utf-8' ).read
 
     text_ary = [bl_txt,bl_txt_ii]
 
@@ -52,7 +51,7 @@ class TestReaderFromString < MiniTest::Test
 
     assert_equal  36, bl.rounds.count
     assert_equal 180, bl.games.count  # 36x5 = 180
-    
+
     ## check if is stable (update will not create new matches and rounds) on second pass/rerun
     gamereader.read()
 
@@ -62,4 +61,3 @@ class TestReaderFromString < MiniTest::Test
 
 
 end # class TestReaderFromString
-

@@ -1,0 +1,6 @@
+#############################
+# Sweden (se)
+
+
+Malmo FF      =>  Malmö FF, Malmö
+IFK Goteborg  =>  IFK Göteborg, Göteborg       ## Gothenburg [en]

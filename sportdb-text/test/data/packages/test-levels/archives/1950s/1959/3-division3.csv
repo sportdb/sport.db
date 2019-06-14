@@ -1,0 +1,553 @@
+Round,Date,Team 1,Team 2,FT,HT
+-,-,AFC Bournemouth,Accrington Stanley,5-2,-
+-,-,Bradford City,Accrington Stanley,0-0,-
+-,-,Brentford,Accrington Stanley,2-1,-
+-,-,Bury,Accrington Stanley,3-1,-
+-,-,Chesterfield,Accrington Stanley,0-1,-
+-,-,Colchester United,Accrington Stanley,1-0,-
+-,-,Doncaster Rovers,Accrington Stanley,3-0,-
+-,-,Halifax Town,Accrington Stanley,0-2,-
+-,-,Hull City,Accrington Stanley,4-2,-
+-,-,Mansfield Town,Accrington Stanley,3-2,-
+-,-,Newport County,Accrington Stanley,2-1,-
+-,-,Norwich City,Accrington Stanley,2-4,-
+-,-,Notts County,Accrington Stanley,1-1,-
+-,-,Plymouth Argyle,Accrington Stanley,2-4,-
+-,-,Queens Park Rangers,Accrington Stanley,3-1,-
+-,-,Reading,Accrington Stanley,5-0,-
+-,-,Rochdale,Accrington Stanley,1-0,-
+-,-,Southampton,Accrington Stanley,3-1,-
+-,-,Southend United,Accrington Stanley,4-2,-
+-,-,Stockport County,Accrington Stanley,0-0,-
+-,-,Swindon Town,Accrington Stanley,1-2,-
+-,-,Tranmere Rovers,Accrington Stanley,9-0,-
+-,-,Wrexham,Accrington Stanley,2-2,-
+-,-,Accrington Stanley,AFC Bournemouth,3-2,-
+-,-,Bradford City,AFC Bournemouth,0-1,-
+-,-,Brentford,AFC Bournemouth,1-1,-
+-,-,Bury,AFC Bournemouth,5-1,-
+-,-,Chesterfield,AFC Bournemouth,1-0,-
+-,-,Colchester United,AFC Bournemouth,3-1,-
+-,-,Doncaster Rovers,AFC Bournemouth,5-1,-
+-,-,Halifax Town,AFC Bournemouth,0-1,-
+-,-,Hull City,AFC Bournemouth,5-3,-
+-,-,Mansfield Town,AFC Bournemouth,1-4,-
+-,-,Newport County,AFC Bournemouth,4-1,-
+-,-,Norwich City,AFC Bournemouth,2-2,-
+-,-,Notts County,AFC Bournemouth,4-3,-
+-,-,Plymouth Argyle,AFC Bournemouth,3-1,-
+-,-,Queens Park Rangers,AFC Bournemouth,0-4,-
+-,-,Reading,AFC Bournemouth,2-0,-
+-,-,Rochdale,AFC Bournemouth,2-1,-
+-,-,Southampton,AFC Bournemouth,0-0,-
+-,-,Southend United,AFC Bournemouth,2-0,-
+-,-,Stockport County,AFC Bournemouth,3-1,-
+-,-,Swindon Town,AFC Bournemouth,0-1,-
+-,-,Tranmere Rovers,AFC Bournemouth,4-0,-
+-,-,Wrexham,AFC Bournemouth,1-0,-
+-,-,Accrington Stanley,Bradford City,1-3,-
+-,-,AFC Bournemouth,Bradford City,4-0,-
+-,-,Brentford,Bradford City,4-0,-
+-,-,Bury,Bradford City,2-2,-
+-,-,Chesterfield,Bradford City,2-0,-
+-,-,Colchester United,Bradford City,3-2,-
+-,-,Doncaster Rovers,Bradford City,0-3,-
+-,-,Halifax Town,Bradford City,3-3,-
+-,-,Hull City,Bradford City,4-0,-
+-,-,Mansfield Town,Bradford City,2-1,-
+-,-,Newport County,Bradford City,3-2,-
+-,-,Norwich City,Bradford City,4-2,-
+-,-,Notts County,Bradford City,1-3,-
+-,-,Plymouth Argyle,Bradford City,1-1,-
+-,-,Queens Park Rangers,Bradford City,3-0,-
+-,-,Reading,Bradford City,3-2,-
+-,-,Rochdale,Bradford City,0-3,-
+-,-,Southampton,Bradford City,1-2,-
+-,-,Southend United,Bradford City,1-1,-
+-,-,Stockport County,Bradford City,1-1,-
+-,-,Swindon Town,Bradford City,2-2,-
+-,-,Tranmere Rovers,Bradford City,3-1,-
+-,-,Wrexham,Bradford City,3-3,-
+-,-,Accrington Stanley,Brentford,1-1,-
+-,-,AFC Bournemouth,Brentford,0-0,-
+-,-,Bradford City,Brentford,3-0,-
+-,-,Bury,Brentford,1-1,-
+-,-,Chesterfield,Brentford,1-2,-
+-,-,Colchester United,Brentford,0-4,-
+-,-,Doncaster Rovers,Brentford,1-0,-
+-,-,Halifax Town,Brentford,0-0,-
+-,-,Hull City,Brentford,3-1,-
+-,-,Mansfield Town,Brentford,1-1,-
+-,-,Newport County,Brentford,0-1,-
+-,-,Norwich City,Brentford,4-1,-
+-,-,Notts County,Brentford,0-0,-
+-,-,Plymouth Argyle,Brentford,1-1,-
+-,-,Queens Park Rangers,Brentford,1-2,-
+-,-,Reading,Brentford,3-1,-
+-,-,Rochdale,Brentford,0-0,-
+-,-,Southampton,Brentford,0-6,-
+-,-,Southend United,Brentford,2-0,-
+-,-,Stockport County,Brentford,1-1,-
+-,-,Swindon Town,Brentford,1-1,-
+-,-,Tranmere Rovers,Brentford,1-2,-
+-,-,Wrexham,Brentford,2-1,-
+-,-,Accrington Stanley,Bury,0-2,-
+-,-,AFC Bournemouth,Bury,2-0,-
+-,-,Bradford City,Bury,1-0,-
+-,-,Brentford,Bury,0-0,-
+-,-,Chesterfield,Bury,3-0,-
+-,-,Colchester United,Bury,1-3,-
+-,-,Doncaster Rovers,Bury,0-1,-
+-,-,Halifax Town,Bury,4-2,-
+-,-,Hull City,Bury,2-0,-
+-,-,Mansfield Town,Bury,0-2,-
+-,-,Newport County,Bury,1-1,-
+-,-,Norwich City,Bury,3-2,-
+-,-,Notts County,Bury,1-1,-
+-,-,Plymouth Argyle,Bury,3-0,-
+-,-,Queens Park Rangers,Bury,2-1,-
+-,-,Reading,Bury,1-0,-
+-,-,Rochdale,Bury,1-0,-
+-,-,Southampton,Bury,4-2,-
+-,-,Southend United,Bury,1-0,-
+-,-,Stockport County,Bury,0-1,-
+-,-,Swindon Town,Bury,0-0,-
+-,-,Tranmere Rovers,Bury,4-0,-
+-,-,Wrexham,Bury,0-0,-
+-,-,Accrington Stanley,Chesterfield,3-1,-
+-,-,AFC Bournemouth,Chesterfield,2-1,-
+-,-,Bradford City,Chesterfield,1-0,-
+-,-,Brentford,Chesterfield,1-1,-
+-,-,Bury,Chesterfield,1-0,-
+-,-,Colchester United,Chesterfield,1-0,-
+-,-,Doncaster Rovers,Chesterfield,2-1,-
+-,-,Halifax Town,Chesterfield,3-2,-
+-,-,Hull City,Chesterfield,3-1,-
+-,-,Mansfield Town,Chesterfield,2-1,-
+-,-,Newport County,Chesterfield,0-1,-
+-,-,Norwich City,Chesterfield,2-1,-
+-,-,Notts County,Chesterfield,3-1,-
+-,-,Plymouth Argyle,Chesterfield,2-0,-
+-,-,Queens Park Rangers,Chesterfield,2-2,-
+-,-,Reading,Chesterfield,1-2,-
+-,-,Rochdale,Chesterfield,0-0,-
+-,-,Southampton,Chesterfield,0-0,-
+-,-,Southend United,Chesterfield,2-5,-
+-,-,Stockport County,Chesterfield,1-1,-
+-,-,Swindon Town,Chesterfield,1-2,-
+-,-,Tranmere Rovers,Chesterfield,2-0,-
+-,-,Wrexham,Chesterfield,3-4,-
+-,-,Accrington Stanley,Colchester United,1-1,-
+-,-,AFC Bournemouth,Colchester United,1-1,-
+-,-,Bradford City,Colchester United,1-3,-
+-,-,Brentford,Colchester United,2-1,-
+-,-,Bury,Colchester United,0-0,-
+-,-,Chesterfield,Colchester United,2-2,-
+-,-,Doncaster Rovers,Colchester United,2-1,-
+-,-,Halifax Town,Colchester United,4-1,-
+-,-,Hull City,Colchester United,3-0,-
+-,-,Mansfield Town,Colchester United,3-2,-
+-,-,Newport County,Colchester United,0-1,-
+-,-,Norwich City,Colchester United,1-2,-
+-,-,Notts County,Colchester United,0-1,-
+-,-,Plymouth Argyle,Colchester United,1-1,-
+-,-,Queens Park Rangers,Colchester United,4-2,-
+-,-,Reading,Colchester United,0-0,-
+-,-,Rochdale,Colchester United,0-1,-
+-,-,Southampton,Colchester United,3-0,-
+-,-,Southend United,Colchester United,1-1,-
+-,-,Stockport County,Colchester United,0-1,-
+-,-,Swindon Town,Colchester United,2-0,-
+-,-,Tranmere Rovers,Colchester United,3-3,-
+-,-,Wrexham,Colchester United,2-0,-
+-,-,Accrington Stanley,Doncaster Rovers,2-0,-
+-,-,AFC Bournemouth,Doncaster Rovers,1-0,-
+-,-,Bradford City,Doncaster Rovers,3-0,-
+-,-,Brentford,Doncaster Rovers,0-1,-
+-,-,Bury,Doncaster Rovers,5-0,-
+-,-,Chesterfield,Doncaster Rovers,2-0,-
+-,-,Colchester United,Doncaster Rovers,1-0,-
+-,-,Halifax Town,Doncaster Rovers,5-1,-
+-,-,Hull City,Doncaster Rovers,5-1,-
+-,-,Mansfield Town,Doncaster Rovers,3-1,-
+-,-,Newport County,Doncaster Rovers,3-1,-
+-,-,Norwich City,Doncaster Rovers,3-0,-
+-,-,Notts County,Doncaster Rovers,2-2,-
+-,-,Plymouth Argyle,Doncaster Rovers,4-0,-
+-,-,Queens Park Rangers,Doncaster Rovers,3-1,-
+-,-,Reading,Doncaster Rovers,2-0,-
+-,-,Rochdale,Doncaster Rovers,1-0,-
+-,-,Southampton,Doncaster Rovers,1-1,-
+-,-,Southend United,Doncaster Rovers,5-0,-
+-,-,Stockport County,Doncaster Rovers,2-0,-
+-,-,Swindon Town,Doncaster Rovers,0-0,-
+-,-,Tranmere Rovers,Doncaster Rovers,3-0,-
+-,-,Wrexham,Doncaster Rovers,2-1,-
+-,-,Accrington Stanley,Halifax Town,4-2,-
+-,-,AFC Bournemouth,Halifax Town,3-0,-
+-,-,Bradford City,Halifax Town,1-3,-
+-,-,Brentford,Halifax Town,2-0,-
+-,-,Bury,Halifax Town,3-1,-
+-,-,Chesterfield,Halifax Town,2-3,-
+-,-,Colchester United,Halifax Town,3-1,-
+-,-,Doncaster Rovers,Halifax Town,1-2,-
+-,-,Hull City,Halifax Town,4-0,-
+-,-,Mansfield Town,Halifax Town,4-3,-
+-,-,Newport County,Halifax Town,0-2,-
+-,-,Norwich City,Halifax Town,3-1,-
+-,-,Notts County,Halifax Town,4-4,-
+-,-,Plymouth Argyle,Halifax Town,1-1,-
+-,-,Queens Park Rangers,Halifax Town,3-1,-
+-,-,Reading,Halifax Town,3-0,-
+-,-,Rochdale,Halifax Town,1-0,-
+-,-,Southampton,Halifax Town,5-0,-
+-,-,Southend United,Halifax Town,3-2,-
+-,-,Stockport County,Halifax Town,0-1,-
+-,-,Swindon Town,Halifax Town,0-2,-
+-,-,Tranmere Rovers,Halifax Town,1-2,-
+-,-,Wrexham,Halifax Town,1-1,-
+-,-,Accrington Stanley,Hull City,0-1,-
+-,-,AFC Bournemouth,Hull City,1-0,-
+-,-,Bradford City,Hull City,2-1,-
+-,-,Brentford,Hull City,1-1,-
+-,-,Bury,Hull City,2-1,-
+-,-,Chesterfield,Hull City,2-1,-
+-,-,Colchester United,Hull City,1-3,-
+-,-,Doncaster Rovers,Hull City,0-2,-
+-,-,Halifax Town,Hull City,1-2,-
+-,-,Mansfield Town,Hull City,1-1,-
+-,-,Newport County,Hull City,1-3,-
+-,-,Norwich City,Hull City,0-1,-
+-,-,Notts County,Hull City,1-1,-
+-,-,Plymouth Argyle,Hull City,1-1,-
+-,-,Queens Park Rangers,Hull City,1-1,-
+-,-,Reading,Hull City,2-0,-
+-,-,Rochdale,Hull City,0-1,-
+-,-,Southampton,Hull City,6-1,-
+-,-,Southend United,Hull City,1-1,-
+-,-,Stockport County,Hull City,2-1,-
+-,-,Swindon Town,Hull City,2-0,-
+-,-,Tranmere Rovers,Hull City,1-0,-
+-,-,Wrexham,Hull City,5-1,-
+-,-,Accrington Stanley,Mansfield Town,2-0,-
+-,-,AFC Bournemouth,Mansfield Town,3-3,-
+-,-,Bradford City,Mansfield Town,1-1,-
+-,-,Brentford,Mansfield Town,2-0,-
+-,-,Bury,Mansfield Town,2-2,-
+-,-,Chesterfield,Mansfield Town,3-1,-
+-,-,Colchester United,Mansfield Town,1-3,-
+-,-,Doncaster Rovers,Mansfield Town,0-2,-
+-,-,Halifax Town,Mansfield Town,0-0,-
+-,-,Hull City,Mansfield Town,5-2,-
+-,-,Newport County,Mansfield Town,1-0,-
+-,-,Norwich City,Mansfield Town,1-0,-
+-,-,Notts County,Mansfield Town,3-4,-
+-,-,Plymouth Argyle,Mansfield Town,8-3,-
+-,-,Queens Park Rangers,Mansfield Town,1-1,-
+-,-,Reading,Mansfield Town,3-3,-
+-,-,Rochdale,Mansfield Town,2-2,-
+-,-,Southampton,Mansfield Town,3-2,-
+-,-,Southend United,Mansfield Town,5-1,-
+-,-,Stockport County,Mansfield Town,4-1,-
+-,-,Swindon Town,Mansfield Town,2-1,-
+-,-,Tranmere Rovers,Mansfield Town,2-2,-
+-,-,Wrexham,Mansfield Town,2-1,-
+-,-,Accrington Stanley,Newport County,2-2,-
+-,-,AFC Bournemouth,Newport County,1-1,-
+-,-,Bradford City,Newport County,1-0,-
+-,-,Brentford,Newport County,3-0,-
+-,-,Bury,Newport County,0-0,-
+-,-,Chesterfield,Newport County,3-1,-
+-,-,Colchester United,Newport County,3-2,-
+-,-,Doncaster Rovers,Newport County,1-0,-
+-,-,Halifax Town,Newport County,3-1,-
+-,-,Hull City,Newport County,2-3,-
+-,-,Mansfield Town,Newport County,2-1,-
+-,-,Norwich City,Newport County,3-0,-
+-,-,Notts County,Newport County,1-1,-
+-,-,Plymouth Argyle,Newport County,3-2,-
+-,-,Queens Park Rangers,Newport County,4-2,-
+-,-,Reading,Newport County,1-3,-
+-,-,Rochdale,Newport County,1-1,-
+-,-,Southampton,Newport County,3-3,-
+-,-,Southend United,Newport County,1-0,-
+-,-,Stockport County,Newport County,2-1,-
+-,-,Swindon Town,Newport County,2-1,-
+-,-,Tranmere Rovers,Newport County,2-1,-
+-,-,Wrexham,Newport County,0-0,-
+-,-,Accrington Stanley,Norwich City,0-2,-
+-,-,AFC Bournemouth,Norwich City,2-0,-
+-,-,Bradford City,Norwich City,2-2,-
+-,-,Brentford,Norwich City,0-4,-
+-,-,Bury,Norwich City,3-2,-
+-,-,Chesterfield,Norwich City,1-1,-
+-,-,Colchester United,Norwich City,2-1,-
+-,-,Doncaster Rovers,Norwich City,0-1,-
+-,-,Halifax Town,Norwich City,1-1,-
+-,-,Hull City,Norwich City,3-3,-
+-,-,Mansfield Town,Norwich City,1-1,-
+-,-,Newport County,Norwich City,2-2,-
+-,-,Notts County,Norwich City,1-3,-
+-,-,Plymouth Argyle,Norwich City,0-1,-
+-,-,Queens Park Rangers,Norwich City,2-1,-
+-,-,Reading,Norwich City,3-1,-
+-,-,Rochdale,Norwich City,1-2,-
+-,-,Southampton,Norwich City,1-1,-
+-,-,Southend United,Norwich City,1-0,-
+-,-,Stockport County,Norwich City,2-3,-
+-,-,Swindon Town,Norwich City,4-3,-
+-,-,Tranmere Rovers,Norwich City,0-1,-
+-,-,Wrexham,Norwich City,1-2,-
+-,-,Accrington Stanley,Notts County,3-0,-
+-,-,AFC Bournemouth,Notts County,0-0,-
+-,-,Bradford City,Notts County,4-1,-
+-,-,Brentford,Notts County,4-0,-
+-,-,Bury,Notts County,0-1,-
+-,-,Chesterfield,Notts County,1-0,-
+-,-,Colchester United,Notts County,4-1,-
+-,-,Doncaster Rovers,Notts County,2-1,-
+-,-,Halifax Town,Notts County,1-1,-
+-,-,Hull City,Notts County,5-0,-
+-,-,Mansfield Town,Notts County,3-0,-
+-,-,Newport County,Notts County,3-1,-
+-,-,Norwich City,Notts County,3-3,-
+-,-,Plymouth Argyle,Notts County,3-0,-
+-,-,Queens Park Rangers,Notts County,2-1,-
+-,-,Reading,Notts County,3-1,-
+-,-,Rochdale,Notts County,1-2,-
+-,-,Southampton,Notts County,3-0,-
+-,-,Southend United,Notts County,5-2,-
+-,-,Stockport County,Notts County,1-1,-
+-,-,Swindon Town,Notts County,3-1,-
+-,-,Tranmere Rovers,Notts County,0-3,-
+-,-,Wrexham,Notts County,3-2,-
+-,-,Accrington Stanley,Plymouth Argyle,1-1,-
+-,-,AFC Bournemouth,Plymouth Argyle,1-1,-
+-,-,Bradford City,Plymouth Argyle,0-0,-
+-,-,Brentford,Plymouth Argyle,3-0,-
+-,-,Bury,Plymouth Argyle,1-1,-
+-,-,Chesterfield,Plymouth Argyle,1-2,-
+-,-,Colchester United,Plymouth Argyle,2-0,-
+-,-,Doncaster Rovers,Plymouth Argyle,4-6,-
+-,-,Halifax Town,Plymouth Argyle,0-1,-
+-,-,Hull City,Plymouth Argyle,1-1,-
+-,-,Mansfield Town,Plymouth Argyle,1-4,-
+-,-,Newport County,Plymouth Argyle,0-1,-
+-,-,Norwich City,Plymouth Argyle,1-1,-
+-,-,Notts County,Plymouth Argyle,1-2,-
+-,-,Queens Park Rangers,Plymouth Argyle,2-1,-
+-,-,Reading,Plymouth Argyle,0-2,-
+-,-,Rochdale,Plymouth Argyle,0-2,-
+-,-,Southampton,Plymouth Argyle,5-1,-
+-,-,Southend United,Plymouth Argyle,0-0,-
+-,-,Stockport County,Plymouth Argyle,2-2,-
+-,-,Swindon Town,Plymouth Argyle,3-4,-
+-,-,Tranmere Rovers,Plymouth Argyle,2-0,-
+-,-,Wrexham,Plymouth Argyle,1-1,-
+-,-,Accrington Stanley,Queens Park Rangers,2-4,-
+-,-,AFC Bournemouth,Queens Park Rangers,2-0,-
+-,-,Bradford City,Queens Park Rangers,1-0,-
+-,-,Brentford,Queens Park Rangers,1-0,-
+-,-,Bury,Queens Park Rangers,3-1,-
+-,-,Chesterfield,Queens Park Rangers,2-3,-
+-,-,Colchester United,Queens Park Rangers,3-0,-
+-,-,Doncaster Rovers,Queens Park Rangers,2-0,-
+-,-,Halifax Town,Queens Park Rangers,2-1,-
+-,-,Hull City,Queens Park Rangers,1-0,-
+-,-,Mansfield Town,Queens Park Rangers,3-4,-
+-,-,Newport County,Queens Park Rangers,3-1,-
+-,-,Norwich City,Queens Park Rangers,5-1,-
+-,-,Notts County,Queens Park Rangers,0-1,-
+-,-,Plymouth Argyle,Queens Park Rangers,3-2,-
+-,-,Reading,Queens Park Rangers,2-2,-
+-,-,Rochdale,Queens Park Rangers,2-2,-
+-,-,Southampton,Queens Park Rangers,1-0,-
+-,-,Southend United,Queens Park Rangers,4-0,-
+-,-,Stockport County,Queens Park Rangers,2-3,-
+-,-,Swindon Town,Queens Park Rangers,2-0,-
+-,-,Tranmere Rovers,Queens Park Rangers,2-0,-
+-,-,Wrexham,Queens Park Rangers,1-0,-
+-,-,Accrington Stanley,Reading,4-3,-
+-,-,AFC Bournemouth,Reading,0-1,-
+-,-,Bradford City,Reading,1-2,-
+-,-,Brentford,Reading,3-1,-
+-,-,Bury,Reading,1-1,-
+-,-,Chesterfield,Reading,1-0,-
+-,-,Colchester United,Reading,3-1,-
+-,-,Doncaster Rovers,Reading,2-5,-
+-,-,Halifax Town,Reading,4-1,-
+-,-,Hull City,Reading,2-0,-
+-,-,Mansfield Town,Reading,1-0,-
+-,-,Newport County,Reading,2-1,-
+-,-,Norwich City,Reading,1-0,-
+-,-,Notts County,Reading,3-1,-
+-,-,Plymouth Argyle,Reading,2-2,-
+-,-,Queens Park Rangers,Reading,2-0,-
+-,-,Rochdale,Reading,1-0,-
+-,-,Southampton,Reading,3-3,-
+-,-,Southend United,Reading,2-2,-
+-,-,Stockport County,Reading,0-1,-
+-,-,Swindon Town,Reading,2-0,-
+-,-,Tranmere Rovers,Reading,2-1,-
+-,-,Wrexham,Reading,0-1,-
+-,-,Accrington Stanley,Rochdale,4-2,-
+-,-,AFC Bournemouth,Rochdale,0-0,-
+-,-,Bradford City,Rochdale,7-1,-
+-,-,Brentford,Rochdale,2-1,-
+-,-,Bury,Rochdale,6-1,-
+-,-,Chesterfield,Rochdale,0-0,-
+-,-,Colchester United,Rochdale,2-1,-
+-,-,Doncaster Rovers,Rochdale,1-1,-
+-,-,Halifax Town,Rochdale,2-1,-
+-,-,Hull City,Rochdale,2-1,-
+-,-,Mansfield Town,Rochdale,0-0,-
+-,-,Newport County,Rochdale,1-0,-
+-,-,Norwich City,Rochdale,2-1,-
+-,-,Notts County,Rochdale,1-1,-
+-,-,Plymouth Argyle,Rochdale,2-1,-
+-,-,Queens Park Rangers,Rochdale,3-0,-
+-,-,Reading,Rochdale,3-0,-
+-,-,Southampton,Rochdale,6-1,-
+-,-,Southend United,Rochdale,3-1,-
+-,-,Stockport County,Rochdale,1-0,-
+-,-,Swindon Town,Rochdale,2-1,-
+-,-,Tranmere Rovers,Rochdale,2-1,-
+-,-,Wrexham,Rochdale,1-0,-
+-,-,Accrington Stanley,Southampton,0-0,-
+-,-,AFC Bournemouth,Southampton,2-1,-
+-,-,Bradford City,Southampton,2-3,-
+-,-,Brentford,Southampton,2-0,-
+-,-,Bury,Southampton,1-0,-
+-,-,Chesterfield,Southampton,3-3,-
+-,-,Colchester United,Southampton,1-3,-
+-,-,Doncaster Rovers,Southampton,3-2,-
+-,-,Halifax Town,Southampton,2-0,-
+-,-,Hull City,Southampton,3-0,-
+-,-,Mansfield Town,Southampton,1-6,-
+-,-,Newport County,Southampton,4-2,-
+-,-,Norwich City,Southampton,3-1,-
+-,-,Notts County,Southampton,1-2,-
+-,-,Plymouth Argyle,Southampton,1-0,-
+-,-,Queens Park Rangers,Southampton,2-2,-
+-,-,Reading,Southampton,4-1,-
+-,-,Rochdale,Southampton,1-0,-
+-,-,Southend United,Southampton,1-1,-
+-,-,Stockport County,Southampton,4-0,-
+-,-,Swindon Town,Southampton,3-1,-
+-,-,Tranmere Rovers,Southampton,2-0,-
+-,-,Wrexham,Southampton,1-3,-
+-,-,Accrington Stanley,Southend United,3-0,-
+-,-,AFC Bournemouth,Southend United,1-4,-
+-,-,Bradford City,Southend United,6-1,-
+-,-,Brentford,Southend United,6-1,-
+-,-,Bury,Southend United,2-3,-
+-,-,Chesterfield,Southend United,4-0,-
+-,-,Colchester United,Southend United,0-1,-
+-,-,Doncaster Rovers,Southend United,2-1,-
+-,-,Halifax Town,Southend United,1-0,-
+-,-,Hull City,Southend United,3-2,-
+-,-,Mansfield Town,Southend United,1-4,-
+-,-,Newport County,Southend United,3-1,-
+-,-,Norwich City,Southend United,4-0,-
+-,-,Notts County,Southend United,1-4,-
+-,-,Plymouth Argyle,Southend United,3-1,-
+-,-,Queens Park Rangers,Southend United,1-3,-
+-,-,Reading,Southend United,3-0,-
+-,-,Rochdale,Southend United,1-1,-
+-,-,Southampton,Southend United,3-2,-
+-,-,Stockport County,Southend United,0-1,-
+-,-,Swindon Town,Southend United,2-1,-
+-,-,Tranmere Rovers,Southend United,1-1,-
+-,-,Wrexham,Southend United,3-1,-
+-,-,Accrington Stanley,Stockport County,2-2,-
+-,-,AFC Bournemouth,Stockport County,2-0,-
+-,-,Bradford City,Stockport County,4-2,-
+-,-,Brentford,Stockport County,1-4,-
+-,-,Bury,Stockport County,3-3,-
+-,-,Chesterfield,Stockport County,1-0,-
+-,-,Colchester United,Stockport County,8-2,-
+-,-,Doncaster Rovers,Stockport County,4-1,-
+-,-,Halifax Town,Stockport County,4-3,-
+-,-,Hull City,Stockport County,3-1,-
+-,-,Mansfield Town,Stockport County,2-1,-
+-,-,Newport County,Stockport County,2-0,-
+-,-,Norwich City,Stockport County,1-3,-
+-,-,Notts County,Stockport County,0-2,-
+-,-,Plymouth Argyle,Stockport County,2-1,-
+-,-,Queens Park Rangers,Stockport County,0-0,-
+-,-,Reading,Stockport County,2-1,-
+-,-,Rochdale,Stockport County,0-2,-
+-,-,Southampton,Stockport County,2-1,-
+-,-,Southend United,Stockport County,3-1,-
+-,-,Swindon Town,Stockport County,3-0,-
+-,-,Tranmere Rovers,Stockport County,3-1,-
+-,-,Wrexham,Stockport County,3-1,-
+-,-,Accrington Stanley,Swindon Town,0-0,-
+-,-,AFC Bournemouth,Swindon Town,3-3,-
+-,-,Bradford City,Swindon Town,1-2,-
+-,-,Brentford,Swindon Town,2-2,-
+-,-,Bury,Swindon Town,0-0,-
+-,-,Chesterfield,Swindon Town,1-3,-
+-,-,Colchester United,Swindon Town,1-0,-
+-,-,Doncaster Rovers,Swindon Town,2-0,-
+-,-,Halifax Town,Swindon Town,1-0,-
+-,-,Hull City,Swindon Town,0-0,-
+-,-,Mansfield Town,Swindon Town,0-0,-
+-,-,Newport County,Swindon Town,3-0,-
+-,-,Norwich City,Swindon Town,1-1,-
+-,-,Notts County,Swindon Town,1-0,-
+-,-,Plymouth Argyle,Swindon Town,3-2,-
+-,-,Queens Park Rangers,Swindon Town,2-1,-
+-,-,Reading,Swindon Town,3-1,-
+-,-,Rochdale,Swindon Town,1-1,-
+-,-,Southampton,Swindon Town,1-1,-
+-,-,Southend United,Swindon Town,0-2,-
+-,-,Stockport County,Swindon Town,2-0,-
+-,-,Tranmere Rovers,Swindon Town,3-1,-
+-,-,Wrexham,Swindon Town,1-0,-
+-,-,Accrington Stanley,Tranmere Rovers,3-1,-
+-,-,AFC Bournemouth,Tranmere Rovers,4-0,-
+-,-,Bradford City,Tranmere Rovers,2-0,-
+-,-,Brentford,Tranmere Rovers,5-2,-
+-,-,Bury,Tranmere Rovers,4-2,-
+-,-,Chesterfield,Tranmere Rovers,3-2,-
+-,-,Colchester United,Tranmere Rovers,1-1,-
+-,-,Doncaster Rovers,Tranmere Rovers,2-0,-
+-,-,Halifax Town,Tranmere Rovers,3-0,-
+-,-,Hull City,Tranmere Rovers,1-0,-
+-,-,Mansfield Town,Tranmere Rovers,0-2,-
+-,-,Newport County,Tranmere Rovers,3-0,-
+-,-,Norwich City,Tranmere Rovers,0-0,-
+-,-,Notts County,Tranmere Rovers,1-1,-
+-,-,Plymouth Argyle,Tranmere Rovers,4-0,-
+-,-,Queens Park Rangers,Tranmere Rovers,1-1,-
+-,-,Reading,Tranmere Rovers,0-0,-
+-,-,Rochdale,Tranmere Rovers,1-4,-
+-,-,Southampton,Tranmere Rovers,2-3,-
+-,-,Southend United,Tranmere Rovers,1-3,-
+-,-,Stockport County,Tranmere Rovers,1-0,-
+-,-,Swindon Town,Tranmere Rovers,1-2,-
+-,-,Wrexham,Tranmere Rovers,2-5,-
+-,-,Accrington Stanley,Wrexham,1-1,-
+-,-,AFC Bournemouth,Wrexham,0-0,-
+-,-,Bradford City,Wrexham,3-2,-
+-,-,Brentford,Wrexham,2-1,-
+-,-,Bury,Wrexham,3-0,-
+-,-,Chesterfield,Wrexham,1-1,-
+-,-,Colchester United,Wrexham,1-1,-
+-,-,Doncaster Rovers,Wrexham,1-1,-
+-,-,Halifax Town,Wrexham,4-1,-
+-,-,Hull City,Wrexham,1-0,-
+-,-,Mansfield Town,Wrexham,3-1,-
+-,-,Newport County,Wrexham,2-1,-
+-,-,Norwich City,Wrexham,2-2,-
+-,-,Notts County,Wrexham,2-0,-
+-,-,Plymouth Argyle,Wrexham,2-2,-
+-,-,Queens Park Rangers,Wrexham,5-0,-
+-,-,Reading,Wrexham,2-1,-
+-,-,Rochdale,Wrexham,3-1,-
+-,-,Southampton,Wrexham,1-2,-
+-,-,Southend United,Wrexham,4-1,-
+-,-,Stockport County,Wrexham,2-2,-
+-,-,Swindon Town,Wrexham,1-0,-
+-,-,Tranmere Rovers,Wrexham,1-2,-

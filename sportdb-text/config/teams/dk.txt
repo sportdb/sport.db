@@ -1,0 +1,6 @@
+###############################################
+# Denmark (dk)
+
+
+Kobenhavn    =>  FC København, København    ## Copenhagen [en]
+Brondby IF   =>  Brøndby IF,   Brøndbyvester

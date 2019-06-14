@@ -1,0 +1,39 @@
+############################################
+## tr-turkey
+##
+##  see https://en.wikipedia.org/wiki/Süper_Lig
+
+
+Fenerbahce        =>  Fenerbahçe İstanbul SK,  İstanbul
+Galatasaray       =>  Galatasaray İstanbul AŞ, İstanbul
+Besiktas          =>  Beşiktaş İstanbul JK,    İstanbul
+Kasimpasa         =>  Kasımpaşa İstanbul SK,   İstanbul
+
+## (double) check if Buyuksehyr matching !?
+Buyuksehyr        =>  İstanbul Başakşehir,  İstanbul
+
+Genclerbirligi    =>  Gençlerbirliği Ankara SK, Ankara
+Osmanlispor       =>  Osmanlıspor Ankara,       Ankara
+
+Karabukspor      =>  Kardemir Karabükspor,  Karabük
+Elazigspor       =>  Elazığspor,            Elazığ
+Eskisehirspor    =>  Eskişehirspor,         Eskişehir
+
+Akhisar Belediyespor =>  Akhisar Belediyespor, Akhisar
+Alanyaspor       =>      Alanyaspor,  Alanya
+Antalyaspor      =>      Antalyaspor, Antalya
+Bursaspor        =>      Bursaspor,   Bursa
+Goztep           =>      Göztepe Izmir, İzmir
+Kayserispor      =>      Kayserispor,   Kayseri
+Konyaspor        =>      Konyaspor,     Konya
+Sivasspor        =>      Sivasspor,     Sivas
+Trabzonspor      =>      Trabzonspor AŞ, Trabzon
+Yeni Malatyaspor  =>     Yeni Malatyaspor, Malatya
+
+Adanaspor       =>       Adanaspor,       Adana
+Gaziantepspor   =>       Gaziantepspor,	 Gaziantep
+Rizespor        =>       Çaykur Rizespor, Rize
+
+Balikesirspor       =>   Balıkesirspor,       Balıkesir
+Erciyesspor         =>   Kayseri Erciyesspor, Kayseri
+Mersin Idman Yurdu  =>   Mersin İdmanyurdu,   Mersin

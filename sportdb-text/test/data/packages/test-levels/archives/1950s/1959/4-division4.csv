@@ -1,0 +1,553 @@
+Round,Date,Team 1,Team 2,FT,HT
+-,-,Barrow,Aldershot,3-4,-
+-,-,Bradford Park Avenue,Aldershot,5-1,-
+-,-,Carlisle United,Aldershot,1-0,-
+-,-,Chester,Aldershot,2-2,-
+-,-,Coventry City,Aldershot,7-1,-
+-,-,Crewe Alexandra,Aldershot,5-0,-
+-,-,Crystal Palace,Aldershot,4-1,-
+-,-,Darlington,Aldershot,2-3,-
+-,-,Exeter City,Aldershot,2-0,-
+-,-,Gateshead,Aldershot,1-0,-
+-,-,Gillingham,Aldershot,3-0,-
+-,-,Hartlepool United,Aldershot,0-3,-
+-,-,Millwall,Aldershot,4-0,-
+-,-,Northampton Town,Aldershot,1-0,-
+-,-,Oldham Athletic,Aldershot,0-1,-
+-,-,Port Vale,Aldershot,3-2,-
+-,-,Shrewsbury Town,Aldershot,3-1,-
+-,-,Southport,Aldershot,0-1,-
+-,-,Torquay United,Aldershot,1-1,-
+-,-,Walsall,Aldershot,2-4,-
+-,-,Watford,Aldershot,2-1,-
+-,-,Workington,Aldershot,1-0,-
+-,-,York City,Aldershot,0-0,-
+-,-,Aldershot,Barrow,0-1,-
+-,-,Bradford Park Avenue,Barrow,0-2,-
+-,-,Carlisle United,Barrow,1-0,-
+-,-,Chester,Barrow,2-0,-
+-,-,Coventry City,Barrow,2-0,-
+-,-,Crewe Alexandra,Barrow,5-0,-
+-,-,Crystal Palace,Barrow,2-2,-
+-,-,Darlington,Barrow,5-2,-
+-,-,Exeter City,Barrow,4-0,-
+-,-,Gateshead,Barrow,4-0,-
+-,-,Gillingham,Barrow,4-2,-
+-,-,Hartlepool United,Barrow,10-1,-
+-,-,Millwall,Barrow,3-0,-
+-,-,Northampton Town,Barrow,2-0,-
+-,-,Oldham Athletic,Barrow,2-0,-
+-,-,Port Vale,Barrow,4-1,-
+-,-,Shrewsbury Town,Barrow,1-2,-
+-,-,Southport,Barrow,0-0,-
+-,-,Torquay United,Barrow,1-0,-
+-,-,Walsall,Barrow,3-1,-
+-,-,Watford,Barrow,1-1,-
+-,-,Workington,Barrow,2-2,-
+-,-,York City,Barrow,1-0,-
+-,-,Aldershot,Bradford Park Avenue,3-3,-
+-,-,Barrow,Bradford Park Avenue,2-3,-
+-,-,Carlisle United,Bradford Park Avenue,1-1,-
+-,-,Chester,Bradford Park Avenue,2-0,-
+-,-,Coventry City,Bradford Park Avenue,0-0,-
+-,-,Crewe Alexandra,Bradford Park Avenue,4-1,-
+-,-,Crystal Palace,Bradford Park Avenue,2-0,-
+-,-,Darlington,Bradford Park Avenue,1-1,-
+-,-,Exeter City,Bradford Park Avenue,4-0,-
+-,-,Gateshead,Bradford Park Avenue,1-4,-
+-,-,Gillingham,Bradford Park Avenue,1-1,-
+-,-,Hartlepool United,Bradford Park Avenue,3-0,-
+-,-,Millwall,Bradford Park Avenue,1-1,-
+-,-,Northampton Town,Bradford Park Avenue,4-1,-
+-,-,Oldham Athletic,Bradford Park Avenue,1-0,-
+-,-,Port Vale,Bradford Park Avenue,4-2,-
+-,-,Shrewsbury Town,Bradford Park Avenue,0-1,-
+-,-,Southport,Bradford Park Avenue,1-0,-
+-,-,Torquay United,Bradford Park Avenue,2-1,-
+-,-,Walsall,Bradford Park Avenue,3-2,-
+-,-,Watford,Bradford Park Avenue,2-1,-
+-,-,Workington,Bradford Park Avenue,2-1,-
+-,-,York City,Bradford Park Avenue,4-0,-
+-,-,Aldershot,Carlisle United,4-0,-
+-,-,Barrow,Carlisle United,1-3,-
+-,-,Bradford Park Avenue,Carlisle United,0-3,-
+-,-,Chester,Carlisle United,2-1,-
+-,-,Coventry City,Carlisle United,1-2,-
+-,-,Crewe Alexandra,Carlisle United,3-1,-
+-,-,Crystal Palace,Carlisle United,0-2,-
+-,-,Darlington,Carlisle United,0-1,-
+-,-,Exeter City,Carlisle United,2-1,-
+-,-,Gateshead,Carlisle United,4-1,-
+-,-,Gillingham,Carlisle United,1-1,-
+-,-,Hartlepool United,Carlisle United,1-2,-
+-,-,Millwall,Carlisle United,1-0,-
+-,-,Northampton Town,Carlisle United,0-0,-
+-,-,Oldham Athletic,Carlisle United,2-0,-
+-,-,Port Vale,Carlisle United,1-1,-
+-,-,Shrewsbury Town,Carlisle United,4-1,-
+-,-,Southport,Carlisle United,0-1,-
+-,-,Torquay United,Carlisle United,0-0,-
+-,-,Walsall,Carlisle United,5-0,-
+-,-,Watford,Carlisle United,2-2,-
+-,-,Workington,Carlisle United,0-1,-
+-,-,York City,Carlisle United,1-1,-
+-,-,Aldershot,Chester,1-0,-
+-,-,Barrow,Chester,1-2,-
+-,-,Bradford Park Avenue,Chester,3-0,-
+-,-,Carlisle United,Chester,4-3,-
+-,-,Coventry City,Chester,5-1,-
+-,-,Crewe Alexandra,Chester,2-4,-
+-,-,Crystal Palace,Chester,3-3,-
+-,-,Darlington,Chester,0-0,-
+-,-,Exeter City,Chester,1-1,-
+-,-,Gateshead,Chester,0-1,-
+-,-,Gillingham,Chester,3-3,-
+-,-,Hartlepool United,Chester,1-3,-
+-,-,Millwall,Chester,0-1,-
+-,-,Northampton Town,Chester,4-0,-
+-,-,Oldham Athletic,Chester,3-5,-
+-,-,Port Vale,Chester,4-0,-
+-,-,Shrewsbury Town,Chester,3-0,-
+-,-,Southport,Chester,1-1,-
+-,-,Torquay United,Chester,4-0,-
+-,-,Walsall,Chester,2-2,-
+-,-,Watford,Chester,4-2,-
+-,-,Workington,Chester,1-0,-
+-,-,York City,Chester,1-1,-
+-,-,Aldershot,Coventry City,0-4,-
+-,-,Barrow,Coventry City,0-3,-
+-,-,Bradford Park Avenue,Coventry City,2-0,-
+-,-,Carlisle United,Coventry City,1-6,-
+-,-,Chester,Coventry City,1-1,-
+-,-,Crewe Alexandra,Coventry City,1-1,-
+-,-,Crystal Palace,Coventry City,1-1,-
+-,-,Darlington,Coventry City,1-4,-
+-,-,Exeter City,Coventry City,2-1,-
+-,-,Gateshead,Coventry City,1-1,-
+-,-,Gillingham,Coventry City,2-0,-
+-,-,Hartlepool United,Coventry City,2-1,-
+-,-,Millwall,Coventry City,1-1,-
+-,-,Northampton Town,Coventry City,4-0,-
+-,-,Oldham Athletic,Coventry City,2-0,-
+-,-,Port Vale,Coventry City,3-0,-
+-,-,Shrewsbury Town,Coventry City,4-1,-
+-,-,Southport,Coventry City,1-2,-
+-,-,Torquay United,Coventry City,1-1,-
+-,-,Walsall,Coventry City,3-0,-
+-,-,Watford,Coventry City,1-4,-
+-,-,Workington,Coventry City,2-2,-
+-,-,York City,Coventry City,0-0,-
+-,-,Aldershot,Crewe Alexandra,0-0,-
+-,-,Barrow,Crewe Alexandra,0-2,-
+-,-,Bradford Park Avenue,Crewe Alexandra,0-2,-
+-,-,Carlisle United,Crewe Alexandra,2-0,-
+-,-,Chester,Crewe Alexandra,0-1,-
+-,-,Coventry City,Crewe Alexandra,3-2,-
+-,-,Crystal Palace,Crewe Alexandra,6-2,-
+-,-,Darlington,Crewe Alexandra,1-1,-
+-,-,Exeter City,Crewe Alexandra,3-0,-
+-,-,Gateshead,Crewe Alexandra,0-0,-
+-,-,Gillingham,Crewe Alexandra,3-0,-
+-,-,Hartlepool United,Crewe Alexandra,2-1,-
+-,-,Millwall,Crewe Alexandra,2-0,-
+-,-,Northampton Town,Crewe Alexandra,3-0,-
+-,-,Oldham Athletic,Crewe Alexandra,2-1,-
+-,-,Port Vale,Crewe Alexandra,1-1,-
+-,-,Shrewsbury Town,Crewe Alexandra,2-2,-
+-,-,Southport,Crewe Alexandra,3-0,-
+-,-,Torquay United,Crewe Alexandra,6-2,-
+-,-,Walsall,Crewe Alexandra,6-0,-
+-,-,Watford,Crewe Alexandra,0-1,-
+-,-,Workington,Crewe Alexandra,1-0,-
+-,-,York City,Crewe Alexandra,4-0,-
+-,-,Aldershot,Crystal Palace,1-2,-
+-,-,Barrow,Crystal Palace,1-0,-
+-,-,Bradford Park Avenue,Crystal Palace,5-0,-
+-,-,Carlisle United,Crystal Palace,3-3,-
+-,-,Chester,Crystal Palace,3-2,-
+-,-,Coventry City,Crystal Palace,2-0,-
+-,-,Crewe Alexandra,Crystal Palace,4-1,-
+-,-,Darlington,Crystal Palace,1-4,-
+-,-,Exeter City,Crystal Palace,3-1,-
+-,-,Gateshead,Crystal Palace,1-3,-
+-,-,Gillingham,Crystal Palace,1-1,-
+-,-,Hartlepool United,Crystal Palace,4-1,-
+-,-,Millwall,Crystal Palace,2-1,-
+-,-,Northampton Town,Crystal Palace,3-0,-
+-,-,Oldham Athletic,Crystal Palace,3-0,-
+-,-,Port Vale,Crystal Palace,2-3,-
+-,-,Shrewsbury Town,Crystal Palace,2-1,-
+-,-,Southport,Crystal Palace,0-2,-
+-,-,Torquay United,Crystal Palace,0-2,-
+-,-,Walsall,Crystal Palace,0-2,-
+-,-,Watford,Crystal Palace,2-2,-
+-,-,Workington,Crystal Palace,0-4,-
+-,-,York City,Crystal Palace,1-1,-
+-,-,Aldershot,Darlington,1-4,-
+-,-,Barrow,Darlington,2-1,-
+-,-,Bradford Park Avenue,Darlington,1-2,-
+-,-,Carlisle United,Darlington,1-1,-
+-,-,Chester,Darlington,1-0,-
+-,-,Coventry City,Darlington,0-0,-
+-,-,Crewe Alexandra,Darlington,2-1,-
+-,-,Crystal Palace,Darlington,4-1,-
+-,-,Exeter City,Darlington,2-2,-
+-,-,Gateshead,Darlington,1-3,-
+-,-,Gillingham,Darlington,0-0,-
+-,-,Hartlepool United,Darlington,1-0,-
+-,-,Millwall,Darlington,1-2,-
+-,-,Northampton Town,Darlington,1-3,-
+-,-,Oldham Athletic,Darlington,1-3,-
+-,-,Port Vale,Darlington,1-1,-
+-,-,Shrewsbury Town,Darlington,1-0,-
+-,-,Southport,Darlington,2-0,-
+-,-,Torquay United,Darlington,4-1,-
+-,-,Walsall,Darlington,0-0,-
+-,-,Watford,Darlington,0-0,-
+-,-,Workington,Darlington,3-3,-
+-,-,York City,Darlington,2-1,-
+-,-,Aldershot,Exeter City,1-0,-
+-,-,Barrow,Exeter City,1-0,-
+-,-,Bradford Park Avenue,Exeter City,0-3,-
+-,-,Carlisle United,Exeter City,1-2,-
+-,-,Chester,Exeter City,4-2,-
+-,-,Coventry City,Exeter City,2-0,-
+-,-,Crewe Alexandra,Exeter City,0-0,-
+-,-,Crystal Palace,Exeter City,1-1,-
+-,-,Darlington,Exeter City,1-1,-
+-,-,Gateshead,Exeter City,1-2,-
+-,-,Gillingham,Exeter City,0-2,-
+-,-,Hartlepool United,Exeter City,3-3,-
+-,-,Millwall,Exeter City,1-1,-
+-,-,Northampton Town,Exeter City,1-1,-
+-,-,Oldham Athletic,Exeter City,2-1,-
+-,-,Port Vale,Exeter City,5-3,-
+-,-,Shrewsbury Town,Exeter City,3-0,-
+-,-,Southport,Exeter City,0-1,-
+-,-,Torquay United,Exeter City,3-4,-
+-,-,Walsall,Exeter City,3-0,-
+-,-,Watford,Exeter City,2-1,-
+-,-,Workington,Exeter City,2-2,-
+-,-,York City,Exeter City,0-2,-
+-,-,Aldershot,Gateshead,8-1,-
+-,-,Barrow,Gateshead,0-3,-
+-,-,Bradford Park Avenue,Gateshead,4-1,-
+-,-,Carlisle United,Gateshead,4-2,-
+-,-,Chester,Gateshead,0-1,-
+-,-,Coventry City,Gateshead,4-1,-
+-,-,Crewe Alexandra,Gateshead,0-0,-
+-,-,Crystal Palace,Gateshead,3-1,-
+-,-,Darlington,Gateshead,3-2,-
+-,-,Exeter City,Gateshead,1-1,-
+-,-,Gillingham,Gateshead,3-0,-
+-,-,Hartlepool United,Gateshead,0-0,-
+-,-,Millwall,Gateshead,0-2,-
+-,-,Northampton Town,Gateshead,1-0,-
+-,-,Oldham Athletic,Gateshead,3-0,-
+-,-,Port Vale,Gateshead,8-0,-
+-,-,Shrewsbury Town,Gateshead,1-1,-
+-,-,Southport,Gateshead,2-2,-
+-,-,Torquay United,Gateshead,0-1,-
+-,-,Walsall,Gateshead,0-1,-
+-,-,Watford,Gateshead,5-1,-
+-,-,Workington,Gateshead,4-2,-
+-,-,York City,Gateshead,1-0,-
+-,-,Aldershot,Gillingham,4-2,-
+-,-,Barrow,Gillingham,2-2,-
+-,-,Bradford Park Avenue,Gillingham,2-0,-
+-,-,Carlisle United,Gillingham,1-2,-
+-,-,Chester,Gillingham,1-2,-
+-,-,Coventry City,Gillingham,1-1,-
+-,-,Crewe Alexandra,Gillingham,0-2,-
+-,-,Crystal Palace,Gillingham,4-1,-
+-,-,Darlington,Gillingham,1-2,-
+-,-,Exeter City,Gillingham,3-0,-
+-,-,Gateshead,Gillingham,2-0,-
+-,-,Hartlepool United,Gillingham,3-1,-
+-,-,Millwall,Gillingham,2-0,-
+-,-,Northampton Town,Gillingham,4-2,-
+-,-,Oldham Athletic,Gillingham,3-1,-
+-,-,Port Vale,Gillingham,3-1,-
+-,-,Shrewsbury Town,Gillingham,3-2,-
+-,-,Southport,Gillingham,2-1,-
+-,-,Torquay United,Gillingham,3-1,-
+-,-,Walsall,Gillingham,1-2,-
+-,-,Watford,Gillingham,2-2,-
+-,-,Workington,Gillingham,0-1,-
+-,-,York City,Gillingham,3-1,-
+-,-,Aldershot,Hartlepool United,2-4,-
+-,-,Barrow,Hartlepool United,1-1,-
+-,-,Bradford Park Avenue,Hartlepool United,4-1,-
+-,-,Carlisle United,Hartlepool United,1-0,-
+-,-,Chester,Hartlepool United,1-1,-
+-,-,Coventry City,Hartlepool United,4-1,-
+-,-,Crewe Alexandra,Hartlepool United,0-2,-
+-,-,Crystal Palace,Hartlepool United,1-2,-
+-,-,Darlington,Hartlepool United,3-1,-
+-,-,Exeter City,Hartlepool United,3-0,-
+-,-,Gateshead,Hartlepool United,3-0,-
+-,-,Gillingham,Hartlepool United,4-1,-
+-,-,Millwall,Hartlepool United,3-2,-
+-,-,Northampton Town,Hartlepool United,2-1,-
+-,-,Oldham Athletic,Hartlepool United,1-0,-
+-,-,Port Vale,Hartlepool United,1-1,-
+-,-,Shrewsbury Town,Hartlepool United,3-0,-
+-,-,Southport,Hartlepool United,1-1,-
+-,-,Torquay United,Hartlepool United,1-3,-
+-,-,Walsall,Hartlepool United,0-0,-
+-,-,Watford,Hartlepool United,4-1,-
+-,-,Workington,Hartlepool United,3-0,-
+-,-,York City,Hartlepool United,1-1,-
+-,-,Aldershot,Millwall,4-2,-
+-,-,Barrow,Millwall,3-1,-
+-,-,Bradford Park Avenue,Millwall,4-1,-
+-,-,Carlisle United,Millwall,0-2,-
+-,-,Chester,Millwall,0-0,-
+-,-,Coventry City,Millwall,1-0,-
+-,-,Crewe Alexandra,Millwall,4-1,-
+-,-,Crystal Palace,Millwall,4-0,-
+-,-,Darlington,Millwall,0-2,-
+-,-,Exeter City,Millwall,3-1,-
+-,-,Gateshead,Millwall,1-2,-
+-,-,Gillingham,Millwall,1-2,-
+-,-,Hartlepool United,Millwall,3-1,-
+-,-,Northampton Town,Millwall,0-1,-
+-,-,Oldham Athletic,Millwall,1-3,-
+-,-,Port Vale,Millwall,5-2,-
+-,-,Shrewsbury Town,Millwall,1-2,-
+-,-,Southport,Millwall,2-1,-
+-,-,Torquay United,Millwall,2-0,-
+-,-,Walsall,Millwall,2-1,-
+-,-,Watford,Millwall,1-1,-
+-,-,Workington,Millwall,1-1,-
+-,-,York City,Millwall,3-3,-
+-,-,Aldershot,Northampton Town,1-3,-
+-,-,Barrow,Northampton Town,2-2,-
+-,-,Bradford Park Avenue,Northampton Town,1-2,-
+-,-,Carlisle United,Northampton Town,2-1,-
+-,-,Chester,Northampton Town,2-3,-
+-,-,Coventry City,Northampton Town,2-0,-
+-,-,Crewe Alexandra,Northampton Town,1-2,-
+-,-,Crystal Palace,Northampton Town,1-1,-
+-,-,Darlington,Northampton Town,2-2,-
+-,-,Exeter City,Northampton Town,3-4,-
+-,-,Gateshead,Northampton Town,4-1,-
+-,-,Gillingham,Northampton Town,4-1,-
+-,-,Hartlepool United,Northampton Town,3-0,-
+-,-,Millwall,Northampton Town,3-0,-
+-,-,Oldham Athletic,Northampton Town,2-1,-
+-,-,Port Vale,Northampton Town,1-4,-
+-,-,Shrewsbury Town,Northampton Town,4-0,-
+-,-,Southport,Northampton Town,1-2,-
+-,-,Torquay United,Northampton Town,4-2,-
+-,-,Walsall,Northampton Town,2-1,-
+-,-,Watford,Northampton Town,3-1,-
+-,-,Workington,Northampton Town,3-3,-
+-,-,York City,Northampton Town,2-1,-
+-,-,Aldershot,Oldham Athletic,1-3,-
+-,-,Barrow,Oldham Athletic,2-1,-
+-,-,Bradford Park Avenue,Oldham Athletic,2-1,-
+-,-,Carlisle United,Oldham Athletic,3-0,-
+-,-,Chester,Oldham Athletic,5-2,-
+-,-,Coventry City,Oldham Athletic,1-0,-
+-,-,Crewe Alexandra,Oldham Athletic,5-0,-
+-,-,Crystal Palace,Oldham Athletic,4-0,-
+-,-,Darlington,Oldham Athletic,1-1,-
+-,-,Exeter City,Oldham Athletic,3-2,-
+-,-,Gateshead,Oldham Athletic,2-1,-
+-,-,Gillingham,Oldham Athletic,3-2,-
+-,-,Hartlepool United,Oldham Athletic,4-0,-
+-,-,Millwall,Oldham Athletic,4-2,-
+-,-,Northampton Town,Oldham Athletic,2-1,-
+-,-,Port Vale,Oldham Athletic,0-0,-
+-,-,Shrewsbury Town,Oldham Athletic,0-0,-
+-,-,Southport,Oldham Athletic,1-1,-
+-,-,Torquay United,Oldham Athletic,2-1,-
+-,-,Walsall,Oldham Athletic,3-0,-
+-,-,Watford,Oldham Athletic,2-1,-
+-,-,Workington,Oldham Athletic,2-0,-
+-,-,York City,Oldham Athletic,3-1,-
+-,-,Aldershot,Port Vale,0-4,-
+-,-,Barrow,Port Vale,1-2,-
+-,-,Bradford Park Avenue,Port Vale,0-2,-
+-,-,Carlisle United,Port Vale,0-3,-
+-,-,Chester,Port Vale,1-2,-
+-,-,Coventry City,Port Vale,1-0,-
+-,-,Crewe Alexandra,Port Vale,2-0,-
+-,-,Crystal Palace,Port Vale,1-1,-
+-,-,Darlington,Port Vale,2-0,-
+-,-,Exeter City,Port Vale,3-4,-
+-,-,Gateshead,Port Vale,0-4,-
+-,-,Gillingham,Port Vale,0-2,-
+-,-,Hartlepool United,Port Vale,1-5,-
+-,-,Millwall,Port Vale,4-2,-
+-,-,Northampton Town,Port Vale,2-4,-
+-,-,Oldham Athletic,Port Vale,0-2,-
+-,-,Shrewsbury Town,Port Vale,4-3,-
+-,-,Southport,Port Vale,2-2,-
+-,-,Torquay United,Port Vale,1-1,-
+-,-,Walsall,Port Vale,1-1,-
+-,-,Watford,Port Vale,0-2,-
+-,-,Workington,Port Vale,2-2,-
+-,-,York City,Port Vale,0-0,-
+-,-,Aldershot,Shrewsbury Town,0-0,-
+-,-,Barrow,Shrewsbury Town,3-4,-
+-,-,Bradford Park Avenue,Shrewsbury Town,3-1,-
+-,-,Carlisle United,Shrewsbury Town,0-0,-
+-,-,Chester,Shrewsbury Town,3-5,-
+-,-,Coventry City,Shrewsbury Town,3-2,-
+-,-,Crewe Alexandra,Shrewsbury Town,2-4,-
+-,-,Crystal Palace,Shrewsbury Town,4-3,-
+-,-,Darlington,Shrewsbury Town,2-1,-
+-,-,Exeter City,Shrewsbury Town,1-0,-
+-,-,Gateshead,Shrewsbury Town,1-2,-
+-,-,Gillingham,Shrewsbury Town,2-1,-
+-,-,Hartlepool United,Shrewsbury Town,0-2,-
+-,-,Millwall,Shrewsbury Town,0-0,-
+-,-,Northampton Town,Shrewsbury Town,3-3,-
+-,-,Oldham Athletic,Shrewsbury Town,3-1,-
+-,-,Port Vale,Shrewsbury Town,2-0,-
+-,-,Southport,Shrewsbury Town,0-1,-
+-,-,Torquay United,Shrewsbury Town,1-4,-
+-,-,Walsall,Shrewsbury Town,2-3,-
+-,-,Watford,Shrewsbury Town,1-4,-
+-,-,Workington,Shrewsbury Town,1-1,-
+-,-,York City,Shrewsbury Town,2-0,-
+-,-,Aldershot,Southport,3-2,-
+-,-,Barrow,Southport,3-0,-
+-,-,Bradford Park Avenue,Southport,3-0,-
+-,-,Carlisle United,Southport,5-0,-
+-,-,Chester,Southport,2-1,-
+-,-,Coventry City,Southport,1-0,-
+-,-,Crewe Alexandra,Southport,1-1,-
+-,-,Crystal Palace,Southport,1-0,-
+-,-,Darlington,Southport,4-0,-
+-,-,Exeter City,Southport,3-2,-
+-,-,Gateshead,Southport,1-1,-
+-,-,Gillingham,Southport,2-0,-
+-,-,Hartlepool United,Southport,1-1,-
+-,-,Millwall,Southport,1-1,-
+-,-,Northampton Town,Southport,3-1,-
+-,-,Oldham Athletic,Southport,2-0,-
+-,-,Port Vale,Southport,4-1,-
+-,-,Shrewsbury Town,Southport,6-2,-
+-,-,Torquay United,Southport,1-0,-
+-,-,Walsall,Southport,5-1,-
+-,-,Watford,Southport,5-1,-
+-,-,Workington,Southport,2-0,-
+-,-,York City,Southport,2-0,-
+-,-,Aldershot,Torquay United,1-4,-
+-,-,Barrow,Torquay United,2-2,-
+-,-,Bradford Park Avenue,Torquay United,3-1,-
+-,-,Carlisle United,Torquay United,0-1,-
+-,-,Chester,Torquay United,0-2,-
+-,-,Coventry City,Torquay United,3-0,-
+-,-,Crewe Alexandra,Torquay United,1-1,-
+-,-,Crystal Palace,Torquay United,3-1,-
+-,-,Darlington,Torquay United,3-2,-
+-,-,Exeter City,Torquay United,2-2,-
+-,-,Gateshead,Torquay United,1-0,-
+-,-,Gillingham,Torquay United,3-2,-
+-,-,Hartlepool United,Torquay United,2-4,-
+-,-,Millwall,Torquay United,2-0,-
+-,-,Northampton Town,Torquay United,1-1,-
+-,-,Oldham Athletic,Torquay United,1-0,-
+-,-,Port Vale,Torquay United,3-1,-
+-,-,Shrewsbury Town,Torquay United,5-0,-
+-,-,Southport,Torquay United,2-2,-
+-,-,Walsall,Torquay United,2-2,-
+-,-,Watford,Torquay United,1-2,-
+-,-,Workington,Torquay United,3-3,-
+-,-,York City,Torquay United,1-0,-
+-,-,Aldershot,Walsall,0-5,-
+-,-,Barrow,Walsall,0-0,-
+-,-,Bradford Park Avenue,Walsall,3-2,-
+-,-,Carlisle United,Walsall,1-1,-
+-,-,Chester,Walsall,2-0,-
+-,-,Coventry City,Walsall,0-0,-
+-,-,Crewe Alexandra,Walsall,5-3,-
+-,-,Crystal Palace,Walsall,1-3,-
+-,-,Darlington,Walsall,2-3,-
+-,-,Exeter City,Walsall,3-0,-
+-,-,Gateshead,Walsall,2-1,-
+-,-,Gillingham,Walsall,4-2,-
+-,-,Hartlepool United,Walsall,1-1,-
+-,-,Millwall,Walsall,1-3,-
+-,-,Northampton Town,Walsall,3-2,-
+-,-,Oldham Athletic,Walsall,1-4,-
+-,-,Port Vale,Walsall,2-1,-
+-,-,Shrewsbury Town,Walsall,2-0,-
+-,-,Southport,Walsall,1-1,-
+-,-,Torquay United,Walsall,1-2,-
+-,-,Watford,Walsall,1-2,-
+-,-,Workington,Walsall,0-1,-
+-,-,York City,Walsall,3-2,-
+-,-,Aldershot,Watford,0-0,-
+-,-,Barrow,Watford,0-4,-
+-,-,Bradford Park Avenue,Watford,1-1,-
+-,-,Carlisle United,Watford,2-0,-
+-,-,Chester,Watford,2-1,-
+-,-,Coventry City,Watford,1-0,-
+-,-,Crewe Alexandra,Watford,1-3,-
+-,-,Crystal Palace,Watford,3-0,-
+-,-,Darlington,Watford,1-1,-
+-,-,Exeter City,Watford,3-0,-
+-,-,Gateshead,Watford,1-0,-
+-,-,Gillingham,Watford,2-1,-
+-,-,Hartlepool United,Watford,4-3,-
+-,-,Millwall,Watford,4-1,-
+-,-,Northampton Town,Watford,2-1,-
+-,-,Oldham Athletic,Watford,3-5,-
+-,-,Port Vale,Watford,1-3,-
+-,-,Shrewsbury Town,Watford,4-2,-
+-,-,Southport,Watford,0-3,-
+-,-,Torquay United,Watford,2-3,-
+-,-,Walsall,Watford,3-2,-
+-,-,Workington,Watford,3-1,-
+-,-,York City,Watford,0-0,-
+-,-,Aldershot,Workington,2-0,-
+-,-,Barrow,Workington,2-2,-
+-,-,Bradford Park Avenue,Workington,3-2,-
+-,-,Carlisle United,Workington,3-2,-
+-,-,Chester,Workington,1-2,-
+-,-,Coventry City,Workington,4-0,-
+-,-,Crewe Alexandra,Workington,2-0,-
+-,-,Crystal Palace,Workington,1-1,-
+-,-,Darlington,Workington,1-1,-
+-,-,Exeter City,Workington,1-0,-
+-,-,Gateshead,Workington,0-3,-
+-,-,Gillingham,Workington,5-1,-
+-,-,Hartlepool United,Workington,0-3,-
+-,-,Millwall,Workington,1-1,-
+-,-,Northampton Town,Workington,1-1,-
+-,-,Oldham Athletic,Workington,1-0,-
+-,-,Port Vale,Workington,2-0,-
+-,-,Shrewsbury Town,Workington,1-1,-
+-,-,Southport,Workington,3-0,-
+-,-,Torquay United,Workington,4-1,-
+-,-,Walsall,Workington,3-0,-
+-,-,Watford,Workington,3-0,-
+-,-,York City,Workington,2-2,-
+-,-,Aldershot,York City,0-1,-
+-,-,Barrow,York City,2-3,-
+-,-,Bradford Park Avenue,York City,2-1,-
+-,-,Carlisle United,York City,0-0,-
+-,-,Chester,York City,2-2,-
+-,-,Coventry City,York City,2-0,-
+-,-,Crewe Alexandra,York City,2-4,-
+-,-,Crystal Palace,York City,0-0,-
+-,-,Darlington,York City,0-1,-
+-,-,Exeter City,York City,0-2,-
+-,-,Gateshead,York City,1-0,-
+-,-,Gillingham,York City,2-2,-
+-,-,Hartlepool United,York City,1-5,-
+-,-,Millwall,York City,5-2,-
+-,-,Northampton Town,York City,1-2,-
+-,-,Oldham Athletic,York City,0-1,-
+-,-,Port Vale,York City,2-2,-
+-,-,Shrewsbury Town,York City,2-2,-
+-,-,Southport,York City,1-0,-
+-,-,Torquay United,York City,1-1,-
+-,-,Walsall,York City,5-0,-
+-,-,Watford,York City,2-3,-
+-,-,Workington,York City,2-2,-

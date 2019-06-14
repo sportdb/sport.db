@@ -1,0 +1,9 @@
+####################################
+#  Croatia (hr)
+
+
+ Dinamo Zagreb   =>    GNK Dinamo Zagreb, Zagreb
+ Hajduk Split    =>    HNK Hajduk Split,  Split
+
+
+ 

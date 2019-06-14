@@ -1,0 +1,6 @@
+################################################
+#  Czech Republic (cz)
+
+
+Sparta Praha | AC Sparta Praha =>  AC Sparta Praha, Praha     ## Prague [en]
+FK Dukla Prague                =>  FK Dukla Praha, Praha

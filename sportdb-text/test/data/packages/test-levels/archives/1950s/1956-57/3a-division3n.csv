@@ -1,0 +1,553 @@
+Round,Date,Team 1,Team 2,FT,HT
+-,-,Barrow,Accrington Stanley,3-1,-
+-,-,Bradford City,Accrington Stanley,1-2,-
+-,-,Bradford Park Avenue,Accrington Stanley,2-0,-
+-,-,Carlisle United,Accrington Stanley,2-2,-
+-,-,Chester,Accrington Stanley,0-2,-
+-,-,Chesterfield,Accrington Stanley,1-0,-
+-,-,Crewe Alexandra,Accrington Stanley,3-4,-
+-,-,Darlington,Accrington Stanley,0-0,-
+-,-,Derby County,Accrington Stanley,2-2,-
+-,-,Gateshead,Accrington Stanley,1-1,-
+-,-,Halifax Town,Accrington Stanley,0-1,-
+-,-,Hartlepool United,Accrington Stanley,2-1,-
+-,-,Hull City,Accrington Stanley,2-1,-
+-,-,Mansfield Town,Accrington Stanley,1-3,-
+-,-,Oldham Athletic,Accrington Stanley,2-4,-
+-,-,Rochdale,Accrington Stanley,0-2,-
+-,-,Scunthorpe United,Accrington Stanley,2-3,-
+-,-,Southport,Accrington Stanley,3-5,-
+-,-,Stockport County,Accrington Stanley,2-1,-
+-,-,Tranmere Rovers,Accrington Stanley,1-2,-
+-,-,Workington,Accrington Stanley,4-1,-
+-,-,Wrexham,Accrington Stanley,5-2,-
+-,-,York City,Accrington Stanley,3-1,-
+-,-,Accrington Stanley,Barrow,4-1,-
+-,-,Bradford City,Barrow,0-2,-
+-,-,Bradford Park Avenue,Barrow,4-1,-
+-,-,Carlisle United,Barrow,1-1,-
+-,-,Chester,Barrow,2-0,-
+-,-,Chesterfield,Barrow,3-2,-
+-,-,Crewe Alexandra,Barrow,1-1,-
+-,-,Darlington,Barrow,1-1,-
+-,-,Derby County,Barrow,3-3,-
+-,-,Gateshead,Barrow,2-2,-
+-,-,Halifax Town,Barrow,3-2,-
+-,-,Hartlepool United,Barrow,2-0,-
+-,-,Hull City,Barrow,3-0,-
+-,-,Mansfield Town,Barrow,1-3,-
+-,-,Oldham Athletic,Barrow,0-1,-
+-,-,Rochdale,Barrow,1-0,-
+-,-,Scunthorpe United,Barrow,1-1,-
+-,-,Southport,Barrow,0-0,-
+-,-,Stockport County,Barrow,2-1,-
+-,-,Tranmere Rovers,Barrow,0-2,-
+-,-,Workington,Barrow,0-1,-
+-,-,Wrexham,Barrow,5-0,-
+-,-,York City,Barrow,1-0,-
+-,-,Accrington Stanley,Bradford City,0-2,-
+-,-,Barrow,Bradford City,4-0,-
+-,-,Bradford Park Avenue,Bradford City,2-0,-
+-,-,Carlisle United,Bradford City,1-4,-
+-,-,Chester,Bradford City,1-2,-
+-,-,Chesterfield,Bradford City,1-1,-
+-,-,Crewe Alexandra,Bradford City,1-0,-
+-,-,Darlington,Bradford City,3-2,-
+-,-,Derby County,Bradford City,0-2,-
+-,-,Gateshead,Bradford City,1-2,-
+-,-,Halifax Town,Bradford City,0-2,-
+-,-,Hartlepool United,Bradford City,2-0,-
+-,-,Hull City,Bradford City,1-0,-
+-,-,Mansfield Town,Bradford City,3-1,-
+-,-,Oldham Athletic,Bradford City,1-1,-
+-,-,Rochdale,Bradford City,4-1,-
+-,-,Scunthorpe United,Bradford City,1-1,-
+-,-,Southport,Bradford City,1-5,-
+-,-,Stockport County,Bradford City,1-1,-
+-,-,Tranmere Rovers,Bradford City,0-0,-
+-,-,Workington,Bradford City,5-1,-
+-,-,Wrexham,Bradford City,1-2,-
+-,-,York City,Bradford City,3-1,-
+-,-,Accrington Stanley,Bradford Park Avenue,5-0,-
+-,-,Barrow,Bradford Park Avenue,1-0,-
+-,-,Bradford City,Bradford Park Avenue,2-0,-
+-,-,Carlisle United,Bradford Park Avenue,2-1,-
+-,-,Chester,Bradford Park Avenue,2-0,-
+-,-,Chesterfield,Bradford Park Avenue,4-1,-
+-,-,Crewe Alexandra,Bradford Park Avenue,2-0,-
+-,-,Darlington,Bradford Park Avenue,0-5,-
+-,-,Derby County,Bradford Park Avenue,6-1,-
+-,-,Gateshead,Bradford Park Avenue,1-3,-
+-,-,Halifax Town,Bradford Park Avenue,3-1,-
+-,-,Hartlepool United,Bradford Park Avenue,2-1,-
+-,-,Hull City,Bradford Park Avenue,2-0,-
+-,-,Mansfield Town,Bradford Park Avenue,2-1,-
+-,-,Oldham Athletic,Bradford Park Avenue,3-1,-
+-,-,Rochdale,Bradford Park Avenue,2-1,-
+-,-,Scunthorpe United,Bradford Park Avenue,2-2,-
+-,-,Southport,Bradford Park Avenue,5-1,-
+-,-,Stockport County,Bradford Park Avenue,4-0,-
+-,-,Tranmere Rovers,Bradford Park Avenue,0-3,-
+-,-,Workington,Bradford Park Avenue,0-1,-
+-,-,Wrexham,Bradford Park Avenue,2-0,-
+-,-,York City,Bradford Park Avenue,1-2,-
+-,-,Accrington Stanley,Carlisle United,1-2,-
+-,-,Barrow,Carlisle United,3-0,-
+-,-,Bradford City,Carlisle United,3-2,-
+-,-,Bradford Park Avenue,Carlisle United,1-3,-
+-,-,Chester,Carlisle United,1-2,-
+-,-,Chesterfield,Carlisle United,2-2,-
+-,-,Crewe Alexandra,Carlisle United,2-2,-
+-,-,Darlington,Carlisle United,0-1,-
+-,-,Derby County,Carlisle United,3-0,-
+-,-,Gateshead,Carlisle United,4-2,-
+-,-,Halifax Town,Carlisle United,1-3,-
+-,-,Hartlepool United,Carlisle United,2-1,-
+-,-,Hull City,Carlisle United,0-0,-
+-,-,Mansfield Town,Carlisle United,5-1,-
+-,-,Oldham Athletic,Carlisle United,2-2,-
+-,-,Rochdale,Carlisle United,2-1,-
+-,-,Scunthorpe United,Carlisle United,1-2,-
+-,-,Southport,Carlisle United,4-1,-
+-,-,Stockport County,Carlisle United,2-0,-
+-,-,Tranmere Rovers,Carlisle United,0-1,-
+-,-,Workington,Carlisle United,2-0,-
+-,-,Wrexham,Carlisle United,6-4,-
+-,-,York City,Carlisle United,2-0,-
+-,-,Accrington Stanley,Chester,4-0,-
+-,-,Barrow,Chester,3-0,-
+-,-,Bradford City,Chester,1-0,-
+-,-,Bradford Park Avenue,Chester,3-1,-
+-,-,Carlisle United,Chester,3-0,-
+-,-,Chesterfield,Chester,3-0,-
+-,-,Crewe Alexandra,Chester,0-0,-
+-,-,Darlington,Chester,5-1,-
+-,-,Derby County,Chester,3-0,-
+-,-,Gateshead,Chester,4-1,-
+-,-,Halifax Town,Chester,2-1,-
+-,-,Hartlepool United,Chester,2-2,-
+-,-,Hull City,Chester,2-0,-
+-,-,Mansfield Town,Chester,1-1,-
+-,-,Oldham Athletic,Chester,0-0,-
+-,-,Rochdale,Chester,2-1,-
+-,-,Scunthorpe United,Chester,3-0,-
+-,-,Southport,Chester,1-1,-
+-,-,Stockport County,Chester,2-1,-
+-,-,Tranmere Rovers,Chester,3-1,-
+-,-,Workington,Chester,0-1,-
+-,-,Wrexham,Chester,2-2,-
+-,-,York City,Chester,0-1,-
+-,-,Accrington Stanley,Chesterfield,1-1,-
+-,-,Barrow,Chesterfield,2-1,-
+-,-,Bradford City,Chesterfield,3-2,-
+-,-,Bradford Park Avenue,Chesterfield,2-0,-
+-,-,Carlisle United,Chesterfield,4-2,-
+-,-,Chester,Chesterfield,3-4,-
+-,-,Crewe Alexandra,Chesterfield,0-4,-
+-,-,Darlington,Chesterfield,4-1,-
+-,-,Derby County,Chesterfield,7-1,-
+-,-,Gateshead,Chesterfield,1-3,-
+-,-,Halifax Town,Chesterfield,2-1,-
+-,-,Hartlepool United,Chesterfield,5-1,-
+-,-,Hull City,Chesterfield,3-2,-
+-,-,Mansfield Town,Chesterfield,3-0,-
+-,-,Oldham Athletic,Chesterfield,3-3,-
+-,-,Rochdale,Chesterfield,1-0,-
+-,-,Scunthorpe United,Chesterfield,5-1,-
+-,-,Southport,Chesterfield,0-0,-
+-,-,Stockport County,Chesterfield,2-1,-
+-,-,Tranmere Rovers,Chesterfield,2-2,-
+-,-,Workington,Chesterfield,2-1,-
+-,-,Wrexham,Chesterfield,1-3,-
+-,-,York City,Chesterfield,1-2,-
+-,-,Accrington Stanley,Crewe Alexandra,5-0,-
+-,-,Barrow,Crewe Alexandra,3-0,-
+-,-,Bradford City,Crewe Alexandra,5-1,-
+-,-,Bradford Park Avenue,Crewe Alexandra,4-3,-
+-,-,Carlisle United,Crewe Alexandra,2-1,-
+-,-,Chester,Crewe Alexandra,4-1,-
+-,-,Chesterfield,Crewe Alexandra,2-0,-
+-,-,Darlington,Crewe Alexandra,3-0,-
+-,-,Derby County,Crewe Alexandra,4-0,-
+-,-,Gateshead,Crewe Alexandra,1-1,-
+-,-,Halifax Town,Crewe Alexandra,1-0,-
+-,-,Hartlepool United,Crewe Alexandra,2-0,-
+-,-,Hull City,Crewe Alexandra,2-0,-
+-,-,Mansfield Town,Crewe Alexandra,2-1,-
+-,-,Oldham Athletic,Crewe Alexandra,2-0,-
+-,-,Rochdale,Crewe Alexandra,1-1,-
+-,-,Scunthorpe United,Crewe Alexandra,5-1,-
+-,-,Southport,Crewe Alexandra,0-1,-
+-,-,Stockport County,Crewe Alexandra,2-0,-
+-,-,Tranmere Rovers,Crewe Alexandra,3-0,-
+-,-,Workington,Crewe Alexandra,4-0,-
+-,-,Wrexham,Crewe Alexandra,5-0,-
+-,-,York City,Crewe Alexandra,2-1,-
+-,-,Accrington Stanley,Darlington,4-2,-
+-,-,Barrow,Darlington,3-1,-
+-,-,Bradford City,Darlington,1-2,-
+-,-,Bradford Park Avenue,Darlington,3-1,-
+-,-,Carlisle United,Darlington,1-2,-
+-,-,Chester,Darlington,0-3,-
+-,-,Chesterfield,Darlington,4-1,-
+-,-,Crewe Alexandra,Darlington,1-3,-
+-,-,Derby County,Darlington,1-1,-
+-,-,Gateshead,Darlington,1-2,-
+-,-,Halifax Town,Darlington,3-2,-
+-,-,Hartlepool United,Darlington,2-1,-
+-,-,Hull City,Darlington,1-1,-
+-,-,Mansfield Town,Darlington,7-3,-
+-,-,Oldham Athletic,Darlington,3-2,-
+-,-,Rochdale,Darlington,3-0,-
+-,-,Scunthorpe United,Darlington,1-2,-
+-,-,Southport,Darlington,1-0,-
+-,-,Stockport County,Darlington,5-2,-
+-,-,Tranmere Rovers,Darlington,2-2,-
+-,-,Workington,Darlington,6-2,-
+-,-,Wrexham,Darlington,5-0,-
+-,-,York City,Darlington,1-0,-
+-,-,Accrington Stanley,Derby County,0-0,-
+-,-,Barrow,Derby County,2-2,-
+-,-,Bradford City,Derby County,0-2,-
+-,-,Bradford Park Avenue,Derby County,3-2,-
+-,-,Carlisle United,Derby County,1-3,-
+-,-,Chester,Derby County,2-2,-
+-,-,Chesterfield,Derby County,2-2,-
+-,-,Crewe Alexandra,Derby County,2-5,-
+-,-,Darlington,Derby County,1-1,-
+-,-,Gateshead,Derby County,1-1,-
+-,-,Halifax Town,Derby County,1-0,-
+-,-,Hartlepool United,Derby County,2-1,-
+-,-,Hull City,Derby County,3-3,-
+-,-,Mansfield Town,Derby County,1-2,-
+-,-,Oldham Athletic,Derby County,1-2,-
+-,-,Rochdale,Derby County,3-1,-
+-,-,Scunthorpe United,Derby County,1-4,-
+-,-,Southport,Derby County,3-2,-
+-,-,Stockport County,Derby County,3-2,-
+-,-,Tranmere Rovers,Derby County,0-1,-
+-,-,Workington,Derby County,2-1,-
+-,-,Wrexham,Derby County,0-2,-
+-,-,York City,Derby County,1-1,-
+-,-,Accrington Stanley,Gateshead,2-0,-
+-,-,Barrow,Gateshead,1-2,-
+-,-,Bradford City,Gateshead,3-1,-
+-,-,Bradford Park Avenue,Gateshead,0-1,-
+-,-,Carlisle United,Gateshead,3-2,-
+-,-,Chester,Gateshead,4-1,-
+-,-,Chesterfield,Gateshead,6-0,-
+-,-,Crewe Alexandra,Gateshead,0-3,-
+-,-,Darlington,Gateshead,7-0,-
+-,-,Derby County,Gateshead,5-3,-
+-,-,Halifax Town,Gateshead,0-1,-
+-,-,Hartlepool United,Gateshead,4-1,-
+-,-,Hull City,Gateshead,1-1,-
+-,-,Mansfield Town,Gateshead,2-4,-
+-,-,Oldham Athletic,Gateshead,1-2,-
+-,-,Rochdale,Gateshead,0-0,-
+-,-,Scunthorpe United,Gateshead,1-2,-
+-,-,Southport,Gateshead,2-3,-
+-,-,Stockport County,Gateshead,1-1,-
+-,-,Tranmere Rovers,Gateshead,0-0,-
+-,-,Workington,Gateshead,2-1,-
+-,-,Wrexham,Gateshead,4-1,-
+-,-,York City,Gateshead,1-0,-
+-,-,Accrington Stanley,Halifax Town,4-0,-
+-,-,Barrow,Halifax Town,1-0,-
+-,-,Bradford City,Halifax Town,1-0,-
+-,-,Bradford Park Avenue,Halifax Town,2-1,-
+-,-,Carlisle United,Halifax Town,0-0,-
+-,-,Chester,Halifax Town,1-1,-
+-,-,Chesterfield,Halifax Town,2-1,-
+-,-,Crewe Alexandra,Halifax Town,1-3,-
+-,-,Darlington,Halifax Town,0-1,-
+-,-,Derby County,Halifax Town,6-0,-
+-,-,Gateshead,Halifax Town,2-1,-
+-,-,Hartlepool United,Halifax Town,0-1,-
+-,-,Hull City,Halifax Town,3-1,-
+-,-,Mansfield Town,Halifax Town,2-0,-
+-,-,Oldham Athletic,Halifax Town,4-3,-
+-,-,Rochdale,Halifax Town,1-1,-
+-,-,Scunthorpe United,Halifax Town,6-1,-
+-,-,Southport,Halifax Town,1-1,-
+-,-,Stockport County,Halifax Town,2-2,-
+-,-,Tranmere Rovers,Halifax Town,0-2,-
+-,-,Workington,Halifax Town,3-1,-
+-,-,Wrexham,Halifax Town,3-2,-
+-,-,York City,Halifax Town,1-2,-
+-,-,Accrington Stanley,Hartlepool United,2-1,-
+-,-,Barrow,Hartlepool United,3-1,-
+-,-,Bradford City,Hartlepool United,1-1,-
+-,-,Bradford Park Avenue,Hartlepool United,0-2,-
+-,-,Carlisle United,Hartlepool United,2-1,-
+-,-,Chester,Hartlepool United,0-1,-
+-,-,Chesterfield,Hartlepool United,5-1,-
+-,-,Crewe Alexandra,Hartlepool United,1-2,-
+-,-,Darlington,Hartlepool United,3-1,-
+-,-,Derby County,Hartlepool United,2-0,-
+-,-,Gateshead,Hartlepool United,4-3,-
+-,-,Halifax Town,Hartlepool United,2-0,-
+-,-,Hull City,Hartlepool United,2-0,-
+-,-,Mansfield Town,Hartlepool United,4-1,-
+-,-,Oldham Athletic,Hartlepool United,0-0,-
+-,-,Rochdale,Hartlepool United,1-0,-
+-,-,Scunthorpe United,Hartlepool United,1-2,-
+-,-,Southport,Hartlepool United,1-6,-
+-,-,Stockport County,Hartlepool United,2-4,-
+-,-,Tranmere Rovers,Hartlepool United,0-1,-
+-,-,Workington,Hartlepool United,1-1,-
+-,-,Wrexham,Hartlepool United,2-2,-
+-,-,York City,Hartlepool United,3-3,-
+-,-,Accrington Stanley,Hull City,0-3,-
+-,-,Barrow,Hull City,1-2,-
+-,-,Bradford City,Hull City,2-1,-
+-,-,Bradford Park Avenue,Hull City,4-1,-
+-,-,Carlisle United,Hull City,1-3,-
+-,-,Chester,Hull City,1-1,-
+-,-,Chesterfield,Hull City,3-1,-
+-,-,Crewe Alexandra,Hull City,2-3,-
+-,-,Darlington,Hull City,1-1,-
+-,-,Derby County,Hull City,1-0,-
+-,-,Gateshead,Hull City,2-0,-
+-,-,Halifax Town,Hull City,1-0,-
+-,-,Hartlepool United,Hull City,3-3,-
+-,-,Mansfield Town,Hull City,2-1,-
+-,-,Oldham Athletic,Hull City,1-3,-
+-,-,Rochdale,Hull City,4-3,-
+-,-,Scunthorpe United,Hull City,1-1,-
+-,-,Southport,Hull City,1-0,-
+-,-,Stockport County,Hull City,1-2,-
+-,-,Tranmere Rovers,Hull City,2-4,-
+-,-,Workington,Hull City,4-3,-
+-,-,Wrexham,Hull City,5-2,-
+-,-,York City,Hull City,2-1,-
+-,-,Accrington Stanley,Mansfield Town,3-3,-
+-,-,Barrow,Mansfield Town,2-0,-
+-,-,Bradford City,Mansfield Town,4-3,-
+-,-,Bradford Park Avenue,Mansfield Town,1-4,-
+-,-,Carlisle United,Mansfield Town,6-1,-
+-,-,Chester,Mansfield Town,6-2,-
+-,-,Chesterfield,Mansfield Town,1-0,-
+-,-,Crewe Alexandra,Mansfield Town,6-4,-
+-,-,Darlington,Mansfield Town,1-3,-
+-,-,Derby County,Mansfield Town,4-0,-
+-,-,Gateshead,Mansfield Town,1-1,-
+-,-,Halifax Town,Mansfield Town,2-1,-
+-,-,Hartlepool United,Mansfield Town,2-1,-
+-,-,Hull City,Mansfield Town,1-2,-
+-,-,Oldham Athletic,Mansfield Town,1-1,-
+-,-,Rochdale,Mansfield Town,0-0,-
+-,-,Scunthorpe United,Mansfield Town,0-1,-
+-,-,Southport,Mansfield Town,1-1,-
+-,-,Stockport County,Mansfield Town,2-1,-
+-,-,Tranmere Rovers,Mansfield Town,3-1,-
+-,-,Workington,Mansfield Town,3-3,-
+-,-,Wrexham,Mansfield Town,0-0,-
+-,-,York City,Mansfield Town,2-0,-
+-,-,Accrington Stanley,Oldham Athletic,2-2,-
+-,-,Barrow,Oldham Athletic,2-1,-
+-,-,Bradford City,Oldham Athletic,4-1,-
+-,-,Bradford Park Avenue,Oldham Athletic,2-2,-
+-,-,Carlisle United,Oldham Athletic,2-2,-
+-,-,Chester,Oldham Athletic,1-0,-
+-,-,Chesterfield,Oldham Athletic,1-0,-
+-,-,Crewe Alexandra,Oldham Athletic,2-2,-
+-,-,Darlington,Oldham Athletic,1-0,-
+-,-,Derby County,Oldham Athletic,3-2,-
+-,-,Gateshead,Oldham Athletic,2-3,-
+-,-,Halifax Town,Oldham Athletic,1-1,-
+-,-,Hartlepool United,Oldham Athletic,4-1,-
+-,-,Hull City,Oldham Athletic,2-1,-
+-,-,Mansfield Town,Oldham Athletic,2-4,-
+-,-,Rochdale,Oldham Athletic,0-2,-
+-,-,Scunthorpe United,Oldham Athletic,0-0,-
+-,-,Southport,Oldham Athletic,2-0,-
+-,-,Stockport County,Oldham Athletic,2-1,-
+-,-,Tranmere Rovers,Oldham Athletic,2-1,-
+-,-,Workington,Oldham Athletic,0-0,-
+-,-,Wrexham,Oldham Athletic,4-4,-
+-,-,York City,Oldham Athletic,2-1,-
+-,-,Accrington Stanley,Rochdale,2-1,-
+-,-,Barrow,Rochdale,2-0,-
+-,-,Bradford City,Rochdale,1-1,-
+-,-,Bradford Park Avenue,Rochdale,0-0,-
+-,-,Carlisle United,Rochdale,2-1,-
+-,-,Chester,Rochdale,2-2,-
+-,-,Chesterfield,Rochdale,2-2,-
+-,-,Crewe Alexandra,Rochdale,1-6,-
+-,-,Darlington,Rochdale,4-3,-
+-,-,Derby County,Rochdale,3-0,-
+-,-,Gateshead,Rochdale,2-1,-
+-,-,Halifax Town,Rochdale,2-1,-
+-,-,Hartlepool United,Rochdale,0-0,-
+-,-,Hull City,Rochdale,2-0,-
+-,-,Mansfield Town,Rochdale,2-3,-
+-,-,Oldham Athletic,Rochdale,0-1,-
+-,-,Scunthorpe United,Rochdale,1-0,-
+-,-,Southport,Rochdale,0-1,-
+-,-,Stockport County,Rochdale,3-1,-
+-,-,Tranmere Rovers,Rochdale,2-2,-
+-,-,Workington,Rochdale,5-0,-
+-,-,Wrexham,Rochdale,4-1,-
+-,-,York City,Rochdale,4-0,-
+-,-,Accrington Stanley,Scunthorpe United,0-1,-
+-,-,Barrow,Scunthorpe United,1-2,-
+-,-,Bradford City,Scunthorpe United,3-1,-
+-,-,Bradford Park Avenue,Scunthorpe United,1-2,-
+-,-,Carlisle United,Scunthorpe United,0-0,-
+-,-,Chester,Scunthorpe United,2-2,-
+-,-,Chesterfield,Scunthorpe United,1-0,-
+-,-,Crewe Alexandra,Scunthorpe United,2-1,-
+-,-,Darlington,Scunthorpe United,1-2,-
+-,-,Derby County,Scunthorpe United,4-0,-
+-,-,Gateshead,Scunthorpe United,0-0,-
+-,-,Halifax Town,Scunthorpe United,1-0,-
+-,-,Hartlepool United,Scunthorpe United,0-0,-
+-,-,Hull City,Scunthorpe United,2-2,-
+-,-,Mansfield Town,Scunthorpe United,1-1,-
+-,-,Oldham Athletic,Scunthorpe United,1-1,-
+-,-,Rochdale,Scunthorpe United,3-0,-
+-,-,Southport,Scunthorpe United,2-2,-
+-,-,Stockport County,Scunthorpe United,1-3,-
+-,-,Tranmere Rovers,Scunthorpe United,4-2,-
+-,-,Workington,Scunthorpe United,2-2,-
+-,-,Wrexham,Scunthorpe United,1-1,-
+-,-,York City,Scunthorpe United,0-2,-
+-,-,Accrington Stanley,Southport,4-2,-
+-,-,Barrow,Southport,1-1,-
+-,-,Bradford City,Southport,3-1,-
+-,-,Bradford Park Avenue,Southport,2-3,-
+-,-,Carlisle United,Southport,1-2,-
+-,-,Chester,Southport,2-0,-
+-,-,Chesterfield,Southport,6-0,-
+-,-,Crewe Alexandra,Southport,0-0,-
+-,-,Darlington,Southport,1-0,-
+-,-,Derby County,Southport,2-0,-
+-,-,Gateshead,Southport,3-1,-
+-,-,Halifax Town,Southport,3-1,-
+-,-,Hartlepool United,Southport,5-2,-
+-,-,Hull City,Southport,2-1,-
+-,-,Mansfield Town,Southport,1-2,-
+-,-,Oldham Athletic,Southport,2-1,-
+-,-,Rochdale,Southport,6-1,-
+-,-,Scunthorpe United,Southport,1-0,-
+-,-,Stockport County,Southport,2-0,-
+-,-,Tranmere Rovers,Southport,1-1,-
+-,-,Workington,Southport,2-0,-
+-,-,Wrexham,Southport,1-1,-
+-,-,York City,Southport,9-1,-
+-,-,Accrington Stanley,Stockport County,4-0,-
+-,-,Barrow,Stockport County,0-3,-
+-,-,Bradford City,Stockport County,1-1,-
+-,-,Bradford Park Avenue,Stockport County,3-2,-
+-,-,Carlisle United,Stockport County,3-3,-
+-,-,Chester,Stockport County,1-4,-
+-,-,Chesterfield,Stockport County,1-0,-
+-,-,Crewe Alexandra,Stockport County,0-1,-
+-,-,Darlington,Stockport County,3-1,-
+-,-,Derby County,Stockport County,2-0,-
+-,-,Gateshead,Stockport County,1-5,-
+-,-,Halifax Town,Stockport County,3-2,-
+-,-,Hartlepool United,Stockport County,4-1,-
+-,-,Hull City,Stockport County,5-3,-
+-,-,Mansfield Town,Stockport County,4-2,-
+-,-,Oldham Athletic,Stockport County,2-0,-
+-,-,Rochdale,Stockport County,2-2,-
+-,-,Scunthorpe United,Stockport County,2-3,-
+-,-,Southport,Stockport County,0-1,-
+-,-,Tranmere Rovers,Stockport County,2-2,-
+-,-,Workington,Stockport County,4-1,-
+-,-,Wrexham,Stockport County,2-3,-
+-,-,York City,Stockport County,0-0,-
+-,-,Accrington Stanley,Tranmere Rovers,1-0,-
+-,-,Barrow,Tranmere Rovers,5-0,-
+-,-,Bradford City,Tranmere Rovers,4-1,-
+-,-,Bradford Park Avenue,Tranmere Rovers,1-2,-
+-,-,Carlisle United,Tranmere Rovers,2-2,-
+-,-,Chester,Tranmere Rovers,1-1,-
+-,-,Chesterfield,Tranmere Rovers,3-1,-
+-,-,Crewe Alexandra,Tranmere Rovers,0-0,-
+-,-,Darlington,Tranmere Rovers,1-1,-
+-,-,Derby County,Tranmere Rovers,4-0,-
+-,-,Gateshead,Tranmere Rovers,3-1,-
+-,-,Halifax Town,Tranmere Rovers,4-0,-
+-,-,Hartlepool United,Tranmere Rovers,5-1,-
+-,-,Hull City,Tranmere Rovers,4-1,-
+-,-,Mansfield Town,Tranmere Rovers,3-0,-
+-,-,Oldham Athletic,Tranmere Rovers,1-0,-
+-,-,Rochdale,Tranmere Rovers,1-0,-
+-,-,Scunthorpe United,Tranmere Rovers,1-4,-
+-,-,Southport,Tranmere Rovers,1-0,-
+-,-,Stockport County,Tranmere Rovers,3-1,-
+-,-,Workington,Tranmere Rovers,3-2,-
+-,-,Wrexham,Tranmere Rovers,1-0,-
+-,-,York City,Tranmere Rovers,1-0,-
+-,-,Accrington Stanley,Workington,2-1,-
+-,-,Barrow,Workington,5-2,-
+-,-,Bradford City,Workington,2-3,-
+-,-,Bradford Park Avenue,Workington,1-3,-
+-,-,Carlisle United,Workington,1-1,-
+-,-,Chester,Workington,1-0,-
+-,-,Chesterfield,Workington,2-2,-
+-,-,Crewe Alexandra,Workington,0-1,-
+-,-,Darlington,Workington,4-2,-
+-,-,Derby County,Workington,2-3,-
+-,-,Gateshead,Workington,1-2,-
+-,-,Halifax Town,Workington,4-2,-
+-,-,Hartlepool United,Workington,2-1,-
+-,-,Hull City,Workington,0-2,-
+-,-,Mansfield Town,Workington,2-2,-
+-,-,Oldham Athletic,Workington,1-0,-
+-,-,Rochdale,Workington,0-0,-
+-,-,Scunthorpe United,Workington,2-1,-
+-,-,Southport,Workington,0-1,-
+-,-,Stockport County,Workington,0-1,-
+-,-,Tranmere Rovers,Workington,1-1,-
+-,-,Wrexham,Workington,3-0,-
+-,-,York City,Workington,2-2,-
+-,-,Accrington Stanley,Wrexham,1-0,-
+-,-,Barrow,Wrexham,2-1,-
+-,-,Bradford City,Wrexham,2-1,-
+-,-,Bradford Park Avenue,Wrexham,0-4,-
+-,-,Carlisle United,Wrexham,2-2,-
+-,-,Chester,Wrexham,0-0,-
+-,-,Chesterfield,Wrexham,2-1,-
+-,-,Crewe Alexandra,Wrexham,3-0,-
+-,-,Darlington,Wrexham,1-5,-
+-,-,Derby County,Wrexham,1-0,-
+-,-,Gateshead,Wrexham,4-0,-
+-,-,Halifax Town,Wrexham,1-2,-
+-,-,Hartlepool United,Wrexham,2-1,-
+-,-,Hull City,Wrexham,1-2,-
+-,-,Mansfield Town,Wrexham,3-1,-
+-,-,Oldham Athletic,Wrexham,1-2,-
+-,-,Rochdale,Wrexham,0-2,-
+-,-,Scunthorpe United,Wrexham,4-3,-
+-,-,Southport,Wrexham,1-1,-
+-,-,Stockport County,Wrexham,4-0,-
+-,-,Tranmere Rovers,Wrexham,2-4,-
+-,-,Workington,Wrexham,3-0,-
+-,-,York City,Wrexham,1-0,-
+-,-,Accrington Stanley,York City,3-0,-
+-,-,Barrow,York City,1-2,-
+-,-,Bradford City,York City,0-2,-
+-,-,Bradford Park Avenue,York City,0-2,-
+-,-,Carlisle United,York City,2-0,-
+-,-,Chester,York City,3-4,-
+-,-,Chesterfield,York City,3-4,-
+-,-,Crewe Alexandra,York City,1-1,-
+-,-,Darlington,York City,2-4,-
+-,-,Derby County,York City,1-0,-
+-,-,Gateshead,York City,0-2,-
+-,-,Halifax Town,York City,0-0,-
+-,-,Hartlepool United,York City,2-0,-
+-,-,Hull City,York City,1-1,-
+-,-,Mansfield Town,York City,4-1,-
+-,-,Oldham Athletic,York City,3-1,-
+-,-,Rochdale,York City,1-0,-
+-,-,Scunthorpe United,York City,2-1,-
+-,-,Southport,York City,1-1,-
+-,-,Stockport County,York City,3-0,-
+-,-,Tranmere Rovers,York City,3-3,-
+-,-,Workington,York City,3-2,-
+-,-,Wrexham,York City,1-1,-

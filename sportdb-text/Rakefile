@@ -1,0 +1,26 @@
+require 'hoe'
+require './lib/sportdb/text/version.rb'
+
+Hoe.spec 'sportdb-text' do
+
+  self.version = SportDb::Text::VERSION
+
+  self.summary = "sportdb-text - tools 'n' scripts for sports (football) data in text incl. comma-separated values (csv) format"
+  self.description = summary
+
+  self.urls = ['https://github.com/yorobot/football.csv/tree/master/sportdb-text']
+
+  self.author = 'Gerald Bauer'
+  self.email = 'opensport@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file = 'README.md'
+  self.history_file = 'HISTORY.md'
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+   :required_ruby_version => '>= 2.2.2'
+  }
+
+end

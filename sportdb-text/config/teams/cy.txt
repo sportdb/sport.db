@@ -1,0 +1,7 @@
+######################################################
+# Cyprus (cy)
+
+Omonia Nicosia        =>  AC Omonia Nicosia, Nicosia
+APOEL Nikosia         =>  APOEL Nicosia FC, Nicosia
+Anorthosis Famagusta  =>  Αnorthosis Famagusta FC, Larnaca    ## note: originally based in Famagusta, now based in Larnaca
+AEL Limassol          =>  AEL Limassol, Limassol        ## Athlitiki Enosi Lemesou

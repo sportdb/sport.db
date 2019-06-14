@@ -1,0 +1,5 @@
+####################################
+# Romania (ro)
+
+Steaua Bucuresti    =>   FC Steaua București, Bucharest
+Dinamo Bucuresti    =>   FC Dinamo București, Bucharest

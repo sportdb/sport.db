@@ -1,0 +1,5 @@
+############################################################
+# Russia (ru)
+
+Spartak Moskva     =>  FC Spartak Moskva, Moskva     ## Moscow [en]
+CSKA Moskva        =>  PFC CSKA Moskva, Moskva

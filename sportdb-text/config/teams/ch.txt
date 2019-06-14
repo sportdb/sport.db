@@ -1,0 +1,10 @@
+###################################################
+#  Switzerland (ch)
+
+
+Basel               =>  FC Basel 1893, Basel
+
+BSC Young Boys      =>  BSC Young Boys,          Bern
+
+Grasshoppers Zurich =>  Grasshopper Club Zürich, Zürich
+FC Zurich           =>  FC Zürich,               Zürich

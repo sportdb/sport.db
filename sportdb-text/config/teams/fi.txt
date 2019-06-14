@@ -1,0 +1,6 @@
+################################################
+# Finnland (fi)
+
+
+HJK Helsinki       =>  HJK Helsinki, Helsinki    ## Helsingin Jalkapalloklubi
+Haka Valkeakoski   =>  FC Haka Valkeakoski, Valkeakoski

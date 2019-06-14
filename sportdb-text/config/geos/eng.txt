@@ -1,0 +1,162 @@
+##
+# what name? use regions or maps or geos or zones or __?
+
+#
+# england
+#   see https://en.wikipedia.org/wiki/Subdivisions_of_England
+#   see https://www.bbc.co.uk/news/england/regions
+
+##
+#  todo: for sort order - allow different sort name
+#    e.g. East Sussex =>  Sussex (East) or Sussex, East   or something
+#   use <> for marking what counts for sorting
+#    e.g  East <Sussex>  => get auto-converted to Sussex, East   - why? why not?
+#
+#  more examples:
+#   North ‹Yorkshire›     =>  Yorkshire (North) or  Yorkshire, North
+#   Greater ‹London›      =>  London, Greater
+#   Greater ‹Manchaster›  =>  Manchaster, Greater
+
+
+##
+# note: uses all regions following the camra good beer guide (book)
+#
+
+======================================
+== North West England ==
+
+# Cumbria
+# Lancashire
+# Liverpool
+# Manchester
+
+Cheshire
+Cumbria
+Lancashire
+Greater Manchester | Manchester, Greater
+Liverpool & Merseyside | Merseyside          ## note: added Liverpool & - why? why not?
+
+
+===================================
+== North East England
+
+# Tees
+# Tyne & Wear
+
+Durham
+Newcastle & Northumberland | Northumberland        ## note: added Newcastle & - why? why not?
+Tyne and Wear
+
+
+=====================================
+== Yorkshire & Lincolnshire ==
+
+# Humberside
+# Leeds & West Yorkshire
+# Lincolnshire
+# Sheffield & South Yorkshire
+# York & North Yorkshire
+
+Lincolnshire
+West Yorkshire   | Yorkshire, West   | Yorkshire (West)
+South Yorkshire  | Yorkshire, South  | Yorkshire (South)
+North Yorkshire  | Yorkshire, North  | Yorkshire (North)
+East Yorkshire   | Yorkshire, East   | Yorkshire (East)
+
+
+==================================
+== West Midlands
+
+# Birmingham & Black Country
+# Coventry & Warwickshire
+# Hereford & Worcester
+# Shropshire
+# Stoke & Staffordshire
+
+Herefordshire
+Shropshire
+Staffordshire
+Warwickshire
+Birmingham & West Midlands | West Midlands       ## note: added Birmingham - why? why not?
+Worcestershire
+
+
+==================================
+== East Midlands
+
+# Derby
+# Leicester
+# Northampton
+# Nottingham
+
+Derbyshire
+Leicestershire
+Northamptonshire
+Nottinghamshire
+Rutland
+
+
+===================================
+== West & South West
+
+# Bristol
+# Cornwall
+# Devon
+# Gloucestershire
+# Somerset
+# Wiltshire
+
+
+Cornwall
+Devon
+Bristol & Gloucestershire | Gloucestershire
+Somerset
+Wiltshire
+
+
+=================================
+== East
+
+# Beds, Herts & Bucks
+# Cambridgeshire
+# Essex
+# Norfolk
+# Suffolk
+
+Bedfordshire
+Hertfordshire
+Buckinghamshire
+Cambridgeshire
+Essex
+Norfolk
+Suffolk
+
+
+===============================
+== South
+
+# Berkshire
+# Dorset
+# Hampshire & Isle of Wight
+# Oxford
+
+Berkshire
+Dorset
+Hampshire
+Oxfordshire
+
+
+
+===============================
+== London & South East
+
+# Kent
+# London
+# Surrey
+# Sussex
+
+Greater London | London, Greater
+Kent
+Surrey
+East Sussex | Sussex, East | Sussex (East)
+West Sussex | Sussex, West | Sussex (West)

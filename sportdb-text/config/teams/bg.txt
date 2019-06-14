@@ -1,0 +1,6 @@
+################################################
+# Bulgaria (bg)
+
+
+CSKA Sofia | CDNA Sofia  =>  PFC CSKA Sofia, Sofia     ## CDNA Sofia old name - add year?
+Levski Sofia     =>  PFC Levski Sofia, Sofia

@@ -8,7 +8,7 @@ Hoe.spec 'sportdb-text' do
   self.summary = "sportdb-text - tools 'n' scripts for sports (football) data in text incl. comma-separated values (csv) format"
   self.description = summary
 
-  self.urls = ['https://github.com/yorobot/football.csv/tree/master/sportdb-text']
+  self.urls = ['https://github.com/sportdb/sport.db']
 
   self.author = 'Gerald Bauer'
   self.email = 'opensport@googlegroups.com'

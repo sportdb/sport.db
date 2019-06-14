@@ -1,7 +1,7 @@
 # sportdb-text - tools 'n' scripts for sports (football) data in text incl. comma-separated values (csv) format
 
 
-* home  :: [github.com/yorobot/football.csv/tree/master/sportdb-text](https://github.com/yorobot/football.csv/tree/master/sportdb-text)
+* home  :: [github.com/sportdb/sport.db](https://github.com/sportdb/sport.db)
 * bugs  :: [github.com/sportdb/sport.db/issues](https://github.com/sportdb/sport.db/issues)
 * gem   :: [rubygems.org/gems/sportdb-text](https://rubygems.org/gems/sportdb-text)
 * rdoc  :: [rubydoc.info/gems/sportdb-text](http://rubydoc.info/gems/sportdb-text)

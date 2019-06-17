@@ -18,6 +18,19 @@ module SeasonHelper ## use Helpers why? why not?
   end  # method prev
 
 
+  def key( basename )
+    if basename =~ /^(\d{4})[\-\/](\d{4})$/      ## e.g. 2011-2012 or 2011/2012 => 2011/12
+      "%4d/%02d" % [$1.to_i, $2.to_i % 100]
+    elsif basename =~ /^(\d{4})[\-\/](\d{2})$/   ## e.g. 2011-12 or 2011/12  => 2011/12
+      "#{$1}/#{$2}"
+    elsif basename =~ /^(\d{4})$/
+      $1
+    else
+      puts "*** !!!! wrong season format >>#{basename}<<; exit; sorry"
+      exit 1
+    end
+  end  # method key
+
 
   def directory( season, format: nil )
     ##  todo: find better names for formats - why? why not?:
@@ -65,10 +78,9 @@ module SeasonHelper ## use Helpers why? why not?
     ## convert season name to "standard" season name for directory
 
     ## todo/check:  just return year from first for chars - keep it simple - why? why not?
-    season = season.tr('/','-')  ## todo/fix: use [\-/] in regex directly!!!
-    if season =~ /^(\d{4})-(\d{4})$/   ## e.g. 2011-2010 or 2011/2011 => 2011-10
+    if season =~ /^(\d{4})[\-\/](\d{4})$/   ## e.g. 2011-2010 or 2011/2011 => 2011-10
       $1
-    elsif season =~ /^(\d{4})-(\d{2})$/
+    elsif season =~ /^(\d{4})[\-\/](\d{2})$/
       $1
     elsif season =~ /^(\d{4})$/
       $1
@@ -80,10 +92,9 @@ module SeasonHelper ## use Helpers why? why not?
 
   def end_year( season ) ## get end year
     ## convert season name to "standard" season name for directory
-    season = season.tr('/','-')  ## todo/fix: use [\-/] in regex directly!!!
-    if season =~ /^(\d{4})-(\d{4})$/   ## e.g. 2011-2010 or 2011/2011 => 2011-10
+    if season =~ /^(\d{4})[\-\/](\d{4})$/   ## e.g. 2011-2010 or 2011/2011 => 2011-10
       $2
-    elsif season =~ /^(\d{4})-(\d{2})$/
+    elsif season =~ /^(\d{4})[\-\/](\d{2})$/
       ## note: assume second year is always +1
       ##    todo/fix: add assert/check - why? why not?
       ## eg. 1999-00 => 2000 or 1899-00 => 1900

@@ -11,7 +11,7 @@ class TestPackage < MiniTest::Test
 
 
   def test_glob
-    root_path = "#{SportDb::Import.test_data_dir}/packages/test-levels"
+    root_path = "#{SportDb::Text.test_data_dir}/packages/test-levels"
 
 ## check should NOT include /1980s  (with s)  only /1980 /1981 etc.
 season_patterns = [
@@ -28,7 +28,7 @@ pp season_paths
    end
 
   def test_package
-    path = "#{SportDb::Import.test_data_dir}/packages/test-levels"
+    path = "#{SportDb::Text.test_data_dir}/packages/test-levels"
 
     pack = CsvPackage.new( path )
 

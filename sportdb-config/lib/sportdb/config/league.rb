@@ -51,7 +51,7 @@ def initialize
   pp @leagues_history
 
   %w(eng sco fr gr).each do |country|
-    hash = LeagueReader.from_file( "#{Import.data_dir}/leagues/#{country}.txt" )
+    hash = LeagueReader.from_file( "#{Boot.data_dir}/leagues/#{country}.txt" )
     pp hash
 
     hash.each do |season,league_hash|

@@ -1,12 +1,10 @@
 # encoding: utf-8
 
 
-
-require 'pp'
 require 'csv'
-require 'date'
-require 'fileutils'
 
+## 3rd party gemss
+require 'sportdb/config'
 
 
 ###
@@ -16,19 +14,12 @@ require 'sportdb/text/version' # let version always go first
 require 'sportdb/text/structs/match'
 require 'sportdb/text/structs/matchlist'
 require 'sportdb/text/structs/standings'
-require 'sportdb/text/structs/team'
 require 'sportdb/text/structs/team_usage'
 
-
-require 'sportdb/text/config/league'
-require 'sportdb/text/config/league_reader'
-require 'sportdb/text/config/team_reader'
-require 'sportdb/text/config/config'
 
 
 require 'sportdb/text/season_utils'
 require 'sportdb/text/level_utils'
-require 'sportdb/text/league_utils'
 require 'sportdb/text/country_utils'
 
 

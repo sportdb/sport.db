@@ -7,7 +7,7 @@ module Text
 
   MAJOR = 0    ## todo: namespace inside version or something - why? why not??
   MINOR = 1
-  PATCH = 1
+  PATCH = 2
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 
   def self.version
@@ -19,7 +19,11 @@ module Text
   end
 
   def self.root
-    "#{File.expand_path( File.dirname(File.dirname(File.dirname(File.dirname(__FILE__)))) )}"
+    File.expand_path( File.dirname(File.dirname(File.dirname(File.dirname(__FILE__)))) )
+  end
+
+  def self.test_data_dir
+    "#{root}/test/data"
   end
 
 end # module Text

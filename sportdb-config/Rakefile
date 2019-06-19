@@ -1,11 +1,11 @@
 require 'hoe'
-require './lib/sportdb/text/version.rb'
+require './lib/sportdb/config/version.rb'
 
-Hoe.spec 'sportdb-text' do
+Hoe.spec 'sportdb-config' do
 
-  self.version = SportDb::Text::VERSION
+  self.version = SportDb::Boot::VERSION
 
-  self.summary = "sportdb-text - tools 'n' scripts for sports (football) data in text incl. comma-separated values (csv) format"
+  self.summary = "sportdb-config - sport.db configuration settings and built-in defaults"
   self.description = summary
 
   self.urls = ['https://github.com/sportdb/sport.db']
@@ -18,10 +18,6 @@ Hoe.spec 'sportdb-text' do
   self.history_file = 'HISTORY.md'
 
   self.licenses = ['Public Domain']
-
-  self.extra_deps = [
-    ['sportdb-config', '>= 0.0.1'],
-  ]
 
   self.spec_extras = {
    :required_ruby_version => '>= 2.2.2'

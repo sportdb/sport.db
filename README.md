@@ -6,9 +6,11 @@ Gem Family:
 - [sportdb-models](sportdb-models) - sport.db schema 'n' models for easy (re)use
 - [sportdb-config](sportdb-config) - sport.db configuration settings and built-in defaults
 - [sportdb-text](sportdb-text) - tools 'n' scripts for sports (football) data in text incl. comma-separated values (csv) format
+- [sportdb-import](sportdb-import) - tools 'n' scripts for importing sports (football) data in alternate (text) formats incl. comma-separated values (csv) format
 - [sportdb-update](sportdb-update) - sport.db addon for auto-updates (e.g. pulling n merging updates from upstream sources)
 - [sportdb-keys](sportdb-keys) - sport.db addon for well known keys (e.g. EURO, EN, etc.) and model finder shortcuts, etc.
 - [sportdb-compat](sportdb-compat) - sport.db addon for backward compatibility (compat)
+
 
 
 

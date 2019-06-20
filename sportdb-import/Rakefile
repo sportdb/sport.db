@@ -1,0 +1,31 @@
+require 'hoe'
+require './lib/sportdb/import/version.rb'
+
+Hoe.spec 'sportdb-import' do
+
+  self.version = SportDb::Import::VERSION
+
+  self.summary = "sportdb-import - tools 'n' scripts for importing sports (football) data in alternate (text) formats incl. comma-separated values (csv) format"
+  self.description = summary
+
+  self.urls = ['https://github.com/sportdb/sport.db']
+
+  self.author = 'Gerald Bauer'
+  self.email  = 'opensport@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'HISTORY.md'
+
+  self.licenses = ['Public Domain']
+
+  self.extra_deps = [
+    ['sportdb-text',   '>= 0.2.0'],
+    ['sportdb-models', '>= 1.18.0'],
+  ]
+
+  self.spec_extras = {
+   :required_ruby_version => '>= 2.2.2'
+  }
+
+end

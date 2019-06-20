@@ -1,0 +1,8 @@
+HISTORY.md
+Manifest.txt
+README.md
+Rakefile
+lib/sportdb/import.rb
+lib/sportdb/import/version.rb
+test/helper.rb
+test/test_version.rb

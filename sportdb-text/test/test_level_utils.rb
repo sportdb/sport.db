@@ -35,4 +35,28 @@ class TestLevelUtils < MiniTest::Test
     assert_equal 999, LevelUtils.level( '2000-division' )   # => 999
   end  # method test_level
 
+  def test_div   # divsion
+    assert_equal '?',    LevelUtils.division( 'liga2' )
+    assert_equal '?',    LevelUtils.division( 'liga' )
+    assert_equal '?',    LevelUtils.division( '3' )
+    assert_equal '?',    LevelUtils.division( '3a' )
+    assert_equal '?',    LevelUtils.division( '2000-division' )
+
+    assert_equal '3',    LevelUtils.division( '3-division' )
+    assert_equal '3a',   LevelUtils.division( '3a-division' )
+    assert_equal '3b',   LevelUtils.division( '3b-division' )
+    assert_equal '1',    LevelUtils.division( '1-division' )
+    assert_equal '01',   LevelUtils.division( '01-division' )
+
+    assert_equal '1',    LevelUtils.division( 'eng.1' )
+    assert_equal '1',    LevelUtils.division( 'eng.1.' )
+    assert_equal '1',    LevelUtils.division( 'eng.1.csv' )
+    assert_equal '1',    LevelUtils.division( 'eng.1.txt' )
+
+    assert_equal '3a',   LevelUtils.division( 'eng.3a' )
+    assert_equal '3a',   LevelUtils.division( 'eng.3a.' )
+    assert_equal '3a',   LevelUtils.division( 'eng.3a.csv' )
+    assert_equal '3a',   LevelUtils.division( 'eng.3a.txt' )
+  end
+
 end # class TestLevelUtils

@@ -13,7 +13,10 @@ module LevelHelper ## use Helpers why? why not?
     ##       etc.
     ##  note: only allow 1 or 01 to 99 for now
     ##  note: allow optional letter 3a,3b,3c in level for division
-    if basename =~ /^(\d{1,2}[a-z]?)-/
+
+    if basename =~ /^[a-z]{2,3}\.(\d{1,2}[a-z]?)(?:\.|$)/    ## e.g. eng.1
+      $1
+    elsif basename =~ /^(\d{1,2}[a-z]?)-/
       $1   # note: returns a string
     else
       ## return ? for undefined / unknown division - why? why not?
@@ -26,7 +29,9 @@ module LevelHelper ## use Helpers why? why not?
     ##  e.g. 3-liga, 3a-liga, 3b-liga, etc.
     ##  note: only allow 1 or 01 to 99 for now
     ##  note: allow optional letter 3a,3b,3c in level - letter gets dropped / ignored
-    if basename =~ /^(\d{1,2})[a-z]?-/
+    if basename =~ /^[a-z]{2,3}\.(\d{1,2})[a-z]?(?:\.|$)/    ## e.g. eng.1
+      $1.to_i
+    elsif basename =~ /^(\d{1,2})[a-z]?-/
       $1.to_i
     else
       ## return 999 for undefined / unknown level

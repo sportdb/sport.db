@@ -10,10 +10,26 @@
 
 ## Usage
 
+Let's import all datafiles for all seasons (from 1888-89 to today) 
+for [England](https://github.com/footballcsv/england), use: 
 
+``` ruby
+require 'sportdb/import' 
 
+SportDb.connect( adapter:  'sqlite3', 
+                 database: './eng.db' ) 
 
+## build database schema / tables 
+SportDb.create_all 
 
+## turn on logging to console 
+ActiveRecord::Base.logger = Logger.new(STDOUT) 
+
+pack = CsvMatchImporter.new( './england' ) 
+pack.import_leagues 
+```
+
+That's it.
 
 
 ## License

@@ -1,6 +1,0 @@
-###################################
-# Albania (al)
-
-
-KF Tirana            =>  KF Tirana, Tirana             ## Klubi i Futbollit Tirana
-FK Partizani Tirana  =>  FK Partizani Tirana, Tirana

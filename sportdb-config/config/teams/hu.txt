@@ -1,5 +1,0 @@
-################################################################
-# Hungary (hu)
-
-
-Ferencvaros   =>   Ferencvárosi TC, Budapest

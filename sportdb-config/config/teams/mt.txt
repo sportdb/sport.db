@@ -1,6 +1,0 @@
-###################################
-# Malta (mt)
-
-
-Valletta          =>  Valletta FC,         Valletta
-Sliema Wanderers  =>  Sliema Wanderers FC, Sliema

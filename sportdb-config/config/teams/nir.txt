@@ -1,6 +1,0 @@
-#################################
-# Northern Ireland (nir)
-
-
-Linfield   =>  Linfield FC, Belfast
-Glentoran  =>  Glentoran FC, Belfast

@@ -7,68 +7,112 @@ module Import
 
 class TeamReader
 
+##
+#  note: use our own (internal) team struct for now - why? why not?
+class Team
+  ##  todo: use just names for alt_names - why? why not?
+  attr_accessor :name, :alt_names, :year, :ground, :city
 
-def self.from_file( path )   ## use - rename to read_file - why? why not?
+  def initialize
+    @alt_names = []
+  end
+end # class Team
+
+
+
+def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
   txt = File.open( path, 'r:utf-8' ).read
-  read( txt )
+  parse( txt )
 end
 
 
-def self.read( txt )   ## rename to parse - why? why not? and use read for file read?
+def self.parse( txt )
   recs = []
+  last_rec  = nil
+
   txt.each_line do |line|
     line = line.strip
 
     next if line.empty?
     next if line.start_with?( '#' )   ## skip comments too
 
-    ## strip inline comments too
+    ## strip inline (until end-of-line) comments too
     ##  e.g Eupen        => KAS Eupen,    ## [de]
     ##   => Eupen        => KAS Eupen,
     line = line.sub( /#.*/, '' ).strip
-
     pp line
-    names_line, team_line = line.split( '=>' )
-
-    names = names_line.split( /[|,]/ )   # team names - allow comma(,) or pipe(|)
-    team  = team_line.split( ',' )   # (canoncial) team name, team_city
-
-    ## remove leading and trailing spaces
-    names = names.map { |name| name.strip }
-    team  = team.map { |team| team.strip }
-    pp names
-    pp team
-
-    canonical_name = team[0]
-    city           = team[1]
-
-    ## squish (white)spaces
-    #   e.g. New York FC      (2011-)  => New York FC (2011-)
-    #   e.g. León     › Guanajuato     => León › Guanajuato
-    canonical_name = canonical_name.gsub( /[ \t]+/, ' ' )
-    city           = city.gsub( /[ \t]+/, ' ' )   if city
-
-    ## note:
-    ##   check/todo!!!!!!!!!!!!!!!!!-
-    ##  strip year if to present e.g. (2011-)
-    ##
-    ##  do NOT strip for defunct / historic clubs e.g.
-    ##    (1899-1910)
-    ## or (-1914) or (-2011) etc.
 
 
+    if line.start_with?( '|' )
+      ## assume continuation with line of alternative names
+      ##  note: skip leading pipe
+      values = line[1..-1].split( '|' )   # team names - allow/use pipe(|)
+      ## strip and  squish (white)spaces
+      #   e.g. New York FC      (2011-)  => New York FC (2011-)
+      values = values.map { |value| value.strip.gsub( /[ \t]+/, ' ' ) }
+      last_rec.alt_names += values
 
-    ###
-    ##  todo: move year out of canonical team name - why? why not?
-    ##
+      ## check for duplicates - simple check for now - fix/improve
+      ## todo/fix: (auto)remove duplicates - why? why not?
+      count      = last_rec.alt_names.size
+      count_uniq = last_rec.alt_names.uniq.size
+      if count != count_uniq
+        puts
+        puts "*** !!! WARN !!! - #{count-count_uniq} duplicate alt name(s):"
+        pp last_rec
+        ##  exit 1
+      end
+    else
+      values = line.split( ',' )
 
-    ## check if canonical name include (2011-) or similar in name
-    ##   if yes, remove (2011-) and add to (alt) names
-    ##   e.g. New York FC (2011) => New York FC
-    if canonical_name =~ /\(.+?\)/   ## note: use non-greedy (?) match
-      name = canonical_name.gsub( /\(.+?\)/, '' ).strip
-      names << name
-    end
+      rec = Team.new
+      value = values.shift    ## get first item
+      ## strip and  squish (white)spaces
+      #   e.g. New York FC      (2011-)  => New York FC (2011-)
+      value = value.strip.gsub( /[ \t]+/, ' ' )
+      rec.name = value   # canoncial_name
+
+      ## note:
+      ##   check/todo!!!!!!!!!!!!!!!!!-
+      ##  strip year if to present e.g. (2011-)
+      ##
+      ##  do NOT strip for defunct / historic clubs e.g.
+      ##    (1899-1910)
+      ## or (-1914) or (-2011) etc.
+
+      ###
+      ##  todo: move year out of canonical team name - why? why not?
+
+      ## check if canonical name include (2011-) or similar in name
+      ##   if yes, remove (2011-) and add to (alt) names
+      ##   e.g. New York FC (2011) => New York FC
+      if rec.name =~ /\(.+?\)/   ## note: use non-greedy (?) match
+        name = rec.name.gsub( /\(.+?\)/, '' ).strip
+        rec.alt_names << name
+      end
+
+
+      ##  todo/check - check for unknown format values
+      ##    e.g. too many values, duplicate years, etc.
+      ##         check for overwritting, etc.
+      while values.size > 0
+        value = values.shift
+        ##  strip and squish (white)spaces
+        #   e.g. León     › Guanajuato     => León › Guanajuato
+        value = value.strip.gsub( /[ \t]+/, ' ' )
+        if value =~/^\d{4}$/   # e.g 1904
+          rec.year  = value.to_i
+        elsif value.start_with?( '@' )   # e.g. @ Anfield
+          ## cut-off leading @ and spaces
+          rec.ground  = value[1..-1].strip
+        else
+          ## assume city / geo tree
+          rec.city = value
+        end
+      end
+
+      last_rec = rec
+
 
     ### todo/fix:
     ##  auto-add alt name with dots stripped - why? why not?
@@ -83,22 +127,9 @@ def self.read( txt )   ## rename to parse - why? why not? and use read for file 
     ##   always strip (2011-) !!!
     ##   always strip dots (e.g. St., F.C, etc.)
 
-
-    names = names.uniq  ## remove duplicates - todo/fix: warn about duplicates - why? why not?
-
-    ## note: remove from alt_names if canonical name (mapping 1:1)
-    ##                            or if empty
-    alt_names = names.select {|name| (name.empty? || name == canonical_name) ? false : true }
-
-    ## todo: add country (code) too!!!
-    rec = SportDb::Struct::Team.create(
-                                    name:      canonical_name,
-                                    city:      city,     ## note: team_city is optional for now (might be nil!!!)
-                                    alt_names: alt_names
-                                  )
-    ## pp rec
-    recs << rec
-  end
+      recs << rec
+    end
+  end  # each_line
   recs
 end  # method read
 end  # class TeamReader

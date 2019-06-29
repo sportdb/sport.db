@@ -6,9 +6,9 @@ module SportDb
 
 class LeagueReader
 
-def self.from_file( path )   ## use - rename to read_file - why? why not?
+def self.read( path )
   txt = File.open( path, 'r:utf-8' ).read
-  read( txt )
+  parse( txt )
 end
 
 
@@ -20,7 +20,7 @@ SEASON_REGEX = /\[
                 )
                \]/x
 
-def self.read( txt )
+def self.parse( txt )
   hash = {}
   season = '*'   ## use '*' for default/latest season
 

@@ -6,20 +6,82 @@ module SportDb
 
 class Configuration
 
-  attr_accessor :team_mappings
-  attr_accessor :teams
 
-  attr_accessor :leagues
+  def team_mappings
+    read_teams()        if @team_mappings.nil?
+    @team_mappings
+  end
+
+  def teams
+    read_teams()        if @teams.nil?
+    @teams
+  end
+
+  def leagues
+    read_leagues()      if @leagues.nil?
+    @leagues
+  end
 
 
+  ####
+  #  todo/fix:  find a better way to configure club / team datasets
+  attr_accessor   :clubs_dir
 
-  def initialize
+  def clubs_dir()   @clubs_dir ||= './clubs'; end
 
+  CLUBS_DATAFILES = {   ## path by country to clubs.txt
+      de:  'europe/de-deutschland',
+      fr:  'europe/fr-france',
+      mc:  'europe/mc-monaco',
+      es:  'europe/es-espana',
+      it:  'europe/it-italy',
+      pt:  'europe/pt-portugal',
+      nl:  'europe/nl-netherlands',
+      be:  'europe/be-belgium',
+      tr:  'europe/tr-turkey',
+      gr:  'europe/gr-greece',
+      eng: 'europe/eng-england',
+      wal: 'europe/wal-wales',
+      sco: 'europe/sco-scotland',
+      nir: 'europe/nir-northern-ireland',
+      at:  'europe/at-austria',
+      al:  'europe/al-albania',
+      bg:  'europe/bg-bulgaria',
+      by:  'europe/by-belarus',
+      ch:  'europe/ch-confoederatio-helvetica',
+      cy:  'europe/cy-cyprus',
+      cz:  'europe/cz-czech-republic',
+      dk:  'europe/dk-denmark',
+      fi:  'europe/fi-finland',
+      ge:  'europe/ge-georgia',
+      hr:  'europe/hr-croatia',
+      hu:  'europe/hu-hungary',
+      ie:  'europe/ie-ireland',
+      is:  'europe/is-iceland',
+      lu:  'europe/lu-luxembourg',
+      md:  'europe/md-moldova',
+      mt:  'europe/mt-malta',
+      no:  'europe/no-norway',
+      pl:  'europe/pl-poland',
+      ro:  'europe/ro-romania',
+      rs:  'europe/rs-serbia',
+      ru:  'europe/ru-russia',
+      se:  'europe/se-sweden',
+      si:  'europe/si-slovenia',
+      sk:  'europe/sk-slovakia',
+      ua:  'europe/ua-ukraine',
+      mx:  'north-america/mx-mexico',
+      us:  'north-america/us-united-states',
+      ca:  'north-america/ca-canada' }
+
+  def read_teams
     ## unify team names; team (builtin/known/shared) name mappings
     ## cleanup team names - use local ("native") name with umlaut etc.
     recs = []
-    %w(de fr mc es it pt nl be tr gr eng wal sco nir at al bg by ch cy cz dk fi ga hr hu ie is lu md mt no pl ro rs ru se si sk ua mx us ca).each do |country|
-       recs += TeamReader.from_file( "#{Boot.data_dir}/teams/#{country}.txt" )
+
+    ## todo/fix: pass along / use country code too
+    CLUBS_DATAFILES.each do |country, path|
+       recs += TeamReader.read( "#{clubs_dir}/#{path}/clubs.txt" )
     end
 
     ############################
@@ -47,15 +109,18 @@ class Configuration
       @teams[ rec.name ] = rec
     end
 
+    self  ## return self for chaining
+end
 
+def read_leagues
     #####
     # add / read-in leagues config
     @leagues = LeagueConfig.new
 
-
     self  ## return self for chaining
   end
 end # class Configuration
+
 
 
 

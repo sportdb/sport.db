@@ -11,6 +11,8 @@ class TestConfig < MiniTest::Test
 
   def test_teams
 
+    SportDb::Import.config.clubs_dir = '../../../openfootball/clubs'
+
     pp SportDb::Import.config.teams
 
     assert true ## assume ok if we get here

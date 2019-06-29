@@ -20,12 +20,10 @@ def build
 
   season_entries = @pack.find_entries_by_season
   season_entries.each do |season_entry|
-    season_dir   = season_entry[0]
+    season       = season_entry[0]    ## note: holds season key e.g. '2011/12'
     season_files = season_entry[1]    ## .csv (data)files
 
     season_files.each_with_index do |season_file,i|
-      ## note: assume last directory is the season (season folder)
-      season = File.basename( File.dirname( season_file ) )   # get eg. 2011-12
       puts "  season=>#{season}<"
 
       season_file_basename = File.basename( season_file, '.csv' )    ## e.g. 1-bundesliga, 3a-division3-north etc.

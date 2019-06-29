@@ -18,10 +18,8 @@ require 'sportdb/text/structs/standings'
 require 'sportdb/text/structs/team_usage'
 
 
-
 require 'sportdb/text/season_utils'
 require 'sportdb/text/level_utils'
-require 'sportdb/text/country_utils'
 
 
 require 'sportdb/text/csv/reader'

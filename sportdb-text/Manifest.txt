@@ -4,7 +4,6 @@ README.md
 Rakefile
 lib/sportdb/text.rb
 lib/sportdb/text/converter/standard.rb
-lib/sportdb/text/country_utils.rb
 lib/sportdb/text/csv/converter.rb
 lib/sportdb/text/csv/package.rb
 lib/sportdb/text/csv/reader.rb
@@ -24,6 +23,7 @@ lib/sportdb/text/season_utils.rb
 lib/sportdb/text/structs/match.rb
 lib/sportdb/text/structs/matchlist.rb
 lib/sportdb/text/structs/standings.rb
+lib/sportdb/text/structs/team.rb
 lib/sportdb/text/structs/team_usage.rb
 lib/sportdb/text/txt/writer.rb
 lib/sportdb/text/version.rb

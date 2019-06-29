@@ -8,3 +8,8 @@ require 'minitest/autorun'
 ## our own code
 
 require 'sportdb/text'
+
+
+SportDb::Import.config.clubs_dir = '../../../openfootball/clubs'
+
+## pp SportDb::Import.config.teams

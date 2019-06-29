@@ -78,6 +78,7 @@ class Configuration
     ## unify team names; team (builtin/known/shared) name mappings
     ## cleanup team names - use local ("native") name with umlaut etc.
     recs = []
+    errors = []
 
     ## todo/fix: pass along / use country code too
     CLUBS_DATAFILES.each do |country, path|
@@ -91,8 +92,14 @@ class Configuration
 
     recs.each do |rec|
        rec.alt_names.each do |alt_name|
-         ## todo/fix: warn about duplicates (if key exits) ???????
-         @team_mappings[ alt_name ] = rec.name
+         name = @team_mappings[ alt_name ]
+         if name  ## todo/fix: add better warn about duplicates (if key exits) ???????
+            msg = "** !!! WARN !!! - alt name conflict/duplicate - >#{alt_name}< will overwrite >#{name}< with >#{rec.name}<"
+            puts msg
+            errors << msg
+         else
+           @team_mappings[ alt_name ] = rec.name
+         end
        end
     end
 
@@ -107,6 +114,14 @@ class Configuration
     @teams = {}
     recs.each do |rec|
       @teams[ rec.name ] = rec
+    end
+
+    if errors.size > 0
+      puts ""
+      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+      puts " #{errors.size} errors:"
+      pp errors
+      ## exit 1
     end
 
     self  ## return self for chaining

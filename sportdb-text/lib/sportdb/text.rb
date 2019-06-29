@@ -11,6 +11,7 @@ require 'sportdb/config'
 # our own code
 require 'sportdb/text/version' # let version always go first
 
+require 'sportdb/text/structs/team'
 require 'sportdb/text/structs/match'
 require 'sportdb/text/structs/matchlist'
 require 'sportdb/text/structs/standings'

@@ -9,6 +9,8 @@ class TeamReader
 
 ##
 #  note: use our own (internal) team struct for now - why? why not?
+#    - check that shape/structure/fields/attributes match
+#      the Team struct in sportdb-text (in SportDb::Struct::Team)  !!!!
 class Team
   ##  todo: use just names for alt_names - why? why not?
   attr_accessor :name, :alt_names, :year, :ground, :city
@@ -60,7 +62,7 @@ def self.parse( txt )
         puts
         puts "*** !!! WARN !!! - #{count-count_uniq} duplicate alt name(s):"
         pp last_rec
-        ##  exit 1
+        ## exit 1
       end
     else
       values = line.split( ',' )

@@ -42,8 +42,6 @@ require 'sportdb/text/csv/reports/part_datafiles_by_season.rb'
 
 require 'sportdb/text/txt/writer.rb'
 
-require 'sportdb/text/converter/standard.rb'
-
 
 module SportDb
    Structs = Struct ## add convenience alias (e.g. lets you use include SportDb::Structs)

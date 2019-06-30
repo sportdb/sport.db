@@ -6,6 +6,10 @@ module SportDb
 
 class Configuration
 
+  def initialize
+    @errors = []     ## make parsing errors "global" for now
+  end
+
 
   def team_mappings
     read_teams()        if @team_mappings.nil?
@@ -26,6 +30,7 @@ class Configuration
   ####
   #  todo/fix:  find a better way to configure club / team datasets
   attr_accessor   :clubs_dir
+  attr_accessor   :errors
 
   def clubs_dir()   @clubs_dir ||= './clubs'; end
 
@@ -72,13 +77,14 @@ class Configuration
       ua:  'europe/ua-ukraine',
       mx:  'north-america/mx-mexico',
       us:  'north-america/us-united-states',
-      ca:  'north-america/ca-canada' }
+      ca:  'north-america/ca-canada',
+      ar:  'south-america/ar-argentina' }
 
   def read_teams
     ## unify team names; team (builtin/known/shared) name mappings
     ## cleanup team names - use local ("native") name with umlaut etc.
     recs = []
-    errors = []
+    @errors = []    ## reset errors
 
     ## todo/fix: pass along / use country code too
     CLUBS_DATAFILES.each do |country, path|
@@ -96,7 +102,7 @@ class Configuration
          if name  ## todo/fix: add better warn about duplicates (if key exits) ???????
             msg = "** !!! WARN !!! - alt name conflict/duplicate - >#{alt_name}< will overwrite >#{name}< with >#{rec.name}<"
             puts msg
-            errors << msg
+            @errors << msg
          else
            @team_mappings[ alt_name ] = rec.name
          end
@@ -111,21 +117,23 @@ class Configuration
 
 ##
 ##  todo/fix: move to new TeamConfig class (for reuse) !!!!!!
+##   todo/fix:  add check for duplicates/conflicts too!!!
     @teams = {}
     recs.each do |rec|
       @teams[ rec.name ] = rec
     end
 
-    if errors.size > 0
+    if @errors.size > 0
       puts ""
       puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts " #{errors.size} errors:"
-      pp errors
+      puts " #{@errors.size} errors:"
+      pp @errors
       ## exit 1
     end
 
     self  ## return self for chaining
 end
+
 
 def read_leagues
     #####

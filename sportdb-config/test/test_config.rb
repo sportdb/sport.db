@@ -14,6 +14,8 @@ class TestConfig < MiniTest::Test
 
     pp SportDb::Import.config.teams
 
+    pp SportDb::Import.config.errors
+
     assert true ## assume ok if we get here
   end  # method test_teams
 

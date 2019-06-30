@@ -78,7 +78,10 @@ class Configuration
       mx:  'north-america/mx-mexico',
       us:  'north-america/us-united-states',
       ca:  'north-america/ca-canada',
-      ar:  'south-america/ar-argentina' }
+      ar:  'south-america/ar-argentina',
+      br:  'south-america/br-brazil',
+      jp:  'asia/jp-japan',
+      cn:  'asia/cn-china' }
 
   def read_teams
     ## unify team names; team (builtin/known/shared) name mappings

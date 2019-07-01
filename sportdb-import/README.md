@@ -16,6 +16,11 @@ for [England](https://github.com/footballcsv/england), use:
 ``` ruby
 require 'sportdb/import' 
 
+## note: requires a local copy of the football.db clubs datasets 
+##          see https://github.com/openfootball/clubs
+SportDb::Import.config.clubs_dir = './clubs'
+
+
 SportDb.connect( adapter:  'sqlite3', 
                  database: './eng.db' ) 
 
@@ -24,6 +29,10 @@ SportDb.create_all
 
 ## turn on logging to console 
 ActiveRecord::Base.logger = Logger.new(STDOUT) 
+
+
+## note: requires a local copy of the football.csv england datasets 
+##          see https://github.com/footballcsv/england
 
 pack = CsvMatchImporter.new( './england' ) 
 pack.import_leagues 

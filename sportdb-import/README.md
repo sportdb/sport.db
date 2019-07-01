@@ -33,7 +33,6 @@ ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 ## note: requires a local copy of the football.csv england datasets 
 ##          see https://github.com/footballcsv/england
-
 pack = CsvMatchImporter.new( './england' ) 
 pack.import_leagues 
 ```

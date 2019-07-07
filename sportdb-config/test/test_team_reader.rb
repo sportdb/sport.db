@@ -50,7 +50,58 @@ TXT
     assert_equal 5, recs.size
     assert_equal 'Atlanta United FC',  recs[0].name
     assert_equal 2017,                 recs[0].year
-    assert_equal 'Atlanta › Georgia',  recs[0].city
+    assert_equal 'Atlanta',            recs[0].city
+    assert_equal ['Georgia'],          recs[0].geos
   end
 
+
+  def test_parse_years
+    recs = SportDb::Import::TeamReader.parse( <<TXT )
+FC Dallas (1996-),         Frisco        › Texas
+Miami Fusion (1998-2001),  Fort Lauderdale › Florida
+CD Chivas USA (-2014),     Carson          › California
+TXT
+
+    pp recs
+
+    assert_equal 3, recs.size
+    assert_equal 1996,   recs[0].year
+    assert_equal false,  recs[0].historic?
+    assert_equal false,  recs[0].past?
+
+    assert_equal 1998,   recs[1].year
+    assert_equal 2001,   recs[1].year_end
+    assert_equal true,   recs[1].historic?
+    assert_equal true,   recs[1].past?
+
+    assert_equal 2014,   recs[2].year_end
+    assert_equal true,   recs[2].historic?
+    assert_equal true,   recs[2].past?
+  end
+
+  def test_parse_geos
+    recs = SportDb::Import::TeamReader.parse( <<TXT )
+#
+Fulham FC, 1879,  @ Craven Cottage,   London (Fulham)   › Greater London
+  | Fulham | FC Fulham
+Charlton Athletic FC,  @ The Valley,  London (Charlton) › Greater London
+  | Charlton | Charlton Athletic
+
+St. Pauli,   Hamburg (St. Pauli)
+TXT
+
+    pp recs
+
+    assert_equal 3, recs.size
+    assert_equal 'London',           recs[0].city
+    assert_equal 'Fulham',           recs[0].district
+    assert_equal ['Greater London'], recs[0].geos
+
+    assert_equal 'London',           recs[1].city
+    assert_equal 'Charlton',         recs[1].district
+    assert_equal ['Greater London'], recs[1].geos
+
+    assert_equal 'Hamburg',          recs[2].city
+    assert_equal 'St. Pauli',        recs[2].district
+  end
 end # class TestTeamReader

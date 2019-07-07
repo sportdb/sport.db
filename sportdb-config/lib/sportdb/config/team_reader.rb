@@ -15,9 +15,19 @@ class Team
   ##  todo: use just names for alt_names - why? why not?
   attr_accessor :name, :alt_names, :year, :ground, :city
 
+  ## more attribs - todo/fix - also add "upstream" to struct & model!!!!!
+  attr_accessor :district, :geos, :year_end
+
+  def historic?()  @year_end.nil? == false; end
+  alias_method  :past?, :historic?
+
+
   def initialize
     @alt_names = []
   end
+
+
+
 end # class Team
 
 
@@ -56,6 +66,7 @@ def self.parse( txt )
 
       ## check for duplicates - simple check for now - fix/improve
       ## todo/fix: (auto)remove duplicates - why? why not?
+      ##  todo/fix: add canonical name too!! might get duplicated in alt names!!!
       count      = last_rec.alt_names.size
       count_uniq = last_rec.alt_names.uniq.size
       if count != count_uniq
@@ -91,8 +102,18 @@ def self.parse( txt )
       if rec.name =~ /\(.+?\)/   ## note: use non-greedy (?) match
         name = rec.name.gsub( /\(.+?\)/, '' ).strip
         rec.alt_names << name
-      end
 
+        if rec.name =~ /\(([0-9]{4})-\)/            ## e.g. (2014-)
+          rec.year     = $1.to_i
+        elsif  rec.name =~ /\(-([0-9]{4})\)/            ## e.g. (-2014)
+          rec.year_end = $1.to_i
+        elsif  rec.name =~ /\(([0-9]{4})-([0-9]{4})\)/  ## e.g. (2011-2014)
+          rec.year     = $1.to_i
+          rec.year_end = $2.to_i
+        else
+          ## todo/check: warn about unknown year format
+        end
+      end
 
       ##  todo/check - check for unknown format values
       ##    e.g. too many values, duplicate years, etc.
@@ -103,13 +124,34 @@ def self.parse( txt )
         #   e.g. León     › Guanajuato     => León › Guanajuato
         value = value.strip.gsub( /[ \t]+/, ' ' )
         if value =~/^\d{4}$/   # e.g 1904
+          ## todo/check: issue warning if year is already set!!!!!!!
+          if rec.year
+            puts "!!! error - year already set to #{rec.year} - CANNOT overwrite with #{value}:"
+            pp rec
+            exit 1
+          end
           rec.year  = value.to_i
         elsif value.start_with?( '@' )   # e.g. @ Anfield
           ## cut-off leading @ and spaces
           rec.ground  = value[1..-1].strip
         else
           ## assume city / geo tree
-          rec.city = value
+          ## split into geo tree
+          geos = value.split( /[<>‹›]/ )   ## note: allow > < or › ‹
+          geos = geos.map { |geo| geo.strip }   ## remove all whitespaces
+
+          city     = geos[0]
+          ## check for "embedded" district e.g. London (Fulham) or Hamburg (St. Pauli) etc.
+          if city =~ /\((.+?)\)/   ## note: use non-greedy (?) match
+            rec.district  = $1.strip
+            city          = city.gsub( /\(.+?\)/, '' ).strip
+          end
+          rec.city = city
+
+          if geos.size > 1
+             ## cut-off city and keep the rest (of geo tree)
+             rec.geos = geos[1..-1]
+          end
         end
       end
 

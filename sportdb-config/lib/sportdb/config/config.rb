@@ -34,6 +34,38 @@ class Configuration
 
   def clubs_dir()   @clubs_dir ||= './clubs'; end
 
+
+
+  CLUBS_REGEX1 = %r{  (?:^|/)            # beginning (^) or beginning of path (/)
+                       (?<country>[a-z]{1,3})\.clubs\.txt$
+                   }x
+
+  CLUBS_REGEX2 = %r{  (?:^|/)            # beginning (^) or beginning of path (/)
+                       (?<country>[a-z]{2,3})-[^/]+?
+                         /clubs\.txt$
+                   }x
+
+  CLUBS_REGEX = Regexp.union( CLUBS_REGEX1, CLUBS_REGEX2 )
+
+
+  def find_clubs_datafiles( path )
+     datafiles = []   ## note: [country, path] pairs for now
+
+     ## check all txt files as candidates  (MUST include country code for now)
+     candidates = Dir.glob( "#{path}/**/*.txt" )
+     pp candidates
+     candidates.each do |candidate|
+       m = CLUBS_REGEX.match( candidate )
+       if m
+         datafiles << [m[:country], candidate]
+       end
+     end
+
+     pp datafiles
+     datafiles
+  end
+
+=begin
   CLUBS_DATAFILES = {   ## path by country to clubs.txt
       de:  'europe/de-deutschland',
       fr:  'europe/fr-france',
@@ -82,6 +114,8 @@ class Configuration
       br:  'south-america/br-brazil',
       jp:  'asia/jp-japan',
       cn:  'asia/cn-china' }
+=end
+
 
   def read_teams
     ## unify team names; team (builtin/known/shared) name mappings
@@ -90,8 +124,11 @@ class Configuration
     @errors = []    ## reset errors
 
     ## todo/fix: pass along / use country code too
-    CLUBS_DATAFILES.each do |country, path|
-       recs += TeamReader.read( "#{clubs_dir}/#{path}/clubs.txt" )
+    datafiles = find_clubs_datafiles( clubs_dir )
+    datafiles.each do |datafile|
+       country  = datafile[0]    ## country code e.g. eng, at, de, etc.
+       path     = datafile[1]
+       recs += TeamReader.read( path )
     end
 
     ############################

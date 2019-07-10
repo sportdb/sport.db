@@ -11,8 +11,8 @@ class TestTeamReader < MiniTest::Test
 
   def test_parse_at
     recs = SportDb::Import::TeamReader.parse( <<TXT )
-##########################
-#  Austria (AUT), at
+==================================
+=  Austria (at)
 
 FK Austria Wien, Wien
   | Austria Vienna | Austria Wien
@@ -30,7 +30,10 @@ TXT
 
   def test_parse_us
     recs = SportDb::Import::TeamReader.parse( <<TXT )
-######################################################
+==================================================
+= United States (us)
+
+#######################################
 # Major League Soccer (MLS) teams
 
 Atlanta United FC, 2017,  Atlanta       › Georgia
@@ -81,7 +84,7 @@ TXT
 
   def test_parse_geos
     recs = SportDb::Import::TeamReader.parse( <<TXT )
-#
+
 Fulham FC, 1879,  @ Craven Cottage,   London (Fulham)   › Greater London
   | Fulham | FC Fulham
 Charlton Athletic FC,  @ The Valley,  London (Charlton) › Greater London
@@ -104,4 +107,27 @@ TXT
     assert_equal 'Hamburg',          recs[2].city
     assert_equal 'St. Pauli',        recs[2].district
   end
+
+
+  def test_parse_headings
+    recs = SportDb::Import::TeamReader.parse( <<TXT )
+==============
+====
+===========
+= Heading 1
+= Heading 1 ==================
+== Heading 2
+== Heading 2 =========
+=== Heading 3
+=== Heading 3 ===============
+=== Heading 3             # with end-of-line comment
+=== Heading 3             ## with end-of-line comment
+=== Heading 3 =========   # with end-of-line comment
+TXT
+
+    pp recs
+
+    assert_equal 0, recs.size
+  end
+
 end # class TestTeamReader

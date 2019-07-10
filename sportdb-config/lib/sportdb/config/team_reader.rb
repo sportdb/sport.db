@@ -24,6 +24,7 @@ class Team
 
   def initialize
     @alt_names = []
+    @year_end  = nil
   end
 
 
@@ -55,7 +56,21 @@ def self.parse( txt )
     pp line
 
 
-    if line.start_with?( '|' )
+    next if line =~ /^={1,}$/          ## skip "decorative" only heading e.g. ========
+
+     ## note: like in wikimedia markup (and markdown) all optional trailing ==== too
+     ##  todo/check:  allow ===  Text  =-=-=-=-=-=   too - why? why not?
+    if line =~ /^(={1,})       ## leading ======
+                 ([^=]+?)      ##  text   (note: for now no "inline" = allowed)
+                 =*            ## (optional) trailing ====
+                 $/x
+       heading_marker = $1
+       heading_level  = $1.length   ## count number of = for heading level
+       heading        = $2.strip
+
+       puts "heading #{heading_level} >#{heading}<"
+       ## skip heading for now
+    elsif line.start_with?( '|' )
       ## assume continuation with line of alternative names
       ##  note: skip leading pipe
       values = line[1..-1].split( '|' )   # team names - allow/use pipe(|)

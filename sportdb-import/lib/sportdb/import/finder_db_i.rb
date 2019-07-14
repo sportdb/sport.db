@@ -53,7 +53,6 @@ class Country
 
 def self.find_or_create_builtin!( key )   ## e.g. key = 'eng' or 'de' etc.
    key = key.to_s   ## allow passing in of symbol (e.g. :fr instead of 'fr')
-
    country = WorldDb::Model::Country.find_by( key: key )
    if country.nil?
      ### check quick built-tin auto-add country data
@@ -77,7 +76,8 @@ def self.find_or_create_builtin!( key )   ## e.g. key = 'eng' or 'de' etc.
 end
 
 def self.find!( key )   ## e.g. key = 'eng' or 'de' etc.
-   rec = find( key )
+   key = key.to_s   ## allow passing in of symbol (e.g. :fr instead of 'fr')
+   rec = WorldDb::Model::Country.find_by( key: key )
    if rec.nil?
        puts "** unknown country for key >#{key}<; sorry - add to COUNTRIES table"
        exit 1
@@ -131,7 +131,7 @@ LEAGUES = {    ## rename to AUTO or BUILTIN_LEAGUES or QUICK_LEAGUES  - why? why
 
 
 def self.find_or_create( key, name: )   ## use title and not name - why? why not?
-   rec = find( key )
+   rec = SportDb::Model::League.find_by( key: key )
    if rec.nil?
      rec = SportDb::Model::League.create!(
         key:   key,
@@ -161,11 +161,9 @@ def self.find_or_create_builtin!( key )  ## e.g. key = 'eng' or 'eng.2' etc.
   league
 end
 
-
-### add league
 def self.find!( key )  ## e.g. key = 'en' or 'en.2' etc.
   ##  en,    English Premier League
-  rec = find( key )
+  rec = SportDb::Model::League.find_by( key: key )
   if rec.nil?
     puts "** unknown league for key >#{key}<; sorry - add to LEAGUES table"
     exit 1

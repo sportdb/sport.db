@@ -7,4 +7,5 @@ lib/sportdb/import/finder_db_i.rb
 lib/sportdb/import/finder_db_ii.rb
 lib/sportdb/import/version.rb
 test/helper.rb
+test/test_finder.rb
 test/test_version.rb

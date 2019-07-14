@@ -16,7 +16,7 @@ class Team
   attr_accessor :name, :alt_names, :year, :ground, :city
 
   ## more attribs - todo/fix - also add "upstream" to struct & model!!!!!
-  attr_accessor :district, :geos, :year_end
+  attr_accessor :district, :geos, :year_end, :country
 
   def historic?()  @year_end.nil? == false; end
   alias_method  :past?, :historic?
@@ -42,6 +42,7 @@ end
 def self.parse( txt )
   recs = []
   last_rec  = nil
+  headings = []   ## headings stack
 
   txt.each_line do |line|
     line = line.strip
@@ -69,7 +70,47 @@ def self.parse( txt )
        heading        = $2.strip
 
        puts "heading #{heading_level} >#{heading}<"
-       ## skip heading for now
+
+       ## 1) first pop headings if present
+       while headings.size+1 > heading_level
+         headings.pop
+       end
+
+       ## 2) add missing (hierarchy) level if
+       while headings.size+1 < heading_level
+         ##  todo/fix: issue warning about "skipping" hierarchy level
+         puts "!!! warn [team reader] - skipping hierarchy level in headings "
+         headings.push( nil )
+       end
+
+       if heading =~ /^\?+$/    ## note: use ? or ?? or ?? to reset level to nil
+         ## keep level empty
+       else
+
+         ## quick hack:   if level is 1 assume country for now
+         ##                 and extract country code e.g.
+         ##                    Austria (at) => at
+         if heading_level == 1
+             if heading =~ /\(([a-z]{2,3})\)/
+               country_code = $1
+               headings.push( country_code )
+             else
+               puts "!!! error - heading level 1 - missing country code - >#{heading}<"
+               exit 1
+             end
+         else
+           headings.push( heading )
+         end
+
+         ## assert that hierarchy level is ok
+         if headings.size != heading_level
+           puts "!!! error - headings hierarchy/stack out of order - #{heading.size}<=>#{heading_level}"
+           exit 1
+         end
+       end
+
+       pp headings
+
     elsif line.start_with?( '|' )
       ## assume continuation with line of alternative names
       ##  note: skip leading pipe
@@ -168,6 +209,31 @@ def self.parse( txt )
              rec.geos = geos[1..-1]
           end
         end
+      end  ## while values
+
+
+      ###############
+      ## use headings text for geo tree
+
+      ## 1) add country if present
+      if headings.size > 0 && headings[0]
+        rec.country  = headings[0]
+      else
+        ## make it an error - why? why not?
+        puts "!!! warn - country missing in headings hierarchy"
+      end
+
+      ## 2) check geo tree with headings hierarchy
+      if headings.size > 1 && headings[1]
+         if rec.geos
+           if rec.geos[0] != headings[1]
+             puts "!!! error - geo tree - headings mismatch >#{rec.geos[0]}< <=> >#{headings[1]}<"
+             exit 1
+           end
+         else
+           ## add missing region (state/province) from headings hierarchy
+           rec.geos = [headings[1]]
+         end
       end
 
       last_rec = rec

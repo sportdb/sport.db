@@ -60,6 +60,7 @@ TXT
 
   def test_parse_years
     recs = SportDb::Import::TeamReader.parse( <<TXT )
+= United States (us)
 FC Dallas (1996-),         Frisco        › Texas
 Miami Fusion (1998-2001),  Fort Lauderdale › Florida
 CD Chivas USA (-2014),     Carson          › California
@@ -84,11 +85,16 @@ TXT
 
   def test_parse_geos
     recs = SportDb::Import::TeamReader.parse( <<TXT )
+=  England (eng)
+== Greater London
 
 Fulham FC, 1879,  @ Craven Cottage,   London (Fulham)   › Greater London
   | Fulham | FC Fulham
 Charlton Athletic FC,  @ The Valley,  London (Charlton) › Greater London
   | Charlton | Charlton Athletic
+
+=  Deutschland (de)
+== Hamburg
 
 St. Pauli,   Hamburg (St. Pauli)
 TXT
@@ -99,13 +105,17 @@ TXT
     assert_equal 'London',           recs[0].city
     assert_equal 'Fulham',           recs[0].district
     assert_equal ['Greater London'], recs[0].geos
+    assert_equal 'eng',              recs[0].country
 
     assert_equal 'London',           recs[1].city
     assert_equal 'Charlton',         recs[1].district
     assert_equal ['Greater London'], recs[1].geos
+    assert_equal 'eng',              recs[1].country
 
     assert_equal 'Hamburg',          recs[2].city
     assert_equal 'St. Pauli',        recs[2].district
+    assert_equal ['Hamburg'],        recs[2].geos
+    assert_equal 'de',               recs[2].country
   end
 
 
@@ -114,8 +124,8 @@ TXT
 ==============
 ====
 ===========
-= Heading 1
-= Heading 1 ==================
+= Heading 1   - Austria (at)
+= Heading 1   - Austria (at) ==================
 == Heading 2
 == Heading 2 =========
 === Heading 3
@@ -123,6 +133,10 @@ TXT
 === Heading 3             # with end-of-line comment
 === Heading 3             ## with end-of-line comment
 === Heading 3 =========   # with end-of-line comment
+== Heading 2
+==== Heading 4
+= ?????
+== ???
 TXT
 
     pp recs

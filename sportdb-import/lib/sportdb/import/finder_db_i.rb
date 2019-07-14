@@ -8,17 +8,50 @@ module SportDb
 class Country
     ## built-in countries for (quick starter) auto-add
     COUNTRIES = {    ## rename to AUTO or BUILTIN_COUNTRIES or QUICK_COUNTRIES - why? why not?
+      ## british isles
       eng: ['England',     'ENG'],     ## title/name, code
       sco: ['Scotland',    'SCO'],
+      ie:  ['Ireland',     'IRL'],
 
+      ## central europe
+      at:  ['Austria',      'AUT'],
+      de:  ['Germany',      'GER'],   ## use fifa code or iso? - using fifa for now
+      ch:  ['Switzerland',  'SWZ'],
+      pl:  ['Poland',       'POL'],
+
+      ## western europe
       fr:  ['France',      'FRA'],
-      at:  ['Austria',     'AUT'],
-      de:  ['Germany',     'GER'],   ## use fifa code or iso? - using fifa for now
       es:  ['Spain',       'ESP'],
+
+      ## northern europe / skandinavia
+      dk:  ['Denmark',      'DNK'],
+      fi:  ['Finland',      'FIN'],
+      no:  ['Norway',       'NOR'],
+      se:  ['Sweden',       'SWE'],
+
+      ## eastern europe
+      ro:  ['Romania',      'ROU'],
+      ru:  ['Russia',       'RUS'],
+
+      ## north america
+      us:  ['United States', 'USA'],
+      mx:  ['Mexico',        'MEX'],
+
+      ## south america
+      ar:  ['Argentina',   'ARG'],
+      br:  ['Brazil',      'BRA'],
+
+      ## asia
+      cn:  ['China',       'CHN'],
+      jp:  ['Japan',       'JPN'],
     }
 
-def self.find( key )   ## e.g. key = 'eng' or 'de' etc.
+    ### todo/fix:
+    ##  add ALTERNATE / ALTERNATIVE COUNTRY KEYS!!!!
+    ##   e.g. d => de, a => at, en => eng, etc.
+    ##   plus  add all fifa codes too   aut => at, etc.
 
+def self.find_or_create_builtin!( key )   ## e.g. key = 'eng' or 'de' etc.
    key = key.to_s   ## allow passing in of symbol (e.g. :fr instead of 'fr')
 
    country = WorldDb::Model::Country.find_by( key: key )
@@ -35,6 +68,9 @@ def self.find( key )   ## e.g. key = 'eng' or 'de' etc.
           area: 1,
           pop:  1
        )
+     else
+       puts "** unknown country for key >#{key}<; sorry - add to COUNTRIES table"
+       exit 1
      end
    end
    country
@@ -56,12 +92,13 @@ end # class Country
 ### add season
 class Season
 
-def self.find( key )  ## e.g. key = '2017-18'
-  ## todo/fix:
-  ##   always use 2017/18
-  ##    use search and replace to change / to - or similar!!!
-  key = key.tr( '-', '/' )  ## change 2017-18 to 2017/18
-  ## check for 2017/2018  change to 2017/18
+def self.find_or_create_builtin( key )  ## e.g. key = '2017-18'
+
+  ## note:  "normalize" season key
+  ##   always use 2017/18  (and not 2017-18 or 2017-2018 or 2017/2018)
+  ## 1) change 2017-18 to 2017/18
+  key = key.tr( '-', '/' )
+  ## 2) check for 2017/2018 - change to 2017/18
   if key.length == 9
     key = "#{key[0..3]}/#{key[7..8]}"
   end
@@ -83,13 +120,13 @@ end # class Season
 class League
 ## built-in countries for (quick starter) auto-add
 LEAGUES = {    ## rename to AUTO or BUILTIN_LEAGUES or QUICK_LEAGUES  - why? why not?
-  en:  'English Premier League',    ## use eng why? why not?
-  eng: 'English Premier League',    ## use eng why? why not?
+  ## en:  'English Premier League',    ## use eng why? why not?
+  eng: 'English Premier League',    ## use en why? why not?
+  sco: 'Scottish Premiership',
   fr:  'Ligue 1',
   at:  'Österr. Bundesliga',
   de:  '1. Bundesliga',
   'de.2': '2. Bundesliga',
-  sco: 'Scottish Premiership',
 }
 
 
@@ -104,7 +141,7 @@ def self.find_or_create( key, name: )   ## use title and not name - why? why not
    rec
 end
 
-def self.find( key )  ## e.g. key = 'en' or 'en.2' etc.
+def self.find_or_create_builtin!( key )  ## e.g. key = 'eng' or 'eng.2' etc.
   ##  en,    English Premier League
   league = SportDb::Model::League.find_by( key: key )
   if league.nil?
@@ -116,6 +153,9 @@ def self.find( key )  ## e.g. key = 'en' or 'en.2' etc.
                    key:   key,
                    title: name,  # e.g. 'English Premier League'
                 )
+     else
+       puts "** unknown league for key >#{key}<; sorry - add to LEAGUES table"
+       exit 1
      end
   end
   league

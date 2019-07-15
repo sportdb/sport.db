@@ -18,13 +18,12 @@ class Team
   ## more attribs - todo/fix - also add "upstream" to struct & model!!!!!
   attr_accessor :district, :geos, :year_end, :country
 
-  def historic?()  @year_end.nil? == false; end
+  def historic?()  @year_end ? true : false; end
   alias_method  :past?, :historic?
 
 
   def initialize
     @alt_names = []
-    @year_end  = nil
   end
 
 
@@ -99,6 +98,15 @@ def self.parse( txt )
                exit 1
              end
          else
+          ## quick hack:
+          ##   remove known fill/dummy words incl:
+          ##     Provincia San Juan  =>  San Juan   (see argentina, for example)
+          ##
+          ##   use geo tree long term with alternative names - why? why not?
+           words = ['Provincia']
+           words.each { |word| heading = heading.gsub( word, '' ) }
+           heading = heading.strip
+
            headings.push( heading )
          end
 
@@ -193,10 +201,8 @@ def self.parse( txt )
         else
           ## assume city / geo tree
           ## split into geo tree
-          geos = value.split( /[<>‹›]/ )   ## note: allow > < or › ‹
-          geos = geos.map { |geo| geo.strip }   ## remove all whitespaces
-
-          city     = geos[0]
+          geos = split_geo( value )
+          city = geos[0]
           ## check for "embedded" district e.g. London (Fulham) or Hamburg (St. Pauli) etc.
           if city =~ /\((.+?)\)/   ## note: use non-greedy (?) match
             rec.district  = $1.strip
@@ -225,14 +231,19 @@ def self.parse( txt )
 
       ## 2) check geo tree with headings hierarchy
       if headings.size > 1 && headings[1]
+         geos = split_geo( headings[1] )
          if rec.geos
-           if rec.geos[0] != headings[1]
-             puts "!!! error - geo tree - headings mismatch >#{rec.geos[0]}< <=> >#{headings[1]}<"
+           if rec.geos[0] != geos[0]
+             puts "!!! error - geo tree - headings mismatch >#{rec.geos[0]}< <=> >#{geos[0]}<"
+             exit 1
+           end
+           if rec.geos[1] && rec.geos[1] != geos[1]   ## check optional 2nd level too
+             puts "!!! error - geo tree - headings mismatch >#{rec.geos[1]}< <=> >#{geos[1]}<"
              exit 1
            end
          else
            ## add missing region (state/province) from headings hierarchy
-           rec.geos = [headings[1]]
+           rec.geos = geos
          end
       end
 
@@ -257,6 +268,20 @@ def self.parse( txt )
   end  # each_line
   recs
 end  # method read
+
+###  helpers
+def self.split_geo( str )
+  ## assume city / geo tree
+  ##  strip and squish (white)spaces
+  #   e.g. León     › Guanajuato     => León › Guanajuato
+  str = str.strip.gsub( /[ \t]+/, ' ' )
+
+  ## split into geo tree
+  geos = str.split( /[<>‹›]/ )   ## note: allow > < or › ‹
+  geos = geos.map { |geo| geo.strip }   ## remove all whitespaces
+  geos
+end
+
 end  # class TeamReader
 
 

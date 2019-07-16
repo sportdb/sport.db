@@ -10,7 +10,6 @@ class Configuration
     @errors = []     ## make parsing errors "global" for now
   end
 
-
   def team_mappings
     read_teams()        if @team_mappings.nil?
     @team_mappings

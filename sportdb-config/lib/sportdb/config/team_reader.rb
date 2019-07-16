@@ -92,6 +92,14 @@ def self.parse( txt )
          if heading_level == 1
              if heading =~ /\(([a-z]{2,3})\)/
                country_code = $1
+
+               ## check country code - MUST exist for now!!!!
+               country = SportDb::Import.config.countries[ country_code.to_sym ]
+               if country.nil?
+                 puts "!!! error [team reader] - unknown country with code >#{country_code}< - sorry - add country to config to fix"
+                 exit 1
+               end
+
                headings.push( country_code )
              else
                puts "!!! error - heading level 1 - missing country code - >#{heading}<"
@@ -223,7 +231,8 @@ def self.parse( txt )
 
       ## 1) add country if present
       if headings.size > 0 && headings[0]
-        rec.country  = headings[0]
+        country = SportDb::Import.config.countries[ headings[0].to_sym ]
+        rec.country = country
       else
         ## make it an error - why? why not?
         puts "!!! warn - country missing in headings hierarchy"

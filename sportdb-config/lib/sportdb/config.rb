@@ -16,6 +16,8 @@ require 'sportdb/config/league_utils'
 require 'sportdb/config/league'
 require 'sportdb/config/league_reader'
 require 'sportdb/config/team_reader'
+
+require 'sportdb/config/countries'
 require 'sportdb/config/config'
 
 

@@ -6,45 +6,6 @@ module SportDb
   module Importer
 
 class Country
-    ## built-in countries for (quick starter) auto-add
-    COUNTRIES = {    ## rename to AUTO or BUILTIN_COUNTRIES or QUICK_COUNTRIES - why? why not?
-      ## british isles
-      eng: ['England',     'ENG'],     ## title/name, code
-      sco: ['Scotland',    'SCO'],
-      ie:  ['Ireland',     'IRL'],
-
-      ## central europe
-      at:  ['Austria',      'AUT'],
-      de:  ['Germany',      'GER'],   ## use fifa code or iso? - using fifa for now
-      ch:  ['Switzerland',  'SWZ'],
-      pl:  ['Poland',       'POL'],
-
-      ## western europe
-      fr:  ['France',      'FRA'],
-      es:  ['Spain',       'ESP'],
-
-      ## northern europe / skandinavia
-      dk:  ['Denmark',      'DNK'],
-      fi:  ['Finland',      'FIN'],
-      no:  ['Norway',       'NOR'],
-      se:  ['Sweden',       'SWE'],
-
-      ## eastern europe
-      ro:  ['Romania',      'ROU'],
-      ru:  ['Russia',       'RUS'],
-
-      ## north america
-      us:  ['United States', 'USA'],
-      mx:  ['Mexico',        'MEX'],
-
-      ## south america
-      ar:  ['Argentina',   'ARG'],
-      br:  ['Brazil',      'BRA'],
-
-      ## asia
-      cn:  ['China',       'CHN'],
-      jp:  ['Japan',       'JPN'],
-    }
 
     ### todo/fix:
     ##  add ALTERNATE / ALTERNATIVE COUNTRY KEYS!!!!

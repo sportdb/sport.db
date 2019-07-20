@@ -6,16 +6,13 @@ module SportDb
 
 class Configuration
 
-  def initialize
-    @errors = []     ## make parsing errors "global" for now
-  end
 
-  def team_mappings
+  def team_mappings    ## todo/fix: rename to clubs_mappings - why? why not?
     read_teams()        if @team_mappings.nil?
     @team_mappings
   end
 
-  def teams
+  def teams             ## todo/fix: rename to clubs - why? why not?
     read_teams()        if @teams.nil?
     @teams
   end
@@ -29,10 +26,7 @@ class Configuration
   ####
   #  todo/fix:  find a better way to configure club / team datasets
   attr_accessor   :clubs_dir
-  attr_accessor   :errors
-
   def clubs_dir()   @clubs_dir ||= './clubs'; end
-
 
 
   CLUBS_REGEX1 = %r{  (?:^|/)            # beginning (^) or beginning of path (/)
@@ -116,13 +110,53 @@ class Configuration
 =end
 
 
-  def read_teams
+
+  class ClubsHash   ## todo/check: use (rename to) ClubsMapping(s) - why? why not?
+    def initialize
+      @h      = {}
+      @errors = []
+    end
+
+    attr_reader :errors
+    def errors?() @errors.empty? == false; end
+
+    def add( rec )   ## add club record / alt_names
+      rec.alt_names.each do |alt_name|
+        alt_recs = @h[ alt_name ]
+        if alt_recs
+          msg = "** !!! WARN !!! - alt name conflict/duplicate - >#{alt_name}< will overwrite >#{alt_recs[0].name}, #{alt_recs[0].country.name}< with >#{rec.name}, #{rec.country.name}<"
+          puts msg
+          @errors << msg
+          alt_recs << rec
+        else
+          @h[ alt_name ] = [rec]
+        end
+      end
+    end
+
+    def fetch( alt_name ) @h[alt_name]; end
+    def []( alt_name )   ## quick fix: for now returns first name; use fetch for recs array for now!!!
+       ## keep "compatible" with old code for now
+       alt_recs = @h[ alt_name ]
+       if alt_recs
+         alt_recs[0].name   ## use canonical name of first match for now
+       else
+         nil   # nothing found
+       end
+    end
+  end # class ClubHash
+
+
+  def read_teams   ## todo/fix: rename to read_clubs - why? why not?
     ## unify team names; team (builtin/known/shared) name mappings
     ## cleanup team names - use local ("native") name with umlaut etc.
     recs = []
-    @errors = []    ## reset errors
 
     ## todo/fix: pass along / use country code too
+    ##   note: country code no longer needed in path (is now expected as heading inside the file)
+
+    ## todo/fix: add to teamreader
+    ##              check that name and alt_names for a club are all unique (not duplicates)
     datafiles = find_clubs_datafiles( clubs_dir )
     datafiles.each do |datafile|
        country  = datafile[0]    ## country code e.g. eng, at, de, etc.
@@ -133,45 +167,51 @@ class Configuration
     ############################
     ## add team mappings
     ##   alt names to canonical pretty (recommended unique) name
-    @team_mappings = {}
-
-    recs.each do |rec|
-       rec.alt_names.each do |alt_name|
-         name = @team_mappings[ alt_name ]
-         if name  ## todo/fix: add better warn about duplicates (if key exits) ???????
-            msg = "** !!! WARN !!! - alt name conflict/duplicate - >#{alt_name}< will overwrite >#{name}< with >#{rec.name}<"
-            puts msg
-            @errors << msg
-         else
-           @team_mappings[ alt_name ] = rec.name
-         end
-       end
-    end
+    @team_mappings = ClubsHash.new
+    recs.each { |rec| @team_mappings.add( rec ) }
 
 ###
 ## reverse hash for lookup/list of "official / registered(?)"
 ##    pretty recommended canonical unique (long form)
 ##    team names
 
-
-##
-##  todo/fix: move to new TeamConfig class (for reuse) !!!!!!
-##   todo/fix:  add check for duplicates/conflicts too!!!
     @teams = {}
     recs.each do |rec|
-      @teams[ rec.name ] = rec
+      old_rec = @teams[ rec.name ]
+      if old_rec
+        puts "** !!! ERROR !!! - (canonical) name conflict - duplicate - >#{rec.name}< will overwrite >#{old_rec.name}<:"
+        pp old_rec
+        pp rec
+        exit 1
+      else
+        @teams[ rec.name ] = rec
+
+        ## note: check if there's an alternative name registered
+        ##           for the canonical name
+        ##    todo/fix: find a better scheme for (alt) name mapping - why? why not?
+        ##   allow alt names same as canonical names if not is the same club/record - why? why not?
+        alt_recs =  @team_mappings.fetch( rec.name )
+        if alt_recs
+          puts "** !!! ERROR !!! - (canonical) name conflict - >#{rec.name}< registered already as alternative name mapping:"
+          pp alt_recs
+
+          ## note: exit now only if it's the same club (that has alt name that is the canonical name)
+          exit 1    if alt_recs.include?(rec)
+        end
+      end
     end
 
-    if @errors.size > 0
+    if @team_mappings.errors?
       puts ""
       puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts " #{@errors.size} errors:"
-      pp @errors
+      puts " #{@team_mappings.errors.size} errors:"
+      pp @team_mappings.errors
       ## exit 1
     end
 
     self  ## return self for chaining
 end
+
 
 
 def read_leagues

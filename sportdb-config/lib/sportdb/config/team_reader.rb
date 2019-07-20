@@ -235,7 +235,8 @@ def self.parse( txt )
         rec.country = country
       else
         ## make it an error - why? why not?
-        puts "!!! warn - country missing in headings hierarchy"
+        puts "!!! error - country missing in headings hierarchy - sorry - add to quicklist"
+        exit 1
       end
 
       ## 2) check geo tree with headings hierarchy

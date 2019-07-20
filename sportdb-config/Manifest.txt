@@ -17,6 +17,7 @@ lib/sportdb/config/season_utils.rb
 lib/sportdb/config/team_reader.rb
 lib/sportdb/config/version.rb
 test/helper.rb
+test/test_clubs.rb
 test/test_config.rb
 test/test_countries.rb
 test/test_league_reader.rb

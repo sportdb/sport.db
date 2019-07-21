@@ -15,43 +15,40 @@ require 'sportdb/import/finder_db_ii'
 
 
 
-def import_matches_txt( path, season:, league:, country: )
+def import_matches_txt( path, league:, season: )   ## todo/check: rename to import_matches - why? why not?
+  ## todo/fix: add headers options (pass throughto CsvMatchReader)
+  ##    add filters too why? why not?
 
   ## note: allow keys (as string) or records
-  season  = SportDb::Importer::Season.find_or_create_builtin( season )     if season.is_a? String
   league  = SportDb::Importer::League.find_or_create_builtin!( league )    if league.is_a? String
-  country = SportDb::Importer::Country.find_or_create_builtin!( country )  if country.is_a? String
+  season  = SportDb::Importer::Season.find_or_create_builtin( season )     if season.is_a? String
 
-
+  ##  todo/fix:
+  ##     add normalize: false/mapping: false  flag for NOT mapping club/team names
+  ##       make normalize: false the default, anyways - why? why not?
   matches_txt = CsvMatchReader.read( path )
 
   update_matches_txt( matches_txt,
-                        season:  season,
                         league:  league,
-                        country: country )
+                        season:  season )
 end
 
 
-def update_matches_txt( matches_txt, season:, league:, country: )
+def update_matches_txt( matches_txt, league:, season: )   ## todo/check: rename to update_matches/insert_matches - why? why not?
+
+  event   = find_or_create_event( league: league, season: season )
 
   matchlist = SportDb::Struct::Matchlist.new( matches_txt )
   teams_txt = matchlist.teams           ## was: find_teams_in_matches_txt( matches_txt )
   puts "#{teams_txt.size} teams:"
   pp teams_txt
 
+  ## todo/fix:
+  ##   add check if event has teams
+  ##   if yes - only double check and do NOT create / add teams
+  ##    number of teams must match (use teams only for lookup/alt name matches)
 
-  ## note: assume for now team all from same country
-  ##   fix!!! - english premier league has teams from wales
-  ##            french ligue 1 from monaco
-  teams = find_teams( teams_txt, country: country )
-
-  ## build hash lookup table e.g.
-  #  { 'Liverpool' => obj, ... }
-  teams_mapping = Hash[ teams_txt.zip( teams ) ]
-
-
-
-  event   = find_event( season: season, league: league )
+  teams = find_or_create_clubs!( teams_txt, league: league, season: season )
 
   ## add teams to event
   ##   todo/fix: check if team is alreay included?
@@ -67,6 +64,10 @@ def update_matches_txt( matches_txt, season:, league:, country: )
     pos:      999,
     start_at: event.start_at.to_date
   )
+
+  ## build hash lookup table e.g.
+  #  { 'Liverpool' => obj, ... }
+  teams_mapping = Hash[ teams_txt.zip( teams ) ]
 
   ## add matches
   matches_txt.each do |match_txt|
@@ -149,12 +150,13 @@ def import_leagues( start: nil )
 
         league_auto_name = "#{country.name} League #{division_key}"   ## "fallback" auto-generated league name
         pp league_auto_name
-        league = SportDb::Importer::League.find_or_create( league_key, name: league_auto_name )
+        league = SportDb::Importer::League.find_or_create( league_key,
+                                                             name:       league_auto_name,
+                                                             country_id: country.id )
 
         import_matches_txt( path,
-              season:  season,
               league:  league,
-              country: country )
+              season:  season )
       end  # each datafiles
       end
     end

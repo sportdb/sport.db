@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-
-
 module SportDb
   module Importer
 
@@ -12,17 +10,27 @@ class Country
     ##   e.g. d => de, a => at, en => eng, etc.
     ##   plus  add all fifa codes too   aut => at, etc.  - why? why not?
 
+def self.find!( key )   ## e.g. key = 'eng' or 'de' etc.
+   key = key.to_s   ## allow passing in of symbol (e.g. :fr instead of 'fr')
+   rec = WorldDb::Model::Country.find_by( key: key )
+   if rec.nil?
+       puts "** unknown country for key >#{key}<; sorry - add to COUNTRIES table"
+       exit 1
+   end
+   rec
+end
+
 def self.find_or_create_builtin!( key )   ## e.g. key = 'eng' or 'de' etc.
    key = key.to_s   ## allow passing in of symbol (e.g. :fr instead of 'fr')
    country = WorldDb::Model::Country.find_by( key: key )
    if country.nil?
      ### check quick built-tin auto-add country data
-     data = SportDb::Import.config.countries[ key.to_sym ]
-     if data
+     country_data = SportDb::Import.config.countries[ key.to_sym ]
+     if country_data
        country = WorldDb::Model::Country.create!(
-          key:  data.key,
-          name: data.name,
-          code: data.code,
+          key:  country_data.key,
+          name: country_data.name,
+          code: country_data.code,
           area: 1,
           pop:  1
        )
@@ -34,17 +42,7 @@ def self.find_or_create_builtin!( key )   ## e.g. key = 'eng' or 'de' etc.
    country
 end
 
-def self.find!( key )   ## e.g. key = 'eng' or 'de' etc.
-   key = key.to_s   ## allow passing in of symbol (e.g. :fr instead of 'fr')
-   rec = WorldDb::Model::Country.find_by( key: key )
-   if rec.nil?
-       puts "** unknown country for key >#{key}<; sorry - add to COUNTRIES table"
-       exit 1
-   end
-   rec
-end
 end # class Country
-
 
 
 
@@ -77,20 +75,20 @@ end # class Season
 
 
 class League
-## built-in countries for (quick starter) auto-add
-LEAGUES = {    ## rename to AUTO or BUILTIN_LEAGUES or QUICK_LEAGUES  - why? why not?
-  ## en:  'English Premier League',    ## use eng why? why not?
-  eng: 'English Premier League',    ## use en why? why not?
-  sco: 'Scottish Premiership',
-  fr:  'Ligue 1',
-  at:  'Österr. Bundesliga',
-  de:  '1. Bundesliga',
-  'de.2': '2. Bundesliga',
-}
 
+def self.find!( key )  ## e.g. key = 'en' or 'en.2' etc.
+  ##  en,    English Premier League
+  key = key.to_s
+  rec = SportDb::Model::League.find_by( key: key )
+  if rec.nil?
+    puts "** unknown league for key >#{key}<; sorry - add to LEAGUES table"
+    exit 1
+  end
+  rec
+end
 
 def self.find_or_create( key, name:, **more_attribs )
-
+   key = key.to_s
    rec = SportDb::Model::League.find_by( key: key )
    if rec.nil?
      ## use title and not name - why? why not?
@@ -103,17 +101,36 @@ def self.find_or_create( key, name:, **more_attribs )
 end
 
 
+
+###
+##  todo/fix:  move LEAGUES to sportdb-config
+
+## built-in countries for (quick starter) auto-add
+LEAGUES = {    ## rename to AUTO or BUILTIN_LEAGUES or QUICK_LEAGUES  - why? why not?
+  ## en:  'English Premier League',    ## use eng why? why not?
+  eng: 'English Premier League',    ## use en why? why not?
+  sco: 'Scottish Premiership',
+  fr:  'Ligue 1',
+  at:  'Österr. Bundesliga',
+  de:  '1. Bundesliga',
+  'de.2': '2. Bundesliga',
+}
+
 def self.find_or_create_builtin!( key )  ## e.g. key = 'eng' or 'eng.2' etc.
   ##  en,    English Premier League
+  key = key.to_s
   league = SportDb::Model::League.find_by( key: key )
   if league.nil?
      ### check quick built-in auto-add league data
-     data = LEAGUES[ key.to_sym ]
-     if data
-       name = data
+      league_data = LEAGUES[ key.to_sym ]
+     if league_data
+       ## note: assume first part in key is country key e.g. eng, sco, de, at, etc.
+       country_key =  key.split( '.' )[0]
        league = SportDb::Model::League.create!(
-                   key:   key,
-                   title: name,  # e.g. 'English Premier League'
+                   key:        key,
+                   title:      league_data,  # e.g. 'English Premier League'
+                   country_id: SportDb::Importer::Country.find_or_create_builtin!( country_key ).id,
+                   ## club: true
                 )
      else
        puts "** unknown league for key >#{key}<; sorry - add to LEAGUES table"
@@ -121,16 +138,6 @@ def self.find_or_create_builtin!( key )  ## e.g. key = 'eng' or 'eng.2' etc.
      end
   end
   league
-end
-
-def self.find!( key )  ## e.g. key = 'en' or 'en.2' etc.
-  ##  en,    English Premier League
-  rec = SportDb::Model::League.find_by( key: key )
-  if rec.nil?
-    puts "** unknown league for key >#{key}<; sorry - add to LEAGUES table"
-    exit 1
-  end
-  rec
 end
 end # class League
 

@@ -1,0 +1,381 @@
+Date,HomeTeam,AwayTeam,FTHG,FTAG,HTHG,HTAG
+11/08/17,Arsenal,Leicester,4,3,2,2
+12/08/17,Brighton,Man City,0,2,0,0
+12/08/17,Chelsea,Burnley,2,3,0,3
+12/08/17,Crystal Palace,Huddersfield,0,3,0,2
+12/08/17,Everton,Stoke,1,0,1,0
+12/08/17,Southampton,Swansea,0,0,0,0
+12/08/17,Watford,Liverpool,3,3,2,1
+12/08/17,West Brom,Bournemouth,1,0,1,0
+13/08/17,Man United,West Ham,4,0,1,0
+13/08/17,Newcastle,Tottenham,0,2,0,0
+19/08/17,Bournemouth,Watford,0,2,0,0
+19/08/17,Burnley,West Brom,0,1,0,0
+19/08/17,Leicester,Brighton,2,0,1,0
+19/08/17,Liverpool,Crystal Palace,1,0,0,0
+19/08/17,Southampton,West Ham,3,2,2,1
+19/08/17,Stoke,Arsenal,1,0,0,0
+19/08/17,Swansea,Man United,0,4,0,1
+20/08/17,Huddersfield,Newcastle,1,0,0,0
+20/08/17,Tottenham,Chelsea,1,2,0,1
+21/08/17,Man City,Everton,1,1,0,1
+26/08/17,Bournemouth,Man City,1,2,1,1
+26/08/17,Crystal Palace,Swansea,0,2,0,1
+26/08/17,Huddersfield,Southampton,0,0,0,0
+26/08/17,Man United,Leicester,2,0,0,0
+26/08/17,Newcastle,West Ham,3,0,1,0
+26/08/17,Watford,Brighton,0,0,0,0
+27/08/17,Chelsea,Everton,2,0,2,0
+27/08/17,Liverpool,Arsenal,4,0,2,0
+27/08/17,Tottenham,Burnley,1,1,0,0
+27/08/17,West Brom,Stoke,1,1,0,0
+09/09/17,Arsenal,Bournemouth,3,0,2,0
+09/09/17,Brighton,West Brom,3,1,1,0
+09/09/17,Everton,Tottenham,0,3,0,2
+09/09/17,Leicester,Chelsea,1,2,0,1
+09/09/17,Man City,Liverpool,5,0,2,0
+09/09/17,Southampton,Watford,0,2,0,1
+09/09/17,Stoke,Man United,2,2,1,1
+10/09/17,Burnley,Crystal Palace,1,0,1,0
+10/09/17,Swansea,Newcastle,0,1,0,0
+11/09/17,West Ham,Huddersfield,2,0,0,0
+15/09/17,Bournemouth,Brighton,2,1,0,0
+16/09/17,Crystal Palace,Southampton,0,1,0,1
+16/09/17,Huddersfield,Leicester,1,1,0,0
+16/09/17,Liverpool,Burnley,1,1,1,1
+16/09/17,Newcastle,Stoke,2,1,1,0
+16/09/17,Tottenham,Swansea,0,0,0,0
+16/09/17,Watford,Man City,0,6,0,3
+16/09/17,West Brom,West Ham,0,0,0,0
+17/09/17,Chelsea,Arsenal,0,0,0,0
+17/09/17,Man United,Everton,4,0,1,0
+23/09/17,Burnley,Huddersfield,0,0,0,0
+23/09/17,Everton,Bournemouth,2,1,0,0
+23/09/17,Leicester,Liverpool,2,3,1,2
+23/09/17,Man City,Crystal Palace,5,0,1,0
+23/09/17,Southampton,Man United,0,1,0,1
+23/09/17,Stoke,Chelsea,0,4,0,2
+23/09/17,Swansea,Watford,1,2,0,1
+23/09/17,West Ham,Tottenham,2,3,0,2
+24/09/17,Brighton,Newcastle,1,0,0,0
+25/09/17,Arsenal,West Brom,2,0,1,0
+30/09/17,Bournemouth,Leicester,0,0,0,0
+30/09/17,Chelsea,Man City,0,1,0,0
+30/09/17,Huddersfield,Tottenham,0,4,0,3
+30/09/17,Man United,Crystal Palace,4,0,2,0
+30/09/17,Stoke,Southampton,2,1,1,0
+30/09/17,West Brom,Watford,2,2,2,1
+30/09/17,West Ham,Swansea,1,0,0,0
+01/10/17,Arsenal,Brighton,2,0,1,0
+01/10/17,Everton,Burnley,0,1,0,1
+01/10/17,Newcastle,Liverpool,1,1,1,1
+14/10/17,Burnley,West Ham,1,1,0,1
+14/10/17,Crystal Palace,Chelsea,2,1,2,1
+14/10/17,Liverpool,Man United,0,0,0,0
+14/10/17,Man City,Stoke,7,2,3,1
+14/10/17,Swansea,Huddersfield,2,0,1,0
+14/10/17,Tottenham,Bournemouth,1,0,0,0
+14/10/17,Watford,Arsenal,2,1,0,1
+15/10/17,Brighton,Everton,1,1,0,0
+15/10/17,Southampton,Newcastle,2,2,0,1
+16/10/17,Leicester,West Brom,1,1,0,0
+20/10/17,West Ham,Brighton,0,3,0,2
+21/10/17,Chelsea,Watford,4,2,1,1
+21/10/17,Huddersfield,Man United,2,1,2,0
+21/10/17,Man City,Burnley,3,0,1,0
+21/10/17,Newcastle,Crystal Palace,1,0,0,0
+21/10/17,Southampton,West Brom,1,0,0,0
+21/10/17,Stoke,Bournemouth,1,2,0,2
+21/10/17,Swansea,Leicester,1,2,0,1
+22/10/17,Everton,Arsenal,2,5,1,1
+22/10/17,Tottenham,Liverpool,4,1,3,1
+28/10/17,Arsenal,Swansea,2,1,0,1
+28/10/17,Bournemouth,Chelsea,0,1,0,0
+28/10/17,Crystal Palace,West Ham,2,2,0,2
+28/10/17,Liverpool,Huddersfield,3,0,0,0
+28/10/17,Man United,Tottenham,1,0,0,0
+28/10/17,Watford,Stoke,0,1,0,1
+28/10/17,West Brom,Man City,2,3,1,2
+29/10/17,Brighton,Southampton,1,1,0,1
+29/10/17,Leicester,Everton,2,0,2,0
+30/10/17,Burnley,Newcastle,1,0,0,0
+04/11/17,Huddersfield,West Brom,1,0,1,0
+04/11/17,Newcastle,Bournemouth,0,1,0,0
+04/11/17,Southampton,Burnley,0,1,0,0
+04/11/17,Stoke,Leicester,2,2,1,1
+04/11/17,Swansea,Brighton,0,1,0,1
+04/11/17,West Ham,Liverpool,1,4,0,2
+05/11/17,Chelsea,Man United,1,0,0,0
+05/11/17,Everton,Watford,3,2,0,0
+05/11/17,Man City,Arsenal,3,1,1,0
+05/11/17,Tottenham,Crystal Palace,1,0,0,0
+18/11/17,Arsenal,Tottenham,2,0,2,0
+18/11/17,Bournemouth,Huddersfield,4,0,2,0
+18/11/17,Burnley,Swansea,2,0,2,0
+18/11/17,Crystal Palace,Everton,2,2,2,2
+18/11/17,Leicester,Man City,0,2,0,1
+18/11/17,Liverpool,Southampton,3,0,2,0
+18/11/17,Man United,Newcastle,4,1,2,1
+18/11/17,West Brom,Chelsea,0,4,0,3
+19/11/17,Watford,West Ham,2,0,1,0
+20/11/17,Brighton,Stoke,2,2,1,2
+24/11/17,West Ham,Leicester,1,1,1,1
+25/11/17,Crystal Palace,Stoke,2,1,0,0
+25/11/17,Liverpool,Chelsea,1,1,0,0
+25/11/17,Man United,Brighton,1,0,0,0
+25/11/17,Newcastle,Watford,0,3,0,2
+25/11/17,Swansea,Bournemouth,0,0,0,0
+25/11/17,Tottenham,West Brom,1,1,0,1
+26/11/17,Burnley,Arsenal,0,1,0,0
+26/11/17,Huddersfield,Man City,1,2,1,0
+26/11/17,Southampton,Everton,4,1,1,1
+28/11/17,Brighton,Crystal Palace,0,0,0,0
+28/11/17,Leicester,Tottenham,2,1,2,0
+28/11/17,Watford,Man United,2,4,0,3
+28/11/17,West Brom,Newcastle,2,2,1,0
+29/11/17,Arsenal,Huddersfield,5,0,1,0
+29/11/17,Bournemouth,Burnley,1,2,0,1
+29/11/17,Chelsea,Swansea,1,0,0,0
+29/11/17,Everton,West Ham,4,0,2,0
+29/11/17,Man City,Southampton,2,1,0,0
+29/11/17,Stoke,Liverpool,0,3,0,1
+02/12/17,Arsenal,Man United,1,3,0,2
+02/12/17,Brighton,Liverpool,1,5,0,2
+02/12/17,Chelsea,Newcastle,3,1,2,1
+02/12/17,Everton,Huddersfield,2,0,0,0
+02/12/17,Leicester,Burnley,1,0,1,0
+02/12/17,Stoke,Swansea,2,1,2,1
+02/12/17,Watford,Tottenham,1,1,1,1
+02/12/17,West Brom,Crystal Palace,0,0,0,0
+03/12/17,Bournemouth,Southampton,1,1,1,0
+03/12/17,Man City,West Ham,2,1,0,1
+09/12/17,Burnley,Watford,1,0,1,0
+09/12/17,Crystal Palace,Bournemouth,2,2,2,2
+09/12/17,Huddersfield,Brighton,2,0,2,0
+09/12/17,Newcastle,Leicester,2,3,1,1
+09/12/17,Swansea,West Brom,1,0,0,0
+09/12/17,Tottenham,Stoke,5,1,1,0
+09/12/17,West Ham,Chelsea,1,0,1,0
+10/12/17,Liverpool,Everton,1,1,1,0
+10/12/17,Man United,Man City,1,2,1,1
+10/12/17,Southampton,Arsenal,1,1,1,0
+12/12/17,Burnley,Stoke,1,0,0,0
+12/12/17,Crystal Palace,Watford,2,1,0,1
+12/12/17,Huddersfield,Chelsea,1,3,0,2
+13/12/17,Liverpool,West Brom,0,0,0,0
+13/12/17,Man United,Bournemouth,1,0,1,0
+13/12/17,Newcastle,Everton,0,1,0,1
+13/12/17,Southampton,Leicester,1,4,0,3
+13/12/17,Swansea,Man City,0,4,0,2
+13/12/17,Tottenham,Brighton,2,0,1,0
+13/12/17,West Ham,Arsenal,0,0,0,0
+16/12/17,Arsenal,Newcastle,1,0,1,0
+16/12/17,Brighton,Burnley,0,0,0,0
+16/12/17,Chelsea,Southampton,1,0,1,0
+16/12/17,Leicester,Crystal Palace,0,3,0,2
+16/12/17,Man City,Tottenham,4,1,1,0
+16/12/17,Stoke,West Ham,0,3,0,1
+16/12/17,Watford,Huddersfield,1,4,0,2
+17/12/17,Bournemouth,Liverpool,0,4,0,3
+17/12/17,West Brom,Man United,1,2,0,2
+18/12/17,Everton,Swansea,3,1,1,1
+22/12/17,Arsenal,Liverpool,3,3,0,1
+23/12/17,Brighton,Watford,1,0,0,0
+23/12/17,Burnley,Tottenham,0,3,0,1
+23/12/17,Everton,Chelsea,0,0,0,0
+23/12/17,Leicester,Man United,2,2,1,1
+23/12/17,Man City,Bournemouth,4,0,1,0
+23/12/17,Southampton,Huddersfield,1,1,1,0
+23/12/17,Stoke,West Brom,3,1,2,0
+23/12/17,Swansea,Crystal Palace,1,1,0,0
+23/12/17,West Ham,Newcastle,2,3,1,1
+26/12/17,Bournemouth,West Ham,3,3,1,1
+26/12/17,Chelsea,Brighton,2,0,0,0
+26/12/17,Huddersfield,Stoke,1,1,1,0
+26/12/17,Liverpool,Swansea,5,0,1,0
+26/12/17,Man United,Burnley,2,2,0,2
+26/12/17,Tottenham,Southampton,5,2,2,0
+26/12/17,Watford,Leicester,2,1,1,1
+26/12/17,West Brom,Everton,0,0,0,0
+27/12/17,Newcastle,Man City,0,1,0,1
+28/12/17,Crystal Palace,Arsenal,2,3,0,1
+30/12/17,Bournemouth,Everton,2,1,1,0
+30/12/17,Chelsea,Stoke,5,0,3,0
+30/12/17,Huddersfield,Burnley,0,0,0,0
+30/12/17,Liverpool,Leicester,2,1,0,1
+30/12/17,Man United,Southampton,0,0,0,0
+30/12/17,Newcastle,Brighton,0,0,0,0
+30/12/17,Watford,Swansea,1,2,1,0
+31/12/17,Crystal Palace,Man City,0,0,0,0
+31/12/17,West Brom,Arsenal,1,1,0,0
+01/01/18,Brighton,Bournemouth,2,2,1,1
+01/01/18,Burnley,Liverpool,1,2,0,0
+01/01/18,Everton,Man United,0,2,0,0
+01/01/18,Leicester,Huddersfield,3,0,0,0
+01/01/18,Stoke,Newcastle,0,1,0,0
+02/01/18,Man City,Watford,3,1,2,0
+02/01/18,Southampton,Crystal Palace,1,2,1,0
+02/01/18,Swansea,Tottenham,0,2,0,1
+02/01/18,West Ham,West Brom,2,1,0,1
+03/01/18,Arsenal,Chelsea,2,2,0,0
+04/01/18,Tottenham,West Ham,1,1,0,0
+13/01/18,Chelsea,Leicester,0,0,0,0
+13/01/18,Crystal Palace,Burnley,1,0,1,0
+13/01/18,Huddersfield,West Ham,1,4,1,1
+13/01/18,Newcastle,Swansea,1,1,0,0
+13/01/18,Tottenham,Everton,4,0,1,0
+13/01/18,Watford,Southampton,2,2,0,2
+13/01/18,West Brom,Brighton,2,0,1,0
+14/01/18,Bournemouth,Arsenal,2,1,0,0
+14/01/18,Liverpool,Man City,4,3,1,1
+15/01/18,Man United,Stoke,3,0,2,0
+20/01/18,Arsenal,Crystal Palace,4,1,4,0
+20/01/18,Brighton,Chelsea,0,4,0,2
+20/01/18,Burnley,Man United,0,1,0,0
+20/01/18,Everton,West Brom,1,1,0,1
+20/01/18,Leicester,Watford,2,0,1,0
+20/01/18,Man City,Newcastle,3,1,1,0
+20/01/18,Stoke,Huddersfield,2,0,0,0
+20/01/18,West Ham,Bournemouth,1,1,0,0
+21/01/18,Southampton,Tottenham,1,1,1,1
+22/01/18,Swansea,Liverpool,1,0,1,0
+30/01/18,Huddersfield,Liverpool,0,3,0,2
+30/01/18,Swansea,Arsenal,3,1,1,1
+30/01/18,West Ham,Crystal Palace,1,1,1,1
+31/01/18,Chelsea,Bournemouth,0,3,0,0
+31/01/18,Everton,Leicester,2,1,2,0
+31/01/18,Man City,West Brom,3,0,1,0
+31/01/18,Newcastle,Burnley,1,1,0,0
+31/01/18,Southampton,Brighton,1,1,0,1
+31/01/18,Stoke,Watford,0,0,0,0
+31/01/18,Tottenham,Man United,2,0,2,0
+03/02/18,Arsenal,Everton,5,1,4,0
+03/02/18,Bournemouth,Stoke,2,1,0,1
+03/02/18,Brighton,West Ham,3,1,1,1
+03/02/18,Burnley,Man City,1,1,0,1
+03/02/18,Leicester,Swansea,1,1,1,0
+03/02/18,Man United,Huddersfield,2,0,0,0
+03/02/18,West Brom,Southampton,2,3,1,2
+04/02/18,Crystal Palace,Newcastle,1,1,0,1
+04/02/18,Liverpool,Tottenham,2,2,1,0
+05/02/18,Watford,Chelsea,4,1,1,0
+10/02/18,Everton,Crystal Palace,3,1,0,0
+10/02/18,Man City,Leicester,5,1,1,1
+10/02/18,Stoke,Brighton,1,1,0,1
+10/02/18,Swansea,Burnley,1,0,0,0
+10/02/18,Tottenham,Arsenal,1,0,0,0
+10/02/18,West Ham,Watford,2,0,1,0
+11/02/18,Huddersfield,Bournemouth,4,1,2,1
+11/02/18,Newcastle,Man United,1,0,0,0
+11/02/18,Southampton,Liverpool,0,2,0,2
+12/02/18,Chelsea,West Brom,3,0,1,0
+24/02/18,Bournemouth,Newcastle,2,2,0,2
+24/02/18,Brighton,Swansea,4,1,1,0
+24/02/18,Burnley,Southampton,1,1,0,0
+24/02/18,Leicester,Stoke,1,1,0,1
+24/02/18,Liverpool,West Ham,4,1,1,0
+24/02/18,Watford,Everton,1,0,0,0
+24/02/18,West Brom,Huddersfield,1,2,0,0
+25/02/18,Crystal Palace,Tottenham,0,1,0,0
+25/02/18,Man United,Chelsea,2,1,1,1
+01/03/18,Arsenal,Man City,0,3,0,3
+03/03/18,Burnley,Everton,2,1,0,1
+03/03/18,Leicester,Bournemouth,1,1,0,1
+03/03/18,Liverpool,Newcastle,2,0,1,0
+03/03/18,Southampton,Stoke,0,0,0,0
+03/03/18,Swansea,West Ham,4,1,2,0
+03/03/18,Tottenham,Huddersfield,2,0,1,0
+03/03/18,Watford,West Brom,1,0,0,0
+04/03/18,Brighton,Arsenal,2,1,2,1
+04/03/18,Man City,Chelsea,1,0,0,0
+05/03/18,Crystal Palace,Man United,2,3,1,0
+10/03/18,Chelsea,Crystal Palace,2,1,2,0
+10/03/18,Everton,Brighton,2,0,0,0
+10/03/18,Huddersfield,Swansea,0,0,0,0
+10/03/18,Man United,Liverpool,2,1,2,0
+10/03/18,Newcastle,Southampton,3,0,2,0
+10/03/18,West Brom,Leicester,1,4,1,1
+10/03/18,West Ham,Burnley,0,3,0,0
+11/03/18,Arsenal,Watford,3,0,1,0
+11/03/18,Bournemouth,Tottenham,1,4,1,1
+12/03/18,Stoke,Man City,0,2,0,1
+17/03/18,Bournemouth,West Brom,2,1,0,0
+17/03/18,Huddersfield,Crystal Palace,0,2,0,1
+17/03/18,Liverpool,Watford,5,0,2,0
+17/03/18,Stoke,Everton,1,2,0,0
+31/03/18,Brighton,Leicester,0,2,0,0
+31/03/18,Crystal Palace,Liverpool,1,2,1,0
+31/03/18,Everton,Man City,1,3,0,3
+31/03/18,Man United,Swansea,2,0,2,0
+31/03/18,Newcastle,Huddersfield,1,0,0,0
+31/03/18,Watford,Bournemouth,2,2,1,1
+31/03/18,West Brom,Burnley,1,2,0,1
+31/03/18,West Ham,Southampton,3,0,3,0
+01/04/18,Arsenal,Stoke,3,0,0,0
+01/04/18,Chelsea,Tottenham,1,3,1,1
+07/04/18,Bournemouth,Crystal Palace,2,2,0,0
+07/04/18,Brighton,Huddersfield,1,1,1,1
+07/04/18,Everton,Liverpool,0,0,0,0
+07/04/18,Leicester,Newcastle,1,2,0,1
+07/04/18,Man City,Man United,2,3,2,0
+07/04/18,Stoke,Tottenham,1,2,0,0
+07/04/18,Watford,Burnley,1,2,0,0
+07/04/18,West Brom,Swansea,1,1,0,0
+08/04/18,Arsenal,Southampton,3,2,2,1
+08/04/18,Chelsea,West Ham,1,1,1,0
+14/04/18,Burnley,Leicester,2,1,2,0
+14/04/18,Crystal Palace,Brighton,3,2,3,2
+14/04/18,Huddersfield,Watford,1,0,0,0
+14/04/18,Liverpool,Bournemouth,3,0,1,0
+14/04/18,Southampton,Chelsea,2,3,1,0
+14/04/18,Swansea,Everton,1,1,0,1
+14/04/18,Tottenham,Man City,1,3,1,2
+15/04/18,Man United,West Brom,0,1,0,0
+15/04/18,Newcastle,Arsenal,2,1,1,1
+16/04/18,West Ham,Stoke,1,1,0,0
+17/04/18,Brighton,Tottenham,1,1,0,0
+18/04/18,Bournemouth,Man United,0,2,0,1
+19/04/18,Burnley,Chelsea,1,2,0,1
+19/04/18,Leicester,Southampton,0,0,0,0
+21/04/18,Watford,Crystal Palace,0,0,0,0
+21/04/18,West Brom,Liverpool,2,2,0,1
+22/04/18,Arsenal,West Ham,4,1,0,0
+22/04/18,Man City,Swansea,5,0,2,0
+22/04/18,Stoke,Burnley,1,1,1,0
+23/04/18,Everton,Newcastle,1,0,0,0
+28/04/18,Burnley,Brighton,0,0,0,0
+28/04/18,Crystal Palace,Leicester,5,0,2,0
+28/04/18,Huddersfield,Everton,0,2,0,1
+28/04/18,Liverpool,Stoke,0,0,0,0
+28/04/18,Newcastle,West Brom,0,1,0,1
+28/04/18,Southampton,Bournemouth,2,1,1,1
+28/04/18,Swansea,Chelsea,0,1,0,1
+29/04/18,Man United,Arsenal,2,1,1,0
+29/04/18,West Ham,Man City,1,4,1,2
+30/04/18,Tottenham,Watford,2,0,1,0
+04/05/18,Brighton,Man United,1,0,0,0
+05/05/18,Bournemouth,Swansea,1,0,1,0
+05/05/18,Everton,Southampton,1,1,0,0
+05/05/18,Leicester,West Ham,0,2,0,1
+05/05/18,Stoke,Crystal Palace,1,2,1,0
+05/05/18,Watford,Newcastle,2,1,2,0
+05/05/18,West Brom,Tottenham,1,0,0,0
+06/05/18,Arsenal,Burnley,5,0,2,0
+06/05/18,Chelsea,Liverpool,1,0,1,0
+06/05/18,Man City,Huddersfield,0,0,0,0
+08/05/18,Swansea,Southampton,0,1,0,0
+09/05/18,Chelsea,Huddersfield,1,1,0,0
+09/05/18,Leicester,Arsenal,3,1,1,0
+09/05/18,Man City,Brighton,3,1,2,1
+09/05/18,Tottenham,Newcastle,1,0,0,0
+10/05/18,West Ham,Man United,0,0,0,0
+13/05/18,Burnley,Bournemouth,1,2,1,0
+13/05/18,Crystal Palace,West Brom,2,0,0,0
+13/05/18,Huddersfield,Arsenal,0,1,0,1
+13/05/18,Liverpool,Brighton,4,0,2,0
+13/05/18,Man United,Watford,1,0,1,0
+13/05/18,Newcastle,Chelsea,3,0,1,0
+13/05/18,Southampton,Man City,0,1,0,0
+13/05/18,Swansea,Stoke,1,2,1,2
+13/05/18,Tottenham,Leicester,5,4,1,2
+13/05/18,West Ham,Everton,3,1,1,0

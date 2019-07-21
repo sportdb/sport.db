@@ -2,7 +2,12 @@
 
 
 
-def find_or_create_clubs!( team_names, league:, season: )
+def find_or_create_clubs!( team_names, league:, season: nil)
+  ## note: season is for now optinal (and unused) - add/use in the future!!!
+
+  ## todo/fix:
+  ##   move (core) match clubs / team names to sportdb config!!!!
+
   recs = []
 
   ## add/find teams
@@ -79,7 +84,7 @@ def find_or_create_clubs!( team_names, league:, season: )
 end
 
 
-def find_event( league:, season: )
+def find_or_create_event( league:, season: )
   ## add event
   ##  key = 'en.2017/18'
   event = SportDb::Model::Event.find_by( league_id: league.id, season_id: season.id  )

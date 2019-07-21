@@ -10,21 +10,19 @@ class Country
     ### todo/fix:
     ##  add ALTERNATE / ALTERNATIVE COUNTRY KEYS!!!!
     ##   e.g. d => de, a => at, en => eng, etc.
-    ##   plus  add all fifa codes too   aut => at, etc.
+    ##   plus  add all fifa codes too   aut => at, etc.  - why? why not?
 
 def self.find_or_create_builtin!( key )   ## e.g. key = 'eng' or 'de' etc.
    key = key.to_s   ## allow passing in of symbol (e.g. :fr instead of 'fr')
    country = WorldDb::Model::Country.find_by( key: key )
    if country.nil?
      ### check quick built-tin auto-add country data
-     data = COUNTRIES[ key.to_sym ]
+     data = SportDb::Import.config.countries[ key.to_sym ]
      if data
-       name, code = data
-
        country = WorldDb::Model::Country.create!(
-          key:  key,
-          name: name,
-          code: code,
+          key:  data.key,
+          name: data.name,
+          code: data.code,
           area: 1,
           pop:  1
        )
@@ -91,16 +89,19 @@ LEAGUES = {    ## rename to AUTO or BUILTIN_LEAGUES or QUICK_LEAGUES  - why? why
 }
 
 
-def self.find_or_create( key, name: )   ## use title and not name - why? why not?
+def self.find_or_create( key, name:, **more_attribs )
+
    rec = SportDb::Model::League.find_by( key: key )
    if rec.nil?
-     rec = SportDb::Model::League.create!(
-        key:   key,
-        title: name,  # e.g. 'English Premier League'
-     )
+     ## use title and not name - why? why not?
+     ##  quick fix:  change name to title
+     attribs = { key:   key,
+                 title: name }.merge( more_attribs )
+     rec = SportDb::Model::League.create!( attribs )
    end
    rec
 end
+
 
 def self.find_or_create_builtin!( key )  ## e.g. key = 'eng' or 'eng.2' etc.
   ##  en,    English Premier League

@@ -105,17 +105,20 @@ TXT
     assert_equal 'London',           recs[0].city
     assert_equal 'Fulham',           recs[0].district
     assert_equal ['Greater London'], recs[0].geos
-    assert_equal 'eng',              recs[0].country
+    assert_equal 'England',          recs[0].country.name
+    assert_equal 'eng',              recs[0].country.key
 
     assert_equal 'London',           recs[1].city
     assert_equal 'Charlton',         recs[1].district
     assert_equal ['Greater London'], recs[1].geos
-    assert_equal 'eng',              recs[1].country
+    assert_equal 'England',          recs[1].country.name
+    assert_equal 'eng',              recs[1].country.key
 
     assert_equal 'Hamburg',          recs[2].city
     assert_equal 'St. Pauli',        recs[2].district
     assert_equal ['Hamburg'],        recs[2].geos
-    assert_equal 'de',               recs[2].country
+    assert_equal 'Germany',          recs[2].country.name
+    assert_equal 'de',               recs[2].country.key
   end
 
 

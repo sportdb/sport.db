@@ -1,0 +1,303 @@
+##########################
+# FIFA country codes
+#
+#  see   en.wikipedia.org/wiki/List_of_FIFA_country_codes
+#   and  github.com/openmundi/world.db/blob/master/1-codes/fifa.txt
+
+##
+#  todo: mark all dependencies n territories w/ (UK), (NZ), (AU), (US) etc.
+
+
+## todo: sort by code first - why? why not?
+
+
+#################
+## 209 regular FIFA members
+
+
+Key,  FIFA,  Name
+
+AFG, Afghanistan
+al,  ALB, Albania
+ALG, Algeria
+ASA, American Samoa
+ad,  AND, Andorra
+ANG, Angola
+AIA, Anguilla
+ATG, Antigua and Barbuda
+ar,  ARG, Argentina
+am,  ARM, Armenia
+ARU, Aruba
+au,  AUS, Australia
+at,  AUT, Austria
+az,  AZE, Azerbaijan
+
+BAH, Bahamas
+BHR, Bahrain
+BAN, Bangladesh
+BRB, Barbados
+by,  BLR, Belarus
+be,  BEL, Belgium
+BLZ, Belize
+BEN, Benin
+BER, Bermuda
+BHU, Bhutan
+bo,  BOL, Bolivia
+ba,  BIH, Bosnia-Herzegovina
+BOT, Botswana
+br,  BRA, Brazil
+BRU, Brunei
+bg,  BUL, Bulgaria
+BFA, Burkina Faso
+BDI, Burundi
+
+CAM, Cambodia
+CMR, Cameroon
+ca,  CAN, Canada
+CPV, Cape Verde
+CAY, Cayman Islands
+CTA, Central African Republic
+CHA, Chad
+cl,  CHI, Chile
+cn,  CHN, China
+co,  COL, Colombia
+COM, Comoros
+CGO, Congo
+COD, Congo DR
+COK, Cook Islands
+cr,  CRC, Costa Rica
+hr,  CRO, Croatia
+CUB, Cuba
+CUW, Curaçao
+cy,  CYP, Cyprus
+cz,  CZE, Czech Republic
+CIV, Côte d'Ivoire      # Ivory Coast
+
+dk,  DEN, Denmark
+DJI, Djibouti
+DMA, Dominica
+DOM, Dominican Republic
+
+ec,  ECU, Ecuador
+eg,  EGY, Egypt
+eng, ENG, England (UK)
+EQG, Equatorial Guinea
+ERI, Eritrea
+ee,  EST, Estonia
+ETH, Ethiopia
+es,  ESP, Spain
+
+fo,  FRO, Faroe Islands (DK)
+FIJ, Fiji
+fi,  FIN, Finland
+fr,  FRA, France
+
+GAB, Gabon
+GAM, Gambia
+ge,  GEO, Georgia
+de,  GER, Germany
+GHA, Ghana
+gr,  GRE, Greece
+GRN, Grenada
+GUM, Guam
+gt,  GUA, Guatemala
+GUI, Guinea
+GNB, Guinea-Bissau
+gy,  GUY, Guyana
+
+ht,  HAI, Haiti
+hn,  HON, Honduras
+HKG, Hong Kong
+hu,  HUN, Hungary
+
+is,  ISL, Iceland
+IND, India
+IDN, Indonesia
+IRN, Iran
+IRQ, Iraq
+il,  ISR, Israel
+it,  ITA, Italy
+ie,  IRL, Ireland
+
+JAM, Jamaica
+jp,  JPN, Japan
+JOR, Jordan
+
+kz,  KAZ, Kazakhstan
+KEN, Kenya
+KUW, Kuwait
+KGZ, Kyrgyzstan
+KSA, Saudi Arabia
+kr,  KOR, South Korea
+
+LAO, Laos
+lv,  LVA, Latvia
+LIB, Lebanon
+LES, Lesotho
+LBR, Liberia
+LBY, Libya
+li,  LIE, Liechtenstein
+lt,  LTU, Lithuania
+lu,  LUX, Luxembourg
+LCA, Saint Lucia
+
+MAC, Macau
+mk,  MKD, Macedonia
+MAD, Madagascar
+MWI, Malawi
+MAS, Malaysia
+MDV, Maldives
+MLI, Mali
+mt,  MLT, Malta
+MTN, Mauritania
+MRI, Mauritius
+mx,  MEX, Mexico
+md,  MDA, Moldova
+MNG, Mongolia
+me,  MNE, Montenegro
+MSR, Montserrat
+ma,  MAR, Morocco
+MOZ, Mozambique
+MYA, Myanmar
+
+NAM, Namibia
+NEP, Nepal
+nl,  NED, Netherlands
+NCL, New Caledonia
+nz,  NZL, New Zealand
+ni,  NCA, Nicaragua
+NIG, Niger
+NGA, Nigeria
+nir, NIR, Northern Ireland (UK)
+no,  NOR, Norway
+
+OMA, Oman
+
+PAK, Pakistan
+PLE, Palestine
+pa,  PAN, Panama
+PNG, Papua New Guinea
+py,  PAR, Paraguay
+pe,  PER, Peru
+PHI, Philippines
+pl,  POL, Poland
+pt,  POR, Portugal
+pr,  PUR, Puerto Rico (US)
+PRK, North Korea
+
+QAT, Qatar
+
+ro,  ROU, Romania
+ru,  RUS, Russia
+RWA, Rwanda
+RSA, South Africa
+
+SKN, Saint Kitts and Nevis
+SAM, Samoa
+sm,  SMR, San Marino
+STP, São Tomé and Príncipe
+sco, SCO, Scotland (UK)
+SEN, Senegal
+rs,  SRB, Serbia
+SEY, Seychelles
+SLE, Sierra Leone
+SIN, Singapore
+sk,  SVK, Slovakia
+si,  SVN, Slovenia
+SOL, Solomon Islands
+SOM, Somalia
+SSD, South Sudan
+SRI, Sri Lanka
+SDN, Sudan
+SUR, Suriname
+SWZ, Swaziland
+se,  SWE, Sweden
+ch,  SUI, Switzerland
+SYR, Syria
+sv,  SLV, El Salvador
+
+TAH, Tahiti
+TJK, Tajikistan
+TAN, Tanzania
+THA, Thailand
+TLS, Timor-Leste
+TOG, Togo
+TGA, Tonga
+tt,  TRI, Trinidad and Tobago
+TUN, Tunisia
+tr,  TUR, Turkey
+TKM, Turkmenistan
+TCA, Turks and Caicos Islands
+TPE, Taiwan              # Chinese Tapei
+
+UGA, Uganda
+ua,  UKR, Ukraine
+UAE, United Arab Emirates
+us,  USA, United States
+uy,  URU, Uruguay
+UZB, Uzbekistan
+
+VAN, Vanuatu
+ve,  VEN, Venezuela
+VIE, Vietnam
+VIR, US Virgin Islands    # United States Virgin Islands; Virgin Islands (U.S.)
+VIN, Saint Vincent and the Grenadines
+VGB, British Virgin Islands
+
+wal, WAL, Wales (UK)
+
+YEM, Yemen
+
+ZAM, Zambia
+ZIM, Zimbabwe
+
+
+###################
+## Non-FIFA member codes
+
+BOE, Bonaire        # CONCACAF
+GYF, French Guiana  # CONCACAF
+GPE, Guadeloupe     # CONCACAF
+MTQ, Martinique     # CONCACAF
+SXM, Sint Maarten   # CONCACAF
+
+gi,  GIB, Gibraltar (UK)   # UEFA
+KOS, Kosovo         # UEFA
+
+REU, Réunion        # CAF
+ZAN, Zanzibar       # CAF
+
+TUV, Tuvalu         # OFC
+
+
+####################
+## Irregular codes
+
+NMI, Northern Mariana Islands  # AFC
+
+SMT, Saint-Martin    # CONCACAF
+
+FSM, Micronesia      # OFC
+KIR, Kiribati        # OFC
+NIU, Niue            # OFC
+PLW, Palau           # OFC
+
+
+#################
+# not members
+#
+# in europe:
+# - Vatican City
+# - Great Britain - only all its member e.g. England/Wales/Scotland/Northern Irland
+
+mc,  -,  Monaco    ## check if has fifa code?
+
+
+#
+# in oceania:
+# - Kiribati
+# - Marshall Islands
+# - Micronesia
+# - Nauru
+# - Palau
+# - Tuvalu

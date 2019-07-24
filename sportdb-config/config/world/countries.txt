@@ -3,167 +3,171 @@
 #
 #  see   en.wikipedia.org/wiki/List_of_FIFA_country_codes
 #   and  github.com/openmundi/world.db/blob/master/1-codes/fifa.txt
+#   and  www.rsssf.com/miscellaneous/fifa-codes.html
 
 ##
-#  todo: mark all dependencies n territories w/ (UK), (NZ), (AU), (US) etc.
+# note: all dependencies n territories marked w/
+#            (UK), (FR), (NZ), (AU), (US), (NL), (DK), (CN) etc.
 
 
-## todo: sort by code first - why? why not?
+###
+# todo: group by world.db "continents" - south america, africa, etc.
+
 
 
 #################
-## 209 regular FIFA members
+## 209  (now in 2019 211(!) which two got added ??) regular FIFA members
 
 
 Key,  FIFA,  Name
 
-AFG, Afghanistan
+af,  AFG, Afghanistan
 al,  ALB, Albania
-ALG, Algeria
-ASA, American Samoa
+dz,  ALG, Algeria
+as,  ASA, American Samoa (US)
 ad,  AND, Andorra
-ANG, Angola
-AIA, Anguilla
-ATG, Antigua and Barbuda
+ao,  ANG, Angola
+ai,  AIA, Anguilla (UK)
+ag,  ATG, Antigua and Barbuda
 ar,  ARG, Argentina
 am,  ARM, Armenia
-ARU, Aruba
+aw,  ARU, Aruba (NL)
 au,  AUS, Australia
 at,  AUT, Austria
 az,  AZE, Azerbaijan
 
-BAH, Bahamas
-BHR, Bahrain
-BAN, Bangladesh
-BRB, Barbados
+bs,  BAH, Bahamas
+bh,  BHR, Bahrain
+bd,  BAN, Bangladesh
+bb,  BRB, Barbados
 by,  BLR, Belarus
 be,  BEL, Belgium
-BLZ, Belize
-BEN, Benin
-BER, Bermuda
-BHU, Bhutan
+bz,  BLZ, Belize
+bj,  BEN, Benin
+bm,  BER, Bermuda (UK)
+bt,  BHU, Bhutan
 bo,  BOL, Bolivia
-ba,  BIH, Bosnia-Herzegovina
-BOT, Botswana
+ba,  BIH, Bosnia and Herzegovina      ## or use Bosnia-Herzegovina ?
+bw,  BOT, Botswana
 br,  BRA, Brazil
-BRU, Brunei
+bn,  BRU, Brunei
 bg,  BUL, Bulgaria
-BFA, Burkina Faso
-BDI, Burundi
+bf,  BFA, Burkina Faso
+bi,  BDI, Burundi
 
-CAM, Cambodia
-CMR, Cameroon
+kh,  CAM, Cambodia
+cm,  CMR, Cameroon
 ca,  CAN, Canada
-CPV, Cape Verde
-CAY, Cayman Islands
-CTA, Central African Republic
-CHA, Chad
+cv,  CPV, Cabo Verde
+ky,  CAY, Cayman Islands (UK)
+cf,  CTA, Central African Republic
+td,  CHA, Chad
 cl,  CHI, Chile
 cn,  CHN, China
 co,  COL, Colombia
-COM, Comoros
-CGO, Congo
-COD, Congo DR
-COK, Cook Islands
+km,  COM, Comoros
+cg,  CGO, Congo
+cd,  COD, Congo DR
+ck,  COK, Cook Islands (NZ)
 cr,  CRC, Costa Rica
 hr,  CRO, Croatia
-CUB, Cuba
-CUW, Curaçao
+cu,  CUB, Cuba
+cw,  CUW, Curaçao (NL)
 cy,  CYP, Cyprus
 cz,  CZE, Czech Republic
-CIV, Côte d'Ivoire      # Ivory Coast
+ci,  CIV, Côte d'Ivoire      # Ivory Coast
 
 dk,  DEN, Denmark
-DJI, Djibouti
-DMA, Dominica
-DOM, Dominican Republic
+dj,  DJI, Djibouti
+dm,  DMA, Dominica
+do,  DOM, Dominican Republic
 
 ec,  ECU, Ecuador
 eg,  EGY, Egypt
 eng, ENG, England (UK)
-EQG, Equatorial Guinea
-ERI, Eritrea
+gq,  EQG, Equatorial Guinea
+er,  ERI, Eritrea
 ee,  EST, Estonia
-ETH, Ethiopia
+et,  ETH, Ethiopia
 es,  ESP, Spain
 
 fo,  FRO, Faroe Islands (DK)
-FIJ, Fiji
+fj,  FIJ, Fiji
 fi,  FIN, Finland
 fr,  FRA, France
 
-GAB, Gabon
-GAM, Gambia
+ga,  GAB, Gabon
+gm,  GAM, Gambia
 ge,  GEO, Georgia
 de,  GER, Germany
-GHA, Ghana
+gh,  GHA, Ghana
 gr,  GRE, Greece
-GRN, Grenada
-GUM, Guam
+gd,  GRN, Grenada
+gu,  GUM, Guam (US)
 gt,  GUA, Guatemala
-GUI, Guinea
-GNB, Guinea-Bissau
+gn,  GUI, Guinea
+gw,  GNB, Guinea-Bissau
 gy,  GUY, Guyana
 
 ht,  HAI, Haiti
 hn,  HON, Honduras
-HKG, Hong Kong
+hk   HKG, Hong Kong (CN)
 hu,  HUN, Hungary
 
 is,  ISL, Iceland
-IND, India
-IDN, Indonesia
-IRN, Iran
-IRQ, Iraq
+in,  IND, India
+id,  IDN, Indonesia
+ir,  IRN, Iran
+iq,  IRQ, Iraq
 il,  ISR, Israel
 it,  ITA, Italy
 ie,  IRL, Ireland
 
-JAM, Jamaica
+jm,  JAM, Jamaica
 jp,  JPN, Japan
-JOR, Jordan
+jo,  JOR, Jordan
 
 kz,  KAZ, Kazakhstan
-KEN, Kenya
-KUW, Kuwait
-KGZ, Kyrgyzstan
-KSA, Saudi Arabia
+ke,  KEN, Kenya
+kw,  KUW, Kuwait
+kg,  KGZ, Kyrgyzstan
+sa,  KSA, Saudi Arabia
 kr,  KOR, South Korea
 
-LAO, Laos
+la,  LAO, Laos
 lv,  LVA, Latvia
-LIB, Lebanon
-LES, Lesotho
-LBR, Liberia
-LBY, Libya
+lb,  LIB, Lebanon
+ls,  LES, Lesotho
+lr,  LBR, Liberia
+ly,  LBY, Libya
 li,  LIE, Liechtenstein
 lt,  LTU, Lithuania
 lu,  LUX, Luxembourg
-LCA, Saint Lucia
+lc,  LCA, Saint Lucia
 
-MAC, Macau
+mo,  MAC, Macao (CN)
 mk,  MKD, Macedonia
-MAD, Madagascar
-MWI, Malawi
-MAS, Malaysia
-MDV, Maldives
-MLI, Mali
+mg,  MAD, Madagascar
+mw,  MWI, Malawi
+my,  MAS, Malaysia
+mv,  MDV, Maldives
+ml,  MLI, Mali
 mt,  MLT, Malta
-MTN, Mauritania
-MRI, Mauritius
+mr,  MTN, Mauritania
+mu,  MRI, Mauritius
 mx,  MEX, Mexico
 md,  MDA, Moldova
-MNG, Mongolia
+mn,  MNG, Mongolia
 me,  MNE, Montenegro
-MSR, Montserrat
+ms,  MSR, Montserrat (UK)
 ma,  MAR, Morocco
-MOZ, Mozambique
-MYA, Myanmar
+mz,  MOZ, Mozambique
+mm,  MYA, Myanmar
 
 NAM, Namibia
 NEP, Nepal
 nl,  NED, Netherlands
-NCL, New Caledonia
+nc,  NCL, New Caledonia (FR)
 nz,  NZL, New Zealand
 ni,  NCA, Nicaragua
 NIG, Niger
@@ -227,7 +231,7 @@ tt,  TRI, Trinidad and Tobago
 TUN, Tunisia
 tr,  TUR, Turkey
 TKM, Turkmenistan
-TCA, Turks and Caicos Islands
+tc,  TCA, Turks and Caicos Islands (UK)
 TPE, Taiwan              # Chinese Tapei
 
 UGA, Uganda
@@ -240,9 +244,9 @@ UZB, Uzbekistan
 VAN, Vanuatu
 ve,  VEN, Venezuela
 VIE, Vietnam
-VIR, US Virgin Islands    # United States Virgin Islands; Virgin Islands (U.S.)
+vi,  VIR, US Virgin Islands (US)    # United States Virgin Islands; Virgin Islands (U.S.)
 VIN, Saint Vincent and the Grenadines
-VGB, British Virgin Islands
+vg,  VGB, British Virgin Islands (UK)
 
 wal, WAL, Wales (UK)
 
@@ -256,15 +260,15 @@ ZIM, Zimbabwe
 ## Non-FIFA member codes
 
 BOE, Bonaire        # CONCACAF
-GYF, French Guiana  # CONCACAF
-GPE, Guadeloupe     # CONCACAF
-MTQ, Martinique     # CONCACAF
-SXM, Sint Maarten   # CONCACAF
+gf,  GYF, French Guiana (FR)  # CONCACAF
+gp,  GPE, Guadeloupe (FR)     # CONCACAF
+mq,  MTQ, Martinique (FR)     # CONCACAF
+sx,  SXM, Sint Maarten (NL)   # CONCACAF
 
 gi,  GIB, Gibraltar (UK)   # UEFA
 KOS, Kosovo         # UEFA
 
-REU, Réunion        # CAF
+re,  REU, Réunion (FR)        # CAF
 ZAN, Zanzibar       # CAF
 
 TUV, Tuvalu         # OFC
@@ -273,13 +277,13 @@ TUV, Tuvalu         # OFC
 ####################
 ## Irregular codes
 
-NMI, Northern Mariana Islands  # AFC
+mp,  NMI, Northern Mariana Islands (US)  # AFC
 
 SMT, Saint-Martin    # CONCACAF
 
 FSM, Micronesia      # OFC
 KIR, Kiribati        # OFC
-NIU, Niue            # OFC
+nu,  NIU, Niue (NZ)            # OFC
 PLW, Palau           # OFC
 
 
@@ -287,10 +291,10 @@ PLW, Palau           # OFC
 # not members
 #
 # in europe:
-# - Vatican City
 # - Great Britain - only all its member e.g. England/Wales/Scotland/Northern Irland
 
-mc,  -,  Monaco    ## check if has fifa code?
+va,  VAT,  Vatican City    ## no "official" fifa code - listed in "irregular" codes
+mc,  MCO,  Monaco          ## no "official" fifa code - listed in "irregular" codes
 
 
 #
@@ -301,3 +305,4 @@ mc,  -,  Monaco    ## check if has fifa code?
 # - Nauru
 # - Palau
 # - Tuvalu
+

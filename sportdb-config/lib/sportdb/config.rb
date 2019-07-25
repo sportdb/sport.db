@@ -6,6 +6,12 @@ require 'date'
 require 'fileutils'
 
 
+## 3rd party gems
+require 'csvreader'
+
+def read_csv( path )
+  CsvHash.read( path, :header_converters => :symbol )
+end
 
 ###
 # our own code

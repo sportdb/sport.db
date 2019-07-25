@@ -164,114 +164,114 @@ ma,  MAR, Morocco
 mz,  MOZ, Mozambique
 mm,  MYA, Myanmar
 
-NAM, Namibia
-NEP, Nepal
+na,  NAM, Namibia
+np,  NEP, Nepal
 nl,  NED, Netherlands
 nc,  NCL, New Caledonia (FR)
 nz,  NZL, New Zealand
 ni,  NCA, Nicaragua
-NIG, Niger
-NGA, Nigeria
+ne,  NIG, Niger
+ng,  NGA, Nigeria
 nir, NIR, Northern Ireland (UK)
 no,  NOR, Norway
 
-OMA, Oman
+om,  OMA, Oman
 
-PAK, Pakistan
-PLE, Palestine
+pk,  PAK, Pakistan
+ps,  PLE, Palestine
 pa,  PAN, Panama
-PNG, Papua New Guinea
+pg,  PNG, Papua New Guinea
 py,  PAR, Paraguay
 pe,  PER, Peru
-PHI, Philippines
+ph,  PHI, Philippines
 pl,  POL, Poland
 pt,  POR, Portugal
 pr,  PUR, Puerto Rico (US)
-PRK, North Korea
+kp,  PRK, North Korea
 
-QAT, Qatar
+qa,  QAT, Qatar
 
 ro,  ROU, Romania
 ru,  RUS, Russia
-RWA, Rwanda
-RSA, South Africa
+rw,  RWA, Rwanda
+za,  RSA, South Africa
 
-SKN, Saint Kitts and Nevis
-SAM, Samoa
+kn,  SKN, Saint Kitts and Nevis
+ws,  SAM, Samoa
 sm,  SMR, San Marino
-STP, São Tomé and Príncipe
+st,  STP, São Tomé and Príncipe
 sco, SCO, Scotland (UK)
-SEN, Senegal
+sn,  SEN, Senegal
 rs,  SRB, Serbia
-SEY, Seychelles
-SLE, Sierra Leone
-SIN, Singapore
+sc,  SEY, Seychelles
+sl,  SLE, Sierra Leone
+sg,  SIN, Singapore
 sk,  SVK, Slovakia
 si,  SVN, Slovenia
-SOL, Solomon Islands
-SOM, Somalia
-SSD, South Sudan
-SRI, Sri Lanka
-SDN, Sudan
-SUR, Suriname
-SWZ, Swaziland
+sb,  SOL, Solomon Islands
+so,  SOM, Somalia
+ss,  SSD, South Sudan
+lk,  SRI, Sri Lanka
+sd,  SDN, Sudan
+sr,  SUR, Suriname
+sz,  SWZ, Swaziland
 se,  SWE, Sweden
 ch,  SUI, Switzerland
-SYR, Syria
+sy,  SYR, Syria
 sv,  SLV, El Salvador
 
-TAH, Tahiti
-TJK, Tajikistan
-TAN, Tanzania
-THA, Thailand
-TLS, Timor-Leste
-TOG, Togo
-TGA, Tonga
+pf,  TAH, Tahiti (FR)   # todo/check: use French Polynesia (FR) as name - why? why not?
+tj,  TJK, Tajikistan
+tz,  TAN, Tanzania
+th,  THA, Thailand
+tl,  TLS, Timor-Leste
+tg,  TOG, Togo
+to,  TGA, Tonga
 tt,  TRI, Trinidad and Tobago
-TUN, Tunisia
+tn,  TUN, Tunisia
 tr,  TUR, Turkey
-TKM, Turkmenistan
+tm,  TKM, Turkmenistan
 tc,  TCA, Turks and Caicos Islands (UK)
-TPE, Taiwan              # Chinese Tapei
+tw,  TPE, Taiwan              # Chinese Tapei
 
-UGA, Uganda
+ug,  UGA, Uganda
 ua,  UKR, Ukraine
-UAE, United Arab Emirates
+ae,  UAE, United Arab Emirates
 us,  USA, United States
 uy,  URU, Uruguay
-UZB, Uzbekistan
+uz,  UZB, Uzbekistan
 
-VAN, Vanuatu
+vu,  VAN, Vanuatu
 ve,  VEN, Venezuela
-VIE, Vietnam
+vn,  VIE, Vietnam
 vi,  VIR, US Virgin Islands (US)    # United States Virgin Islands; Virgin Islands (U.S.)
-VIN, Saint Vincent and the Grenadines
+vc,  VIN, Saint Vincent and the Grenadines
 vg,  VGB, British Virgin Islands (UK)
 
 wal, WAL, Wales (UK)
 
-YEM, Yemen
+ye,  YEM, Yemen
 
-ZAM, Zambia
-ZIM, Zimbabwe
+zm,  ZAM, Zambia
+zw,  ZIM, Zimbabwe
 
 
 ###################
 ## Non-FIFA member codes
 
-BOE, Bonaire        # CONCACAF
+bq,  BOE, Bonaire        # CONCACAF
 gf,  GYF, French Guiana (FR)  # CONCACAF
 gp,  GPE, Guadeloupe (FR)     # CONCACAF
 mq,  MTQ, Martinique (FR)     # CONCACAF
 sx,  SXM, Sint Maarten (NL)   # CONCACAF
 
 gi,  GIB, Gibraltar (UK)   # UEFA
-KOS, Kosovo         # UEFA
+xk,  KOS, Kosovo         # UEFA     -- note: Kosovo is not listed as an ISO standard country. The unofficial 2 and 3-digit codes are used by the European Commission and others until Kosovo is assigned an ISO code
 
 re,  REU, Réunion (FR)        # CAF
-ZAN, Zanzibar       # CAF
+zan, ZAN, Zanzibar (TZ)       # CAF     -- note:  is a semi-autonomous region of Tanzania
 
-TUV, Tuvalu         # OFC
+tv,  TUV, Tuvalu         # OFC
 
 
 ####################
@@ -279,12 +279,12 @@ TUV, Tuvalu         # OFC
 
 mp,  NMI, Northern Mariana Islands (US)  # AFC
 
-SMT, Saint-Martin    # CONCACAF
+mf,  SMT, Saint Martin (FR)    # CONCACAF
 
-FSM, Micronesia      # OFC
-KIR, Kiribati        # OFC
-nu,  NIU, Niue (NZ)            # OFC
-PLW, Palau           # OFC
+fm,  FSM, Micronesia      # OFC
+ki,  KIR, Kiribati        # OFC
+nu,  NIU, Niue (NZ)       # OFC
+pw,  PLW, Palau           # OFC
 
 
 #################
@@ -305,4 +305,3 @@ mc,  MCO,  Monaco          ## no "official" fifa code - listed in "irregular" co
 # - Nauru
 # - Palau
 # - Tuvalu
-

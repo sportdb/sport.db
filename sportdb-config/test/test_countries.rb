@@ -9,7 +9,26 @@ require 'helper'
 
 class TestCountries < MiniTest::Test
 
-  def test_countries
+  def test_read_countries
+    recs = read_csv( "#{SportDb::Boot.data_dir}/world/countries.txt" )
+    pp recs
+
+    ## todo/fix:
+=begin
+end of line comments included!!! remove - see
+{:key=>"ba",
+ :fifa=>"BIH",
+ :name=>"Bosnia and Herzegovina      ## or use Bosnia-Herzegovina ?"},
+{:key=>"zan",
+ :fifa=>"ZAN",
+ :name=>
+  "Zanzibar (TZ)       # CAF     -- note:  is a semi-autonomous region of Tanzania"},
+{:key=>"tv", :fifa=>"TUV", :name=>"Tuvalu         # OFC"}, ...
+=end
+  end
+
+
+  def xxx_test_countries
     pp SportDb::Import.config.countries
 
     eng = SportDb::Import.config.countries[:eng]

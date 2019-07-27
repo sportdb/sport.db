@@ -111,7 +111,7 @@ gy,  GUY, Guyana
 
 ht,  HAI, Haiti
 hn,  HON, Honduras
-hk   HKG, Hong Kong (CN)
+hk,  HKG, Hong Kong (CN)
 hu,  HUN, Hungary
 
 is,  ISL, Iceland

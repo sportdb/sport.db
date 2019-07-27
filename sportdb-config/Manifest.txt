@@ -2,11 +2,12 @@ HISTORY.md
 Manifest.txt
 README.md
 Rakefile
-config/geos/eng.txt
 config/leagues/eng.txt
 config/leagues/fr.txt
 config/leagues/gr.txt
 config/leagues/sco.txt
+config/world/countries.txt
+config/world/eng.txt
 lib/sportdb/config.rb
 lib/sportdb/config/config.rb
 lib/sportdb/config/countries.rb

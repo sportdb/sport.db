@@ -89,12 +89,13 @@ def self.parse( txt )
          ## quick hack:   if level is 1 assume country for now
          ##                 and extract country code e.g.
          ##                    Austria (at) => at
+         ##  todo/fix:  allow code only e.g. at or aut without enclosing () too - why? why not?
          if heading_level == 1
-             if heading =~ /\(([a-z]{2,3})\)/
+             if heading =~ /\(([a-z]{2,3})\)/i    ## note allow (at) or (AUT) too
                country_code = $1
 
                ## check country code - MUST exist for now!!!!
-               country = SportDb::Import.config.countries[ country_code.to_sym ]
+               country = SportDb::Import.config.countries[ country_code ]
                if country.nil?
                  puts "!!! error [team reader] - unknown country with code >#{country_code}< - sorry - add country to config to fix"
                  exit 1

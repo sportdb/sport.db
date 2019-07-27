@@ -58,58 +58,6 @@ class Configuration
      datafiles
   end
 
-=begin
-  CLUBS_DATAFILES = {   ## path by country to clubs.txt
-      de:  'europe/de-deutschland',
-      fr:  'europe/fr-france',
-      mc:  'europe/mc-monaco',
-      es:  'europe/es-espana',
-      it:  'europe/it-italy',
-      pt:  'europe/pt-portugal',
-      nl:  'europe/nl-netherlands',
-      be:  'europe/be-belgium',
-      tr:  'europe/tr-turkey',
-      gr:  'europe/gr-greece',
-      eng: 'europe/eng-england',
-      wal: 'europe/wal-wales',
-      sco: 'europe/sco-scotland',
-      nir: 'europe/nir-northern-ireland',
-      at:  'europe/at-austria',
-      al:  'europe/al-albania',
-      bg:  'europe/bg-bulgaria',
-      by:  'europe/by-belarus',
-      ch:  'europe/ch-confoederatio-helvetica',
-      cy:  'europe/cy-cyprus',
-      cz:  'europe/cz-czech-republic',
-      dk:  'europe/dk-denmark',
-      fi:  'europe/fi-finland',
-      ge:  'europe/ge-georgia',
-      hr:  'europe/hr-croatia',
-      hu:  'europe/hu-hungary',
-      ie:  'europe/ie-ireland',
-      is:  'europe/is-iceland',
-      lu:  'europe/lu-luxembourg',
-      md:  'europe/md-moldova',
-      mt:  'europe/mt-malta',
-      no:  'europe/no-norway',
-      pl:  'europe/pl-poland',
-      ro:  'europe/ro-romania',
-      rs:  'europe/rs-serbia',
-      ru:  'europe/ru-russia',
-      se:  'europe/se-sweden',
-      si:  'europe/si-slovenia',
-      sk:  'europe/sk-slovakia',
-      ua:  'europe/ua-ukraine',
-      mx:  'north-america/mx-mexico',
-      us:  'north-america/us-united-states',
-      ca:  'north-america/ca-canada',
-      ar:  'south-america/ar-argentina',
-      br:  'south-america/br-brazil',
-      jp:  'asia/jp-japan',
-      cn:  'asia/cn-china' }
-=end
-
-
 
   class ClubsHash   ## todo/check: use (rename to) ClubsMapping(s) - why? why not?
     def initialize

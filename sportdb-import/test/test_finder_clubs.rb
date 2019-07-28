@@ -17,7 +17,7 @@ class TestFinderClubs < MiniTest::Test
     ##                                               why? why not?
     league = SportDb::Importer::League.find_or_create( 'eng',
                                           name:        'English Premiere League',
-                                          country_id:  SportDb::Importer::Country.find_or_create_builtin!( 'eng' ).id,
+                                          country:     'eng',
                                           ## club:       true
                                        )
     team_names = [
@@ -54,7 +54,7 @@ class TestFinderClubs < MiniTest::Test
       score2i: 'HTAG'
     }
 
-    matches = CsvMatchReader.read( "#{SportDb::Import.test_data_dir}/england/2017-18/E0.csv",
+    matches = CsvMatchReader.read( "#{SportDb::Import.config.test_data_dir}/england/2017-18/E0.csv",
                                         headers: headers
                                  )
 
@@ -64,22 +64,44 @@ class TestFinderClubs < MiniTest::Test
     team_names = matchlist.teams
     puts "#{team_names.size} team names:"
     pp team_names
-
+=begin
+20 team names:
+["Arsenal",
+ "Bournemouth",
+ "Brighton",
+ "Burnley",
+ "Chelsea",
+ "Crystal Palace",
+ "Everton",
+ "Huddersfield",
+ "Leicester",
+ "Liverpool",
+ "Man City",
+ "Man United",
+ "Newcastle",
+ "Southampton",
+ "Stoke",
+ "Swansea",
+ "Tottenham",
+ "Watford",
+ "West Brom",
+ "West Ham"]
+=end
 
     league = SportDb::Importer::League.find_or_create( 'eng',
                                           name:        'English Premiere League',
-                                          country_id:  SportDb::Importer::Country.find_or_create_builtin!( 'eng' ).id,
+                                          country:     'eng',
                                           ## club:       true
                                        )
 
     recs = find_or_create_clubs!( team_names, league: league )
     assert_equal 20, recs.size
 
-    assert_equal 'AFC Bournemouth', recs[0].name
+    assert_equal 'Arsenal FC', recs[0].name
     ## assert_equal '?',    recs[0].city.name
     assert_equal 'England',         recs[0].country.name
 
-    assert_equal 'Arsenal FC', recs[1].name
+    assert_equal 'AFC Bournemouth', recs[1].name
     ## assert_equal '?',     recs[1].city.name
     assert_equal 'England',    recs[1].country.name
   end
@@ -95,7 +117,7 @@ class TestFinderClubs < MiniTest::Test
       score2: 'AG',
     }
 
-    matches = CsvMatchReader.read( "#{SportDb::Import.test_data_dir}/austria/AUT.csv",
+    matches = CsvMatchReader.read( "#{SportDb::Import.config.test_data_dir}/austria/AUT.csv",
                                         headers: headers,
                                         filters: { 'Season' => '2016/2017' }
                                   )
@@ -106,23 +128,34 @@ class TestFinderClubs < MiniTest::Test
     team_names = matchlist.teams
     puts "#{team_names.size} team names:"
     pp team_names
-
-
+=begin
+10 team names:
+["AC Wolfsberger",
+ "Admira",
+ "Altach",
+ "Austria Vienna",
+ "Mattersburg",
+ "Rapid Vienna",
+ "Ried",
+ "Salzburg",
+ "St. Polten",
+ "Sturm Graz"]
+=end
 
     league = SportDb::Importer::League.find_or_create( 'at',
                                           name:        'Österr. Bundesliga',
-                                          country_id:  SportDb::Importer::Country.find_or_create_builtin!( 'at' ).id,
+                                          country:     'at',
                                           ## club:       true
                                        )
 
     recs = find_or_create_clubs!( team_names, league: league )
     assert_equal 10, recs.size
 
-    assert_equal 'FC Admira Wacker Mödling', recs[0].name
+    assert_equal 'Wolfsberger AC', recs[0].name
     ## assert_equal '?',    recs[0].city.name
     assert_equal 'Austria',           recs[0].country.name
 
-    assert_equal 'FC RB Salzburg', recs[1].name
+    assert_equal 'FC Admira Wacker Mödling', recs[1].name
     ## assert_equal '?',     recs[1].city.name
     assert_equal 'Austria',    recs[1].country.name
   end

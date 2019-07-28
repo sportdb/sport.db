@@ -31,8 +31,8 @@ class TestMatchReader < MiniTest::Test
     assert_equal 3, m.score2
     assert_equal 2, m.score1i
     assert_equal 2, m.score2i
-    assert_equal 'Arsenal FC',        m.team1
-    assert_equal 'Leicester City FC', m.team2
+    assert_equal 'Arsenal',    m.team1
+    assert_equal 'Leicester',  m.team2
 
     m=matches[1]
     assert_equal '2017-09-09', m.date
@@ -40,8 +40,8 @@ class TestMatchReader < MiniTest::Test
     assert_equal 0, m.score2
     assert_equal 2, m.score1i
     assert_equal 0, m.score2i
-    assert_equal 'Arsenal FC',      m.team1
-    assert_equal 'AFC Bournemouth', m.team2
+    assert_equal 'Arsenal',     m.team1
+    assert_equal 'Bournemouth', m.team2
   end
 
 
@@ -65,8 +65,8 @@ class TestMatchReader < MiniTest::Test
     assert_equal 3, m.score2
     assert_nil   m.score1i      ## todo/fix: missing half time (ht) score !!!!
     assert_nil   m.score2i      ## todo/fix: missing half time (ht) score !!!!
-    assert_equal 'Arsenal FC',        m.team1
-    assert_equal 'Leicester City FC', m.team2
+    assert_equal 'Arsenal',   m.team1
+    assert_equal 'Leicester', m.team2
 
     m=matches[1]
     assert_equal '2017-08-12', m.date
@@ -74,8 +74,8 @@ class TestMatchReader < MiniTest::Test
     assert_equal 2, m.score2
     assert_nil   m.score1i      ## todo/fix: missing half time (ht) score !!!!
     assert_nil   m.score2i      ## todo/fix: missing half time (ht) score !!!!
-    assert_equal 'Brighton & Hove Albion FC', m.team1
-    assert_equal 'Manchester City FC',        m.team2
+    assert_equal 'Brighton', m.team1
+    assert_equal 'Man City', m.team2
   end
 
 
@@ -96,8 +96,8 @@ class TestMatchReader < MiniTest::Test
     assert_equal 2, m.score2
     assert_nil      m.score1i  ## todo/fix: missing half time (ht) score !!!!
     assert_nil      m.score2i  ## todo/fix: missing half time (ht) score !!!!
-    assert_equal 'SK Rapid Wien',  m.team1
-    assert_equal 'SV Mattersburg', m.team2
+    assert_equal 'Rapid Vienna', m.team1
+    assert_equal 'Mattersburg',  m.team2
 
     m=matches[1]
     assert_equal '2017-07-22', m.date
@@ -105,8 +105,8 @@ class TestMatchReader < MiniTest::Test
     assert_equal 2, m.score2
     assert_nil   m.score1i    ## todo/fix: missing half time (ht) score !!!!
     assert_nil   m.score2i    ## todo/fix: missing half time (ht) score !!!!
-    assert_equal 'Wolfsberger AC', m.team1
-    assert_equal 'FC RB Salzburg', m.team2
+    assert_equal 'AC Wolfsberger', m.team1
+    assert_equal 'Salzburg',       m.team2
   end
 
 

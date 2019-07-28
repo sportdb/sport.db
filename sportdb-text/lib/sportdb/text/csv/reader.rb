@@ -5,14 +5,23 @@
 class CsvMatchReader
 
 ## todo/check: what name? use from_string, from_file, etc. instead of read / parse - why? why not?
+##
+##  fix: change col_sep to sep !!!!
 
-def self.read( path, headers: nil, filters: nil, col_sep: ',' )
+##
+##  todo/check: what keyword to use for normalize names - normalize? canonicalize? other?
+##    note: todo/fix: allow passing in of country filter for normalize too - why? why not?
+
+def self.read( path, headers: nil, filters: nil, col_sep: ',',
+                 normalize: false )
    text = File.open( path, 'r:utf-8' ).read   ## note: make sure to use (assume) utf-8
-   parse( text, headers: headers, filters: filters, col_sep: col_sep )
+   parse( text, headers: headers, filters: filters, col_sep: col_sep,
+           normalize: normalize )
 end
 
 
-def self.parse( text, headers: nil, filters: nil, col_sep: ',' )
+def self.parse( text, headers: nil, filters: nil, col_sep: ',',
+                   normalize: false )
 
   headers_mapping = {}
 
@@ -106,11 +115,31 @@ def self.parse( text, headers: nil, filters: nil, col_sep: ',' )
     team1 = team1.sub( /\(\d+\)/, '' ).strip
     team2 = team2.sub( /\(\d+\)/, '' ).strip
 
+
     ## reformat team if match  (e.g. Bayern Munich => Bayern München etc.)
     ##  use "global" default/built-in team mappings for now
-    team_mappings = SportDb::Import.config.team_mappings
-    team1 = team_mappings[ team1 ]   if team_mappings[ team1 ]
-    team2 = team_mappings[ team2 ]   if team_mappings[ team2 ]
+    ##   todo/fix:  make more flexible
+    if normalize
+       club_mappings = SportDb::Import.config.clubs
+       ## fix/todo: if country defined - use filter
+       m = club_mappings.match( team1 )
+       if m.nil? || m.size > 1
+         puts "** !!! ERROR !!! - no match or too many matches found for >#{team1}<"
+         pp m
+         exit 1
+       else
+         team1 = m[0].name
+       end
+
+       m = club_mappings.match( team2 )
+       if m.nil? || m.size > 1
+         puts "** !!! ERROR !!! - no match or too many matches found for >#{team1}<"
+         pp m
+         exit 1
+       else
+         team2 = m[0].name
+       end
+    end
 
 
     col = row[ headers_mapping[ :date ]]

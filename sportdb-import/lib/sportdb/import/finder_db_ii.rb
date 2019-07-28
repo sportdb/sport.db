@@ -2,50 +2,40 @@
 
 
 
-def find_or_create_clubs!( team_names, league:, season: nil)
+def find_or_create_clubs!( names, league:, season: nil)
   ## note: season is for now optinal (and unused) - add/use in the future!!!
-
-  ## todo/fix:
-  ##   move (core) match clubs / team names to sportdb config!!!!
 
   recs = []
 
   ## add/find teams
-  team_names.each do |team_name|
+  names.each do |name|
 
-    ## todo/fix: use a single lookup for canonical and alt names - why? why not?
-    ##   give coanonical name (always) preference - why? why not?
-
-    ## check if match (built-in) canonical club name
-    team_data = SportDb::Import.config.teams[ team_name ]
-    if team_data.nil?    ## try alternative name
-       ## todo/fix:  use team_mappings[] instead of fetch!!
-       team_data_candidates = SportDb::Import.config.team_mappings.fetch( team_name )
-       if team_data_candidates.nil?
-         ## todo/check: exit if no match - why? why not?
-         puts "!!! *** ERROR *** no match club found for >#{team_name}< - add to clubs setup"
-         exit 1
-       else
-         if team_data_candidates.size > 1
+    m = SportDb::Import.config.clubs.match( name )
+    if m.nil?
+       ## todo/check: exit if no match - why? why not?
+       puts "!!! *** ERROR *** no matching club found for >#{name}< - add to clubs setup"
+       exit 1
+    else
+      if m.size == 1
+        club_data = m[0]
+      else   ## assume more than one (>1) match
            ## resolve conflict - find best match - how?
            if league.country
              ## try match / filter by country
              country_key = league.country.key  ## e.g. eng, de, at, br, etc.
-             team_data_candidates_ii = team_data_candidates.select { |t| t.country.key == country_key }
-             if team_data_candidates_ii.size == 1
-               team_data = team_data_candidates_ii[0]
+             m2 = m.select { |c| c.country.key == country_key }
+             if m2.size == 1
+               club_data = m2[0]
              else
-               puts "!!! *** ERROR *** no clubs or too many matching clubs found for country >#{country_key}< and >#{team_name}< - cannot resolve conflict / find best match (automatic):"
-               pp team_data_candidates_ii
+               puts "!!! *** ERROR *** no clubs or too many matching clubs found for country >#{country_key}< and >#{name}< - cannot resolve conflict / find best match (automatic):"
+               pp m
                exit 1
              end
            else
-             puts "!!! *** ERROR *** too many matching clubs found for >#{team_name}< - cannot resolve conflict / find best match (automatic)"
+             puts "!!! *** ERROR *** too many matching clubs found for >#{name}< - cannot resolve conflict / find best match (automatic)"
+             pp m
              exit 1
            end
-         else
-           team_data = team_data_candidates[0]
-         end
        end
     end
 
@@ -57,31 +47,34 @@ def find_or_create_clubs!( team_names, league:, season: nil)
     ## fix: reuse ascify from sportdb - why? why not?
 
     ## remove all non-ascii a-z chars
-    team_key  = team_data.name.downcase.gsub( /[^a-z]/, '' )
+    club_key  = club_data.name.downcase.gsub( /[^a-z]/, '' )
 
 
-    puts "add team: #{team_key}, #{team_data.name}:"
-    if team_name != team_data.name
-      puts "  using mapping from >#{team_name}< to => >#{team_data.name}<"
+    ## puts "add club: #{club_key}, #{club_data.name}, #{club_data.country.name} (#{club_data.country.key}):"
+    puts "add club: #{club_key}, #{club_data.name}"
+    pp club_data
+    if name != club_data.name
+      puts "  using mapping from >#{name}< to => >#{club_data.name}<"
     end
 
-    team = SportDb::Model::Team.find_by( title: team_data.name )
-    if team.nil?
-       team = SportDb::Model::Team.create!(
-         key:        team_key,
-         title:      team_data.name,
-         country_id: SportDb::Importer::Country.find_or_create_builtin!( team_data.country.key ).id,
+    club = SportDb::Model::Team.find_by( title: club_data.name )
+    if club.nil?
+       club = SportDb::Model::Team.create!(
+         key:        club_key,
+         title:      club_data.name,
+         country_id: SportDb::Importer::Country.find_or_create_builtin!( club_data.country.key ).id,
          club:       true,
          national:   false  ## check -is default anyway - use - why? why not?
          ## todo/fix: add city if present - why? why not?
        )
     end
-    pp team
-    recs << team
+    pp club
+    recs << club
   end
 
   recs  # return activerecord team objects
 end
+
 
 
 def find_or_create_event( league:, season: )

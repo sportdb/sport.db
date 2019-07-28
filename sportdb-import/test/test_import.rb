@@ -20,13 +20,13 @@ class TestImport < MiniTest::Test
       score2i: 'HTAG'
     }
 
-    matches = CsvMatchReader.read( "#{SportDb::Import.test_data_dir}/england/2017-18/E0.csv",
+    matches = CsvMatchReader.read( "#{SportDb::Import.config.test_data_dir}/england/2017-18/E0.csv",
                                         headers: headers
                                  )
 
     league = SportDb::Importer::League.find_or_create( 'eng',
                                           name:        'English Premiere League',
-                                          country_id:  SportDb::Importer::Country.find_or_create_builtin!( 'eng' ).id,
+                                          country:     'eng',
                                           ## club:       true
                                        )
     season = SportDb::Importer::Season.find_or_create_builtin( '2017-18' )

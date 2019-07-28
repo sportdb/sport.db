@@ -6,6 +6,16 @@ module SportDb
 
 class Configuration
 
+  ####
+  #  todo/fix:  find a better way to configure shared test datasets
+  attr_accessor   :test_data_dir   ## todo/check:  use test_dir - why? why not?
+  def test_data_dir()   @test_data_dir ||= './datasets'; end
+
+
+  ##
+  ##  todo: allow configure of countries_dir like clubs_dir
+  ##         "fallback" and use a default built-in world/countries.txt
+
   ## todo/check:  rename to country_mappings/index - why? why not?
   ##    or countries_by_code or countries_by_key
   def countries

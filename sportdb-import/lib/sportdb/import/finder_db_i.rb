@@ -10,36 +10,53 @@ class Country
     ##   e.g. d => de, a => at, en => eng, etc.
     ##   plus  add all fifa codes too   aut => at, etc.  - why? why not?
 
-def self.find!( key )   ## e.g. key = 'eng' or 'de' etc.
-   key = key.to_s   ## allow passing in of symbol (e.g. :fr instead of 'fr')
+
+def self.find!( q )   ## e.g. key = 'eng' or 'de' etc.
+   ## note: use built-in countries for mapping country keys/codes
+   country_data = SportDb::Import.config.countries[ q ]
+   if country_data
+     if country_data.key != q.to_s
+       puts "** note: mapping (normalizing) country key >#{q}< to >#{country_data.key}<"
+     end
+     key = country_data.key
+   else
+     puts "** !!! ERROR !!! unknown / invalid country for key >#{q}<; sorry - add to COUNTRIES table"
+     exit 1
+   end
+
    rec = WorldDb::Model::Country.find_by( key: key )
    if rec.nil?
-       puts "** unknown country for key >#{key}<; sorry - add to COUNTRIES table"
+       puts "** !!! ERROR !!! - country for key >#{key}< not found; sorry - add to COUNTRIES table"
        exit 1
    end
    rec
 end
 
-def self.find_or_create_builtin!( key )   ## e.g. key = 'eng' or 'de' etc.
-   key = key.to_s   ## allow passing in of symbol (e.g. :fr instead of 'fr')
-   country = WorldDb::Model::Country.find_by( key: key )
-   if country.nil?
-     ### check quick built-tin auto-add country data
-     country_data = SportDb::Import.config.countries[ key.to_sym ]
-     if country_data
-       country = WorldDb::Model::Country.create!(
-          key:  country_data.key,
-          name: country_data.name,
-          code: country_data.code,
-          area: 1,
-          pop:  1
-       )
-     else
-       puts "** unknown country for key >#{key}<; sorry - add to COUNTRIES table"
-       exit 1
-     end
+
+def self.find_or_create_builtin!( q )   ## e.g. key = 'eng' or 'de' etc.
+  ## note: use built-in countries for mapping country keys/codes
+  country_data = SportDb::Import.config.countries[ q ]
+  if country_data
+    if country_data.key != q.to_s
+      puts "** note: mapping (normalizing) country key >#{q}< to >#{country_data.key}<"
+    end
+    key = country_data.key
+  else
+    puts "** !!! ERROR !!! unknown / invalid country for key >#{q}<; sorry - add to COUNTRIES table"
+    exit 1
+  end
+
+   rec = WorldDb::Model::Country.find_by( key: key )
+   if rec.nil?
+      rec = WorldDb::Model::Country.create!(
+              key:  country_data.key,
+              name: country_data.name,
+              code: country_data.fifa,  ##   fix:  uses fifa code now (should be iso-alpha3 if available)
+              fifa: country_data.fifa,
+              area: 1,
+              pop:  1)
    end
-   country
+   rec
 end
 
 end # class Country
@@ -91,6 +108,13 @@ def self.find_or_create( key, name:, **more_attribs )
    key = key.to_s
    rec = SportDb::Model::League.find_by( key: key )
    if rec.nil?
+
+     ## add convenience lookup for country  e.g. country: 'eng' or country: 'at', etc.
+     if more_attribs[:country].is_a?( String )
+       country_key = more_attribs.delete( :country )
+       more_attribs[ :country_id ] = SportDb::Importer::Country.find_or_create_builtin!( country_key ).id
+     end
+
      ## use title and not name - why? why not?
      ##  quick fix:  change name to title
      attribs = { key:   key,

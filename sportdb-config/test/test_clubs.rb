@@ -10,9 +10,6 @@ require 'helper'
 class TestClubs < MiniTest::Test
 
   def test_clubs
-    ## todo/check: move config.clubs_dir to test/helper for global setting - why? why not?
-    SportDb::Import.config.clubs_dir = '../../../openfootball/clubs'
-
     pp SportDb::Import.config.clubs.errors
 
     SportDb::Import.config.clubs.dump_duplicates

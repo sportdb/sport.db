@@ -6,10 +6,9 @@ lib/sportdb/import.rb
 lib/sportdb/import/finder_db_i.rb
 lib/sportdb/import/finder_db_ii.rb
 lib/sportdb/import/version.rb
-test/data/austria/AUT.csv
-test/data/england/2017-18/E0.csv
 test/helper.rb
 test/test_finder.rb
 test/test_finder_clubs.rb
+test/test_finder_countries.rb
 test/test_import.rb
 test/test_version.rb

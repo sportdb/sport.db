@@ -8,7 +8,7 @@ module Boot      ## note: use a different module than Config to avoid confusion 
 
   MAJOR = 0    ## todo: namespace inside version or something - why? why not??
   MINOR = 3
-  PATCH = 4
+  PATCH = 5
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 
   def self.version
@@ -27,10 +27,6 @@ module Boot      ## note: use a different module than Config to avoid confusion 
     "#{root}/config"
   end
 
-
-#  def self.test_data_dir
-#    "#{root}/test/data"
-#  end
 
 end # module Boot
 end # module SportDb

@@ -2,15 +2,15 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_team_reader.rb
+#     ruby -I ./lib -I ./test test/test_club_reader.rb
 
 
 require 'helper'
 
-class TestTeamReader < MiniTest::Test
+class TestClubReader < MiniTest::Test
 
   def test_parse_at
-    recs = SportDb::Import::TeamReader.parse( <<TXT )
+    recs = SportDb::Import::ClubReader.parse( <<TXT )
 ==================================
 =  Austria (at)
 
@@ -29,7 +29,7 @@ TXT
   end
 
   def test_parse_us
-    recs = SportDb::Import::TeamReader.parse( <<TXT )
+    recs = SportDb::Import::ClubReader.parse( <<TXT )
 ==================================================
 = United States (us)
 
@@ -59,7 +59,7 @@ TXT
 
 
   def test_parse_years
-    recs = SportDb::Import::TeamReader.parse( <<TXT )
+    recs = SportDb::Import::ClubReader.parse( <<TXT )
 = United States (us)
 FC Dallas (1996-),         Frisco        › Texas
 Miami Fusion (1998-2001),  Fort Lauderdale › Florida
@@ -84,7 +84,7 @@ TXT
   end
 
   def test_parse_geos
-    recs = SportDb::Import::TeamReader.parse( <<TXT )
+    recs = SportDb::Import::ClubReader.parse( <<TXT )
 =  England (eng)
 == Greater London
 
@@ -123,7 +123,7 @@ TXT
 
 
   def test_parse_headings
-    recs = SportDb::Import::TeamReader.parse( <<TXT )
+    recs = SportDb::Import::ClubReader.parse( <<TXT )
 ==============
 ====
 ===========
@@ -147,4 +147,4 @@ TXT
     assert_equal 0, recs.size
   end
 
-end # class TestTeamReader
+end # class TestClubReader

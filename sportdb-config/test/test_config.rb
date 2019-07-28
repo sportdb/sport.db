@@ -9,12 +9,15 @@ require 'helper'
 
 class TestConfig < MiniTest::Test
 
-  def test_clubs
-    SportDb::Import.config.clubs_dir = '../../../openfootball/clubs'
+  def match( txt ) SportDb::Import::Configuration::CLUBS_REGEX.match( txt ); end
 
-    SportDb::Import.config.teams
-
-    assert true ## assume ok if we get here
-  end  # method test_clubs
+  def test_find_clubs
+      assert match( 'de.clubs.txt' )
+      assert match( 'deutschland/de.clubs.txt' )
+      assert match( 'europe/de-deutschland/clubs.txt' )
+      assert match( 'de-deutschland/clubs.txt' )
+      assert match( 'clubs.txt' )
+      assert match( 'deutschland/clubs.txt' )
+  end
 
 end # class TestConfig

@@ -5,31 +5,7 @@ module SportDb
 module Import
 
 
-class TeamReader
-
-##
-#  note: use our own (internal) team struct for now - why? why not?
-#    - check that shape/structure/fields/attributes match
-#      the Team struct in sportdb-text (in SportDb::Struct::Team)  !!!!
-class Team
-  ##  todo: use just names for alt_names - why? why not?
-  attr_accessor :name, :alt_names, :year, :ground, :city
-
-  ## more attribs - todo/fix - also add "upstream" to struct & model!!!!!
-  attr_accessor :district, :geos, :year_end, :country
-
-  def historic?()  @year_end ? true : false; end
-  alias_method  :past?, :historic?
-
-
-  def initialize
-    @alt_names = []
-  end
-
-
-
-end # class Team
-
+class ClubReader
 
 
 def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
@@ -151,7 +127,7 @@ def self.parse( txt )
     else
       values = line.split( ',' )
 
-      rec = Team.new
+      rec = Club.new
       value = values.shift    ## get first item
       ## strip and  squish (white)spaces
       #   e.g. New York FC      (2011-)  => New York FC (2011-)
@@ -232,7 +208,7 @@ def self.parse( txt )
 
       ## 1) add country if present
       if headings.size > 0 && headings[0]
-        country = SportDb::Import.config.countries[ headings[0].to_sym ]
+        country = SportDb::Import.config.countries[ headings[0] ]
         rec.country = country
       else
         ## make it an error - why? why not?
@@ -293,7 +269,7 @@ def self.split_geo( str )
   geos
 end
 
-end  # class TeamReader
+end  # class ClubReader
 
 
 end ## module Import

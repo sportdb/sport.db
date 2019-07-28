@@ -3,8 +3,6 @@
 module SportDb
   module Import
 
-class Configuration
-
 ## built-in countries for (quick starter) auto-add
 
 ##
@@ -75,18 +73,5 @@ class CountryIndex
 end # class CountryIndex
 
 
-   ## todo/check:  rename to country_mappings/index - why? why not?
-   ##    or countries_by_code or countries_by_key
-  def countries
-    @countries ||= build_country_index
-    @countries
-  end
-
-  def build_country_index    ## todo/check: rename to setup_country_index or read_country_index - why? why not?
-    recs = read_csv( "#{SportDb::Boot.data_dir}/world/countries.txt" )
-    CountryIndex.new( recs )
-  end
-
-end   # class Configuration
 end   # module Import
 end   # module SportDb

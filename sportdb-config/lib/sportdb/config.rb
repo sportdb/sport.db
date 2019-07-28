@@ -21,9 +21,10 @@ require 'sportdb/config/season_utils'
 require 'sportdb/config/league_utils'
 require 'sportdb/config/league'
 require 'sportdb/config/league_reader'
-require 'sportdb/config/team_reader'
 
 require 'sportdb/config/countries'
+require 'sportdb/config/clubs'
+require 'sportdb/config/club_reader'
 require 'sportdb/config/config'
 
 

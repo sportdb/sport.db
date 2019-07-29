@@ -11,3 +11,6 @@ require 'sportdb/text'
 
 
 SportDb::Import.config.clubs_dir = '../../../openfootball/clubs'
+
+## share test datasets between gems - do NOT include in gem itself
+SportDb::Import.config.test_data_dir = '../datasets'

@@ -1,13 +1,12 @@
 # encoding: utf-8
 
 
-
 module SportDb
 module Text
 
   MAJOR = 0    ## todo: namespace inside version or something - why? why not??
   MINOR = 3
-  PATCH = 0
+  PATCH = 1
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 
   def self.version
@@ -20,10 +19,6 @@ module Text
 
   def self.root
     File.expand_path( File.dirname(File.dirname(File.dirname(File.dirname(__FILE__)))) )
-  end
-
-  def self.test_data_dir
-    "#{root}/test/data"
   end
 
 end # module Text

@@ -1,0 +1,1278 @@
+Country,League,Season,Date,Time,Home,Away,HG,AG,Res,PH,PD,PA,MaxH,MaxD,MaxA,AvgH,AvgD,AvgA
+Austria,Bundesliga,2012/2013,21/07/2012,15:00,Sturm Graz,Salzburg,0,2,A,3.26,3.34,2.4,3.26,3.4,2.5,2.96,3.2,2.33
+Austria,Bundesliga,2012/2013,21/07/2012,17:30,Mattersburg,Neustadt,2,0,H,1.79,3.81,5,1.9,3.81,5,1.77,3.51,4.33
+Austria,Bundesliga,2012/2013,21/07/2012,17:30,Rapid Vienna,Wacker Innsbruck,4,0,H,1.5,4.46,7.72,1.5,4.46,8.09,1.45,4.09,7.09
+Austria,Bundesliga,2012/2013,22/07/2012,15:00,Admira,Ried,0,2,A,2.18,3.51,3.61,2.18,3.51,3.77,2.12,3.29,3.32
+Austria,Bundesliga,2012/2013,25/07/2012,17:30,AC Wolfsberger,Austria Vienna,0,1,A,3.83,3.62,2.06,3.83,3.62,2.1,3.53,3.28,2
+Austria,Bundesliga,2012/2013,28/07/2012,17:30,Austria Vienna,Sturm Graz,0,1,A,2.12,3.42,3.91,2.15,3.6,4.03,1.99,3.29,3.67
+Austria,Bundesliga,2012/2013,28/07/2012,17:30,Neustadt,Rapid Vienna,0,1,A,6.38,4.13,1.61,6.75,4.13,1.7,5.8,3.71,1.57
+Austria,Bundesliga,2012/2013,28/07/2012,17:30,Salzburg,Mattersburg,3,2,H,1.4,4.84,9.51,1.4,5.05,10,1.36,4.52,8.39
+Austria,Bundesliga,2012/2013,29/07/2012,15:00,Wacker Innsbruck,Admira,1,2,A,2.44,3.52,3.08,2.44,3.53,3.35,2.22,3.27,3.09
+Austria,Bundesliga,2012/2013,29/07/2012,17:30,Ried,AC Wolfsberger,0,2,A,1.51,4.37,7.78,1.75,4.37,7.78,1.53,3.8,6.16
+Austria,Bundesliga,2012/2013,04/08/2012,17:30,AC Wolfsberger,Salzburg,0,2,A,5.78,3.82,1.71,5.78,3.82,1.75,4.92,3.63,1.66
+Austria,Bundesliga,2012/2013,04/08/2012,17:30,Mattersburg,Sturm Graz,3,1,H,2.64,3.27,2.96,2.67,3.32,3.03,2.52,3.18,2.71
+Austria,Bundesliga,2012/2013,05/08/2012,15:00,Rapid Vienna,Austria Vienna,0,3,A,1.92,3.46,4.79,2.15,3.53,4.79,1.88,3.3,4.11
+Austria,Bundesliga,2012/2013,05/08/2012,15:00,Ried,Wacker Innsbruck,2,0,H,1.83,3.6,5.11,1.86,3.6,5.13,1.8,3.41,4.33
+Austria,Bundesliga,2012/2013,05/08/2012,17:30,Admira,Neustadt,4,0,H,1.51,4.29,7.85,1.6,4.29,7.85,1.52,3.87,6.18
+Austria,Bundesliga,2012/2013,11/08/2012,17:30,Sturm Graz,AC Wolfsberger,4,1,H,1.57,4.2,6.61,1.65,4.2,6.61,1.56,3.79,5.68
+Austria,Bundesliga,2012/2013,11/08/2012,17:30,Wacker Innsbruck,Mattersburg,2,1,H,2.22,3.31,3.66,2.35,3.32,3.66,2.22,3.2,3.15
+Austria,Bundesliga,2012/2013,12/08/2012,15:00,Neustadt,Ried,2,3,A,3.45,3.28,2.35,3.7,3.3,2.35,3.37,3.2,2.14
+Austria,Bundesliga,2012/2013,12/08/2012,15:00,Salzburg,Rapid Vienna,0,2,A,1.85,3.6,4.88,1.95,3.6,5.09,1.82,3.4,4.33
+Austria,Bundesliga,2012/2013,12/08/2012,17:30,Austria Vienna,Admira,1,0,H,1.71,3.94,5.46,1.75,3.94,5.46,1.71,3.57,4.69
+Austria,Bundesliga,2012/2013,18/08/2012,17:30,AC Wolfsberger,Mattersburg,0,1,A,2.74,3.46,2.7,2.74,3.46,2.8,2.52,3.25,2.68
+Austria,Bundesliga,2012/2013,18/08/2012,17:30,Admira,Salzburg,4,4,D,3.19,3.37,2.4,3.4,3.5,2.44,3.13,3.3,2.21
+Austria,Bundesliga,2012/2013,18/08/2012,17:30,Rapid Vienna,Sturm Graz,3,0,H,1.66,3.96,5.76,1.8,3.96,5.76,1.7,3.56,4.88
+Austria,Bundesliga,2012/2013,18/08/2012,17:30,Wacker Innsbruck,Neustadt,2,3,A,1.51,4.26,7.79,1.7,4.26,7.79,1.58,3.7,5.92
+Austria,Bundesliga,2012/2013,19/08/2012,15:00,Ried,Austria Vienna,0,1,A,2.6,3.24,3.02,2.65,3.29,3.02,2.5,3.17,2.75
+Austria,Bundesliga,2012/2013,25/08/2012,17:30,Austria Vienna,Wacker Innsbruck,2,0,H,1.5,4.43,7.5,1.55,4.7,9.19,1.49,3.98,6.55
+Austria,Bundesliga,2012/2013,25/08/2012,17:30,Mattersburg,Ried,2,1,H,2.39,3.35,3.24,2.62,3.4,3.24,2.39,3.21,2.88
+Austria,Bundesliga,2012/2013,25/08/2012,17:30,Salzburg,Neustadt,1,1,D,1.21,7.26,15.74,1.25,7.4,16.3,1.2,6.3,12.49
+Austria,Bundesliga,2012/2013,25/08/2012,17:30,Sturm Graz,Admira,3,2,H,2.02,3.63,3.96,2.08,3.75,4.09,1.98,3.38,3.63
+Austria,Bundesliga,2012/2013,26/08/2012,15:00,AC Wolfsberger,Rapid Vienna,1,0,H,4.88,3.66,1.83,5.6,3.8,1.84,4.97,3.56,1.69
+Austria,Bundesliga,2012/2013,01/09/2012,17:30,Admira,AC Wolfsberger,1,1,D,1.56,4.73,5.8,1.65,4.9,5.8,1.57,4,5.29
+Austria,Bundesliga,2012/2013,01/09/2012,17:30,Neustadt,Austria Vienna,0,2,A,5.25,3.76,1.76,5.6,4.3,1.8,4.62,3.51,1.74
+Austria,Bundesliga,2012/2013,01/09/2012,17:30,Ried,Sturm Graz,0,1,A,2.49,3.24,3.16,2.54,3.4,3.18,2.34,3.17,3
+Austria,Bundesliga,2012/2013,01/09/2012,17:30,Wacker Innsbruck,Salzburg,0,4,A,3.85,3.57,2.04,4.5,3.57,2.06,3.7,3.35,1.96
+Austria,Bundesliga,2012/2013,02/09/2012,15:00,Rapid Vienna,Mattersburg,3,0,H,1.53,4.5,6.75,1.57,4.59,6.75,1.52,3.99,6.01
+Austria,Bundesliga,2012/2013,15/09/2012,15:00,AC Wolfsberger,Neustadt,6,0,H,1.78,3.83,4.93,1.92,3.83,4.93,1.8,3.48,4.31
+Austria,Bundesliga,2012/2013,15/09/2012,17:30,Rapid Vienna,Admira,0,0,D,1.44,4.8,8.09,1.55,4.8,8.09,1.47,4.27,6.32
+Austria,Bundesliga,2012/2013,15/09/2012,17:30,Salzburg,Ried,1,1,D,1.56,4.37,6.5,1.57,4.4,7.12,1.52,3.95,6.08
+Austria,Bundesliga,2012/2013,15/09/2012,17:30,Sturm Graz,Wacker Innsbruck,3,0,H,1.52,4.25,7.67,1.57,4.5,8.3,1.48,4.04,6.71
+Austria,Bundesliga,2012/2013,16/09/2012,15:00,Mattersburg,Austria Vienna,2,4,A,3.59,3.31,2.25,3.75,3.4,2.25,3.25,3.27,2.15
+Austria,Bundesliga,2012/2013,22/09/2012,15:00,Admira,Mattersburg,5,1,H,1.96,3.62,4.18,2.04,3.7,4.2,1.93,3.44,3.74
+Austria,Bundesliga,2012/2013,22/09/2012,17:30,Austria Vienna,Salzburg,0,1,A,2.59,3.38,2.9,2.59,3.45,3.1,2.37,3.3,2.85
+Austria,Bundesliga,2012/2013,22/09/2012,17:30,Neustadt,Sturm Graz,1,1,D,5.57,3.83,1.71,5.57,3.83,1.8,4.66,3.55,1.72
+Austria,Bundesliga,2012/2013,22/09/2012,17:30,Wacker Innsbruck,AC Wolfsberger,0,1,A,2.31,3.45,3.29,2.33,3.55,3.35,2.25,3.31,3.03
+Austria,Bundesliga,2012/2013,23/09/2012,15:30,Ried,Rapid Vienna,0,2,A,2.99,3.28,2.59,3.35,3.4,2.59,2.9,3.21,2.35
+Austria,Bundesliga,2012/2013,29/09/2012,15:00,Austria Vienna,AC Wolfsberger,1,1,D,1.43,4.73,8.27,1.45,4.73,8.5,1.41,4.3,7.06
+Austria,Bundesliga,2012/2013,29/09/2012,17:30,Neustadt,Mattersburg,0,0,D,3.31,3.45,2.27,3.31,3.45,2.65,2.97,3.26,2.29
+Austria,Bundesliga,2012/2013,29/09/2012,17:30,Ried,Admira,1,1,D,2.1,3.65,3.54,2.35,3.65,3.75,2.08,3.34,3.33
+Austria,Bundesliga,2012/2013,29/09/2012,17:30,Wacker Innsbruck,Rapid Vienna,0,2,A,4.36,3.85,1.85,4.7,3.85,2.14,3.81,3.38,1.93
+Austria,Bundesliga,2012/2013,30/09/2012,15:00,Salzburg,Sturm Graz,3,2,H,1.6,4.33,6.17,1.67,4.33,6.3,1.58,3.88,5.42
+Austria,Bundesliga,2012/2013,06/10/2012,15:00,AC Wolfsberger,Ried,2,5,A,2.19,3.51,3.52,2.36,3.51,3.6,2.23,3.31,3.07
+Austria,Bundesliga,2012/2013,06/10/2012,17:30,Admira,Wacker Innsbruck,4,1,H,1.52,4.72,6.43,1.62,4.72,7,1.52,4.08,5.95
+Austria,Bundesliga,2012/2013,06/10/2012,17:30,Mattersburg,Salzburg,1,3,A,4.7,3.87,1.81,4.79,4.09,1.85,4.32,3.58,1.77
+Austria,Bundesliga,2012/2013,07/10/2012,15:00,Sturm Graz,Austria Vienna,1,1,D,2.44,3.39,3.12,2.5,3.55,3.2,2.34,3.24,2.94
+Austria,Bundesliga,2012/2013,07/10/2012,17:30,Rapid Vienna,Neustadt,1,1,D,1.27,5.95,13.9,1.29,6.1,13.9,1.25,5.62,10.71
+Austria,Bundesliga,2012/2013,20/10/2012,15:00,Salzburg,AC Wolfsberger,4,1,H,1.29,5.65,12.22,1.35,5.99,12.22,1.29,5.22,9.52
+Austria,Bundesliga,2012/2013,20/10/2012,17:30,Neustadt,Admira,2,1,H,4.12,3.67,1.96,4.2,3.67,2.2,3.65,3.39,1.98
+Austria,Bundesliga,2012/2013,20/10/2012,17:30,Sturm Graz,Mattersburg,0,0,D,1.58,4.33,6.1,1.62,4.34,6.5,1.56,3.91,5.62
+Austria,Bundesliga,2012/2013,20/10/2012,17:30,Wacker Innsbruck,Ried,1,0,H,3.23,3.3,2.42,3.5,3.35,2.42,3.02,3.23,2.3
+Austria,Bundesliga,2012/2013,21/10/2012,15:00,Austria Vienna,Rapid Vienna,2,0,H,2.36,3.24,3.42,2.45,3.4,3.42,2.32,3.16,3.07
+Austria,Bundesliga,2012/2013,27/10/2012,15:00,Ried,Neustadt,3,1,H,1.6,4.19,6.19,1.62,4.4,7.2,1.55,3.82,6
+Austria,Bundesliga,2012/2013,27/10/2012,17:30,Admira,Austria Vienna,4,6,A,2.97,3.48,2.49,3.2,3.55,2.49,2.95,3.31,2.31
+Austria,Bundesliga,2012/2013,27/10/2012,17:30,Mattersburg,Wacker Innsbruck,1,2,A,1.89,3.64,4.5,1.93,3.7,4.55,1.86,3.42,4.11
+Austria,Bundesliga,2012/2013,28/10/2012,15:00,Rapid Vienna,Salzburg,2,0,H,3.1,3.3,2.5,3.4,3.45,2.5,2.98,3.27,2.31
+Austria,Bundesliga,2012/2013,03/11/2012,15:00,Neustadt,Wacker Innsbruck,0,1,A,2.7,3.12,3.01,2.74,3.4,3.1,2.45,3.15,2.89
+Austria,Bundesliga,2012/2013,03/11/2012,17:30,Mattersburg,AC Wolfsberger,1,1,D,2.18,3.61,3.47,2.2,3.95,3.85,2.05,3.35,3.49
+Austria,Bundesliga,2012/2013,03/11/2012,17:30,Salzburg,Admira,5,0,H,1.42,5.24,7.76,1.48,5.24,7.76,1.42,4.54,6.78
+Austria,Bundesliga,2012/2013,03/11/2012,17:30,Sturm Graz,Rapid Vienna,2,1,H,2.33,3.33,3.29,2.6,3.43,3.3,2.34,3.23,2.97
+Austria,Bundesliga,2012/2013,04/11/2012,15:00,Austria Vienna,Ried,6,1,H,1.51,4.46,7.2,1.57,4.59,7.2,1.54,4.01,5.78
+Austria,Bundesliga,2012/2013,10/11/2012,15:00,Admira,Sturm Graz,1,2,A,2.48,3.66,2.89,2.5,3.66,3.05,2.43,3.34,2.75
+Austria,Bundesliga,2012/2013,10/11/2012,17:30,Ried,Mattersburg,6,1,H,1.71,3.97,5.2,1.8,3.97,5.3,1.74,3.58,4.54
+Austria,Bundesliga,2012/2013,10/11/2012,17:30,Wacker Innsbruck,Austria Vienna,0,3,A,4.72,3.56,1.88,5,3.64,1.89,4.33,3.44,1.81
+Austria,Bundesliga,2012/2013,11/11/2012,15:00,Neustadt,Salzburg,0,3,A,8.65,4.91,1.42,8.65,5.09,1.45,7.33,4.43,1.41
+Austria,Bundesliga,2012/2013,11/11/2012,17:30,Rapid Vienna,AC Wolfsberger,0,2,A,1.47,4.73,7.59,1.5,5.2,8.3,1.41,4.5,7.08
+Austria,Bundesliga,2012/2013,17/11/2012,15:00,Austria Vienna,Neustadt,3,0,H,1.28,6.18,11.83,1.29,7,13,1.24,5.78,10.66
+Austria,Bundesliga,2012/2013,17/11/2012,17:30,AC Wolfsberger,Admira,1,1,D,2.61,3.43,2.87,2.61,3.5,3,2.42,3.3,2.78
+Austria,Bundesliga,2012/2013,17/11/2012,17:30,Mattersburg,Rapid Vienna,0,3,A,3.68,3.34,2.21,4,3.4,2.21,3.52,3.25,2.07
+Austria,Bundesliga,2012/2013,17/11/2012,17:30,Sturm Graz,Ried,3,1,H,1.9,3.69,4.34,1.9,3.9,5,1.8,3.48,4.29
+Austria,Bundesliga,2012/2013,18/11/2012,15:00,Salzburg,Wacker Innsbruck,2,0,H,1.21,7.34,15.54,1.22,8.1,16,1.2,6.35,12.62
+Austria,Bundesliga,2012/2013,24/11/2012,15:00,Wacker Innsbruck,Sturm Graz,0,3,A,3.35,3.3,2.37,3.75,3.5,2.37,3.32,3.26,2.15
+Austria,Bundesliga,2012/2013,24/11/2012,17:30,Austria Vienna,Mattersburg,3,1,H,1.29,6.17,11.73,1.29,7,13,1.24,5.75,10.92
+Austria,Bundesliga,2012/2013,24/11/2012,17:30,Neustadt,AC Wolfsberger,2,1,H,2.99,3.49,2.47,3,3.5,2.58,2.83,3.24,2.43
+Austria,Bundesliga,2012/2013,24/11/2012,17:30,Ried,Salzburg,3,1,H,5.43,3.94,1.7,5.43,3.97,1.8,4.66,3.6,1.72
+Austria,Bundesliga,2012/2013,25/11/2012,14:00,Admira,Rapid Vienna,0,2,A,2.79,3.58,2.57,2.9,3.65,2.57,2.75,3.34,2.43
+Austria,Bundesliga,2012/2013,27/11/2012,18:30,AC Wolfsberger,Sturm Graz,1,1,D,3.57,3.56,2.15,3.75,3.56,2.2,3.36,3.3,2.1
+Austria,Bundesliga,2012/2013,01/12/2012,15:00,AC Wolfsberger,Wacker Innsbruck,2,2,D,2.16,3.26,3.86,2.16,3.5,4,2,3.29,3.7
+Austria,Bundesliga,2012/2013,01/12/2012,17:30,Mattersburg,Admira,3,0,H,3.42,3.48,2.25,3.42,3.5,2.5,3.02,3.29,2.28
+Austria,Bundesliga,2012/2013,01/12/2012,17:30,Rapid Vienna,Ried,4,3,H,1.74,4.01,4.95,1.75,4.33,5.5,1.67,3.69,4.92
+Austria,Bundesliga,2012/2013,01/12/2012,17:30,Sturm Graz,Neustadt,3,1,H,1.56,4.48,6.2,1.58,4.8,7.6,1.49,4.18,6.11
+Austria,Bundesliga,2012/2013,02/12/2012,15:00,Salzburg,Austria Vienna,0,0,D,2.02,3.68,3.88,2.04,3.69,3.88,1.99,3.38,3.61
+Austria,Bundesliga,2012/2013,08/12/2012,15:00,Admira,Ried,0,3,A,2.31,3.66,3.1,2.4,3.66,3.32,2.24,3.34,3.05
+Austria,Bundesliga,2012/2013,08/12/2012,17:30,AC Wolfsberger,Austria Vienna,3,6,A,5.11,3.73,1.78,5.11,3.8,1.85,4.62,3.58,1.73
+Austria,Bundesliga,2012/2013,08/12/2012,17:30,Mattersburg,Neustadt,1,0,H,2.22,3.5,3.44,2.23,3.5,4,2.03,3.33,3.57
+Austria,Bundesliga,2012/2013,08/12/2012,17:30,Sturm Graz,Salzburg,1,1,D,3.25,3.45,2.33,3.35,3.45,2.4,3.03,3.28,2.28
+Austria,Bundesliga,2012/2013,09/12/2012,15:00,Rapid Vienna,Wacker Innsbruck,2,1,H,1.45,4.69,7.76,1.5,5.9,7.76,1.42,4.53,6.86
+Austria,Bundesliga,2012/2013,15/12/2012,17:30,Neustadt,Rapid Vienna,1,0,H,5.36,3.71,1.76,5.6,3.75,1.8,4.77,3.55,1.72
+Austria,Bundesliga,2012/2013,15/12/2012,17:30,Salzburg,Mattersburg,7,0,H,1.22,6.93,16.64,1.25,7,16.64,1.22,6.16,11.47
+Austria,Bundesliga,2012/2013,15/12/2012,17:30,Wacker Innsbruck,Admira,3,1,H,2.49,3.43,3.01,2.66,3.5,3.01,2.4,3.27,2.83
+Austria,Bundesliga,2012/2013,16/12/2012,15:00,Austria Vienna,Sturm Graz,3,1,H,1.67,3.9,5.82,1.8,4,5.82,1.68,3.62,5.01
+Austria,Bundesliga,2012/2013,16/02/2013,15:00,Ried,Wacker Innsbruck,3,0,H,1.58,4.12,6.65,1.7,4.15,6.7,1.58,3.78,5.61
+Austria,Bundesliga,2012/2013,16/02/2013,17:30,Admira,Neustadt,1,2,A,1.81,3.72,4.93,1.83,3.85,5.09,1.73,3.57,4.64
+Austria,Bundesliga,2012/2013,16/02/2013,17:30,Mattersburg,Sturm Graz,0,0,D,3.88,3.38,2.12,3.91,3.4,2.2,3.45,3.24,2.1
+Austria,Bundesliga,2012/2013,17/02/2013,15:00,Rapid Vienna,Austria Vienna,1,2,A,2.76,3.37,2.73,2.9,3.37,2.88,2.66,3.17,2.61
+Austria,Bundesliga,2012/2013,20/02/2013,17:30,Ried,AC Wolfsberger,1,1,D,1.55,4.33,6.77,1.6,4.55,6.8,1.53,4.05,5.88
+Austria,Bundesliga,2012/2013,23/02/2013,15:00,Wacker Innsbruck,Mattersburg,2,0,H,2.02,3.41,4.17,2.2,3.5,4.3,1.99,3.31,3.71
+Austria,Bundesliga,2012/2013,23/02/2013,17:30,Austria Vienna,Admira,4,0,H,1.4,5.37,7.86,1.4,5.5,9.1,1.35,4.88,7.96
+Austria,Bundesliga,2012/2013,23/02/2013,17:30,Neustadt,Ried,0,0,D,3.23,3.23,2.46,3.23,3.4,2.49,3,3.2,2.35
+Austria,Bundesliga,2012/2013,24/02/2013,15:00,Salzburg,Rapid Vienna,3,3,D,1.68,3.85,5.82,1.75,4,5.82,1.65,3.65,5.21
+Austria,Bundesliga,2012/2013,24/02/2013,17:30,Sturm Graz,AC Wolfsberger,1,3,A,1.72,3.96,5.2,1.72,4.2,7,1.58,3.88,5.5
+Austria,Bundesliga,2012/2013,27/02/2013,19:30,Rapid Vienna,Sturm Graz,1,1,D,1.73,3.75,5.38,1.83,3.8,5.41,1.72,3.58,4.7
+Austria,Bundesliga,2012/2013,27/02/2013,19:30,Ried,Austria Vienna,1,3,A,3.72,3.45,2.14,3.8,3.65,2.2,3.36,3.3,2.11
+Austria,Bundesliga,2012/2013,27/02/2013,19:30,Wacker Innsbruck,Neustadt,1,0,H,2.02,3.36,4.26,2.1,3.5,4.26,2.01,3.28,3.66
+Austria,Bundesliga,2012/2013,02/03/2013,15:00,Sturm Graz,Admira,1,2,A,1.73,3.86,5.3,1.73,4.15,6.1,1.62,3.74,5.28
+Austria,Bundesliga,2012/2013,02/03/2013,17:30,Austria Vienna,Wacker Innsbruck,4,0,H,1.33,5.65,10.4,1.34,6,11,1.28,5.33,9.66
+Austria,Bundesliga,2012/2013,02/03/2013,17:30,Mattersburg,Ried,1,0,H,3.14,3.2,2.52,3.14,3.35,2.6,2.92,3.17,2.41
+Austria,Bundesliga,2012/2013,02/03/2013,17:30,Salzburg,Neustadt,3,1,H,1.22,7.2,14.4,1.23,8.19,15.86,1.2,6.45,12.05
+Austria,Bundesliga,2012/2013,03/03/2013,15:00,AC Wolfsberger,Rapid Vienna,2,1,H,3.63,3.43,2.18,3.95,3.43,2.25,3.5,3.29,2.05
+Austria,Bundesliga,2012/2013,06/03/2013,17:30,AC Wolfsberger,Salzburg,1,1,D,5.27,3.85,1.74,5.5,4,1.74,5.02,3.74,1.64
+Austria,Bundesliga,2012/2013,09/03/2013,15:00,Neustadt,Austria Vienna,0,0,D,6.25,4.15,1.6,6.7,4.45,1.62,5.9,3.89,1.55
+Austria,Bundesliga,2012/2013,09/03/2013,17:30,Admira,AC Wolfsberger,0,1,A,2.02,3.5,4.07,2.1,3.75,4.07,2.03,3.37,3.46
+Austria,Bundesliga,2012/2013,09/03/2013,17:30,Rapid Vienna,Mattersburg,2,2,D,1.46,4.65,7.95,1.46,4.9,8.19,1.42,4.31,7.36
+Austria,Bundesliga,2012/2013,09/03/2013,17:30,Ried,Sturm Graz,1,2,A,2.25,3.24,3.64,2.35,3.4,3.64,2.18,3.23,3.26
+Austria,Bundesliga,2012/2013,10/03/2013,15:00,Wacker Innsbruck,Salzburg,2,3,A,5.82,3.92,1.67,6,4,1.7,5.36,3.81,1.6
+Austria,Bundesliga,2012/2013,13/03/2013,17:30,AC Wolfsberger,Mattersburg,1,0,H,1.98,3.78,3.92,2.12,3.78,4,1.97,3.35,3.73
+Austria,Bundesliga,2012/2013,13/03/2013,17:30,Admira,Salzburg,1,1,D,5.84,4.28,1.61,6.1,4.45,1.62,5.3,3.98,1.58
+Austria,Bundesliga,2012/2013,16/03/2013,15:00,Rapid Vienna,Admira,1,1,D,1.59,4.47,5.8,1.59,4.75,7.2,1.49,4.2,6.07
+Austria,Bundesliga,2012/2013,16/03/2013,17:30,AC Wolfsberger,Neustadt,1,1,D,2.02,3.59,3.98,2.02,3.65,4.45,1.89,3.37,3.99
+Austria,Bundesliga,2012/2013,16/03/2013,17:30,Salzburg,Ried,2,2,D,1.53,4.7,6.3,1.53,4.84,7.5,1.47,4.22,6.48
+Austria,Bundesliga,2012/2013,16/03/2013,17:30,Sturm Graz,Wacker Innsbruck,3,2,H,1.74,3.72,5.5,1.74,3.95,6.3,1.64,3.62,5.33
+Austria,Bundesliga,2012/2013,17/03/2013,16:00,Mattersburg,Austria Vienna,0,4,A,4.88,3.93,1.76,5.5,3.93,1.76,4.96,3.65,1.67
+Austria,Bundesliga,2012/2013,30/03/2013,15:00,Admira,Mattersburg,1,0,H,1.81,3.67,4.98,2,3.8,4.98,1.86,3.46,4.08
+Austria,Bundesliga,2012/2013,30/03/2013,17:30,Neustadt,Sturm Graz,1,0,H,3.15,3.24,2.5,3.3,3.4,2.5,3.09,3.14,2.31
+Austria,Bundesliga,2012/2013,30/03/2013,17:30,Ried,Rapid Vienna,3,2,H,2.91,3.29,2.64,3,3.31,2.75,2.75,3.19,2.51
+Austria,Bundesliga,2012/2013,30/03/2013,17:30,Wacker Innsbruck,AC Wolfsberger,2,3,A,2.19,3.48,3.55,2.29,3.48,3.55,2.16,3.28,3.23
+Austria,Bundesliga,2012/2013,31/03/2013,15:00,Austria Vienna,Salzburg,1,1,D,2.06,3.4,4.08,2.4,3.6,4.2,2.07,3.31,3.48
+Austria,Bundesliga,2012/2013,06/04/2013,15:00,Wacker Innsbruck,Rapid Vienna,1,1,D,3.23,3.32,2.41,3.65,3.4,2.41,3.26,3.25,2.18
+Austria,Bundesliga,2012/2013,06/04/2013,17:30,Austria Vienna,AC Wolfsberger,0,4,A,1.43,4.86,8.43,1.43,5.4,10.5,1.36,4.58,8.15
+Austria,Bundesliga,2012/2013,06/04/2013,17:30,Neustadt,Mattersburg,0,0,D,2.08,3.36,4.01,2.2,3.4,4.05,2.04,3.25,3.64
+Austria,Bundesliga,2012/2013,06/04/2013,17:30,Ried,Admira,4,1,H,1.91,3.63,4.42,1.94,3.75,5,1.79,3.56,4.28
+Austria,Bundesliga,2012/2013,07/04/2013,15:00,Salzburg,Sturm Graz,3,0,H,1.54,4.55,6.45,1.6,4.59,6.9,1.51,4.08,6.07
+Austria,Bundesliga,2012/2013,13/04/2013,15:00,AC Wolfsberger,Ried,1,3,A,2.2,3.56,3.43,2.29,3.56,3.43,2.19,3.29,3.15
+Austria,Bundesliga,2012/2013,13/04/2013,17:30,Admira,Wacker Innsbruck,4,3,H,1.96,3.54,4.29,1.99,3.65,4.5,1.92,3.39,3.9
+Austria,Bundesliga,2012/2013,13/04/2013,17:30,Mattersburg,Salzburg,1,2,A,5.64,4.38,1.61,6.1,4.45,1.7,5.45,3.91,1.58
+Austria,Bundesliga,2012/2013,13/04/2013,17:30,Rapid Vienna,Neustadt,2,0,H,1.57,4.28,6.37,1.57,4.28,7,1.5,4.01,6.48
+Austria,Bundesliga,2012/2013,14/04/2013,15:00,Sturm Graz,Austria Vienna,1,1,D,3.47,3.42,2.22,3.47,3.45,2.5,3.14,3.28,2.22
+Austria,Bundesliga,2012/2013,20/04/2013,15:00,Sturm Graz,Mattersburg,2,2,D,1.76,3.76,5.19,1.76,3.9,6.5,1.64,3.7,5.24
+Austria,Bundesliga,2012/2013,20/04/2013,17:30,Neustadt,Admira,3,0,H,2.99,3.25,2.61,2.99,3.31,2.9,2.64,3.22,2.61
+Austria,Bundesliga,2012/2013,20/04/2013,17:30,Salzburg,AC Wolfsberger,6,2,H,1.4,5.09,8.9,1.4,5.9,9,1.36,4.68,7.9
+Austria,Bundesliga,2012/2013,20/04/2013,17:30,Wacker Innsbruck,Ried,2,0,H,2.84,3.41,2.63,3.05,3.42,2.65,2.66,3.27,2.56
+Austria,Bundesliga,2012/2013,21/04/2013,15:00,Austria Vienna,Rapid Vienna,2,2,D,1.89,3.85,4.22,1.94,3.85,5,1.78,3.58,4.33
+Austria,Bundesliga,2012/2013,27/04/2013,15:00,Ried,Neustadt,2,1,H,1.77,3.96,4.82,1.77,4,5.5,1.69,3.67,4.86
+Austria,Bundesliga,2012/2013,27/04/2013,17:30,AC Wolfsberger,Sturm Graz,3,0,H,2.62,3.39,2.87,2.7,3.4,2.92,2.55,3.27,2.65
+Austria,Bundesliga,2012/2013,27/04/2013,17:30,Mattersburg,Wacker Innsbruck,1,2,A,2.29,3.4,3.37,2.35,3.45,3.45,2.21,3.25,3.18
+Austria,Bundesliga,2012/2013,27/04/2013,17:30,Rapid Vienna,Salzburg,1,3,A,3.14,3.62,2.31,3.3,3.62,2.4,3.02,3.34,2.26
+Austria,Bundesliga,2012/2013,28/04/2013,15:00,Admira,Austria Vienna,0,2,A,4.51,4.2,1.77,5,4.4,1.85,4.45,3.76,1.72
+Austria,Bundesliga,2012/2013,04/05/2013,15:00,Austria Vienna,Ried,3,1,H,1.47,4.69,7.51,1.5,5.09,8,1.44,4.24,7.09
+Austria,Bundesliga,2012/2013,04/05/2013,17:30,Mattersburg,AC Wolfsberger,3,1,H,2.71,3.52,2.68,2.71,3.55,2.82,2.56,3.28,2.64
+Austria,Bundesliga,2012/2013,04/05/2013,17:30,Neustadt,Wacker Innsbruck,2,2,D,2.31,3.39,3.35,2.36,3.39,3.6,2.23,3.21,3.19
+Austria,Bundesliga,2012/2013,04/05/2013,17:30,Salzburg,Admira,2,1,H,1.21,7.34,15.59,1.25,7.7,16,1.2,6.35,12.13
+Austria,Bundesliga,2012/2013,05/05/2013,15:00,Sturm Graz,Rapid Vienna,1,3,A,2.77,3.4,2.71,2.77,3.4,2.9,2.57,3.22,2.66
+Austria,Bundesliga,2012/2013,11/05/2013,15:00,Admira,Sturm Graz,3,0,H,2.36,3.55,3.16,2.54,3.6,3.16,2.35,3.34,2.88
+Austria,Bundesliga,2012/2013,11/05/2013,17:30,Rapid Vienna,AC Wolfsberger,0,0,D,1.7,4.04,5.23,1.73,4.3,5.3,1.68,3.76,4.62
+Austria,Bundesliga,2012/2013,11/05/2013,17:30,Ried,Mattersburg,1,1,D,1.57,4.42,6.2,1.7,4.42,6.2,1.61,3.86,5.27
+Austria,Bundesliga,2012/2013,11/05/2013,17:30,Wacker Innsbruck,Austria Vienna,0,3,A,5.5,4.12,1.66,5.5,4.25,1.7,5.11,3.79,1.63
+Austria,Bundesliga,2012/2013,12/05/2013,15:00,Neustadt,Salzburg,0,6,A,5.97,4.5,1.57,7,4.59,1.61,5.77,4.04,1.54
+Austria,Bundesliga,2012/2013,18/05/2013,15:00,AC Wolfsberger,Admira,0,0,D,2.24,3.52,3.37,2.25,3.65,3.6,2.13,3.41,3.21
+Austria,Bundesliga,2012/2013,18/05/2013,17:30,Austria Vienna,Neustadt,3,1,H,1.3,6.07,10.92,1.3,6.4,14,1.25,5.6,10.99
+Austria,Bundesliga,2012/2013,18/05/2013,17:30,Mattersburg,Rapid Vienna,2,0,H,3.64,3.57,2.13,3.65,3.65,2.2,3.37,3.32,2.1
+Austria,Bundesliga,2012/2013,18/05/2013,17:30,Salzburg,Wacker Innsbruck,3,1,H,1.19,7.62,17.23,1.2,8.1,18,1.19,6.47,13.15
+Austria,Bundesliga,2012/2013,19/05/2013,15:00,Sturm Graz,Ried,3,1,H,2.52,3.55,2.88,2.52,3.65,3,2.36,3.34,2.85
+Austria,Bundesliga,2012/2013,22/05/2013,19:30,Admira,Rapid Vienna,0,2,A,3.08,3.46,2.43,3.15,3.57,2.45,2.89,3.34,2.34
+Austria,Bundesliga,2012/2013,22/05/2013,19:30,Austria Vienna,Mattersburg,4,0,H,1.33,4.92,13.16,1.4,5.4,14,1.3,4.79,10.73
+Austria,Bundesliga,2012/2013,22/05/2013,19:30,Neustadt,AC Wolfsberger,2,0,H,2.58,3.51,2.81,2.6,3.7,2.88,2.47,3.31,2.72
+Austria,Bundesliga,2012/2013,22/05/2013,19:30,Ried,Salzburg,2,2,D,4.51,3.97,1.81,5,4.09,1.81,4.27,3.72,1.76
+Austria,Bundesliga,2012/2013,22/05/2013,19:30,Wacker Innsbruck,Sturm Graz,2,1,H,2.36,3.57,3.11,2.54,3.7,3.11,2.34,3.39,2.85
+Austria,Bundesliga,2012/2013,26/05/2013,15:00,AC Wolfsberger,Wacker Innsbruck,2,3,A,2.37,3.68,2.98,2.45,3.75,3.25,2.22,3.52,2.93
+Austria,Bundesliga,2012/2013,26/05/2013,15:00,Mattersburg,Admira,0,1,A,2.66,3.49,2.71,2.66,3.5,2.95,2.49,3.23,2.72
+Austria,Bundesliga,2012/2013,26/05/2013,15:00,Rapid Vienna,Ried,3,0,H,2.11,3.7,3.48,2.11,4,3.48,2.05,3.61,3.23
+Austria,Bundesliga,2012/2013,26/05/2013,15:00,Salzburg,Austria Vienna,3,0,H,1.68,4.22,5.05,1.85,4.22,5.19,1.71,3.82,4.38
+Austria,Bundesliga,2012/2013,26/05/2013,15:00,Sturm Graz,Neustadt,0,3,A,2.14,3.65,3.47,2.14,3.9,3.7,1.99,3.56,3.43
+Austria,Bundesliga,2013/2014,20/07/2013,15:30,Austria Vienna,Admira,2,0,H,1.42,5.09,7.9,1.42,5.6,9.4,1.36,4.84,7.73
+Austria,Bundesliga,2013/2014,20/07/2013,18:00,AC Wolfsberger,Rapid Vienna,2,2,D,3.83,3.31,2.16,3.83,3.47,2.5,3.12,3.25,2.25
+Austria,Bundesliga,2013/2014,20/07/2013,18:00,Grodig,Ried,0,0,D,2.69,3.25,2.89,2.69,3.45,2.9,2.55,3.23,2.7
+Austria,Bundesliga,2013/2014,20/07/2013,18:00,Neustadt,Salzburg,1,5,A,8.07,5.05,1.42,8.07,5.05,1.5,7.19,4.47,1.41
+Austria,Bundesliga,2013/2014,21/07/2013,15:30,Wacker Innsbruck,Sturm Graz,2,2,D,2.15,3.52,3.63,2.5,3.52,3.8,2.17,3.28,3.26
+Austria,Bundesliga,2013/2014,27/07/2013,15:30,Rapid Vienna,Neustadt,4,0,H,1.43,4.84,8.55,1.44,5.6,9.4,1.38,4.65,7.66
+Austria,Bundesliga,2013/2014,27/07/2013,18:00,Admira,Wacker Innsbruck,1,2,A,2,3.69,3.89,2.04,3.7,4.45,1.95,3.44,3.73
+Austria,Bundesliga,2013/2014,27/07/2013,18:00,Ried,AC Wolfsberger,1,0,H,1.71,4.13,4.97,1.8,4.13,4.97,1.71,3.82,4.44
+Austria,Bundesliga,2013/2014,27/07/2013,18:00,Salzburg,Austria Vienna,5,1,H,1.65,3.94,5.97,1.8,3.95,5.97,1.66,3.72,4.95
+Austria,Bundesliga,2013/2014,28/07/2013,15:30,Sturm Graz,Grodig,0,2,A,1.96,3.67,4.17,2.11,3.85,4.7,1.92,3.39,3.93
+Austria,Bundesliga,2013/2014,03/08/2013,15:30,Neustadt,AC Wolfsberger,2,1,H,2.94,3.32,2.6,3.25,3.32,2.8,2.77,3.18,2.48
+Austria,Bundesliga,2013/2014,03/08/2013,18:00,Austria Vienna,Ried,3,3,D,1.58,4.32,6.16,1.58,4.75,6.16,1.54,4.03,5.73
+Austria,Bundesliga,2013/2014,03/08/2013,18:00,Grodig,Admira,7,1,H,2.12,3.59,3.62,2.15,3.75,3.8,2.07,3.35,3.42
+Austria,Bundesliga,2013/2014,03/08/2013,18:00,Wacker Innsbruck,Salzburg,1,1,D,6.56,4.73,1.51,7,4.8,1.52,6.37,4.38,1.46
+Austria,Bundesliga,2013/2014,04/08/2013,15:30,Sturm Graz,Rapid Vienna,2,4,A,3.65,3.5,2.15,3.8,3.5,2.25,3.4,3.32,2.09
+Austria,Bundesliga,2013/2014,10/08/2013,15:30,AC Wolfsberger,Wacker Innsbruck,1,1,D,2.56,3.35,2.97,2.56,3.8,3.3,2.32,3.25,2.97
+Austria,Bundesliga,2013/2014,10/08/2013,18:00,Admira,Sturm Graz,1,1,D,2.9,3.57,2.5,3,3.6,2.76,2.75,3.29,2.47
+Austria,Bundesliga,2013/2014,10/08/2013,18:00,Ried,Neustadt,1,1,D,1.53,4.38,7.05,1.55,4.45,7.7,1.49,4.06,6.47
+Austria,Bundesliga,2013/2014,10/08/2013,18:00,Salzburg,Grodig,4,1,H,1.32,5.9,10.1,1.34,6.4,11,1.3,5.28,8.94
+Austria,Bundesliga,2013/2014,11/08/2013,15:30,Rapid Vienna,Austria Vienna,0,0,D,2.45,3.32,3.16,2.45,3.41,3.2,2.34,3.25,2.93
+Austria,Bundesliga,2013/2014,17/08/2013,15:30,Sturm Graz,Salzburg,1,1,D,5.93,4.58,1.57,6.6,4.58,1.6,5.97,4.22,1.5
+Austria,Bundesliga,2013/2014,17/08/2013,18:00,Austria Vienna,Neustadt,5,0,H,1.4,5.72,7.45,1.45,5.72,9.19,1.35,4.91,8
+Austria,Bundesliga,2013/2014,17/08/2013,18:00,Grodig,AC Wolfsberger,4,3,H,1.79,3.98,4.63,1.85,3.98,4.75,1.76,3.67,4.31
+Austria,Bundesliga,2013/2014,17/08/2013,18:00,Wacker Innsbruck,Ried,2,3,A,2.5,3.59,2.88,2.6,3.59,3.05,2.46,3.29,2.74
+Austria,Bundesliga,2013/2014,18/08/2013,15:30,Admira,Rapid Vienna,2,0,H,5.48,3.99,1.69,5.48,4,1.75,4.86,3.69,1.68
+Austria,Bundesliga,2013/2014,24/08/2013,15:30,Ried,Sturm Graz,3,0,H,1.77,3.97,4.78,1.9,3.97,4.95,1.75,3.6,4.49
+Austria,Bundesliga,2013/2014,24/08/2013,18:00,AC Wolfsberger,Austria Vienna,1,4,A,4.3,3.72,1.91,4.5,3.75,1.94,4.19,3.48,1.83
+Austria,Bundesliga,2013/2014,24/08/2013,18:00,Neustadt,Wacker Innsbruck,1,1,D,3.42,3.43,2.27,3.42,3.43,2.4,3.12,3.26,2.24
+Austria,Bundesliga,2013/2014,25/08/2013,15:30,Rapid Vienna,Grodig,0,1,A,1.71,3.83,5.49,1.73,4.05,5.49,1.67,3.71,4.86
+Austria,Bundesliga,2013/2014,25/08/2013,18:00,Salzburg,Admira,1,0,H,1.15,9.32,18.41,1.22,9.32,18.41,1.17,7.36,13.22
+Austria,Bundesliga,2013/2014,31/08/2013,15:30,Sturm Graz,AC Wolfsberger,4,1,H,2.17,3.62,3.48,2.18,3.85,3.77,2.01,3.44,3.51
+Austria,Bundesliga,2013/2014,31/08/2013,18:00,Admira,Ried,1,4,A,3.09,3.62,2.35,3.12,3.65,2.56,2.92,3.36,2.31
+Austria,Bundesliga,2013/2014,31/08/2013,18:00,Austria Vienna,Wacker Innsbruck,1,1,D,1.32,6.11,9.88,1.44,6.11,11,1.33,5.24,8.08
+Austria,Bundesliga,2013/2014,31/08/2013,18:00,Grodig,Neustadt,3,6,A,1.41,4.83,9,1.6,5,9.5,1.4,4.4,7.73
+Austria,Bundesliga,2013/2014,01/09/2013,15:30,Salzburg,Rapid Vienna,1,1,D,1.43,4.75,8.79,1.55,5,9.1,1.39,4.54,7.81
+Austria,Bundesliga,2013/2014,14/09/2013,15:30,Wacker Innsbruck,Rapid Vienna,0,4,A,2.98,3.51,2.48,3.1,3.57,2.48,2.89,3.27,2.36
+Austria,Bundesliga,2013/2014,14/09/2013,18:00,AC Wolfsberger,Admira,3,1,H,2.09,3.61,3.7,2.15,3.61,3.85,2.04,3.37,3.49
+Austria,Bundesliga,2013/2014,14/09/2013,18:00,Austria Vienna,Grodig,2,3,A,1.5,4.58,7.2,1.58,4.58,7.2,1.52,4.04,6
+Austria,Bundesliga,2013/2014,14/09/2013,18:00,Neustadt,Sturm Graz,1,3,A,3.05,3.49,2.43,3.2,3.49,2.5,2.95,3.25,2.34
+Austria,Bundesliga,2013/2014,15/09/2013,15:30,Ried,Salzburg,0,5,A,5.34,4.19,1.67,5.5,4.33,1.7,5.01,3.87,1.63
+Austria,Bundesliga,2013/2014,21/09/2013,15:30,Sturm Graz,Austria Vienna,1,2,A,4.04,3.73,1.96,4.1,3.73,2.24,3.45,3.38,2.06
+Austria,Bundesliga,2013/2014,21/09/2013,18:00,Admira,Neustadt,0,3,A,1.68,4.09,5.41,1.92,4.1,5.41,1.72,3.7,4.55
+Austria,Bundesliga,2013/2014,21/09/2013,18:00,Grodig,Wacker Innsbruck,3,3,D,1.85,3.85,4.46,1.9,3.9,4.88,1.77,3.61,4.32
+Austria,Bundesliga,2013/2014,22/09/2013,15:30,Rapid Vienna,Ried,2,0,H,1.78,3.91,4.86,1.84,3.91,5,1.76,3.6,4.38
+Austria,Bundesliga,2013/2014,22/09/2013,18:00,Salzburg,AC Wolfsberger,2,2,D,1.16,8.56,18.46,1.18,8.56,20,1.15,7.43,14.47
+Austria,Bundesliga,2013/2014,28/09/2013,15:30,Ried,Grodig,4,2,H,2.03,3.68,3.82,2.1,3.9,3.82,2.01,3.48,3.5
+Austria,Bundesliga,2013/2014,28/09/2013,18:00,Admira,Austria Vienna,1,0,H,5.02,4.1,1.72,5.02,4.2,1.75,4.67,3.77,1.69
+Austria,Bundesliga,2013/2014,28/09/2013,18:00,Rapid Vienna,AC Wolfsberger,2,4,A,1.49,4.67,7.27,1.55,4.85,7.9,1.48,4.19,6.33
+Austria,Bundesliga,2013/2014,28/09/2013,18:00,Sturm Graz,Wacker Innsbruck,1,0,H,1.89,3.74,4.37,2.1,3.8,4.5,1.87,3.5,4.01
+Austria,Bundesliga,2013/2014,29/09/2013,15:30,Salzburg,Neustadt,8,1,H,1.15,9.7,18,1.17,11,19,1.12,9.14,15.34
+Austria,Bundesliga,2013/2014,05/10/2013,15:30,AC Wolfsberger,Ried,1,1,D,2.73,3.53,2.67,2.8,3.6,2.76,2.63,3.34,2.55
+Austria,Bundesliga,2013/2014,05/10/2013,18:00,Grodig,Sturm Graz,0,1,A,2.09,3.62,3.7,2.25,3.62,3.8,2.06,3.39,3.44
+Austria,Bundesliga,2013/2014,05/10/2013,18:00,Wacker Innsbruck,Admira,3,3,D,2.05,3.52,3.91,2.1,3.7,3.91,2,3.43,3.53
+Austria,Bundesliga,2013/2014,06/10/2013,15:30,Austria Vienna,Salzburg,1,2,A,4.26,3.64,1.94,4.26,3.9,2.1,3.77,3.5,1.92
+Austria,Bundesliga,2013/2014,06/10/2013,18:00,Neustadt,Rapid Vienna,0,0,D,6.33,4.34,1.57,6.5,4.34,1.7,5.32,3.84,1.61
+Austria,Bundesliga,2013/2014,19/10/2013,15:30,Salzburg,Wacker Innsbruck,6,0,H,1.18,8.74,16.43,1.19,9.4,19,1.14,7.89,15.17
+Austria,Bundesliga,2013/2014,19/10/2013,18:00,AC Wolfsberger,Neustadt,1,1,D,1.56,4.52,6.16,1.69,4.52,6.16,1.56,4,5.48
+Austria,Bundesliga,2013/2014,19/10/2013,18:00,Admira,Grodig,0,4,A,2.56,3.64,2.79,2.65,3.75,3,2.46,3.37,2.71
+Austria,Bundesliga,2013/2014,19/10/2013,18:00,Ried,Austria Vienna,1,1,D,3.33,3.66,2.21,3.5,3.66,2.3,3.12,3.39,2.19
+Austria,Bundesliga,2013/2014,20/10/2013,15:30,Rapid Vienna,Sturm Graz,2,2,D,1.85,3.72,4.62,1.85,4,5.25,1.72,3.62,4.7
+Austria,Bundesliga,2013/2014,26/10/2013,15:30,Wacker Innsbruck,AC Wolfsberger,1,2,A,2.33,3.69,3.09,2.42,3.75,3.09,2.29,3.4,2.91
+Austria,Bundesliga,2013/2014,26/10/2013,18:00,Neustadt,Ried,3,3,D,4.47,3.82,1.85,4.47,3.82,1.96,3.96,3.53,1.86
+Austria,Bundesliga,2013/2014,26/10/2013,18:00,Sturm Graz,Admira,0,2,A,1.74,4.06,4.88,1.75,4.06,6.1,1.66,3.77,4.93
+Austria,Bundesliga,2013/2014,27/10/2013,15:30,Austria Vienna,Rapid Vienna,0,1,A,2.24,3.51,3.41,2.24,3.6,3.85,2.07,3.35,3.42
+Austria,Bundesliga,2013/2014,27/10/2013,18:00,Grodig,Salzburg,0,3,A,8.3,5.29,1.4,8.32,5.3,1.45,7.39,4.86,1.37
+Austria,Bundesliga,2013/2014,02/11/2013,15:30,Rapid Vienna,Admira,4,2,H,1.45,4.73,7.95,1.48,5.3,7.95,1.43,4.37,7.07
+Austria,Bundesliga,2013/2014,02/11/2013,18:00,AC Wolfsberger,Grodig,1,1,D,2.35,3.66,3.06,2.4,3.8,3.25,2.27,3.37,2.98
+Austria,Bundesliga,2013/2014,02/11/2013,18:00,Ried,Wacker Innsbruck,4,0,H,1.62,4.27,5.8,1.65,4.33,6.7,1.59,3.93,5.31
+Austria,Bundesliga,2013/2014,02/11/2013,18:00,Salzburg,Sturm Graz,1,0,H,1.19,7.9,16.6,1.23,7.9,16.6,1.19,6.77,12.28
+Austria,Bundesliga,2013/2014,03/11/2013,15:30,Neustadt,Austria Vienna,0,3,A,6.12,4.23,1.6,6.12,4.25,1.65,5.51,3.9,1.58
+Austria,Bundesliga,2013/2014,09/11/2013,15:30,Wacker Innsbruck,Neustadt,4,0,H,1.84,3.98,4.34,1.92,4,4.52,1.77,3.65,4.29
+Austria,Bundesliga,2013/2014,09/11/2013,18:00,Austria Vienna,AC Wolfsberger,1,0,H,1.56,4.52,6.05,1.58,4.95,7,1.5,4.3,5.74
+Austria,Bundesliga,2013/2014,10/11/2013,15:30,Grodig,Rapid Vienna,2,2,D,2.92,3.45,2.55,3.02,3.6,2.55,2.78,3.31,2.43
+Austria,Bundesliga,2013/2014,10/11/2013,18:00,Admira,Salzburg,3,1,H,10.92,6.2,1.3,12,6.2,1.3,10.32,5.63,1.26
+Austria,Bundesliga,2013/2014,23/11/2013,18:00,Neustadt,Grodig,0,2,A,4.4,3.91,1.84,4.4,3.91,2,4.02,3.57,1.85
+Austria,Bundesliga,2013/2014,23/11/2013,18:00,Ried,Admira,2,2,D,1.76,3.89,5,1.83,4.2,6.5,1.67,3.79,4.82
+Austria,Bundesliga,2013/2014,23/11/2013,18:00,Wacker Innsbruck,Austria Vienna,0,5,A,3.51,3.82,2.09,3.8,3.9,2.11,3.44,3.45,2.03
+Austria,Bundesliga,2013/2014,24/11/2013,15:30,Rapid Vienna,Salzburg,2,1,H,5.35,3.83,1.74,5.35,3.83,1.86,4.62,3.57,1.74
+Austria,Bundesliga,2013/2014,27/11/2013,17:30,Sturm Graz,Ried,2,0,H,2.1,3.68,3.6,2.3,3.68,3.6,2.14,3.38,3.26
+Austria,Bundesliga,2013/2014,30/11/2013,15:30,Grodig,Austria Vienna,1,0,H,2.87,3.75,2.44,3.4,3.75,2.45,2.93,3.43,2.28
+Austria,Bundesliga,2013/2014,30/11/2013,18:00,Admira,AC Wolfsberger,3,0,H,2.34,3.44,2.83,2.36,3.75,3.5,2.16,3.39,3.16
+Austria,Bundesliga,2013/2014,30/11/2013,18:00,Sturm Graz,Neustadt,2,3,A,1.54,3.81,6.22,1.6,4.55,7.1,1.49,4.09,6.41
+Austria,Bundesliga,2013/2014,01/12/2013,15:30,Salzburg,Ried,4,0,H,1.28,5.95,12.8,1.33,7,13,1.24,5.87,10.53
+Austria,Bundesliga,2013/2014,01/12/2013,18:00,Rapid Vienna,Wacker Innsbruck,3,0,H,1.39,5.19,8.85,1.4,5.9,9.4,1.36,4.85,7.65
+Austria,Bundesliga,2013/2014,03/12/2013,19:30,Austria Vienna,Sturm Graz,3,2,H,1.86,3.59,4.77,1.9,4,5.5,1.8,3.51,4.39
+Austria,Bundesliga,2013/2014,04/12/2013,19:30,AC Wolfsberger,Salzburg,1,2,A,9.07,5.24,1.3,10,5.75,1.39,8.08,5.3,1.32
+Austria,Bundesliga,2013/2014,04/12/2013,19:30,Neustadt,Admira,1,0,H,3.33,3.4,2.09,3.5,3.6,2.35,3.17,3.39,2.16
+Austria,Bundesliga,2013/2014,04/12/2013,19:30,Ried,Rapid Vienna,2,0,H,3.69,3.47,1.95,3.97,3.65,2.4,3.5,3.42,2.02
+Austria,Bundesliga,2013/2014,04/12/2013,19:30,Wacker Innsbruck,Grodig,5,3,H,3.13,3.61,2.11,3.4,3.8,2.4,3.1,3.38,2.2
+Austria,Bundesliga,2013/2014,07/12/2013,18:00,Austria Vienna,Admira,2,2,D,1.52,4.59,6.75,1.55,5.1,7,1.49,4.1,6.4
+Austria,Bundesliga,2013/2014,07/12/2013,18:00,Grodig,Ried,3,0,H,2.78,3.56,2.6,3,3.57,2.65,2.71,3.36,2.46
+Austria,Bundesliga,2013/2014,07/12/2013,18:00,Wacker Innsbruck,Sturm Graz,0,1,A,2.61,3.3,2.95,2.9,3.4,2.95,2.55,3.25,2.68
+Austria,Bundesliga,2013/2014,08/12/2013,15:30,AC Wolfsberger,Rapid Vienna,2,1,H,3.74,3.6,2.09,3.74,3.65,2.2,3.39,3.39,2.07
+Austria,Bundesliga,2013/2014,11/12/2013,17:30,AC Wolfsberger,Sturm Graz,2,1,H,2.48,3.36,3.08,2.48,3.42,3.4,2.35,3.24,2.97
+Austria,Bundesliga,2013/2014,14/12/2013,15:30,Admira,Wacker Innsbruck,3,0,H,1.8,4,4.54,2,4,4.55,1.82,3.6,4.12
+Austria,Bundesliga,2013/2014,14/12/2013,18:00,Ried,AC Wolfsberger,1,3,A,2.31,3.4,3.36,2.32,3.75,4.1,2.05,3.39,3.52
+Austria,Bundesliga,2013/2014,14/12/2013,18:00,Sturm Graz,Grodig,2,2,D,2.47,3.41,3.05,2.47,3.5,3.25,2.31,3.27,3
+Austria,Bundesliga,2013/2014,15/12/2013,15:30,Salzburg,Austria Vienna,4,0,H,1.4,5.21,8.46,1.45,5.7,8.75,1.37,4.92,7.55
+Austria,Bundesliga,2013/2014,15/12/2013,18:00,Rapid Vienna,Neustadt,0,0,D,1.32,5.59,11.33,1.35,6,11.5,1.29,5.32,9.77
+Austria,Bundesliga,2013/2014,17/12/2013,19:30,Grodig,Admira,2,1,H,1.97,3.68,3.42,2.05,3.97,3.9,1.95,3.61,3.56
+Austria,Bundesliga,2013/2014,18/12/2013,19:30,Austria Vienna,Ried,1,1,D,1.56,4.64,6,1.67,4.65,6.25,1.56,4.11,5.39
+Austria,Bundesliga,2013/2014,18/12/2013,19:30,Neustadt,AC Wolfsberger,1,1,D,4.11,3.74,1.94,4.33,3.74,2.1,3.86,3.44,1.91
+Austria,Bundesliga,2013/2014,18/12/2013,19:30,Sturm Graz,Rapid Vienna,2,0,H,3.37,3.41,2.29,3.37,3.45,2.33,3.15,3.24,2.25
+Austria,Bundesliga,2013/2014,18/12/2013,19:30,Wacker Innsbruck,Salzburg,0,1,A,13.7,6.8,1.24,15,7,1.25,11.56,6.5,1.21
+Austria,Bundesliga,2013/2014,02/02/2014,13:00,Neustadt,Salzburg,1,5,A,13,6.88,1.24,17,7.7,1.24,13.11,6.62,1.19
+Austria,Bundesliga,2013/2014,08/02/2014,15:30,Salzburg,Grodig,6,0,H,1.2,7.5,15.91,1.22,8.1,18,1.19,6.9,12.78
+Austria,Bundesliga,2013/2014,08/02/2014,18:00,AC Wolfsberger,Wacker Innsbruck,3,2,H,1.91,3.68,4.35,1.92,3.75,4.55,1.82,3.51,4.25
+Austria,Bundesliga,2013/2014,08/02/2014,18:00,Admira,Sturm Graz,1,1,D,2.34,3.44,3.25,2.5,3.5,3.25,2.32,3.27,3
+Austria,Bundesliga,2013/2014,08/02/2014,18:00,Ried,Neustadt,2,1,H,1.61,4.17,6.15,1.65,4.2,6.15,1.56,4.01,5.58
+Austria,Bundesliga,2013/2014,09/02/2014,15:30,Rapid Vienna,Austria Vienna,3,1,H,2.63,3.51,2.78,2.68,3.51,2.9,2.47,3.27,2.76
+Austria,Bundesliga,2013/2014,15/02/2014,15:30,Sturm Graz,Salzburg,1,4,A,6.41,4.74,1.52,8,5,1.54,6.73,4.46,1.44
+Austria,Bundesliga,2013/2014,15/02/2014,18:00,Austria Vienna,Neustadt,1,1,D,1.42,5.14,7.82,1.44,5.14,9,1.38,4.66,7.67
+Austria,Bundesliga,2013/2014,15/02/2014,18:00,Grodig,AC Wolfsberger,3,0,H,2.02,3.79,3.75,2.2,3.79,3.75,2.04,3.48,3.42
+Austria,Bundesliga,2013/2014,15/02/2014,18:00,Wacker Innsbruck,Ried,1,1,D,2.4,3.45,3.14,2.65,3.5,3.25,2.43,3.24,2.85
+Austria,Bundesliga,2013/2014,16/02/2014,16:00,Admira,Rapid Vienna,2,1,H,3.36,3.52,2.24,3.6,3.52,2.32,3.23,3.27,2.19
+Austria,Bundesliga,2013/2014,22/02/2014,15:30,Ried,Sturm Graz,2,2,D,2.52,3.32,3.05,2.52,3.45,3.3,2.35,3.21,2.99
+Austria,Bundesliga,2013/2014,22/02/2014,18:00,AC Wolfsberger,Austria Vienna,0,0,D,3.01,3.51,2.46,3.4,3.6,2.46,3.06,3.29,2.27
+Austria,Bundesliga,2013/2014,22/02/2014,18:00,Neustadt,Wacker Innsbruck,1,0,H,2.37,3.4,3.24,2.38,3.55,3.25,2.29,3.26,3.04
+Austria,Bundesliga,2013/2014,22/02/2014,18:00,Rapid Vienna,Grodig,0,0,D,1.81,3.8,4.78,1.83,4,4.78,1.76,3.65,4.37
+Austria,Bundesliga,2013/2014,23/02/2014,15:30,Salzburg,Admira,6,1,H,1.19,7.89,17.63,1.19,8.03,19,1.15,7.56,15.18
+Austria,Bundesliga,2013/2014,01/03/2014,15:30,Austria Vienna,Wacker Innsbruck,2,1,H,1.47,4.81,7.24,1.49,4.81,8,1.44,4.37,6.85
+Austria,Bundesliga,2013/2014,01/03/2014,18:00,Admira,Ried,2,2,D,2.11,3.66,3.62,2.2,3.66,3.62,2.1,3.38,3.34
+Austria,Bundesliga,2013/2014,01/03/2014,18:00,Grodig,Neustadt,1,2,A,1.64,4.22,5.64,1.64,4.25,6.1,1.57,3.9,5.57
+Austria,Bundesliga,2013/2014,01/03/2014,18:00,Sturm Graz,AC Wolfsberger,1,4,A,1.95,3.6,4.23,2.04,3.63,4.23,1.94,3.39,3.84
+Austria,Bundesliga,2013/2014,02/03/2014,15:30,Salzburg,Rapid Vienna,6,3,H,1.28,6.22,12.3,1.3,6.4,13,1.26,5.74,10.25
+Austria,Bundesliga,2013/2014,08/03/2014,15:30,AC Wolfsberger,Admira,2,3,A,2.13,3.57,3.62,2.18,3.6,3.65,2.06,3.36,3.42
+Austria,Bundesliga,2013/2014,08/03/2014,18:00,Austria Vienna,Grodig,2,0,H,1.76,4,4.87,1.8,4,4.95,1.73,3.72,4.45
+Austria,Bundesliga,2013/2014,08/03/2014,18:00,Neustadt,Sturm Graz,2,1,H,2.95,3.26,2.64,3,3.6,2.64,2.83,3.17,2.48
+Austria,Bundesliga,2013/2014,08/03/2014,18:00,Ried,Salzburg,1,3,A,9.59,5.52,1.35,10,5.52,1.37,8.44,5.16,1.32
+Austria,Bundesliga,2013/2014,09/03/2014,15:30,Wacker Innsbruck,Rapid Vienna,1,1,D,3.98,3.6,2.02,3.98,3.6,2.1,3.68,3.37,1.99
+Austria,Bundesliga,2013/2014,15/03/2014,15:30,Grodig,Wacker Innsbruck,1,1,D,1.77,3.93,4.85,1.8,3.93,5,1.72,3.7,4.57
+Austria,Bundesliga,2013/2014,15/03/2014,18:00,Admira,Neustadt,3,0,H,1.85,3.8,4.49,1.9,3.8,4.5,1.82,3.57,4.12
+Austria,Bundesliga,2013/2014,15/03/2014,18:00,Rapid Vienna,Ried,1,0,H,1.57,4.35,6.33,1.7,4.35,6.33,1.58,3.91,5.51
+Austria,Bundesliga,2013/2014,15/03/2014,18:00,Sturm Graz,Austria Vienna,1,1,D,3.05,3.47,2.44,3.1,3.5,2.52,2.91,3.23,2.38
+Austria,Bundesliga,2013/2014,16/03/2014,15:30,Salzburg,AC Wolfsberger,5,0,H,1.2,7.48,16.4,1.2,8.55,16.4,1.17,7.32,13.6
+Austria,Bundesliga,2013/2014,22/03/2014,15:30,Admira,Austria Vienna,0,1,A,2.68,3.33,2.84,2.9,3.5,2.84,2.67,3.28,2.55
+Austria,Bundesliga,2013/2014,22/03/2014,18:00,Rapid Vienna,AC Wolfsberger,3,0,H,1.65,4.08,5.7,1.65,4.25,6,1.59,3.83,5.53
+Austria,Bundesliga,2013/2014,22/03/2014,18:00,Ried,Grodig,1,4,A,2.72,3.49,2.71,2.75,3.6,3.1,2.53,3.34,2.66
+Austria,Bundesliga,2013/2014,22/03/2014,18:00,Sturm Graz,Wacker Innsbruck,3,1,H,1.86,3.56,4.84,1.9,3.75,4.9,1.83,3.43,4.27
+Austria,Bundesliga,2013/2014,23/03/2014,15:30,Salzburg,Neustadt,5,0,H,1.13,10.12,27,1.13,13,34,1.09,9.98,20.09
+Austria,Bundesliga,2013/2014,25/03/2014,19:30,Wacker Innsbruck,Admira,0,0,D,2.88,3.49,2.57,2.88,3.57,2.75,2.68,3.29,2.54
+Austria,Bundesliga,2013/2014,26/03/2014,19:30,AC Wolfsberger,Ried,0,2,A,2.03,3.71,3.82,2.03,3.8,4.1,1.94,3.5,3.67
+Austria,Bundesliga,2013/2014,26/03/2014,19:30,Austria Vienna,Salzburg,3,0,H,5.58,4.17,1.65,6.1,4.4,1.65,5.33,4.07,1.58
+Austria,Bundesliga,2013/2014,26/03/2014,19:30,Grodig,Sturm Graz,0,6,A,2.08,3.53,3.82,2.11,3.6,3.85,2.03,3.37,3.55
+Austria,Bundesliga,2013/2014,26/03/2014,19:30,Neustadt,Rapid Vienna,0,3,A,4.81,3.69,1.83,4.81,3.7,1.87,4.32,3.49,1.8
+Austria,Bundesliga,2013/2014,29/03/2014,15:30,Rapid Vienna,Sturm Graz,2,0,H,1.93,3.74,4.2,1.95,3.76,4.55,1.84,3.56,4.07
+Austria,Bundesliga,2013/2014,29/03/2014,18:00,AC Wolfsberger,Neustadt,4,0,H,1.87,3.59,4.68,2,3.75,4.75,1.83,3.52,4.16
+Austria,Bundesliga,2013/2014,29/03/2014,18:00,Admira,Grodig,4,0,H,2.29,3.68,3.15,2.3,3.75,3.4,2.16,3.38,3.2
+Austria,Bundesliga,2013/2014,29/03/2014,18:00,Salzburg,Wacker Innsbruck,0,0,D,,,,1.15,14,41,1.08,10.28,21.57
+Austria,Bundesliga,2013/2014,30/03/2014,15:30,Ried,Austria Vienna,2,2,D,3.65,3.52,2.14,4.05,3.65,2.2,3.54,3.36,2.04
+Austria,Bundesliga,2013/2014,05/04/2014,15:30,Grodig,Salzburg,1,3,A,10.17,6.32,1.3,10.17,6.32,1.5,8.42,5.28,1.32
+Austria,Bundesliga,2013/2014,05/04/2014,18:00,Neustadt,Ried,1,1,D,2.65,3.41,2.83,3.1,3.42,2.85,2.64,3.3,2.58
+Austria,Bundesliga,2013/2014,05/04/2014,18:00,Sturm Graz,Admira,1,1,D,1.99,3.64,4.04,2.18,3.64,4.04,2.04,3.36,3.55
+Austria,Bundesliga,2013/2014,05/04/2014,18:00,Wacker Innsbruck,AC Wolfsberger,0,1,A,2.53,3.48,2.92,2.55,3.5,2.95,2.43,3.28,2.82
+Austria,Bundesliga,2013/2014,06/04/2014,14:00,Austria Vienna,Rapid Vienna,0,1,A,2.64,3.26,2.94,2.67,3.55,3.2,2.47,3.17,2.86
+Austria,Bundesliga,2013/2014,12/04/2014,15:30,Salzburg,Sturm Graz,1,2,A,1.25,6.76,12.97,1.25,7,14,1.21,6.21,11.98
+Austria,Bundesliga,2013/2014,12/04/2014,18:00,AC Wolfsberger,Grodig,1,2,A,2.04,3.66,3.82,2.2,3.66,3.82,2.06,3.45,3.38
+Austria,Bundesliga,2013/2014,12/04/2014,18:00,Rapid Vienna,Admira,0,0,D,1.62,4.12,6.03,1.64,4.25,6.4,1.6,3.88,5.34
+Austria,Bundesliga,2013/2014,12/04/2014,18:00,Ried,Wacker Innsbruck,1,2,A,1.86,3.77,4.51,1.95,3.85,4.6,1.8,3.63,4.16
+Austria,Bundesliga,2013/2014,13/04/2014,15:30,Neustadt,Austria Vienna,0,2,A,4.74,3.8,1.81,5.3,4.2,1.86,4.32,3.64,1.77
+Austria,Bundesliga,2013/2014,19/04/2014,15:30,Austria Vienna,AC Wolfsberger,3,1,H,1.45,4.89,7.78,1.51,4.9,7.78,1.45,4.35,6.71
+Austria,Bundesliga,2013/2014,19/04/2014,18:00,Admira,Salzburg,2,3,A,6.8,5.4,1.44,7.7,5.5,1.44,6.82,4.91,1.39
+Austria,Bundesliga,2013/2014,19/04/2014,18:00,Sturm Graz,Ried,2,1,H,1.56,4.45,6.29,1.65,4.5,6.3,1.56,4.06,5.49
+Austria,Bundesliga,2013/2014,19/04/2014,18:00,Wacker Innsbruck,Neustadt,3,1,H,1.88,3.72,4.45,2,4.2,4.6,1.91,3.45,3.9
+Austria,Bundesliga,2013/2014,20/04/2014,15:30,Grodig,Rapid Vienna,2,2,D,3.36,3.6,2.22,3.36,3.6,2.25,3.17,3.35,2.17
+Austria,Bundesliga,2013/2014,26/04/2014,15:30,Ried,Admira,3,0,H,2.42,3.91,2.82,2.5,3.91,2.9,2.37,3.47,2.77
+Austria,Bundesliga,2013/2014,26/04/2014,18:00,Neustadt,Grodig,1,3,A,2.94,3.63,2.44,2.94,3.63,2.58,2.8,3.33,2.42
+Austria,Bundesliga,2013/2014,26/04/2014,18:00,Rapid Vienna,Salzburg,2,1,H,4.21,4.04,1.85,4.35,4.04,1.9,3.94,3.67,1.83
+Austria,Bundesliga,2013/2014,26/04/2014,18:00,Wacker Innsbruck,Austria Vienna,1,1,D,3.92,3.81,1.97,4.05,3.9,2,3.79,3.51,1.92
+Austria,Bundesliga,2013/2014,27/04/2014,15:30,AC Wolfsberger,Sturm Graz,0,1,A,3.02,3.58,2.42,3.02,3.62,2.55,2.81,3.34,2.4
+Austria,Bundesliga,2013/2014,04/05/2014,15:30,Admira,AC Wolfsberger,1,0,H,1.78,4.23,4.3,1.9,4.23,4.54,1.76,3.72,4.24
+Austria,Bundesliga,2013/2014,04/05/2014,15:30,Grodig,Austria Vienna,2,1,H,3.04,3.8,2.29,3.13,3.8,2.35,2.96,3.39,2.27
+Austria,Bundesliga,2013/2014,04/05/2014,15:30,Rapid Vienna,Wacker Innsbruck,2,0,H,1.43,5.43,6.86,1.48,5.43,7,1.42,4.69,6.37
+Austria,Bundesliga,2013/2014,04/05/2014,15:30,Salzburg,Ried,4,0,H,1.19,9.12,12.26,1.2,9.12,19,1.16,7.5,13.08
+Austria,Bundesliga,2013/2014,04/05/2014,15:30,Sturm Graz,Neustadt,1,2,A,1.58,4.74,5.37,1.58,4.75,6.5,1.51,4.22,5.83
+Austria,Bundesliga,2013/2014,11/05/2014,15:30,AC Wolfsberger,Salzburg,2,0,H,10.32,6.76,1.28,13,7.2,1.31,9.58,6.2,1.24
+Austria,Bundesliga,2013/2014,11/05/2014,15:30,Austria Vienna,Sturm Graz,1,2,A,1.74,4.26,4.69,1.74,4.6,7,1.6,4.02,5.1
+Austria,Bundesliga,2013/2014,11/05/2014,15:30,Ried,Rapid Vienna,2,5,A,3.76,3.91,1.99,3.9,4,2.02,3.66,3.55,1.93
+Austria,Bundesliga,2013/2014,11/05/2014,15:30,Wacker Innsbruck,Grodig,3,3,D,4.01,4.13,1.88,5,4.25,1.88,4.21,3.87,1.73
+Austria,Bundesliga,2013/2014,12/05/2014,17:30,Neustadt,Admira,5,2,H,3.2,3.65,2.25,3.2,3.65,2.5,3.03,3.38,2.22
+Austria,Bundesliga,2014/2015,19/07/2014,15:30,Salzburg,Rapid Vienna,6,1,H,1.32,5.74,11,1.37,6.4,11,1.3,5.27,9.05
+Austria,Bundesliga,2014/2015,19/07/2014,18:00,Admira,AC Wolfsberger,1,4,A,2.01,3.58,4.04,2.1,3.6,4.04,2.01,3.41,3.54
+Austria,Bundesliga,2014/2015,19/07/2014,18:00,Altach,Sturm Graz,1,0,H,2.52,3.48,2.94,2.62,3.5,2.94,2.47,3.23,2.78
+Austria,Bundesliga,2014/2015,19/07/2014,18:00,Ried,Neustadt,3,1,H,1.79,3.95,4.68,1.79,4.2,5.75,1.67,3.74,4.91
+Austria,Bundesliga,2014/2015,20/07/2014,15:30,Austria Vienna,Grodig,1,1,D,1.69,4.05,5.34,1.73,4.05,5.38,1.66,3.74,4.87
+Austria,Bundesliga,2014/2015,26/07/2014,15:30,AC Wolfsberger,Austria Vienna,4,0,H,3.04,3.49,2.43,3.15,3.5,2.45,2.98,3.26,2.32
+Austria,Bundesliga,2014/2015,26/07/2014,18:00,Neustadt,Salzburg,0,5,A,18.4,9.3,1.16,19,11,1.17,14.25,8.13,1.14
+Austria,Bundesliga,2014/2015,26/07/2014,18:00,Rapid Vienna,Ried,1,0,H,1.65,4.2,5.49,1.67,4.3,5.9,1.6,3.93,5.17
+Austria,Bundesliga,2014/2015,27/07/2014,15:30,Grodig,Sturm Graz,2,1,H,2.29,3.56,3.25,2.3,3.58,3.3,2.19,3.31,3.15
+Austria,Bundesliga,2014/2015,02/08/2014,15:30,Admira,Rapid Vienna,1,1,D,3.95,3.72,1.99,3.95,3.72,2.12,3.49,3.41,2.02
+Austria,Bundesliga,2014/2015,02/08/2014,18:00,Austria Vienna,Altach,0,0,D,1.7,4.09,5.18,1.7,4.1,5.55,1.64,3.81,4.96
+Austria,Bundesliga,2014/2015,02/08/2014,18:00,Ried,Salzburg,0,2,A,11.5,6.46,1.28,11.52,7,1.28,9.22,6.15,1.25
+Austria,Bundesliga,2014/2015,02/08/2014,18:00,Sturm Graz,Neustadt,4,2,H,1.43,4.81,8.44,1.54,4.85,9,1.43,4.38,7.03
+Austria,Bundesliga,2014/2015,03/08/2014,15:30,Grodig,AC Wolfsberger,0,2,A,2.72,3.63,2.62,2.74,3.75,2.75,2.56,3.34,2.61
+Austria,Bundesliga,2014/2015,09/08/2014,15:30,Neustadt,Austria Vienna,2,2,D,5.09,4,1.73,5.3,4.25,1.91,4.58,3.65,1.71
+Austria,Bundesliga,2014/2015,09/08/2014,18:00,Altach,AC Wolfsberger,1,2,A,2.59,3.51,2.83,2.9,3.51,2.83,2.66,3.25,2.58
+Austria,Bundesliga,2014/2015,09/08/2014,18:00,Rapid Vienna,Sturm Graz,1,1,D,1.92,3.81,4.16,1.96,3.81,4.5,1.87,3.53,3.93
+Austria,Bundesliga,2014/2015,09/08/2014,18:00,Ried,Admira,1,1,D,2.2,3.63,3.39,2.2,3.7,3.97,2.06,3.43,3.37
+Austria,Bundesliga,2014/2015,10/08/2014,15:30,Salzburg,Grodig,8,0,H,1.1,11.43,25.97,1.17,13,27.1,1.09,10.06,18.72
+Austria,Bundesliga,2014/2015,13/08/2014,18:30,Altach,Admira,0,2,A,2.09,3.69,3.65,2.12,3.69,3.9,2.04,3.39,3.46
+Austria,Bundesliga,2014/2015,16/08/2014,15:30,Rapid Vienna,Altach,0,1,A,1.66,4.16,5.51,1.75,4.16,5.8,1.62,3.84,5.2
+Austria,Bundesliga,2014/2015,16/08/2014,18:00,AC Wolfsberger,Ried,4,1,H,1.85,3.85,4.45,1.87,3.85,4.5,1.82,3.57,4.1
+Austria,Bundesliga,2014/2015,16/08/2014,18:00,Admira,Salzburg,0,3,A,10,6.4,1.3,13,7.5,1.3,10.43,6.06,1.24
+Austria,Bundesliga,2014/2015,16/08/2014,18:00,Grodig,Neustadt,3,0,H,1.61,4.73,5.14,1.7,4.73,5.7,1.6,4.05,5
+Austria,Bundesliga,2014/2015,17/08/2014,15:30,Sturm Graz,Austria Vienna,1,1,D,2.64,3.3,2.91,2.64,3.5,2.95,2.44,3.2,2.85
+Austria,Bundesliga,2014/2015,23/08/2014,15:30,Sturm Graz,AC Wolfsberger,1,2,A,2.38,3.52,3.12,2.5,3.6,3.12,2.33,3.27,2.94
+Austria,Bundesliga,2014/2015,23/08/2014,18:00,Neustadt,Admira,5,4,H,3.44,3.68,2.16,3.44,3.85,2.3,3.21,3.42,2.12
+Austria,Bundesliga,2014/2015,23/08/2014,18:00,Ried,Grodig,2,2,D,2.42,3.74,2.9,2.42,3.74,3.29,2.24,3.42,2.99
+Austria,Bundesliga,2014/2015,23/08/2014,18:00,Salzburg,Altach,5,0,H,1.15,9.74,19.71,1.15,11,20.42,1.12,8.63,16.04
+Austria,Bundesliga,2014/2015,24/08/2014,15:30,Austria Vienna,Rapid Vienna,2,2,D,2.31,3.25,3.48,2.38,3.4,3.55,2.24,3.18,3.19
+Austria,Bundesliga,2014/2015,30/08/2014,15:30,Salzburg,Sturm Graz,2,3,A,1.16,9.45,17.76,1.17,9.7,20.8,1.14,7.96,14.62
+Austria,Bundesliga,2014/2015,30/08/2014,18:00,AC Wolfsberger,Neustadt,0,1,A,1.37,5.8,8.24,1.4,5.81,9,1.35,4.98,7.85
+Austria,Bundesliga,2014/2015,30/08/2014,18:00,Admira,Austria Vienna,2,1,H,3.81,3.76,2.01,3.9,3.76,2.2,3.53,3.5,1.97
+Austria,Bundesliga,2014/2015,30/08/2014,18:00,Altach,Ried,2,2,D,2.04,3.61,3.87,2.14,3.65,3.87,2.03,3.38,3.49
+Austria,Bundesliga,2014/2015,31/08/2014,15:30,Rapid Vienna,Grodig,2,0,H,1.79,4.07,4.56,1.92,4.07,4.7,1.77,3.72,4.17
+Austria,Bundesliga,2014/2015,13/09/2014,17:30,Austria Vienna,Ried,3,1,H,1.56,4.6,6.01,1.7,4.6,6.5,1.57,3.95,5.54
+Austria,Bundesliga,2014/2015,13/09/2014,17:30,Sturm Graz,Admira,0,2,A,1.68,4.13,5.31,1.85,4.2,5.31,1.69,3.76,4.7
+Austria,Bundesliga,2014/2015,14/09/2014,15:30,AC Wolfsberger,Salzburg,1,0,H,8.21,5.48,1.39,8.26,5.8,1.4,7.42,5,1.36
+Austria,Bundesliga,2014/2015,17/09/2014,17:30,Grodig,Altach,3,3,D,2.17,3.47,3.62,2.2,4.05,3.62,2.07,3.47,3.3
+Austria,Bundesliga,2014/2015,17/09/2014,17:30,Neustadt,Rapid Vienna,1,5,A,5.09,4.27,1.68,5.09,4.3,1.8,4.56,3.76,1.7
+Austria,Bundesliga,2014/2015,20/09/2014,15:00,Rapid Vienna,AC Wolfsberger,3,0,H,1.99,3.69,3.96,2.25,3.8,3.96,1.96,3.47,3.62
+Austria,Bundesliga,2014/2015,20/09/2014,17:30,Admira,Grodig,0,0,D,2.21,3.66,3.33,2.3,3.66,3.33,2.17,3.42,3.11
+Austria,Bundesliga,2014/2015,20/09/2014,17:30,Altach,Neustadt,2,0,H,1.58,4.51,5.83,2,4.55,6,1.58,4,5.34
+Austria,Bundesliga,2014/2015,20/09/2014,17:30,Ried,Sturm Graz,0,1,A,2.75,3.51,2.66,2.75,3.51,2.88,2.56,3.27,2.65
+Austria,Bundesliga,2014/2015,21/09/2014,15:30,Salzburg,Austria Vienna,2,3,A,1.33,6.26,9.01,1.37,6.4,11,1.3,5.54,8.44
+Austria,Bundesliga,2014/2015,27/09/2014,15:00,Sturm Graz,Altach,2,2,D,1.77,3.83,4.99,1.88,3.83,4.99,1.78,3.63,4.27
+Austria,Bundesliga,2014/2015,27/09/2014,17:30,AC Wolfsberger,Admira,2,1,H,1.91,3.82,4.19,1.94,4,4.7,1.81,3.63,4.14
+Austria,Bundesliga,2014/2015,27/09/2014,17:30,Grodig,Austria Vienna,0,0,D,3.27,3.72,2.22,3.3,3.75,2.28,3.11,3.44,2.17
+Austria,Bundesliga,2014/2015,27/09/2014,17:30,Neustadt,Ried,0,1,A,3.12,3.61,2.34,3.2,3.61,2.42,2.99,3.35,2.28
+Austria,Bundesliga,2014/2015,28/09/2014,15:30,Rapid Vienna,Salzburg,1,2,A,3.6,3.74,2.09,3.95,3.95,2.12,3.39,3.62,2.01
+Austria,Bundesliga,2014/2015,04/10/2014,15:00,Austria Vienna,AC Wolfsberger,0,2,A,1.88,3.8,4.32,1.92,4,5.2,1.76,3.61,4.47
+Austria,Bundesliga,2014/2015,04/10/2014,17:30,Admira,Altach,0,2,A,2.21,3.57,3.42,2.22,3.6,3.6,2.12,3.36,3.32
+Austria,Bundesliga,2014/2015,04/10/2014,17:30,Sturm Graz,Grodig,1,0,H,1.88,3.89,4.19,1.89,4,4.5,1.8,3.66,4.11
+Austria,Bundesliga,2014/2015,05/10/2014,15:30,Ried,Rapid Vienna,1,2,A,3.88,3.62,2.04,3.9,3.75,2.15,3.44,3.44,2.04
+Austria,Bundesliga,2014/2015,05/10/2014,18:00,Salzburg,Neustadt,4,1,H,,,,1.08,17,43,1.06,11.8,22.71
+Austria,Bundesliga,2014/2015,18/10/2014,15:00,Salzburg,Ried,4,2,H,1.13,10.92,18,1.14,12,26,1.11,8.81,17.02
+Austria,Bundesliga,2014/2015,18/10/2014,17:30,AC Wolfsberger,Grodig,1,2,A,1.88,3.87,4.27,1.91,3.95,5,1.81,3.62,4.11
+Austria,Bundesliga,2014/2015,18/10/2014,17:30,Altach,Austria Vienna,1,1,D,3.2,3.51,2.33,3.2,3.55,2.45,2.96,3.31,2.31
+Austria,Bundesliga,2014/2015,18/10/2014,17:30,Rapid Vienna,Admira,0,0,D,1.52,4.51,6.81,1.52,4.85,7.7,1.47,4.24,6.5
+Austria,Bundesliga,2014/2015,19/10/2014,15:30,Neustadt,Sturm Graz,0,0,D,3.67,3.63,2.09,3.95,3.75,2.11,3.53,3.48,2
+Austria,Bundesliga,2014/2015,25/10/2014,15:00,Sturm Graz,Rapid Vienna,1,3,A,3.16,3.34,2.44,3.16,3.4,2.6,2.88,3.2,2.42
+Austria,Bundesliga,2014/2015,25/10/2014,17:30,AC Wolfsberger,Altach,0,0,D,1.91,3.77,4.23,2,3.77,4.25,1.89,3.51,3.88
+Austria,Bundesliga,2014/2015,25/10/2014,17:30,Admira,Ried,0,0,D,2.48,3.43,3.04,2.48,3.6,3.2,2.29,3.33,2.99
+Austria,Bundesliga,2014/2015,25/10/2014,17:30,Austria Vienna,Neustadt,2,0,H,1.39,5.42,8.41,1.4,5.6,9.4,1.36,4.94,7.41
+Austria,Bundesliga,2014/2015,26/10/2014,15:30,Grodig,Salzburg,2,2,D,8.7,5.82,1.35,10,6.4,1.37,7.69,5.33,1.33
+Austria,Bundesliga,2014/2015,01/11/2014,15:00,Austria Vienna,Sturm Graz,0,3,A,1.98,3.56,4.17,2.04,3.7,4.5,1.89,3.42,4.05
+Austria,Bundesliga,2014/2015,01/11/2014,17:30,Ried,AC Wolfsberger,1,0,H,2.49,3.54,2.98,2.5,3.7,3.16,2.38,3.32,2.87
+Austria,Bundesliga,2014/2015,01/11/2014,17:30,Salzburg,Admira,2,0,H,1.16,9.09,17.8,1.18,10.5,23,1.13,8.42,15.67
+Austria,Bundesliga,2014/2015,02/11/2014,15:30,Altach,Rapid Vienna,2,0,H,3.1,3.49,2.41,3.4,3.6,2.49,3.02,3.32,2.28
+Austria,Bundesliga,2014/2015,05/11/2014,17:30,Neustadt,Grodig,2,4,A,3.4,3.61,2.2,3.4,3.8,2.45,3.07,3.45,2.2
+Austria,Bundesliga,2014/2015,08/11/2014,15:00,AC Wolfsberger,Sturm Graz,0,2,A,2.91,3.38,2.58,2.91,3.45,2.75,2.71,3.23,2.55
+Austria,Bundesliga,2014/2015,08/11/2014,17:30,Admira,Neustadt,1,1,D,1.67,4.16,5.42,1.75,4.16,5.42,1.66,3.77,4.89
+Austria,Bundesliga,2014/2015,08/11/2014,17:30,Grodig,Ried,0,1,A,2.09,3.88,3.48,2.12,3.95,3.8,2.04,3.51,3.37
+Austria,Bundesliga,2014/2015,09/11/2014,13:30,Rapid Vienna,Austria Vienna,2,3,A,2.32,3.47,3.26,2.32,3.6,3.75,2.13,3.34,3.31
+Austria,Bundesliga,2014/2015,09/11/2014,16:00,Altach,Salzburg,4,1,H,7.27,5.32,1.43,8.3,5.4,1.52,6.79,4.75,1.41
+Austria,Bundesliga,2014/2015,22/11/2014,15:00,Grodig,Rapid Vienna,3,1,H,3.34,3.66,2.21,3.4,3.69,2.3,3.11,3.42,2.18
+Austria,Bundesliga,2014/2015,22/11/2014,17:30,Austria Vienna,Admira,4,0,H,1.53,4.46,6.74,1.57,4.5,6.74,1.52,4.1,5.94
+Austria,Bundesliga,2014/2015,22/11/2014,17:30,Neustadt,AC Wolfsberger,2,0,H,3.33,3.7,2.21,3.4,3.7,2.24,3.18,3.45,2.14
+Austria,Bundesliga,2014/2015,22/11/2014,17:30,Ried,Altach,2,1,H,2.46,3.56,2.96,2.48,3.6,3.1,2.35,3.35,2.88
+Austria,Bundesliga,2014/2015,23/11/2014,15:30,Sturm Graz,Salzburg,1,2,A,5.58,4.21,1.65,6,4.4,1.66,5.27,3.94,1.59
+Austria,Bundesliga,2014/2015,29/11/2014,15:00,Ried,Austria Vienna,1,1,D,3.13,3.57,2.35,3.14,3.6,2.4,2.98,3.34,2.28
+Austria,Bundesliga,2014/2015,29/11/2014,17:30,Admira,Sturm Graz,0,2,A,3.52,3.48,2.2,3.75,3.65,2.21,3.43,3.33,2.08
+Austria,Bundesliga,2014/2015,29/11/2014,17:30,Altach,Grodig,3,1,H,2.12,3.74,3.49,2.12,3.9,3.9,2.01,3.52,3.46
+Austria,Bundesliga,2014/2015,29/11/2014,17:30,Rapid Vienna,Neustadt,3,0,H,1.4,5.29,8.19,1.41,5.3,8.27,1.37,4.93,7.2
+Austria,Bundesliga,2014/2015,30/11/2014,15:30,Salzburg,AC Wolfsberger,2,2,D,1.2,8.05,14.98,1.21,8.5,16,1.18,7.25,12.24
+Austria,Bundesliga,2014/2015,06/12/2014,15:00,Austria Vienna,Salzburg,2,4,A,4.77,4.19,1.74,5,4.65,1.8,4.53,3.82,1.7
+Austria,Bundesliga,2014/2015,06/12/2014,17:30,Grodig,Admira,5,0,H,1.79,3.84,4.9,1.84,4,4.9,1.74,3.67,4.41
+Austria,Bundesliga,2014/2015,06/12/2014,17:30,Neustadt,Altach,2,0,H,3.33,3.56,2.23,3.4,3.75,2.3,3.14,3.39,2.17
+Austria,Bundesliga,2014/2015,06/12/2014,17:30,Sturm Graz,Ried,3,1,H,1.97,3.73,4.03,1.98,3.85,4.6,1.83,3.56,4.1
+Austria,Bundesliga,2014/2015,07/12/2014,15:30,AC Wolfsberger,Rapid Vienna,1,1,D,3.21,3.5,2.34,3.3,3.55,2.4,3.03,3.3,2.29
+Austria,Bundesliga,2014/2015,13/12/2014,15:00,Altach,Sturm Graz,2,0,H,2.59,3.54,2.81,2.78,3.54,2.81,2.51,3.29,2.7
+Austria,Bundesliga,2014/2015,13/12/2014,17:30,Admira,AC Wolfsberger,2,1,H,3.03,3.33,2.53,3.08,3.55,2.53,2.87,3.24,2.41
+Austria,Bundesliga,2014/2015,13/12/2014,17:30,Austria Vienna,Grodig,1,0,H,1.75,3.93,5,1.81,3.93,5.1,1.74,3.67,4.45
+Austria,Bundesliga,2014/2015,13/12/2014,17:30,Ried,Neustadt,6,0,H,1.64,4.22,5.66,1.67,4.23,6.5,1.6,3.88,5.32
+Austria,Bundesliga,2014/2015,14/12/2014,15:30,Salzburg,Rapid Vienna,1,2,A,1.33,6.14,9.06,1.36,6.14,9.7,1.32,5.32,7.95
+Austria,Bundesliga,2014/2015,14/02/2015,15:00,Rapid Vienna,Ried,3,0,H,1.7,4.02,5.32,1.71,4.2,6.5,1.64,3.77,5.17
+Austria,Bundesliga,2014/2015,14/02/2015,17:30,Altach,Admira,2,0,H,1.76,3.86,4.91,1.9,3.89,4.91,1.75,3.62,4.45
+Austria,Bundesliga,2014/2015,14/02/2015,17:30,Neustadt,Salzburg,0,2,A,10.71,6.21,1.3,13,7.9,1.3,10.49,6.18,1.23
+Austria,Bundesliga,2014/2015,15/02/2015,14:30,AC Wolfsberger,Austria Vienna,1,0,H,3.41,3.31,2.32,3.41,3.4,2.44,3.12,3.23,2.27
+Austria,Bundesliga,2014/2015,21/02/2015,15:00,Austria Vienna,Altach,5,2,H,1.74,3.86,5.25,1.8,3.95,5.3,1.73,3.61,4.63
+Austria,Bundesliga,2014/2015,21/02/2015,17:30,Sturm Graz,Neustadt,3,3,D,1.46,4.82,7.65,1.46,4.85,8.5,1.43,4.33,7.22
+Austria,Bundesliga,2014/2015,22/02/2015,13:00,Ried,Salzburg,2,2,D,5.01,4.15,1.71,7,4.6,1.73,5.07,4.02,1.61
+Austria,Bundesliga,2014/2015,22/02/2015,15:30,Admira,Rapid Vienna,1,1,D,4.05,3.68,1.98,4.1,3.75,1.98,3.8,3.47,1.92
+Austria,Bundesliga,2014/2015,28/02/2015,15:00,Altach,AC Wolfsberger,1,0,H,2.28,3.4,3.43,2.36,3.4,3.45,2.23,3.25,3.18
+Austria,Bundesliga,2014/2015,28/02/2015,17:30,Neustadt,Austria Vienna,1,0,H,5.24,3.87,1.74,5.24,3.95,1.82,4.53,3.65,1.74
+Austria,Bundesliga,2014/2015,28/02/2015,17:30,Rapid Vienna,Sturm Graz,1,0,H,1.96,3.56,4.26,2,3.7,4.75,1.87,3.41,4.14
+Austria,Bundesliga,2014/2015,28/02/2015,17:30,Ried,Admira,2,2,D,1.99,3.67,4.02,2,3.7,4.6,1.84,3.54,4.06
+Austria,Bundesliga,2014/2015,01/03/2015,15:30,Salzburg,Grodig,3,1,H,1.28,6.61,10.47,1.28,7.5,15,1.23,6.26,10.61
+Austria,Bundesliga,2014/2015,03/03/2015,18:00,Sturm Graz,Austria Vienna,2,1,H,2.77,3.5,2.64,2.79,3.5,2.92,2.59,3.27,2.65
+Austria,Bundesliga,2014/2015,04/03/2015,18:00,AC Wolfsberger,Ried,1,2,A,2.41,3.44,3.13,2.41,3.5,3.4,2.28,3.26,3.09
+Austria,Bundesliga,2014/2015,04/03/2015,18:00,Admira,Salzburg,1,4,A,7.21,5.27,1.43,8.6,5.7,1.45,7.09,4.94,1.38
+Austria,Bundesliga,2014/2015,04/03/2015,18:00,Grodig,Neustadt,1,3,A,1.72,4.23,4.82,1.81,4.23,5,1.72,3.84,4.35
+Austria,Bundesliga,2014/2015,04/03/2015,18:00,Rapid Vienna,Altach,1,0,H,1.55,4.27,6.92,1.65,4.27,6.92,1.55,3.94,5.8
+Austria,Bundesliga,2014/2015,07/03/2015,15:00,Sturm Graz,AC Wolfsberger,2,0,H,1.81,3.76,4.86,2,3.76,5,1.81,3.49,4.38
+Austria,Bundesliga,2014/2015,07/03/2015,17:30,Neustadt,Admira,0,0,D,2.72,3.5,2.68,2.72,3.6,2.78,2.57,3.31,2.64
+Austria,Bundesliga,2014/2015,07/03/2015,17:30,Ried,Grodig,2,1,H,1.88,3.59,4.65,2.05,3.75,4.7,1.91,3.47,3.89
+Austria,Bundesliga,2014/2015,07/03/2015,17:30,Salzburg,Altach,0,1,A,1.23,7.43,12.98,1.25,8.4,15,1.21,6.52,11.44
+Austria,Bundesliga,2014/2015,08/03/2015,15:30,Austria Vienna,Rapid Vienna,2,1,H,3.18,3.22,2.49,3.3,3.3,2.7,2.93,3.14,2.45
+Austria,Bundesliga,2014/2015,11/03/2015,17:30,Grodig,Sturm Graz,0,2,A,3.38,3.31,2.34,3.45,3.5,2.38,3.12,3.21,2.28
+Austria,Bundesliga,2014/2015,14/03/2015,15:00,Admira,Austria Vienna,1,1,D,3.33,3.45,2.3,3.34,3.46,2.48,3.01,3.32,2.29
+Austria,Bundesliga,2014/2015,14/03/2015,17:30,AC Wolfsberger,Neustadt,2,0,H,1.76,3.85,5.08,1.85,4,5.08,1.75,3.67,4.45
+Austria,Bundesliga,2014/2015,14/03/2015,17:30,Altach,Ried,2,1,H,2.47,3.3,3.17,2.47,3.4,3.4,2.3,3.24,3.05
+Austria,Bundesliga,2014/2015,14/03/2015,17:30,Rapid Vienna,Grodig,4,0,H,1.32,5.73,10.88,1.45,6.1,11,1.32,5.12,9.01
+Austria,Bundesliga,2014/2015,15/03/2015,15:30,Salzburg,Sturm Graz,2,1,H,1.49,4.85,6.87,1.51,5.34,9.14,1.45,4.51,6.49
+Austria,Bundesliga,2014/2015,18/03/2015,17:30,Grodig,AC Wolfsberger,2,0,H,2.49,3.41,3.02,2.65,3.5,3.1,2.46,3.27,2.8
+Austria,Bundesliga,2014/2015,21/03/2015,15:00,Austria Vienna,Ried,0,1,A,1.93,3.76,4.16,1.93,3.8,4.65,1.82,3.57,4.15
+Austria,Bundesliga,2014/2015,21/03/2015,17:30,AC Wolfsberger,Salzburg,3,2,H,7.66,4.98,1.44,7.66,5.4,1.5,6.93,4.51,1.42
+Austria,Bundesliga,2014/2015,21/03/2015,17:30,Grodig,Altach,0,1,A,2.52,3.33,3.04,2.64,3.5,3.04,2.47,3.23,2.81
+Austria,Bundesliga,2014/2015,21/03/2015,17:30,Sturm Graz,Admira,3,1,H,1.54,4.29,6.96,1.65,4.36,7.5,1.55,3.93,5.9
+Austria,Bundesliga,2014/2015,22/03/2015,15:30,Neustadt,Rapid Vienna,0,1,A,8.01,4.76,1.45,8.05,4.95,1.6,6.74,4.27,1.46
+Austria,Bundesliga,2014/2015,04/04/2015,15:00,Salzburg,Austria Vienna,3,1,H,1.44,5.24,7.1,1.5,5.6,8,1.4,4.82,6.8
+Austria,Bundesliga,2014/2015,04/04/2015,17:30,Admira,Grodig,2,3,A,2.27,3.36,3.49,2.32,3.5,3.49,2.2,3.29,3.21
+Austria,Bundesliga,2014/2015,04/04/2015,17:30,Rapid Vienna,AC Wolfsberger,4,1,H,1.48,4.66,7.35,1.48,5,8.4,1.43,4.31,7.19
+Austria,Bundesliga,2014/2015,05/04/2015,15:30,Ried,Sturm Graz,1,2,A,2.61,3.41,2.86,2.82,3.45,2.86,2.55,3.26,2.69
+Austria,Bundesliga,2014/2015,11/04/2015,15:00,Sturm Graz,Altach,5,0,H,1.53,4.27,7.25,1.6,4.27,7.25,1.52,3.99,6.2
+Austria,Bundesliga,2014/2015,11/04/2015,17:30,AC Wolfsberger,Admira,2,0,H,1.96,3.84,3.91,2.1,3.84,4,1.98,3.48,3.61
+Austria,Bundesliga,2014/2015,11/04/2015,17:30,Grodig,Austria Vienna,1,1,D,3.09,3.48,2.42,3.1,3.48,2.42,2.98,3.33,2.3
+Austria,Bundesliga,2014/2015,11/04/2015,17:30,Neustadt,Ried,0,1,A,3.81,3.71,2.03,3.81,3.81,2.12,3.48,3.46,2.02
+Austria,Bundesliga,2014/2015,12/04/2015,17:00,Rapid Vienna,Salzburg,3,3,D,2.46,3.59,2.96,2.7,3.59,2.96,2.45,3.38,2.73
+Austria,Bundesliga,2014/2015,15/04/2015,17:30,Altach,Neustadt,3,1,H,1.67,4.02,5.49,1.7,4.3,5.7,1.64,3.83,5.02
+Austria,Bundesliga,2014/2015,18/04/2015,15:00,Ried,Rapid Vienna,0,1,A,3.26,3.65,2.25,4,3.78,2.28,3.24,3.45,2.12
+Austria,Bundesliga,2014/2015,18/04/2015,17:30,Admira,Altach,2,2,D,2.19,3.68,3.37,2.4,3.68,3.4,2.21,3.44,3.07
+Austria,Bundesliga,2014/2015,18/04/2015,17:30,Salzburg,Neustadt,6,0,H,1.09,13.75,27.19,1.12,14.41,35.22,1.08,10.28,23.27
+Austria,Bundesliga,2014/2015,18/04/2015,17:30,Sturm Graz,Grodig,2,1,H,1.58,4.5,5.8,1.58,5,9,1.47,4.3,6.4
+Austria,Bundesliga,2014/2015,19/04/2015,15:30,Austria Vienna,AC Wolfsberger,1,1,D,1.74,4.12,4.81,1.74,4.3,5.3,1.68,3.81,4.71
+Austria,Bundesliga,2014/2015,25/04/2015,15:00,Salzburg,Ried,2,1,H,1.24,7.4,11.5,1.25,8.1,13,1.22,6.54,10.49
+Austria,Bundesliga,2014/2015,25/04/2015,17:30,AC Wolfsberger,Grodig,2,1,H,2.13,3.57,3.62,2.15,3.62,3.65,2.07,3.43,3.37
+Austria,Bundesliga,2014/2015,25/04/2015,17:30,Neustadt,Sturm Graz,4,4,D,4.48,3.89,1.83,5.8,4.3,1.87,4.46,3.75,1.73
+Austria,Bundesliga,2014/2015,25/04/2015,17:30,Rapid Vienna,Admira,1,1,D,1.38,5.5,8.49,1.41,5.5,10.5,1.35,4.94,8.1
+Austria,Bundesliga,2014/2015,26/04/2015,15:30,Altach,Austria Vienna,2,0,H,3.1,3.56,2.36,3.15,3.66,2.37,3,3.39,2.25
+Austria,Bundesliga,2014/2015,02/05/2015,15:00,AC Wolfsberger,Altach,2,0,H,2,3.67,3.95,2.15,3.7,3.95,2.02,3.44,3.53
+Austria,Bundesliga,2014/2015,02/05/2015,17:30,Admira,Ried,1,0,H,2.64,3.5,2.76,2.64,3.51,2.86,2.52,3.3,2.69
+Austria,Bundesliga,2014/2015,02/05/2015,17:30,Austria Vienna,Neustadt,2,1,H,1.37,5.55,8.8,1.5,5.55,10,1.36,4.91,7.65
+Austria,Bundesliga,2014/2015,02/05/2015,17:30,Grodig,Salzburg,0,3,A,10.54,6.08,1.31,15,6.57,1.36,10.11,5.58,1.27
+Austria,Bundesliga,2014/2015,03/05/2015,15:30,Sturm Graz,Rapid Vienna,2,2,D,3.11,3.56,2.37,3.25,3.56,2.65,2.86,3.33,2.39
+Austria,Bundesliga,2014/2015,09/05/2015,15:00,Austria Vienna,Sturm Graz,0,0,D,2.31,3.57,3.2,2.31,3.6,3.6,2.19,3.41,3.11
+Austria,Bundesliga,2014/2015,09/05/2015,17:30,Neustadt,Grodig,2,4,A,2.77,3.65,2.56,2.88,3.71,2.56,2.72,3.43,2.43
+Austria,Bundesliga,2014/2015,09/05/2015,17:30,Ried,AC Wolfsberger,4,0,H,2.01,3.91,3.62,2.1,3.96,3.8,1.98,3.54,3.54
+Austria,Bundesliga,2014/2015,09/05/2015,17:30,Salzburg,Admira,4,0,H,,,,1.13,12,27.1,1.11,8.69,19.34
+Austria,Bundesliga,2014/2015,10/05/2015,15:30,Altach,Rapid Vienna,1,3,A,5.17,4.15,1.69,5.2,4.15,1.9,4.63,3.79,1.7
+Austria,Bundesliga,2014/2015,16/05/2015,15:00,Altach,Salzburg,2,2,D,7.72,5.9,1.38,11,6.4,1.38,8.46,5.41,1.31
+Austria,Bundesliga,2014/2015,16/05/2015,17:30,AC Wolfsberger,Sturm Graz,1,0,H,3.21,3.56,2.31,3.22,3.85,2.44,3.02,3.39,2.25
+Austria,Bundesliga,2014/2015,16/05/2015,17:30,Admira,Neustadt,0,0,D,1.65,4.28,5.35,1.73,4.28,5.75,1.65,3.91,4.81
+Austria,Bundesliga,2014/2015,16/05/2015,17:30,Grodig,Ried,3,2,H,2.85,3.54,2.55,2.86,3.6,2.65,2.68,3.37,2.49
+Austria,Bundesliga,2014/2015,17/05/2015,15:30,Rapid Vienna,Austria Vienna,4,1,H,1.7,4.08,5.22,1.7,4.1,5.53,1.64,3.85,5.02
+Austria,Bundesliga,2014/2015,19/05/2015,18:00,Ried,Altach,4,1,H,2.39,3.76,2.94,2.42,3.8,3.04,2.28,3.48,2.89
+Austria,Bundesliga,2014/2015,20/05/2015,19:30,Austria Vienna,Admira,0,1,A,1.95,3.81,3.99,1.97,3.9,4.2,1.88,3.6,3.82
+Austria,Bundesliga,2014/2015,20/05/2015,19:30,Neustadt,AC Wolfsberger,2,0,H,2.79,3.65,2.55,2.98,3.75,2.59,2.76,3.42,2.4
+Austria,Bundesliga,2014/2015,20/05/2015,19:30,Sturm Graz,Salzburg,0,0,D,4.43,4.09,1.79,4.75,4.1,1.89,4.18,3.73,1.78
+Austria,Bundesliga,2014/2015,24/05/2015,16:45,Admira,Sturm Graz,1,2,A,2.89,3.31,2.66,3,3.5,2.66,2.8,3.25,2.46
+Austria,Bundesliga,2014/2015,24/05/2015,16:45,Altach,Grodig,2,0,H,1.72,4.34,4.6,1.75,4.4,4.75,1.71,3.89,4.39
+Austria,Bundesliga,2014/2015,24/05/2015,16:45,Rapid Vienna,Neustadt,0,0,D,1.25,7.21,11.81,1.25,7.21,13.48,1.22,6.43,11.09
+Austria,Bundesliga,2014/2015,24/05/2015,16:45,Ried,Austria Vienna,0,2,A,2.24,3.66,3.28,2.3,3.66,3.44,2.17,3.4,3.15
+Austria,Bundesliga,2014/2015,24/05/2015,16:45,Salzburg,AC Wolfsberger,3,0,H,1.23,7.45,12.88,1.25,8,18.5,1.19,6.79,12.62
+Austria,Bundesliga,2014/2015,27/05/2015,17:30,Grodig,Rapid Vienna,0,2,A,5.07,4.29,1.67,5.07,4.35,1.7,4.72,3.98,1.64
+Austria,Bundesliga,2014/2015,31/05/2015,15:30,AC Wolfsberger,Rapid Vienna,0,5,A,4.43,3.96,1.83,4.43,4,2.2,3.61,3.63,1.93
+Austria,Bundesliga,2014/2015,31/05/2015,15:30,Austria Vienna,Salzburg,1,1,D,3.55,3.73,2.1,4,3.9,2.13,3.42,3.6,2
+Austria,Bundesliga,2014/2015,31/05/2015,15:30,Grodig,Admira,0,1,A,3.87,3.58,2.04,3.87,3.69,2.17,3.54,3.38,2.02
+Austria,Bundesliga,2014/2015,31/05/2015,15:30,Neustadt,Altach,0,1,A,2.15,3.87,3.33,2.25,3.87,3.33,2.13,3.56,3.1
+Austria,Bundesliga,2014/2015,31/05/2015,15:30,Sturm Graz,Ried,0,0,D,1.67,4.3,5.22,1.69,4.35,5.5,1.61,3.95,5.01
+Austria,Bundesliga,2015/2016,25/07/2015,15:00,Mattersburg,Salzburg,2,1,H,6.1,4.67,1.54,7,4.7,1.57,5.72,4.24,1.51
+Austria,Bundesliga,2015/2016,25/07/2015,17:30,Grodig,Altach,2,1,H,2.67,3.53,2.72,2.67,3.7,2.8,2.5,3.33,2.69
+Austria,Bundesliga,2015/2016,25/07/2015,17:30,Rapid Vienna,Ried,3,0,H,1.37,5.27,9.25,1.45,5.6,11.5,1.33,4.95,8.77
+Austria,Bundesliga,2015/2016,25/07/2015,17:30,Sturm Graz,Admira,1,1,D,1.46,4.65,7.95,1.46,4.8,9.3,1.41,4.33,7.53
+Austria,Bundesliga,2015/2016,26/07/2015,15:30,AC Wolfsberger,Austria Vienna,0,2,A,3.14,3.45,2.4,3.3,3.48,2.4,2.99,3.25,2.33
+Austria,Bundesliga,2015/2016,01/08/2015,15:00,Salzburg,Rapid Vienna,1,2,A,2.13,3.5,3.7,2.15,3.7,3.78,2.04,3.42,3.45
+Austria,Bundesliga,2015/2016,01/08/2015,17:30,Admira,Mattersburg,2,1,H,2.88,3.42,2.59,2.92,3.42,2.69,2.71,3.23,2.53
+Austria,Bundesliga,2015/2016,02/08/2015,15:30,Austria Vienna,Altach,3,1,H,1.45,4.67,8.29,1.47,4.67,8.6,1.42,4.27,7.41
+Austria,Bundesliga,2015/2016,02/08/2015,15:30,Ried,AC Wolfsberger,0,0,D,2.06,3.59,3.82,2.25,3.6,3.82,2.03,3.41,3.51
+Austria,Bundesliga,2015/2016,02/08/2015,18:00,Sturm Graz,Grodig,1,1,D,1.64,4.19,5.71,1.64,4.25,6.2,1.57,3.95,5.53
+Austria,Bundesliga,2015/2016,08/08/2015,15:00,Grodig,Austria Vienna,2,2,D,4.11,3.69,1.95,4.11,3.8,2,3.74,3.49,1.92
+Austria,Bundesliga,2015/2016,08/08/2015,17:30,Admira,Salzburg,2,2,D,5.61,4.41,1.61,5.8,4.45,1.75,5.17,4.05,1.58
+Austria,Bundesliga,2015/2016,08/08/2015,17:30,Mattersburg,Ried,4,1,H,2.02,3.72,3.81,2.05,3.8,4.05,1.93,3.52,3.73
+Austria,Bundesliga,2015/2016,09/08/2015,15:30,Altach,Sturm Graz,0,1,A,3.1,3.43,2.43,3.2,3.6,2.64,2.86,3.31,2.38
+Austria,Bundesliga,2015/2016,09/08/2015,18:00,Rapid Vienna,AC Wolfsberger,2,1,H,1.27,6.3,12.6,1.3,6.3,15,1.26,5.43,11.62
+Austria,Bundesliga,2015/2016,11/08/2015,17:30,Ried,Salzburg,1,4,A,7.25,4.82,1.47,8.15,5,1.55,6.42,4.48,1.45
+Austria,Bundesliga,2015/2016,12/08/2015,19:30,AC Wolfsberger,Sturm Graz,0,2,A,3.28,3.59,2.27,3.5,3.59,2.3,3.16,3.33,2.2
+Austria,Bundesliga,2015/2016,12/08/2015,19:30,Altach,Mattersburg,3,1,H,2.21,3.69,3.33,2.55,3.69,3.35,2.17,3.48,3.08
+Austria,Bundesliga,2015/2016,12/08/2015,19:30,Austria Vienna,Rapid Vienna,2,5,A,3.46,3.63,2.17,3.46,3.63,2.4,3.08,3.37,2.23
+Austria,Bundesliga,2015/2016,12/08/2015,19:30,Grodig,Admira,2,3,A,2.02,3.81,3.74,2.15,3.9,3.79,2.01,3.53,3.44
+Austria,Bundesliga,2015/2016,15/08/2015,15:00,Austria Vienna,Mattersburg,5,1,H,1.57,4.36,6.29,1.57,4.85,7,1.52,4.09,5.89
+Austria,Bundesliga,2015/2016,15/08/2015,17:30,AC Wolfsberger,Grodig,3,2,H,2.06,3.75,3.66,2.24,3.78,3.66,2.05,3.47,3.41
+Austria,Bundesliga,2015/2016,15/08/2015,17:30,Admira,Ried,3,1,H,2.12,3.69,3.55,2.15,3.75,3.94,2.02,3.43,3.52
+Austria,Bundesliga,2015/2016,15/08/2015,17:30,Salzburg,Altach,2,0,H,1.19,7.9,16.6,1.25,7.98,21,1.18,6.82,13.46
+Austria,Bundesliga,2015/2016,16/08/2015,15:30,Sturm Graz,Rapid Vienna,2,2,D,3.31,3.51,2.28,3.31,3.7,2.39,3.03,3.37,2.24
+Austria,Bundesliga,2015/2016,22/08/2015,15:00,Rapid Vienna,Grodig,3,0,H,1.32,6.34,9.29,1.32,6.34,10.5,1.29,5.54,8.96
+Austria,Bundesliga,2015/2016,22/08/2015,17:30,Mattersburg,AC Wolfsberger,1,0,H,2.18,3.5,3.57,2.2,3.6,3.6,2.1,3.38,3.34
+Austria,Bundesliga,2015/2016,22/08/2015,17:30,Ried,Sturm Graz,1,0,H,4.03,3.82,1.94,4.5,3.82,1.98,3.85,3.56,1.89
+Austria,Bundesliga,2015/2016,23/08/2015,15:30,Salzburg,Austria Vienna,2,2,D,1.83,3.98,4.38,2,4.05,4.75,1.81,3.75,3.97
+Austria,Bundesliga,2015/2016,23/08/2015,18:00,Altach,Admira,1,2,A,2.16,3.58,3.57,2.2,3.58,3.61,2.1,3.39,3.33
+Austria,Bundesliga,2015/2016,29/08/2015,15:00,Admira,Austria Vienna,0,1,A,4.1,3.8,1.93,4.33,3.9,2,3.93,3.61,1.86
+Austria,Bundesliga,2015/2016,29/08/2015,17:30,Grodig,Ried,4,1,H,2.48,3.65,2.87,2.49,3.65,3.2,2.34,3.38,2.88
+Austria,Bundesliga,2015/2016,29/08/2015,17:30,Rapid Vienna,Mattersburg,2,4,A,1.25,6.93,12.66,1.3,6.93,12.66,1.24,6.04,10.56
+Austria,Bundesliga,2015/2016,30/08/2015,15:30,Sturm Graz,Salzburg,2,3,A,2.48,3.53,2.94,3,3.6,2.94,2.53,3.38,2.63
+Austria,Bundesliga,2015/2016,30/08/2015,18:00,AC Wolfsberger,Altach,0,2,A,2.07,3.55,3.82,2.07,3.6,3.91,2.01,3.42,3.57
+Austria,Bundesliga,2015/2016,12/09/2015,15:00,Altach,Rapid Vienna,2,0,H,4.92,4.05,1.74,5.5,4.25,1.81,4.67,3.81,1.68
+Austria,Bundesliga,2015/2016,12/09/2015,17:30,Admira,AC Wolfsberger,1,0,H,2.17,3.5,3.6,2.19,3.6,3.6,2.09,3.38,3.37
+Austria,Bundesliga,2015/2016,12/09/2015,17:30,Austria Vienna,Ried,1,1,D,1.46,4.8,7.67,1.46,5.2,9.32,1.38,4.64,7.67
+Austria,Bundesliga,2015/2016,12/09/2015,17:30,Salzburg,Grodig,4,2,H,1.22,7.92,13.23,1.25,8.3,17,1.18,7.11,12.45
+Austria,Bundesliga,2015/2016,13/09/2015,15:30,Mattersburg,Sturm Graz,2,0,H,3.04,3.62,2.41,3.1,3.62,2.42,2.95,3.37,2.3
+Austria,Bundesliga,2015/2016,19/09/2015,15:00,Sturm Graz,Austria Vienna,2,0,H,2.25,3.59,3.32,2.36,3.59,3.35,2.19,3.38,3.14
+Austria,Bundesliga,2015/2016,19/09/2015,17:30,AC Wolfsberger,Salzburg,1,1,D,6.96,4.88,1.48,7,5,1.51,6.38,4.48,1.45
+Austria,Bundesliga,2015/2016,19/09/2015,17:30,Grodig,Mattersburg,1,1,D,2.73,3.7,2.58,2.73,3.75,2.64,2.6,3.47,2.5
+Austria,Bundesliga,2015/2016,19/09/2015,17:30,Ried,Altach,2,0,H,2.14,3.61,3.57,2.22,3.67,3.6,2.09,3.4,3.34
+Austria,Bundesliga,2015/2016,20/09/2015,15:30,Rapid Vienna,Admira,2,0,H,1.36,5.66,9.01,1.4,5.8,9.5,1.33,5.12,8.21
+Austria,Bundesliga,2015/2016,26/09/2015,15:00,Ried,Rapid Vienna,0,1,A,4.83,4.02,1.76,5.09,4.05,1.78,4.67,3.73,1.7
+Austria,Bundesliga,2015/2016,26/09/2015,17:30,Altach,Grodig,1,0,H,1.99,3.75,3.9,1.99,3.88,4.15,1.92,3.59,3.72
+Austria,Bundesliga,2015/2016,26/09/2015,17:30,Austria Vienna,AC Wolfsberger,1,0,H,1.5,4.49,7.45,1.53,4.55,7.45,1.48,4.14,6.48
+Austria,Bundesliga,2015/2016,26/09/2015,17:30,Salzburg,Mattersburg,4,2,H,1.29,6.52,10.26,1.3,6.7,11,1.26,5.89,9.43
+Austria,Bundesliga,2015/2016,27/09/2015,15:30,Admira,Sturm Graz,0,1,A,4.18,3.76,1.93,4.18,3.8,2.1,3.76,3.53,1.91
+Austria,Bundesliga,2015/2016,03/10/2015,15:00,Grodig,Sturm Graz,3,0,H,4.29,3.79,1.89,4.29,3.8,1.97,3.95,3.56,1.86
+Austria,Bundesliga,2015/2016,03/10/2015,17:30,AC Wolfsberger,Ried,1,1,D,2.25,3.4,3.49,2.29,3.7,3.49,2.16,3.31,3.26
+Austria,Bundesliga,2015/2016,03/10/2015,17:30,Altach,Austria Vienna,1,2,A,2.89,3.48,2.56,3.1,3.5,2.6,2.82,3.29,2.42
+Austria,Bundesliga,2015/2016,03/10/2015,17:30,Mattersburg,Admira,0,4,A,1.92,3.9,4.06,2,3.9,4.13,1.87,3.63,3.82
+Austria,Bundesliga,2015/2016,04/10/2015,15:30,Rapid Vienna,Salzburg,1,2,A,2.71,3.6,2.64,2.71,3.7,2.79,2.54,3.48,2.55
+Austria,Bundesliga,2015/2016,17/10/2015,15:00,Salzburg,Admira,8,0,H,1.21,8.21,13.33,1.21,8.3,19,1.18,7.21,12.7
+Austria,Bundesliga,2015/2016,17/10/2015,17:30,Austria Vienna,Grodig,2,1,H,1.51,4.64,6.84,1.57,4.64,6.84,1.51,4.23,5.96
+Austria,Bundesliga,2015/2016,17/10/2015,17:30,Ried,Mattersburg,0,1,A,2.22,3.6,3.37,2.26,3.7,3.37,2.16,3.44,3.17
+Austria,Bundesliga,2015/2016,17/10/2015,17:30,Sturm Graz,Altach,3,1,H,1.61,4.1,6.17,1.64,4.1,6.25,1.58,3.84,5.69
+Austria,Bundesliga,2015/2016,18/10/2015,15:30,AC Wolfsberger,Rapid Vienna,2,1,H,4.5,3.79,1.85,4.6,3.79,1.89,4.24,3.55,1.8
+Austria,Bundesliga,2015/2016,24/10/2015,15:00,Mattersburg,Altach,2,1,H,1.99,3.72,3.93,2.1,4,4,1.96,3.53,3.64
+Austria,Bundesliga,2015/2016,24/10/2015,17:30,Admira,Grodig,0,0,D,2.35,3.46,3.27,2.35,3.6,3.3,2.21,3.38,3.1
+Austria,Bundesliga,2015/2016,24/10/2015,17:30,Salzburg,Ried,2,1,H,1.15,9.92,18.16,1.17,9.92,23,1.14,8.03,16.08
+Austria,Bundesliga,2015/2016,24/10/2015,17:30,Sturm Graz,AC Wolfsberger,2,0,H,1.76,3.84,5.11,1.77,3.9,6.2,1.64,3.74,5.16
+Austria,Bundesliga,2015/2016,25/10/2015,15:30,Rapid Vienna,Austria Vienna,1,2,A,1.94,3.81,4.03,2.02,3.81,4.25,1.9,3.55,3.85
+Austria,Bundesliga,2015/2016,31/10/2015,15:00,Rapid Vienna,Sturm Graz,2,1,H,1.91,3.73,4.29,1.92,3.75,4.33,1.85,3.54,4.08
+Austria,Bundesliga,2015/2016,31/10/2015,17:30,Altach,Salzburg,1,0,H,8.29,5.1,1.41,8.29,5.1,1.45,7.17,4.67,1.4
+Austria,Bundesliga,2015/2016,31/10/2015,17:30,Grodig,AC Wolfsberger,1,0,H,2.37,3.52,3.13,2.4,3.55,3.15,2.29,3.34,3
+Austria,Bundesliga,2015/2016,31/10/2015,17:30,Ried,Admira,1,1,D,2.07,3.62,3.76,2.1,3.66,3.8,2,3.44,3.57
+Austria,Bundesliga,2015/2016,01/11/2015,15:30,Mattersburg,Austria Vienna,1,2,A,3.05,3.78,2.31,3.12,3.83,2.4,2.94,3.51,2.25
+Austria,Bundesliga,2015/2016,07/11/2015,15:00,Austria Vienna,Salzburg,1,1,D,4.13,3.97,1.88,4.2,4,2.1,3.81,3.69,1.87
+Austria,Bundesliga,2015/2016,07/11/2015,17:30,AC Wolfsberger,Mattersburg,2,1,H,2.18,3.57,3.5,2.25,3.65,3.5,2.16,3.41,3.2
+Austria,Bundesliga,2015/2016,07/11/2015,17:30,Admira,Altach,1,1,D,2.38,3.46,3.17,2.38,3.6,3.25,2.25,3.37,3.05
+Austria,Bundesliga,2015/2016,07/11/2015,17:30,Sturm Graz,Ried,3,2,H,1.53,4.46,6.84,1.57,4.46,7,1.51,4.07,6.28
+Austria,Bundesliga,2015/2016,08/11/2015,15:30,Grodig,Rapid Vienna,2,1,H,3.85,3.72,2.01,3.85,3.74,2.13,3.55,3.51,1.99
+Austria,Bundesliga,2015/2016,21/11/2015,15:00,Austria Vienna,Admira,1,1,D,1.53,4.6,6.59,1.53,4.8,7.5,1.47,4.28,6.45
+Austria,Bundesliga,2015/2016,21/11/2015,17:30,Altach,AC Wolfsberger,2,1,H,2.23,3.41,3.52,2.29,3.5,3.52,2.2,3.27,3.24
+Austria,Bundesliga,2015/2016,21/11/2015,17:30,Mattersburg,Rapid Vienna,1,6,A,4.53,3.94,1.81,4.75,4,2.1,4.08,3.67,1.82
+Austria,Bundesliga,2015/2016,21/11/2015,17:30,Ried,Grodig,1,0,H,2.35,3.59,3.12,2.39,3.59,3.3,2.24,3.35,3.08
+Austria,Bundesliga,2015/2016,22/11/2015,15:30,Salzburg,Sturm Graz,3,1,H,1.35,5.88,8.58,1.45,5.88,9,1.35,5.11,7.91
+Austria,Bundesliga,2015/2016,28/11/2015,15:00,Sturm Graz,Mattersburg,0,0,D,1.46,4.81,7.58,1.6,4.9,7.58,1.47,4.35,6.41
+Austria,Bundesliga,2015/2016,28/11/2015,17:30,AC Wolfsberger,Admira,4,0,H,1.97,3.56,4.2,2.1,3.7,4.2,1.94,3.43,3.79
+Austria,Bundesliga,2015/2016,28/11/2015,17:30,Grodig,Salzburg,1,1,D,9.02,5.59,1.36,10,5.7,1.38,8.01,5.11,1.34
+Austria,Bundesliga,2015/2016,29/11/2015,15:30,Ried,Austria Vienna,4,2,H,3.2,3.6,2.3,3.5,3.65,2.3,3.15,3.41,2.18
+Austria,Bundesliga,2015/2016,29/11/2015,18:00,Rapid Vienna,Altach,3,1,H,1.38,5.32,8.83,1.41,5.5,8.83,1.37,4.8,7.75
+Austria,Bundesliga,2015/2016,01/12/2015,18:00,Salzburg,AC Wolfsberger,1,1,D,1.25,6.8,13.1,1.25,8,15,1.2,6.44,11.97
+Austria,Bundesliga,2015/2016,02/12/2015,17:30,Admira,Rapid Vienna,2,1,H,6.09,4.47,1.57,6.22,4.47,1.8,5.58,4.08,1.55
+Austria,Bundesliga,2015/2016,02/12/2015,17:30,Altach,Ried,1,3,A,2.15,3.46,3.68,2.15,3.54,3.82,2.08,3.34,3.43
+Austria,Bundesliga,2015/2016,02/12/2015,17:30,Mattersburg,Grodig,0,2,A,2.1,3.75,3.54,2.2,3.84,3.7,2.05,3.51,3.35
+Austria,Bundesliga,2015/2016,02/12/2015,19:30,Austria Vienna,Sturm Graz,2,1,H,2.29,3.53,3.29,2.4,3.53,3.29,2.24,3.36,3.07
+Austria,Bundesliga,2015/2016,05/12/2015,15:00,AC Wolfsberger,Austria Vienna,2,0,H,2.47,3.5,2.99,2.88,3.52,2.99,2.44,3.32,2.8
+Austria,Bundesliga,2015/2016,05/12/2015,17:30,Grodig,Altach,0,3,A,2.11,3.54,3.72,2.25,3.58,3.85,2.06,3.37,3.48
+Austria,Bundesliga,2015/2016,05/12/2015,17:30,Rapid Vienna,Ried,2,1,H,1.38,5.32,9.01,1.42,5.33,9.04,1.37,4.83,7.76
+Austria,Bundesliga,2015/2016,05/12/2015,17:30,Sturm Graz,Admira,1,1,D,1.55,4.46,6.44,1.6,4.5,7,1.53,4.14,5.77
+Austria,Bundesliga,2015/2016,06/12/2015,15:30,Mattersburg,Salzburg,0,0,D,7.25,5.43,1.42,7.6,5.5,1.45,6.82,4.84,1.4
+Austria,Bundesliga,2015/2016,12/12/2015,15:00,Austria Vienna,Altach,1,2,A,1.68,4.09,5.4,1.7,4.15,5.6,1.65,3.87,4.96
+Austria,Bundesliga,2015/2016,12/12/2015,17:30,Admira,Mattersburg,1,1,D,2.36,3.52,3.14,2.36,3.75,3.3,2.24,3.39,3.04
+Austria,Bundesliga,2015/2016,12/12/2015,17:30,Ried,AC Wolfsberger,1,0,H,2.71,3.4,2.76,2.71,3.4,2.97,2.53,3.23,2.74
+Austria,Bundesliga,2015/2016,12/12/2015,17:30,Sturm Graz,Grodig,2,0,H,1.68,4.03,5.45,1.7,4.15,6,1.63,3.84,5.15
+Austria,Bundesliga,2015/2016,13/12/2015,15:30,Salzburg,Rapid Vienna,2,0,H,1.67,4.39,5.01,1.75,4.39,5.2,1.66,4,4.63
+Austria,Bundesliga,2015/2016,06/02/2016,15:00,Altach,Sturm Graz,2,2,D,3.07,3.52,2.41,3.1,3.52,2.5,2.93,3.3,2.35
+Austria,Bundesliga,2015/2016,06/02/2016,17:30,Grodig,Austria Vienna,0,1,A,3.42,3.58,2.21,3.42,3.58,2.3,3.22,3.35,2.17
+Austria,Bundesliga,2015/2016,06/02/2016,17:30,Mattersburg,Ried,3,3,D,2.14,3.62,3.57,2.22,3.65,3.57,2.08,3.41,3.39
+Austria,Bundesliga,2015/2016,06/02/2016,17:30,Rapid Vienna,AC Wolfsberger,3,0,H,1.62,4.1,6.16,1.64,4.4,6.7,1.56,3.91,5.87
+Austria,Bundesliga,2015/2016,07/02/2016,15:30,Admira,Salzburg,1,2,A,5.7,4.44,1.6,7,4.8,1.6,5.84,4.2,1.52
+Austria,Bundesliga,2015/2016,13/02/2016,15:00,Ried,Salzburg,1,0,H,5.51,3.97,1.69,5.99,4.35,1.71,5.19,3.8,1.63
+Austria,Bundesliga,2015/2016,13/02/2016,17:30,AC Wolfsberger,Sturm Graz,0,0,D,2.79,3.35,2.72,2.82,3.4,2.74,2.68,3.19,2.61
+Austria,Bundesliga,2015/2016,13/02/2016,17:30,Altach,Mattersburg,1,2,A,1.94,3.77,4.11,2,3.77,4.33,1.9,3.56,3.84
+Austria,Bundesliga,2015/2016,13/02/2016,17:30,Grodig,Admira,2,2,D,2.45,3.42,3.09,2.47,3.45,3.11,2.36,3.25,2.95
+Austria,Bundesliga,2015/2016,14/02/2016,15:30,Austria Vienna,Rapid Vienna,0,3,A,2.83,3.55,2.57,2.83,3.55,2.7,2.68,3.31,2.55
+Austria,Bundesliga,2015/2016,20/02/2016,15:00,Austria Vienna,Mattersburg,2,2,D,1.63,4.25,5.64,1.64,4.45,5.7,1.6,4,5.19
+Austria,Bundesliga,2015/2016,20/02/2016,17:30,AC Wolfsberger,Grodig,2,0,H,1.85,3.78,4.52,1.92,3.78,4.57,1.83,3.53,4.19
+Austria,Bundesliga,2015/2016,20/02/2016,17:30,Admira,Ried,0,0,D,2.25,3.53,3.35,2.33,3.6,3.35,2.2,3.35,3.16
+Austria,Bundesliga,2015/2016,20/02/2016,17:30,Salzburg,Altach,2,0,H,1.34,5.75,9.6,1.37,5.75,11,1.31,5.15,9
+Austria,Bundesliga,2015/2016,21/02/2016,15:30,Sturm Graz,Rapid Vienna,0,2,A,2.54,3.53,2.88,2.66,3.53,2.91,2.48,3.31,2.76
+Austria,Bundesliga,2015/2016,27/02/2016,15:00,Ried,Sturm Graz,0,1,A,2.93,3.41,2.56,2.93,3.5,2.57,2.82,3.25,2.45
+Austria,Bundesliga,2015/2016,27/02/2016,17:30,Altach,Admira,1,2,A,2.32,3.36,3.37,2.35,3.5,3.75,2.17,3.29,3.3
+Austria,Bundesliga,2015/2016,27/02/2016,17:30,Mattersburg,AC Wolfsberger,1,1,D,3,3.45,2.49,3,3.5,2.7,2.78,3.29,2.46
+Austria,Bundesliga,2015/2016,28/02/2016,13:00,Rapid Vienna,Grodig,3,2,H,1.39,5.28,8.62,1.39,5.32,9.3,1.35,4.87,8.11
+Austria,Bundesliga,2015/2016,28/02/2016,15:30,Salzburg,Austria Vienna,4,1,H,1.46,4.69,7.9,1.55,4.85,8,1.44,4.4,6.91
+Austria,Bundesliga,2015/2016,01/03/2016,18:00,AC Wolfsberger,Altach,1,0,H,1.76,3.77,5.23,1.9,3.78,5.23,1.75,3.56,4.62
+Austria,Bundesliga,2015/2016,02/03/2016,17:30,Admira,Austria Vienna,0,3,A,3.06,3.42,2.46,3.06,3.5,2.65,2.84,3.26,2.43
+Austria,Bundesliga,2015/2016,02/03/2016,17:30,Grodig,Ried,2,2,D,2.62,3.41,2.87,2.77,3.41,3.04,2.49,3.2,2.81
+Austria,Bundesliga,2015/2016,02/03/2016,17:30,Rapid Vienna,Mattersburg,3,0,H,1.39,5.25,8.54,1.4,5.5,9.56,1.36,4.93,7.89
+Austria,Bundesliga,2015/2016,02/03/2016,19:30,Sturm Graz,Salzburg,0,0,D,4.15,3.75,1.93,4.81,3.9,1.96,4.07,3.55,1.85
+Austria,Bundesliga,2015/2016,05/03/2016,15:00,Salzburg,Grodig,3,0,H,1.23,7.29,13.11,1.25,7.4,13.15,1.22,6.37,11.44
+Austria,Bundesliga,2015/2016,05/03/2016,17:30,Admira,AC Wolfsberger,0,2,A,2.62,3.27,2.96,2.65,3.36,2.96,2.53,3.16,2.78
+Austria,Bundesliga,2015/2016,05/03/2016,17:30,Austria Vienna,Ried,3,1,H,1.78,3.91,4.81,1.8,3.91,5,1.76,3.67,4.4
+Austria,Bundesliga,2015/2016,05/03/2016,17:30,Mattersburg,Sturm Graz,1,0,H,3.47,3.54,2.2,3.65,3.56,2.3,3.31,3.35,2.14
+Austria,Bundesliga,2015/2016,06/03/2016,15:30,Altach,Rapid Vienna,0,0,D,4.72,3.84,1.81,4.95,4.15,1.92,4.26,3.62,1.79
+Austria,Bundesliga,2015/2016,12/03/2016,15:00,AC Wolfsberger,Salzburg,1,1,D,5.61,4.03,1.67,5.61,4.22,1.85,4.87,3.77,1.68
+Austria,Bundesliga,2015/2016,12/03/2016,17:30,Grodig,Mattersburg,0,1,A,2.19,3.54,3.51,2.19,3.75,3.6,2.12,3.41,3.3
+Austria,Bundesliga,2015/2016,12/03/2016,17:30,Rapid Vienna,Admira,0,4,A,1.45,4.85,7.68,1.45,5.1,8.03,1.41,4.58,7.25
+Austria,Bundesliga,2015/2016,12/03/2016,17:30,Ried,Altach,0,2,A,1.92,3.72,4.27,1.92,3.9,4.5,1.84,3.54,4.12
+Austria,Bundesliga,2015/2016,13/03/2016,15:30,Sturm Graz,Austria Vienna,1,1,D,2.11,3.58,3.67,2.14,3.58,3.7,2.06,3.37,3.46
+Austria,Bundesliga,2015/2016,19/03/2016,15:00,Austria Vienna,AC Wolfsberger,0,0,D,1.83,3.81,4.63,1.9,3.81,4.75,1.79,3.58,4.32
+Austria,Bundesliga,2015/2016,19/03/2016,17:30,Admira,Sturm Graz,1,0,H,4.08,3.57,2,4.5,3.65,2.5,3.8,3.43,1.98
+Austria,Bundesliga,2015/2016,19/03/2016,17:30,Altach,Grodig,1,0,H,2.12,3.55,3.68,2.13,3.56,3.75,2.04,3.37,3.53
+Austria,Bundesliga,2015/2016,19/03/2016,17:30,Salzburg,Mattersburg,2,1,H,1.2,7.52,16.33,1.22,7.52,16.33,1.2,6.46,13.28
+Austria,Bundesliga,2015/2016,20/03/2016,15:30,Ried,Rapid Vienna,1,0,H,3.93,3.64,2.02,3.95,3.68,2.1,3.64,3.44,1.98
+Austria,Bundesliga,2015/2016,02/04/2016,15:00,Grodig,Sturm Graz,1,3,A,3.88,3.51,2.07,3.88,3.51,2.2,3.42,3.33,2.09
+Austria,Bundesliga,2015/2016,02/04/2016,17:30,AC Wolfsberger,Ried,1,0,H,2.08,3.47,3.9,2.09,3.5,4.15,2,3.34,3.71
+Austria,Bundesliga,2015/2016,02/04/2016,17:30,Altach,Austria Vienna,2,0,H,3.53,3.54,2.18,3.64,3.54,2.37,3.22,3.36,2.17
+Austria,Bundesliga,2015/2016,02/04/2016,17:30,Mattersburg,Admira,0,3,A,2.13,3.57,3.62,2.36,3.57,3.75,2.14,3.37,3.31
+Austria,Bundesliga,2015/2016,03/04/2016,14:00,Rapid Vienna,Salzburg,1,1,D,3.08,3.63,2.35,3.1,3.7,2.42,2.95,3.43,2.29
+Austria,Bundesliga,2015/2016,09/04/2016,15:00,Sturm Graz,Altach,4,1,H,1.46,4.5,8.35,1.6,4.5,8.35,1.5,4.08,6.56
+Austria,Bundesliga,2015/2016,09/04/2016,17:30,AC Wolfsberger,Rapid Vienna,2,2,D,3.66,3.45,2.16,3.75,3.5,2.21,3.36,3.33,2.12
+Austria,Bundesliga,2015/2016,09/04/2016,17:30,Austria Vienna,Grodig,0,2,A,1.44,4.82,8.16,1.5,4.82,8.16,1.43,4.5,6.89
+Austria,Bundesliga,2015/2016,09/04/2016,17:30,Ried,Mattersburg,1,0,H,2.11,3.63,3.64,2.12,3.8,3.85,2.03,3.46,3.48
+Austria,Bundesliga,2015/2016,10/04/2016,15:30,Salzburg,Admira,1,0,H,1.22,7.36,14.07,1.25,7.36,17,1.21,6.34,11.99
+Austria,Bundesliga,2015/2016,16/04/2016,15:00,Salzburg,Ried,2,1,H,1.27,6.19,12.88,1.27,6.76,15,1.24,5.78,11.1
+Austria,Bundesliga,2015/2016,16/04/2016,17:30,Admira,Grodig,1,1,D,2.04,3.75,3.71,2.1,3.78,3.85,2,3.53,3.51
+Austria,Bundesliga,2015/2016,16/04/2016,17:30,Mattersburg,Altach,0,0,D,2.04,3.67,3.83,2.12,3.7,3.83,2.02,3.43,3.55
+Austria,Bundesliga,2015/2016,16/04/2016,17:30,Sturm Graz,AC Wolfsberger,1,0,H,1.71,3.92,5.36,1.79,4,5.7,1.67,3.71,4.94
+Austria,Bundesliga,2015/2016,17/04/2016,15:30,Rapid Vienna,Austria Vienna,1,0,H,2.13,3.65,3.54,2.17,3.77,3.8,2.05,3.49,3.38
+Austria,Bundesliga,2015/2016,23/04/2016,15:00,Mattersburg,Austria Vienna,0,9,A,3.57,3.66,2.12,3.74,3.66,2.4,3.38,3.48,2.06
+Austria,Bundesliga,2015/2016,23/04/2016,17:30,Altach,Salzburg,1,3,A,7.06,4.55,1.51,8.5,5,1.55,6.94,4.37,1.44
+Austria,Bundesliga,2015/2016,23/04/2016,17:30,Grodig,AC Wolfsberger,0,1,A,2.74,3.19,2.85,2.74,3.3,2.98,2.6,3.14,2.72
+Austria,Bundesliga,2015/2016,23/04/2016,17:30,Ried,Admira,1,0,H,2.01,3.61,4,2.1,3.64,4,1.98,3.43,3.66
+Austria,Bundesliga,2015/2016,24/04/2016,15:30,Rapid Vienna,Sturm Graz,2,0,H,1.93,3.73,4.22,1.93,3.77,4.3,1.87,3.56,3.94
+Austria,Bundesliga,2015/2016,30/04/2016,15:00,Grodig,Rapid Vienna,2,0,H,5.64,4.53,1.6,6,4.53,1.75,5.15,4.03,1.6
+Austria,Bundesliga,2015/2016,30/04/2016,17:30,AC Wolfsberger,Mattersburg,2,0,H,1.62,4.1,6.17,1.67,4.1,6.17,1.6,3.86,5.34
+Austria,Bundesliga,2015/2016,30/04/2016,17:30,Admira,Altach,2,1,H,2.09,3.62,3.75,2.11,3.65,3.98,2,3.41,3.59
+Austria,Bundesliga,2015/2016,30/04/2016,17:30,Sturm Graz,Ried,0,0,D,1.58,4.26,6.38,1.6,4.33,6.38,1.55,3.97,5.75
+Austria,Bundesliga,2015/2016,01/05/2016,15:30,Austria Vienna,Salzburg,0,2,A,3.63,3.77,2.06,3.68,3.8,2.1,3.42,3.54,2.02
+Austria,Bundesliga,2015/2016,07/05/2016,15:00,Austria Vienna,Admira,3,1,H,1.49,4.59,7.24,1.6,4.7,7.5,1.47,4.27,6.53
+Austria,Bundesliga,2015/2016,07/05/2016,17:30,Altach,AC Wolfsberger,1,1,D,2.44,3.26,3.24,2.75,3.4,3.25,2.35,3.17,3.03
+Austria,Bundesliga,2015/2016,07/05/2016,17:30,Ried,Grodig,2,0,H,1.98,3.64,4.05,2.05,3.64,4.05,1.96,3.46,3.69
+Austria,Bundesliga,2015/2016,07/05/2016,17:30,Salzburg,Sturm Graz,1,1,D,1.68,4.31,5.01,1.71,4.4,6.3,1.63,3.99,4.91
+Austria,Bundesliga,2015/2016,08/05/2016,15:30,Mattersburg,Rapid Vienna,0,2,A,5.13,4.07,1.71,5.3,4.07,1.72,4.71,3.84,1.68
+Austria,Bundesliga,2015/2016,11/05/2016,19:30,AC Wolfsberger,Admira,1,2,A,2.04,3.7,3.8,2.04,3.76,4.15,1.94,3.49,3.71
+Austria,Bundesliga,2015/2016,11/05/2016,19:30,Grodig,Salzburg,1,2,A,3.19,3.96,2.17,4,4.3,2.19,3.2,3.63,2.09
+Austria,Bundesliga,2015/2016,11/05/2016,19:30,Rapid Vienna,Altach,1,1,D,1.4,5.13,8.64,1.4,5.2,9.2,1.37,4.75,7.87
+Austria,Bundesliga,2015/2016,11/05/2016,19:30,Ried,Austria Vienna,0,5,A,3.46,3.67,2.16,3.47,3.67,2.2,3.29,3.43,2.11
+Austria,Bundesliga,2015/2016,11/05/2016,19:30,Sturm Graz,Mattersburg,1,1,D,1.41,5.12,8.23,1.41,5.25,9,1.36,4.83,7.71
+Austria,Bundesliga,2015/2016,15/05/2016,16:30,Admira,Rapid Vienna,1,3,A,2.89,3.84,2.39,3.2,3.84,2.4,2.9,3.49,2.28
+Austria,Bundesliga,2015/2016,15/05/2016,16:30,Altach,Ried,0,0,D,2.16,3.74,3.38,2.17,3.74,3.6,2.09,3.48,3.3
+Austria,Bundesliga,2015/2016,15/05/2016,16:30,Austria Vienna,Sturm Graz,3,0,H,2.32,3.8,3.03,2.35,3.8,3.1,2.26,3.51,2.92
+Austria,Bundesliga,2015/2016,15/05/2016,16:30,Mattersburg,Grodig,2,3,A,2.01,3.82,3.75,2.05,3.83,3.84,1.95,3.59,3.59
+Austria,Bundesliga,2015/2016,15/05/2016,16:30,Salzburg,AC Wolfsberger,1,0,H,1.5,4.92,6.53,1.5,5.04,6.6,1.46,4.54,6.09
+Austria,Bundesliga,2016/2017,23/07/2016,15:00,Rapid Vienna,Ried,5,0,H,1.37,5.05,10.11,1.45,5.05,10.11,1.38,4.55,8.11
+Austria,Bundesliga,2016/2017,23/07/2016,17:30,Altach,AC Wolfsberger,1,0,H,2.53,3.22,3.14,2.6,3.3,3.14,2.48,3.12,2.9
+Austria,Bundesliga,2016/2017,23/07/2016,17:30,Sturm Graz,Salzburg,3,1,H,3.81,3.74,2.02,4.06,3.82,2.03,3.72,3.52,1.94
+Austria,Bundesliga,2016/2017,24/07/2016,15:30,St. Polten,Austria Vienna,1,2,A,3.82,3.75,2.02,3.95,3.75,2.27,3.5,3.41,2.05
+Austria,Bundesliga,2016/2017,24/07/2016,18:00,Mattersburg,Admira,0,1,A,2.68,3.46,2.75,2.84,3.5,2.96,2.59,3.25,2.68
+Austria,Bundesliga,2016/2017,30/07/2016,15:00,Salzburg,AC Wolfsberger,1,1,D,1.44,4.88,7.94,1.44,5.1,8.92,1.39,4.64,7.5
+Austria,Bundesliga,2016/2017,30/07/2016,17:30,Ried,Sturm Graz,1,0,H,3.62,3.48,2.17,3.65,3.57,2.2,3.39,3.33,2.11
+Austria,Bundesliga,2016/2017,31/07/2016,15:30,Altach,Rapid Vienna,1,0,H,5.72,3.89,1.68,5.8,4.01,1.85,4.9,3.63,1.71
+Austria,Bundesliga,2016/2017,31/07/2016,15:30,Austria Vienna,Mattersburg,3,1,H,1.6,4.39,5.78,1.68,4.96,7.53,1.57,4.16,5.41
+Austria,Bundesliga,2016/2017,31/07/2016,18:00,St. Polten,Admira,2,1,H,2.1,3.41,3.9,2.5,3.46,3.9,2.11,3.3,3.46
+Austria,Bundesliga,2016/2017,06/08/2016,15:00,Mattersburg,Sturm Graz,0,2,A,3.57,3.45,2.2,3.64,3.58,2.22,3.34,3.35,2.13
+Austria,Bundesliga,2016/2017,06/08/2016,17:30,AC Wolfsberger,Ried,1,0,H,1.99,3.43,4.33,2.01,3.56,4.36,1.93,3.36,3.93
+Austria,Bundesliga,2016/2017,06/08/2016,17:30,Admira,Altach,1,2,A,2.37,3.47,3.17,2.54,3.47,3.17,2.34,3.25,3
+Austria,Bundesliga,2016/2017,06/08/2016,17:30,Salzburg,St. Polten,2,0,H,1.23,7.15,14.2,1.3,7.33,16.34,1.21,6.24,12.63
+Austria,Bundesliga,2016/2017,07/08/2016,15:30,Austria Vienna,Rapid Vienna,1,4,A,3.21,3.71,2.25,3.21,3.71,2.46,3.02,3.41,2.26
+Austria,Bundesliga,2016/2017,13/08/2016,15:00,Ried,Salzburg,0,2,A,4.63,4.16,1.76,5.5,4.25,1.76,4.77,3.84,1.67
+Austria,Bundesliga,2016/2017,13/08/2016,17:30,Altach,St. Polten,3,1,H,1.83,3.77,4.72,2,3.82,4.72,1.83,3.56,4.2
+Austria,Bundesliga,2016/2017,13/08/2016,17:30,Mattersburg,AC Wolfsberger,3,1,H,3.03,3.36,2.52,3.03,3.5,2.77,2.79,3.23,2.51
+Austria,Bundesliga,2016/2017,13/08/2016,17:30,Rapid Vienna,Admira,4,0,H,1.3,5.86,11.74,1.36,5.95,12,1.29,5.27,10.19
+Austria,Bundesliga,2016/2017,14/08/2016,15:30,Sturm Graz,Austria Vienna,3,1,H,2.3,3.42,3.36,2.37,3.5,3.43,2.21,3.31,3.2
+Austria,Bundesliga,2016/2017,20/08/2016,15:00,St. Polten,Sturm Graz,1,3,A,4.1,3.6,1.99,4.4,3.67,2.1,3.83,3.42,1.95
+Austria,Bundesliga,2016/2017,20/08/2016,17:30,Admira,Ried,1,0,H,2.37,3.46,3.19,2.48,3.46,3.2,2.32,3.27,3.02
+Austria,Bundesliga,2016/2017,20/08/2016,17:30,Salzburg,Mattersburg,3,1,H,1.38,5.61,8.01,1.41,5.61,13,1.35,5.04,7.93
+Austria,Bundesliga,2016/2017,21/08/2016,15:30,AC Wolfsberger,Rapid Vienna,1,1,D,5.29,4.02,1.7,5.29,4.06,1.81,4.73,3.8,1.69
+Austria,Bundesliga,2016/2017,21/08/2016,18:00,Austria Vienna,Altach,3,1,H,2.07,3.65,3.72,2.11,3.78,3.9,2.02,3.47,3.49
+Austria,Bundesliga,2016/2017,27/08/2016,15:00,Sturm Graz,Altach,3,1,H,1.77,3.92,4.89,1.77,3.95,5.4,1.72,3.65,4.71
+Austria,Bundesliga,2016/2017,27/08/2016,17:30,AC Wolfsberger,Admira,5,0,H,2.03,3.52,4.05,2.04,3.62,4.46,1.92,3.41,3.94
+Austria,Bundesliga,2016/2017,27/08/2016,17:30,Mattersburg,St. Polten,1,1,D,2.17,3.63,3.47,2.17,3.63,3.85,2.05,3.4,3.48
+Austria,Bundesliga,2016/2017,28/08/2016,15:30,Rapid Vienna,Salzburg,0,0,D,2.34,3.59,3.14,2.43,3.62,3.3,2.3,3.38,2.98
+Austria,Bundesliga,2016/2017,28/08/2016,18:00,Ried,Austria Vienna,1,1,D,3.33,3.39,2.33,3.36,3.52,2.33,3.12,3.32,2.24
+Austria,Bundesliga,2016/2017,10/09/2016,15:00,Sturm Graz,Rapid Vienna,1,1,D,3.41,3.49,2.24,3.6,3.66,2.6,3.19,3.35,2.2
+Austria,Bundesliga,2016/2017,10/09/2016,17:30,Altach,Mattersburg,2,1,H,1.78,3.85,4.96,1.81,3.97,5,1.76,3.64,4.45
+Austria,Bundesliga,2016/2017,10/09/2016,17:30,Austria Vienna,AC Wolfsberger,4,1,H,1.94,3.51,4.45,1.95,3.62,4.65,1.87,3.47,4.13
+Austria,Bundesliga,2016/2017,10/09/2016,17:30,St. Polten,Ried,2,3,A,2.59,3.36,2.93,2.65,3.5,3.04,2.46,3.25,2.83
+Austria,Bundesliga,2016/2017,11/09/2016,15:30,Admira,Salzburg,0,4,A,8.17,5.16,1.41,9.11,5.16,1.6,7.64,4.77,1.38
+Austria,Bundesliga,2016/2017,17/09/2016,15:00,Ried,Altach,2,1,H,2.57,3.22,3.07,2.6,3.4,3.07,2.46,3.17,2.88
+Austria,Bundesliga,2016/2017,17/09/2016,17:30,AC Wolfsberger,St. Polten,1,1,D,1.58,4.27,6.35,1.62,4.33,6.7,1.55,3.94,5.9
+Austria,Bundesliga,2016/2017,17/09/2016,17:30,Admira,Sturm Graz,0,3,A,5.05,3.99,1.74,5.4,4.06,1.85,4.9,3.75,1.67
+Austria,Bundesliga,2016/2017,18/09/2016,15:30,Salzburg,Austria Vienna,4,1,H,1.36,5.71,8.84,1.45,5.95,9.51,1.32,5.29,8.17
+Austria,Bundesliga,2016/2017,18/09/2016,18:00,Rapid Vienna,Mattersburg,3,0,H,1.33,5.98,9.64,1.34,6.1,10.3,1.3,5.43,8.68
+Austria,Bundesliga,2016/2017,24/09/2016,15:00,St. Polten,Rapid Vienna,1,1,D,7.44,5.25,1.43,9,5.25,1.53,7.13,4.59,1.41
+Austria,Bundesliga,2016/2017,24/09/2016,17:30,Austria Vienna,Admira,1,2,A,1.51,4.77,6.62,1.53,4.9,6.94,1.48,4.42,6.09
+Austria,Bundesliga,2016/2017,24/09/2016,17:30,Mattersburg,Ried,1,1,D,2.4,3.44,3.14,2.55,3.46,3.14,2.36,3.26,2.94
+Austria,Bundesliga,2016/2017,24/09/2016,17:30,Sturm Graz,AC Wolfsberger,3,0,H,1.59,4.12,6.46,1.7,4.2,7,1.59,3.87,5.56
+Austria,Bundesliga,2016/2017,25/09/2016,15:30,Altach,Salzburg,0,0,D,6.62,4.46,1.54,7,4.46,1.6,6.04,4.09,1.52
+Austria,Bundesliga,2016/2017,01/10/2016,15:00,AC Wolfsberger,Altach,1,2,A,2.1,3.34,4,2.23,3.4,4,2.11,3.21,3.52
+Austria,Bundesliga,2016/2017,01/10/2016,17:30,Admira,Mattersburg,1,0,H,2.61,3.36,2.9,2.61,3.47,3.3,2.4,3.26,2.89
+Austria,Bundesliga,2016/2017,02/10/2016,15:30,Ried,Rapid Vienna,4,2,H,5.8,3.96,1.67,5.9,3.97,1.75,5.27,3.72,1.64
+Austria,Bundesliga,2016/2017,02/10/2016,15:30,Salzburg,Sturm Graz,0,1,A,1.61,4.3,5.85,1.67,4.36,6,1.59,4.02,5.25
+Austria,Bundesliga,2016/2017,02/10/2016,18:00,Austria Vienna,St. Polten,2,1,H,1.5,4.6,7.02,1.56,4.65,7.02,1.49,4.25,6.16
+Austria,Bundesliga,2016/2017,15/10/2016,15:00,AC Wolfsberger,Salzburg,2,2,D,5.63,3.98,1.68,5.65,4.16,1.75,4.97,3.73,1.67
+Austria,Bundesliga,2016/2017,15/10/2016,17:30,Admira,St. Polten,1,1,D,2.14,3.48,3.69,2.28,3.48,3.69,2.13,3.29,3.36
+Austria,Bundesliga,2016/2017,15/10/2016,17:30,Rapid Vienna,Altach,1,1,D,1.47,4.69,7.62,1.48,4.86,8.32,1.42,4.39,7.21
+Austria,Bundesliga,2016/2017,15/10/2016,17:30,Sturm Graz,Ried,1,0,H,1.53,4.43,6.74,1.56,4.6,6.95,1.51,4.15,6.06
+Austria,Bundesliga,2016/2017,16/10/2016,15:30,Mattersburg,Austria Vienna,0,2,A,3.74,3.89,2,4,3.95,2.1,3.62,3.65,1.93
+Austria,Bundesliga,2016/2017,22/10/2016,15:00,Sturm Graz,Mattersburg,2,2,D,1.37,5.36,9.39,1.37,5.5,11,1.33,4.93,8.81
+Austria,Bundesliga,2016/2017,22/10/2016,17:30,Altach,Admira,2,0,H,1.8,3.78,4.89,1.82,4,5,1.75,3.62,4.54
+Austria,Bundesliga,2016/2017,22/10/2016,17:30,Ried,AC Wolfsberger,0,1,A,2.3,3.37,3.42,2.44,3.4,3.42,2.27,3.21,3.16
+Austria,Bundesliga,2016/2017,23/10/2016,13:00,St. Polten,Salzburg,1,5,A,8.6,5.34,1.39,8.6,5.34,1.42,7.63,4.79,1.37
+Austria,Bundesliga,2016/2017,23/10/2016,15:30,Rapid Vienna,Austria Vienna,0,2,A,1.91,3.78,4.21,1.94,3.97,4.36,1.85,3.65,3.94
+Austria,Bundesliga,2016/2017,29/10/2016,15:00,Admira,Rapid Vienna,1,2,A,5.07,4.03,1.72,5.7,4.16,1.76,4.8,3.84,1.67
+Austria,Bundesliga,2016/2017,29/10/2016,17:30,AC Wolfsberger,Mattersburg,3,0,H,1.92,3.66,4.36,1.94,3.7,4.7,1.86,3.47,4.09
+Austria,Bundesliga,2016/2017,29/10/2016,17:30,Salzburg,Ried,1,0,H,1.23,6.78,14.95,1.26,6.94,14.95,1.22,6.11,11.69
+Austria,Bundesliga,2016/2017,29/10/2016,17:30,St. Polten,Altach,0,1,A,3.2,3.58,2.31,3.32,3.58,2.38,3.12,3.29,2.25
+Austria,Bundesliga,2016/2017,30/10/2016,15:30,Austria Vienna,Sturm Graz,2,0,H,2.41,3.58,3.03,2.46,3.58,3.05,2.36,3.33,2.9
+Austria,Bundesliga,2016/2017,05/11/2016,15:00,Sturm Graz,St. Polten,1,2,A,1.35,5.5,9.88,1.35,5.7,10.9,1.31,5.04,9.23
+Austria,Bundesliga,2016/2017,05/11/2016,17:30,Ried,Admira,2,1,H,2.23,3.45,3.47,2.24,3.67,4.06,2.06,3.35,3.53
+Austria,Bundesliga,2016/2017,06/11/2016,13:00,Rapid Vienna,AC Wolfsberger,0,1,A,1.61,4.2,6.05,1.61,4.33,6.85,1.54,3.99,5.88
+Austria,Bundesliga,2016/2017,06/11/2016,15:30,Altach,Austria Vienna,5,1,H,2.58,3.26,3.03,2.8,3.4,3.03,2.49,3.18,2.81
+Austria,Bundesliga,2016/2017,06/11/2016,15:30,Mattersburg,Salzburg,2,1,H,10.2,6.33,1.3,10.5,6.33,1.4,9.08,5.32,1.3
+Austria,Bundesliga,2016/2017,19/11/2016,15:00,Altach,Sturm Graz,1,1,D,2.79,3.24,2.79,2.79,3.4,2.92,2.63,3.14,2.71
+Austria,Bundesliga,2016/2017,19/11/2016,17:30,Admira,AC Wolfsberger,4,1,H,2.76,3.27,2.81,2.86,3.4,2.84,2.64,3.16,2.68
+Austria,Bundesliga,2016/2017,19/11/2016,17:30,Austria Vienna,Ried,2,0,H,1.6,4.32,5.88,1.67,4.36,5.95,1.59,3.98,5.3
+Austria,Bundesliga,2016/2017,19/11/2016,17:30,St. Polten,Mattersburg,2,2,D,2.36,3.41,3.23,2.41,3.52,3.27,2.3,3.27,3.05
+Austria,Bundesliga,2016/2017,20/11/2016,15:30,Salzburg,Rapid Vienna,2,1,H,1.7,3.85,5.63,1.82,3.98,5.63,1.69,3.74,4.82
+Austria,Bundesliga,2016/2017,26/11/2016,15:00,Ried,St. Polten,1,2,A,1.99,3.53,4.18,2.04,3.57,4.33,1.94,3.36,3.93
+Austria,Bundesliga,2016/2017,26/11/2016,17:30,Mattersburg,Altach,1,2,A,3.16,3.46,2.38,3.27,3.46,2.52,3.06,3.24,2.32
+Austria,Bundesliga,2016/2017,27/11/2016,13:00,AC Wolfsberger,Austria Vienna,0,3,A,2.64,3.34,2.89,2.77,3.4,2.89,2.6,3.21,2.68
+Austria,Bundesliga,2016/2017,27/11/2016,15:30,Rapid Vienna,Sturm Graz,1,2,A,2.21,3.46,3.52,2.27,3.6,3.87,2.07,3.36,3.48
+Austria,Bundesliga,2016/2017,27/11/2016,15:30,Salzburg,Admira,0,1,A,1.23,7.3,12.98,1.24,7.7,14.36,1.21,6.44,11.83
+Austria,Bundesliga,2016/2017,29/11/2016,18:00,Altach,Ried,1,0,H,1.94,3.47,4.49,1.95,3.72,5.2,1.83,3.42,4.4
+Austria,Bundesliga,2016/2017,30/11/2016,19:30,Austria Vienna,Salzburg,1,3,A,4.94,4.31,1.69,5.4,4.34,1.9,4.83,3.97,1.65
+Austria,Bundesliga,2016/2017,30/11/2016,19:30,Mattersburg,Rapid Vienna,1,1,D,4.86,4.05,1.75,5.05,4.14,1.86,4.61,3.72,1.72
+Austria,Bundesliga,2016/2017,30/11/2016,19:30,St. Polten,AC Wolfsberger,0,4,A,2.48,3.47,2.99,2.52,3.47,3.17,2.39,3.22,2.95
+Austria,Bundesliga,2016/2017,30/11/2016,19:30,Sturm Graz,Admira,0,2,A,1.55,4.21,7.07,1.6,4.33,7.07,1.53,4.07,5.96
+Austria,Bundesliga,2016/2017,03/12/2016,15:00,Rapid Vienna,St. Polten,1,0,H,1.37,5.28,9.66,1.45,5.3,9.69,1.38,4.69,7.83
+Austria,Bundesliga,2016/2017,03/12/2016,17:30,Admira,Austria Vienna,0,2,A,3.06,3.64,2.37,3.15,3.66,2.42,2.95,3.41,2.29
+Austria,Bundesliga,2016/2017,03/12/2016,17:30,Ried,Mattersburg,2,1,H,2.07,3.49,3.92,2.23,3.6,3.92,2.05,3.36,3.57
+Austria,Bundesliga,2016/2017,03/12/2016,17:30,Salzburg,Altach,4,1,H,1.32,5.49,12.02,1.37,5.49,12.02,1.32,5.01,9.34
+Austria,Bundesliga,2016/2017,04/12/2016,15:30,AC Wolfsberger,Sturm Graz,0,4,A,3.53,3.44,2.21,3.53,3.45,2.42,3.22,3.24,2.23
+Austria,Bundesliga,2016/2017,10/12/2016,15:00,Altach,AC Wolfsberger,2,1,H,1.84,3.6,4.91,1.87,3.65,5.3,1.78,3.44,4.64
+Austria,Bundesliga,2016/2017,10/12/2016,17:30,Mattersburg,Admira,2,0,H,2.56,3.4,2.94,2.72,3.4,2.94,2.5,3.23,2.78
+Austria,Bundesliga,2016/2017,11/12/2016,13:00,Rapid Vienna,Ried,3,1,H,1.48,4.5,7.9,1.5,4.65,8.12,1.45,4.27,7.01
+Austria,Bundesliga,2016/2017,11/12/2016,15:30,Sturm Graz,Salzburg,0,1,A,4.01,3.62,2,4.01,3.67,2.08,3.73,3.43,1.96
+Austria,Bundesliga,2016/2017,12/12/2016,15:30,St. Polten,Austria Vienna,2,1,H,3.62,3.86,2.04,3.75,3.86,2.1,3.49,3.53,2
+Austria,Bundesliga,2016/2017,17/12/2016,15:00,Ried,Sturm Graz,0,3,A,4.21,3.4,2.03,4.25,3.47,2.1,3.79,3.28,2
+Austria,Bundesliga,2016/2017,17/12/2016,17:30,Austria Vienna,Mattersburg,2,0,H,1.66,4.15,5.52,1.69,4.36,5.55,1.62,3.98,5.03
+Austria,Bundesliga,2016/2017,17/12/2016,17:30,Salzburg,AC Wolfsberger,3,0,H,1.21,7.5,15.81,1.22,7.73,17.83,1.19,6.58,13.77
+Austria,Bundesliga,2016/2017,17/12/2016,17:30,St. Polten,Admira,2,2,D,3.09,3.34,2.48,3.09,3.39,2.65,2.89,3.23,2.42
+Austria,Bundesliga,2016/2017,18/12/2016,15:30,Altach,Rapid Vienna,3,1,H,2.92,3.39,2.58,2.98,3.39,2.76,2.77,3.2,2.53
+Austria,Bundesliga,2016/2017,11/02/2017,15:00,Admira,Altach,1,1,D,3.01,3.32,2.56,3.01,3.32,3.01,2.55,3.19,2.76
+Austria,Bundesliga,2016/2017,11/02/2017,17:30,AC Wolfsberger,Ried,1,0,H,2.01,3.48,4.17,2.13,3.5,4.17,2.03,3.26,3.69
+Austria,Bundesliga,2016/2017,11/02/2017,17:30,Mattersburg,Sturm Graz,1,0,H,4.1,3.59,1.99,4.1,3.59,2.06,3.72,3.39,1.97
+Austria,Bundesliga,2016/2017,11/02/2017,17:30,Salzburg,St. Polten,2,0,H,1.13,9.7,25,1.17,9.99,28,1.12,8.31,20.4
+Austria,Bundesliga,2016/2017,12/02/2017,15:30,Austria Vienna,Rapid Vienna,1,1,D,2.76,3.54,2.63,3.1,3.54,2.63,2.85,3.26,2.43
+Austria,Bundesliga,2016/2017,18/02/2017,15:00,Sturm Graz,Austria Vienna,0,4,A,2.17,3.49,3.59,2.25,3.5,3.75,2.15,3.33,3.31
+Austria,Bundesliga,2016/2017,18/02/2017,17:30,Altach,St. Polten,1,2,A,1.68,3.97,5.59,1.72,4.14,6.1,1.62,3.78,5.38
+Austria,Bundesliga,2016/2017,18/02/2017,17:30,Mattersburg,AC Wolfsberger,2,1,H,2.3,3.31,3.48,2.4,3.31,3.48,2.27,3.17,3.21
+Austria,Bundesliga,2016/2017,18/02/2017,17:30,Rapid Vienna,Admira,0,0,D,1.52,4.4,7.18,1.54,4.4,7.3,1.49,4.17,6.44
+Austria,Bundesliga,2016/2017,19/02/2017,15:30,Ried,Salzburg,1,6,A,9.71,5.28,1.36,11,5.69,1.45,9.05,4.98,1.32
+Austria,Bundesliga,2016/2017,25/02/2017,15:00,AC Wolfsberger,Rapid Vienna,2,1,H,4.09,3.39,2.06,4.46,3.52,2.1,3.92,3.29,1.97
+Austria,Bundesliga,2016/2017,25/02/2017,17:30,Admira,Ried,1,0,H,2.08,3.43,3.95,2.1,3.6,4.16,2,3.31,3.78
+Austria,Bundesliga,2016/2017,25/02/2017,17:30,Austria Vienna,Altach,1,3,A,1.82,3.74,4.81,1.85,3.82,5.4,1.77,3.62,4.44
+Austria,Bundesliga,2016/2017,25/02/2017,17:30,Salzburg,Mattersburg,1,0,H,1.21,7.3,15.8,1.23,7.6,16,1.2,6.43,13.14
+Austria,Bundesliga,2016/2017,26/02/2017,15:30,St. Polten,Sturm Graz,2,1,H,3.95,3.63,2.01,3.95,3.63,2.2,3.69,3.41,1.98
+Austria,Bundesliga,2016/2017,04/03/2017,15:00,Sturm Graz,Altach,3,0,H,2.06,3.45,4.01,2.06,3.64,4.36,1.93,3.4,3.92
+Austria,Bundesliga,2016/2017,04/03/2017,17:30,AC Wolfsberger,Admira,1,1,D,2.38,3.21,3.4,2.4,3.22,3.48,2.29,3.11,3.21
+Austria,Bundesliga,2016/2017,04/03/2017,17:30,Mattersburg,St. Polten,1,0,H,1.85,3.71,4.61,2,3.74,4.75,1.84,3.48,4.23
+Austria,Bundesliga,2016/2017,04/03/2017,17:30,Ried,Austria Vienna,0,3,A,3.59,3.62,2.13,4,3.72,2.19,3.54,3.42,2.03
+Austria,Bundesliga,2016/2017,05/03/2017,15:30,Rapid Vienna,Salzburg,0,1,A,3.92,3.54,2.05,4,3.62,2.2,3.6,3.37,2.02
+Austria,Bundesliga,2016/2017,11/03/2017,15:00,St. Polten,Ried,1,0,H,2.34,3.33,3.36,2.4,3.4,3.36,2.28,3.22,3.14
+Austria,Bundesliga,2016/2017,11/03/2017,17:30,Admira,Salzburg,1,1,D,7.91,4.9,1.44,8.92,5,1.47,7.57,4.55,1.4
+Austria,Bundesliga,2016/2017,11/03/2017,17:30,Altach,Mattersburg,3,0,H,2.2,3.33,3.7,2.22,3.5,3.92,2.09,3.25,3.56
+Austria,Bundesliga,2016/2017,11/03/2017,17:30,Austria Vienna,AC Wolfsberger,3,0,H,1.54,4.43,6.67,1.65,4.45,7.1,1.52,4.15,5.98
+Austria,Bundesliga,2016/2017,12/03/2017,15:30,Sturm Graz,Rapid Vienna,2,1,H,2.81,3.33,2.7,2.82,3.35,2.8,2.64,3.2,2.64
+Austria,Bundesliga,2016/2017,18/03/2017,15:00,Rapid Vienna,Mattersburg,1,1,D,1.47,4.48,8.32,1.54,4.5,8.32,1.47,4.19,6.87
+Austria,Bundesliga,2016/2017,18/03/2017,17:30,AC Wolfsberger,St. Polten,1,0,H,2.12,3.46,3.78,2.16,3.46,3.82,2.08,3.28,3.56
+Austria,Bundesliga,2016/2017,18/03/2017,17:30,Admira,Sturm Graz,1,0,H,3.25,3.36,2.39,3.25,3.36,2.56,3.05,3.2,2.34
+Austria,Bundesliga,2016/2017,18/03/2017,17:30,Ried,Altach,2,0,H,2.93,3.22,2.68,2.96,3.4,2.78,2.8,3.09,2.59
+Austria,Bundesliga,2016/2017,19/03/2017,15:30,Salzburg,Austria Vienna,5,0,H,1.42,5.02,8.13,1.45,5.02,8.32,1.4,4.66,7.14
+Austria,Bundesliga,2016/2017,01/04/2017,15:00,St. Polten,Rapid Vienna,1,1,D,5.36,4.08,1.68,5.66,4.08,1.8,5.16,3.75,1.65
+Austria,Bundesliga,2016/2017,01/04/2017,17:30,Austria Vienna,Admira,0,2,A,1.63,4.28,5.59,1.67,4.28,6,1.59,3.97,5.37
+Austria,Bundesliga,2016/2017,01/04/2017,17:30,Mattersburg,Ried,2,1,H,2.12,3.54,3.7,2.12,3.54,4.06,2.02,3.3,3.72
+Austria,Bundesliga,2016/2017,01/04/2017,17:30,Sturm Graz,AC Wolfsberger,4,0,H,1.89,3.51,4.66,1.91,3.7,5.4,1.81,3.43,4.51
+Austria,Bundesliga,2016/2017,02/04/2017,15:30,Altach,Salzburg,0,5,A,6.08,4.01,1.64,6.34,4.01,1.68,5.71,3.78,1.6
+Austria,Bundesliga,2016/2017,08/04/2017,15:00,Ried,Rapid Vienna,3,0,H,4.51,3.69,1.88,4.55,3.72,1.95,4.14,3.45,1.87
+Austria,Bundesliga,2016/2017,08/04/2017,17:30,AC Wolfsberger,Altach,0,0,D,2.93,3.13,2.75,2.93,3.3,2.9,2.72,3.05,2.69
+Austria,Bundesliga,2016/2017,08/04/2017,17:30,Admira,Mattersburg,0,2,A,2.27,3.44,3.42,2.34,3.44,3.47,2.22,3.24,3.25
+Austria,Bundesliga,2016/2017,08/04/2017,17:30,Austria Vienna,St. Polten,1,2,A,1.42,5.01,8.4,1.52,5.01,8.4,1.44,4.39,6.96
+Austria,Bundesliga,2016/2017,09/04/2017,15:30,Salzburg,Sturm Graz,1,0,H,1.32,5.56,11.6,1.39,5.56,11.6,1.34,4.76,8.96
+Austria,Bundesliga,2016/2017,15/04/2017,15:00,AC Wolfsberger,Salzburg,0,2,A,8.2,4.62,1.46,8.5,4.8,1.48,7.64,4.31,1.42
+Austria,Bundesliga,2016/2017,15/04/2017,17:30,Admira,St. Polten,2,0,H,2.62,3.47,2.82,2.62,3.47,3.4,2.46,3.31,2.81
+Austria,Bundesliga,2016/2017,15/04/2017,17:30,Rapid Vienna,Altach,3,0,H,1.69,3.83,5.83,1.73,3.95,5.9,1.67,3.66,5.19
+Austria,Bundesliga,2016/2017,15/04/2017,17:30,Sturm Graz,Ried,1,0,H,1.61,4.17,6.1,1.7,4.25,6.5,1.59,3.86,5.64
+Austria,Bundesliga,2016/2017,16/04/2017,14:00,Mattersburg,Austria Vienna,0,3,A,3.42,3.42,2.27,3.42,3.49,2.4,3.09,3.3,2.27
+Austria,Bundesliga,2016/2017,22/04/2017,15:00,Sturm Graz,Mattersburg,0,2,A,1.88,3.61,4.64,1.89,3.9,5.6,1.82,3.51,4.35
+Austria,Bundesliga,2016/2017,22/04/2017,17:30,Altach,Admira,0,0,D,1.63,3.86,6.55,1.75,3.9,6.7,1.61,3.68,5.79
+Austria,Bundesliga,2016/2017,22/04/2017,17:30,Ried,AC Wolfsberger,1,1,D,2.19,3.36,3.76,2.2,3.4,3.85,2.11,3.23,3.55
+Austria,Bundesliga,2016/2017,22/04/2017,17:30,St. Polten,Salzburg,1,2,A,10.79,5.39,1.34,11,5.5,1.36,9.71,4.96,1.32
+Austria,Bundesliga,2016/2017,23/04/2017,15:30,Rapid Vienna,Austria Vienna,0,2,A,1.95,3.56,4.29,2.1,3.6,4.4,1.94,3.45,3.85
+Austria,Bundesliga,2016/2017,29/04/2017,15:00,Austria Vienna,Sturm Graz,4,1,H,2.12,3.36,3.92,2.16,3.4,3.92,2.07,3.26,3.6
+Austria,Bundesliga,2016/2017,29/04/2017,17:30,AC Wolfsberger,Mattersburg,2,2,D,2.73,3.28,2.82,2.73,3.4,3,2.59,3.14,2.76
+Austria,Bundesliga,2016/2017,29/04/2017,17:30,Salzburg,Ried,1,1,D,1.23,6.78,15.38,1.24,7.1,17,1.21,6.22,13.3
+Austria,Bundesliga,2016/2017,29/04/2017,17:30,St. Polten,Altach,3,3,D,2.96,3.3,2.6,2.96,3.3,2.74,2.8,3.16,2.54
+Austria,Bundesliga,2016/2017,30/04/2017,15:30,Admira,Rapid Vienna,3,2,H,4.65,3.77,1.83,4.67,3.78,1.86,4.35,3.57,1.8
+Austria,Bundesliga,2016/2017,06/05/2017,15:00,Mattersburg,Salzburg,2,1,H,6.21,4.48,1.56,7,4.48,1.59,5.93,4.09,1.53
+Austria,Bundesliga,2016/2017,06/05/2017,17:30,Rapid Vienna,AC Wolfsberger,4,0,H,1.64,4.04,5.9,1.65,4.3,6.89,1.58,3.9,5.84
+Austria,Bundesliga,2016/2017,06/05/2017,17:30,Ried,Admira,1,0,H,1.97,3.63,4.12,2,3.63,4.33,1.93,3.4,3.93
+Austria,Bundesliga,2016/2017,06/05/2017,17:30,Sturm Graz,St. Polten,3,2,H,1.71,3.98,5.29,1.71,4.1,5.6,1.66,3.81,5.06
+Austria,Bundesliga,2016/2017,07/05/2017,15:30,Altach,Austria Vienna,1,1,D,3.29,3.3,2.39,3.3,3.3,2.55,2.99,3.19,2.4
+Austria,Bundesliga,2016/2017,13/05/2017,15:00,Salzburg,Rapid Vienna,1,0,H,1.48,4.51,7.91,1.65,4.51,7.91,1.47,4.19,6.84
+Austria,Bundesliga,2016/2017,13/05/2017,17:30,Admira,AC Wolfsberger,3,2,H,2.14,3.39,3.8,2.5,3.39,3.8,2.18,3.22,3.36
+Austria,Bundesliga,2016/2017,13/05/2017,17:30,Austria Vienna,Ried,3,0,H,1.7,4.06,5.19,1.75,4.06,5.25,1.68,3.81,4.84
+Austria,Bundesliga,2016/2017,13/05/2017,17:30,St. Polten,Mattersburg,1,0,H,3.09,3.29,2.51,3.1,3.3,2.8,2.82,3.15,2.54
+Austria,Bundesliga,2016/2017,14/05/2017,15:30,Altach,Sturm Graz,1,2,A,2.47,3.27,3.17,2.6,3.35,3.26,2.4,3.13,3.02
+Austria,Bundesliga,2016/2017,20/05/2017,15:00,Ried,St. Polten,1,1,D,2.05,3.53,3.92,2.1,3.64,4.05,1.99,3.39,3.66
+Austria,Bundesliga,2016/2017,20/05/2017,17:30,AC Wolfsberger,Austria Vienna,2,1,H,3.9,3.89,1.95,4.2,3.94,2,3.81,3.65,1.89
+Austria,Bundesliga,2016/2017,20/05/2017,17:30,Mattersburg,Altach,1,0,H,2.33,3.41,3.31,2.4,3.44,3.31,2.26,3.25,3.16
+Austria,Bundesliga,2016/2017,20/05/2017,17:30,Salzburg,Admira,2,0,H,1.32,5.91,10.01,1.34,6.5,11,1.3,5.38,9.22
+Austria,Bundesliga,2016/2017,21/05/2017,15:30,Rapid Vienna,Sturm Graz,1,0,H,1.88,3.7,4.44,2.1,3.71,4.44,1.9,3.5,3.94
+Austria,Bundesliga,2016/2017,25/05/2017,15:30,Altach,Ried,0,2,A,2.15,3.75,3.4,2.16,3.8,3.53,2.09,3.51,3.28
+Austria,Bundesliga,2016/2017,25/05/2017,15:30,Austria Vienna,Salzburg,2,3,A,4,4.01,1.9,4.1,4.01,2.12,3.86,3.65,1.88
+Austria,Bundesliga,2016/2017,25/05/2017,15:30,Mattersburg,Rapid Vienna,1,3,A,2.82,3.53,2.59,3.43,3.55,2.75,2.68,3.37,2.51
+Austria,Bundesliga,2016/2017,25/05/2017,15:30,St. Polten,AC Wolfsberger,1,1,D,2.32,3.2,3.54,2.37,3.4,3.54,2.23,3.18,3.28
+Austria,Bundesliga,2016/2017,25/05/2017,15:30,Sturm Graz,Admira,2,1,H,1.65,4.41,5.22,1.65,4.41,6.1,1.6,4.09,5.14
+Austria,Bundesliga,2016/2017,28/05/2017,15:30,AC Wolfsberger,Sturm Graz,1,0,H,4.48,4.18,1.78,4.48,4.35,1.81,4.22,3.88,1.74
+Austria,Bundesliga,2016/2017,28/05/2017,15:30,Admira,Austria Vienna,1,6,A,3.41,3.96,2.08,4,3.98,2.08,3.33,3.67,2.01
+Austria,Bundesliga,2016/2017,28/05/2017,15:30,Rapid Vienna,St. Polten,2,1,H,2.29,3.34,3.44,2.4,3.46,3.46,2.24,3.26,3.17
+Austria,Bundesliga,2016/2017,28/05/2017,15:30,Ried,Mattersburg,2,3,A,1.69,4.24,5.01,1.73,4.5,7,1.67,3.98,4.67
+Austria,Bundesliga,2016/2017,28/05/2017,15:30,Salzburg,Altach,1,0,H,1.31,6.23,9.89,1.31,6.3,10.5,1.29,5.6,9.05
+Austria,Bundesliga,2017/2018,22/07/2017,15:00,Rapid Vienna,Mattersburg,2,2,D,1.68,4.09,5.34,1.69,4.45,7,1.61,3.91,5.34
+Austria,Bundesliga,2017/2018,22/07/2017,17:30,AC Wolfsberger,Salzburg,0,2,A,8.13,4.27,1.5,8.13,4.51,1.65,7.08,4.15,1.46
+Austria,Bundesliga,2017/2018,22/07/2017,17:30,LASK Linz,Admira,3,0,H,2,3.6,4.04,2.02,3.62,4.05,1.95,3.44,3.79
+Austria,Bundesliga,2017/2018,23/07/2017,15:30,Altach,Austria Vienna,3,0,H,2.97,3.26,2.58,3.15,3.4,2.6,2.91,3.24,2.41
+Austria,Bundesliga,2017/2018,23/07/2017,18:00,Sturm Graz,St. Polten,3,2,H,1.76,3.7,5.39,1.87,3.84,5.7,1.76,3.54,4.71
+Austria,Bundesliga,2017/2018,29/07/2017,15:00,Salzburg,LASK Linz,1,1,D,1.47,4.6,8.03,1.55,4.6,8.35,1.44,4.29,7.3
+Austria,Bundesliga,2017/2018,29/07/2017,17:30,Mattersburg,AC Wolfsberger,1,0,H,1.99,3.49,4.21,2.1,3.5,4.25,1.96,3.33,3.92
+Austria,Bundesliga,2017/2018,29/07/2017,17:30,St. Polten,Rapid Vienna,1,4,A,4.02,3.9,1.92,4.02,3.9,2,3.77,3.6,1.91
+Austria,Bundesliga,2017/2018,30/07/2017,15:00,Austria Vienna,Sturm Graz,2,3,A,2,3.72,3.89,2.2,3.76,4,1.98,3.52,3.6
+Austria,Bundesliga,2017/2018,30/07/2017,17:30,Admira,Altach,4,1,H,2.32,3.31,3.44,2.45,3.4,3.5,2.25,3.22,3.23
+Austria,Bundesliga,2017/2018,05/08/2017,15:00,LASK Linz,St. Polten,2,0,H,1.74,4.02,4.98,1.74,4.1,6.25,1.67,3.83,4.91
+Austria,Bundesliga,2017/2018,05/08/2017,17:30,Salzburg,Admira,5,1,H,1.38,5.39,8.62,1.4,5.5,9.5,1.36,4.83,8.25
+Austria,Bundesliga,2017/2018,06/08/2017,15:30,AC Wolfsberger,Altach,1,0,H,2.77,3.25,2.81,2.83,3.3,2.9,2.64,3.1,2.73
+Austria,Bundesliga,2017/2018,06/08/2017,15:30,Rapid Vienna,Austria Vienna,2,2,D,1.92,3.86,4.08,1.96,3.92,4.14,1.88,3.68,3.83
+Austria,Bundesliga,2017/2018,06/08/2017,18:00,Mattersburg,Sturm Graz,2,3,A,2.45,3.38,3.11,2.65,3.48,3.25,2.4,3.26,2.91
+Austria,Bundesliga,2017/2018,12/08/2017,15:00,Altach,Salzburg,0,1,A,7.01,4.29,1.54,7.6,4.39,1.63,6.63,4.06,1.5
+Austria,Bundesliga,2017/2018,12/08/2017,17:30,Austria Vienna,LASK Linz,2,0,H,2.24,3.68,3.26,2.24,3.7,3.6,2.09,3.49,3.32
+Austria,Bundesliga,2017/2018,12/08/2017,17:30,St. Polten,Mattersburg,0,0,D,2.69,3.5,2.72,2.84,3.52,2.72,2.69,3.3,2.55
+Austria,Bundesliga,2017/2018,12/08/2017,17:30,Sturm Graz,AC Wolfsberger,2,1,H,1.67,3.9,5.93,1.75,3.95,6.1,1.65,3.73,5.31
+Austria,Bundesliga,2017/2018,13/08/2017,15:30,Admira,Rapid Vienna,3,1,H,4.14,4,1.88,4.2,4,2,4.02,3.72,1.82
+Austria,Bundesliga,2017/2018,19/08/2017,15:00,Rapid Vienna,Sturm Graz,1,2,A,1.99,3.8,3.86,2.2,3.95,3.9,1.95,3.64,3.61
+Austria,Bundesliga,2017/2018,19/08/2017,17:30,AC Wolfsberger,Admira,2,0,H,2.64,3.38,2.86,2.68,3.38,3.1,2.53,3.18,2.81
+Austria,Bundesliga,2017/2018,20/08/2017,15:30,LASK Linz,Altach,0,0,D,2.02,3.52,4.05,2.06,3.6,4.5,1.94,3.4,3.88
+Austria,Bundesliga,2017/2018,20/08/2017,15:30,Salzburg,St. Polten,5,1,H,1.31,6.06,10.64,1.33,6.06,13,1.29,5.39,9.65
+Austria,Bundesliga,2017/2018,20/08/2017,18:00,Mattersburg,Austria Vienna,1,3,A,2.56,3.58,2.82,2.65,3.66,2.84,2.45,3.44,2.72
+Austria,Bundesliga,2017/2018,26/08/2017,15:00,AC Wolfsberger,St. Polten,2,1,H,2.26,3.36,3.52,2.26,3.45,3.8,2.15,3.29,3.38
+Austria,Bundesliga,2017/2018,26/08/2017,17:30,Rapid Vienna,LASK Linz,1,0,H,1.84,3.73,4.69,1.9,3.92,4.75,1.82,3.59,4.24
+Austria,Bundesliga,2017/2018,27/08/2017,15:30,Altach,Mattersburg,1,0,H,2.15,3.39,3.77,2.27,3.39,3.77,2.17,3.22,3.39
+Austria,Bundesliga,2017/2018,27/08/2017,15:30,Sturm Graz,Salzburg,1,0,H,3.9,3.83,1.97,4.5,3.83,2,3.87,3.53,1.91
+Austria,Bundesliga,2017/2018,27/08/2017,18:00,Admira,Austria Vienna,1,3,A,3.07,3.77,2.31,3.6,3.77,2.32,3.05,3.48,2.22
+Austria,Bundesliga,2017/2018,09/09/2017,15:00,LASK Linz,Sturm Graz,2,1,H,2.77,3.25,2.81,2.9,3.36,2.81,2.68,3.2,2.62
+Austria,Bundesliga,2017/2018,09/09/2017,17:30,Austria Vienna,AC Wolfsberger,2,2,D,1.83,3.94,4.5,1.87,4,5.5,1.81,3.69,4.17
+Austria,Bundesliga,2017/2018,09/09/2017,17:30,Mattersburg,Admira,0,5,A,2.11,3.64,3.63,2.2,3.65,3.71,2.05,3.44,3.47
+Austria,Bundesliga,2017/2018,09/09/2017,17:30,St. Polten,Altach,1,2,A,2.6,3.36,2.92,2.74,3.36,2.92,2.59,3.2,2.72
+Austria,Bundesliga,2017/2018,10/09/2017,15:30,Salzburg,Rapid Vienna,2,2,D,1.63,4.12,5.95,1.65,4.12,5.95,1.62,3.88,5.26
+Austria,Bundesliga,2017/2018,16/09/2017,15:00,Altach,Rapid Vienna,2,2,D,3.51,3.33,2.28,3.54,3.4,2.36,3.24,3.28,2.22
+Austria,Bundesliga,2017/2018,16/09/2017,17:30,AC Wolfsberger,LASK Linz,0,0,D,2.84,3.21,2.77,2.85,3.3,2.86,2.66,3.08,2.74
+Austria,Bundesliga,2017/2018,16/09/2017,17:30,Admira,Sturm Graz,2,1,H,3.34,3.67,2.21,3.34,3.7,2.38,3.04,3.45,2.25
+Austria,Bundesliga,2017/2018,17/09/2017,15:30,Mattersburg,Salzburg,1,2,A,5.93,4.19,1.62,6.01,4.2,1.64,5.48,3.95,1.59
+Austria,Bundesliga,2017/2018,17/09/2017,18:00,Austria Vienna,St. Polten,5,1,H,1.67,4.32,5.14,1.7,4.5,5.4,1.64,4.09,4.76
+Austria,Bundesliga,2017/2018,23/09/2017,15:00,Rapid Vienna,AC Wolfsberger,4,2,H,1.49,4.72,7.11,1.6,4.72,7.11,1.48,4.3,6.4
+Austria,Bundesliga,2017/2018,23/09/2017,17:30,LASK Linz,Mattersburg,2,2,D,1.9,3.52,4.65,1.96,3.6,4.77,1.86,3.35,4.38
+Austria,Bundesliga,2017/2018,23/09/2017,17:30,St. Polten,Admira,1,1,D,3.03,3.44,2.47,3.03,3.51,2.57,2.87,3.36,2.39
+Austria,Bundesliga,2017/2018,23/09/2017,17:30,Sturm Graz,Altach,0,0,D,1.62,4.21,5.93,1.75,4.21,6.5,1.58,3.96,5.59
+Austria,Bundesliga,2017/2018,24/09/2017,15:30,Salzburg,Austria Vienna,0,0,D,1.28,6.48,11.41,1.5,6.48,11.41,1.29,5.66,9.25
+Austria,Bundesliga,2017/2018,30/09/2017,15:00,St. Polten,Sturm Graz,0,3,A,3.97,3.62,2.01,4.01,3.69,2.01,3.68,3.56,1.95
+Austria,Bundesliga,2017/2018,30/09/2017,17:30,Admira,LASK Linz,4,2,H,3.51,3.5,2.2,3.51,3.55,2.4,3.3,3.3,2.19
+Austria,Bundesliga,2017/2018,30/09/2017,17:30,Mattersburg,Rapid Vienna,0,1,A,4.33,3.78,1.88,4.8,3.86,1.95,4.14,3.59,1.84
+Austria,Bundesliga,2017/2018,01/10/2017,15:30,Austria Vienna,Altach,2,0,H,2.35,3.48,3.2,2.37,3.6,4.2,2.24,3.45,3.06
+Austria,Bundesliga,2017/2018,01/10/2017,18:00,Salzburg,AC Wolfsberger,2,1,H,1.26,6.44,13.42,1.27,6.5,14,1.24,5.8,12.11
+Austria,Bundesliga,2017/2018,14/10/2017,15:00,LASK Linz,Salzburg,1,3,A,5.37,3.98,1.7,5.37,3.98,1.8,4.74,3.66,1.72
+Austria,Bundesliga,2017/2018,14/10/2017,17:30,AC Wolfsberger,Mattersburg,2,2,D,2.48,3.36,3.08,2.52,3.4,3.3,2.38,3.18,3.01
+Austria,Bundesliga,2017/2018,14/10/2017,17:30,Altach,Admira,2,2,D,1.96,3.86,3.92,2.1,3.9,3.98,1.97,3.57,3.59
+Austria,Bundesliga,2017/2018,14/10/2017,17:30,Rapid Vienna,St. Polten,1,0,H,1.4,5.67,7.87,1.41,6,9.25,1.35,5.18,7.77
+Austria,Bundesliga,2017/2018,15/10/2017,15:30,Sturm Graz,Austria Vienna,3,0,H,1.81,4.08,4.43,2.1,4.2,4.62,1.75,3.9,4.23
+Austria,Bundesliga,2017/2018,21/10/2017,15:00,Sturm Graz,Mattersburg,3,2,H,1.71,3.9,5.43,1.71,4.3,6.1,1.65,3.85,5.06
+Austria,Bundesliga,2017/2018,21/10/2017,17:30,Altach,AC Wolfsberger,3,2,H,2,3.61,4.03,2.05,3.61,4.35,1.92,3.43,3.95
+Austria,Bundesliga,2017/2018,21/10/2017,17:30,St. Polten,LASK Linz,0,1,A,3.46,3.5,2.21,3.46,3.5,2.31,3.26,3.3,2.19
+Austria,Bundesliga,2017/2018,22/10/2017,13:00,Admira,Salzburg,1,1,D,6.89,5.32,1.44,7.15,5.32,1.6,6.53,4.8,1.42
+Austria,Bundesliga,2017/2018,22/10/2017,15:30,Austria Vienna,Rapid Vienna,0,1,A,3.97,4.02,1.9,4.2,4.05,2.2,3.87,3.77,1.84
+Austria,Bundesliga,2017/2018,28/10/2017,15:00,Rapid Vienna,Admira,1,0,H,1.6,4.54,5.55,1.61,5,7.15,1.55,4.22,5.38
+Austria,Bundesliga,2017/2018,28/10/2017,17:30,LASK Linz,Austria Vienna,2,2,D,2,3.83,3.78,2.2,3.83,3.88,1.97,3.58,3.55
+Austria,Bundesliga,2017/2018,28/10/2017,17:30,Mattersburg,St. Polten,1,1,D,1.93,3.7,4.24,1.95,3.7,4.25,1.89,3.53,3.95
+Austria,Bundesliga,2017/2018,28/10/2017,17:30,Salzburg,Altach,2,0,H,1.26,6.47,13.47,1.3,6.5,13.82,1.24,5.87,11.75
+Austria,Bundesliga,2017/2018,29/10/2017,15:30,AC Wolfsberger,Sturm Graz,0,2,A,4.77,3.77,1.82,4.77,3.82,2,4.35,3.59,1.8
+Austria,Bundesliga,2017/2018,04/11/2017,15:00,Sturm Graz,Rapid Vienna,0,0,D,2.7,3.46,2.73,2.7,3.55,2.93,2.57,3.3,2.68
+Austria,Bundesliga,2017/2018,04/11/2017,17:30,Admira,AC Wolfsberger,0,0,D,1.89,3.79,4.27,2,3.95,4.27,1.87,3.64,3.92
+Austria,Bundesliga,2017/2018,04/11/2017,17:30,Altach,LASK Linz,2,4,A,2.62,3.34,2.9,2.65,3.39,2.91,2.54,3.19,2.78
+Austria,Bundesliga,2017/2018,05/11/2017,13:00,Austria Vienna,Mattersburg,1,3,A,2.03,3.83,3.69,2.06,3.94,4,1.99,3.6,3.49
+Austria,Bundesliga,2017/2018,05/11/2017,15:30,St. Polten,Salzburg,1,3,A,9.3,5.22,1.38,13,6,1.39,8.47,4.94,1.35
+Austria,Bundesliga,2017/2018,18/11/2017,15:00,LASK Linz,Rapid Vienna,1,2,A,2.91,3.34,2.62,3.23,3.37,2.67,2.83,3.21,2.49
+Austria,Bundesliga,2017/2018,18/11/2017,17:30,Austria Vienna,Admira,2,3,A,2.16,3.86,3.29,2.26,3.86,3.6,2.12,3.62,3.15
+Austria,Bundesliga,2017/2018,18/11/2017,17:30,Mattersburg,Altach,1,0,H,2.29,3.37,3.42,2.29,3.4,3.6,2.21,3.24,3.27
+Austria,Bundesliga,2017/2018,18/11/2017,17:30,St. Polten,AC Wolfsberger,0,0,D,2.93,3.31,2.62,2.93,3.4,2.8,2.71,3.19,2.61
+Austria,Bundesliga,2017/2018,19/11/2017,15:30,Salzburg,Sturm Graz,5,0,H,1.58,4.26,6.35,1.62,4.26,6.5,1.56,3.98,5.74
+Austria,Bundesliga,2017/2018,25/11/2017,15:00,Sturm Graz,LASK Linz,1,0,H,2.03,3.46,4.11,2.1,3.5,4.11,2,3.34,3.76
+Austria,Bundesliga,2017/2018,25/11/2017,17:30,Admira,Mattersburg,2,0,H,2.47,3.65,2.89,2.54,3.65,3.6,2.38,3.43,2.83
+Austria,Bundesliga,2017/2018,25/11/2017,17:30,Altach,St. Polten,3,0,H,1.73,3.91,5.25,1.8,3.91,5.25,1.73,3.68,4.63
+Austria,Bundesliga,2017/2018,26/11/2017,13:00,AC Wolfsberger,Austria Vienna,1,2,A,2.46,3.62,2.92,2.46,3.62,2.93,2.36,3.42,2.8
+Austria,Bundesliga,2017/2018,26/11/2017,15:30,Rapid Vienna,Salzburg,2,3,A,2.79,3.42,2.68,2.9,3.42,2.71,2.69,3.24,2.57
+Austria,Bundesliga,2017/2018,28/11/2017,18:00,Sturm Graz,Admira,6,1,H,1.62,4.2,5.9,1.75,4.55,6,1.6,3.98,5.3
+Austria,Bundesliga,2017/2018,29/11/2017,17:30,LASK Linz,AC Wolfsberger,2,0,H,1.66,3.93,5.92,1.76,3.93,5.92,1.67,3.68,5.14
+Austria,Bundesliga,2017/2018,29/11/2017,17:30,Salzburg,Mattersburg,2,0,H,1.25,6.56,13.56,1.26,6.9,14.3,1.23,6.06,11.5
+Austria,Bundesliga,2017/2018,29/11/2017,17:30,St. Polten,Austria Vienna,1,0,H,3.06,3.67,2.35,3.3,3.7,2.35,3.04,3.49,2.23
+Austria,Bundesliga,2017/2018,29/11/2017,19:30,Rapid Vienna,Altach,1,2,A,1.47,4.63,7.81,1.5,4.63,7.81,1.47,4.27,6.65
+Austria,Bundesliga,2017/2018,02/12/2017,15:00,AC Wolfsberger,Rapid Vienna,0,0,D,4.76,3.72,1.83,4.76,3.79,2,4.39,3.48,1.82
+Austria,Bundesliga,2017/2018,02/12/2017,17:30,Admira,St. Polten,1,0,H,1.93,3.76,4.17,1.93,3.81,4.3,1.87,3.58,3.96
+Austria,Bundesliga,2017/2018,02/12/2017,17:30,Altach,Sturm Graz,1,2,A,3.5,3.37,2.26,3.6,3.5,2.29,3.3,3.28,2.18
+Austria,Bundesliga,2017/2018,02/12/2017,17:30,Mattersburg,LASK Linz,1,0,H,3.19,3.39,2.4,3.19,3.4,2.6,2.9,3.2,2.45
+Austria,Bundesliga,2017/2018,03/12/2017,15:30,Austria Vienna,Salzburg,1,1,D,8.39,5.7,1.37,9.36,5.8,1.65,8.1,5.14,1.34
+Austria,Bundesliga,2017/2018,09/12/2017,15:00,Rapid Vienna,Mattersburg,2,2,D,1.55,4.39,6.55,1.6,4.4,6.55,1.53,4.12,5.82
+Austria,Bundesliga,2017/2018,09/12/2017,17:30,LASK Linz,Admira,2,1,H,1.71,4.01,5.19,1.75,4.04,5.2,1.69,3.76,4.79
+Austria,Bundesliga,2017/2018,09/12/2017,17:30,Sturm Graz,St. Polten,3,2,H,1.39,5.05,9.38,1.43,5.1,9.9,1.37,4.77,8.03
+Austria,Bundesliga,2017/2018,10/12/2017,13:00,Altach,Austria Vienna,1,0,H,2.23,3.55,3.39,2.4,3.6,3.39,2.21,3.42,3.13
+Austria,Bundesliga,2017/2018,10/12/2017,15:30,AC Wolfsberger,Salzburg,0,0,D,7.05,4.32,1.53,7.65,4.5,1.53,6.65,4.15,1.48
+Austria,Bundesliga,2017/2018,16/12/2017,15:00,Salzburg,LASK Linz,0,0,D,1.38,5.03,9.93,1.4,5.2,11,1.35,4.78,8.97
+Austria,Bundesliga,2017/2018,16/12/2017,17:30,Admira,Altach,3,1,H,2.64,3.55,2.74,2.69,3.55,2.82,2.53,3.33,2.67
+Austria,Bundesliga,2017/2018,16/12/2017,17:30,Mattersburg,AC Wolfsberger,5,1,H,2.3,3.39,3.39,2.31,3.4,3.6,2.19,3.24,3.3
+Austria,Bundesliga,2017/2018,16/12/2017,17:30,St. Polten,Rapid Vienna,0,5,A,7.95,4.45,1.48,8,4.7,1.7,6.53,4.23,1.48
+Austria,Bundesliga,2017/2018,17/12/2017,15:30,Austria Vienna,Sturm Graz,1,0,H,3.81,3.84,1.99,3.82,3.87,2.3,3.6,3.62,1.96
+Austria,Bundesliga,2017/2018,03/02/2018,15:00,Mattersburg,Sturm Graz,1,0,H,3.76,3.41,2.12,3.76,3.54,2.21,3.48,3.28,2.1
+Austria,Bundesliga,2017/2018,03/02/2018,17:30,AC Wolfsberger,Altach,0,0,D,2.43,3.21,3.27,2.6,3.23,3.27,2.4,3.09,3.04
+Austria,Bundesliga,2017/2018,03/02/2018,17:30,LASK Linz,St. Polten,2,1,H,1.54,4.36,6.52,1.54,4.75,7.7,1.48,4.23,6.42
+Austria,Bundesliga,2017/2018,03/02/2018,17:30,Salzburg,Admira,2,1,H,1.16,8.6,20,1.25,10,26,1.13,7.99,18.96
+Austria,Bundesliga,2017/2018,04/02/2018,15:30,Rapid Vienna,Austria Vienna,1,1,D,1.47,5.19,6.45,1.7,5.3,7,1.45,4.79,6
+Austria,Bundesliga,2017/2018,10/02/2018,15:00,Altach,Salzburg,0,1,A,8.06,4.6,1.45,9.17,4.74,1.5,7.8,4.33,1.41
+Austria,Bundesliga,2017/2018,10/02/2018,17:30,Austria Vienna,LASK Linz,1,3,A,2.64,3.61,2.67,2.8,3.66,2.9,2.61,3.34,2.6
+Austria,Bundesliga,2017/2018,10/02/2018,17:30,St. Polten,Mattersburg,0,3,A,3.14,3.39,2.4,3.3,3.4,2.5,3.07,3.24,2.3
+Austria,Bundesliga,2017/2018,10/02/2018,17:30,Sturm Graz,AC Wolfsberger,0,1,A,1.66,3.76,6.18,1.7,4,6.25,1.65,3.62,5.44
+Austria,Bundesliga,2017/2018,11/02/2018,15:30,Admira,Rapid Vienna,2,1,H,7.87,5.31,1.4,7.87,5.36,1.8,6.74,4.81,1.41
+Austria,Bundesliga,2017/2018,17/02/2018,15:00,Rapid Vienna,Sturm Graz,1,1,D,1.99,3.62,3.98,2.02,3.72,4.33,1.89,3.52,3.94
+Austria,Bundesliga,2017/2018,17/02/2018,17:30,AC Wolfsberger,Admira,1,3,A,1.88,3.65,4.5,2.2,3.76,4.51,1.86,3.49,4.16
+Austria,Bundesliga,2017/2018,17/02/2018,17:30,LASK Linz,Altach,2,0,H,1.52,4.43,6.84,1.65,4.43,7.5,1.5,4.08,6.55
+Austria,Bundesliga,2017/2018,17/02/2018,17:30,Mattersburg,Austria Vienna,2,1,H,2.21,3.69,3.27,2.4,3.7,3.5,2.19,3.42,3.15
+Austria,Bundesliga,2017/2018,18/02/2018,15:30,Salzburg,St. Polten,4,0,H,1.18,7.9,17.9,1.2,8.41,20,1.16,7.24,16.01
+Austria,Bundesliga,2017/2018,24/02/2018,15:00,Admira,Austria Vienna,2,1,H,3.12,3.8,2.24,3.18,3.8,2.75,2.96,3.56,2.24
+Austria,Bundesliga,2017/2018,24/02/2018,17:30,AC Wolfsberger,St. Polten,0,1,A,1.94,3.46,4.4,2.14,3.5,4.5,1.96,3.29,3.98
+Austria,Bundesliga,2017/2018,24/02/2018,17:30,Altach,Mattersburg,1,1,D,2.84,3.22,2.72,2.86,3.3,3,2.67,3.13,2.68
+Austria,Bundesliga,2017/2018,24/02/2018,17:30,Rapid Vienna,LASK Linz,2,0,H,2.19,3.4,3.58,2.38,3.5,3.6,2.21,3.21,3.3
+Austria,Bundesliga,2017/2018,25/02/2018,15:30,Sturm Graz,Salzburg,2,4,A,4.3,3.45,1.97,4.75,3.6,2,4.18,3.41,1.88
+Austria,Bundesliga,2017/2018,03/03/2018,15:00,LASK Linz,Sturm Graz,0,2,A,2.22,3.4,3.51,2.3,3.42,3.85,2.16,3.22,3.41
+Austria,Bundesliga,2017/2018,03/03/2018,17:30,Austria Vienna,AC Wolfsberger,2,0,H,1.93,3.65,4.21,2.08,3.7,4.75,1.93,3.46,3.89
+Austria,Bundesliga,2017/2018,03/03/2018,17:30,Mattersburg,Admira,3,2,H,1.65,4.14,5.36,2.1,4.23,5.4,1.68,3.9,4.71
+Austria,Bundesliga,2017/2018,03/03/2018,17:30,St. Polten,Altach,1,2,A,2.71,3.3,2.79,2.87,3.3,2.86,2.67,3.12,2.69
+Austria,Bundesliga,2017/2018,04/03/2018,15:30,Salzburg,Rapid Vienna,1,0,H,1.59,4.35,5.82,1.62,4.4,6.5,1.57,4.06,5.58
+Austria,Bundesliga,2017/2018,10/03/2018,15:00,Altach,Rapid Vienna,0,0,D,3.75,3.7,2.03,4.25,3.74,2.05,3.79,3.51,1.94
+Austria,Bundesliga,2017/2018,10/03/2018,17:30,AC Wolfsberger,LASK Linz,0,3,A,4.07,3.32,2.07,4.2,3.32,2.2,3.92,3.14,2.03
+Austria,Bundesliga,2017/2018,10/03/2018,17:30,Admira,Sturm Graz,2,4,A,4.58,3.95,1.79,5,3.98,2,4.34,3.68,1.78
+Austria,Bundesliga,2017/2018,10/03/2018,17:30,Austria Vienna,St. Polten,4,0,H,1.61,4.3,5.66,1.63,4.3,6.1,1.57,4.08,5.44
+Austria,Bundesliga,2017/2018,11/03/2018,15:30,Mattersburg,Salzburg,2,2,D,4.58,3.72,1.84,4.58,3.72,2,3.9,3.53,1.91
+Austria,Bundesliga,2017/2018,17/03/2018,15:00,Rapid Vienna,AC Wolfsberger,5,1,H,1.43,4.56,8.78,1.45,4.65,9.36,1.4,4.4,8.1
+Austria,Bundesliga,2017/2018,17/03/2018,17:30,LASK Linz,Mattersburg,3,1,H,1.88,3.44,4.86,2,3.6,4.86,1.86,3.42,4.24
+Austria,Bundesliga,2017/2018,17/03/2018,17:30,St. Polten,Admira,1,2,A,2.95,3.44,2.5,3.04,3.5,2.62,2.82,3.34,2.43
+Austria,Bundesliga,2017/2018,17/03/2018,17:30,Sturm Graz,Altach,1,0,H,1.56,4.1,6.95,1.58,4.2,7.08,1.53,3.96,6.27
+Austria,Bundesliga,2017/2018,18/03/2018,13:30,Salzburg,Austria Vienna,5,0,H,1.4,5.1,8.29,1.45,5.28,9.55,1.37,4.84,7.9
+Austria,Bundesliga,2017/2018,31/03/2018,15:00,Admira,LASK Linz,0,1,A,4.55,3.61,1.88,4.6,3.8,2,4.16,3.53,1.86
+Austria,Bundesliga,2017/2018,31/03/2018,17:30,Austria Vienna,Altach,2,1,H,1.87,3.68,4.46,2,3.84,4.75,1.81,3.61,4.24
+Austria,Bundesliga,2017/2018,31/03/2018,17:30,Salzburg,AC Wolfsberger,2,0,H,1.2,6.7,21.45,1.21,7.5,21.61,1.18,6.49,16.39
+Austria,Bundesliga,2017/2018,31/03/2018,17:30,St. Polten,Sturm Graz,1,5,A,5.05,3.91,1.74,5.5,3.96,1.78,4.83,3.76,1.7
+Austria,Bundesliga,2017/2018,01/04/2018,15:30,Mattersburg,Rapid Vienna,2,4,A,3.72,3.57,2.08,3.82,3.65,2.25,3.43,3.44,2.08
+Austria,Bundesliga,2017/2018,07/04/2018,15:00,Sturm Graz,Austria Vienna,0,2,A,1.67,4.2,5.17,1.85,4.5,5.17,1.67,3.93,4.8
+Austria,Bundesliga,2017/2018,07/04/2018,17:30,AC Wolfsberger,Mattersburg,0,2,A,3,3.35,2.51,3.1,3.4,2.56,2.91,3.23,2.43
+Austria,Bundesliga,2017/2018,07/04/2018,17:30,Altach,Admira,1,2,A,1.94,3.62,4.17,2.1,3.7,4.23,1.93,3.49,3.85
+Austria,Bundesliga,2017/2018,07/04/2018,17:30,Rapid Vienna,St. Polten,2,1,H,1.27,6.27,12.16,1.3,6.31,12.16,1.26,5.79,10.46
+Austria,Bundesliga,2017/2018,08/04/2018,14:00,LASK Linz,Salzburg,1,0,H,3.4,3.25,2.36,3.4,3.3,2.6,3.1,3.13,2.36
+Austria,Bundesliga,2017/2018,14/04/2018,15:00,Sturm Graz,Mattersburg,3,0,H,1.74,3.9,5.09,1.77,3.92,5.4,1.7,3.73,4.79
+Austria,Bundesliga,2017/2018,14/04/2018,17:30,Altach,AC Wolfsberger,2,1,H,2.25,3.31,3.53,2.28,3.32,3.61,2.19,3.2,3.38
+Austria,Bundesliga,2017/2018,14/04/2018,17:30,St. Polten,LASK Linz,1,3,A,6.42,4.06,1.59,6.5,4.1,1.62,5.98,3.9,1.56
+Austria,Bundesliga,2017/2018,15/04/2018,15:30,Austria Vienna,Rapid Vienna,0,4,A,3.95,3.71,1.97,3.95,3.86,2.2,3.66,3.61,1.95
+Austria,Bundesliga,2017/2018,15/04/2018,18:00,Admira,Salzburg,2,6,A,8.06,5.1,1.41,8.06,5.1,1.46,7.34,4.72,1.4
+Austria,Bundesliga,2017/2018,21/04/2018,15:00,AC Wolfsberger,Sturm Graz,2,1,H,4.51,3.64,1.88,5,3.9,1.91,4.32,3.5,1.83
+Austria,Bundesliga,2017/2018,21/04/2018,17:30,LASK Linz,Austria Vienna,1,0,H,1.75,3.94,4.85,1.85,4,5.04,1.72,3.8,4.61
+Austria,Bundesliga,2017/2018,21/04/2018,17:30,Mattersburg,St. Polten,1,1,D,1.81,3.78,4.69,1.88,3.9,5.5,1.75,3.71,4.55
+Austria,Bundesliga,2017/2018,22/04/2018,13:30,Salzburg,Altach,3,1,H,1.28,6.47,10.52,1.3,6.5,12.5,1.25,5.85,10.76
+Austria,Bundesliga,2017/2018,22/04/2018,15:30,Rapid Vienna,Admira,4,1,H,1.36,5.57,8.69,1.4,5.57,10.5,1.34,5.18,8.13
+Austria,Bundesliga,2017/2018,28/04/2018,15:00,Austria Vienna,Mattersburg,2,3,A,2.25,3.65,3.22,2.26,3.8,3.6,2.17,3.51,3.14
+Austria,Bundesliga,2017/2018,28/04/2018,17:30,Admira,AC Wolfsberger,4,2,H,1.98,3.7,3.91,2.3,3.74,4.1,1.95,3.5,3.81
+Austria,Bundesliga,2017/2018,28/04/2018,17:30,Altach,LASK Linz,0,2,A,4.06,3.53,2,4.2,3.53,2.03,3.92,3.38,1.95
+Austria,Bundesliga,2017/2018,29/04/2018,15:30,Sturm Graz,Rapid Vienna,4,2,H,2.43,3.54,2.97,2.5,3.65,3.24,2.31,3.42,2.94
+Austria,Bundesliga,2017/2018,29/04/2018,18:00,St. Polten,Salzburg,0,2,A,10.24,5.43,1.34,11,5.63,1.4,9.2,5.07,1.32
+Austria,Bundesliga,2017/2018,05/05/2018,15:00,LASK Linz,Rapid Vienna,0,2,A,2.19,3.44,3.53,2.5,3.5,3.6,2.18,3.35,3.29
+Austria,Bundesliga,2017/2018,05/05/2018,17:30,Austria Vienna,Admira,0,0,D,1.78,4.57,3.99,1.85,4.57,4.5,1.74,4.17,4.02
+Austria,Bundesliga,2017/2018,05/05/2018,17:30,Mattersburg,Altach,0,1,A,1.63,4.22,5.5,1.7,4.23,5.85,1.59,3.97,5.33
+Austria,Bundesliga,2017/2018,05/05/2018,17:30,St. Polten,AC Wolfsberger,0,1,A,2.94,3.41,2.52,3.1,3.42,2.65,2.8,3.24,2.51
+Austria,Bundesliga,2017/2018,06/05/2018,15:30,Salzburg,Sturm Graz,4,1,H,1.79,3.94,4.6,1.93,4.01,4.87,1.81,3.67,4.19
+Austria,Bundesliga,2017/2018,12/05/2018,15:00,Sturm Graz,LASK Linz,3,1,H,2.46,3.3,3.11,2.46,3.4,3.22,2.37,3.21,3
+Austria,Bundesliga,2017/2018,12/05/2018,17:30,Admira,Mattersburg,1,1,D,2.74,3.83,2.47,2.78,3.84,2.65,2.66,3.54,2.46
+Austria,Bundesliga,2017/2018,12/05/2018,17:30,Altach,St. Polten,1,3,A,1.79,3.73,4.93,1.85,4,5.4,1.78,3.63,4.41
+Austria,Bundesliga,2017/2018,13/05/2018,15:30,Rapid Vienna,Salzburg,1,4,A,3.07,3.69,2.31,3.29,3.7,2.78,2.94,3.41,2.32
+Austria,Bundesliga,2017/2018,15/05/2018,18:00,AC Wolfsberger,Austria Vienna,2,1,H,2.48,3.76,2.72,2.65,3.8,2.72,2.5,3.62,2.56
+Austria,Bundesliga,2017/2018,20/05/2018,15:30,LASK Linz,AC Wolfsberger,1,3,A,1.56,4.28,6.08,1.6,4.5,6.7,1.54,4.12,5.77
+Austria,Bundesliga,2017/2018,20/05/2018,15:30,Rapid Vienna,Altach,4,1,H,1.36,5.65,8.17,1.36,5.75,11,1.31,5.33,8.79
+Austria,Bundesliga,2017/2018,20/05/2018,15:30,Salzburg,Mattersburg,1,0,H,1.22,7.17,12.67,1.25,7.5,15.25,1.2,6.73,12.36
+Austria,Bundesliga,2017/2018,20/05/2018,15:30,St. Polten,Austria Vienna,2,0,H,3.11,3.88,2.18,3.18,4,2.3,3,3.7,2.17
+Austria,Bundesliga,2017/2018,20/05/2018,15:30,Sturm Graz,Admira,2,0,H,1.36,5.69,7.98,1.5,5.75,8.5,1.36,5.35,7.08
+Austria,Bundesliga,2017/2018,27/05/2018,16:30,AC Wolfsberger,Rapid Vienna,0,0,D,3.21,4.05,2.09,3.45,4.1,2.2,3.18,3.79,2.06
+Austria,Bundesliga,2017/2018,27/05/2018,16:30,Admira,St. Polten,0,2,A,2.03,3.79,3.58,2.1,3.94,3.62,1.99,3.69,3.43
+Austria,Bundesliga,2017/2018,27/05/2018,16:30,Altach,Sturm Graz,0,0,D,2.96,3.78,2.29,3.29,4,2.36,2.91,3.62,2.25
+Austria,Bundesliga,2017/2018,27/05/2018,16:30,Austria Vienna,Salzburg,4,0,H,5.93,5.18,1.48,6.5,5.25,1.5,5.82,4.8,1.46
+Austria,Bundesliga,2017/2018,27/05/2018,16:30,Mattersburg,LASK Linz,2,1,H,2.99,3.73,2.3,3.06,3.8,2.55,2.92,3.56,2.27
+Austria,Bundesliga,2017/2018,31/05/2018,17:30,Neustadt,St. Polten,0,2,A,2.6,3.4,2.79,2.76,3.4,2.88,2.55,3.17,2.73
+Austria,Bundesliga,2017/2018,03/06/2018,14:30,St. Polten,Neustadt,1,1,D,2.05,3.53,3.77,2.11,3.56,3.96,2.01,3.34,3.64
+Austria,Bundesliga,2018/2019,27/07/2018,19:45,Austria Vienna,Wacker Innsbruck,2,1,H,1.62,4.04,5.92,1.65,4.25,6.1,1.59,4.01,5.31
+Austria,Bundesliga,2018/2019,28/07/2018,16:00,Altach,Mattersburg,2,3,A,2.41,3.38,3.1,2.6,3.44,3.18,2.38,3.27,2.94
+Austria,Bundesliga,2018/2019,28/07/2018,16:00,Sturm Graz,Hartberg,3,2,H,1.53,4.21,7.01,1.6,4.44,7.01,1.5,4.24,6.17
+Austria,Bundesliga,2018/2019,29/07/2018,16:00,Admira,Rapid Vienna,0,3,A,7.19,5.2,1.43,8,5.31,1.53,6.84,4.89,1.4
+Austria,Bundesliga,2018/2019,29/07/2018,16:00,Salzburg,LASK Linz,3,1,H,1.52,3.93,8.24,1.52,4.5,8.75,1.46,4.2,7.15
+Austria,Bundesliga,2018/2019,29/07/2018,16:00,St. Polten,AC Wolfsberger,4,3,H,2.8,3.37,2.64,2.82,3.4,2.85,2.7,3.2,2.61
+Austria,Bundesliga,2018/2019,04/08/2018,16:00,Mattersburg,Salzburg,0,2,A,6.98,4.3,1.52,7,4.64,1.52,6.24,4.34,1.48
+Austria,Bundesliga,2018/2019,04/08/2018,16:00,Rapid Vienna,Altach,1,1,D,1.34,5.67,9.03,1.36,5.94,10.5,1.31,5.26,8.78
+Austria,Bundesliga,2018/2019,04/08/2018,16:00,Wacker Innsbruck,Sturm Graz,2,3,A,3.7,3.7,2.03,3.8,3.7,2.2,3.57,3.47,2.01
+Austria,Bundesliga,2018/2019,05/08/2018,16:00,AC Wolfsberger,Austria Vienna,1,0,H,2.99,3.73,2.32,3.6,3.73,2.39,2.96,3.49,2.28
+Austria,Bundesliga,2018/2019,05/08/2018,16:00,Hartberg,Admira,0,1,A,2.01,3.94,3.56,2.03,3.99,3.95,1.96,3.71,3.53
+Austria,Bundesliga,2018/2019,05/08/2018,16:00,LASK Linz,St. Polten,0,0,D,1.6,3.97,6.37,1.67,4.23,7.27,1.56,3.97,5.83
+Austria,Bundesliga,2018/2019,11/08/2018,16:00,Altach,Wacker Innsbruck,1,2,A,2.03,3.58,3.82,2.06,3.6,3.88,2,3.46,3.65
+Austria,Bundesliga,2018/2019,11/08/2018,16:00,Hartberg,Mattersburg,4,2,H,3.07,3.7,2.29,3.3,3.7,2.39,3,3.45,2.26
+Austria,Bundesliga,2018/2019,11/08/2018,16:00,Salzburg,Austria Vienna,2,0,H,1.25,6.41,13.32,1.35,6.44,13.37,1.26,5.76,11.11
+Austria,Bundesliga,2018/2019,12/08/2018,16:00,Admira,LASK Linz,0,1,A,3.62,3.46,2.14,3.9,3.54,2.15,3.49,3.41,2.07
+Austria,Bundesliga,2018/2019,12/08/2018,16:00,Rapid Vienna,AC Wolfsberger,0,0,D,1.49,4.62,6.89,1.54,4.62,7.5,1.48,4.34,6.39
+Austria,Bundesliga,2018/2019,12/08/2018,16:00,St. Polten,Sturm Graz,2,0,H,3.8,3.48,2.07,3.8,3.61,2.15,3.5,3.46,2.05
+Austria,Bundesliga,2018/2019,18/08/2018,16:00,Mattersburg,AC Wolfsberger,0,6,A,2.25,3.61,3.2,2.43,3.62,3.25,2.28,3.4,3.02
+Austria,Bundesliga,2018/2019,18/08/2018,16:00,Salzburg,Hartberg,2,0,H,1.22,7.17,13.6,1.24,7.2,15.72,1.21,6.56,12.1
+Austria,Bundesliga,2018/2019,18/08/2018,16:00,Wacker Innsbruck,St. Polten,0,2,A,2.11,3.47,3.68,2.11,3.7,4.5,1.96,3.5,3.74
+Austria,Bundesliga,2018/2019,19/08/2018,16:00,Austria Vienna,Admira,4,0,H,1.45,4.9,7.2,1.5,5.16,7.5,1.42,4.74,6.73
+Austria,Bundesliga,2018/2019,19/08/2018,16:00,LASK Linz,Rapid Vienna,2,1,H,2.07,3.54,3.74,2.4,3.55,3.74,2.14,3.36,3.36
+Austria,Bundesliga,2018/2019,19/08/2018,16:00,Sturm Graz,Altach,1,1,D,1.69,3.98,5.19,1.7,4.2,5.34,1.65,3.94,4.93
+Austria,Bundesliga,2018/2019,25/08/2018,16:00,AC Wolfsberger,Sturm Graz,1,1,D,2.71,3.48,2.67,2.76,3.5,2.76,2.64,3.33,2.6
+Austria,Bundesliga,2018/2019,25/08/2018,16:00,Altach,Salzburg,2,3,A,7.39,4.16,1.52,7.53,4.2,1.7,6.46,3.95,1.53
+Austria,Bundesliga,2018/2019,25/08/2018,16:00,St. Polten,Austria Vienna,0,0,D,3.49,3.77,2.08,3.52,3.78,2.3,3.37,3.56,2.06
+Austria,Bundesliga,2018/2019,26/08/2018,16:00,Admira,Mattersburg,0,0,D,3.01,3.82,2.28,3.3,3.82,2.28,3.06,3.65,2.17
+Austria,Bundesliga,2018/2019,26/08/2018,16:00,Hartberg,LASK Linz,0,1,A,4.31,3.89,1.84,4.4,3.89,1.93,4.06,3.68,1.84
+Austria,Bundesliga,2018/2019,26/08/2018,16:00,Rapid Vienna,Wacker Innsbruck,2,1,H,1.47,4.92,6.76,1.52,4.92,6.92,1.46,4.6,6.23
+Austria,Bundesliga,2018/2019,01/09/2018,16:00,Altach,St. Polten,1,2,A,2.11,3.64,3.52,2.28,3.64,3.6,2.1,3.44,3.39
+Austria,Bundesliga,2018/2019,01/09/2018,16:00,Austria Vienna,Mattersburg,2,1,H,1.78,4.11,4.39,1.8,4.24,4.9,1.73,3.96,4.34
+Austria,Bundesliga,2018/2019,01/09/2018,16:00,Wacker Innsbruck,Hartberg,2,1,H,1.97,3.99,3.63,2.06,3.99,4,1.95,3.7,3.61
+Austria,Bundesliga,2018/2019,02/09/2018,16:00,LASK Linz,AC Wolfsberger,2,0,H,1.63,3.78,6.42,1.72,3.88,6.45,1.63,3.68,5.67
+Austria,Bundesliga,2018/2019,02/09/2018,16:00,Salzburg,Admira,3,1,H,1.13,9.52,21.48,1.16,9.8,27.6,1.12,8.63,18.81
+Austria,Bundesliga,2018/2019,02/09/2018,16:00,Sturm Graz,Rapid Vienna,1,1,D,2.52,3.58,2.8,2.56,3.6,3,2.4,3.47,2.79
+Austria,Bundesliga,2018/2019,15/09/2018,16:00,Admira,Sturm Graz,2,3,A,4.34,3.88,1.83,4.4,4,1.86,4.19,3.8,1.79
+Austria,Bundesliga,2018/2019,15/09/2018,16:00,Hartberg,Altach,2,1,H,2.26,3.64,3.17,2.55,3.7,3.2,2.24,3.49,3.03
+Austria,Bundesliga,2018/2019,15/09/2018,16:00,St. Polten,Salzburg,1,3,A,9.99,5.45,1.33,10.5,5.7,1.4,9.18,5.12,1.32
+Austria,Bundesliga,2018/2019,16/09/2018,13:30,AC Wolfsberger,Wacker Innsbruck,3,1,H,1.88,3.65,4.43,1.97,3.68,4.45,1.88,3.5,4.1
+Austria,Bundesliga,2018/2019,16/09/2018,13:30,Mattersburg,LASK Linz,1,3,A,3.36,3.36,2.28,3.4,3.38,2.33,3.24,3.26,2.24
+Austria,Bundesliga,2018/2019,16/09/2018,16:00,Rapid Vienna,Austria Vienna,0,1,A,2.08,3.56,3.69,2.1,3.75,4,1.99,3.57,3.61
+Austria,Bundesliga,2018/2019,22/09/2018,16:00,Altach,AC Wolfsberger,0,1,A,2.96,3.38,2.48,3,3.4,2.61,2.86,3.26,2.46
+Austria,Bundesliga,2018/2019,22/09/2018,16:00,St. Polten,Hartberg,3,0,H,2.36,3.56,3.01,2.38,3.7,3.45,2.23,3.49,3.07
+Austria,Bundesliga,2018/2019,22/09/2018,16:00,Sturm Graz,Mattersburg,1,2,A,1.9,3.46,4.5,1.96,3.75,4.72,1.86,3.52,4.22
+Austria,Bundesliga,2018/2019,23/09/2018,13:30,Austria Vienna,LASK Linz,0,3,A,2.61,3.33,2.83,2.7,3.38,2.84,2.57,3.25,2.73
+Austria,Bundesliga,2018/2019,23/09/2018,13:30,Wacker Innsbruck,Admira,1,3,A,1.89,3.92,3.96,1.91,4.04,4.34,1.83,3.81,3.99
+Austria,Bundesliga,2018/2019,23/09/2018,16:00,Salzburg,Rapid Vienna,2,1,H,1.2,6.98,15.21,1.5,7.84,18,1.21,6.73,12.89
+Austria,Bundesliga,2018/2019,29/09/2018,16:00,AC Wolfsberger,Salzburg,1,4,A,7.67,4.58,1.45,7.84,5.25,1.51,6.93,4.57,1.43
+Austria,Bundesliga,2018/2019,29/09/2018,16:00,Admira,Altach,2,4,A,2.65,3.64,2.64,2.77,3.64,3,2.61,3.41,2.59
+Austria,Bundesliga,2018/2019,29/09/2018,16:00,Rapid Vienna,St. Polten,0,2,A,1.5,4.78,6.16,1.65,5.03,7,1.5,4.5,5.81
+Austria,Bundesliga,2018/2019,30/09/2018,13:30,Hartberg,Austria Vienna,0,1,A,3.36,3.75,2.14,3.6,3.75,2.2,3.25,3.54,2.12
+Austria,Bundesliga,2018/2019,30/09/2018,13:30,Mattersburg,Wacker Innsbruck,2,1,H,1.94,3.97,3.74,1.98,3.97,3.9,1.91,3.72,3.69
+Austria,Bundesliga,2018/2019,30/09/2018,16:00,LASK Linz,Sturm Graz,0,0,D,1.93,3.73,4.07,1.94,3.8,4.7,1.83,3.59,4.22
+Austria,Bundesliga,2018/2019,06/10/2018,16:00,AC Wolfsberger,Hartberg,3,4,A,1.69,4.14,4.91,1.77,4.14,5.5,1.69,3.92,4.65
+Austria,Bundesliga,2018/2019,06/10/2018,16:00,Altach,Austria Vienna,2,0,H,3.27,3.36,2.34,3.37,3.5,2.35,3.13,3.36,2.25
+Austria,Bundesliga,2018/2019,06/10/2018,16:00,St. Polten,Admira,0,0,D,1.92,3.83,4,1.95,4.02,4.48,1.85,3.72,3.92
+Austria,Bundesliga,2018/2019,07/10/2018,13:30,Rapid Vienna,Mattersburg,1,0,H,1.68,3.98,5.32,1.77,4.1,5.5,1.67,3.92,4.84
+Austria,Bundesliga,2018/2019,07/10/2018,13:30,Wacker Innsbruck,LASK Linz,1,0,H,4.99,4.49,1.63,5.25,4.49,1.72,4.91,4.11,1.63
+Austria,Bundesliga,2018/2019,07/10/2018,16:00,Sturm Graz,Salzburg,1,2,A,5.78,4.39,1.57,6.5,4.4,1.61,5.82,4.22,1.53
+Austria,Bundesliga,2018/2019,20/10/2018,16:00,Hartberg,Rapid Vienna,3,0,H,5.28,4.91,1.55,6,4.91,1.67,5.08,4.49,1.56
+Austria,Bundesliga,2018/2019,20/10/2018,16:00,LASK Linz,Altach,1,1,D,1.41,4.78,8.12,1.42,5,9,1.39,4.64,7.83
+Austria,Bundesliga,2018/2019,20/10/2018,16:00,Salzburg,Wacker Innsbruck,1,1,D,1.11,10.23,23.57,1.15,12.4,32.35,1.1,9.36,21.32
+Austria,Bundesliga,2018/2019,21/10/2018,13:30,Admira,AC Wolfsberger,0,0,D,3.57,3.92,2.01,3.8,3.92,2.04,3.51,3.68,1.98
+Austria,Bundesliga,2018/2019,21/10/2018,13:30,Mattersburg,St. Polten,2,0,H,2.09,3.58,3.64,2.24,3.6,3.64,2.09,3.45,3.38
+Austria,Bundesliga,2018/2019,21/10/2018,16:00,Austria Vienna,Sturm Graz,1,1,D,2.44,3.5,2.98,2.48,3.5,3.1,2.36,3.38,2.92
+Austria,Bundesliga,2018/2019,27/10/2018,16:00,Hartberg,Sturm Graz,2,0,H,4.04,3.88,1.89,4.04,3.95,2,3.78,3.71,1.89
+Austria,Bundesliga,2018/2019,27/10/2018,16:00,Mattersburg,Altach,1,1,D,1.93,3.79,4.01,1.98,3.8,4.04,1.9,3.63,3.84
+Austria,Bundesliga,2018/2019,27/10/2018,16:00,Wacker Innsbruck,Austria Vienna,0,0,D,3.16,3.48,2.34,3.16,3.57,2.38,3.03,3.4,2.28
+Austria,Bundesliga,2018/2019,28/10/2018,13:30,AC Wolfsberger,St. Polten,1,0,H,1.72,3.89,5.06,1.75,4.15,5.06,1.7,3.81,4.75
+Austria,Bundesliga,2018/2019,28/10/2018,13:30,Rapid Vienna,Admira,2,0,H,1.35,5.65,7.9,1.45,6.05,9.5,1.31,5.53,8.45
+Austria,Bundesliga,2018/2019,28/10/2018,16:00,LASK Linz,Salzburg,3,3,D,4.72,3.66,1.82,4.75,3.75,1.84,4.46,3.55,1.79
+Austria,Bundesliga,2018/2019,03/11/2018,16:00,Admira,Hartberg,2,3,A,2.82,3.66,2.48,3,3.74,2.51,2.76,3.52,2.4
+Austria,Bundesliga,2018/2019,03/11/2018,16:00,St. Polten,LASK Linz,2,2,D,5.19,4.17,1.65,5.5,4.17,1.69,5.07,3.93,1.63
+Austria,Bundesliga,2018/2019,03/11/2018,16:00,Sturm Graz,Wacker Innsbruck,1,1,D,1.54,4.4,6.22,1.56,4.4,6.25,1.53,4.21,5.82
+Austria,Bundesliga,2018/2019,04/11/2018,13:30,Austria Vienna,AC Wolfsberger,2,3,A,2.36,3.29,3.31,2.36,3.35,3.4,2.27,3.23,3.17
+Austria,Bundesliga,2018/2019,04/11/2018,13:30,Salzburg,Mattersburg,2,1,H,1.15,7.94,20.01,1.2,8.04,20.01,1.15,7.39,16.22
+Austria,Bundesliga,2018/2019,04/11/2018,16:00,Altach,Rapid Vienna,2,2,D,3.83,3.75,1.98,3.83,3.75,2.08,3.6,3.57,1.98
+Austria,Bundesliga,2018/2019,10/11/2018,16:00,LASK Linz,Admira,5,1,H,1.3,5.5,10.66,1.33,6,11.5,1.28,5.47,9.77
+Austria,Bundesliga,2018/2019,10/11/2018,16:00,Sturm Graz,St. Polten,0,0,D,1.63,3.8,6.29,1.66,4,6.29,1.6,3.83,5.59
+Austria,Bundesliga,2018/2019,10/11/2018,16:00,Wacker Innsbruck,Altach,1,0,H,2.64,3.33,2.85,2.68,3.4,2.87,2.56,3.26,2.73
+Austria,Bundesliga,2018/2019,11/11/2018,13:30,AC Wolfsberger,Rapid Vienna,3,1,H,2.59,3.59,2.74,2.66,3.59,2.87,2.49,3.43,2.7
+Austria,Bundesliga,2018/2019,11/11/2018,13:30,Mattersburg,Hartberg,1,2,A,2.07,3.55,3.74,2.1,3.69,3.74,2.03,3.55,3.48
+Austria,Bundesliga,2018/2019,11/11/2018,16:00,Austria Vienna,Salzburg,0,2,A,8.24,5,1.39,8.7,5.3,1.42,7.9,4.89,1.36
+Austria,Bundesliga,2018/2019,24/11/2018,16:00,AC Wolfsberger,Mattersburg,2,2,D,1.81,3.89,4.44,1.86,3.9,4.62,1.77,3.7,4.29
+Austria,Bundesliga,2018/2019,24/11/2018,16:00,Admira,Austria Vienna,1,2,A,3.93,3.79,1.94,4.5,3.88,1.99,3.89,3.67,1.87
+Austria,Bundesliga,2018/2019,24/11/2018,16:00,Hartberg,Salzburg,0,4,A,9.43,6.32,1.28,11,6.4,1.33,9.61,5.91,1.26
+Austria,Bundesliga,2018/2019,25/11/2018,13:30,Altach,Sturm Graz,0,2,A,3.33,3.66,2.18,3.35,3.66,2.25,3.18,3.45,2.16
+Austria,Bundesliga,2018/2019,25/11/2018,13:30,St. Polten,Wacker Innsbruck,2,0,H,2.14,3.62,3.46,2.17,3.62,3.6,2.1,3.45,3.34
+Austria,Bundesliga,2018/2019,25/11/2018,16:00,Rapid Vienna,LASK Linz,0,1,A,2.7,3.65,2.59,2.81,3.65,2.6,2.65,3.45,2.51
+Austria,Bundesliga,2018/2019,01/12/2018,16:00,Austria Vienna,St. Polten,2,0,H,1.93,3.43,4.46,2,3.75,4.46,1.9,3.45,4.04
+Austria,Bundesliga,2018/2019,01/12/2018,16:00,LASK Linz,Hartberg,3,3,D,1.33,5.74,8.66,1.4,6,11,1.29,5.64,8.95
+Austria,Bundesliga,2018/2019,01/12/2018,16:00,Mattersburg,Admira,2,2,D,1.67,4.06,5.27,1.71,4.06,6,1.64,3.86,5.05
+Austria,Bundesliga,2018/2019,02/12/2018,13:30,Salzburg,Altach,1,0,H,1.14,8.26,21.54,1.17,8.5,22,1.14,7.4,17.51
+Austria,Bundesliga,2018/2019,02/12/2018,13:30,Wacker Innsbruck,Rapid Vienna,0,1,A,3.96,3.9,1.91,4,3.9,2,3.84,3.67,1.88
+Austria,Bundesliga,2018/2019,02/12/2018,16:00,Sturm Graz,AC Wolfsberger,3,0,H,2.66,3.47,2.72,2.7,3.47,2.88,2.57,3.31,2.66
+Austria,Bundesliga,2018/2019,08/12/2018,16:00,AC Wolfsberger,LASK Linz,1,1,D,3.43,3.58,2.17,3.52,3.58,2.28,3.31,3.39,2.14
+Austria,Bundesliga,2018/2019,08/12/2018,16:00,Admira,Salzburg,2,2,D,15.78,8.69,1.16,29,9.2,1.22,16.73,8.17,1.14
+Austria,Bundesliga,2018/2019,08/12/2018,16:00,St. Polten,Altach,2,1,H,2.54,3.21,3.08,2.54,3.4,3.35,2.38,3.13,3.06
+Austria,Bundesliga,2018/2019,09/12/2018,13:30,Hartberg,Wacker Innsbruck,2,2,D,1.97,3.89,3.71,2.02,3.89,3.75,1.95,3.68,3.57
+Austria,Bundesliga,2018/2019,09/12/2018,13:30,Mattersburg,Austria Vienna,2,1,H,2.66,3.46,2.74,2.71,3.46,2.83,2.57,3.31,2.68
+Austria,Bundesliga,2018/2019,09/12/2018,16:00,Rapid Vienna,Sturm Graz,0,0,D,2.28,3.73,3.07,2.3,3.73,3.21,2.22,3.52,3.02
+Austria,Bundesliga,2018/2019,15/12/2018,16:00,LASK Linz,Mattersburg,2,1,H,1.44,4.44,8.15,1.46,4.6,8.15,1.42,4.33,7.45
+Austria,Bundesliga,2018/2019,15/12/2018,16:00,Sturm Graz,Admira,3,0,H,1.35,5.16,9.45,1.39,5.4,10,1.34,4.92,8.51
+Austria,Bundesliga,2018/2019,15/12/2018,16:00,Wacker Innsbruck,AC Wolfsberger,0,0,D,3.84,3.52,2.05,3.9,3.52,2.14,3.66,3.35,2.03
+Austria,Bundesliga,2018/2019,16/12/2018,13:30,Altach,Hartberg,6,1,H,2.07,3.67,3.62,2.14,3.72,3.7,2.03,3.52,3.47
+Austria,Bundesliga,2018/2019,16/12/2018,13:30,Salzburg,St. Polten,5,1,H,1.17,7.46,19.55,1.2,8.5,23,1.17,6.92,15.62
+Austria,Bundesliga,2018/2019,16/12/2018,16:00,Austria Vienna,Rapid Vienna,6,1,H,3.44,2.29,3.23,3.46,2.29,3.23,3.33,2.14,3.05
+Austria,Bundesliga,2018/2019,22/02/2019,18:30,LASK Linz,Austria Vienna,2,0,H,1.6,4.31,5.59,1.62,4.31,5.9,1.57,4,5.42
+Austria,Bundesliga,2018/2019,23/02/2019,16:00,AC Wolfsberger,Altach,0,0,D,1.81,3.78,4.59,1.83,3.78,4.75,1.79,3.56,4.39
+Austria,Bundesliga,2018/2019,23/02/2019,16:00,Admira,Wacker Innsbruck,3,0,H,2.3,3.45,3.27,2.3,3.46,3.3,2.21,3.35,3.15
+Austria,Bundesliga,2018/2019,24/02/2019,13:30,Hartberg,St. Polten,1,1,D,2.5,3.63,2.81,2.52,3.63,2.88,2.4,3.43,2.77
+Austria,Bundesliga,2018/2019,24/02/2019,13:30,Mattersburg,Sturm Graz,1,1,D,2.96,3.29,2.57,3.03,3.38,2.59,2.84,3.18,2.49
+Austria,Bundesliga,2018/2019,24/02/2019,16:00,Rapid Vienna,Salzburg,2,0,H,5.75,4.29,1.58,6,4.41,1.58,5.53,4.18,1.54
+Austria,Bundesliga,2018/2019,02/03/2019,16:00,Altach,Admira,0,1,A,1.88,3.86,4.08,1.94,3.86,4.2,1.86,3.61,3.92
+Austria,Bundesliga,2018/2019,02/03/2019,16:00,Salzburg,AC Wolfsberger,3,0,H,1.31,5.53,10.12,1.35,5.65,10.5,1.3,5.2,9.06
+Austria,Bundesliga,2018/2019,02/03/2019,16:00,St. Polten,Rapid Vienna,0,4,A,3.87,3.68,1.99,4.1,3.8,2.04,3.76,3.53,1.92
+Austria,Bundesliga,2018/2019,03/03/2019,13:30,Austria Vienna,Hartberg,4,2,H,1.64,4.13,5.39,1.74,4.13,5.39,1.64,3.95,4.79
+Austria,Bundesliga,2018/2019,03/03/2019,13:30,Sturm Graz,LASK Linz,0,3,A,3.48,3.52,2.17,3.5,3.52,2.25,3.3,3.27,2.17
+Austria,Bundesliga,2018/2019,03/03/2019,16:00,Wacker Innsbruck,Mattersburg,0,1,A,2.99,3.33,2.53,2.99,3.4,2.65,2.82,3.21,2.47
+Austria,Bundesliga,2018/2019,10/03/2019,16:00,Admira,St. Polten,3,2,H,2.26,3.42,3.36,2.29,3.45,3.5,2.19,3.29,3.23
+Austria,Bundesliga,2018/2019,10/03/2019,16:00,Austria Vienna,Altach,1,3,A,1.9,3.58,4.39,1.96,3.8,4.7,1.85,3.45,4.14
+Austria,Bundesliga,2018/2019,10/03/2019,16:00,Hartberg,AC Wolfsberger,1,1,D,3.29,3.83,2.14,3.29,3.83,2.28,3.08,3.57,2.15
+Austria,Bundesliga,2018/2019,10/03/2019,16:00,LASK Linz,Wacker Innsbruck,2,0,H,1.28,5.94,10.73,1.3,6.1,14,1.25,5.49,11.06
+Austria,Bundesliga,2018/2019,10/03/2019,16:00,Mattersburg,Rapid Vienna,2,1,H,3.72,3.8,2,4.2,3.8,2.03,3.61,3.53,1.96
+Austria,Bundesliga,2018/2019,10/03/2019,16:00,Salzburg,Sturm Graz,0,0,D,1.33,5.49,9.02,1.4,5.5,10.5,1.31,5.14,8.72
+Austria,Bundesliga,2018/2019,17/03/2019,16:00,AC Wolfsberger,Admira,2,2,D,1.72,3.56,5.69,1.72,3.8,5.69,1.68,3.57,5.23
+Austria,Bundesliga,2018/2019,17/03/2019,16:00,Altach,LASK Linz,1,2,A,5.06,3.5,1.81,5.25,3.85,1.82,4.74,3.5,1.75
+Austria,Bundesliga,2018/2019,17/03/2019,16:00,Rapid Vienna,Hartberg,2,2,D,1.28,6.35,9.68,1.3,6.65,13,1.25,5.99,9.97
+Austria,Bundesliga,2018/2019,17/03/2019,16:00,St. Polten,Mattersburg,0,1,A,2.69,3.5,2.68,2.9,3.5,2.68,2.69,3.31,2.53
+Austria,Bundesliga,2018/2019,17/03/2019,16:00,Sturm Graz,Austria Vienna,1,0,H,2.24,3.13,3.76,2.25,3.3,4.5,2.14,3.08,3.65
+Austria,Bundesliga,2018/2019,17/03/2019,16:00,Wacker Innsbruck,Salzburg,0,2,A,16.18,6.92,1.19,16.18,6.92,1.24,13.12,6.33,1.2
+Austria,Bundesliga,2018/2019,30/03/2019,16:00,Altach,Mattersburg,2,1,H,2.19,3.63,3.33,2.28,3.63,3.45,2.15,3.37,3.23
+Austria,Bundesliga,2018/2019,30/03/2019,16:00,Hartberg,Wacker Innsbruck,0,2,A,2.24,3.73,3.16,2.29,3.75,3.3,2.14,3.58,3.06
+Austria,Bundesliga,2018/2019,30/03/2019,16:00,Rapid Vienna,Admira,3,0,H,1.45,4.71,7.22,1.46,4.78,7.5,1.42,4.5,6.84
+Austria,Bundesliga,2018/2019,31/03/2019,13:30,AC Wolfsberger,LASK Linz,0,3,A,4.04,3.6,1.97,4.25,3.6,2.01,3.88,3.35,1.95
+Austria,Bundesliga,2018/2019,31/03/2019,13:30,Sturm Graz,St. Polten,0,1,A,1.7,3.83,5.37,1.73,4,5.37,1.66,3.72,5.01
+Austria,Bundesliga,2018/2019,31/03/2019,16:00,Salzburg,Austria Vienna,5,1,H,1.19,7.31,14.6,1.25,7.35,15,1.19,6.69,12.78
+Austria,Bundesliga,2018/2019,06/04/2019,16:00,Admira,Altach,1,1,D,2.78,3.32,2.71,2.78,3.4,2.78,2.68,3.17,2.62
+Austria,Bundesliga,2018/2019,06/04/2019,16:00,Mattersburg,Hartberg,3,0,H,1.95,3.71,3.96,2.03,4,4,1.91,3.65,3.67
+Austria,Bundesliga,2018/2019,06/04/2019,16:00,Wacker Innsbruck,Rapid Vienna,0,2,A,4.38,3.97,1.81,4.5,3.97,1.83,4.28,3.74,1.76
+Austria,Bundesliga,2018/2019,07/04/2019,13:30,Austria Vienna,Sturm Graz,0,1,A,2.48,3.45,2.96,2.58,3.45,3.02,2.41,3.25,2.89
+Austria,Bundesliga,2018/2019,07/04/2019,13:30,St. Polten,AC Wolfsberger,1,3,A,3.3,3.46,2.28,3.33,3.46,2.38,3.2,3.26,2.23
+Austria,Bundesliga,2018/2019,07/04/2019,16:00,LASK Linz,Salzburg,0,2,A,3.73,3.49,2.09,4.13,3.68,2.12,3.58,3.42,2.02
+Austria,Bundesliga,2018/2019,13/04/2019,16:00,Hartberg,Altach,0,1,A,3.25,3.53,2.27,3.25,3.53,2.4,3.05,3.35,2.25
+Austria,Bundesliga,2018/2019,13/04/2019,16:00,Rapid Vienna,Mattersburg,2,1,H,1.44,4.89,7.03,1.5,4.89,7.2,1.44,4.48,6.53
+Austria,Bundesliga,2018/2019,13/04/2019,16:00,Wacker Innsbruck,Admira,1,3,A,2.34,3.35,3.27,2.38,3.4,3.28,2.25,3.25,3.14
+Austria,Bundesliga,2018/2019,14/04/2019,13:30,AC Wolfsberger,Austria Vienna,1,1,D,2.08,3.51,3.75,2.4,3.51,3.75,2.06,3.33,3.51
+Austria,Bundesliga,2018/2019,14/04/2019,13:30,LASK Linz,St. Polten,0,0,D,1.18,7.23,16.35,1.22,7.23,22,1.18,6.51,14.7
+Austria,Bundesliga,2018/2019,14/04/2019,16:00,Salzburg,Sturm Graz,3,1,H,1.22,6.58,14.18,1.27,6.6,16,1.22,5.99,11.55
+Austria,Bundesliga,2018/2019,20/04/2019,16:00,Admira,Hartberg,2,1,H,1.79,3.91,4.56,1.85,3.95,5,1.75,3.73,4.34
+Austria,Bundesliga,2018/2019,20/04/2019,16:00,Altach,Rapid Vienna,2,2,D,3.17,3.4,2.37,3.3,3.4,2.37,3.06,3.32,2.25
+Austria,Bundesliga,2018/2019,20/04/2019,16:00,Mattersburg,Wacker Innsbruck,3,1,H,1.94,3.67,4.07,1.95,3.72,4.5,1.9,3.54,3.84
+Austria,Bundesliga,2018/2019,21/04/2019,13:30,St. Polten,Salzburg,1,1,D,12.74,7.85,1.19,19,8,1.2,14.79,7.34,1.16
+Austria,Bundesliga,2018/2019,21/04/2019,13:30,Sturm Graz,AC Wolfsberger,1,2,A,2.35,3.38,3.22,2.35,3.44,3.6,2.23,3.24,3.17
+Austria,Bundesliga,2018/2019,21/04/2019,16:00,Austria Vienna,LASK Linz,2,2,D,3.81,3.51,2.06,4.33,3.51,2.08,3.68,3.37,1.99
+Austria,Bundesliga,2018/2019,23/04/2019,18:00,Admira,Mattersburg,0,2,A,2.4,3.4,3.13,2.42,3.55,3.13,2.3,3.37,2.93
+Austria,Bundesliga,2018/2019,23/04/2019,18:00,Hartberg,Rapid Vienna,2,4,A,6.74,5.35,1.42,7.5,5.35,1.5,6.35,4.95,1.4
+Austria,Bundesliga,2018/2019,23/04/2019,18:00,Wacker Innsbruck,Altach,0,4,A,3.41,3.54,2.19,3.75,3.55,2.24,3.26,3.41,2.12
+Austria,Bundesliga,2018/2019,24/04/2019,18:00,Austria Vienna,St. Polten,2,2,D,1.89,3.69,4.26,1.92,3.7,4.5,1.84,3.54,4.07
+Austria,Bundesliga,2018/2019,24/04/2019,18:00,LASK Linz,Sturm Graz,1,2,A,1.61,4.02,5.93,1.65,4.02,6,1.58,3.85,5.54
+Austria,Bundesliga,2018/2019,24/04/2019,18:00,Salzburg,AC Wolfsberger,3,1,H,1.25,6.27,12.09,1.27,6.5,13.5,1.23,5.92,10.97
+Austria,Bundesliga,2018/2019,27/04/2019,16:00,Altach,Wacker Innsbruck,1,4,A,1.89,3.85,4.05,1.95,3.95,4.2,1.87,3.62,3.83
+Austria,Bundesliga,2018/2019,27/04/2019,16:00,Mattersburg,Admira,1,1,D,1.97,3.65,3.96,1.99,3.9,4.33,1.92,3.52,3.77
+Austria,Bundesliga,2018/2019,27/04/2019,16:00,Rapid Vienna,Hartberg,3,4,A,1.31,5.95,9.03,1.33,6.5,9.6,1.28,5.78,8.57
+Austria,Bundesliga,2018/2019,28/04/2019,13:30,AC Wolfsberger,Salzburg,2,1,H,5.92,4.67,1.52,6.6,4.67,1.55,5.85,4.33,1.49
+Austria,Bundesliga,2018/2019,28/04/2019,13:30,St. Polten,Austria Vienna,1,2,A,3.07,3.42,2.42,3.1,3.42,2.5,2.9,3.26,2.38
+Austria,Bundesliga,2018/2019,28/04/2019,16:00,Sturm Graz,LASK Linz,2,3,A,3.76,3.43,2.11,3.76,3.6,2.3,3.5,3.4,2.04
+Austria,Bundesliga,2018/2019,04/05/2019,16:00,Admira,Rapid Vienna,3,4,A,5.2,4.89,1.56,5.55,4.89,1.65,5,4.28,1.57
+Austria,Bundesliga,2018/2019,04/05/2019,16:00,Mattersburg,Altach,0,0,D,2.22,3.45,3.44,2.28,3.45,3.5,2.17,3.27,3.29
+Austria,Bundesliga,2018/2019,04/05/2019,16:00,Wacker Innsbruck,Hartberg,1,0,H,1.97,4.07,3.57,2.08,4.1,3.6,1.97,3.76,3.36
+Austria,Bundesliga,2018/2019,05/05/2019,13:30,LASK Linz,AC Wolfsberger,3,0,H,1.69,3.93,5.23,1.69,4,6,1.64,3.81,5.07
+Austria,Bundesliga,2018/2019,05/05/2019,13:30,St. Polten,Sturm Graz,0,1,A,3.56,3.62,2.11,3.6,3.62,2.15,3.4,3.38,2.07
+Austria,Bundesliga,2018/2019,05/05/2019,16:00,Austria Vienna,Salzburg,1,2,A,4.69,3.76,1.8,4.75,4.2,1.82,4.3,3.82,1.74
+Austria,Bundesliga,2018/2019,11/05/2019,16:00,Altach,Admira,2,2,D,1.93,3.79,3.99,1.99,3.8,4,1.92,3.61,3.69
+Austria,Bundesliga,2018/2019,11/05/2019,16:00,Hartberg,Mattersburg,2,1,H,3.12,3.61,2.3,3.12,3.61,2.38,2.91,3.45,2.28
+Austria,Bundesliga,2018/2019,11/05/2019,16:00,Rapid Vienna,Wacker Innsbruck,1,0,H,1.3,6.3,8.78,1.32,6.45,12,1.27,5.87,8.77
+Austria,Bundesliga,2018/2019,12/05/2019,13:30,AC Wolfsberger,St. Polten,4,0,H,1.64,4.01,5.64,1.65,4.2,6.17,1.61,3.85,5.36
+Austria,Bundesliga,2018/2019,12/05/2019,13:30,Sturm Graz,Austria Vienna,1,3,A,2.43,3.43,3.06,2.43,3.43,3.3,2.29,3.31,3.01
+Austria,Bundesliga,2018/2019,12/05/2019,16:00,Salzburg,LASK Linz,2,1,H,1.62,4.64,4.87,1.72,4.64,5,1.61,4.25,4.64
+Austria,Bundesliga,2018/2019,18/05/2019,16:00,Admira,Wacker Innsbruck,3,2,H,2.41,3.97,2.75,2.41,3.97,3,2.35,3.63,2.71
+Austria,Bundesliga,2018/2019,18/05/2019,16:00,Altach,Hartberg,3,1,H,2.02,3.76,3.67,2.06,3.8,3.9,1.93,3.63,3.62
+Austria,Bundesliga,2018/2019,18/05/2019,16:00,Mattersburg,Rapid Vienna,1,0,H,3.96,4.21,1.84,4,4.21,1.87,3.81,3.91,1.81
+Austria,Bundesliga,2018/2019,19/05/2019,16:00,Austria Vienna,AC Wolfsberger,2,0,H,2.29,3.67,3.1,2.3,3.67,3.25,2.23,3.41,3.04
+Austria,Bundesliga,2018/2019,19/05/2019,16:00,St. Polten,LASK Linz,0,1,A,5.97,4.69,1.52,7,4.69,1.54,6.04,4.3,1.49
+Austria,Bundesliga,2018/2019,19/05/2019,16:00,Sturm Graz,Salzburg,1,2,A,3.82,3.86,1.95,4.35,4,1.95,3.8,3.72,1.86
+Austria,Bundesliga,2018/2019,25/05/2019,16:00,Hartberg,Admira,3,1,H,1.56,5.02,5.06,1.63,5.02,5.75,1.56,4.47,4.84
+Austria,Bundesliga,2018/2019,25/05/2019,16:00,Rapid Vienna,Altach,1,2,A,1.98,3.79,3.78,1.98,3.93,4.4,1.87,3.73,3.67
+Austria,Bundesliga,2018/2019,25/05/2019,16:00,Wacker Innsbruck,Mattersburg,4,0,H,1.47,4.94,6.37,1.49,4.94,6.5,1.45,4.64,5.88
+Austria,Bundesliga,2018/2019,26/05/2019,16:00,AC Wolfsberger,Sturm Graz,2,1,H,2.03,3.87,3.54,2.08,3.87,3.8,1.99,3.56,3.47
+Austria,Bundesliga,2018/2019,26/05/2019,16:00,LASK Linz,Austria Vienna,5,2,H,2.57,3.52,2.8,2.62,3.6,2.8,2.48,3.38,2.67
+Austria,Bundesliga,2018/2019,26/05/2019,16:00,Salzburg,St. Polten,7,0,H,1.09,11.04,27.79,1.12,13,34,1.08,10.22,23.93
+Austria,Bundesliga,2018/2019,28/05/2019,18:00,Rapid Vienna,Mattersburg,2,0,H,1.45,4.77,7.03,1.5,4.8,7.5,1.43,4.5,6.59
+Austria,Bundesliga,2018/2019,30/05/2019,16:00,Rapid Vienna,Sturm Graz,1,2,A,1.68,4.14,4.95,1.75,4.2,5.5,1.65,3.9,4.84
+Austria,Bundesliga,2018/2019,02/06/2019,16:00,Sturm Graz,Rapid Vienna,0,1,A,3.07,3.78,2.27,3.16,3.78,2.3,2.99,3.58,2.18

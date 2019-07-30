@@ -112,16 +112,18 @@ def self.parse( txt )
       #   e.g. New York FC      (2011-)  => New York FC (2011-)
       values = values.map { |value| value.strip.gsub( /[ \t]+/, ' ' ) }
       last_rec.alt_names += values
+      last_rec.add_variants( values ) # auto-add (possible) auto-generated variant names
 
-      ## check for duplicates - simple check for now - fix/improve
-      ## todo/fix: (auto)remove duplicates - why? why not?
-      ##  todo/fix: add canonical name too!! might get duplicated in alt names!!!
-      count      = last_rec.alt_names.size
-      count_uniq = last_rec.alt_names.uniq.size
-      if count != count_uniq
-        puts
-        puts "*** !!! WARN !!! - #{count-count_uniq} duplicate alt name(s):"
+      ## check for duplicates
+      if last_rec.duplicates?
+        duplicates = last_rec.duplicates
+        puts "*** !!! WARN !!! - #{duplicates.size} duplicate alt name mapping(s):"
+        pp duplicates
         pp last_rec
+        ##
+        ##  todo/fix:  make it only an error with exit 1
+        ##               if (not normalized) names are the same
+        ##                  e.g. don't exit on  A.F.C. == AFC etc.
         ## exit 1
       end
     else
@@ -132,7 +134,8 @@ def self.parse( txt )
       ## strip and  squish (white)spaces
       #   e.g. New York FC      (2011-)  => New York FC (2011-)
       value = value.strip.gsub( /[ \t]+/, ' ' )
-      rec.name = value   # canoncial_name
+      rec.name = value            # canoncial name (global unique "beautiful/long" name)
+      rec.add_variants( value )   # auto-add (possible) auto-generated variant names
 
       ## note:
       ##   check/todo!!!!!!!!!!!!!!!!!-
@@ -150,7 +153,6 @@ def self.parse( txt )
       ##   e.g. New York FC (2011) => New York FC
       if rec.name =~ /\(.+?\)/   ## note: use non-greedy (?) match
         name = rec.name.gsub( /\(.+?\)/, '' ).strip
-        rec.alt_names << name
 
         if rec.name =~ /\(([0-9]{4})-\)/            ## e.g. (2014-)
           rec.year     = $1.to_i

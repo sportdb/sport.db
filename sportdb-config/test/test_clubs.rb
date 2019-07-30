@@ -9,42 +9,22 @@ require 'helper'
 
 class TestClubs < MiniTest::Test
 
-  def test_clubs
-    pp SportDb::Import.config.clubs.errors
+  def test_duplicats
+    club = SportDb::Import::Club.new
+    club.name = "Rapid Wien"
 
-    SportDb::Import.config.clubs.dump_duplicates
+    assert_equal false, club.duplicates?
+    duplicates = {}
+    assert_equal duplicates,  club.duplicates
 
-    m = SportDb::Import.config.clubs.match( 'Rapid Wien' )
-    assert_equal 'SK Rapid Wien', m[0].name
-    assert_equal 'Austria',       m[0].country.name
-    assert_equal 'Wien',          m[0].city
+    club.alt_names_auto += ['Rapid', 'Rapid Wien', 'SK Rapid Wien']
 
-    c = SportDb::Import.config.clubs[ 'SK Rapid Wien' ]   ## check canoncial name match (only)
-    assert_equal 'SK Rapid Wien', c.name
-    assert_equal 'Austria',       c.country.name
-    assert_equal 'Wien',          c.city
+    pp club
 
-
-    m = SportDb::Import.config.clubs.match( 'Arsenal' )
-    assert_equal 3, m.size
-
-    m = SportDb::Import.config.clubs.match_by( name: 'Arsenal', country: 'eng' )
-    assert_equal 1, m.size
-    assert_equal 'Arsenal FC', m[0].name
-    assert_equal 'England',    m[0].country.name
-    assert_equal 'London',     m[0].city
-
-    m = SportDb::Import.config.clubs.match_by( name: 'Arsenal', country: 'ar' )
-    assert_equal 1, m.size
-    assert_equal 'Arsenal de Sarandí', m[0].name
-    assert_equal 'Argentina',          m[0].country.name
-    assert_equal 'Sarandí',            m[0].city
-
-    m = SportDb::Import.config.clubs.match_by( name: 'Arsenal', country: 'ru' )
-    assert_equal 1, m.size
-    assert_equal 'Arsenal Tula', m[0].name
-    assert_equal 'Russia',       m[0].country.name
-    assert_equal 'Tula',         m[0].city
+    assert_equal true,              club.duplicates?
+    duplicates = {'rapid wien'=>['Rapid Wien','Rapid Wien']}
+    pp club.duplicates
+    assert_equal duplicates, club.duplicates
   end
 
 end # class TestClubs

@@ -9,18 +9,76 @@ module SportDb
 #      the Team struct in sportdb-text (in SportDb::Struct::Team)  !!!!
 class Club
   ##  todo: use just names for alt_names - why? why not?
-  attr_accessor :name, :alt_names, :year, :ground, :city
+  attr_accessor :name, :alt_names,
+                :year, :ground, :city
 
   ## more attribs - todo/fix - also add "upstream" to struct & model!!!!!
   attr_accessor :district, :geos, :year_end, :country
+
+  ## special import only attribs
+  attr_accessor :alt_names_auto    ## auto-generated alt names
 
   def historic?()  @year_end ? true : false; end
   alias_method  :past?, :historic?
 
   def initialize
-    @alt_names = []
+    @alt_names      = []
+    @alt_names_auto = []
   end
+
+
+  ## helper methods for import only
+  ## check for duplicates
+  def duplicates?
+    names = [name] + alt_names + alt_names_auto
+    names = names.map { |name| normalize( name ) }
+
+    names.size != names.uniq.size
+  end
+
+  def duplicates
+    names = [name] + alt_names + alt_names_auto
+
+    ## calculate (count) frequency and select if greater than one
+    names.reduce( Hash.new ) do |h,name|
+       norm = normalize( name )
+       h[norm] ||= []
+       h[norm] << name; h
+    end.select { |norm,names| names.size > 1 }
+  end
+
+  def add_variants( name_or_names )
+    names = name_or_names.is_a?(Array) ? name_or_names : [name_or_names]
+    names.each do |name|
+      name = sanitize( name )
+      self.alt_names_auto += variants( name )
+    end
+  end
+
+private
+  def sanitize( name )
+    ## check for year(s) e.g. (1887-1911), (-2013) etc.
+    name = name.gsub( /\([0-9\- ]+?\)/, '' ).strip
+    ## check lang codes e.g. [en], [fr], etc.
+    name = name.gsub( /\[[a-z]{2}\]/, '' ).strip
+    name
+  end
+
+  def normalize( name )
+    name = sanitize( name)
+
+    name = name.gsub( '.', '' )    # remove all dots
+    ## don't report duplicates that only differ with dash (-)
+    ##    e.g. Al Ahly or Al-Ahly for now - why? why not?
+    name = name.gsub( '-', ' ' )   # replace - with space (e.g. - same as space)
+
+    name = name.downcase     ## do NOT care about upper and lowercase for now
+    name
+  end
+
+  def variants( name )  Variant.find( name ); end
 end # class Club
+
 
 
 

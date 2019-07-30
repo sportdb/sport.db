@@ -17,8 +17,10 @@ lib/sportdb/config/league.rb
 lib/sportdb/config/league_reader.rb
 lib/sportdb/config/league_utils.rb
 lib/sportdb/config/season_utils.rb
+lib/sportdb/config/variants.rb
 lib/sportdb/config/version.rb
 test/helper.rb
+test/test_club_index.rb
 test/test_club_reader.rb
 test/test_clubs.rb
 test/test_config.rb
@@ -26,3 +28,4 @@ test/test_countries.rb
 test/test_league_reader.rb
 test/test_league_utils.rb
 test/test_season_utils.rb
+test/test_variants.rb

@@ -111,28 +111,60 @@ class ClubIndex
         @clubs[ rec.name ] = rec
       end
 
-      ## step 2) add all names (canonical name + alt names)
+      ## step 2) add all names (canonical name + alt names + alt names (auto))
       names = [rec.name] + rec.alt_names
+      more_names = []
+      ## check "hand-typed" names for year (auto-add)
+      ## check for year(s) e.g. (1887-1911), (-2013) etc.
+      names.each do |name|
+        if name =~ /\([0-9\- ]+?\)/
+          more_names << name.gsub( /\([0-9\- ]+?\)/, '' ).strip
+        end
+      end
 
+      names += more_names
       ## check for duplicates - simple check for now - fix/improve
       ## todo/fix: (auto)remove duplicates - why? why not?
       count      = names.size
       count_uniq = names.uniq.size
       if count != count_uniq
         puts "** !!! ERROR !!! - #{count-count_uniq} duplicate name(s):"
+        pp names
         pp rec
         exit 1
       end
 
+      ## check with auto-names just warn for now and do not exit
+      names += rec.alt_names_auto
+      count      = names.size
+      count_uniq = names.uniq.size
+      if count != count_uniq
+        puts "** !!! WARN !!! - #{count-count_uniq} duplicate name(s):"
+        pp names
+        pp rec
+      end
+
+
       names.each_with_index do |name,i|
-        alt_recs = @clubs_by_name[ name ]
+        ## check lang codes e.g. [en], [fr], etc.
+        name = name.gsub( /\[[a-z]{2}\]/, '' ).strip
+        norm = normalize( name )
+        alt_recs = @clubs_by_name[ norm ]
         if alt_recs
-          msg = "** !!! WARN !!! - name conflict/duplicate - >#{name}< will overwrite >#{alt_recs[0].name}, #{alt_recs[0].country.name}< with >#{rec.name}, #{rec.country.name}<"
-          puts msg
-          @errors << msg
-          alt_recs << rec
+          ## check if include club rec already or is new club rec
+          if alt_recs.include?( rec )
+            ## note: do NOT include duplicate club record
+            msg = "** !!! WARN !!! - (norm) name conflict/duplicate for club - >#{name}< normalized to >#{norm}< already included >#{rec.name}, #{rec.country.name}<"
+            puts msg
+            @errors << msg
+          else
+            msg = "** !!! WARN !!! - name conflict/duplicate - >#{name}< will overwrite >#{alt_recs[0].name}, #{alt_recs[0].country.name}< with >#{rec.name}, #{rec.country.name}<"
+            puts msg
+            @errors << msg
+            alt_recs << rec
+          end
         else
-          @clubs_by_name[ name ] = [rec]
+          @clubs_by_name[ norm ] = [rec]
         end
       end
     end
@@ -145,6 +177,7 @@ class ClubIndex
 
   def match( name )
     ## todo/check: return empty array if no match!!! and NOT nil (add || []) - why? why not?
+    name = normalize( name )
     @clubs_by_name[ name ]
   end
 
@@ -169,14 +202,34 @@ class ClubIndex
 
 
   def dump_duplicates # debug helper - report duplicate club name records
+     @clubs.values.each do |club|
+       if club.duplicates?
+         duplicates = club.duplicates
+         puts "#{duplicates.size} (norm) name duplicate(s) for #{club.name}, #{club.country.name}:"
+         pp duplicates
+       end
+     end
+
      @clubs_by_name.each do |name, clubs|
        if clubs.size > 1
-         puts "#{clubs.size} duplicates for >#{name}<:"
+         puts "#{clubs.size} matching club duplicates for >#{name}<:"
          pp clubs
        end
      end
   end
 
+
+
+private
+  def normalize( name )
+    name = name.gsub( '.', '' )    # remove all dots
+    ## don't report duplicates that only differ with dash (-)
+    ##    e.g. Al Ahly or Al-Ahly for now - why? why not?
+    name = name.gsub( '-', ' ' )   # replace - with space (e.g. - same as space)
+
+    name = name.downcase     ## do NOT care about upper and lowercase for now
+    name
+  end
 end # class ClubIndex
 
 

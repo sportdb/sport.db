@@ -122,7 +122,7 @@ def self.parse( txt )
         pp last_rec
         ##
         ##  todo/fix:  make it only an error with exit 1
-        ##               if (not normalized) names are the same
+        ##               if (not normalized) names are the same (not unique/uniq)
         ##                  e.g. don't exit on  A.F.C. == AFC etc.
         ## exit 1
       end

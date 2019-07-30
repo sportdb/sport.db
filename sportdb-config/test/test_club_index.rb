@@ -19,6 +19,23 @@ class TestClubIndex < MiniTest::Test
     assert_equal 'Austria',       m[0].country.name
     assert_equal 'Wien',          m[0].city
 
+    m = SportDb::Import.config.clubs.match( 'rapid wien' )
+    assert_equal 'SK Rapid Wien', m[0].name
+    assert_equal 'Austria',       m[0].country.name
+    assert_equal 'Wien',          m[0].city
+
+    ## note: all dots (.) get always removed
+    m = SportDb::Import.config.clubs.match( '...r.a.p.i.d w.i.e.n...' )
+    assert_equal 'SK Rapid Wien', m[0].name
+    assert_equal 'Austria',       m[0].country.name
+    assert_equal 'Wien',          m[0].city
+
+    m = SportDb::Import.config.clubs.match( 'RAPID WIEN' )
+    assert_equal 'SK Rapid Wien', m[0].name
+    assert_equal 'Austria',       m[0].country.name
+    assert_equal 'Wien',          m[0].city
+
+
     c = SportDb::Import.config.clubs[ 'SK Rapid Wien' ]   ## check canoncial name match (only)
     assert_equal 'SK Rapid Wien', c.name
     assert_equal 'Austria',       c.country.name
@@ -26,6 +43,9 @@ class TestClubIndex < MiniTest::Test
 
 
     m = SportDb::Import.config.clubs.match( 'Arsenal' )
+    assert_equal 3, m.size
+
+    m = SportDb::Import.config.clubs.match( 'ARSENAL' )
     assert_equal 3, m.size
 
     m = SportDb::Import.config.clubs.match_by( name: 'Arsenal', country: 'eng' )
@@ -45,6 +65,16 @@ class TestClubIndex < MiniTest::Test
     assert_equal 'Arsenal Tula', m[0].name
     assert_equal 'Russia',       m[0].country.name
     assert_equal 'Tula',         m[0].city
+
+
+    m = SportDb::Import.config.clubs.match( 'Arsenal FC' )
+    assert_equal 2, m.size
+
+    m = SportDb::Import.config.clubs.match( 'Arsenal F.C.' )
+    assert_equal 2, m.size
+
+    m = SportDb::Import.config.clubs.match( '...A.r.s.e.n.a.l... F.C...' )
+    assert_equal 2, m.size
   end
 
 end # class TestClubIndex

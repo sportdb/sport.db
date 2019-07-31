@@ -25,8 +25,15 @@ ALPHA_SPECIALS = %w[
 ##  "simple" translation
 SUB_ALPHA_SPECIALS = {
   'Ä'=>'A',  'ä'=>'a',
+             'á'=>'a',    
+             'à'=>'a',    
+  'É'=>'E',  'é'=>'e', 
+             'í'=>'i',    
+             'ñ'=>'n',    
   'Ö'=>'O',  'ö'=>'o',
+             'ó'=>'o',   
   'Ü'=>'U',  'ü'=>'u',
+             'ú'=>'u',
              'ß'=>'ss',
 }
 
@@ -38,6 +45,10 @@ SUB_ALPHA_SPECIALS_DE = {
               'ß'=>'ss',
 }
 
+## add SUB_ALPHA_SPECIALS_ES - why? why not?  is Espanyol catalan spelling or spanish (castillian)?
+# 'ñ'=>'ny',    ## e.g. Español => Espanyol  
+
+  
 
 def self.alpha_specials_count( freq )
   ALPHA_SPECIALS.reduce(0) do |count,ch|

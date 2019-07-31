@@ -93,6 +93,10 @@ class ClubIndex
   attr_reader :errors
   def errors?() @errors.empty? == false; end
 
+  def mappings() @clubs_by_name; end   ## todo/check: rename to index or something - why? why not?
+  def clubs()    @clubs.values;  end
+
+
 
   def add( rec_or_recs )   ## add club record / alt_names
     recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]      ## wrap (single) rec in array
@@ -202,6 +206,9 @@ class ClubIndex
 
 
   def dump_duplicates # debug helper - report duplicate club name records
+
+    ## todo/fix: remove club.duplicates - alreay included in reports -see TeamDuplicatePart
+    ##             more a "feature" of Clubs than ClubIndex class - why? why not?
      @clubs.values.each do |club|
        if club.duplicates?
          duplicates = club.duplicates

@@ -9,6 +9,19 @@ require 'helper'
 
 class TestClubs < MiniTest::Test
 
+  def strip_lang( name ) SportDb::Import::Club.strip_lang( name ); end
+  def strip_year( name ) SportDb::Import::Club.strip_year( name ); end
+
+
+  def test_lang
+    assert_equal 'Bayern Munich', strip_lang( 'Bayern Munich [en]' )
+  end
+
+  def test_year
+    assert_equal 'FC Linz', strip_year( 'FC Linz (1946-2001, 2013-)' )
+  end
+
+
   def test_duplicats
     club = SportDb::Import::Club.new
     club.name = "Rapid Wien"
@@ -22,7 +35,7 @@ class TestClubs < MiniTest::Test
     pp club
 
     assert_equal true,              club.duplicates?
-    duplicates = {'rapid wien'=>['Rapid Wien','Rapid Wien']}
+    duplicates = {'rapidwien'=>['Rapid Wien','Rapid Wien']}
     pp club.duplicates
     assert_equal duplicates, club.duplicates
   end

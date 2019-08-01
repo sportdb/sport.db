@@ -30,6 +30,12 @@ class TestClubIndex < MiniTest::Test
     assert_equal 'Austria',       m[0].country.name
     assert_equal 'Wien',          m[0].city
 
+    ## note: all spaces and dashes (-) get always removed
+    m = SportDb::Import.config.clubs.match( '--- r a p i d  w i e n ---' )
+    assert_equal 'SK Rapid Wien', m[0].name
+    assert_equal 'Austria',       m[0].country.name
+    assert_equal 'Wien',          m[0].city
+
     m = SportDb::Import.config.clubs.match( 'RAPID WIEN' )
     assert_equal 'SK Rapid Wien', m[0].name
     assert_equal 'Austria',       m[0].country.name

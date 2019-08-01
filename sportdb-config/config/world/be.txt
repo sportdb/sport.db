@@ -1,0 +1,18 @@
+==================================
+=  Belgium (be)
+
+Brussels
+
+Antwerpen       › Vlaanderen  | Antwerpen
+Limburg         › Vlaanderen  | Limburg
+Oost-Vlaanderen › Vlaanderen  | Oost-Vlaanderen
+West-Vlaanderen › Vlaanderen  | West-Vlaanderen
+
+Hainaut         › Wallonie    | Hainaut
+Liège           › Wallonie    | Liège
+
+
+== Hainaut › Wallonie ==
+
+Mouscron [fr] | Moeskroen [nl]
+Mons     [fr] | Bergen [nl]

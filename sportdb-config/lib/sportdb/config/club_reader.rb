@@ -77,7 +77,7 @@ def self.parse( txt )
                  exit 1
                end
 
-               headings.push( country_code )
+               headings.push( country.key )
              else
                puts "!!! error - heading level 1 - missing country code - >#{heading}<"
                exit 1

@@ -6,7 +6,11 @@ config/leagues/eng.txt
 config/leagues/fr.txt
 config/leagues/gr.txt
 config/leagues/sco.txt
+config/world/ar.txt
+config/world/at.txt
+config/world/be.txt
 config/world/countries.txt
+config/world/de.txt
 config/world/eng.txt
 lib/sportdb/config.rb
 lib/sportdb/config/club_reader.rb
@@ -19,6 +23,7 @@ lib/sportdb/config/league_utils.rb
 lib/sportdb/config/season_utils.rb
 lib/sportdb/config/variants.rb
 lib/sportdb/config/version.rb
+lib/sportdb/config/wiki_reader.rb
 test/helper.rb
 test/test_club_index.rb
 test/test_club_reader.rb
@@ -29,3 +34,4 @@ test/test_league_reader.rb
 test/test_league_utils.rb
 test/test_season_utils.rb
 test/test_variants.rb
+test/test_wiki_reader.rb

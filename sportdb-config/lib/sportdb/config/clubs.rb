@@ -17,9 +17,25 @@ class Club
 
   ## special import only attribs
   attr_accessor :alt_names_auto    ## auto-generated alt names
+  attr_accessor :wikipedia   # wikipedia page name (for english (en))
 
   def historic?()  @year_end ? true : false; end
   alias_method  :past?, :historic?
+
+
+  def wikipedia?()  @wikipedia; end
+  def wikipedia_url
+    if @wikipedia
+      ##  note: replace spaces with underscore (-)
+      ##  e.g. Club Brugge KV => Club_Brugge_KV
+      ##  todo/check/fix:
+      ##    check if "plain" dash (-) needs to get replaced with typographic dash??
+      "https://en.wikipedia.org/wiki/#{@wikipedia.gsub(' ','_')}"
+    else
+      nil
+    end
+  end
+
 
   def initialize
     @alt_names      = []
@@ -135,6 +151,25 @@ class ClubIndex
   def strip_norm( name ) Club.strip_norm( name ); end
 
 
+  def add_wiki( rec_or_recs )   ## add wiki(pedia club record / links
+    recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]      ## wrap (single) rec in array
+
+    recs.each do |rec|
+      m = match_by( name: rec.name, country: rec.country )
+      if m.nil?
+        puts "** !!! ERROR !!! - no matching club found for wiki(pedia) name >#{rec.name}, #{rec.country.name} (#{rec.country.key})<; sorry - to fix add name to clubs"
+        exit 1
+      end
+      if m.size > 1
+        puts "** !!! ERROR !!! - too many (greater than one) matching clubs found for wiki(pedia) name >#{rec.name}, #{rec.country.name} (#{rec.country.key})<"
+        pp m
+        exit 1
+      end
+      club = m[0]
+      club.wikipedia = rec.name
+    end
+  end  # method add_wiki
+
 
   def add( rec_or_recs )   ## add club record / alt_names
     recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]      ## wrap (single) rec in array
@@ -230,11 +265,18 @@ class ClubIndex
     m = match( name )
     if m    ## filter by country
       ## note: country assumes / allows the country key or fifa code for now
-      country_rec = SportDb::Import.config.countries[ country ]
-      if country_rec.nil?
-        puts "** !!! ERROR !!! - unknown country >#{country}< - no match found, sorry - add to world/countries.txt in config"
-        exit 1
-      end
+
+      ## note: allow passing in of country struct too
+      country_rec = if country.is_a?( SportDb::Import::Country )
+                       country   ## (re)use country struct - no need to run lookup again
+                    else
+                       rec = SportDb::Import.config.countries[ country ]
+                       if rec.nil?
+                         puts "** !!! ERROR !!! - unknown country >#{country}< - no match found, sorry - add to world/countries.txt in config"
+                         exit 1
+                       end
+                       rec
+                    end
 
       m = m.select { |club| club.country.key == country_rec.key }
       m = nil   if m.empty?     ## note: reset to nil if no more matches

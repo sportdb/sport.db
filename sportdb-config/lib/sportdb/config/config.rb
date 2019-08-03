@@ -40,14 +40,21 @@ class Configuration
                        clubs\.txt$
                    }x
 
-  def find_clubs_datafiles( path )
+
+  CLUBS_WIKI_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
+                           (?:[a-z]{1,3}\.)?   # optional country code/key e.g. eng.clubs.wiki.txt
+                          clubs\.wiki\.txt$
+                       }x
+
+
+  def find_clubs_datafiles( path, pattern )
      datafiles = []   ## note: [country, path] pairs for now
 
      ## check all txt files as candidates  (MUST include country code for now)
      candidates = Dir.glob( "#{path}/**/*.txt" )
      pp candidates
      candidates.each do |candidate|
-       datafiles << candidate    if CLUBS_REGEX.match( candidate )
+       datafiles << candidate    if pattern.match( candidate )
      end
 
      pp datafiles
@@ -65,7 +72,7 @@ class Configuration
 
     ## todo/fix: add to teamreader
     ##              check that name and alt_names for a club are all unique (not duplicates)
-    datafiles = find_clubs_datafiles( clubs_dir )
+    datafiles = find_clubs_datafiles( clubs_dir, CLUBS_REGEX )
     datafiles.each do |datafile|
        recs += ClubReader.read( datafile )
     end
@@ -73,6 +80,17 @@ class Configuration
 
     clubs  = ClubIndex.new
     clubs.add( recs )
+
+    ## add wiki(pedia) anchored links
+    recs = []
+    datafiles = find_clubs_datafiles( clubs_dir, CLUBS_WIKI_REGEX )
+    datafiles.each do |datafile|
+       recs += WikiReader.read( datafile )
+    end
+
+    pp recs
+    clubs.add_wiki( recs )
+
 
     if clubs.errors?
       puts ""

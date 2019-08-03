@@ -155,13 +155,16 @@ class ClubIndex
     recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]      ## wrap (single) rec in array
 
     recs.each do |rec|
-      m = match_by( name: rec.name, country: rec.country )
+      ## note: strip qualifier () from wikipedia page name if present
+      ## e.g. FC Wacker Innsbruck (2002) => FC Wacker Innsbruck
+      name = rec.name.gsub( /\([^\)]+?\)/, '' ).strip
+      m = match_by( name: name, country: rec.country )
       if m.nil?
-        puts "** !!! ERROR !!! - no matching club found for wiki(pedia) name >#{rec.name}, #{rec.country.name} (#{rec.country.key})<; sorry - to fix add name to clubs"
+        puts "** !!! ERROR !!! - no matching club found for wiki(pedia) name >#{name}, #{rec.country.name} (#{rec.country.key})<; sorry - to fix add name to clubs"
         exit 1
       end
       if m.size > 1
-        puts "** !!! ERROR !!! - too many (greater than one) matching clubs found for wiki(pedia) name >#{rec.name}, #{rec.country.name} (#{rec.country.key})<"
+        puts "** !!! ERROR !!! - too many (greater than one) matching clubs found for wiki(pedia) name >#{name}, #{rec.country.name} (#{rec.country.key})<"
         pp m
         exit 1
       end

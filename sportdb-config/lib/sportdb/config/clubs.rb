@@ -157,7 +157,15 @@ class ClubIndex
     recs.each do |rec|
       ## note: strip qualifier () from wikipedia page name if present
       ## e.g. FC Wacker Innsbruck (2002) => FC Wacker Innsbruck
-      name = rec.name.gsub( /\([^\)]+?\)/, '' ).strip
+      ##      Willem II (football club)  => Willem II
+      ##
+      ## e.g. do NOT strip others !! e.g.
+      ##   América Futebol Clube (MG)
+      ##  only add more "special" cases on demand (that, is) if we find more
+      name = rec.name
+      name = name.gsub( /\([12][^\)]+?\)/, '' ).strip  ## starting with a digit 1 or 2 (assuming year)
+      name = name.gsub( /\(foot[^\)]+?\)/, '' ).strip  ## starting with foot (assuming football ...)
+
       m = match_by( name: name, country: rec.country )
       if m.nil?
         puts "** !!! ERROR !!! - no matching club found for wiki(pedia) name >#{name}, #{rec.country.name} (#{rec.country.key})<; sorry - to fix add name to clubs"

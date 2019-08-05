@@ -47,7 +47,7 @@ class Configuration
                        }x
 
 
-  def find_clubs_datafiles( path, pattern )
+  def self.find_datafiles( path, pattern )
      datafiles = []   ## note: [country, path] pairs for now
 
      ## check all txt files as candidates  (MUST include country code for now)
@@ -60,38 +60,17 @@ class Configuration
      pp datafiles
      datafiles
   end
+  def self.find_datafiles_clubs( path )       find_datafiles( path, CLUBS_REGEX ); end
+  def self.find_datafiles_clubs_wiki( path )  find_datafiles( path, CLUBS_WIKI_REGEX ); end
 
 
   def build_club_index
     ## unify team names; team (builtin/known/shared) name mappings
     ## cleanup team names - use local ("native") name with umlaut etc.
-    recs = []
-
-    ## todo/fix: pass along / use country code too
-    ##   note: country code no longer needed in path (is now expected as heading inside the file)
-
     ## todo/fix: add to teamreader
     ##              check that name and alt_names for a club are all unique (not duplicates)
-    datafiles = find_clubs_datafiles( clubs_dir, CLUBS_REGEX )
-    datafiles.each do |datafile|
-       recs += ClubReader.read( datafile )
-    end
 
-
-    clubs  = ClubIndex.new
-    clubs.add( recs )
-
-    ## add wiki(pedia) anchored links
-    recs = []
-    datafiles = find_clubs_datafiles( clubs_dir, CLUBS_WIKI_REGEX )
-    datafiles.each do |datafile|
-       recs += WikiReader.read( datafile )
-    end
-
-    pp recs
-    clubs.add_wiki( recs )
-
-
+    clubs = ClubIndex.build( clubs_dir )
     if clubs.errors?
       puts ""
       puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -119,8 +98,6 @@ def read_leagues
     self  ## return self for chaining
   end
 end # class Configuration
-
-
 
 
 

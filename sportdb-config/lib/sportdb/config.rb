@@ -24,9 +24,11 @@ require 'sportdb/config/league_reader'
 
 require 'sportdb/config/variants'
 require 'sportdb/config/countries'
-require 'sportdb/config/clubs'
+require 'sportdb/config/club'
 require 'sportdb/config/club_reader'
+require 'sportdb/config/club_index'
 require 'sportdb/config/wiki_reader'
+require 'sportdb/config/wiki_index'
 require 'sportdb/config/config'
 
 

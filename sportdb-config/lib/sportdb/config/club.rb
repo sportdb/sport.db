@@ -47,7 +47,7 @@ class Club
   ## check for duplicates
   def duplicates?
     names = [name] + alt_names + alt_names_auto
-    names = names.map { |name| normalize( name ) }
+    names = names.map { |name| normalize( sanitize(name) ) }
 
     names.size != names.uniq.size
   end
@@ -57,7 +57,7 @@ class Club
 
     ## calculate (count) frequency and select if greater than one
     names.reduce( Hash.new ) do |h,name|
-       norm = normalize( name )
+       norm = normalize( sanitize(name) )
        h[norm] ||= []
        h[norm] << name; h
     end.select { |norm,names| names.size > 1 }
@@ -83,26 +83,14 @@ class Club
 
    def self.has_year?( name ) name =~ YEAR_REGEX; end
 
-   LANG_REGEX = /\[[a-z]{2}\]/
+   LANG_REGEX = /\[[a-z]{1,2}\]/   ## note also allow [a] or [d] or [e] - why? why not?
    def self.strip_lang( name )
      name.gsub( LANG_REGEX, '' ).strip
    end
 
    def self.has_lang?( name ) name =~ LANG_REGEX; end
 
-   NORM_REGEX =  /[.'º\-\/]/
-   ## note: remove all dots (.), dash (-), ', º, /, etc.
-   ##         for norm(alizing) names
-   def self.strip_norm( name )
-     name.gsub( NORM_REGEX, '' )
-   end
-
-   def strip_year( name ) self.class.strip_year( name ); end
-   def strip_lang( name ) self.class.strip_lang( name ); end
-   def strip_norm( name ) self.class.strip_norm( name ); end
-
-private
-  def sanitize( name )
+  def self.sanitize( name )
     ## check for year(s) e.g. (1887-1911), (-2013),
     ##                        (1946-2001,2013-) etc.
     name = strip_year( name )
@@ -111,17 +99,46 @@ private
     name
   end
 
-  def normalize( name )
-    name = sanitize( name )
+
+  NORM_REGEX =  /[.'º\-\/]/
+  ## note: remove all dots (.), dash (-), ', º, /, etc.
+  ##         for norm(alizing) names
+  def self.strip_norm( name )
+    name.gsub( NORM_REGEX, '' )
+  end
+
+  def self.normalize( name )
+    # note: do NOT call sanitize here (keep normalize "atomic" for reuse)
 
     ## remove all dots (.), dash (-), º, /, etc.
     name = strip_norm( name )
     name = name.gsub( ' ', '' )  # note: also remove all spaces!!!
 
     ## todo/fix: use our own downcase - why? why not?
-    name = name.downcase     ## do NOT care about upper and lowercase for now
+    name = downcase_i18n( name )     ## do NOT care about upper and lowercase for now
     name
   end
+
+
+  def self.strip_wiki( name )     # todo/check: rename to strip_wikipedia_en - why? why not?
+    ## note: strip disambiguationn qualifier from wikipedia page name if present
+    ##        note: only remove year and foot... for now
+    ## e.g. FC Wacker Innsbruck (2002) => FC Wacker Innsbruck
+    ##      Willem II (football club)  => Willem II
+    ##
+    ## e.g. do NOT strip others !! e.g.
+    ##   América Futebol Clube (MG)
+    ##  only add more "special" cases on demand (that, is) if we find more
+    name = name.gsub( /\([12][^\)]+?\)/, '' ).strip  ## starting with a digit 1 or 2 (assuming year)
+    name = name.gsub( /\(foot[^\)]+?\)/, '' ).strip  ## starting with foot (assuming football ...)
+    name
+  end
+
+
+private
+  ## private "shortcut" convenience helpers
+  def sanitize( name )    self.class.sanitize( name ); end
+  def normalize( name )   self.class.normalize( name ); end
 
   def variants( name )  Variant.find( name ); end
 end # class Club

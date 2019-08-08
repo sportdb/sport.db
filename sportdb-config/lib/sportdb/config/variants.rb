@@ -30,11 +30,11 @@ ALPHA_SPECIALS = {
              'ā'=>'a',
              'ă'=>'a',
              'ą'=>'a',
-             
+
   'Ç' =>'C', 'ç'=>'c',
              'ć'=>'c',
   'Č'=>'C',  'č'=>'c',
-  
+
   'É'=>'E',  'é'=>'e',
              'è'=>'e',
              'ê'=>'e',
@@ -43,7 +43,7 @@ ALPHA_SPECIALS = {
              'ę'=>'e',
 
              'ğ'=>'g',
-              
+
   'İ'=>'I',
   'Í'=>'I',  'í'=>'i',
              'î'=>'i',
@@ -51,11 +51,11 @@ ALPHA_SPECIALS = {
              'ı'=>'i',
 
   'Ł'=>'L', 'ł'=>'l',
-             
+
              'ñ'=>'n',
              'ń'=>'n',
              'ň'=>'n',
-             
+
   'Ö'=>'O',  'ö'=>'o',
              'ó'=>'o',
              'õ'=>'o',
@@ -64,7 +64,7 @@ ALPHA_SPECIALS = {
              'ő'=>'o',
 
               'ř'=>'r',
-        
+
   'Ś'=>'S',
   'Ş'=>'S',  'ş'=>'s',
   'Š'=>'S',  'š'=>'s',
@@ -78,7 +78,7 @@ ALPHA_SPECIALS = {
   'Ü'=>'U',  'ü'=>'u',
   'Ú'=>'U',  'ú'=>'u',
              'ū'=>'u',
-             
+
              'ý'=>'y',
 
              'ź'=>'z',
@@ -98,6 +98,35 @@ ALPHA_SPECIALS_DE = {
 ## add ALPHA_SPECIALS_ES - why? why not?  is Espanyol catalan spelling or spanish (castillian)?
 # 'ñ'=>'ny',    ## e.g. Español => Espanyol
 
+ALPHA_DOWNCASE = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z].reduce({}) do |h,ch|
+  h[ch] = ch.downcase
+  h
+end.merge(
+  'Ä'=>'ä',
+  'Á'=>'á',
+  'Å'=>'å',
+
+  'Ç'=>'ç',
+  'Č'=>'č',
+
+  'É'=>'é',
+
+  'İ'=>'?',   ## fix - add lowercase
+  'Í'=>'í',
+
+  'Ł'=>'ł',
+
+  'Ö'=>'ö',
+
+  'Ś'=>'?',   ## fix - add lowercase
+  'Ş'=>'ş',
+  'Š'=>'š',
+
+  'Ü'=>'ü',
+  'Ú'=>'ú',
+
+  'Ž'=>'ž',
+)
 
 
 def self.alpha_specials_count( freq, mapping )
@@ -138,8 +167,19 @@ def self.find( name )
   alt_names = alt_names.uniq
   alt_names
 end
-end   # Variant
 
+def self.downcase_i18n( name )    ## our very own downcase for int'l characters / letters
+  tr( name, ALPHA_DOWNCASE )
+end
+
+end  # class Variant
 
 end ## module Import
 end ## module SportDb
+
+
+
+## "global" convenience helper
+def downcase_i18n( name )
+  SportDb::Import::Variant.downcase_i18n( name )
+end   # Variant

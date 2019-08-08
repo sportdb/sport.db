@@ -48,7 +48,8 @@ class ClubIndex
   def strip_year( name ) Club.strip_year( name ); end
   def has_year?( name)   Club.has_year?( name ); end
   def strip_lang( name ) Club.strip_lang( name ); end
-  def strip_norm( name ) Club.strip_norm( name ); end
+  def strip_wiki( name ) Club.strip_wiki( name ); end
+  def normalize( name )  Club.normalize( name ); end
 
 
   def add_wiki( rec_or_recs )   ## add wiki(pedia club record / links
@@ -62,9 +63,7 @@ class ClubIndex
       ## e.g. do NOT strip others !! e.g.
       ##   América Futebol Clube (MG)
       ##  only add more "special" cases on demand (that, is) if we find more
-      name = rec.name
-      name = name.gsub( /\([12][^\)]+?\)/, '' ).strip  ## starting with a digit 1 or 2 (assuming year)
-      name = name.gsub( /\(foot[^\)]+?\)/, '' ).strip  ## starting with foot (assuming football ...)
+      name = strip_wiki( rec.name )
 
       m = match_by( name: name, country: rec.country )
       if m.nil?
@@ -136,6 +135,7 @@ class ClubIndex
 
       names.each_with_index do |name,i|
         ## check lang codes e.g. [en], [fr], etc.
+        ##  todo/check/fix:  move strip_lang up in the chain - check for duplicates (e.g. only lang code marker different etc.) - why? why not?
         name = strip_lang( name )
         norm = normalize( name )
         alt_recs = @clubs_by_name[ norm ]
@@ -204,18 +204,6 @@ class ClubIndex
          pp clubs
        end
      end
-  end
-
-
-
-private
-  def normalize( name )
-    name = strip_norm( name )
-    name = name.gsub( ' ', '' )   # remove all spaces
-
-    ## todo/fix: use our own downcase - why? why not?
-    name = name.downcase     ## do NOT care about upper and lowercase for now
-    name
   end
 end # class ClubIndex
 

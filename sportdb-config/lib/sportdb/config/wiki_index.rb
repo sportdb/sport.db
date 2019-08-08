@@ -17,6 +17,15 @@ class WikiIndex
     self.new( recs )
   end
 
+
+
+  ## helpers from club - use a helper module for includes - why? why not?
+  def strip_lang( name ) Club.strip_lang( name ); end
+  def strip_year( name ) Club.strip_year( name ); end
+  def normalize( name )  Club.normalize( name ); end
+  def strip_wiki( name)  Club.strip_wiki( name ); end
+
+
   def initialize( recs )
     @pages_by_country = {}
 
@@ -24,19 +33,9 @@ class WikiIndex
     ##   check for duplicate recs - report and exit on dupliate!!!!!!
     recs.each do |rec|
       h = @pages_by_country[ rec.country.key ] ||= {}
-      h[ normalize(rec.name) ] = rec
+      h[ normalize( strip_wiki( rec.name )) ] = rec
     end
   end
-
-
-  def normalize( name )
-    ## todo/fix:  (re)use normalize from Club!!!!
-    name = name.gsub( /[\-\.]/, '' )
-    name = name.gsub( ' ', '' )    ## remove spaces too
-    name = name.downcase
-    name
-  end
-
 
 
   def find_by( club: )    ## todo/check: use find_by_club - why? why not?
@@ -55,8 +54,8 @@ class WikiIndex
       ## todo/check: sort names ?
       ##   sort by longest first (for best match)
       names.each do |name|
-        ## todo/fix:  name - remove/string year and lang e.g. (1946-2001), [en]!!!!
-        rec = h[ normalize( name ) ]
+        ## note: normalize AND sanitize (e.g. remove/string year and lang e.g. (1946-2001), [en] too)
+        rec = h[ normalize( strip_year( strip_lang( name ))) ]
         break if rec   ## bingo!! found - break on first match
       end
     end

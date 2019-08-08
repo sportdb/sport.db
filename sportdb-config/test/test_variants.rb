@@ -12,9 +12,10 @@ class TestVariants < MiniTest::Test
   def variants( name )  SportDb::Import::Variant.find( name ); end
 
 
-  def test_downcase
-    ## todo/fix: use our own downcase for normalize - why? why not?
-    ## assert_equal 'äöü',  'ÄÖÜ'.downcase
+  def test_downcase_i18n
+    assert_equal 'abcdefghijklmnopqrstuvwxyz',  downcase_i18n( 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' )
+    assert_equal 'äöü',  downcase_i18n( 'ÄÖÜ' )
+    assert_equal 'köln', downcase_i18n( 'KÖLN' )
   end
 
 

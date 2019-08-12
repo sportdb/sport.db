@@ -12,13 +12,10 @@
 
 The World's Football Association / Governing Body
 uses its own country list and (three-letter) codes - see
-the [List of FIFA country codes](https://en.wikipedia.org/wiki/List_of_FIFA_country_codes)
-@ Wikipedia
+the [List of FIFA country codes @ Wikipedia](https://en.wikipedia.org/wiki/List_of_FIFA_country_codes)
 or the [`countries.txt`](https://github.com/sportdb/sport.db/blob/master/fifa/config/countries.txt) list shipping with this library.
 
-Triva
-
-The FIFA member list includes 211 countries while the United Nations (UN)
+Triva - The FIFA member list includes 211 countries while the United Nations (UN)
 member list only includes 191 countries.
 For example, for historic reasons the FIFA includes:
 

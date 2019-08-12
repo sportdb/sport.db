@@ -18,8 +18,7 @@ class Configuration
   end
 
   def build_country_index    ## todo/check: rename to setup_country_index or read_country_index - why? why not?
-    recs = read_csv( "#{SportDb::Boot.data_dir}/world/countries.txt" )
-    CountryIndex.new( recs )
+    CountryIndex.new( Fifa.countries )
   end
 
 

@@ -9,15 +9,6 @@ require 'helper'
 
 class TestCountries < MiniTest::Test
 
-  def test_read_countries
-    recs = read_csv( "#{SportDb::Boot.data_dir}/world/countries.txt" )
-    ## pp recs
-
-    assert_equal  [{ key:'af', fifa:'AFG', name:'Afghanistan'},
-                   { key:'al', fifa:'ALB', name:'Albania'}], recs[0..1]
-  end
-
-
   def test_countries
     ## pp SportDb::Import.config.countries
 
@@ -31,12 +22,11 @@ class TestCountries < MiniTest::Test
     assert_equal 'Austria',  at.name
     assert_equal 'AUT',      at.fifa
 
-    aut  = SportDb::Import.config.countries[:aut]
-    assert_equal 'at',       aut.key
-    assert_equal 'Austria',  aut.name
-    assert_equal 'AUT',      aut.fifa
-
-    assert aut == at
+    assert at == SportDb::Import.config.countries['AT']
+    assert at == SportDb::Import.config.countries['at']
+    assert at == SportDb::Import.config.countries['AUT']
+    assert at == SportDb::Import.config.countries['aut']
+    assert at == SportDb::Import.config.countries[:aut]
   end
 
 end # class TestCountries

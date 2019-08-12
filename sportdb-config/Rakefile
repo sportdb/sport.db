@@ -20,7 +20,7 @@ Hoe.spec 'sportdb-config' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['csvreader',   '>= 1.2.4'],
+    ['fifa',   '>= 0.1.1'],
   ]
 
   self.spec_extras = {

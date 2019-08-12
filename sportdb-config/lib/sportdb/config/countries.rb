@@ -5,19 +5,8 @@ module SportDb
 
 ## built-in countries for (quick starter) auto-add
 
-##
-#  note: use our own (internal) country struct for now - why? why not?
-#    - check that shape/structure/fields/attributes match
-#      the Country struct in sportdb-text (in SportDb::Struct::Country)
-##       and the ActiveRecord model !!!!
-class Country
-  ## note: is read-only/immutable for now - why? why not?
-  ##          add cities (array/list) - why? why not?
-  attr_reader :key, :name, :fifa
-  def initialize( key, name, fifa )
-    @key, @name, @fifa = key, name, fifa
-  end
-end  # class Country
+## note: (re)use the struct from the fifa country gem / library for now
+Country = ::Fifa::Country
 
 
 class CountryIndex
@@ -36,31 +25,23 @@ class CountryIndex
     recs.each do |rec|
       ## rec e.g. { key:'af', fifa:'AFG', name:'Afghanistan'}
 
-      key  = rec[:key]
-      ## note: remove territory of marker e.g. (UK), (US), etc. from name
-      ##    e.g. England (UK)     => England
-      ##         Puerto Rico (US) => Puerto Rico
-      name = rec[:name].sub( /\([A-Z]{2}\)/, '' ).strip
-      fifa = rec[:fifa]
-
-      country = Country.new( key, name, fifa )
-      @countries << country
+      @countries << rec
 
       ## add codes lookups - key, fifa, ...
-      if @countries_by_code[ country.key ]
-        puts "** !! ERROR !! country code (key) >#{country.key}< already exits!!"
+      if @countries_by_code[ rec.key ]
+        puts "** !! ERROR !! country code (key) >#{rec.key}< already exits!!"
         exit 1
       else
-        @countries_by_code[ country.key ] = country
+        @countries_by_code[ rec.key ] = rec
       end
 
       ## add fifa code (only) if different from key
-      if country.key != country.fifa.downcase
-        if @countries_by_code[ country.fifa.downcase ]
-          puts "** !! ERROR !! country code (fifa) >#{country.fifa.downcase}< already exits!!"
+      if rec.key != rec.fifa.downcase
+        if @countries_by_code[ rec.fifa.downcase ]
+          puts "** !! ERROR !! country code (fifa) >#{rec.fifa.downcase}< already exits!!"
           exit 1
         else
-          @countries_by_code[ country.fifa.downcase ] = country
+          @countries_by_code[ rec.fifa.downcase ] = rec
         end
       end
     end

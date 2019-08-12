@@ -1,5 +1,6 @@
 HISTORY.md
 Manifest.txt
+NOTES.md
 README.md
 Rakefile
 config/leagues/eng.txt
@@ -9,7 +10,6 @@ config/leagues/sco.txt
 config/world/ar.txt
 config/world/at.txt
 config/world/be.txt
-config/world/countries.txt
 config/world/de.txt
 config/world/eng.txt
 lib/sportdb/config.rb

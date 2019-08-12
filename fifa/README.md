@@ -34,8 +34,12 @@ that have their own national team or leagues, for example:
 - and others.
 
 
-Note: This library includes non-FIFA members codes and irregular codes
-from countries in use by regional confederations too.
+Note: This library includes non-FIFA member codes and irregular codes
+from countries in use by regional confederations too, for exmaple:
+
+- Vatican City	(VAT)
+- Zanzibar	(ZAN)
+- and others.
 
 
 

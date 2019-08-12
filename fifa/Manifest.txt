@@ -1,0 +1,11 @@
+HISTORY.md
+Manifest.txt
+NOTES.md
+README.md
+Rakefile
+config/countries.txt
+lib/fifa.rb
+lib/fifa/countries.rb
+lib/fifa/version.rb
+test/helper.rb
+test/test_countries.rb

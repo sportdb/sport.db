@@ -22,14 +22,29 @@ class TestCountries < MiniTest::Test
     pp Fifa.countries
 
     eng = Fifa['ENG']
+    assert_equal eng,        Fifa['eng']
+    assert_equal eng,        Fifa[:eng]
+
     assert_equal 'eng',      eng.key
     assert_equal 'England',  eng.name
     assert_equal 'ENG',      eng.fifa
 
+    assert_equal 'eng',      eng[:key]
+    assert_equal 'England',  eng[:name]
+    assert_equal 'ENG',      eng[:fifa]
+
+
     aut  = Fifa['AUT']
+    assert_equal aut,        Fifa['aut']
+    assert_equal aut,        Fifa[:aut]
+
     assert_equal 'at',       aut.key
     assert_equal 'Austria',  aut.name
     assert_equal 'AUT',      aut.fifa
+
+    assert_equal 'at',       aut[:key]
+    assert_equal 'Austria',  aut[:name]
+    assert_equal 'AUT',      aut[:fifa]
   end
 
 end # class TestCountries

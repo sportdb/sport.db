@@ -16,6 +16,9 @@ class Country
   def initialize( key, name, fifa )
     @key, @name, @fifa = key, name, fifa
   end
+
+  ## add csv-like access by hash key for compatibility
+  def []( key ) send( key ); end
 end  # class Country
 
 

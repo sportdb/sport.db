@@ -35,7 +35,7 @@ that have their own national team or leagues, for example:
 
 
 Note: This library includes non-FIFA member codes and irregular codes
-from countries in use by regional confederations too, for exmaple:
+from countries in use by regional confederations too, for example:
 
 - Vatican City	(VAT)
 - Zanzibar	(ZAN)
@@ -45,7 +45,7 @@ from countries in use by regional confederations too, for exmaple:
 
 ## Usage
 
-Get and pretty print all countries
+Get and pretty print (pp) all countries
 
 ``` ruby
 pp Fifa.countries

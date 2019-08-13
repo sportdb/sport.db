@@ -18,9 +18,10 @@ UNACCENT = {
   'Ú'=>'U',  'ú'=>'u',
 }
 
-UNACCENT_DE = {
+UNACCENT_DE = UNACCENT.merge {
   'Ä'=>'AE',  'ä'=>'ae',
   'Ö'=>'OE',  'ö'=>'oe',
+              'ß'=>'ss',
   'Ü'=>'UE',  'ü'=>'ue',
 }
 
@@ -67,7 +68,7 @@ end
 
 
 
-ANY_CHAR_REGEX = /./  ## use/try constant for spped-up
+ANY_CHAR_REGEX = /./     # use/try constant regex for speed-up
 def unaccent_scan( text, mapping )
   buf = String.new
   text.scan( ANY_CHAR_REGEX ) do |ch|
@@ -80,7 +81,7 @@ def unaccent_scan( text, mapping )
   buf
 end
 
-NON_ALPHA_CHAR_REGEX = /[^A-Za-z0-9 ]/    ## use/try constant for speed-up
+NON_ALPHA_CHAR_REGEX = /[^A-Za-z0-9 ]/    # use/try constant regex for speed-up
 def unaccent_gsub( text, mapping )
   ## todo/fix: use all ascii (basic latin) chars below 0x7F - why? why not?
   text.gsub( NON_ALPHA_CHAR_REGEX ) do |ch|
@@ -137,7 +138,7 @@ end
 
 factor = 5
 str1 = 'AÄÁaäá EÉeé IÍiíï NÑnñ OÖÓoöó Ssß UÜÚuüú' * factor
-str2 = 'Aa Ee Ii Oo Uu' * factor   ## no accents / diacritic marks
+str2 = 'Aa Ee Ii Oo Uu' * factor      # no accents / diacritic marks
 str3 = 'jazmín vïuda pingüino cuestión náutico esdrújula'
 
 

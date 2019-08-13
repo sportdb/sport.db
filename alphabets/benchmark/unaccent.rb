@@ -18,12 +18,12 @@ UNACCENT = {
   'Ú'=>'U',  'ú'=>'u',
 }
 
-UNACCENT_DE = UNACCENT.merge {
+UNACCENT_DE = UNACCENT.merge({
   'Ä'=>'AE',  'ä'=>'ae',
   'Ö'=>'OE',  'ö'=>'oe',
               'ß'=>'ss',
   'Ü'=>'UE',  'ü'=>'ue',
-}
+})
 
 
 def unaccent_each_char( text, mapping )
@@ -99,11 +99,14 @@ def unaccent_gsub_v2( text, mapping )
   end
 end
 
+def unaccent_gsub_v3( text, mapping )
+  text.gsub( NON_ALPHA_CHAR_REGEX, mapping )
+end
 
 
 def benchmark( str, mapping, n: 20_000 )
   puts "text=>#{str}<, n=#{n}:"
-  Benchmark.bm do |benchmark|
+  Benchmark.bm(20) do |benchmark|
     benchmark.report( 'each_char' ) do
       n.times { unaccent_each_char( str, mapping ) }
     end
@@ -126,6 +129,10 @@ def benchmark( str, mapping, n: 20_000 )
 
     benchmark.report( 'gsub_v2' ) do
       n.times { unaccent_gsub_v2( str, mapping ) }
+    end
+
+    benchmark.report( 'gsub_v3' ) do
+      n.times { unaccent_gsub_v3( str, mapping ) }
     end
 
     benchmark.report( 'scan' ) do
@@ -168,6 +175,9 @@ pp unaccent_gsub( str1, UNACCENT_DE )
 
 pp unaccent_gsub_v2( str1, UNACCENT )
 pp unaccent_gsub_v2( str1, UNACCENT_DE )
+
+pp unaccent_gsub_v3( str1, UNACCENT )
+pp unaccent_gsub_v3( str1, UNACCENT_DE )
 
 pp unaccent_scan( str1, UNACCENT )
 pp unaccent_scan( str1, UNACCENT_DE )

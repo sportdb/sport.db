@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pp'
 require 'benchmark'
 
 
@@ -18,12 +17,12 @@ UNACCENT = {
   'Ú'=>'U',  'ú'=>'u',
 }
 
-UNACCENT_DE = UNACCENT.merge({
-  'Ä'=>'AE',  'ä'=>'ae',
-  'Ö'=>'OE',  'ö'=>'oe',
-              'ß'=>'ss',
-  'Ü'=>'UE',  'ü'=>'ue',
-})
+UNACCENT_FASTER = UNACCENT.reduce( [] ) do |ary,(ch,value)|   # use/try array lookup by char (ord) integer number
+  ary[ ch.ord ] = value
+  ary
+end
+
+UNACCENT_REGEX = Regexp.union( UNACCENT.keys )
 
 
 def unaccent_each_char( text, mapping )
@@ -45,6 +44,31 @@ def unaccent_each_char_v2( text, mapping )
   end
   buf
 end
+
+def unaccent_each_char_v2_7bit( text, mapping )
+  buf = String.new
+  text.each_char do |ch|
+    buf <<   if ch.ord < 0x7F   # no mapping (ever) for 7-bit unicode latin basic (a.k.a. ascii) chars
+               ch
+             else
+               mapping[ch] || ch
+             end
+  end
+  buf
+end
+
+def unaccent_each_char_v2_7bit_faster( text, mapping_faster )
+  buf = String.new
+  text.each_char do |ch|
+    buf <<  if ch.ord < 0x7F   # no mapping (ever) for 7-bit unicode latin basic (a.k.a. ascii) chars
+               ch
+            else
+               mapping_faster[ ch.ord ] || ch
+            end
+  end
+  buf
+end
+
 
 
 def unaccent_each_char_reduce( text, mapping )
@@ -99,20 +123,35 @@ def unaccent_gsub_v2( text, mapping )
   end
 end
 
-def unaccent_gsub_v3( text, mapping )
+def unaccent_gsub_v3a( text, mapping )
   text.gsub( NON_ALPHA_CHAR_REGEX, mapping )
 end
 
+def unaccent_gsub_v3b( text, mapping, regex )
+  text.gsub( regex, mapping)
+end
 
-def benchmark( str, mapping, n: 20_000 )
+
+
+def benchmark( str, mapping=UNACCENT,
+                    mapping_faster=UNACCENT_FASTER,
+                    regex=UNACCENT_REGEX,   n: 20_000 )
   puts "text=>#{str}<, n=#{n}:"
-  Benchmark.bm(20) do |benchmark|
+  Benchmark.bm(24) do |benchmark|
     benchmark.report( 'each_char' ) do
       n.times { unaccent_each_char( str, mapping ) }
     end
 
     benchmark.report( 'each_char_v2' ) do
       n.times { unaccent_each_char_v2( str, mapping ) }
+    end
+
+    benchmark.report( 'each_char_v2_7bit' ) do
+      n.times { unaccent_each_char_v2_7bit( str, mapping ) }
+    end
+
+    benchmark.report( 'each_char_v2_7bit_faster' ) do
+      n.times { unaccent_each_char_v2_7bit_faster( str, mapping_faster ) }
     end
 
     benchmark.report( 'each_char_reduce' ) do
@@ -131,8 +170,12 @@ def benchmark( str, mapping, n: 20_000 )
       n.times { unaccent_gsub_v2( str, mapping ) }
     end
 
-    benchmark.report( 'gsub_v3' ) do
-      n.times { unaccent_gsub_v3( str, mapping ) }
+    benchmark.report( 'gsub_v3a' ) do
+      n.times { unaccent_gsub_v3a( str, mapping ) }
+    end
+
+    benchmark.report( 'gsub_v3b' ) do
+      n.times { unaccent_gsub_v3b( str, mapping, regex ) }
     end
 
     benchmark.report( 'scan' ) do
@@ -150,13 +193,37 @@ str3 = 'jazmín vïuda pingüino cuestión náutico esdrújula'
 
 
 
-benchmark( str1, UNACCENT )
-benchmark( str1, UNACCENT_DE )
+benchmark( str1 )
 puts "------------"
-benchmark( str2, UNACCENT )
-benchmark( str2, UNACCENT_DE )
+benchmark( str2 )
 
 
+
+__END__
+
+##
+# note: for testing comment/uncomment __END__
+
+#
+#  try different locale / culture mapping
+
+UNACCENT_DE_BASIC = {
+  'Ä'=>'AE',  'ä'=>'ae',
+  'Ö'=>'OE',  'ö'=>'oe',
+              'ß'=>'ss',
+  'Ü'=>'UE',  'ü'=>'ue',
+}
+UNACCENT_DE = UNACCENT.merge( UNACCENT_DE_BASIC)
+
+# benchmark( str1, UNACCENT_DE )
+# puts "------------"
+# benchmark( str2, UNACCENT_DE )
+
+
+#
+# try / test unaccent functions
+
+require 'pp'
 
 pp unaccent_each_char( str1, UNACCENT )
 pp unaccent_each_char( str1, UNACCENT_DE )
@@ -181,4 +248,3 @@ pp unaccent_gsub_v3( str1, UNACCENT_DE )
 
 pp unaccent_scan( str1, UNACCENT )
 pp unaccent_scan( str1, UNACCENT_DE )
-

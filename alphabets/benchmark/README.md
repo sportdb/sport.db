@@ -129,25 +129,121 @@ Resulting in:
 
 ```
 text=>AÄÁaäá EÉeé IÍiíï...<, n=20000:
-                         user     system      total        real
-each_char            1.781000   0.000000   1.781000 (  1.801168)
-each_char_v2         1.531000   0.000000   1.531000 (  1.515729)
-each_char_reduce     1.985000   0.000000   1.985000 (  1.984208)
-each_char_reduce_v2  1.656000   0.000000   1.656000 (  1.658758)
-gsub                 1.500000   0.000000   1.500000 (  1.489751)
-gsub_v2              1.187000   0.000000   1.187000 (  1.195290)
-scan                 2.547000   0.000000   2.547000 (  2.570355)
+                               user     system      total        real
+each_char                  4.953000   0.000000   4.953000 (  4.958531)
+each_char_v2               4.265000   0.000000   4.265000 (  4.265561)
+each_char_reduce           5.641000   0.000000   5.641000 (  5.638152)
+each_char_reduce_v2        5.125000   0.000000   5.125000 (  5.113069)
+gsub                       6.078000   0.000000   6.078000 (  6.079772)
+gsub_v2                    5.500000   0.000000   5.500000 (  5.492944)
+scan                      10.062000   0.000000  10.062000 ( 10.050102)
 
-text=>Aa Ee Ii Oo Uu...<, n=20000:
-                          user     system      total        real
-each_char            0.468000   0.000000   0.468000 (  0.467562)
-each_char_v2         0.485000   0.000000   0.485000 (  0.467827)
-each_char_reduce     0.531000   0.000000   0.531000 (  0.534984)
-each_char_reduce_v2  0.531000   0.000000   0.531000 (  0.541277)
-gsub                 0.047000   0.000000   0.047000 (  0.046810)
-gsub_v2              0.047000   0.000000   0.047000 (  0.050223)
-scan                 0.766000   0.000000   0.766000 (  0.749982)
+text=>Aa Ee Ii...<, n=20000:
+                               user     system      total        real
+each_char                  1.313000   0.000000   1.313000 (  1.304258)
+each_char_v2               1.328000   0.000000   1.328000 (  1.327656)
+each_char_reduce           1.594000   0.000000   1.594000 (  1.583752)
+each_char_reduce_v2        1.641000   0.000000   1.641000 (  1.650390)
+gsub                       0.140000   0.000000   0.140000 (  0.127486)
+gsub_v2                    0.125000   0.000000   0.125000 (  0.127581)
+scan                       3.141000   0.000000   3.141000 (  3.129562)
 ```
 
-Voila. And the winner is...  `gsub` with the optimized mapping lookup shortcut.
+Voila. And the winner is...  
+
+Hold on. Rob Biedenharn writes in with one more optimization.
+Did you know? `gsub` can take a hash mapping as its second argument
+resulting in v3:
+
+``` ruby
+def unaccent_gsub_v3a( text, mapping=UNACCENT )
+  text.gsub( NON_ALPHA_CHAR_REGEX, mapping )
+end
+```
+
+Hold on. Samuel Williams writes in with one more optimization.
+Why not replace the `NON_ALPHA_CHAR_REGEX`, that is, `/[^A-Za-z0-9 ]/`
+with a regex matching only known accented chars?
+
+``` ruby
+UNACCENT_REGEX = Regexp.union( UNACCENT.keys )
+def unaccent_gsub_v3b( text, mapping=UNACCENT, regex=UNACCENT_REGEX )
+  text.gsub( regex, mapping)
+end
+```
+
+
+Hold on. Let's add some more optimizations to the humble `each_char` version too.
+For all 7-bit (less than 0x7F) unicode latin basic (also known as ascii)
+char(acter)s no mapping (ever) needed. Let's try:
+
+``` ruby
+def unaccent_each_char_v2_7bit( text, mapping )
+  buf = String.new
+  text.each_char do |ch|
+    buf <<   if ch.ord < 0x7F
+               ch
+             else
+               mapping[ch] || ch
+             end
+  end
+  buf
+end
+```
+
+Maybe the mapping lookup using an array index by an integer number
+is faster than hash mapping lookup by single-character string?
+Let's try:
+
+``` ruby
+UNACCENT_FASTER = UNACCENT.reduce( [] ) do |ary,(ch,value)|
+  ary[ ch.ord ] = value
+  ary
+end
+
+def unaccent_each_char_v2_7bit_faster( text, mapping_faster=UNACCENT_FASTER )
+  buf = String.new
+  text.each_char do |ch|
+    buf <<  if ch.ord < 0x7F   
+               ch
+            else
+               mapping_faster[ ch.ord ] || ch
+            end
+  end
+  buf
+end
+```
+
+Voila. And the winner is...  
+
+```
+text=>AÄÁaäá EÉeé IÍiíï...<, n=20000:
+                               user     system      total        real
+each_char                  4.953000   0.000000   4.953000 (  4.958531)
+each_char_v2               4.265000   0.000000   4.265000 (  4.265561)
+each_char_v2_7bit          4.266000   0.000000   4.266000 (  4.268788)
+each_char_v2_7bit_faster   3.375000   0.000000   3.375000 (  3.379573)
+each_char_reduce           5.641000   0.000000   5.641000 (  5.638152)
+each_char_reduce_v2        5.125000   0.000000   5.125000 (  5.113069)
+gsub                       6.078000   0.000000   6.078000 (  6.079772)
+gsub_v2                    5.500000   0.000000   5.500000 (  5.492944)
+gsub_v3a                   4.203000   0.000000   4.203000 (  4.248036)
+gsub_v3b                   5.094000   0.000000   5.094000 (  5.098041)
+scan                      10.062000   0.000000  10.062000 ( 10.050102)
+
+text=>Aa Ee Ii...<, n=20000:
+                               user     system      total        real
+each_char                  1.313000   0.000000   1.313000 (  1.304258)
+each_char_v2               1.328000   0.000000   1.328000 (  1.327656)
+each_char_v2_7bit          0.984000   0.000000   0.984000 (  0.981193)
+each_char_v2_7bit_faster   0.984000   0.000000   0.984000 (  0.977593)
+each_char_reduce           1.594000   0.000000   1.594000 (  1.583752)
+each_char_reduce_v2        1.641000   0.000000   1.641000 (  1.650390)
+gsub                       0.140000   0.000000   0.140000 (  0.127486)
+gsub_v2                    0.125000   0.000000   0.125000 (  0.127581)
+gsub_v3a                   0.125000   0.000000   0.125000 (  0.124071)
+gsub_v3b                   0.047000   0.000000   0.047000 (  0.056792)
+scan                       3.141000   0.000000   3.141000 (  3.129562)
+```
+
 Can you find a faster way? Show us.

@@ -7,14 +7,12 @@ How to turn `AÄÁaäá EÉeé IÍiíï NÑnñ OÖÓoöó Ssß UÜÚuüú`
 into `AAAaaa EEee IIiii NNnn OOOooo Ssss UUUuuu`?
 
 Let's say you have German football club names such as:
-Bayern München · 1. FC Köln · Preußen Münster 
-
+Bayern München · 1. FC Köln · Preußen Münster.
 Or Spanish club names such as:
 Atlético Madrid · Málaga CF · Sporting Gijón
 
 What's the fastest way to remove all accents and diacritic marks
 from the char(acter)s?
-
 Let's count the way
 and let's turn 
 `Bayern München` into `Bayern Munchen` or `Bayern Muenchen`.
@@ -123,7 +121,7 @@ end
 Ok. And the winner is...  Let's benchmark with two use cases.
 The first test has many accent and diacritic marks e.g. `AÄÁaäá EÉeé IÍiíï...`
 and the second has none e.g. `Aa Ee Ii Oo Uu...`.
-Run the `benchmark/unaccent.rb` script. 
+Run the [`benchmark/unaccent.rb`](unaccent.rb) script. 
 Resulting in:
 
 

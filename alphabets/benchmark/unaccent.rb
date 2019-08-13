@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 require 'pp'
 require 'benchmark'
@@ -6,8 +6,16 @@ require 'benchmark'
 
 UNACCENT = {
   'Ä'=>'A',  'ä'=>'a',
+  'Á'=>'A',  'á'=>'a',
+  'É'=>'E',  'é'=>'e',
+  'Í'=>'I',  'í'=>'i',
+             'ï'=>'i',
+  'Ñ'=>'N',  'ñ'=>'n',
   'Ö'=>'O',  'ö'=>'o',
+  'Ó'=>'O',  'ó'=>'o',
+             'ß'=>'ss',
   'Ü'=>'U',  'ü'=>'u',
+  'Ú'=>'U',  'ú'=>'u',
 }
 
 UNACCENT_DE = {
@@ -72,9 +80,9 @@ def unaccent_scan( text, mapping )
   buf
 end
 
-NON_ALPHA_CHAR_REGEX = /[^A-Za-z0-9]/    ## use/try constant for speed-up
+NON_ALPHA_CHAR_REGEX = /[^A-Za-z0-9 ]/    ## use/try constant for speed-up
 def unaccent_gsub( text, mapping )
-  ## todo/fix: use all ascii below 0x7F ??
+  ## todo/fix: use all ascii (basic latin) chars below 0x7F - why? why not?
   text.gsub( NON_ALPHA_CHAR_REGEX ) do |ch|
     if mapping[ch]
       mapping[ch]
@@ -84,10 +92,15 @@ def unaccent_gsub( text, mapping )
   end
 end
 
+def unaccent_gsub_v2( text, mapping )
+  text.gsub( NON_ALPHA_CHAR_REGEX ) do |ch|
+    mapping[ch] || ch
+  end
+end
 
 
 
-def benchmark( str, n=200_000, mapping )
+def benchmark( str, mapping, n: 20_000 )
   puts "text=>#{str}<, n=#{n}:"
   Benchmark.bm do |benchmark|
     benchmark.report( 'each_char' ) do
@@ -110,6 +123,10 @@ def benchmark( str, n=200_000, mapping )
       n.times { unaccent_gsub( str, mapping ) }
     end
 
+    benchmark.report( 'gsub_v2' ) do
+      n.times { unaccent_gsub_v2( str, mapping ) }
+    end
+
     benchmark.report( 'scan' ) do
       n.times { unaccent_scan( str, mapping ) }
     end
@@ -117,8 +134,13 @@ def benchmark( str, n=200_000, mapping )
 end
 
 
-str1 = 'AÄ OÖ UÜ aä oö uü'
-str2 = 'A O U a o u'   ## no accents / diacritic marks
+
+factor = 5
+str1 = 'AÄÁaäá EÉeé IÍiíï NÑnñ OÖÓoöó Ssß UÜÚuüú' * factor
+str2 = 'Aa Ee Ii Oo Uu' * factor   ## no accents / diacritic marks
+str3 = 'jazmín vïuda pingüino cuestión náutico esdrújula'
+
+
 
 benchmark( str1, UNACCENT )
 benchmark( str1, UNACCENT_DE )
@@ -143,5 +165,9 @@ pp unaccent_each_char_reduce_v2( str1, UNACCENT_DE )
 pp unaccent_gsub( str1, UNACCENT )
 pp unaccent_gsub( str1, UNACCENT_DE )
 
+pp unaccent_gsub_v2( str1, UNACCENT )
+pp unaccent_gsub_v2( str1, UNACCENT_DE )
+
 pp unaccent_scan( str1, UNACCENT )
 pp unaccent_scan( str1, UNACCENT_DE )
+

@@ -1,11 +1,11 @@
 # encoding: utf-8
 
 
-## note: use class for now - change to module - possible? - why? why not?
+## todo/check: use a module Alphabets with s to keep version and banner separate - why? why not?
 
-class Fifa
+class Alphabet
   MAJOR = 0    ## todo: namespace inside version or something - why? why not??
-  MINOR = 1
+  MINOR = 0
   PATCH = 1
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 
@@ -14,14 +14,10 @@ class Fifa
   end
 
   def self.banner
-    "fifa/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+    "alphabets/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
   end
 
   def self.root
     File.expand_path( File.dirname(File.dirname(File.dirname(__FILE__))) )
   end
-
-  def self.data_dir  ## rename to config_dir - why? why not?
-    "#{root}/config"
-  end
-end   # class Fifa
+end # class Alphabet

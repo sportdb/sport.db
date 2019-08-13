@@ -1,0 +1,13 @@
+HISTORY.md
+Manifest.txt
+NOTES.md
+README.md
+Rakefile
+lib/alphabets.rb
+lib/alphabets/alphabets.rb
+lib/alphabets/variants.rb
+lib/alphabets/version.rb
+test/helper.rb
+test/test_downcase.rb
+test/test_unaccent.rb
+test/test_variants.rb

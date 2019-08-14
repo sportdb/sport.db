@@ -262,6 +262,36 @@ gsub_v3b                   0.047000   0.000000   0.047000 (  0.056792)
 scan                       3.141000   0.000000   3.141000 (  3.129562)
 ```
 
+Hold on. Starting with Ruby 2.4 the `String#new` method adds a new capacity parameter:
+
+> The optional size argument specifies the size of internal buffer. 
+> This may improve performance, when the string will be concatenated many times (and call many realloc).
+
+Let's try starting with a String buffer the size of the passed-in text plus a buffer of four.
+
+
+``` ruby
+# To be done or exercise for the reader.
+```
+
+Hold on. Let's use String slices if possible and let's track a start index and length 
+for copying unmapped (1 : 1) runs all-at-once instead of moving over every single-character one at-a-time. 
+
+``` ruby
+# To be done or exercise for the reader.
+```
+
+Hold on. What about unicode normalization and decomposition?
+
+<!--
+  todo: add unicode normalization example
+ -->
+
+``` ruby
+# To be done or exercise for the reader.
+```
+
+
 Can you find a faster way? Show us.
 
 

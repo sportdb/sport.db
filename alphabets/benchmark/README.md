@@ -301,13 +301,18 @@ Can you find a faster way? Show us.
 
 Notes:
 
-Frank J. Cameron writes in if you have only single-character mappings (e.g. no `æ=>ae`, `ß=>ss` etc.) than `String#tr`
-is the winner and unmatched speed king (or queen):
+Frank J. Cameron writes in if you have only single-character mappings (e.g. no ligatures such as `æ=>ae`, `ß=>ss` etc.) 
+than `String#tr` is the winner and unmatched speed king (or queen):
 
 ``` ruby
 def unaccent_tr( text )
    text.tr( 'ÄÁäáÉéÍíïÑñÖÓöóÜÚüú', 'AAaaEeIiiNnOOooUUuu' )
 end
+
+unaccent_tr( 'AÄÁaäáEÉéIÍiíïNÑnñOÖÓoöósUÜÚuüú' )
+#=> "AAAaaaEEeIIiiiNNnnOOOooosUUUuuu"     # Yes!
+unaccent_tr( 'AÆaæsß' )
+#=> "AÆaæsß"                              # Oh, no! "AAEaaesss" expected.
 ```
 
 Going native? Use C-code all the way down and try the wrapper for the UNIX `iconv()` function family translating strings between various encodings:
@@ -317,14 +322,24 @@ require 'iconv'
 def unaccent_iconv( text )
    Iconv.iconv( 'ascii//translit//ignore', 'utf-8', text )
 end
+
+unaccent_iconv( 'AÄÁaäáEÉéIÍiíïNÑnñOÖÓoöósUÜÚuüú' )
+#=> "AAAaaaEEeIIiiiNNnnOOOooosUUUuuu"    # Yes!
+unaccent_iconv( 'AÆaæsß' )
+#=> "AÆaæsß"                             # Oh, no! "AAEaaesss" expected.
 ```
+
+Note: Transliteration will NOT work for ligatures such as `Æ æ ß` and others.
+
 
 Hold on. What about unicode normalization and decomposition?
 Let's try:
 
 ``` ruby
-'AÄÁÆaäáæEÉéIÍiíïNÑnñOÖÓoöósßUÜÚuüú'.unicode_normalize(:nfd).gsub( /\p{M}/, '' )
-#=> "AAAÆaaaæEEeIIiiiNNnnOOOooosßUUUuuu"
+'AÄÁaäáEÉéIÍiíïNÑnñOÖÓoöósUÜÚuüú'.unicode_normalize(:nfd).gsub( /\p{M}/, '' )
+#=> "AAAaaaEEeIIiiiNNnnOOOooosUUUuuu"    # Yes!
+'AÆaæsß'.unicode_normalize(:nfd).gsub( /\p{M}/, '' )
+#=> "AÆaæsß"                             # Oh, no! "AAEaaesss" expected.
 ```
 
 Note: The normalization form decomposed (`:nfd`) uses separate codepoints for graphemes (such as accent or diacritics marks) 

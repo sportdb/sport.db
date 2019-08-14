@@ -271,7 +271,17 @@ Let's try starting with a String buffer the size of the passed-in text plus a bu
 
 
 ``` ruby
-# To be done or exercise for the reader.
+def unaccent_each_char_v2_7bit_faster_cap( text, mapping_faster=UNACCENT_FASTER )
+  buf = String.new( capacity: text.size+4 )
+  text.each_char do |ch|
+    buf <<  if ch.ord < 0x7F   
+               ch
+            else
+               mapping_faster[ ch.ord ] || ch
+            end
+  end
+  buf
+end
 ```
 
 Hold on. Let's use String slices if possible and let's track a start index and length 

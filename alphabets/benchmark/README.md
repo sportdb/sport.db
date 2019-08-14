@@ -86,7 +86,23 @@ def unaccent_each_char_reduce( text, mapping=UNACCENT )
     buf
   end
 end
+
+# -or-
+
+def unaccent_each_char_reduce_v2( text, mapping=UNACCENT )
+  text.each_char.reduce( String.new ) { |buf,ch| buf << (mapping[ch] || ch); buf }
+end
 ```
+
+
+Or better let's try `map` (and `join`):
+
+``` ruby
+def unaccent_chars_map_join( text, mapping=UNACCENT )
+  text.chars.map { |ch| mapping[ch] || ch }.join
+end
+```
+
 
 Maybe using a regular expression with `gsub` is faster? Let's try:
 
@@ -247,3 +263,28 @@ scan                       3.141000   0.000000   3.141000 (  3.129562)
 ```
 
 Can you find a faster way? Show us.
+
+
+---
+
+Notes:
+
+Frank J. Cameron writes in if you have only single-character mappings (e.g. no `æ=>ae`, `ß=>ss` etc.) than `String#tr`
+is the winner and unmatched speed king (or queen):
+
+``` ruby
+TR_KEYS = UNACCENT.keys.join
+TR_VALS = UNACCENT.values.join
+def unaccent_tr( text, mapping )
+   text.tr( TR_KEYS, TR_VALS )
+end
+```
+
+Going native? Use C-code all the way down and try the wrapper for the UNIX `iconv()` function family translating strings between various encodings:
+
+``` ruby
+require 'iconv'
+def unaccent_iconv( text, mapping )
+   Iconv.iconv( 'ascii//translit//ignore', 'utf-8', text )
+end
+```

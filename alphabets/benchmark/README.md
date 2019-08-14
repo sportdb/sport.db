@@ -273,10 +273,10 @@ Frank J. Cameron writes in if you have only single-character mappings (e.g. no `
 is the winner and unmatched speed king (or queen):
 
 ``` ruby
-TR_KEYS = UNACCENT.keys.join
-TR_VALS = UNACCENT.values.join
+TR_KEYS   = UNACCENT.keys.join
+TR_VALUES = UNACCENT.values.join
 def unaccent_tr( text )
-   text.tr( TR_KEYS, TR_VALS )
+   text.tr( TR_KEYS, TR_VALUES )
 end
 ```
 

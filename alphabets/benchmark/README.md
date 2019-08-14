@@ -186,7 +186,7 @@ with a regex matching only known accented chars?
 ``` ruby
 UNACCENT_REGEX = Regexp.union( UNACCENT.keys )
 def unaccent_gsub_v3b( text, mapping=UNACCENT, regex=UNACCENT_REGEX )
-  text.gsub( regex, mapping)
+  text.gsub( regex, mapping )
 end
 ```
 

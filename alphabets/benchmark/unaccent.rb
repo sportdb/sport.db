@@ -17,15 +17,8 @@ UNACCENT = {
   'Ú'=>'U',  'ú'=>'u',
 }
 
-UNACCENT_FASTER = UNACCENT.reduce( [] ) do |ary,(ch,value)|   # use/try array lookup by char (ord) integer number
-  ary[ ch.ord ] = value
-  ary
-end
 
-UNACCENT_REGEX = Regexp.union( UNACCENT.keys )
-
-
-def unaccent_each_char( text, mapping )
+def unaccent_each_char( text, mapping=UNACCENT )
   buf = String.new
   text.each_char do |ch|
     buf << if mapping[ch]
@@ -37,7 +30,7 @@ def unaccent_each_char( text, mapping )
   buf
 end
 
-def unaccent_each_char_v2( text, mapping )
+def unaccent_each_char_v2( text, mapping=UNACCENT )
   buf = String.new
   text.each_char do |ch|
     buf << (mapping[ch] || ch)
@@ -45,7 +38,7 @@ def unaccent_each_char_v2( text, mapping )
   buf
 end
 
-def unaccent_each_char_v2_7bit( text, mapping )
+def unaccent_each_char_v2_7bit( text, mapping=UNACCENT )
   buf = String.new
   text.each_char do |ch|
     buf <<   if ch.ord < 0x7F   # no mapping (ever) for 7-bit unicode latin basic (a.k.a. ascii) chars
@@ -57,7 +50,12 @@ def unaccent_each_char_v2_7bit( text, mapping )
   buf
 end
 
-def unaccent_each_char_v2_7bit_faster( text, mapping_faster )
+UNACCENT_FASTER = UNACCENT.reduce( [] ) do |ary,(ch,value)|   # use/try array lookup by char (ord) integer number
+  ary[ ch.ord ] = value
+  ary
+end
+
+def unaccent_each_char_v2_7bit_faster( text, mapping_faster=UNACCENT_FASTER )
   buf = String.new
   text.each_char do |ch|
     buf <<  if ch.ord < 0x7F   # no mapping (ever) for 7-bit unicode latin basic (a.k.a. ascii) chars
@@ -71,7 +69,7 @@ end
 
 
 
-def unaccent_each_char_reduce( text, mapping )
+def unaccent_each_char_reduce( text, mapping=UNACCENT )
   text.each_char.reduce( String.new ) do |buf,ch|
     buf <<  if mapping[ch]
                 mapping[ch]
@@ -82,15 +80,14 @@ def unaccent_each_char_reduce( text, mapping )
   end
 end
 
-
-def unaccent_each_char_reduce_v2( text, mapping )
+def unaccent_each_char_reduce_v2( text, mapping=UNACCENT )
   text.each_char.reduce( String.new ) do |buf,ch|
     buf << (mapping[ch] || ch)
     buf
   end
 end
 
-def unaccent_chars_reduce( text, mapping )
+def unaccent_chars_reduce( text, mapping=UNACCENT )
   text.chars.reduce( String.new ) do |buf,ch|
     buf << (mapping[ch] || ch)
     buf
@@ -98,14 +95,14 @@ def unaccent_chars_reduce( text, mapping )
 end
 
 
-def unaccent_chars_map_join( text, mapping )
+def unaccent_chars_map_join( text, mapping=UNACCENT )
   text.chars.map { |ch| mapping[ch] || ch }.join
 end
 
 
 
 ANY_CHAR_REGEX = /./     # use/try constant regex for speed-up
-def unaccent_scan( text, mapping )
+def unaccent_scan( text, mapping=UNACCENT )
   buf = String.new
   text.scan( ANY_CHAR_REGEX ) do |ch|
     buf << if mapping[ch]
@@ -118,7 +115,7 @@ def unaccent_scan( text, mapping )
 end
 
 NON_ALPHA_CHAR_REGEX = /[^A-Za-z0-9 ]/    # use/try constant regex for speed-up
-def unaccent_gsub( text, mapping )
+def unaccent_gsub( text, mapping=UNACCENT )
   ## todo/fix: use all ascii (basic latin) chars below 0x7F - why? why not?
   text.gsub( NON_ALPHA_CHAR_REGEX ) do |ch|
     if mapping[ch]
@@ -129,19 +126,21 @@ def unaccent_gsub( text, mapping )
   end
 end
 
-def unaccent_gsub_v2( text, mapping )
+def unaccent_gsub_v2( text, mapping=UNACCENT )
   text.gsub( NON_ALPHA_CHAR_REGEX ) do |ch|
     mapping[ch] || ch
   end
 end
 
-def unaccent_gsub_v3a( text, mapping )
+def unaccent_gsub_v3a( text, mapping=UNACCENT )
   text.gsub( NON_ALPHA_CHAR_REGEX, mapping )
 end
 
-def unaccent_gsub_v3b( text, mapping, regex )
+UNACCENT_REGEX = Regexp.union( UNACCENT.keys )
+def unaccent_gsub_v3b( text, mapping=UNACCENT, regex=UNACCENT_REGEX )
   text.gsub( regex, mapping)
 end
+
 
 
 

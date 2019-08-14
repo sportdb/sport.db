@@ -275,7 +275,7 @@ is the winner and unmatched speed king (or queen):
 ``` ruby
 TR_KEYS = UNACCENT.keys.join
 TR_VALS = UNACCENT.values.join
-def unaccent_tr( text, mapping )
+def unaccent_tr( text )
    text.tr( TR_KEYS, TR_VALS )
 end
 ```
@@ -284,7 +284,7 @@ Going native? Use C-code all the way down and try the wrapper for the UNIX `icon
 
 ``` ruby
 require 'iconv'
-def unaccent_iconv( text, mapping )
+def unaccent_iconv( text )
    Iconv.iconv( 'ascii//translit//ignore', 'utf-8', text )
 end
 ```

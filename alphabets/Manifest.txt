@@ -5,9 +5,12 @@ README.md
 Rakefile
 lib/alphabets.rb
 lib/alphabets/alphabets.rb
+lib/alphabets/reader.rb
+lib/alphabets/utils.rb
 lib/alphabets/variants.rb
 lib/alphabets/version.rb
 test/helper.rb
 test/test_downcase.rb
+test/test_reader.rb
 test/test_unaccent.rb
 test/test_variants.rb

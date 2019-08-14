@@ -284,22 +284,14 @@ def unaccent_each_char_v2_7bit_faster_cap( text, mapping_faster=UNACCENT_FASTER 
 end
 ```
 
+<!--
 Hold on. Let's use String slices if possible and let's track a start index and length 
 for copying unmapped (1 : 1) runs all-at-once instead of moving over every single-character one at-a-time. 
 
 ``` ruby
 # To be done or exercise for the reader.
 ```
-
-Hold on. What about unicode normalization and decomposition?
-
-<!--
-  todo: add unicode normalization example
- -->
-
-``` ruby
-# To be done or exercise for the reader.
-```
+-->
 
 
 Can you find a faster way? Show us.
@@ -313,10 +305,8 @@ Frank J. Cameron writes in if you have only single-character mappings (e.g. no `
 is the winner and unmatched speed king (or queen):
 
 ``` ruby
-TR_KEYS   = UNACCENT.keys.join
-TR_VALUES = UNACCENT.values.join
 def unaccent_tr( text )
-   text.tr( TR_KEYS, TR_VALUES )
+   text.tr( 'ÄÁäáÉéÍíïÑñÖÓöóÜÚüú', 'AAaaEeIiiNnOOooUUuu' )
 end
 ```
 
@@ -328,3 +318,22 @@ def unaccent_iconv( text )
    Iconv.iconv( 'ascii//translit//ignore', 'utf-8', text )
 end
 ```
+
+Hold on. What about unicode normalization and decomposition?
+Let's try:
+
+``` ruby
+'AÄÁÆaäáæEÉéIÍiíïNÑnñOÖÓoöósßUÜÚuüú'.unicode_normalize(:nfd).gsub( /\p{M}/, '' )
+#=> "AAAÆaaaæEEeIIiiiNNnnOOOooosßUUUuuu"
+```
+
+Note: The normalization form decomposed (`:nfd`) uses separate codepoints for graphemes (such as accent or diacritics marks) 
+in contrast to the normalization form composed (`:nfc`), that is, the default. Once the unicode characters are decomposed you can delete all accent or diacritics marks using the unicode regex property (`\p`) for the mark (`M`) category. Unfortunately, the normalization
+will NOT work for ligatures such as `Æ æ ß` and others.
+
+For more about Ruby and Unicode, see the great Ruby ♡ Unicode series by Jan Lelis at the Idiosyncratic Ruby website:
+
+- [Ruby has Character](https://idiosyncratic-ruby.com/66-ruby-has-character) - Ruby comes with good support for Unicode-related features. Read on if you want to learn more about important Unicode fundamentals and how to use them in Ruby...
+- [Proper Unicoding](https://idiosyncratic-ruby.com/41-proper-unicoding) - Ruby's Regexp engine has a powerful feature built in: It can match for Unicode character properties. But what exactly are properties you can match for?
+- [Regex with Class](https://idiosyncratic-ruby.com/30-regex-with-class) - Ruby's regex engine defines a lot of shortcut character classes. Besides the common meta characters (`\w`, etc.), there is also the POSIX style expressions and the unicode property syntax. This is an overview of all character classes...
+

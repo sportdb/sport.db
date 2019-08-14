@@ -90,6 +90,18 @@ def unaccent_each_char_reduce_v2( text, mapping )
   end
 end
 
+def unaccent_chars_reduce( text, mapping )
+  text.chars.reduce( String.new ) do |buf,ch|
+    buf << (mapping[ch] || ch)
+    buf
+  end
+end
+
+
+def unaccent_chars_map_join( text, mapping )
+  text.chars.map { |ch| mapping[ch] || ch }.join
+end
+
 
 
 ANY_CHAR_REGEX = /./     # use/try constant regex for speed-up
@@ -160,6 +172,14 @@ def benchmark( str, mapping=UNACCENT,
 
     benchmark.report( 'each_char_reduce_v2' ) do
       n.times { unaccent_each_char_reduce_v2( str, mapping ) }
+    end
+
+    benchmark.report( 'chars_reduce' ) do
+      n.times { unaccent_chars_reduce( str, mapping ) }
+    end
+
+    benchmark.report( 'chars_map_join' ) do
+      n.times { unaccent_chars_map_join( str, mapping ) }
     end
 
     benchmark.report( 'gsub' ) do

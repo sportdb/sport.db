@@ -3,8 +3,8 @@
 
 ## How many ways to unaccent a text string?
 
-How to turn `AÄÁaäá EÉeé IÍiíï NÑnñ OÖÓoöó Ssß UÜÚuüú`
-into `AAAaaa EEee IIiii NNnn OOOooo Ssss UUUuuu`?
+How to turn `AÄÁÆaäáæ EÉeé IÍiíï NÑnñ OÖÓŒoöóœ Ssß UÜÚuüú`
+into `AAAAEaaaae EEee IIiii NNnn OOOOEooooe Ssss UUUuuu`?
 
 Let's say you have German football club names such as:
 Bayern München · 1. FC Köln · Preußen Münster.
@@ -23,12 +23,14 @@ Let's use a character mapping table:
 UNACCENT = {
   'Ä'=>'A',  'ä'=>'a',
   'Á'=>'A',  'á'=>'a',
+  'Æ'=>'AE', 'æ'=>'ae',
   'É'=>'E',  'é'=>'e',
   'Í'=>'I',  'í'=>'i',
              'ï'=>'i',
   'Ñ'=>'N',  'ñ'=>'n',
   'Ö'=>'O',  'ö'=>'o',
   'Ó'=>'O',  'ó'=>'o',
+  'Œ'=>'OE', 'œ'=>'oe', 
              'ß'=>'ss',
   'Ü'=>'U',  'ü'=>'u',
   'Ú'=>'U',  'ú'=>'u',

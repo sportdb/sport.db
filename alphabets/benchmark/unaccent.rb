@@ -189,8 +189,6 @@ end
 factor = 5
 str1 = 'AÄÁaäá EÉeé IÍiíï NÑnñ OÖÓoöó Ssß UÜÚuüú' * factor
 str2 = 'Aa Ee Ii Oo Uu' * factor      # no accents / diacritic marks
-str3 = 'jazmín vïuda pingüino cuestión náutico esdrújula'
-
 
 
 benchmark( str1 )

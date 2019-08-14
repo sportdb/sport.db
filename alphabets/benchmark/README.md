@@ -343,8 +343,8 @@ Let's try:
 ```
 
 Note: The normalization form decomposed (`:nfd`) uses separate codepoints for graphemes (such as accent or diacritics marks) 
-in contrast to the normalization form composed (`:nfc`), that is, the default. Once the unicode characters are decomposed you can delete all accent or diacritics marks using the unicode regex property (`\p`) for the mark (`M`) category. Unfortunately, the normalization
-will NOT work for ligatures such as `Æ æ ß` and others.
+in contrast to the normalization form composed (`:nfc`), that is, the default. Once the unicode characters are decomposed you can delete all accent or diacritics marks using the unicode regex property (`\p`) for the mark (`M`) category, that is, `\p{M}`. 
+Unfortunately, the normalization will NOT work for ligatures such as `Æ æ ß` and others.
 
 For more about Ruby and Unicode, see the great Ruby ♡ Unicode series by Jan Lelis at the Idiosyncratic Ruby website:
 

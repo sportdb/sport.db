@@ -35,6 +35,10 @@ Proper Unicoding - Ruby's Regexp engine has a powerful feature built in: It can 
 Regex with Class - Ruby's regex engine defines a lot of shortcut character classes. Besides the common meta characters (\w, etc.), there is also the POSIX style expressions and the unicode property syntax. This is an overview of all character classes
 
 
+**Unicode**
+
+- <https://unicode.org/reports/tr15/> - Unicode Standard Annex #15 - UNICODE NORMALIZATION FORMS
+
 **W3C**
 
 - <https://www.w3.org/TR/charmod-norm/>

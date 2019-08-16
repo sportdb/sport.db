@@ -9,7 +9,46 @@ require 'helper'
 
 class TestClubIndex < MiniTest::Test
 
-  def test_clubs
+  def test_match
+    
+    recs = SportDb::Import::ClubReader.parse( <<TXT )
+=================================
+=  Österreich • Austria (at)
+
+== Wien ==
+
+FK Austria Wien,   Wien (Favoriten)
+  | Austria Vienna | Austria Wien
+SK Rapid Wien,     Wien (Hütteldorf)
+  | Rapid Vienna | Rapid Wien
+
+
+====================================
+=  England (eng)
+
+Arsenal FC, 1886, @ Emirates Stadium, London   ## Greater London
+  | Arsenal | FC Arsenal
+Chelsea FC, 1905, @ Stamford Bridge, London   ## Greater London
+  | Chelsea | FC Chelsea
+
+
+=====================================
+=  Russia (ru)
+
+Arsenal Tula,  Tula
+  | Arsenal | FC Arsenal Tula
+
+
+===========================
+=  Argentina (ar)
+
+== Buenos Aires ==
+
+Arsenal de Sarandí,  Sarandí › Buenos Aires    #  Sarandí es una ciudad de la Zona Sur del Gran Buenos Aires
+  | Arsenal | Arsenal Sarandi
+  | Arsenal FC | Arsenal Fútbol Club
+TXT    
+
     pp SportDb::Import.config.clubs.errors
 
     SportDb::Import.config.clubs.dump_duplicates
@@ -82,10 +121,23 @@ class TestClubIndex < MiniTest::Test
     m = SportDb::Import.config.clubs.match( '...A.r.s.e.n.a.l... F.C...' )
     assert_equal 2, m.size
 
+def test_wikipedia    # test wikipedia names and links/urls
 
-    ##############################################
-    ## test wikipedia names and links/urls
+   recs = SportDb::Import::ClubReader.parse( <<TXT )
+==================================
+=  Belgium (be)
 
+== Brussels ==
+
+RSC Anderlecht, 1908,   Brussels      ## use (just) Anderlecht or Brussel-Anderlecht ??
+  | Anderlecht | R.S.C. Anderlecht | Royal Sporting Club Anderlecht
+
+== West-Vlaanderen › Vlaanderen ==
+
+Club Brugge, 1891,    Brugge › West-Vlaanderen › Vlaanderen
+  | Club Brugge KV | Club Brugge Koninklijke Voetbalvereniging
+TXT
+ 
     m = SportDb::Import.config.clubs.match( 'Club Brugge KV' )
     assert_equal 1, m.size
     assert_equal 'Club Brugge KV', m[0].wikipedia

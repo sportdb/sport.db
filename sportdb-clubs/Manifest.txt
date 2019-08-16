@@ -1,0 +1,13 @@
+HISTORY.md
+Manifest.txt
+README.md
+Rakefile
+lib/sportdb/clubs.rb
+lib/sportdb/clubs/club.rb
+lib/sportdb/clubs/club_index.rb
+lib/sportdb/clubs/club_reader.rb
+lib/sportdb/clubs/version.rb
+test/helper.rb
+test/test_club_index.rb
+test/test_club_reader.rb
+test/test_clubs.rb

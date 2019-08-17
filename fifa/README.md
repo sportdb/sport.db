@@ -8,48 +8,6 @@
 * forum :: [opensport](http://groups.google.com/group/opensport)
 
 
-## What's FIFA¹?
-
-The World's Football Association / Governing Body
-uses its own country list and (three-letter) codes - see
-the [List of FIFA country codes @ Wikipedia](https://en.wikipedia.org/wiki/List_of_FIFA_country_codes)
-or the [`countries.txt`](https://github.com/sportdb/sport.db/blob/master/fifa/config/countries.txt) list shipping with this library.
-
-Trivia - The FIFA member list includes 211 countries while the United Nations (UN)
-member list only includes 191 countries.
-For example, for historic reasons the FIFA includes:
-
-- England (ENG)
-- Wales (WAL)
-- Scotland (SCO)
-- Northern Ireland (NIR)
-
-but doesn't include the United Kingdom (UK) itself.
-Or the FIFA includes (non-sovereign) dependent territories or autonomous regions
-that have their own national team or leagues, for example:
-
-- Gibraltar (GIB)
-- Faroe Islands	(FRO)
-- Hong Kong (HKG)
-- and others
-
-
-Note: This library includes non-FIFA member codes and irregular codes
-from countries in use by regional confederations too, for example:
-
-- Vatican City	(VAT)
-- Zanzibar	(ZAN)
-- and others
-
-
-¹: [Fédération Internationale de Football Association (FIFA) @ Wikipedia](https://en.wikipedia.org/wiki/FIFA)
-
-<!--
-²: Northern Cyprus (TRNC)	has a four-letter FIFA country code  
--->
-
-
-
 ## Usage
 
 Get and pretty print (pp) all countries
@@ -111,6 +69,48 @@ aut.fifa   #=> "AUT"
 
 
 That's it.
+
+
+
+## What's FIFA¹?
+
+The World's Football Association / Governing Body
+uses its own country list and (three-letter) codes - see
+the [List of FIFA country codes @ Wikipedia](https://en.wikipedia.org/wiki/List_of_FIFA_country_codes)
+or the [`countries.txt`](https://github.com/sportdb/sport.db/blob/master/fifa/config/countries.txt) list shipping with this library.
+
+Trivia - The FIFA member list includes 211 countries while the United Nations (UN)
+member list only includes 191 countries.
+For example, for historic reasons the FIFA includes:
+
+- England (ENG)
+- Wales (WAL)
+- Scotland (SCO)
+- Northern Ireland (NIR)
+
+but doesn't include the United Kingdom (UK) itself.
+Or the FIFA includes (non-sovereign) dependent territories or autonomous regions
+that have their own national team or leagues, for example:
+
+- Gibraltar (GIB)
+- Faroe Islands	(FRO)
+- Hong Kong (HKG)
+- and others
+
+
+Note: This library includes non-FIFA member codes and irregular codes
+from countries in use by regional confederations too, for example:
+
+- Vatican City	(VAT)
+- Zanzibar	(ZAN)
+- and others
+
+
+¹: [Fédération Internationale de Football Association (FIFA) @ Wikipedia](https://en.wikipedia.org/wiki/FIFA)
+
+<!--
+²: Northern Cyprus (TRNC)	has a four-letter FIFA country code  
+-->
 
 
 ## License

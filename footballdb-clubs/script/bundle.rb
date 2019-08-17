@@ -28,10 +28,10 @@ def find_datafiles( path, pattern=CLUBS_REGEX )
      datafiles
 end
 
-datafiles = find_datafiles( './clubs-master' )
+datafiles = find_datafiles( '../../openfootball/clubs' )
 pp datafiles
 
-File.open( './clubs.txt', 'w:utf-8') do |fout|
+File.open( './config/clubs.txt', 'w:utf-8') do |fout|
   fout.write( <<TXT )
 ##########################################
 # auto-generated all-in-one single datafile clubs.txt bundle

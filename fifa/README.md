@@ -55,6 +55,8 @@ from countries in use by regional confederations too, for example:
 Get and pretty print (pp) all countries
 
 ``` ruby
+require 'fifa'
+
 pp Fifa.countries
 ```
 

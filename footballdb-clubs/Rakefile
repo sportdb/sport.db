@@ -1,0 +1,31 @@
+require 'hoe'
+require './lib/footballdb/clubs/version.rb'
+
+Hoe.spec 'footballdb-clubs' do
+
+  self.version = FootballDb::Clubs::VERSION
+
+  self.summary = "footballdb-clubs - the world's top football clubs"
+  self.description = summary
+
+  self.urls = ['https://github.com/sportdb/sport.db']
+
+  self.author = 'Gerald Bauer'
+  self.email = 'opensport@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file = 'README.md'
+  self.history_file = 'HISTORY.md'
+
+  self.licenses = ['Public Domain']
+
+  self.extra_deps = [
+    ['sportdb-clubs',   '>= 0.1.0'],
+    ['fifa',            '>= 1.0.0'],
+  ]
+
+  self.spec_extras = {
+   :required_ruby_version => '>= 2.2.2'
+  }
+
+end

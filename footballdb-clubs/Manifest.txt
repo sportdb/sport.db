@@ -1,0 +1,9 @@
+HISTORY.md
+Manifest.txt
+README.md
+Rakefile
+config/clubs.txt
+lib/footballdb/clubs.rb
+lib/footballdb/clubs/version.rb
+test/helper.rb
+test/test_club.rb

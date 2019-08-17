@@ -14,8 +14,7 @@ require 'sportdb/clubs'
 
 class Configuration
   def initialize
-    ## fix/todo: use (shared)  test data / world / countries.txt !!! - why? why not?
-    recs      = SportDb::Import::CountryReader.read( "#{SportDb::Countries.test_data_dir}/countries.txt" )
+    recs      = SportDb::Import::CountryReader.read( "#{SportDb::Test.data_dir}/world/countries.txt" )
     @countries = SportDb::Import::CountryIndex.new( recs )
   end
 

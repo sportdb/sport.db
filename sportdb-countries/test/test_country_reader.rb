@@ -10,7 +10,7 @@ require 'helper'
 class TestCountryReader < MiniTest::Test
 
   def test_read_csv
-    recs = read_csv( "#{SportDb::Countries.test_data_dir}/countries.txt" )
+    recs = read_csv( "#{SportDb::Test.data_dir}/world/countries.txt" )
     ## pp recs
 
     assert_equal  [{ key:'af', fifa:'AFG', name:'Afghanistan'},
@@ -21,7 +21,7 @@ class TestCountryReader < MiniTest::Test
   end
 
   def test_read
-    recs = SportDb::Import::CountryReader.read( "#{SportDb::Countries.test_data_dir}/countries.txt" )
+    recs = SportDb::Import::CountryReader.read( "#{SportDb::Test.data_dir}/world/countries.txt" )
     pp recs
 
     assert_equal 227, recs.size

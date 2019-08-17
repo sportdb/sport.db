@@ -10,7 +10,7 @@ require 'helper'
 class TestCountryIndex < MiniTest::Test
 
   def test_countries
-    recs      = SportDb::Import::CountryReader.read( "#{SportDb::Countries.test_data_dir}/countries.txt" )
+    recs      = SportDb::Import::CountryReader.read( "#{SportDb::Test.data_dir}/world/countries.txt" )
     countries = SportDb::Import::CountryIndex.new( recs )
 
     eng = countries[:eng]

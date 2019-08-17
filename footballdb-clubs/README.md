@@ -17,7 +17,7 @@ bundled up into a single [`clubs.txt`](config/clubs.txt) datafile
 for easy zero-configuration "out-of-the-box" usage.
 
 
-Get and pretty print (pp) all clubs
+Get and pretty print (pp) all clubs:
 
 ``` ruby
 require 'footballdb/clubs'
@@ -32,7 +32,7 @@ to be done
 ```
 
 
-Let's match football club name "variants" e.g. `Arsenal`  
+Let's match football club name "variants" e.g. `Arsenal`
 to canonical global unique names e.g. `Arsenal FC, London, England`:
 
 

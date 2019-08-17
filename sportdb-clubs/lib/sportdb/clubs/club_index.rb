@@ -19,6 +19,8 @@ class ClubIndex
       exit 1
     end
   end
+  def config() self.class.config; end
+
 
 
   def initialize

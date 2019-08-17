@@ -10,11 +10,12 @@ require 'helper'
 class TestCountries < MiniTest::Test
 
   def test_read_countries
-    recs = read_csv( "#{Fifa.data_dir}/countries.txt" )
+    recs = SportDb::Import::CountryReader.read( "#{Fifa.data_dir}/countries.txt" )
     ## pp recs
 
     assert_equal  [{ key:'af', fifa:'AFG', name:'Afghanistan'},
-                   { key:'al', fifa:'ALB', name:'Albania'}], recs[0..1]
+                   { key:'al', fifa:'ALB', name:'Albania'}],
+                  recs[0..1].map { |rec| { key: rec.key, fifa: rec.fifa, name: rec.name }}
   end
 
 

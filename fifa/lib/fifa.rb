@@ -2,11 +2,7 @@
 
 
 ## 3rd party gems
-require 'csvreader'
-
-def read_csv( path )
-  CsvHash.read( path, :header_converters => :symbol )
-end
+require 'sportdb/countries'
 
 
 ###
@@ -26,10 +22,11 @@ private
   end
 
   def self.build_country_index
-    recs = read_csv( "#{Fifa.data_dir}/countries.txt" )
+    recs = SportDb::Import::CountryReader.read( "#{Fifa.data_dir}/countries.txt" )
     CountryIndex.new( recs )
   end
 end # class Fifa
+
 
 ## add a convenience upcase alias
 FIFA = Fifa

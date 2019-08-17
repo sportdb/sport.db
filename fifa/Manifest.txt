@@ -1,6 +1,5 @@
 HISTORY.md
 Manifest.txt
-NOTES.md
 README.md
 Rakefile
 config/countries.txt

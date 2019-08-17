@@ -16,13 +16,27 @@ Note: This library ships with a built-in copy of the
 bundled up into a single [`clubs.txt`](config/clubs.txt) datafile
 for easy zero-configuration "out-of-the-box" usage.
 
+
+Get and pretty print (pp) all clubs
+
+``` ruby
+require 'footballdb/clubs'
+
+pp Club.all
+```
+
+resulting in:
+
+```
+to be done
+```
+
+
 Let's match football club name "variants" e.g. `Arsenal`  
 to canonical global unique names e.g. `Arsenal FC, London, England`:
 
 
 ``` ruby
-require 'footballdb/clubs'
-
 m = Club.match( 'Arsenal' )
 m.size     # 3 club matches found
 #=> 3

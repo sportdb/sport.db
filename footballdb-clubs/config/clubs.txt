@@ -1,6 +1,6 @@
 ##########################################
-# auto-generated all-in-one single file clubs.txt bundle
-#    on 2019-08-16 21:07:25 +0200 from 86 datafile(s)
+# auto-generated all-in-one single datafile clubs.txt bundle
+#    on 2019-08-18 16:56:18 +0200 from 86 datafile(s)
 #  please, do NOT edit here; use the source
 #    see https://github.com/openfootball/clubs - updates welcome!
 

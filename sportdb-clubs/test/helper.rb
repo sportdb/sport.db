@@ -24,3 +24,4 @@ end
 config = Configuration.new
 SportDb::Import::ClubReader.config = config
 SportDb::Import::ClubIndex.config  = config
+SportDb::Import::WikiReader.config  = config

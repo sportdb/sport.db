@@ -147,17 +147,25 @@ TXT
     clubs = SportDb::Import::ClubIndex.new
     clubs.add( recs )
 
-    ## todo/fix: add wikipedia recs
+    recs = SportDb::Import::WikiReader.parse( <<TXT )
+==================================
+=  Belgium (be)
+
+R.S.C. Anderlecht
+Club Brugge KV
+TXT
+    clubs.add_wiki( recs )
+
 
     m = clubs.match( 'Club Brugge KV' )
     assert_equal 1, m.size
-#    assert_equal 'Club Brugge KV', m[0].wikipedia
-#    assert_equal 'https://en.wikipedia.org/wiki/Club_Brugge_KV', m[0].wikipedia_url
+    assert_equal 'Club Brugge KV', m[0].wikipedia
+    assert_equal 'https://en.wikipedia.org/wiki/Club_Brugge_KV', m[0].wikipedia_url
 
     m = clubs.match( 'RSC Anderlecht' )
     assert_equal 1, m.size
-#    assert_equal 'R.S.C. Anderlecht', m[0].wikipedia
-#    assert_equal 'https://en.wikipedia.org/wiki/R.S.C._Anderlecht', m[0].wikipedia_url
+    assert_equal 'R.S.C. Anderlecht', m[0].wikipedia
+    assert_equal 'https://en.wikipedia.org/wiki/R.S.C._Anderlecht', m[0].wikipedia_url
   end
 
 end # class TestClubIndex

@@ -13,8 +13,12 @@ CLUBS_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/
                        clubs\.txt$
                    }x
 
+CLUBS_WIKI_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
+                         (?:[a-z]{1,3}\.)?   # optional country code/key e.g. eng.clubs.wiki.txt
+                        clubs\.wiki\.txt$
+                     }x
 
-def find_datafiles( path, pattern=CLUBS_REGEX )
+def find_datafiles( path, pattern )
      datafiles = []   ## note: [country, path] pairs for now
 
      ## check all txt files as candidates  (MUST include country code for now)
@@ -28,21 +32,39 @@ def find_datafiles( path, pattern=CLUBS_REGEX )
      datafiles
 end
 
-datafiles = find_datafiles( '../../openfootball/clubs' )
+def bundle( path, datafiles, header )
+  File.open( path, 'w:utf-8') do |fout|
+    fout.write( header )
+    datafiles.each do |datafile|
+      File.open( datafile, 'r:utf-8') do |fin|
+        fout.write( "\n\n" )
+        fout.write( fin.read )
+      end
+    end
+  end
+end
+
+
+
+datafiles = find_datafiles( '../../../openfootball/clubs', CLUBS_REGEX )
 pp datafiles
 
-File.open( './config/clubs.txt', 'w:utf-8') do |fout|
-  fout.write( <<TXT )
+bundle( './config/clubs.txt', datafiles, <<TXT )
 ##########################################
 # auto-generated all-in-one single datafile clubs.txt bundle
 #    on #{Time.now} from #{datafiles.size} datafile(s)
 #  please, do NOT edit here; use the source
 #    see https://github.com/openfootball/clubs - updates welcome!
 TXT
-  datafiles.each do |datafile|
-    File.open( datafile, 'r:utf-8') do |fin|
-      fout.write( "\n\n" )
-      fout.write( fin.read )
-    end
-  end
-end
+
+
+datafiles = find_datafiles( '../../../openfootball/clubs', CLUBS_WIKI_REGEX )
+pp datafiles
+
+bundle( './config/clubs.wiki.txt', datafiles, <<TXT )
+##########################################
+# auto-generated all-in-one single datafile clubs.wiki.txt bundle
+#    on #{Time.now} from #{datafiles.size} datafile(s)
+#  please, do NOT edit here; use the source
+#    see https://github.com/openfootball/clubs - updates welcome!
+TXT

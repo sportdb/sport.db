@@ -18,6 +18,7 @@ require 'sportdb/clubs/version' # let version always go first
 require 'sportdb/clubs/club'
 require 'sportdb/clubs/club_reader'
 require 'sportdb/clubs/club_index'
+require 'sportdb/clubs/wiki_reader'
 
 
 

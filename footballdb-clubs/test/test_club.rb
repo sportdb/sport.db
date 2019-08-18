@@ -83,17 +83,15 @@ end
 
 def test_wikipedia    # test wikipedia names and links/urls
 
-    ## todo/fix: add wikipedia recs
-
     m = Club.match( 'Club Brugge KV' )
     assert_equal 1, m.size
-#    assert_equal 'Club Brugge KV', m[0].wikipedia
-#    assert_equal 'https://en.wikipedia.org/wiki/Club_Brugge_KV', m[0].wikipedia_url
+    assert_equal 'Club Brugge KV', m[0].wikipedia
+    assert_equal 'https://en.wikipedia.org/wiki/Club_Brugge_KV', m[0].wikipedia_url
 
     m = Club.match( 'RSC Anderlecht' )
     assert_equal 1, m.size
-#    assert_equal 'R.S.C. Anderlecht', m[0].wikipedia
-#    assert_equal 'https://en.wikipedia.org/wiki/R.S.C._Anderlecht', m[0].wikipedia_url
+    assert_equal 'R.S.C. Anderlecht', m[0].wikipedia
+    assert_equal 'https://en.wikipedia.org/wiki/R.S.C._Anderlecht', m[0].wikipedia_url
   end
 
 end # class TestClub

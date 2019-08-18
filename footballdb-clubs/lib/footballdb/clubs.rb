@@ -12,6 +12,8 @@ require 'sportdb/clubs'
 require 'footballdb/clubs/version' # let version always go first
 
 
+module FootballDb
+module Import
 
 ## add "fake" configuration for stand-alone usage
 class Configuration
@@ -28,6 +30,8 @@ end
 
 class Club    ## todo/check: use a module instead of class - why? why not?
   def self.clubs()      club_index.clubs; end   ## return all clubs (struct-like) records
+  def self.all()   clubs; end  ## use ActiveRecord-like alias for clubs
+
   def self.mappings()   club_index.mappings; end
 
   def self.[]( name )   club_index[ name ]; end  ## lookup by canoncial name only
@@ -49,15 +53,25 @@ private
        config = Configuration.new
        SportDb::Import::ClubReader.config = config
        SportDb::Import::ClubIndex.config  = config
+       SportDb::Import::WikiReader.config = config
     end
 
     recs = SportDb::Import::ClubReader.read( "#{FootballDb::Clubs.data_dir}/clubs.txt" )
     club_index = SportDb::Import::ClubIndex.new
     club_index.add( recs )
+    recs = SportDb::Import::WikiReader.read( "#{FootballDb::Clubs.data_dir}/clubs.wiki.txt" )
+    club_index.add_wiki( recs )
     club_index
   end
 end # class Club
 
+end # module Import
+end # module FootballDb
+
+
+
+### add top-level (global) convenience alias
+Club = FootballDb::Import::Club
 
 
 

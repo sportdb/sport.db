@@ -1,8 +1,9 @@
-HISTORY.md
+CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
 config/clubs.txt
+config/clubs.wiki.txt
 lib/footballdb/clubs.rb
 lib/footballdb/clubs/version.rb
 test/helper.rb

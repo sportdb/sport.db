@@ -28,7 +28,12 @@ pp Club.all
 resulting in:
 
 ```
-to be done
+[#<Club @name="Al Ahly",              @city="Cairo", @country="Egypt", ...>,
+ #<Club @name="Al Mokawloon Al Arab", @city="Cairo", @country="Egypt", ...>,
+ #<Club @name="El Dakhleya",          @city="Cairo", @country="Egypt", ...>,
+ #<Club @name="El Entag El Harby",    @city="Cairo", @country="Egypt", ...>,
+ ...
+]
 ```
 
 
@@ -134,6 +139,28 @@ resulting in:
 
 ...
 ```
+
+
+Let's match football club names to find the wikipedia page name and url
+(for the English edition):
+
+```
+m = Club.match( 'Club Brugge KV' )
+m[0].wikipedia      #=> "Club Brugge KV"
+m[0].wikipedia_url  #=> "https://en.wikipedia.org/wiki/Club_Brugge_KV"
+
+m = Club.match( 'RSC Anderlecht' )
+m[0].wikipedia      #=> "R.S.C. Anderlecht"
+m[0].wikipedia_url  #=> "https://en.wikipedia.org/wiki/R.S.C._Anderlecht"
+
+# and so on
+# ...
+```
+
+Note:  Find all football club wikipedia page names in the built-in copy  
+bundled-up into a single [`clubs.wiki.txt`](config/clubs.wiki.txt) datafile.
+
+
 
 That's it.
 

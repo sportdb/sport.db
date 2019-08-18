@@ -144,7 +144,7 @@ resulting in:
 Let's match football club names to find the wikipedia page name and url
 (for the English edition):
 
-```
+``` ruby
 m = Club.match( 'Club Brugge KV' )
 m[0].wikipedia      #=> "Club Brugge KV"
 m[0].wikipedia_url  #=> "https://en.wikipedia.org/wiki/Club_Brugge_KV"
@@ -157,7 +157,7 @@ m[0].wikipedia_url  #=> "https://en.wikipedia.org/wiki/R.S.C._Anderlecht"
 # ...
 ```
 
-Note:  Find all football club wikipedia page names in the built-in copy  
+Note:  Find all football club wikipedia page names in the built-in copy
 bundled-up into a single [`clubs.wiki.txt`](config/clubs.wiki.txt) datafile.
 
 

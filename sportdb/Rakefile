@@ -17,7 +17,7 @@ Hoe.spec 'sportdb' do
   # switch extension to .markdown for gihub formatting
   #  -- Note: auto-changed when included in manifest
   self.readme_file  = 'README.md'
-  self.history_file = 'HISTORY.md'
+  self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
     ['sportdb-models', '>= 1.10.1'],

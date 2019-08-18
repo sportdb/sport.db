@@ -17,7 +17,7 @@ Hoe.spec 'sportdb-models' do
   # switch extension to .markdown for gihub formatting
   #  -- NB: auto-changed when included in manifest
   self.readme_file  = 'README.md'
-  self.history_file = 'HISTORY.md'
+  self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
     ['worlddb-models', '>= 2.1.0'],    # Note: pull in all (extra) dependencies va worlddb-models
@@ -31,4 +31,3 @@ Hoe.spec 'sportdb-models' do
   }
 
 end
-

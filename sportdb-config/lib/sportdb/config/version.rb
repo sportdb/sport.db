@@ -7,7 +7,7 @@ module Boot      ## note: use a different module than Config to avoid confusion 
                  ##   maybe rename later gem itself to sportdb-boot - why? why not?
 
   MAJOR = 0    ## todo: namespace inside version or something - why? why not??
-  MINOR = 6
+  MINOR = 7
   PATCH = 0
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 

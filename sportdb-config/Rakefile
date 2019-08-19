@@ -11,16 +11,20 @@ Hoe.spec 'sportdb-config' do
   self.urls = ['https://github.com/sportdb/sport.db']
 
   self.author = 'Gerald Bauer'
-  self.email = 'opensport@googlegroups.com'
+  self.email  = 'opensport@googlegroups.com'
 
   # switch extension to .markdown for gihub formatting
-  self.readme_file = 'README.md'
+  self.readme_file  = 'README.md'
   self.history_file = 'CHANGELOG.md'
 
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['fifa',   '>= 0.1.1'],
+    ['sportdb-countries', '>= 0.2.0'],
+    ['sportdb-clubs',     '>= 0.2.0'],
+    ## dataset libs / gems
+    ['fifa',              '>= 1.0.0'],    ## for (builtin/default) countries
+    ['footballdb-clubs',  '>= 0.2.0'],      ## for (builtin/default) clubs
   ]
 
   self.spec_extras = {

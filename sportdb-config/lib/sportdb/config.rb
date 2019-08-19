@@ -1,20 +1,12 @@
 # encoding: utf-8
 
+### our own sportdb libs / gems
+require 'sportdb/countries'
+require 'sportdb/clubs'
 
-require 'pp'
-require 'date'
-require 'fileutils'
-
-
-## 3rd party gems
-require 'csvreader'
-
-def read_csv( path )
-  CsvHash.read( path, :header_converters => :symbol )
-end
-
-
+### "built-in" default dataset libs / gems
 require 'fifa'    ## get a list of all fifa countries with (three letter) codes
+require 'footballdb/clubs'
 
 
 ###
@@ -25,15 +17,15 @@ require 'sportdb/config/season_utils'
 require 'sportdb/config/league_utils'
 require 'sportdb/config/league'
 require 'sportdb/config/league_reader'
-
-require 'sportdb/config/variants'
-require 'sportdb/config/countries'
-require 'sportdb/config/club'
-require 'sportdb/config/club_reader'
-require 'sportdb/config/club_index'
-require 'sportdb/config/wiki_reader'
 require 'sportdb/config/wiki_index'
 require 'sportdb/config/config'
+
+
+
+## use global Import config - required for countries lookup / mapping (service)
+SportDb::Import::ClubReader.config  = SportDb::Import.config
+SportDb::Import::ClubIndex.config   = SportDb::Import.config
+SportDb::Import::WikiReader.config  = SportDb::Import.config
 
 
 

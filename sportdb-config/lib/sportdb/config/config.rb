@@ -3,6 +3,33 @@
 module SportDb
   module Import
 
+# add builder convenience helper to ClubIndex
+class ClubIndex
+
+  def self.build( path )
+    recs = []
+    datafiles = Configuration.find_datafiles_clubs( path )
+    datafiles.each do |datafile|
+      recs += ClubReader.read( datafile )
+    end
+    recs
+
+    clubs = self.new
+    clubs.add( recs )
+
+    ## add wiki(pedia) anchored links
+    recs = []
+    datafiles = Configuration.find_datafiles_clubs_wiki( path )
+    datafiles.each do |datafile|
+       recs += WikiReader.read( datafile )
+    end
+
+    pp recs
+    clubs.add_wiki( recs )
+    clubs
+  end
+end # class ClubIndex
+
 
 class Configuration
 
@@ -31,7 +58,7 @@ class Configuration
   ####
   #  todo/fix:  find a better way to configure club / team datasets
   attr_accessor   :clubs_dir
-  def clubs_dir()   @clubs_dir ||= './clubs'; end
+  def clubs_dir()   @clubs_dir; end   ### note: return nil if NOT set on purpose for now - why? why not?
 
 
   CLUBS_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
@@ -63,13 +90,20 @@ class Configuration
   def self.find_datafiles_clubs_wiki( path )  find_datafiles( path, CLUBS_WIKI_REGEX ); end
 
 
+
   def build_club_index
     ## unify team names; team (builtin/known/shared) name mappings
     ## cleanup team names - use local ("native") name with umlaut etc.
     ## todo/fix: add to teamreader
     ##              check that name and alt_names for a club are all unique (not duplicates)
 
-    clubs = ClubIndex.build( clubs_dir )
+    clubs = if clubs_dir   ## check if clubs_dir is defined / set (otherwise it's nil)
+              ClubIndex.build( clubs_dir )
+            else   ## no clubs_dir set - try using builtin from footballdb-clubs
+              ## todo/fix:  use build_club_index make public (remove private)!!!!
+              FootballDb::Club.club_index
+            end
+
     if clubs.errors?
       puts ""
       puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -80,8 +114,6 @@ class Configuration
 
     clubs
 end # method build_club_index
-
-
 
 
 def leagues

@@ -2,10 +2,20 @@
 
 
 
+
 def find_or_create_clubs!( names, league:, season: nil)
   ## note: season is for now optinal (and unused) - add/use in the future!!!
 
-  recs = []
+  recs_uniq = []
+  mappings = {}   ## name to db rec mapping  (note: more than one name might map to the same uniq rec)
+
+  ## note: for now allow multiple names for clubs
+  ##        if the name matches the same club already added it will get "dropped" and NOT added again to the database,
+  ##          thus, a unique club list gets returned with NO duplicates
+  ##
+  ##   e.g.  Raith or Raith Rvs =>  Raith Rovers
+  duplicates = {}   ## check for duplicate matches
+
 
   ## add/find teams
   names.each do |name|
@@ -39,6 +49,24 @@ def find_or_create_clubs!( names, league:, season: nil)
        end
     end
 
+    ## todo/check/fix:  use canonical name for duplicates index (instead of object.id) - why? why not?
+    if duplicates[ club_data.name ]   ###
+      duplicates[ club_data.name ] << name
+
+      puts "!!! *** WARN ***  duplicate name match for club:"
+      pp duplicates[ club_data.name ]
+      pp club_data
+
+      ## add same rec_uniq from first mapping
+      duplicate_name = duplicates[ club_data.name ][0]
+      mappings[ name ] = mappings[ duplicate_name ]
+
+      next   ### skip all the database work and creating a record etc.
+    end
+
+    duplicates[ club_data.name ] ||= []
+    duplicates[ club_data.name ] << name
+
     ## remove spaces too (e.g. Man City => mancity)
     ## remove dot (.) too e.g. St. Polten => stpolten
     ##        amp (& too e.g. Brighton & Hove Albion FC = brightonhove...
@@ -69,10 +97,12 @@ def find_or_create_clubs!( names, league:, season: nil)
        )
     end
     pp club
-    recs << club
+
+    recs_uniq << club
+    mappings[ name ] = club
   end
 
-  recs  # return activerecord team objects
+  [recs_uniq, mappings]    # return activerecord team objects and the mappings of names to db recs
 end
 
 

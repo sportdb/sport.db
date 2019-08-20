@@ -48,7 +48,9 @@ def update_matches_txt( matches_txt, league:, season: )   ## todo/check: rename 
   ##   if yes - only double check and do NOT create / add teams
   ##    number of teams must match (use teams only for lookup/alt name matches)
 
-  teams = find_or_create_clubs!( teams_txt, league: league, season: season )
+  ## note: allows duplicates - will return uniq db recs in teams
+  ##                            and mappings from names to uniq db recs
+  teams, team_mappings = find_or_create_clubs!( teams_txt, league: league, season: season )
 
   ## add teams to event
   ##   todo/fix: check if team is alreay included?
@@ -65,14 +67,10 @@ def update_matches_txt( matches_txt, league:, season: )   ## todo/check: rename 
     start_at: event.start_at.to_date
   )
 
-  ## build hash lookup table e.g.
-  #  { 'Liverpool' => obj, ... }
-  teams_mapping = Hash[ teams_txt.zip( teams ) ]
-
   ## add matches
   matches_txt.each do |match_txt|
-    team1 = teams_mapping[match_txt.team1]
-    team2 = teams_mapping[match_txt.team2]
+    team1 = team_mappings[match_txt.team1]
+    team2 = team_mappings[match_txt.team2]
 
     if match_txt.date.nil?
       puts "!!! skipping match - play date missing!!!!!"

@@ -101,7 +101,7 @@ class Configuration
               ClubIndex.build( clubs_dir )
             else   ## no clubs_dir set - try using builtin from footballdb-clubs
               ## todo/fix:  use build_club_index make public (remove private)!!!!
-              FootballDb::Club.club_index
+              FootballDb::Import::Club.club_index
             end
 
     if clubs.errors?

@@ -1,6 +1,6 @@
 ##########################################
 # auto-generated all-in-one single datafile clubs.wiki.txt bundle
-#    on 2019-08-18 16:56:19 +0200 from 5 datafile(s)
+#    on 2019-08-22 11:44:17 +0200 from 5 datafile(s)
 #  please, do NOT edit here; use the source
 #    see https://github.com/openfootball/clubs - updates welcome!
 
@@ -85,7 +85,7 @@ SKN St. Pölten
 SK Sturm Graz
 FC Wacker Innsbruck (2002)
 Wolfsberger AC
-
+WSG Wattens
 
 
 
@@ -429,6 +429,16 @@ Roda JC Kerkrade
 SC Cambuur
 
 
+====================================
+= Poland (pl)
+
+Arka Gdynia
+KS_Cracovia_(football)
+Górnik Zabrze
+
+Bruk-Bet Termalica Nieciecza
+
+
 
 ====================================
 =  Portugal (pt)
@@ -627,7 +637,8 @@ Club Toluca
 Tigres UANL
 Club Universidad Nacional
 Tiburones Rojos de Veracruz
-
+FC Juárez
+Atlético San Luis
 
 
 ==============================================

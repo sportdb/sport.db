@@ -1,6 +1,6 @@
 ##########################################
 # auto-generated all-in-one single datafile clubs.txt bundle
-#    on 2019-08-18 16:56:18 +0200 from 86 datafile(s)
+#    on 2019-08-22 11:44:16 +0200 from 86 datafile(s)
 #  please, do NOT edit here; use the source
 #    see https://github.com/openfootball/clubs - updates welcome!
 
@@ -470,6 +470,10 @@ SV Grödig,           Grödig
 
 FC Wacker Innsbruck, Innsbruck
   | Wacker Innsbruck | FC Tirol              ## note: FC Tirol old name - add year
+
+WSG Tirol, 1930,   Wattens
+  | Tirol | WSG Swarovski Tirol | Wattener Sportgemeinschaft Tirol
+  | WSG Wattens
 
 
 == Vorarlberg ==
@@ -997,6 +1001,10 @@ Hyde United FC,   Hyde › Greater Manchester
 Stalybridge Celtic FC, Stalybridge › Greater Manchester
   | Stalybridge Celtic
 
+Salford City FC,   Salford › Greater Manchester
+  | Salford City | Salford
+
+
 
 Aston Villa FC, 1874,    @ Villa Park, Birmingham › Warwickshire   ## West Midlands
   | Aston Villa | Villa
@@ -1022,6 +1030,9 @@ Portsmouth FC,      @ Fratton Park,    Portsmouth › Hampshire
   | Portsmouth
 Eastleigh FC,         Eastleigh › Hampshire
   | Eastleigh
+
+Havant & Waterlooville FC,  Havant › Hampshire
+  | Havant & Waterlooville | Havant & Waterlooville Football Club
 
 
 Sunderland AFC, 1879,  @ Stadium of Light,  Sunderland
@@ -1055,6 +1066,9 @@ Middlesbrough Ironopolis FC (1889-1894), Middlesbrough › North Yorkshire
   | Middlesbrough Ironopolis
 Scarborough Athletic FC,  Scarborough › North Yorkshire
   | Scarborough
+Harrogate Town AFC,  Harrogate › North Yorkshire
+  | Harrogate | Harrogate Town | Harrogate Town Association Football Club
+
 
 Leeds United FC,  @ Elland Road,    Leeds › West Yorkshire
   | Leeds | Leeds United
@@ -1298,6 +1312,10 @@ Accrington FC (1878-1896),  Accrington › Lancashire
 Morecambe FC,        @ Globe Arena,    Morecambe › Lancashire
   | Morecambe
 
+Chorley FC,   Chorley › Lancashire
+  | Chorley
+
+
 Hereford FC (2014-),            Hereford › Herefordshire
   | Hereford
 Hereford United FC (1924-2014), Hereford › Herefordshire
@@ -1428,6 +1446,8 @@ Red Star FC,   Saint-Ouen › Île-de-France
 
 Amiens SC,             Amiens   › Hauts-de-France
   | Amiens
+FC Chambly, 1989,   Chambly › Hauts-de-France
+  | Chambly | Football Club Chambly Oise
 Angers SCO, 1919,            Angers   › Pays de la Loire   ##  Maine-et-Loire > Pays de la Loire
   | Angers | Angers Sporting Club de l'Ouest
 Girondins de Bordeaux, 1881, Bordeaux › Nouvelle-Aquitaine     ## Gironde > Aquitaine
@@ -1548,8 +1568,8 @@ FC Istres, Istres
   | Istres
 Stade Lavallois, Laval
   | Laval | Stade Lavallois Mayenne Football Club
-Le Mans FC, Le Mans
-  | Le Mans
+Le Mans FC,   Le Mans ›  Pays de la Loire
+  | Le Mans | Le Mans Football Club
 FC Libourne-Saint-Seurin, Libourne
   | Libourne
 CS Louhans-Cuiseaux,   Louhans  ## and Cuiseaux
@@ -1579,6 +1599,12 @@ Vannes OC,   Vannes
   | Vannes
 Wasquehal Foot, Wasquehal     ## use ES Wasquehal - why? why not?
   | Wasquehal
+
+Rodez AF, 1929,   Rodez › Occitanie
+  | Rodez | Rodez Aveyron Football
+
+AS Béziers, 2007,  Béziers › Occitanie
+  | Béziers | Avenir Sportif Béziers      ## check wikipedia -> AS Béziers (2007)
 
 
 ==================================
@@ -1921,7 +1947,8 @@ FSV Zwickau,        Zwickau  › Sachsen
 
 Hallescher FC
   | Halle
-1. FC Magdeburg
+1. FC Magdeburg, 1965,   Magdeburg
+  | Magdeburg
 
 
 == Thüringen ==
@@ -2043,7 +2070,7 @@ Edessaikos FC,  Edessa › Macedonia
 Ergotelis FC, Heraklion › Crete
   | Ergotelis
 OFI Crete FC, Heraklion › Crete
-  | OFI
+  | OFI | OFI Crete
 
 Kalamata FC,       Kalamata › Peloponnese
   | Kalamata
@@ -2773,61 +2800,61 @@ IL Hødd,   Ulsteinvik
 =  Poland (pl)
 
 
-Legia Warszawa,        Warszawa   ## Warsaw [en]
-  | Legia | Legia Warsaw
+Legia Warszawa,        Warszawa      ## Warsaw [en]
+  | Legia | Legia Warsaw [en]
 KSP Polonia Warszawa,  Warszawa
   | Polonia Warszawa
 
 Górnik Zabrze,   Zabrze
-  | Gornik Zabrze | Gornik Z.
+  | Górnik Z.
 
 KKS Lech Poznań,   Poznań
-  | Lech | Lech Poznan
+  | Lech | Lech Poznań
 Wisła Kraków,     Kraków
-  | Wisla
+  | Wisła
 KS Cracovia,     Kraków
   | Cracovia | MKS Cracovia Kraków
 WKS Śląsk Wrocław,    Wrocław
-  | Śląsk | Slask Wroclaw
+  | Śląsk | Śląsk Wrocław
 Jagiellonia Białystok,  Białystok
   | Jagiellonia
 
 Arka Gdynia,  Gdynia
   | Arka
 GKS Bełchatów,  Bełchatów
-  | GKS Belchatow
 Korona Kielce,  Kielce
 
 Lechia Gdańsk,  Gdańsk
-  | Lechia Gdansk
 Górnik Łęczna,  Lublin
-  | Leczna
+  | Łęczna
 Miedź Legnica,  Legnica
   | Legnica
 Piast Gliwice,  Gliwice
   | Piast | GKS Piast Gliwice
 Wisła Płock,    Płock
-  | Plock
+  | Płock
 Podbeskidzie Bielsko-Biała,   Bielsko-Biała
   | Podbeskidzie
 Pogoń Szczecin,    Szczecin
-  | Pogon Szczecin
 Ruch Chorzów,  Chorzów
   | Ruch
 Sandecja Nowy Sącz, Nieciecza
   | Sandecja Nowy S.
-Bruk-Bet Termalica Nieciecza,  Nieciecza
+Bruk-Bet Termalica Nieciecza, 1922, Nieciecza
   | Termalica B-B.
 
 Widzew Łódź,  Łódź
-  | Widzew Lodz
+ŁKS Łódź,     Łódź
+
 
 Zagłębie Lubin,  Lubin
-  | Zaglebie
+  | Zagłębie
 Zagłębie Sosnowiec,  Sosnowiec
-  | Zaglebie Sosnowiec
 Zawisza Bydgoszcz,  Bydgoszcz
   | Zawisza
+
+Raków Częstochowa, 1921,  Częstochowa
+  | Raków | RKS Raków Częstochowa
 
 
 ====================================
@@ -2925,6 +2952,9 @@ CD Trofense,     Tulipa
 Varzim SC,       Póvoa de Varzim
   | Varzim
 
+FC Famalicão,  1931,  Vila Nova de Famalicão
+  | Famalicão | Futebol Clube de Famalicão
+
 
 ====================================
 =  Romania (ro)
@@ -2965,17 +2995,19 @@ FC Petrolul Ploiești, Ploiești
   | Petrolul | Petrolul Ploiesti | Petrolul Ploiești | FC Petrolul Ploieşti
 
 FC Viitorul Constanța,   Ovidiu
-  | Viitorul | FC Viitorul | Viitorul Constanta
+  | Viitorul | FC Viitorul | Viitorul Constanța
 
 Corona Brașov,   Brașov
-  | Corona Brasov | ASC Corona 2010 Brașov
+ | ASC Corona 2010 Brașov
 FC Brașov,  Brașov
-  | FC Brasov |  SR Brașov
+ |  SR Brașov
 
 Dunărea Călărași,   Călărași
-  | Calarasi
-Chindia Târgoviște,  Târgoviște
-  | Chindia Targoviste
+  | Călărași
+Chindia Târgoviște, 2010,  Târgoviște
+  | AFC Chindia Târgoviște
+
+
 CS Turnu Severin,    Drobeta-Turnu Severin
   | Clubul Sportiv Turnu Severin
 FC Severin,         Drobeta-Turnu Severin
@@ -2983,16 +3015,16 @@ FC Severin,         Drobeta-Turnu Severin
 
 
 FC Botoșani, Botoșani
-  | Botoşani | FC Botosani | FC Botoşani | Fotbal Club Botoșani
+  | Botoşani | FC Botoşani | Fotbal Club Botoșani
 
 FC Hermannstadt,   Hermannstadt
   | Hermannstadt
 
 Săgeata Năvodari, Năvodari
-  | Navodari | AFC Săgeata Năvodari
+  | Năvodari | AFC Săgeata Năvodari
 
 Oțelul Galați,  Galați
-  | Oţelul | Otelul  | Oțelul | Otelul Galati | ASC Oțelul Galați
+  | Oţelul | Oțelul | ASC Oțelul Galați
 
 Pandurii Târgu Jiu,  Târgu Jiu
   | Pandurii | Pandurii Tg Jiu | CS Pandurii Târgu Jiu
@@ -3004,23 +3036,27 @@ FC Politehnica Iași,   Iași
   | CSMS laşi
 
 Poli Timișoara, Timișoara
-  | Timişoara | Poli Timisoara | ACS Poli Timișoara
+  | Timişoara | ACS Poli Timișoara
 
 Sepsi Sfântu Gheorghe,   Sfântu Gheorghe
-  | Sepsi | Sepsi OSK
+  | Sepsi | Sepsi Sf. Gheorghe | Sepsi OSK
 
 Târgu Mureș,    Târgu Mureș
-  | Targu Mures | ASA Târgu Mureș | ASA Târgu Mureş | Târgu Mureş
+  | ASA Târgu Mureș | ASA Târgu Mureş | Târgu Mureş
 
 Universitatea Craiova,    Craiova
   | U Craiova | CS U Craiova | U Craiova 1948 CS | CS Universitatea Craiova
   | U Craiova 1948 Club Sportiv
+  | Univ. Craiova
 
 UTA Arad,   Arad
   | FC UTA Arad | Fotbal Club UTA Arad
 
 FC Voluntari,  Voluntari
   | Voluntari
+
+FC Academica Clinceni, 2005,  Clinceni
+  | Academica Clinceni | Fotbal Club Academica Clinceni
 
 
 =====================================
@@ -3084,6 +3120,10 @@ Zenit St. Petersburg, 1925,     St. Petersburg
   | Zenit | Zenit Petersb. | Zenit Petersburg | Zenit Saint Petersburg
   | FC Zenit | FC Zenit St Petersburg | FC Zenit Saint Petersburg
 
+
+
+PFC Sochi, 2018, Sochi      #  formed in 2018 on the base of FC Dynamo Saint Petersburg
+  | Sochi | Professional Football Club Sochi
 
 
 FC Rubin Kazan, 1958,  Kazan     ##  Tatarstan (Republic of) > Volga (Federal District)
@@ -3156,7 +3196,8 @@ Uralan, Elista
 Volga Nizhnii Novgorod, Nizhny Novgorod
   | Volga | Volga N. Novgorod
 
-FC Tambov,  Tambov
+FC Tambov,  2013, Tambov
+  | Tambov
 FC Orenburg,  Orenburg
   | Orenburg
 Volgar-Astrakhan,  Astrakhan
@@ -3188,6 +3229,10 @@ Edinburgh City,          Edinburgh
 
 Aberdeen FC, 1903, Aberdeen
   | Aberdeen
+Cove Rangers FC, 1922, Aberdeen (Cove Bay)
+  | Cove Rangers | Cove Rangers Football Club
+
+
 
 Dundee FC, 1893,       Dundee     ## note: depends on level (1) for mapping
   | Dundee
@@ -3448,6 +3493,13 @@ AD Alcorcón, Alcorcón  ## use Madrid (Alcorcón) - why? why not?
   | Alcorcón| Agrupación Deportiva Alcorcón
 
 
+CF Fuenlabrada, Fuenlabrada      ##   autonomous community of Madrid
+  | Fuenlabrada | Club de Fútbol Fuenlabrada
+
+CF Rayo Majadahonda, 1976,  Majadahonda
+  | Rayo Majadahonda | Club de Fútbol Rayo Majadahonda
+
+
 == Andalucía ==
 
 Málaga CF,   Málaga
@@ -3499,6 +3551,9 @@ Gimnàstic Tarragona, Tarragona
   | Gimnàstic
 Girona FC,           Gerona
   | Girona | Girona Futbol Club
+
+CF Reus,  1909,      Reus
+  | Reus Deportiu | CF Reus Deportiu | Club de Futbol Reus Deportiu
 
 
 == Galicia ==
@@ -3574,8 +3629,11 @@ CD Guadalajara,     Guadalajara
 
 CD Badajoz,      Badajoz
   | Badajoz
-CF Extremadura,  Almendralejo
+CF Extremadura (-2010),  Almendralejo
   | Extremadura
+Extremadura UD,   Almendralejo
+  | Extremadura Unión Deportiva   ## add Extremadura  - why? why not?
+
 CP Mérida,       Mérida
   | Mérida
 
@@ -3602,6 +3660,8 @@ FC Cartagena,  Cartagena
 
 == Aragón ==
 
+Real Zaragoza,  Zaragoza
+  | Zaragoza
 SD Huesca, Huesca
   | Huesca
 
@@ -3620,6 +3680,10 @@ RCD Mallorca,   Palma de Mallorca
   | Mallorca | Real CD Mallorca | Real Club Deportivo Mallorca
 RCD Mallorca B, Palma de Mallorca
   | Mallorca B
+
+== Canarias6 ==
+CD Tenerife,   Santa Cruz de Tenerife
+  | Tenerife | Club Deportivo Tenerife
 
 
 
@@ -3662,8 +3726,6 @@ Real Unión
 
 Recreativo Huelva
   | Recreativo | RC Recreativo de Huelva |Real Club Recreativo de Huelva
-CF Reus
-  | Reus Deportiu
 CE Sabadell
   | Sabadell | CE Sabadell FC | Centre d'Esports Sabadell Futbol Club
 UD Salamanca
@@ -3671,8 +3733,6 @@ UD Salamanca
 Real Racing Santander
   | Santander
 
-CD Tenerife
-  | Tenerife | Club Deportivo Tenerife
 Terrassa FC
   | Terrassa
 CD Toledo
@@ -3685,8 +3745,6 @@ UD Vecindario
 
 Xerez CD
   | Xerez
-Real Zaragoza,  ##  city:zaragoza
-  | Zaragoza
 
 Real Madrid Castilla
   | Castilla | Real Madrid Castilla Club de Fútbol
@@ -3770,45 +3828,93 @@ AC Bellinzona, 1904,    Bellinzona
 
 
 Fenerbahçe İstanbul SK,  İstanbul
-  | Fenerbahce | Fenerbahçe | Fenerbahçe SK
+  | Fenerbahçe | Fenerbahçe SK
   | Fenerbahçe Spor Kulübü | Fenerbahçe Sports Club
 Galatasaray İstanbul AŞ, İstanbul
-  | Galatasaray | Galatasaray Istanbul | Galatasaray AŞ
+  | Galatasaray | Galatasaray İstanbul | Galatasaray AŞ
   | Galatasaray SK
 Beşiktaş İstanbul JK,    İstanbul
-  | Besiktas | Beşiktaş JK | Beşiktaş
+  | Beşiktaş | Beşiktaş JK
 Kasımpaşa İstanbul SK,   İstanbul (Beyoğlu)
-  | Kasımpaşa S.K. | Kasımpaşa
-  | Kasimpasa
+  | Kasımpaşa SK | Kasımpaşa
 
 İstanbul Başakşehir,  İstanbul (Başakşehir)
-  | İstanbul Başakşehir F.K.
-  | Buyuksehyr | İstanbul Büyükşehir Belediyespor    ## (double) check if Buyuksehyr matching (or separate club) !?
+  | İstanbul Başakşehir FK
+  | Büyükşehyr | İstanbul Büyükşehir Belediyespor    ## (double) check if Buyuksehyr matching (or separate club) !?
+
+İstanbulspor, 1913, İstanbul
+
+Sarıyer SK, 1940,       İstanbul (Sarıyer)
+  | Sarıyer | Sarıyer Spor Kulübü
+Zeytinburnuspor, 1953,  İstanbul (Zeytinburnu)
+  | Zeytinburnu | Zeytinburnu SK
 
 
-Gençlerbirliği Ankara SK, Ankara
-  | Genclerbirligi
+Gençlerbirliği Ankara SK, 1923,   Ankara
+  | Gençlerbirliği | Gençlerbirliği SK | Gençlerbirliği Spor Kulübü
 Osmanlıspor Ankara,       Ankara
-  | Osmanlispor | Osmanlıspor
+  | Osmanlıspor
+  | Ankaraspor | Ankaraspor AŞ |
+# in 2005, the football club changed its name to "Ankaraspor AŞ"
+# On June 29, 2014, the club adopted the current name,
+# which refers to Osman I, founder of the Ottoman Empire.
+
 MKE Ankaragücü,           Ankara
   | Ankaragücü
 
+Hacettepespor, 2001,      Ankara
+  | Hacettepe | Hacettepe SK | Hacettepe Spor Kulübü
+  | Oftasspor | OFTAŞ
+# After a financial crisis in 2003, Gençlerbirliği SK purchased the club
+# and changed its name to Gençlerbirliği Asasspor.
+# The logo of the club was replaced with that of the parent club (Gençlerbirliği).
+# After OFTAŞ signed a sponsorship deal with Gençlerbirliği in 2006,
+# the club's name was changed again to Gençlerbirliği OFTAŞ.
+
+
+Turanspor, 1947,   Ankara
+  | Şekerspor | Beypazarı Şekerspor
+#  Previous names:
+#  Şekerspor (1963–2005)
+#  Etimesgut Şekerspor (2005–2010)
+#  Beypazarı Şekerspor (2010–2012)
+#  Çamlıdere Şekerspor (2012–2013)
+#  Şekerspor (2013–2014)
+#  Tutap Şekerspor (2014–2015)
+#  Turanspor (2015–)
+
+Petrol Ofisi SK (1954-2010),  Ankara
+  | P. Ofisi | Petrol Ofisi
+
+
 Kardemir Karabükspor,  Karabük
-  | Karabükspor | Karabukspor
+  | Karabükspor
 Elazığspor,            Elazığ
-  | Elazigspor
+
 Eskişehirspor,         Eskişehir
-  | Eskisehirspor
+
 
 Akhisar Belediyespor, Akhisar
   | Akhisar
 Alanyaspor,  Alanya
-Antalyaspor, Antalya
+Antalyaspor, 1966, Antalya
+  | Antalya | Antalyaspor Kulübü
+
+
 Bursaspor,   Bursa
-Göztepe Izmir,    İzmir (Güzelyalı)
-  | Göztepe | Göztepe S.K.
+Göztepe İzmir,    İzmir (Güzelyalı)
+  | Göztepe | Göztepe SK
   | Goztep
-Kayserispor,         Kayseri
+Bucaspor, 1928,       İzmir (Buca)
+  | Bucaspor Kulübü
+Altay SK,  1914,     İzmir
+  | Altay | Altay Spor Kulübü
+Karşıyaka SK,  1912,  İzmir (Karşıyaka)
+  | Karşıyaka | Karşıyaka Spor Kulübü
+
+
+Kayserispor,   1966,     Kayseri
+  | Kayseri | Kayseri Spor Kulübü
 Kayseri Erciyesspor, Kayseri
   | Erciyesspor
 
@@ -3816,20 +3922,66 @@ Konyaspor,     Konya
 Sivasspor,     Sivas
 Trabzonspor AŞ, Trabzon
   | Trabzonspor
-Yeni Malatyaspor, Malatya
 
-Adanaspor,       Adana
-Gaziantepspor,   Gaziantep
+Yeni Malatyaspor, 1986, Malatya
+  | Yeni Malatya Spor Kulübü
+Malatyaspor, 1966, Malatya      # note: Not to be confused with Yeni Malatyaspor
+  | Malatya SK | Malatya Spor Kulübü
+
+Adanaspor,  1954,      Adana
+  | Adanaspor AŞ
+Adana Demirspor, 1940, Adana
+  | Ad. Demirspor | Adana Demir Spor Kulübü
+
+
+Gaziantepspor, 1969,  Gaziantep
+Gazişehir Gaziantep FK,  1988, Gaziantep         # formerly known as Gaziantep Büyükşehir Belediyespor
+  | Gazişehir Gaziantep | Gazişehir Gaziantep Futbol Kulübü
+
 Çaykur Rizespor, Rize
   | Rizespor
 
 Balıkesirspor,       Balıkesir
-  | Balikesirspor
+
 Mersin İdmanyurdu,   Mersin
-  | Mersin Idman Yurdu
+  | Mersin İdman Yurdu
 
 BB Erzurumspor,     Erzurum
   | Erzurum BB | Büyükşehir Belediye Erzurumspor
+
+Denizlispor,  1966,    Denizli
+  | Denizlispor Kulübü
+
+Orduspor, 1967,  Ordu
+Manisaspor, 1965,  Manisa
+Samsunspor, 1965, Samsun
+  | Samsunspor Kulübü Derneği
+
+Diyarbakırspor, 1968,  Diyarbakır
+  | Diyarbekirspor AŞ
+Kocaelispor, 1966, İzmit
+  | Kocaelispor Kulübü
+
+Sakaryaspor, 1965,  Adapazarı
+  | Sakaryaspor Kulübü Derneği
+
+Akçaabat Sebatspor, 1923, Akçaabat
+  | A. Sebatspor
+
+Yozgatspor, 1959, Yozgat
+  | Yozgatspor Kulübü
+
+Erzurumspor (1968-2015), Erzurum
+  | Erzurum
+
+Siirtspor,  Siirt
+  | Siirt SK | Siirt Jet-PA
+
+Vanspor FK, 1982, Van
+  | Vanspor | Van Büyükşehir Belediyespor
+
+Çanakkale Dardanelspor, 1966, Çanakkale
+  | Dardanelspor | Çanakkale Dardanel SK
 
 
 =================================
@@ -3972,27 +4124,34 @@ Vancouver Whitecaps FC, 1974,  Vancouver › British Columbia   ## founding year
 =  Mexico (mx)
 
 
+== Ciudad de México ==
 Club América, Ciudad de México
-  | Club America
 Cruz Azul,    Ciudad de México
 Pumas UNAM,   Ciudad de México
-  | U.N.A.M.- Pumas | Club Universidad Nacional
+  | U.N.A.M. Pumas | Club Universidad Nacional
 
+
+== Jalisco ==
 CD Guadalajara Chivas,   Guadalajara (Zapopan) › Jalisco     ## use Zapopan › Jalisco
-  | Guadalajara Chivas | C.D. Guadalajara
+  | Guadalajara Chivas | CD Guadalajara
 Club Atlas,              Guadalajara › Jalisco
   | Atlas
-Leones Negros U. de G.,  Guadalajara › Jalisco  ## UdeG = Universidad de Guadalajara
+Leones Negros U. de G.,  Guadalajara › Jalisco    ## UdeG = Universidad de Guadalajara
   | Leones Negros
 
+== Nuevo León ==
 CF Monterrey,      Monterrey › Nuevo León
   | Monterrey
 Tigres UANL,       Monterrey › Nuevo León   ## 	San Nicolás de los Garza
-  | U.A.N.L.- Tigres
+  | U.A.N.L. Tigres
 
+== Puebla ==
 Lobos BUAP,         Puebla › Puebla  ##  BUAP = Benemérita Universidad Autónoma de Puebla
 Club Puebla,        Puebla › Puebla
-  | Puebla | Puebla F.C.
+  | Puebla | Puebla FC
+
+
+== ??? ==
 
 Atlético San Luis,   San Luis Potosí › San Luis Potosí
   | Atl. San Luis
@@ -4001,7 +4160,6 @@ Atlante FC,          Cancún › Quintana Roo
 Jaguares Chiapas,    Tuxtla Gutiérrez › Chiapas   ##  Chiapas FC or Jaguares de Chiapas
   | Chiapas
 Club León,           León     › Guanajuato
-  | Club Leon
 Club Tijuana,        Tijuana  › Baja California
 Dorados Sinaloa,     Culiacán › Sinaloa
   | Dorados de Sinaloa
@@ -4014,12 +4172,19 @@ Club Necaxa,       Aguascalientes › Aguascalientes
 CF Pachuca,        Pachuca › Hidalgo
   | Pachuca
 Querétaro FC,      Querétaro › Querétaro
-  | Queretaro
+  | Querétaro
 Santos Laguna,     Torreón › Coahuila
 Deportivo Toluca FC,  Toluca › México
   | Toluca | Club Toluca
-Tiburones Rojos Veracruz,   Veracruz (Boca del Río) › Veracruz     ## Boca del Río
+
+== Veracruz ==
+Tiburones Rojos Veracruz,   Veracruz (Boca del Río) ›      ## Boca del Río
   | Veracruz | Tiburones Rojos de Veracruz
+
+
+==  Chihuahua  ==
+FC Juárez, 2015, Juárez
+  | Juárez | Fútbol Club Juárez
 
 
 ==============================================

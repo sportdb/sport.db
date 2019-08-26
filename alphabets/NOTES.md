@@ -45,3 +45,9 @@ Regex with Class - Ruby's regex engine defines a lot of shortcut character class
 - <https://www.w3.org/International/wiki/Case_folding>
 
 In Western European languages, the letter 'i' (U+0069) upper cases to a dotless 'I' (U+0049). In Turkish, this letter upper cases to a dotted upper case letter 'İ' (U+0130). Similarly, 'I' (U+0049) lower cases to 'ı' (U+0131), which is a dotless lowercase letter i.
+
+
+**More**
+
+- [The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)
+by Joel Spolsky, 2003

@@ -30,6 +30,10 @@ Use Upcase, Downcase AND Titlecase (!)
 
 - <https://github.com/tyxla/remove-accents> - removes the accents from a string, converting them to their corresponding non-accented ascii characters
 
+**PostgreSQL**
+
+- <https://www.postgresql.org/docs/current/unaccent.html> - unaccent is a text search dictionary that removes accents (diacritic signs) from lexemes
+
 
 ## Links
 

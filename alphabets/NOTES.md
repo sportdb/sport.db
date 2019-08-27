@@ -14,7 +14,16 @@ Use Upcase, Downcase AND Titlecase (!)
 
 ## Libraries
 
+**Ruby**
+
 - <https://github.com/SixArm/sixarm_ruby_unaccent> - Replace a string's accent characters with ASCII characters. Based on Perl Text::Unaccent from CPAN.
+
+- <https://github.com/fractalsoft/diacritics> - support downcase, upcase and permanent link with diacritical characters
+
+
+**JavaScript**
+
+- <https://github.com/dundalek/latinize> -  convert accents (diacritics) from strings to latin characters 
 
 
 
@@ -51,3 +60,17 @@ In Western European languages, the letter 'i' (U+0069) upper cases to a dotless 
 
 - [The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)
 by Joel Spolsky, 2003
+
+## Alphabets
+
+Add more alphabets... why? why not?
+
+
+- Portuguese [Â, "abcdefghijklmnopqrstuvwxyzáâãàçéêíóôõú", "ABCDEFGHIJKLMNOPQRSTUVWXYZÁÂÃÀÇÉÊÍÓÔÕÚ"]
+- Russian [Щ, Ъ, Э, "абвгдеёжзийклмнопрстуфхцчшщъыьэюя", "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"]
+- Greek [Β, Μ, Χ, Ω, Ή, Ύ, Ώ, ΐ, ΰ, Ϊ, Ϋ]
+- Slovak ["aáäeéiíoóôuúyýbcčdďfghjklĺľmnňpqrŕsštťvwxzž", "AÁÄEÉIÍOÓÔUÚYÝBCČDĎFGHJKLĹĽMNŇPQRŔSŠTŤVWXZŽ"]
+- Italian ["aàbcdeèéfghiìíîlmnoòópqrstuùúvz", "AÀBCDEÈÉFGHIÌÍÎLMNOÒÓPQRSTUÙÚVZ"]
+- Romanian ["aăâbcdefghiîjklmnopqrsștțuvwxyz", "AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ"]
+- Danish [å, â, ô, Å, Â, Ô]
+

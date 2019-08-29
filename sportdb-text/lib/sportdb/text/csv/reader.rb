@@ -12,15 +12,15 @@ class CsvMatchReader
 ##  todo/check: what keyword to use for normalize names - normalize? canonicalize? other?
 ##    note: todo/fix: allow passing in of country filter for normalize too - why? why not?
 
-def self.read( path, headers: nil, filters: nil, col_sep: ',',
+def self.read( path, headers: nil, filters: nil, converters: nil, col_sep: ',',
                  normalize: false )
    text = File.open( path, 'r:utf-8' ).read   ## note: make sure to use (assume) utf-8
-   parse( text, headers: headers, filters: filters, col_sep: col_sep,
+   parse( text, headers: headers, filters: filters, converters: converters, col_sep: col_sep,
            normalize: normalize )
 end
 
 
-def self.parse( text, headers: nil, filters: nil, col_sep: ',',
+def self.parse( text, headers: nil, filters: nil, converters: nil, col_sep: ',',
                    normalize: false )
 
   headers_mapping = {}
@@ -98,6 +98,20 @@ def self.parse( text, headers: nil, filters: nil, col_sep: ',',
        end
        next if skip   ## if header values NOT matching
      end
+
+
+    ## note:
+    ##   add converters after filters for now (why not before filters?)
+    if converters   ## any converters defined?
+      ## convert single proc shortcut to array with single converter
+      converters = [converters]   if converters.is_a?( Proc )
+
+      ## assumes array of procs
+      converters.each do |converter|
+        row = converter.call( row )
+      end
+    end
+
 
 
     team1 = row[ headers_mapping[ :team1 ]]

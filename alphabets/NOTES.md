@@ -72,6 +72,8 @@ In Western European languages, the letter 'i' (U+0069) upper cases to a dotless 
 - [The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)
 by Joel Spolsky, 2003
 
+- [Unicode Normalization in Ruby](https://www.honeybadger.io/blog/ruby-unicode-normalization/) by Starr Horne, 2017
+
 
 ## Mappings
 

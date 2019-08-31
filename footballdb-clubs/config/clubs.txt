@@ -1,6 +1,6 @@
 ##########################################
 # auto-generated all-in-one single datafile clubs.txt bundle
-#    on 2019-08-22 11:44:16 +0200 from 86 datafile(s)
+#    on 2019-08-31 20:06:30 +0200 from 86 datafile(s)
 #  please, do NOT edit here; use the source
 #    see https://github.com/openfootball/clubs - updates welcome!
 
@@ -401,9 +401,11 @@ Alashkert FC
 == Wien ==
 
 FK Austria Wien,   Wien (Favoriten)
-  | Austria Vienna | Austria Wien
+  | Austria Wien
+  | Austria Vienna [en]
 SK Rapid Wien,     Wien (Hütteldorf)
-  | Rapid Vienna | Rapid Wien
+  | Rapid Wien
+  | Rapid Vienna [en]
 Wiener Sport-Club, Wien (Hernals)
 
 
@@ -2020,8 +2022,8 @@ Ionikos FC, Nikaia › Attica   ## Athens Nikaia - a suburb in the western part 
 
 
 Olympiacos Piraeus FC,  Piraeus › Attica
-  | Olympiakos | Olympiacos | Olympiakos Piräus | Olympiakos P.
-  | Olympiacos FC
+  | Olympiacos | Olympiacos Piraeus | Olympiacos FC
+  | Olympiakos | Olympiakos Piräus | Olympiakos P.
 Ethnikos Piraeus FC,    Piraeus › Attica
   | Ethnikos Piraeus | Ethnikos
 
@@ -2087,6 +2089,8 @@ Niki Volou FC, Volos › Thessaly
 Olympiacos Volou 1937 FC, Volos › Thessaly
   | Olympiacos Volou | Olympiacos Volou FC
   | Olympiakos Volou
+Volos FC, 2017, Volos › Thessaly
+  | Volos NFC | Volos Football Club
 
 
 Panachaiki FC, Patras › Peloponnese
@@ -2419,6 +2423,9 @@ Varese Calcio,  Varese
   | Varese
 Virtus Lanciano, Lanciano
   | ASD 1920 Lanciano Calcio
+
+Pordenone Calcio, 1920, Pordenone
+  | Pordenone
 
 
 ==========================================
@@ -3681,7 +3688,7 @@ RCD Mallorca,   Palma de Mallorca
 RCD Mallorca B, Palma de Mallorca
   | Mallorca B
 
-== Canarias6 ==
+== Canarias ==
 CD Tenerife,   Santa Cruz de Tenerife
   | Tenerife | Club Deportivo Tenerife
 

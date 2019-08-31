@@ -12,9 +12,9 @@ UNACCENT = Reader.parse( <<TXT )
     Æ AE  æ ae   # ae ligature
           ā a
           ă a
-          ą a
+          ą a    # ą - U+0105 (261) - LATIN SMALL LETTER A WITH OGONEK
 
-    Ç C   ç c
+    Ç C   ç c    # ç - U+00E7 (231) - LATIN SMALL LETTER C WITH CEDILLA
           ć c
     Č C   č c
 
@@ -31,7 +31,7 @@ UNACCENT = Reader.parse( <<TXT )
     Í I   í i
           î i
           ī i
-          ı i    # small dotless i
+          ı i    # ı - U+0131 (305) - LATIN SMALL LETTER DOTLESS I
 
     Ł L   ł l
 
@@ -50,15 +50,16 @@ UNACCENT = Reader.parse( <<TXT )
           ř r
 
     Ś S   ś s
-    Ş S   ş s
+    Ş S   ş s   # ş - U+015F (351) - LATIN SMALL LETTER S WITH CEDILLA
+    Ș S   ș s   # ș - U+0219 (537) - LATIN SMALL LETTER S WITH COMMA BELOW
     Š S   š s
-          ș s   # U+0219
-          ß ss
+          ß ss  # ß - U+00DF (223) - LATIN SMALL LETTER SHARP S
 
-          ţ t   # U+0163
-          ț t   # U+021B
+    Ţ t   ţ t   # ţ - U+0163 (355) - LATIN SMALL LETTER T WITH CEDILLA
+    Ț t   ț t   # ț - U+021B (539) - LATIN SMALL LETTER T WITH COMMA BELOW
 
-          þ p    #### fix/check!!!! icelandic - use p is p or th - why? why not?
+          þ p   # þ - U+00FE (254) - LATIN SMALL LETTER THORN
+                #### fix/check!!!! icelandic - use p is p or th - why? why not?
 
     Ü U   ü u
     Ú U   ú u
@@ -70,6 +71,14 @@ UNACCENT = Reader.parse( <<TXT )
           ż z
     Ž Z   ž z
 TXT
+
+##
+# Notes:
+#  Romanian did NOT initially get its Ș/ș and Ț/ț (with comma) letters,
+#  because these letters were initially unified with Ş/ş and Ţ/ţ (with cedilla)
+#  by the Unicode Consortium, considering the shapes with comma beneath
+#  to be glyph variants of the shapes with cedilla.
+#  However, the letters with explicit comma below were later added to the Unicode standard and are also in ISO 8859-16.
 
 
 ##  de,at,ch translation for umlauts
@@ -90,9 +99,9 @@ DOWNCASE = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z].reduce({}) do
     Ä ä
     Á á
     Å å
-    Æ æ   # ae ligature
+    Æ æ   # LATIN LETTER AE  - ae ligature
 
-    Ç ç
+    Ç ç   # LATIN LETTER C WITH CEDILLA
     Č č
 
     É é
@@ -103,11 +112,15 @@ DOWNCASE = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z].reduce({}) do
     Ł ł
 
     Ö ö
-    Œ œ   # oe ligature
+    Œ œ   # LATIN LIGATURE OE
 
     Ś ś
-    Ş ş
+    Ş ş   # LATIN LETTER S WITH CEDILLA
+    Ș ș   # LATIN LETTER S WITH COMMA BELOW
     Š š
+
+    Ţ ţ   # LATIN LETTER T WITH CEDILLA
+    Ț ț   # LATIN LETTER T WITH COMMA BELOW
 
     Ü ü
     Ú ú

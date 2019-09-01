@@ -37,4 +37,4 @@
 3  => division3,   English Division 3
 3a => division3n,  English Division 3 (North)
 3b => division3s,  English Division 3 (South)
-4  => division4,   English Division 4      ## check if real?
+4  => division4,   English Division 4

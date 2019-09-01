@@ -1,0 +1,141 @@
+###
+#  try new leagues format
+
+
+==========================================
+=  England (eng)
+
+## see https://en.wikipedia.org/wiki/Premier_League
+##  https://en.wikipedia.org/wiki/Template:Premier_League
+##  https://en.wikipedia.org/wiki/Premier_League_records_and_statistics#All-time_Premier_League_table
+##  https://en.wikipedia.org/wiki/EFL_Championship
+##  https://en.wikipedia.org/wiki/Template:Football_League_Championship_seasons
+## https://en.wikipedia.org/wiki/Template:Football_League_One_seasons
+## https://en.wikipedia.org/wiki/Template:Football_League_Two_seasons
+
+
+1  English Premier League,              1992/93 ..
+    | Premier League | EPL | PL
+
+## or use
+## 2010-11 2011-12 2012-13 2013-14 2014-15 2015-16 2016-17 2017-18 2018-19 2019-20
+## 2000-01 2001-02 2002-03 2003-04 2004-05 2005-06 2006-07 2007-08 2008-09 2009-10
+##                1992-93 1993-94 1994-95 1995-96 1996-97 1997-98 1998-99 1999-2000
+
+2  English Championship League,         2004/05 ..
+    | EFL Championship | English Football League Championship
+    | Football League Championship | Championship
+3  English League 1,                    2004/05 ..
+    | Football League One | League One | EFL League One
+    | League 1
+4  English League 2,                    2004/05 ..
+    | Football League Two | League Two | EFL League Two
+5  English National League,             2015/16 ..
+    ## note: split in three divisions, the National League, National League North and National League South - why? why not?
+    ##   National League is the fifth highest level of the overall pyramid,
+    ##    while the National League North and National League South exist at the sixth level.
+
+
+#############
+### historic names / leagues
+
+5  English Conference,         1986/87 .. 2014/15
+    | Football Conference | Conference Premier
+    ## note: slit in three divisions - why? why not?
+    ##  Conference Premier is the fifth highest level of the overall pyramid,
+    ##   whilst the Conference North and Conference South exist at the sixth level
+
+2  English Division 1,         1992/93 .. 2003/04
+    | Football League First Division | First Division
+3  English Division 2,         1992/93 .. 2003/04
+    | Football League Second Division | Second Division
+4  English Division 3,         1992/93 .. 2003/04
+    | Football League Third Division | Third Division
+
+
+1  English Division 1 | Football League First Division | First Division
+     1946/47 .. 1991/92
+     1919/20 .. 1939/40
+     1888/89 .. 1914/15
+
+## or use
+## 1990–91 1991–92
+## 1980–81 1981–82 1982–83 1983–84 1984–85 1985–86 1986–87 1987–88 1988–89 1989–90
+## 1970–71 1971–72 1972–73 1973–74 1974–75 1975–76 1976–77 1977–78 1978–79 1979–80
+## 1960–61 1961–62 1962–63 1963–64 1964–65 1965–66 1966–67 1967–68 1968–69 1969–70
+## 1950–51 1951–52 1952–53 1953–54 1954–55 1955–56 1956–57 1957–58 1958–59 1959–60
+##  x       x       x       x       x       x      1946–47 1947–48 1948–49 1949–50
+## 1930–31 1931–32 1932–33 1933–34 1934–35 1935–36 1936–37 1937–38 1938–39 1939–40
+## 1920–21 1921–22 1922–23 1923–24 1924–25 1925–26 1926–27 1927–28 1928–29 1929–30
+## 1910–11 1911–12 1912–13 1913–14 1914–15  x       x       x       x      1919–20
+## 1900–01 1901–02 1902–03 1903–04 1904–05 1905–06 1906–07 1907–08 1908–09 1909–10
+## 1890–91 1891–92 1892–93 1893–94 1894–95 1895–96 1896–97 1897–98 1898–99 1899–1900
+##                                                                 1888–89 1889–90
+
+2    English Division 2 | Football League Second Division | Second Division
+       1946–47 .. 1991–92
+       1919–20 .. 1939–40  # note: Second World War
+       1892–93 .. 1914–15  # note: First World War
+
+3    English Division 3 | Football League Third Division | Third Division
+       1958–59 .. 1991–92, 1920–21
+       ## note: split between North and South, 1921–58
+ 3.s  English Division 3 (South) | Football League Third Division South | Third Division South
+       1921-22 .. 1957-58
+ 3.n  English Division 3 (North) | Football League Third Division North | Third Division North
+       1921-22 .. 1957-58
+
+4     English Division 4 | Football League Fourth Division
+        1958–59 .. 1991–92
+
+
+
+==================================
+=  Austria (at)
+
+1    Österr. Bundesliga,   1994/95 ..
+       | Bundesliga | BL
+2    Österr. 2. Liga,      2018/19 ..
+       | 2. Liga
+
+
+#########
+## historic names / leagues
+
+2    Erste Liga,      2002/03 .. 2017/18
+2    Erste Division,  1998/99 .. 2001/02
+
+1    1. Division
+         1993/94
+         1985/86 .. 1992/93  ## zeit der play-off-ligen
+         1982/83 .. 1984/85  ## 16er-liga
+         1975/76 .. 1981/82
+
+2    2. Division
+         1993/94 .. 1997/98  ## rückkehr zur 16er-liga
+         1985/86 .. 1992/93  ## zeit der play-off-ligen; mittleres play-off
+         1975/76 .. 1984/85
+
+1    Bundesliga,          1974/75
+2    Nationalliga,        1974/75
+
+1    Nationalliga,   1965/66 .. 1973/74
+1    Staatsliga,     1949/50 .. 1964/65     # Staatsliga (gesamtösterreichisch)
+       | Liga A
+
+
+
+==================================
+=  Belgium (be)
+
+## to be done; check how to handle play-offs / split into groups
+
+==================================
+=  Argentina (ar)
+
+## check for changing season (from year to seasonal and back etc.)
+
+===================================
+=  Mexico (mx)
+
+## check for aperatura / clausura - two "seasons" in one year

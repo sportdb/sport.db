@@ -1,0 +1,31 @@
+require 'hoe'
+require './lib/sportdb/leagues/version.rb'
+
+Hoe.spec 'sportdb-leagues' do
+
+  self.version = SportDb::Leagues::VERSION
+
+  self.summary = "sportdb-leagues - sport.db leagues & clubs reader and zero-config quick starter settings"
+  self.description = summary
+
+  self.urls = ['https://github.com/sportdb/sport.db']
+
+  self.author = 'Gerald Bauer'
+  self.email = 'opensport@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.licenses = ['Public Domain']
+
+  self.extra_deps = [
+    ['alphabets',           '>= 0.1.0'],
+    ['sportdb-countries',   '>= 0.2.0'],
+  ]
+
+  self.spec_extras = {
+   :required_ruby_version => '>= 2.2.2'
+  }
+
+end

@@ -7,8 +7,8 @@ module Boot      ## note: use a different module than Config to avoid confusion 
                  ##   maybe rename later gem itself to sportdb-boot - why? why not?
 
   MAJOR = 0    ## todo: namespace inside version or something - why? why not??
-  MINOR = 7
-  PATCH = 1
+  MINOR = 8
+  PATCH = 0
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 
   def self.version
@@ -23,9 +23,9 @@ module Boot      ## note: use a different module than Config to avoid confusion 
     File.expand_path( File.dirname(File.dirname(File.dirname(File.dirname(__FILE__)))) )
   end
 
-  def self.data_dir  ## rename to config_dir - why? why not?
-    "#{root}/config"
-  end
+#  def self.data_dir  ## rename to config_dir - why? why not?
+#    "#{root}/config"
+#  end
 
 
 end # module Boot

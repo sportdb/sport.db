@@ -10,4 +10,5 @@ require 'minitest/autorun'
 require 'sportdb/config'
 
 
-SportDb::Import.config.clubs_dir = '../../../openfootball/clubs'
+SportDb::Import.config.clubs_dir   = '../../../openfootball/clubs'
+SportDb::Import.config.leagues_dir = '../../../openfootball/leagues'

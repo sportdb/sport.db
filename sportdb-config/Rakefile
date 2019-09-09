@@ -22,13 +22,14 @@ Hoe.spec 'sportdb-config' do
   self.extra_deps = [
     ['sportdb-countries', '>= 0.2.0'],
     ['sportdb-clubs',     '>= 0.2.0'],
+    ['sportdb-leagues',   '>= 0.1.0'],
     ## dataset libs / gems
     ['fifa',              '>= 1.0.0'],    ## for (builtin/default) countries
-    ['footballdb-clubs',  '>= 0.2.0'],      ## for (builtin/default) clubs
+    ['footballdb-clubs',  '>= 1.0.0'],      ## for (builtin/default) clubs
   ]
 
   self.spec_extras = {
-   :required_ruby_version => '>= 2.2.2'
+   required_ruby_version: '>= 2.2.2'
   }
 
 end

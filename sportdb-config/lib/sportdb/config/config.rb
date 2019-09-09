@@ -3,7 +3,7 @@
 module SportDb
   module Import
 
-# add builder convenience helper to ClubIndex
+# add builder convenience helper to ClubIndex - why? why not?
 class ClubIndex
 
   def self.build( path )
@@ -14,7 +14,7 @@ class ClubIndex
     end
     recs
 
-    clubs = self.new
+    clubs = new
     clubs.add( recs )
 
     ## add wiki(pedia) anchored links
@@ -29,6 +29,23 @@ class ClubIndex
     clubs
   end
 end # class ClubIndex
+
+
+class LeagueIndex
+
+  def self.build( path )
+    recs = []
+    datafiles = Configuration.find_datafiles_leagues( path )
+    datafiles.each do |datafile|
+      recs += LeagueReader.read( datafile )
+    end
+    recs
+
+    leagues = new
+    leagues.add( recs )
+    leagues
+  end
+end # class LeagueIndex
 
 
 class Configuration
@@ -55,10 +72,19 @@ class Configuration
     @clubs
   end
 
+  def leagues
+    @leagues ||= build_league_index
+    @leagues
+  end
+
+
   ####
   #  todo/fix:  find a better way to configure club / team datasets
   attr_accessor   :clubs_dir
-  def clubs_dir()   @clubs_dir; end   ### note: return nil if NOT set on purpose for now - why? why not?
+  def clubs_dir()      @clubs_dir; end   ### note: return nil if NOT set on purpose for now - why? why not?
+
+  attr_accessor   :leagues_dir
+  def leagues_dir()    @leagues_dir; end
 
 
   CLUBS_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
@@ -66,11 +92,15 @@ class Configuration
                        clubs\.txt$
                    }x
 
-
   CLUBS_WIKI_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
                            (?:[a-z]{1,3}\.)?   # optional country code/key e.g. eng.clubs.wiki.txt
                           clubs\.wiki\.txt$
                        }x
+
+  LEAGUES_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
+                     (?:[a-z]{1,3}\.)?   # optional country code/key e.g. eng.clubs.txt
+                     leagues\.txt$
+                    }x
 
 
   def self.find_datafiles( path, pattern )
@@ -86,9 +116,11 @@ class Configuration
      pp datafiles
      datafiles
   end
+
   def self.find_datafiles_clubs( path )       find_datafiles( path, CLUBS_REGEX ); end
   def self.find_datafiles_clubs_wiki( path )  find_datafiles( path, CLUBS_WIKI_REGEX ); end
 
+  def self.find_datafiles_leagues( path )     find_datafiles( path, LEAGUES_REGEX ); end
 
 
   def build_club_index
@@ -115,21 +147,17 @@ class Configuration
     clubs
 end # method build_club_index
 
-
-def leagues
-  read_leagues()      if @leagues.nil?
-  @leagues
+def build_league_index
+  leagues = if leagues_dir   ## check if clubs_dir is defined / set (otherwise it's nil)
+              LeagueIndex.build( leagues_dir )
+            else   ## no leagues_dir set
+              puts "** !!! ERROR !! no config.leagues_dir set; sorry; CANNOT continue; please set"
+              exit 1
+            end
 end
 
-def read_leagues
-    #####
-    # add / read-in leagues config
-    @leagues = LeagueConfig.new
 
-    self  ## return self for chaining
-  end
 end # class Configuration
-
 
 
 ## lets you use

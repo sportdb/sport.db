@@ -7,6 +7,7 @@ class CsvPackage
   attr_reader :name, :path
 
   def initialize( path )
+     ## todo/check: make path (always) absolute (using expand_path())- why? why not?
 
      @name = File.basename( path )
 
@@ -31,8 +32,69 @@ class CsvPackage
     '[0-9][0-9][0-9][0-9]'              ## e.g  /1999/  - note: will NOT include /1990s etc.
   ]
 
+  def find_entries_by_season_dir   ## change entries to datafile - why? why not?
+    # note: use find_entry_by_season to get datafiles by season (without full "physical" directory path)
 
-  def find_entries_by_season
+    ##
+    ## [["1950s/1956-57",
+    ##    ["1950s/1956-57/1-division1.csv",
+    ##     "1950s/1956-57/2-division2.csv",
+    ##     "1950s/1956-57/3a-division3n.csv",
+    ##     "1950s/1956-57/3b-division3s.csv"]], 
+    ##   ...]
+
+    entries = []
+
+    ## note: use full package path as root path
+    ##  e.g. ./o/be-belgium or something
+    root_path = @path
+    pp root_path
+
+    season_paths = Dir.glob( "#{root_path}/**/{#{SEASON_PATTERNS.join(',')}}" )
+    season_paths.each_with_index do |season_path,i|
+
+      ## note: cut-off in_root (to pretty print path)
+      season_path_rel = season_path[root_path.length+1..-1]
+
+      puts "season path [#{i+1}/#{season_paths.size}]: >#{season_path_rel}< (#{season_path}):"
+
+      season = [season_path_rel, []]
+
+      ## note: assume 1-,2- etc. gets us back sorted leagues
+      ##  - use sort. (will not sort by default)
+      datafile_paths = Dir.glob( "#{season_path}/*.csv").sort
+      datafile_paths.each_with_index do |datafile_path,j|
+
+        ## note: cut-off in_root (to pretty print path)
+        datafile_path_rel = datafile_path[root_path.length+1..-1]
+        puts "   datafile [#{j+1}/#{datafile_paths.size}]: >#{datafile_path_rel}< (#{datafile_path})"
+
+        season[1] << datafile_path_rel
+      end  # each datafile_paths
+      entries << season
+    end # each season_paths
+    entries
+  end
+
+
+  def find_entries_by_season   ## change entries to datafile - why? why not?
+    ## todo/note: in the future - season might be anything (e.g. part of a filename and NOT a directory)
+
+    ### todo/fix:
+    ##    fold all sames seasons (even if in different directories)
+    ##     into same datafile list e.g.
+    ##   ["1957/58",
+    ##     ["1950s/1957-58/1-division1.csv",
+    ##      "1950s/1957-58/2-division2.csv",
+    ##      "1950s/1957-58/3a-division3n.csv",
+    ##      "1950s/1957-58/3b-division3s.csv"]],
+    ## and
+    ##   ["1957/58",
+    ##      ["archives/1950s/1957-58/1-division1.csv",
+    ##       "archives/1950s/1957-58/2-division2.csv",
+    ##       "archives/1950s/1957-58/3a-division3n.csv",
+    ##       "archives/1950s/1957-58/3b-division3s.csv"]],
+    ##  should be together - why? why not?
 
     entries = []
     ####

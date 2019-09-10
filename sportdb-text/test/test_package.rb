@@ -28,6 +28,8 @@ class TestPackage < MiniTest::Test
 
     pack = CsvPackage.new( path )
 
+    pp pack.find_entries_by_season_dir
+
     pp pack.find_entries_by_season
 
     pp pack.find_entries_by_season_n_division

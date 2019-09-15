@@ -21,7 +21,7 @@ def write( path: nil )   ## change/rename to recalc / build / etc. - why? why no
    end
 
 
-   season_entries = @pack.find_entries_by_season
+   season_entries = @pack.find_entries_by_season_dir
    season_entries.each do |season_entry|
      season_dir   = season_entry[0]
      season_files = season_entry[1]    ## .csv (data)files

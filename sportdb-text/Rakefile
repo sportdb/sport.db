@@ -20,7 +20,7 @@ Hoe.spec 'sportdb-text' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-config', '>= 0.7.1'],
+    ['sportdb-config', '>= 0.8.0'],
   ]
 
   self.spec_extras = {

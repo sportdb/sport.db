@@ -18,273 +18,278 @@
 #################
 ## 209  (now in 2019 211(!) which two got added ??) regular FIFA members
 
+## Key   Name,   FIFA
 
-Key,  FIFA,  Name
 
-af,  AFG, Afghanistan
-al,  ALB, Albania
-dz,  ALG, Algeria
-as,  ASA, American Samoa (US)
-ad,  AND, Andorra
-ao,  ANG, Angola
-ai,  AIA, Anguilla (UK)
-ag,  ATG, Antigua and Barbuda
-ar,  ARG, Argentina
-am,  ARM, Armenia
-aw,  ARU, Aruba (NL)
-au,  AUS, Australia
-at,  AUT, Austria
-az,  AZE, Azerbaijan
+af   Afghanistan,          AFG
+al   Albania,              ALB
+dz   Algeria,              ALG
+as   American Samoa (US),  ASA
 
-bs,  BAH, Bahamas
-bh,  BHR, Bahrain
-bd,  BAN, Bangladesh
-bb,  BRB, Barbados
-by,  BLR, Belarus
-be,  BEL, Belgium
-bz,  BLZ, Belize
-bj,  BEN, Benin
-bm,  BER, Bermuda (UK)
-bt,  BHU, Bhutan
-bo,  BOL, Bolivia
-ba,  BIH, Bosnia and Herzegovina      ## or use Bosnia-Herzegovina ?
-bw,  BOT, Botswana
-br,  BRA, Brazil
-bn,  BRU, Brunei
-bg,  BUL, Bulgaria
-bf,  BFA, Burkina Faso
-bi,  BDI, Burundi
+ad   Andorra,              AND
+ao   Angola,               ANG
+ai   Anguilla (UK),        AIA
+ag   Antigua and Barbuda,  ATG
+ar   Argentina,            ARG
+am   Armenia,              ARM
+aw   Aruba (NL),           ARU
+au   Australia,            AUS
+at   Austria,              AUT
+      | Österreich [de]
+az   Azerbaijan,           AZE
 
-kh,  CAM, Cambodia
-cm,  CMR, Cameroon
-ca,  CAN, Canada
-cv,  CPV, Cabo Verde
-ky,  CAY, Cayman Islands (UK)
-cf,  CTA, Central African Republic
-td,  CHA, Chad
-cl,  CHI, Chile
-cn,  CHN, China
-co,  COL, Colombia
-km,  COM, Comoros
-cg,  CGO, Congo
-cd,  COD, Congo DR
-ck,  COK, Cook Islands (NZ)
-cr,  CRC, Costa Rica
-hr,  CRO, Croatia
-cu,  CUB, Cuba
-cw,  CUW, Curaçao (NL)
-cy,  CYP, Cyprus
-cz,  CZE, Czech Republic
-ci,  CIV, Côte d'Ivoire      # Ivory Coast
+bs   Bahamas,              BAH
+bh   Bahrain,              BHR
+bd   Bangladesh,           BAN
+bb   Barbados,             BRB
+by   Belarus,              BLR
+be   Belgium,              BEL
+bz   Belize,               BLZ
+bj   Benin,                BEN
+bm   Bermuda (UK),         BER
+bt   Bhutan,               BHU
+bo   Bolivia,              BOL
+ba   Bosnia and Herzegovina,  BIH
+      | Bosnia-Herzegovina
+bw   Botswana,             BOT
+br   Brazil,               BRA
+bn   Brunei,               BRU
+bg   Bulgaria,             BUL
+bf   Burkina Faso,         BFA
+bi   Burundi,              BDI
 
-dk,  DEN, Denmark
-dj,  DJI, Djibouti
-dm,  DMA, Dominica
-do,  DOM, Dominican Republic
+kh   Cambodia,             CAM
+cm   Cameroon,             CMR
+ca   Canada,               CAN
+cv   Cabo Verde,           CPV
+ky   Cayman Islands (UK),  CAY
+cf   Central African Republic,  CTA
+td   Chad,                 CHA
+cl   Chile,                CHI
+cn   China,                CHN
+co   Colombia,             COL
+km   Comoros,              COM
+cg   Congo,                CGO
+cd   Congo DR,             COD
+ck   Cook Islands (NZ),    COK
+cr   Costa Rica,           CRC
+hr   Croatia,              CRO
+cu   Cuba,                 CUB
+cw   Curaçao (NL),         CUW
+cy   Cyprus,               CYP
+cz   Czech Republic,       CZE
+ci   Côte d'Ivoire,        CIV
+      | Ivory Coast [en]
 
-ec,  ECU, Ecuador
-eg,  EGY, Egypt
-eng, ENG, England (UK)
-gq,  EQG, Equatorial Guinea
-er,  ERI, Eritrea
-ee,  EST, Estonia
-et,  ETH, Ethiopia
-es,  ESP, Spain
+dk   Denmark,              DEN
+dj   Djibouti,             DJI
+dm   Dominica,             DMA
+do   Dominican Republic,   DOM
 
-fo,  FRO, Faroe Islands (DK)
-fj,  FIJ, Fiji
-fi,  FIN, Finland
-fr,  FRA, France
+ec   Ecuador,              ECU
+eg   Egypt,                EGY
+eng  England (UK),         ENG
+gq   Equatorial Guinea,    EQG
+er   Eritrea,              ERI
+ee   Estonia,              EST
+et   Ethiopia,             ETH
+es   Spain,                ESP
 
-ga,  GAB, Gabon
-gm,  GAM, Gambia
-ge,  GEO, Georgia
-de,  GER, Germany
-gh,  GHA, Ghana
-gr,  GRE, Greece
-gd,  GRN, Grenada
-gu,  GUM, Guam (US)
-gt,  GUA, Guatemala
-gn,  GUI, Guinea
-gw,  GNB, Guinea-Bissau
-gy,  GUY, Guyana
+fo   Faroe Islands (DK),   FRO
+fj   Fiji,                 FIJ
+fi   Finland,              FIN
+fr   France,               FRA
 
-ht,  HAI, Haiti
-hn,  HON, Honduras
-hk,  HKG, Hong Kong (CN)
-hu,  HUN, Hungary
+ga   Gabon,                GAB
+gm   Gambia,               GAM
+ge   Georgia,              GEO
+de   Germany,              GER
+      | Deutschland [de]
+gh   Ghana,                GHA
+gr   Greece,               GRE
+gd   Grenada,              GRN
+gu   Guam (US),            GUM
+gt   Guatemala,            GUA
+gn   Guinea,               GUI
+gw   Guinea-Bissau,        GNB
+gy   Guyana,               GUY
 
-is,  ISL, Iceland
-in,  IND, India
-id,  IDN, Indonesia
-ir,  IRN, Iran
-iq,  IRQ, Iraq
-il,  ISR, Israel
-it,  ITA, Italy
-ie,  IRL, Ireland
+ht   Haiti,                HAI
+hn   Honduras,             HON
+hk   Hong Kong (CN),       HKG
+hu   Hungary,              HUN
 
-jm,  JAM, Jamaica
-jp,  JPN, Japan
-jo,  JOR, Jordan
+is   Iceland,              ISL
+in   India,                IND
+id   Indonesia,            IDN
+ir   Iran,                 IRN
+iq   Iraq,                 IRQ
+il   Israel,               ISR
+it   Italy,                ITA
+ie   Ireland,              IRL
 
-kz,  KAZ, Kazakhstan
-ke,  KEN, Kenya
-kw,  KUW, Kuwait
-kg,  KGZ, Kyrgyzstan
-sa,  KSA, Saudi Arabia
-kr,  KOR, South Korea
+jm   Jamaica,              JAM
+jp   Japan,                JPN
+jo   Jordan,               JOR
 
-la,  LAO, Laos
-lv,  LVA, Latvia
-lb,  LIB, Lebanon
-ls,  LES, Lesotho
-lr,  LBR, Liberia
-ly,  LBY, Libya
-li,  LIE, Liechtenstein
-lt,  LTU, Lithuania
-lu,  LUX, Luxembourg
-lc,  LCA, Saint Lucia
+kz   Kazakhstan,           KAZ
+ke   Kenya,                KEN
+kw   Kuwait,               KUW
+kg   Kyrgyzstan,           KGZ
+sa   Saudi Arabia,         KSA
+kr   South Korea,          KOR
 
-mo,  MAC, Macao (CN)
-mk,  MKD, Macedonia
-mg,  MAD, Madagascar
-mw,  MWI, Malawi
-my,  MAS, Malaysia
-mv,  MDV, Maldives
-ml,  MLI, Mali
-mt,  MLT, Malta
-mr,  MTN, Mauritania
-mu,  MRI, Mauritius
-mx,  MEX, Mexico
-md,  MDA, Moldova
-mn,  MNG, Mongolia
-me,  MNE, Montenegro
-ms,  MSR, Montserrat (UK)
-ma,  MAR, Morocco
-mz,  MOZ, Mozambique
-mm,  MYA, Myanmar
+la   Laos,                 LAO
+lv   Latvia,               LVA
+lb   Lebanon,              LIB
+ls   Lesotho,              LES
+lr   Liberia,              LBR
+ly   Libya,                LBY
+li   Liechtenstein,        LIE
+lt   Lithuania,            LTU
+lu   Luxembourg,           LUX
+lc   Saint Lucia,          LCA
 
-na,  NAM, Namibia
-np,  NEP, Nepal
-nl,  NED, Netherlands
-nc,  NCL, New Caledonia (FR)
-nz,  NZL, New Zealand
-ni,  NCA, Nicaragua
-ne,  NIG, Niger
-ng,  NGA, Nigeria
-nir, NIR, Northern Ireland (UK)
-no,  NOR, Norway
+mo   Macao (CN),           MAC
+mk   Macedonia,            MKD
+mg   Madagascar,           MAD
+mw   Malawi,               MWI
+my   Malaysia,             MAS
+mv   Maldives,             MDV
+ml   Mali,                 MLI
+mt   Malta,                MLT
+mr   Mauritania,           MTN
+mu   Mauritius,            MRI
+mx   Mexico,               MEX
+md   Moldova,              MDA
+mn   Mongolia,             MNG
+me   Montenegro,           MNE
+ms   Montserrat (UK),      MSR
+ma   Morocco,              MAR
+mz   Mozambique,           MOZ
+mm   Myanmar,              MYA
 
-om,  OMA, Oman
+na   Namibia,              NAM
+np   Nepal,                NEP
+nl   Netherlands,          NED
+nc   New Caledonia (FR),   NCL
+nz   New Zealand,          NZL
+ni   Nicaragua,            NCA
+ne   Niger,                NIG
+ng   Nigeria,              NGA
+nir  Northern Ireland (UK), NIR
+no   Norway,               NOR
 
-pk,  PAK, Pakistan
-ps,  PLE, Palestine
-pa,  PAN, Panama
-pg,  PNG, Papua New Guinea
-py,  PAR, Paraguay
-pe,  PER, Peru
-ph,  PHI, Philippines
-pl,  POL, Poland
-pt,  POR, Portugal
-pr,  PUR, Puerto Rico (US)
-kp,  PRK, North Korea
+om   Oman,                 OMA
 
-qa,  QAT, Qatar
+pk   Pakistan,  PAK
+ps   Palestine,  PLE
+pa   Panama,  PAN
+pg   Papua New Guinea,  PNG
+py   Paraguay,  PAR
+pe   Peru,  PER
+ph   Philippines,  PHI
+pl   Poland,  POL
+pt   Portugal,  POR
+pr   Puerto Rico (US),  PUR
+kp   North Korea,  PRK
 
-ro,  ROU, Romania
-ru,  RUS, Russia
-rw,  RWA, Rwanda
-za,  RSA, South Africa
+qa   Qatar,  QAT
 
-kn,  SKN, Saint Kitts and Nevis
-ws,  SAM, Samoa
-sm,  SMR, San Marino
-st,  STP, São Tomé and Príncipe
-sco, SCO, Scotland (UK)
-sn,  SEN, Senegal
-rs,  SRB, Serbia
-sc,  SEY, Seychelles
-sl,  SLE, Sierra Leone
-sg,  SIN, Singapore
-sk,  SVK, Slovakia
-si,  SVN, Slovenia
-sb,  SOL, Solomon Islands
-so,  SOM, Somalia
-ss,  SSD, South Sudan
-lk,  SRI, Sri Lanka
-sd,  SDN, Sudan
-sr,  SUR, Suriname
-sz,  SWZ, Swaziland
-se,  SWE, Sweden
-ch,  SUI, Switzerland
-sy,  SYR, Syria
-sv,  SLV, El Salvador
+ro   Romania,  ROU
+ru   Russia,  RUS
+rw   Rwanda,  RWA
+za   South Africa,  RSA
 
-pf,  TAH, Tahiti (FR)   # todo/check: use French Polynesia (FR) as name - why? why not?
-tj,  TJK, Tajikistan
-tz,  TAN, Tanzania
-th,  THA, Thailand
-tl,  TLS, Timor-Leste
-tg,  TOG, Togo
-to,  TGA, Tonga
-tt,  TRI, Trinidad and Tobago
-tn,  TUN, Tunisia
-tr,  TUR, Turkey
-tm,  TKM, Turkmenistan
-tc,  TCA, Turks and Caicos Islands (UK)
-tw,  TPE, Taiwan              # Chinese Tapei
+kn   Saint Kitts and Nevis,  SKN
+ws   Samoa,  SAM
+sm   San Marino,  SMR
+st   São Tomé and Príncipe,  STP
+sco  Scotland (UK), SCO
+sn   Senegal,  SEN
+rs   Serbia,  SRB
+sc   Seychelles,  SEY
+sl   Sierra Leone,  SLE
+sg   Singapore,  SIN
+sk   Slovakia,  SVK
+si   Slovenia,  SVN
+sb   Solomon Islands,  SOL
+so   Somalia,  SOM
+ss   South Sudan,  SSD
+lk   Sri Lanka,  SRI
+sd   Sudan,  SDN
+sr   Suriname,  SUR
+sz   Swaziland,  SWZ
+se   Sweden,  SWE
+ch   Switzerland,  SUI
+sy   Syria,  SYR
+sv   El Salvador,  SLV
 
-ug,  UGA, Uganda
-ua,  UKR, Ukraine
-ae,  UAE, United Arab Emirates
-us,  USA, United States
-uy,  URU, Uruguay
-uz,  UZB, Uzbekistan
+pf   Tahiti (FR),   TAH   # todo/check: use French Polynesia (FR) as name - why? why not?
+tj   Tajikistan,  TJK
+tz   Tanzania,  TAN
+th   Thailand,  THA
+tl   Timor-Leste,  TLS
+tg   Togo,  TOG
+to   Tonga,  TGA
+tt   Trinidad and Tobago,  TRI
+tn   Tunisia,  TUN
+tr   Turkey,  TUR
+tm   Turkmenistan,  TKM
+tc   Turks and Caicos Islands (UK),  TCA
+tw   Taiwan,  TPE              # Chinese Tapei
 
-vu,  VAN, Vanuatu
-ve,  VEN, Venezuela
-vn,  VIE, Vietnam
-vi,  VIR, US Virgin Islands (US)    # United States Virgin Islands; Virgin Islands (U.S.)
-vc,  VIN, Saint Vincent and the Grenadines
-vg,  VGB, British Virgin Islands (UK)
+ug   Uganda,  UGA
+ua   Ukraine,  UKR
+ae   United Arab Emirates,  UAE
+us   United States,  USA
+uy   Uruguay,  URU
+uz   Uzbekistan,  UZB
 
-wal, WAL, Wales (UK)
+vu   Vanuatu,  VAN
+ve   Venezuela,  VEN
+vn   Vietnam,  VIE
+vi   US Virgin Islands (US),  VIR    # United States Virgin Islands; Virgin Islands (U.S.)
+vc   Saint Vincent and the Grenadines,  VIN
+vg   British Virgin Islands (UK),  VGB
 
-ye,  YEM, Yemen
+wal  Wales (UK), WAL
 
-zm,  ZAM, Zambia
-zw,  ZIM, Zimbabwe
+ye   Yemen,  YEM
+
+zm   Zambia,  ZAM
+zw   Zimbabwe,  ZIM
 
 
 ###################
 ## Non-FIFA member codes
 
-bq,  BOE, Bonaire        # CONCACAF
-gf,  GYF, French Guiana (FR)  # CONCACAF
-gp,  GPE, Guadeloupe (FR)     # CONCACAF
-mq,  MTQ, Martinique (FR)     # CONCACAF
-sx,  SXM, Sint Maarten (NL)   # CONCACAF
+bq   Bonaire,  BOE        # CONCACAF
+gf   French Guiana (FR),  GYF  # CONCACAF
+gp   Guadeloupe (FR),  GPE     # CONCACAF
+mq   Martinique (FR),  MTQ     # CONCACAF
+sx   Sint Maarten (NL),  SXM   # CONCACAF
 
-gi,  GIB, Gibraltar (UK)   # UEFA
-xk,  KOS, Kosovo         # UEFA     -- note: Kosovo is not listed as an ISO standard country. The unofficial 2 and 3-digit codes are used by the European Commission and others until Kosovo is assigned an ISO code
+gi   Gibraltar (UK),  GIB   # UEFA
+xk   Kosovo,  KOS         # UEFA     -- note: Kosovo is not listed as an ISO standard country. The unofficial 2 and 3-digit codes are used by the European Commission and others until Kosovo is assigned an ISO code
 
-re,  REU, Réunion (FR)        # CAF
-zan, ZAN, Zanzibar (TZ)       # CAF     -- note:  is a semi-autonomous region of Tanzania
+re   Réunion (FR),  REU        # CAF
+zan  Zanzibar (TZ), ZAN       # CAF     -- note:  is a semi-autonomous region of Tanzania
 
-tv,  TUV, Tuvalu         # OFC
+tv   Tuvalu,  TUV         # OFC
 
 
 ####################
 ## Irregular codes
 
-mp,  NMI, Northern Mariana Islands (US)  # AFC
+mp   Northern Mariana Islands (US),  NMI  # AFC
 
-mf,  SMT, Saint Martin (FR)    # CONCACAF
+mf   Saint Martin (FR),  SMT    # CONCACAF
 
-fm,  FSM, Micronesia      # OFC
-ki,  KIR, Kiribati        # OFC
-nu,  NIU, Niue (NZ)       # OFC
-pw,  PLW, Palau           # OFC
+fm   Micronesia,  FSM      # OFC
+ki   Kiribati,    KIR      # OFC
+nu   Niue (NZ),   NIU      # OFC
+pw   Palau,       PLW      # OFC
 
 
 #################
@@ -293,8 +298,8 @@ pw,  PLW, Palau           # OFC
 # in europe:
 # - Great Britain - only all its member e.g. England/Wales/Scotland/Northern Irland
 
-va,  VAT,  Vatican City    ## no "official" fifa code - listed in "irregular" codes
-mc,  MCO,  Monaco          ## no "official" fifa code - listed in "irregular" codes
+va   Vatican City,  VAT    ## no "official" fifa code - listed in "irregular" codes
+mc   Monaco,        MCO    ## no "official" fifa code - listed in "irregular" codes
 
 
 #

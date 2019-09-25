@@ -7,7 +7,7 @@
 
 ##
 # note: all dependencies n territories marked w/
-#            (UK), (FR), (NZ), (AU), (US), (NL), (DK), (CN) etc.
+#           › UK, FR, NZ, AU, US, NL, DK, CN etc.
 
 
 ###
@@ -24,15 +24,15 @@
 af   Afghanistan,          AFG
 al   Albania,              ALB
 dz   Algeria,              ALG
-as   American Samoa (US),  ASA
+as   American Samoa › US,  ASA
 
 ad   Andorra,              AND
 ao   Angola,               ANG
-ai   Anguilla (UK),        AIA
+ai   Anguilla › UK,        AIA
 ag   Antigua and Barbuda,  ATG
 ar   Argentina,            ARG
 am   Armenia,              ARM
-aw   Aruba (NL),           ARU
+aw   Aruba › NL,           ARU
 au   Australia,            AUS
 at   Austria,              AUT
       | Österreich [de]
@@ -46,7 +46,7 @@ by   Belarus,              BLR
 be   Belgium,              BEL
 bz   Belize,               BLZ
 bj   Benin,                BEN
-bm   Bermuda (UK),         BER
+bm   Bermuda › UK,         BER
 bt   Bhutan,               BHU
 bo   Bolivia,              BOL
 ba   Bosnia and Herzegovina,  BIH
@@ -62,7 +62,7 @@ kh   Cambodia,             CAM
 cm   Cameroon,             CMR
 ca   Canada,               CAN
 cv   Cabo Verde,           CPV
-ky   Cayman Islands (UK),  CAY
+ky   Cayman Islands › UK,  CAY
 cf   Central African Republic,  CTA
 td   Chad,                 CHA
 cl   Chile,                CHI
@@ -71,11 +71,11 @@ co   Colombia,             COL
 km   Comoros,              COM
 cg   Congo,                CGO
 cd   Congo DR,             COD
-ck   Cook Islands (NZ),    COK
+ck   Cook Islands › NZ,    COK
 cr   Costa Rica,           CRC
 hr   Croatia,              CRO
 cu   Cuba,                 CUB
-cw   Curaçao (NL),         CUW
+cw   Curaçao › NL,         CUW
 cy   Cyprus,               CYP
 cz   Czech Republic,       CZE
 ci   Côte d'Ivoire,        CIV
@@ -88,14 +88,14 @@ do   Dominican Republic,   DOM
 
 ec   Ecuador,              ECU
 eg   Egypt,                EGY
-eng  England (UK),         ENG
+eng  England › UK,         ENG
 gq   Equatorial Guinea,    EQG
 er   Eritrea,              ERI
 ee   Estonia,              EST
 et   Ethiopia,             ETH
 es   Spain,                ESP
 
-fo   Faroe Islands (DK),   FRO
+fo   Faroe Islands › DK,   FRO
 fj   Fiji,                 FIJ
 fi   Finland,              FIN
 fr   France,               FRA
@@ -108,7 +108,7 @@ de   Germany,              GER
 gh   Ghana,                GHA
 gr   Greece,               GRE
 gd   Grenada,              GRN
-gu   Guam (US),            GUM
+gu   Guam › US,            GUM
 gt   Guatemala,            GUA
 gn   Guinea,               GUI
 gw   Guinea-Bissau,        GNB
@@ -116,7 +116,7 @@ gy   Guyana,               GUY
 
 ht   Haiti,                HAI
 hn   Honduras,             HON
-hk   Hong Kong (CN),       HKG
+hk   Hong Kong › CN,       HKG
 hu   Hungary,              HUN
 
 is   Iceland,              ISL
@@ -150,7 +150,7 @@ lt   Lithuania,            LTU
 lu   Luxembourg,           LUX
 lc   Saint Lucia,          LCA
 
-mo   Macao (CN),           MAC
+mo   Macao › CN,           MAC
 mk   Macedonia,            MKD
 mg   Madagascar,           MAD
 mw   Malawi,               MWI
@@ -164,7 +164,7 @@ mx   Mexico,               MEX
 md   Moldova,              MDA
 mn   Mongolia,             MNG
 me   Montenegro,           MNE
-ms   Montserrat (UK),      MSR
+ms   Montserrat › UK,      MSR
 ma   Morocco,              MAR
 mz   Mozambique,           MOZ
 mm   Myanmar,              MYA
@@ -172,12 +172,12 @@ mm   Myanmar,              MYA
 na   Namibia,              NAM
 np   Nepal,                NEP
 nl   Netherlands,          NED
-nc   New Caledonia (FR),   NCL
+nc   New Caledonia › FR,   NCL
 nz   New Zealand,          NZL
 ni   Nicaragua,            NCA
 ne   Niger,                NIG
 ng   Nigeria,              NGA
-nir  Northern Ireland (UK), NIR
+nir  Northern Ireland › UK, NIR
 no   Norway,               NOR
 
 om   Oman,                 OMA
@@ -191,7 +191,7 @@ pe   Peru,  PER
 ph   Philippines,  PHI
 pl   Poland,  POL
 pt   Portugal,  POR
-pr   Puerto Rico (US),  PUR
+pr   Puerto Rico › US,  PUR
 kp   North Korea,  PRK
 
 qa   Qatar,  QAT
@@ -205,7 +205,7 @@ kn   Saint Kitts and Nevis,  SKN
 ws   Samoa,  SAM
 sm   San Marino,  SMR
 st   São Tomé and Príncipe,  STP
-sco  Scotland (UK), SCO
+sco  Scotland › UK, SCO
 sn   Senegal,  SEN
 rs   Serbia,  SRB
 sc   Seychelles,  SEY
@@ -225,7 +225,7 @@ ch   Switzerland,  SUI
 sy   Syria,  SYR
 sv   El Salvador,  SLV
 
-pf   Tahiti (FR),   TAH   # todo/check: use French Polynesia (FR) as name - why? why not?
+pf   Tahiti › FR,   TAH   # todo/check: use French Polynesia (FR) as name - why? why not?
 tj   Tajikistan,  TJK
 tz   Tanzania,  TAN
 th   Thailand,  THA
@@ -236,7 +236,7 @@ tt   Trinidad and Tobago,  TRI
 tn   Tunisia,  TUN
 tr   Turkey,  TUR
 tm   Turkmenistan,  TKM
-tc   Turks and Caicos Islands (UK),  TCA
+tc   Turks and Caicos Islands › UK,  TCA
 tw   Taiwan,  TPE              # Chinese Tapei
 
 ug   Uganda,  UGA
@@ -249,11 +249,11 @@ uz   Uzbekistan,  UZB
 vu   Vanuatu,  VAN
 ve   Venezuela,  VEN
 vn   Vietnam,  VIE
-vi   US Virgin Islands (US),  VIR    # United States Virgin Islands; Virgin Islands (U.S.)
+vi   US Virgin Islands › US,  VIR    # United States Virgin Islands; Virgin Islands (U.S.)
 vc   Saint Vincent and the Grenadines,  VIN
-vg   British Virgin Islands (UK),  VGB
+vg   British Virgin Islands › UK,  VGB
 
-wal  Wales (UK), WAL
+wal  Wales › UK, WAL
 
 ye   Yemen,  YEM
 
@@ -265,16 +265,16 @@ zw   Zimbabwe,  ZIM
 ## Non-FIFA member codes
 
 bq   Bonaire,  BOE        # CONCACAF
-gf   French Guiana (FR),  GYF  # CONCACAF
-gp   Guadeloupe (FR),  GPE     # CONCACAF
-mq   Martinique (FR),  MTQ     # CONCACAF
-sx   Sint Maarten (NL),  SXM   # CONCACAF
+gf   French Guiana › FR,  GYF  # CONCACAF
+gp   Guadeloupe    › FR,  GPE     # CONCACAF
+mq   Martinique    › FR,  MTQ     # CONCACAF
+sx   Sint Maarten  › NL,  SXM   # CONCACAF
 
-gi   Gibraltar (UK),  GIB   # UEFA
+gi   Gibraltar › UK,  GIB   # UEFA
 xk   Kosovo,  KOS         # UEFA     -- note: Kosovo is not listed as an ISO standard country. The unofficial 2 and 3-digit codes are used by the European Commission and others until Kosovo is assigned an ISO code
 
-re   Réunion (FR),  REU        # CAF
-zan  Zanzibar (TZ), ZAN       # CAF     -- note:  is a semi-autonomous region of Tanzania
+re   Réunion › FR,  REU        # CAF
+zan  Zanzibar › TZ, ZAN       # CAF     -- note:  is a semi-autonomous region of Tanzania
 
 tv   Tuvalu,  TUV         # OFC
 
@@ -282,13 +282,13 @@ tv   Tuvalu,  TUV         # OFC
 ####################
 ## Irregular codes
 
-mp   Northern Mariana Islands (US),  NMI  # AFC
+mp   Northern Mariana Islands › US,  NMI  # AFC
 
-mf   Saint Martin (FR),  SMT    # CONCACAF
+mf   Saint Martin › FR,  SMT    # CONCACAF
 
 fm   Micronesia,  FSM      # OFC
 ki   Kiribati,    KIR      # OFC
-nu   Niue (NZ),   NIU      # OFC
+nu   Niue › NZ,   NIU      # OFC
 pw   Palau,       PLW      # OFC
 
 

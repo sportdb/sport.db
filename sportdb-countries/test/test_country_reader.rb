@@ -9,17 +9,6 @@ require 'helper'
 
 class TestCountryReader < MiniTest::Test
 
-  def test_read_csv
-    recs = read_csv( "#{SportDb::Test.data_dir}/world/countries.txt" )
-    ## pp recs
-
-    assert_equal  [{ key:'af', fifa:'AFG', name:'Afghanistan'},
-                   { key:'al', fifa:'ALB', name:'Albania'},
-                   { key:'dz', fifa:'ALG', name:'Algeria'},
-                   { key:'as', fifa:'ASA', name:'American Samoa (US)'},
-                  ], recs[0..3]
-  end
-
   def test_read
     recs = SportDb::Import::CountryReader.read( "#{SportDb::Test.data_dir}/world/countries.txt" )
     pp recs
@@ -39,12 +28,12 @@ class TestCountryReader < MiniTest::Test
 #####
 # FIFA countries and codes
 
-Key,  FIFA,  Name
+# Key   Name,  FIFA
 
-af,  AFG, Afghanistan
-al,  ALB, Albania
-dz,  ALG, Algeria
-as,  ASA, American Samoa (US)
+af   Afghanistan,  AFG
+al   Albania,      ALB
+dz   Algeria,      ALG
+as   American Samoa (US),  ASA
 TXT
 
     pp recs

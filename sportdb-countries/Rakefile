@@ -20,6 +20,7 @@ Hoe.spec 'sportdb-countries' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
+    ['alphabets',   '>= 0.1.0'],
     ['csvreader',   '>= 1.2.4'],
   ]
 

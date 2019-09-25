@@ -20,7 +20,7 @@ Hoe.spec 'sportdb-clubs' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['alphabets',           '>= 0.1.0'],
+    ['alphabets',           '>= 0.1.0'],   ## note: alphabets moved to countries!! remove here!!
     ['sportdb-countries',   '>= 0.2.0'],
   ]
 

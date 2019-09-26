@@ -63,6 +63,7 @@ kh   Cambodia,             CAM
 cm   Cameroon,             CMR
 ca   Canada,               CAN
 cv   Cabo Verde,           CPV
+      | Cape Verde
 ky   Cayman Islands › UK,  CAY
       | Cayman Isl.
 cf   Central African Republic,  CTA
@@ -75,6 +76,7 @@ km   Comoros,              COM
 cg   Congo,                CGO
       | Congo-Brazzaville | Congo-Brazz.
 cd   Congo DR,             COD
+      | Democratic Republic of the Congo
       | Congo-Kinshasa | Congo-Kinsh.
 ck   Cook Islands › NZ,    COK
 cr   Costa Rica,           CRC
@@ -133,6 +135,7 @@ iq   Iraq,                 IRQ
 il   Israel,               ISR
 it   Italy,                ITA
 ie   Ireland,              IRL
+      | Republic of Ireland
 
 jm   Jamaica,              JAM
 jp   Japan,                JPN
@@ -144,6 +147,7 @@ kw   Kuwait,               KUW
 kg   Kyrgyzstan,           KGZ
 sa   Saudi Arabia,         KSA
 kr   South Korea,          KOR
+      | Korea Republic
 
 la   Laos,                 LAO
 lv   Latvia,               LVA
@@ -160,6 +164,7 @@ lc   Saint Lucia,          LCA
 mo   Macao › CN,           MAC
       | Macau
 mk   Macedonia,            MKD
+      | North Macedonia
 mg   Madagascar,           MAD
 mw   Malawi,               MWI
 my   Malaysia,             MAS
@@ -203,6 +208,7 @@ pl   Poland,  POL
 pt   Portugal,  POR
 pr   Puerto Rico › US,  PUR
 kp   North Korea,  PRK
+      | Korea DPR
 
 qa   Qatar,  QAT
 
@@ -233,12 +239,16 @@ lk   Sri Lanka,  SRI
 sd   Sudan,  SDN
 sr   Suriname,  SUR
 sz   Swaziland,  SWZ
+      | Eswatini       # officially renamed in 2018 from Swaziland to Eswatini
+
 se   Sweden,  SWE
 ch   Switzerland,  SUI
 sy   Syria,  SYR
 sv   El Salvador,  SLV
 
-pf   Tahiti › FR,   TAH   # todo/check: use French Polynesia (FR) as name - why? why not?
+pf   Tahiti › FR,   TAH      # todo/check: use French Polynesia (FR) as name - why? why not?
+      | French Polynesia     # note: Tahiti, which is located within the Society Islands, is the most populous island, having close to 69% of the population of French Polynesia as of 2017.
+
 tj   Tajikistan,  TJK
 tz   Tanzania,  TAN
 th   Thailand,  THA
@@ -252,8 +262,8 @@ tn   Tunisia,  TUN
 tr   Turkey,  TUR
 tm   Turkmenistan,  TKM
 tc   Turks and Caicos Islands › UK,  TCA
-tw   Taiwan,  TPE              # Chinese Tapei
-
+tw   Taiwan,  TPE
+      | Chinese Taipei
 ug   Uganda,  UGA
 ua   Ukraine,  UKR
 ae   United Arab Emirates,  UAE
@@ -265,7 +275,7 @@ uz   Uzbekistan,  UZB
 vu   Vanuatu,  VAN
 ve   Venezuela,  VEN
 vn   Vietnam,  VIE
-vi   US Virgin Islands › US,  VIR    # Virgin Islands (U.S.)
+vi   US Virgin Islands › US,  VIR        # Virgin Islands (U.S.)
       | United States Virgin Islands | US Virgin I.
 vc   Saint Vincent and the Grenadines,  VIN
       | St. Vincent/G.
@@ -305,6 +315,7 @@ mp   Northern Mariana Islands › US,  NMI  # AFC
 mf   Saint Martin › FR,  SMT    # CONCACAF
 
 fm   Micronesia,  FSM      # OFC
+      | Federated States of Micronesia
 ki   Kiribati,    KIR      # OFC
 nu   Niue › NZ,   NIU      # OFC
 pw   Palau,       PLW      # OFC

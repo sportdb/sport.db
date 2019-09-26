@@ -25,11 +25,12 @@ af   Afghanistan,          AFG
 al   Albania,              ALB
 dz   Algeria,              ALG
 as   American Samoa › US,  ASA
-
+      | Am. Samoa
 ad   Andorra,              AND
 ao   Angola,               ANG
 ai   Anguilla › UK,        AIA
 ag   Antigua and Barbuda,  ATG
+      | Antigua/Barb.
 ar   Argentina,            ARG
 am   Armenia,              ARM
 aw   Aruba › NL,           ARU
@@ -50,7 +51,7 @@ bm   Bermuda › UK,         BER
 bt   Bhutan,               BHU
 bo   Bolivia,              BOL
 ba   Bosnia and Herzegovina,  BIH
-      | Bosnia-Herzegovina
+      | Bosnia-Herzegovina | Bosnia | Bosnia-Herz.
 bw   Botswana,             BOT
 br   Brazil,               BRA
 bn   Brunei,               BRU
@@ -63,14 +64,18 @@ cm   Cameroon,             CMR
 ca   Canada,               CAN
 cv   Cabo Verde,           CPV
 ky   Cayman Islands › UK,  CAY
+      | Cayman Isl.
 cf   Central African Republic,  CTA
+      | C. Afr. Rep.
 td   Chad,                 CHA
 cl   Chile,                CHI
 cn   China,                CHN
 co   Colombia,             COL
 km   Comoros,              COM
 cg   Congo,                CGO
+      | Congo-Brazzaville | Congo-Brazz.
 cd   Congo DR,             COD
+      | Congo-Kinshasa | Congo-Kinsh.
 ck   Cook Islands › NZ,    COK
 cr   Costa Rica,           CRC
 hr   Croatia,              CRO
@@ -90,6 +95,7 @@ ec   Ecuador,              ECU
 eg   Egypt,                EGY
 eng  England › UK,         ENG
 gq   Equatorial Guinea,    EQG
+       | Equat. Guinea
 er   Eritrea,              ERI
 ee   Estonia,              EST
 et   Ethiopia,             ETH
@@ -141,6 +147,7 @@ kr   South Korea,          KOR
 
 la   Laos,                 LAO
 lv   Latvia,               LVA
+      | Latvija
 lb   Lebanon,              LIB
 ls   Lesotho,              LES
 lr   Liberia,              LBR
@@ -151,6 +158,7 @@ lu   Luxembourg,           LUX
 lc   Saint Lucia,          LCA
 
 mo   Macao › CN,           MAC
+      | Macau
 mk   Macedonia,            MKD
 mg   Madagascar,           MAD
 mw   Malawi,               MWI
@@ -178,6 +186,7 @@ ni   Nicaragua,            NCA
 ne   Niger,                NIG
 ng   Nigeria,              NGA
 nir  Northern Ireland › UK, NIR
+      | N. Ireland
 no   Norway,               NOR
 
 om   Oman,                 OMA
@@ -186,6 +195,7 @@ pk   Pakistan,  PAK
 ps   Palestine,  PLE
 pa   Panama,  PAN
 pg   Papua New Guinea,  PNG
+      | Papua N.G.
 py   Paraguay,  PAR
 pe   Peru,  PER
 ph   Philippines,  PHI
@@ -202,9 +212,11 @@ rw   Rwanda,  RWA
 za   South Africa,  RSA
 
 kn   Saint Kitts and Nevis,  SKN
+      | St. Kitts/N.
 ws   Samoa,  SAM
 sm   San Marino,  SMR
 st   São Tomé and Príncipe,  STP
+      | São Tomé e Príncipe | São Tomé/Pr.
 sco  Scotland › UK, SCO
 sn   Senegal,  SEN
 rs   Serbia,  SRB
@@ -214,6 +226,7 @@ sg   Singapore,  SIN
 sk   Slovakia,  SVK
 si   Slovenia,  SVN
 sb   Solomon Islands,  SOL
+      | Solomon Isl.
 so   Somalia,  SOM
 ss   South Sudan,  SSD
 lk   Sri Lanka,  SRI
@@ -230,9 +243,11 @@ tj   Tajikistan,  TJK
 tz   Tanzania,  TAN
 th   Thailand,  THA
 tl   Timor-Leste,  TLS
+      | East Timor
 tg   Togo,  TOG
 to   Tonga,  TGA
 tt   Trinidad and Tobago,  TRI
+      | Trinidad/Tob.
 tn   Tunisia,  TUN
 tr   Turkey,  TUR
 tm   Turkmenistan,  TKM
@@ -242,6 +257,7 @@ tw   Taiwan,  TPE              # Chinese Tapei
 ug   Uganda,  UGA
 ua   Ukraine,  UKR
 ae   United Arab Emirates,  UAE
+      | UA Emirates
 us   United States,  USA
 uy   Uruguay,  URU
 uz   Uzbekistan,  UZB
@@ -249,8 +265,10 @@ uz   Uzbekistan,  UZB
 vu   Vanuatu,  VAN
 ve   Venezuela,  VEN
 vn   Vietnam,  VIE
-vi   US Virgin Islands › US,  VIR    # United States Virgin Islands; Virgin Islands (U.S.)
+vi   US Virgin Islands › US,  VIR    # Virgin Islands (U.S.)
+      | United States Virgin Islands | US Virgin I.
 vc   Saint Vincent and the Grenadines,  VIN
+      | St. Vincent/G.
 vg   British Virgin Islands › UK,  VGB
 
 wal  Wales › UK, WAL

@@ -9,8 +9,8 @@ require 'fileutils'
 require 'alphabets'      # downcase_i18n, unaccent, variants, ...
 
 
-##   todo/fix: move csvreader to sportdb-config - why? why not?
-
+###################
+##  todo/fix: move csvreader up to sportdb-config - why? why not?
 require 'csvreader'
 
 def read_csv( path )

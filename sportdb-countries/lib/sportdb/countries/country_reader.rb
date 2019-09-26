@@ -25,9 +25,10 @@ def self.parse( txt )
 
 
     next if line.start_with?( '#' )   ## skip comments too
+
     ## strip inline (until end-of-line) comments too
-    ##  e.g Eupen        => KAS Eupen,    ## [de]
-    ##   => Eupen        => KAS Eupen,
+    ##  e.g bq   Bonaire,  BOE        # CONCACAF
+    ##   => bq   Bonaire,  BOE
     line = line.sub( /#.*/, '' ).strip
     pp line
 
@@ -36,8 +37,8 @@ def self.parse( txt )
       ## assume continuation with line of alternative names
       ##  note: skip leading pipe
       values = line[1..-1].split( '|' )   # team names - allow/use pipe(|)
-      ## strip and  squish (white)spaces
-      #   e.g. New York FC      (2011-)  => New York FC (2011-)
+      ## strip and squish (white)spaces
+      #   e.g. East Germany        (-1989)  => East Germany (-1989)
       values = values.map { |value| value.strip.gsub( /[ \t]+/, ' ' ) }
       last_country.alt_names += values
     else
@@ -47,13 +48,14 @@ def self.parse( txt )
         key    = $1
         values = $2.split( ',' )
         ## strip and squish (white)spaces
-        #   e.g. New York FC      (2011-)  => New York FC (2011-)
+        #   e.g. East Germany        (-1989)  => East Germany (-1989)
         values = values.map { |value| value.strip.gsub( /[ \t]+/, ' ' ) }
 
-        ## note: remove territory of marker e.g. (UK), (US), etc. from name
-        ##    e.g. England (UK)     => England
-        ##         Puerto Rico (US) => Puerto Rico
-        name = values[0].sub( /\([A-Z]{2}\)/, '' ).strip
+        ## note: remove "overlords" from geo-tree marked territories  e.g. UK, US, etc. from name
+        ##    e.g. England › UK      => England
+        ##         Puerto Rico › US  => Puerto Rico
+        geos = split_geo( values[0] )
+        name = geos[0]    ## note: ignore all other geos for now
         fifa = values[1]  ## todo: check if fifa is nil - why? why not?
 
         last_country = country = Country.new( key, name, fifa )
@@ -67,6 +69,15 @@ def self.parse( txt )
   countries
 end  # method parse
 
+
+#######################################
+##  helpers
+def self.split_geo( str )
+  ## split into geo tree
+  geos = str.split( /[<>‹›]/ )          ## note: allow > < or › ‹ for now
+  geos = geos.map { |geo| geo.strip }   ## remove all whitespaces
+  geos
+end
 
 end  # class CountryReader
 

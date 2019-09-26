@@ -30,10 +30,11 @@ class TestCountryReader < MiniTest::Test
 
 # Key   Name,  FIFA
 
-af   Afghanistan,  AFG
-al   Albania,      ALB
-dz   Algeria,      ALG
-as   American Samoa (US),  ASA
+af   Afghanistan,          AFG
+al   Albania,              ALB
+dz   Algeria,              ALG
+as   American Samoa › US,  ASA
+      | Am. Samoa
 TXT
 
     pp recs
@@ -46,6 +47,7 @@ TXT
     assert_equal 'American Samoa', recs[3].name
     assert_equal 'ASA',            recs[3].fifa
     assert_equal 'as',             recs[3].key
+    assert_equal ['Am. Samoa'],    recs[3].alt_names
   end
 
 end # class TestCountryReader

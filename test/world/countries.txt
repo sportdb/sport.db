@@ -17,325 +17,428 @@
 
 #################
 ## 209  (now in 2019 211(!) which two got added ??) regular FIFA members
-
+##
 ## Key   Name,   FIFA
 
+=========================================
+==  Europe
+# Note: The UEFA member country Kazachstan from Asia is listed in Asia.
+# Note: The UEFA member country Israel from Asia is listed in Middle East.
 
-af   Afghanistan,          AFG
-al   Albania,              ALB
-dz   Algeria,              ALG
-as   American Samoa › US,  ASA
-      | Am. Samoa
-ad   Andorra,              AND
-ao   Angola,               ANG
-ai   Anguilla › UK,        AIA
-ag   Antigua and Barbuda,  ATG
-      | Antigua/Barb.
-ar   Argentina,            ARG
-am   Armenia,              ARM
-aw   Aruba › NL,           ARU
-au   Australia,            AUS
-at   Austria,              AUT
+al   Albania,              ALB,   fifa (1932) › uefa (1954)
+ad   Andorra,              AND,   fifa (1996) › uefa (1996)
+at   Austria,              AUT,   fifa (1905) › uefa (1954)
       | Österreich [de]
-az   Azerbaijan,           AZE
 
-bs   Bahamas,              BAH
-bh   Bahrain,              BHR
-bd   Bangladesh,           BAN
-bb   Barbados,             BRB
-by   Belarus,              BLR
-be   Belgium,              BEL
-bz   Belize,               BLZ
-bj   Benin,                BEN
-bm   Bermuda › UK,         BER
-bt   Bhutan,               BHU
-bo   Bolivia,              BOL
-ba   Bosnia and Herzegovina,  BIH
+
+by   Belarus,              BLR,    fifa (1992) › uefa (1993)
+be   Belgium,              BEL,    fifa (1904) › uefa (1954)
+ba   Bosnia and Herzegovina,  BIH,  fifa (1996) › uefa (1998)
       | Bosnia-Herzegovina | Bosnia | Bosnia-Herz.
-bw   Botswana,             BOT
-br   Brazil,               BRA
-bn   Brunei,               BRU
-bg   Bulgaria,             BUL
-bf   Burkina Faso,         BFA
-bi   Burundi,              BDI
+bg   Bulgaria,             BUL,   fifa (1924) › uefa (1954)
 
-kh   Cambodia,             CAM
-cm   Cameroon,             CMR
-ca   Canada,               CAN
-cv   Cabo Verde,           CPV
-      | Cape Verde
-ky   Cayman Islands › UK,  CAY
-      | Cayman Isl.
-cf   Central African Republic,  CTA
-      | C. Afr. Rep.
-td   Chad,                 CHA
-cl   Chile,                CHI
-cn   China,                CHN
-co   Colombia,             COL
-km   Comoros,              COM
-cg   Congo,                CGO
-      | Congo-Brazzaville | Congo-Brazz.
-cd   Congo DR,             COD
-      | Democratic Republic of the Congo
-      | Congo-Kinshasa | Congo-Kinsh.
-ck   Cook Islands › NZ,    COK
-cr   Costa Rica,           CRC
-hr   Croatia,              CRO
-cu   Cuba,                 CUB
-cw   Curaçao › NL,         CUW
-cy   Cyprus,               CYP
-cz   Czech Republic,       CZE
-ci   Côte d'Ivoire,        CIV
-      | Ivory Coast [en]
+hr   Croatia,              CRO,   fifa (1992) › uefa (1993)
+      | Hrvatska [hr]
+cy   Cyprus,               CYP,   fifa (1948) › uefa (1962)
+cz   Czech Republic,       CZE,   fifa (1907) › uefa (1954)
 
-dk   Denmark,              DEN
-dj   Djibouti,             DJI
-dm   Dominica,             DMA
-do   Dominican Republic,   DOM
+dk   Denmark,              DEN,   fifa (1904) › uefa (1954)
 
-ec   Ecuador,              ECU
-eg   Egypt,                EGY
-eng  England › UK,         ENG
-gq   Equatorial Guinea,    EQG
-       | Equat. Guinea
-er   Eritrea,              ERI
-ee   Estonia,              EST
-et   Ethiopia,             ETH
-es   Spain,                ESP
+ee   Estonia,              EST,  fifa › uefa
+es   Spain,                ESP,  fifa › uefa
+      | España [es]
 
-fo   Faroe Islands › DK,   FRO
-fj   Fiji,                 FIJ
-fi   Finland,              FIN
-fr   France,               FRA
+fi   Finland,              FIN,  fifa › uefa
+fr   France,               FRA,  fifa › uefa
 
-ga   Gabon,                GAB
-gm   Gambia,               GAM
-ge   Georgia,              GEO
-de   Germany,              GER
+de   Germany,              GER,  fifa (1904) › uefa (1954)
       | Deutschland [de]
-gh   Ghana,                GHA
-gr   Greece,               GRE
-gd   Grenada,              GRN
-gu   Guam › US,            GUM
-gt   Guatemala,            GUA
-gn   Guinea,               GUI
-gw   Guinea-Bissau,        GNB
-gy   Guyana,               GUY
+gr   Greece,               GRE,  fifa › uefa
 
-ht   Haiti,                HAI
-hn   Honduras,             HON
-hk   Hong Kong › CN,       HKG
-hu   Hungary,              HUN
+hu   Hungary,              HUN,  fifa › uefa
 
-is   Iceland,              ISL
-in   India,                IND
-id   Indonesia,            IDN
-ir   Iran,                 IRN
-iq   Iraq,                 IRQ
-il   Israel,               ISR
-it   Italy,                ITA
-ie   Ireland,              IRL
+is   Iceland,              ISL,  fifa › uefa
+it   Italy,                ITA,  fifa › uefa
+ie   Ireland,              IRL,  fifa › uefa
       | Republic of Ireland
 
-jm   Jamaica,              JAM
-jp   Japan,                JPN
-jo   Jordan,               JOR
-
-kz   Kazakhstan,           KAZ
-ke   Kenya,                KEN
-kw   Kuwait,               KUW
-kg   Kyrgyzstan,           KGZ
-sa   Saudi Arabia,         KSA
-kr   South Korea,          KOR
-      | Korea Republic
-
-la   Laos,                 LAO
-lv   Latvia,               LVA
+lv   Latvia,               LVA,  fifa › uefa
       | Latvija
-lb   Lebanon,              LIB
-ls   Lesotho,              LES
-lr   Liberia,              LBR
-ly   Libya,                LBY
-li   Liechtenstein,        LIE
-lt   Lithuania,            LTU
-lu   Luxembourg,           LUX
-lc   Saint Lucia,          LCA
+li   Liechtenstein,        LIE,  fifa › uefa
+lt   Lithuania,            LTU,  fifa › uefa
+lu   Luxembourg,           LUX,  fifa › uefa
 
-mo   Macao › CN,           MAC
-      | Macau
-mk   Macedonia,            MKD
+mk   Macedonia,            MKD,  fifa › uefa
       | North Macedonia
-mg   Madagascar,           MAD
-mw   Malawi,               MWI
-my   Malaysia,             MAS
-mv   Maldives,             MDV
-ml   Mali,                 MLI
-mt   Malta,                MLT
-mr   Mauritania,           MTN
-mu   Mauritius,            MRI
-mx   Mexico,               MEX
-md   Moldova,              MDA
-mn   Mongolia,             MNG
-me   Montenegro,           MNE
-ms   Montserrat › UK,      MSR
-ma   Morocco,              MAR
-mz   Mozambique,           MOZ
-mm   Myanmar,              MYA
+mt   Malta,                MLT,  fifa › uefa
+md   Moldova,              MDA,  fifa › uefa
+me   Montenegro,           MNE,  fifa › uefa
 
-na   Namibia,              NAM
-np   Nepal,                NEP
-nl   Netherlands,          NED
-nc   New Caledonia › FR,   NCL
-nz   New Zealand,          NZL
-ni   Nicaragua,            NCA
-ne   Niger,                NIG
-ng   Nigeria,              NGA
-nir  Northern Ireland › UK, NIR
-      | N. Ireland
-no   Norway,               NOR
+nl   Netherlands,          NED,  fifa › uefa
+no   Norway,               NOR,  fifa › uefa
 
-om   Oman,                 OMA
+pl   Poland,               POL,  fifa › uefa
+pt   Portugal,             POR,  fifa › uefa
 
-pk   Pakistan,  PAK
-ps   Palestine,  PLE
-pa   Panama,  PAN
-pg   Papua New Guinea,  PNG
-      | Papua N.G.
-py   Paraguay,  PAR
-pe   Peru,  PER
-ph   Philippines,  PHI
-pl   Poland,  POL
-pt   Portugal,  POR
-pr   Puerto Rico › US,  PUR
-kp   North Korea,  PRK
-      | Korea DPR
+ro   Romania,              ROU,  fifa (1923) › uefa (1954)
+ru   Russia,               RUS,  fifa (1912) › uefa (1954)
 
-qa   Qatar,  QAT
+sm   San Marino,  SMR,  fifa › uefa
+rs   Serbia,  SRB,      fifa › uefa
+sk   Slovakia,  SVK,     fifa › uefa
+si   Slovenia,  SVN,     fifa › uefa
+se   Sweden,  SWE,       fifa (1904) › uefa (1954)
+ch   Switzerland,  SUI,  fifa (1904) › uefa (1954)
 
-ro   Romania,  ROU
-ru   Russia,  RUS
-rw   Rwanda,  RWA
-za   South Africa,  RSA
+tr   Turkey,  TUR,   fifa (1923) › uefa (1962)
+ua   Ukraine,  UKR,  fifa (1992) › uefa (1992)
 
-kn   Saint Kitts and Nevis,  SKN
-      | St. Kitts/N.
-ws   Samoa,  SAM
-sm   San Marino,  SMR
-st   São Tomé and Príncipe,  STP
-      | São Tomé e Príncipe | São Tomé/Pr.
-sco  Scotland › UK, SCO
-sn   Senegal,  SEN
-rs   Serbia,  SRB
-sc   Seychelles,  SEY
-sl   Sierra Leone,  SLE
-sg   Singapore,  SIN
-sk   Slovakia,  SVK
-si   Slovenia,  SVN
-sb   Solomon Islands,  SOL
-      | Solomon Isl.
-so   Somalia,  SOM
-ss   South Sudan,  SSD
-lk   Sri Lanka,  SRI
-sd   Sudan,  SDN
-sr   Suriname,  SUR
-sz   Swaziland,  SWZ
-      | Eswatini       # officially renamed in 2018 from Swaziland to Eswatini
-
-se   Sweden,  SWE
-ch   Switzerland,  SUI
-sy   Syria,  SYR
-sv   El Salvador,  SLV
-
-pf   Tahiti › FR,   TAH      # todo/check: use French Polynesia (FR) as name - why? why not?
-      | French Polynesia     # note: Tahiti, which is located within the Society Islands, is the most populous island, having close to 69% of the population of French Polynesia as of 2017.
-
-tj   Tajikistan,  TJK
-tz   Tanzania,  TAN
-th   Thailand,  THA
-tl   Timor-Leste,  TLS
-      | East Timor
-tg   Togo,  TOG
-to   Tonga,  TGA
-tt   Trinidad and Tobago,  TRI
-      | Trinidad/Tob.
-tn   Tunisia,  TUN
-tr   Turkey,  TUR
-tm   Turkmenistan,  TKM
-tc   Turks and Caicos Islands › UK,  TCA
-tw   Taiwan,  TPE
-      | Chinese Taipei
-ug   Uganda,  UGA
-ua   Ukraine,  UKR
-ae   United Arab Emirates,  UAE
-      | UA Emirates
-us   United States,  USA
-uy   Uruguay,  URU
-uz   Uzbekistan,  UZB
-
-vu   Vanuatu,  VAN
-ve   Venezuela,  VEN
-vn   Vietnam,  VIE
-vi   US Virgin Islands › US,  VIR        # Virgin Islands (U.S.)
-      | United States Virgin Islands | US Virgin I.
-vc   Saint Vincent and the Grenadines,  VIN
-      | St. Vincent/G.
-vg   British Virgin Islands › UK,  VGB
-
-wal  Wales › UK, WAL
-
-ye   Yemen,  YEM
-
-zm   Zambia,  ZAM
-zw   Zimbabwe,  ZIM
+xk   Kosovo,  KOS,  fifa (2016) › uefa (2016)       # -- note: Kosovo is not listed as an ISO standard country. The unofficial 2 and 3-digit codes are used by the European Commission and others until Kosovo is assigned an ISO code
 
 
-###################
-## Non-FIFA member codes
+##  south caucasus
+## - add to middle east?
 
-bq   Bonaire,  BOE        # CONCACAF
-gf   French Guiana › FR,  GYF  # CONCACAF
-gp   Guadeloupe    › FR,  GPE     # CONCACAF
-mq   Martinique    › FR,  MTQ     # CONCACAF
-sx   Sint Maarten  › NL,  SXM   # CONCACAF
-
-gi   Gibraltar › UK,  GIB   # UEFA
-xk   Kosovo,  KOS         # UEFA     -- note: Kosovo is not listed as an ISO standard country. The unofficial 2 and 3-digit codes are used by the European Commission and others until Kosovo is assigned an ISO code
-
-re   Réunion › FR,  REU        # CAF
-zan  Zanzibar › TZ, ZAN       # CAF     -- note:  is a semi-autonomous region of Tanzania
-
-tv   Tuvalu,  TUV         # OFC
+am   Armenia,              ARM,  fifa (1992) › uefa (1992)
+az   Azerbaijan,           AZE,  fifa (1994) › uefa (1994)
+ge   Georgia,              GEO,  fifa (1992) › uefa (1992)
 
 
-####################
-## Irregular codes
-
-mp   Northern Mariana Islands › US,  NMI  # AFC
-
-mf   Saint Martin › FR,  SMT    # CONCACAF
-
-fm   Micronesia,  FSM      # OFC
-      | Federated States of Micronesia
-ki   Kiribati,    KIR      # OFC
-nu   Niue › NZ,   NIU      # OFC
-pw   Palau,       PLW      # OFC
+# Territories & dependencies
+fo   Faroe Islands › DK,   FRO,  fifa (1988) › uefa (1990)
+gi   Gibraltar     › UK,   GIB,                uefa (2013)    ## Non-FIFA member codes
 
 
-#################
-# not members
-#
-# in europe:
+## not members
 # - Great Britain - only all its member e.g. England/Wales/Scotland/Northern Irland
+eng  England          › UK, ENG,  fifa (1905) › uefa (1954)
+wal  Wales            › UK, WAL,  fifa (1910) › uefa (1954)
+sco  Scotland         › UK, SCO,  fifa (1910) › uefa (1954)
+nir  Northern Ireland › UK, NIR,  fifa (1911) › uefa (1954)
+      | N. Ireland
 
+## irregular codes
 va   Vatican City,  VAT    ## no "official" fifa code - listed in "irregular" codes
 mc   Monaco,        MCO    ## no "official" fifa code - listed in "irregular" codes
 
 
-#
-# in oceania:
+
+========================================
+==  Africa
+
+### Eastern Africa
+bi   Burundi,              BDI, fifa › caf
+km   Comoros,              COM, fifa › caf
+dj   Djibouti,             DJI, fifa › caf
+er   Eritrea,              ERI, fifa › caf
+et   Ethiopia,             ETH, fifa › caf
+ke   Kenya,                KEN, fifa › caf
+mg   Madagascar,           MAD, fifa › caf
+mw   Malawi,               MWI, fifa › caf
+mu   Mauritius,            MRI, fifa › caf
+mz   Mozambique,           MOZ, fifa › caf
+rw   Rwanda,               RWA, fifa › caf
+sc   Seychelles,           SEY, fifa › caf
+so   Somalia,              SOM, fifa › caf
+tz   Tanzania,             TAN, fifa › caf
+ug   Uganda,               UGA, fifa › caf
+zm   Zambia,               ZAM, fifa › caf
+zw   Zimbabwe,             ZIM, fifa › caf
+
+
+### Central Africa
+ao   Angola,               ANG, fifa › caf
+cm   Cameroon,             CMR, fifa › caf
+cf   Central African Republic,  CTA, fifa › caf
+      | C. Afr. Rep.
+td   Chad,                 CHA, fifa › caf
+cg   Congo,                CGO, fifa › caf
+      | Congo-Brazzaville | Congo-Brazz.
+cd   Congo DR,             COD, fifa › caf
+      | Democratic Republic of the Congo
+      | Congo-Kinshasa | Congo-Kinsh.
+gq   Equatorial Guinea,    EQG, fifa › caf
+       | Equat. Guinea
+ga   Gabon,                GAB, fifa › caf
+st   São Tomé and Príncipe,  STP, fifa › caf
+      | São Tomé e Príncipe | São Tomé/Pr.
+
+
+### Northern Africa
+dz   Algeria,              ALG, fifa › caf
+eg   Egypt,                EGY, fifa › caf
+ma   Morocco,              MAR, fifa › caf
+ly   Libya,                LBY, fifa › caf
+tn   Tunisia,              TUN, fifa › caf
+ss   South Sudan,          SSD, fifa › caf
+sd   Sudan,                SDN, fifa › caf
+
+
+### Southern Africa
+za   South Africa,         RSA, fifa › caf
+bw   Botswana,             BOT, fifa › caf
+ls   Lesotho,              LES, fifa › caf
+na   Namibia,              NAM, fifa › caf
+sz   Swaziland,  SWZ, fifa › caf
+      | Eswatini       # officially renamed in 2018 from Swaziland to Eswatini
+
+
+### Western Africa
+bj   Benin,                BEN, fifa › caf
+bf   Burkina Faso,         BFA, fifa › caf
+cv   Cabo Verde,           CPV, fifa › caf
+      | Cape Verde
+ci   Côte d'Ivoire,        CIV, fifa › caf
+      | Ivory Coast [en]
+gm   Gambia,               GAM, fifa › caf
+gh   Ghana,                GHA, fifa › caf
+gn   Guinea,               GUI, fifa › caf
+gw   Guinea-Bissau,        GNB, fifa › caf
+lr   Liberia,              LBR, fifa › caf
+ml   Mali,                 MLI, fifa › caf
+mr   Mauritania,           MTN, fifa › caf
+ne   Niger,                NIG, fifa › caf
+ng   Nigeria,              NGA, fifa › caf
+sn   Senegal,              SEN, fifa › caf
+sl   Sierra Leone,         SLE, fifa › caf
+tg   Togo,                 TOG, fifa › caf
+
+
+# Territories & dependencies
+## Non-FIFA member codes
+re   Réunion  › FR, REU,   caf
+zan  Zanzibar › TZ, ZAN,   caf    # -- note:  is a semi-autonomous region of Tanzania
+
+
+
+==========================================
+==  Middle East
+
+### Arabian Peninsula
+bh   Bahrain,              BHR,  fifa › afc › afc_waff
+kw   Kuwait,               KUW,  fifa › afc › afc_waff
+om   Oman,                 OMA,  fifa › afc › afc_waff
+qa   Qatar,                QAT,  fifa › afc › afc_waff
+sa   Saudi Arabia,         KSA,  fifa › afc › afc_waff
+ae   United Arab Emirates, UAE,  fifa › afc › afc_waff
+      | UA Emirates
+ye   Yemen,                YEM,  fifa › afc › afc_waff
+
+
+### Fertile Crescent
+iq   Iraq,                 IRQ,  fifa › afc › afc_waff
+il   Israel,               ISR,  fifa (1929) › uefa (1994)
+jo   Jordan,               JOR,  fifa › afc › afc_waff
+lb   Lebanon,              LIB,  fifa › afc › afc_waff
+ps   Palestine,            PLE,  fifa › afc › afc_waff
+sy   Syria,                SYR,  fifa › afc › afc_waff
+
+
+### Iranian Plateau
+ir   Iran,                 IRN,  fifa › afc › afc_waff
+
+
+===============================
+==  Asia
+# Note: UEFA country kazakhstan is listed here in Asia
+# Note: Australia is listed in pacific (oceania w/ australia)
+
+### Central Asia
+kz   Kazakhstan,           KAZ,  fifa (1994) › uefa (2002)
+kg   Kyrgyzstan,           KGZ,  fifa › afc
+tj   Tajikistan,           TJK,  fifa › afc
+tm   Turkmenistan,         TKM,  fifa › afc
+uz   Uzbekistan,           UZB,  fifa › afc
+
+
+### East Asia
+jp   Japan,                JPN,  fifa › afc
+kr   South Korea,          KOR,  fifa › afc
+      | Korea Republic
+kp   North Korea,          PRK,  fifa › afc
+      | Korea DPR
+cn   China,                CHN,  fifa › afc
+tw   Taiwan,               TPE,  fifa › afc
+      | Chinese Taipei
+mn   Mongolia,             MNG,  fifa › afc
+
+# Territories & dependencies
+hk   Hong Kong › CN,       HKG,  fifa › afc
+mo   Macao     › CN,       MAC   # check if fifa/afc member ?????
+      | Macau
+
+
+### South Asia
+af   Afghanistan,          AFG,  fifa › afc
+pk   Pakistan,             PAK,  fifa › afc
+in   India,                IND,  fifa › afc
+bd   Bangladesh,           BAN,  fifa › afc
+lk   Sri Lanka,            SRI,  fifa › afc
+np   Nepal,                NEP,  fifa › afc
+bt   Bhutan,               BHU,  fifa › afc
+mv   Maldives,             MDV,  fifa › afc
+
+
+### Southeast Asia
+id   Indonesia,            IDN,  fifa › afc
+my   Malaysia,             MAS,  fifa › afc
+sg   Singapore,            SIN,  fifa › afc
+th   Thailand,             THA,  fifa › afc
+ph   Philippines,          PHI,  fifa › afc
+vn   Vietnam,              VIE,  fifa › afc
+bn   Brunei,               BRU,  fifa › afc
+mm   Myanmar,              MYA,  fifa › afc
+kh   Cambodia,             CAM,  fifa › afc
+tl   Timor-Leste,          TLS,  fifa › afc
+      | East Timor
+la   Laos,                 LAO,  fifa › afc
+
+
+==============================================
+==  Pacific      ## Oceania & Australia
+
+au   Australia,            AUS,  fifa › afc
+
+### Melanesia
+pg   Papua New Guinea,     PNG,  fifa › ofc
+      | Papua N.G.
+fj   Fiji,                 FIJ,  fifa › ofc
+sb   Solomon Islands,      SOL,  fifa › ofc
+      | Solomon Isl.
+vu   Vanuatu,              VAN,  fifa › ofc
+
+
+### Micronesia
+pw   Palau,       PLW,   ofc      # note: NOT fifa member
+fm   Micronesia,  FSM,   ofc      # note: NOT fifa member
+      | Federated States of Micronesia
+ki   Kiribati,    KIR,   ofc      # note: NOT fifa member
+
+
+### Polynesia
+nz   New Zealand,     NZL,  fifa › ofc
+ws   Samoa,           SAM,  fifa › ofc
+to   Tonga,           TGA,  fifa › ofc
+tv   Tuvalu,          TUV          ofc  # note: NOT fifa member
+
+
+
+# Territories & dependencies
+
+pf   Tahiti        › FR,   TAH      # todo/check: use French Polynesia (FR) as name - why? why not?
+      | French Polynesia     # note: Tahiti, which is located within the Society Islands, is the most populous island, having close to 69% of the population of French Polynesia as of 2017.
+nc   New Caledonia › FR,   NCL
+
+as   American Samoa › US,  ASA
+      | Am. Samoa
+gu   Guam › US,            GUM
+mp   Northern Mariana Islands › US,  NMI  # AFC ??
+
+ck   Cook Islands › NZ,    COK
+nu   Niue         › NZ,    NIU      # OFC
+
+
+## Irregular FIFA codes
 # - Kiribati
 # - Marshall Islands
 # - Micronesia
 # - Nauru
 # - Palau
 # - Tuvalu
+
+
+
+==================================
+==  North America
+
+ca   Canada,               CAN,  fifa › concacaf › concacaf_nafu
+us   United States,        USA,  fifa › concacaf › concacaf_nafu
+mx   Mexico,               MEX,  fifa › concacaf › concacaf_nafu
+      | México [es]
+
+# Territories & dependencies
+bm   Bermuda › UK,         BER   ## ???
+
+
+==================================
+==  Central America
+
+bz   Belize,               BLZ,  fifa › concacaf › concacaf_uncaf
+gt   Guatemala,            GUA,  fifa › concacaf › concacaf_uncaf
+cr   Costa Rica,           CRC,  fifa › concacaf › concacaf_uncaf
+hn   Honduras,             HON,  fifa › concacaf › concacaf_uncaf
+sv   El Salvador,          SLV,  fifa › concacaf › concacaf_uncaf
+ni   Nicaragua,            NCA,  fifa › concacaf › concacaf_uncaf
+pa   Panama,               PAN,  fifa › concacaf › concacaf_uncaf
+      | Panamá [es]
+
+
+===============================================
+==  Caribbean        ## Caribbean Islands
+
+cu   Cuba,                 CUB,  fifa › concacaf › concacaf_cfu
+jm   Jamaica,              JAM,  fifa › concacaf › concacaf_cfu
+do   Dominican Republic,   DOM,  fifa › concacaf › concacaf_cfu
+ht   Haiti,                HAI,  fifa › concacaf › concacaf_cfu
+
+
+ag   Antigua and Barbuda,  ATG,  fifa › concacaf › concacaf_cfu
+      | Antigua/Barb.
+bs   Bahamas,              BAH,  fifa › concacaf › concacaf_cfu
+bb   Barbados,             BRB,  fifa › concacaf › concacaf_cfu
+dm   Dominica,             DMA,  fifa › concacaf › concacaf_cfu
+gd   Grenada,              GRN,  fifa › concacaf › concacaf_cfu
+kn   Saint Kitts and Nevis,  SKN, fifa › concacaf › concacaf_cfu
+      | St. Kitts/N.
+lc   Saint Lucia,          LCA,  fifa › concacaf ›concacaf_cfu
+vc   Saint Vincent and the Grenadines,  VIN, fifa › concacaf › concacaf_cfu
+      | St. Vincent/G.
+tt   Trinidad and Tobago,  TRI, fifa › concacaf › concacaf_cfu
+      | Trinidad/Tob.
+
+# Territories & dependencies
+pr   Puerto Rico       › US,  PUR.  fifa › concacaf ›concacaf_cfu
+vi   US Virgin Islands › US,  VIR        # Virgin Islands (U.S.)
+      | United States Virgin Islands | US Virgin I.
+
+aw   Aruba › NL,           ARU
+cw   Curaçao › NL,         CUW
+
+ai   Anguilla › UK,        AIA
+ky   Cayman Islands › UK,  CAY
+      | Cayman Isl.
+ms   Montserrat › UK,      MSR
+tc   Turks and Caicos Islands › UK,  TCA
+vg   British Virgin Islands › UK,  VGB
+
+
+## Non-FIFA member codes
+
+gp   Guadeloupe    › FR,  GPE,     concacaf › concacaf_cfu
+mq   Martinique    › FR,  MTQ,     concacaf › concacaf_cfu
+mf   Saint Martin  › FR,  SMT     # CONCACAF ??
+      | Saint Martin (French part)
+sx   Sint Maarten  › NL,  SXM     # CONCACAF  ??
+      | Sint Maarten (Dutch part)
+bq   Bonaire       › NL,  BOE     # CONCACAF  ??
+
+
+
+==================================
+==  South America
+
+ar   Argentina,            ARG,  fifa › conmebol
+bo   Bolivia,              BOL,  fifa › conmebol
+br   Brazil,               BRA,  fifa › conmebol
+cl   Chile,                CHI,  fifa › conmebol
+co   Colombia,             COL,  fifa › conmebol
+ec   Ecuador,              ECU,  fifa › conmebol
+py   Paraguay,             PAR,  fifa › conmebol
+pe   Peru,                 PER,  fifa › conmebol
+uy   Uruguay,              URU,  fifa › conmebol
+ve   Venezuela,            VEN,  fifa › conmebol
+
+gy   Guyana,               GUY,  fifa › concacaf › concacaf_cfu
+sr   Suriname,             SUR,  fifa › concacaf › concacaf_cfu
+
+gf   French Guiana › FR,  GYF,  concacaf › concacaf_cfu     # note: NOT fifa member

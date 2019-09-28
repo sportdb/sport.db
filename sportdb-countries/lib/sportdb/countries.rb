@@ -39,12 +39,13 @@ module Import
 class Country
   ## note: is read-only/immutable for now - why? why not?
   ##          add cities (array/list) - why? why not?
-  attr_reader :key, :name, :fifa
+  attr_reader :key, :name, :fifa, :tags
   attr_accessor :alt_names
 
-  def initialize( key, name, fifa )
+  def initialize( key, name, fifa:, tags: [] )
     @key, @name, @fifa = key, name, fifa
     @alt_names      = []
+    @tags           = tags
   end
 
   ## add csv-like access by hash key for compatibility

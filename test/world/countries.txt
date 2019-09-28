@@ -25,24 +25,24 @@
 # Note: The UEFA member country Kazachstan from Asia is listed in Asia.
 # Note: The UEFA member country Israel from Asia is listed in Middle East.
 
-al   Albania,              ALB,   fifa (1932) › uefa (1954)
-ad   Andorra,              AND,   fifa (1996) › uefa (1996)
-at   Austria,              AUT,   fifa (1905) › uefa (1954)
+al   Albania,              ALB,   fifa › uefa
+ad   Andorra,              AND,   fifa › uefa
+at   Austria,              AUT,   fifa › uefa
       | Österreich [de]
 
 
-by   Belarus,              BLR,    fifa (1992) › uefa (1993)
-be   Belgium,              BEL,    fifa (1904) › uefa (1954)
-ba   Bosnia and Herzegovina,  BIH,  fifa (1996) › uefa (1998)
+by   Belarus,              BLR,    fifa › uefa
+be   Belgium,              BEL,    fifa › uefa
+ba   Bosnia and Herzegovina,  BIH,  fifa › uefa
       | Bosnia-Herzegovina | Bosnia | Bosnia-Herz.
-bg   Bulgaria,             BUL,   fifa (1924) › uefa (1954)
+bg   Bulgaria,             BUL,   fifa › uefa
 
-hr   Croatia,              CRO,   fifa (1992) › uefa (1993)
+hr   Croatia,              CRO,   fifa › uefa
       | Hrvatska [hr]
-cy   Cyprus,               CYP,   fifa (1948) › uefa (1962)
-cz   Czech Republic,       CZE,   fifa (1907) › uefa (1954)
+cy   Cyprus,               CYP,   fifa › uefa
+cz   Czech Republic,       CZE,   fifa › uefa
 
-dk   Denmark,              DEN,   fifa (1904) › uefa (1954)
+dk   Denmark,              DEN,   fifa › uefa
 
 ee   Estonia,              EST,  fifa › uefa
 es   Spain,                ESP,  fifa › uefa
@@ -51,7 +51,7 @@ es   Spain,                ESP,  fifa › uefa
 fi   Finland,              FIN,  fifa › uefa
 fr   France,               FRA,  fifa › uefa
 
-de   Germany,              GER,  fifa (1904) › uefa (1954)
+de   Germany,              GER,  fifa › uefa
       | Deutschland [de]
 gr   Greece,               GRE,  fifa › uefa
 
@@ -80,41 +80,41 @@ no   Norway,               NOR,  fifa › uefa
 pl   Poland,               POL,  fifa › uefa
 pt   Portugal,             POR,  fifa › uefa
 
-ro   Romania,              ROU,  fifa (1923) › uefa (1954)
-ru   Russia,               RUS,  fifa (1912) › uefa (1954)
+ro   Romania,              ROU,  fifa › uefa
+ru   Russia,               RUS,  fifa › uefa
 
 sm   San Marino,  SMR,  fifa › uefa
 rs   Serbia,  SRB,      fifa › uefa
 sk   Slovakia,  SVK,     fifa › uefa
 si   Slovenia,  SVN,     fifa › uefa
-se   Sweden,  SWE,       fifa (1904) › uefa (1954)
-ch   Switzerland,  SUI,  fifa (1904) › uefa (1954)
+se   Sweden,  SWE,       fifa › uefa
+ch   Switzerland,  SUI,  fifa › uefa
 
-tr   Turkey,  TUR,   fifa (1923) › uefa (1962)
-ua   Ukraine,  UKR,  fifa (1992) › uefa (1992)
+tr   Turkey,  TUR,   fifa › uefa
+ua   Ukraine,  UKR,  fifa › uefa
 
-xk   Kosovo,  KOS,  fifa (2016) › uefa (2016)       # -- note: Kosovo is not listed as an ISO standard country. The unofficial 2 and 3-digit codes are used by the European Commission and others until Kosovo is assigned an ISO code
+xk   Kosovo,  KOS,  fifa › uefa        # -- note: Kosovo is not listed as an ISO standard country. The unofficial 2 and 3-digit codes are used by the European Commission and others until Kosovo is assigned an ISO code
 
 
 ##  south caucasus
 ## - add to middle east?
 
-am   Armenia,              ARM,  fifa (1992) › uefa (1992)
-az   Azerbaijan,           AZE,  fifa (1994) › uefa (1994)
-ge   Georgia,              GEO,  fifa (1992) › uefa (1992)
+am   Armenia,              ARM,  fifa › uefa
+az   Azerbaijan,           AZE,  fifa › uefa
+ge   Georgia,              GEO,  fifa › uefa
 
 
 # Territories & dependencies
-fo   Faroe Islands › DK,   FRO,  fifa (1988) › uefa (1990)
-gi   Gibraltar     › UK,   GIB,                uefa (2013)    ## Non-FIFA member codes
+fo   Faroe Islands › DK,   FRO,  fifa › uefa
+gi   Gibraltar     › UK,   GIB,         uefa    ## Non-FIFA member codes
 
 
 ## not members
 # - Great Britain - only all its member e.g. England/Wales/Scotland/Northern Irland
-eng  England          › UK, ENG,  fifa (1905) › uefa (1954)
-wal  Wales            › UK, WAL,  fifa (1910) › uefa (1954)
-sco  Scotland         › UK, SCO,  fifa (1910) › uefa (1954)
-nir  Northern Ireland › UK, NIR,  fifa (1911) › uefa (1954)
+eng  England          › UK, ENG,  fifa › uefa
+wal  Wales            › UK, WAL,  fifa › uefa
+sco  Scotland         › UK, SCO,  fifa › uefa
+nir  Northern Ireland › UK, NIR,  fifa › uefa
       | N. Ireland
 
 ## irregular codes
@@ -215,27 +215,27 @@ zan  Zanzibar › TZ, ZAN,   caf    # -- note:  is a semi-autonomous region of T
 ==  Middle East
 
 ### Arabian Peninsula
-bh   Bahrain,              BHR,  fifa › afc › afc_waff
-kw   Kuwait,               KUW,  fifa › afc › afc_waff
-om   Oman,                 OMA,  fifa › afc › afc_waff
-qa   Qatar,                QAT,  fifa › afc › afc_waff
-sa   Saudi Arabia,         KSA,  fifa › afc › afc_waff
-ae   United Arab Emirates, UAE,  fifa › afc › afc_waff
+bh   Bahrain,              BHR,  fifa › afc › waff
+kw   Kuwait,               KUW,  fifa › afc › waff
+om   Oman,                 OMA,  fifa › afc › waff
+qa   Qatar,                QAT,  fifa › afc › waff
+sa   Saudi Arabia,         KSA,  fifa › afc › waff
+ae   United Arab Emirates, UAE,  fifa › afc › waff
       | UA Emirates
-ye   Yemen,                YEM,  fifa › afc › afc_waff
+ye   Yemen,                YEM,  fifa › afc › waff
 
 
 ### Fertile Crescent
-iq   Iraq,                 IRQ,  fifa › afc › afc_waff
-il   Israel,               ISR,  fifa (1929) › uefa (1994)
-jo   Jordan,               JOR,  fifa › afc › afc_waff
-lb   Lebanon,              LIB,  fifa › afc › afc_waff
-ps   Palestine,            PLE,  fifa › afc › afc_waff
-sy   Syria,                SYR,  fifa › afc › afc_waff
+iq   Iraq,                 IRQ,  fifa › afc › waff
+il   Israel,               ISR,  fifa › uefa
+jo   Jordan,               JOR,  fifa › afc › waff
+lb   Lebanon,              LIB,  fifa › afc › waff
+ps   Palestine,            PLE,  fifa › afc › waff
+sy   Syria,                SYR,  fifa › afc › waff
 
 
 ### Iranian Plateau
-ir   Iran,                 IRN,  fifa › afc › afc_waff
+ir   Iran,                 IRN,  fifa › afc › waff
 
 
 ===============================
@@ -244,7 +244,7 @@ ir   Iran,                 IRN,  fifa › afc › afc_waff
 # Note: Australia is listed in pacific (oceania w/ australia)
 
 ### Central Asia
-kz   Kazakhstan,           KAZ,  fifa (1994) › uefa (2002)
+kz   Kazakhstan,           KAZ,  fifa › uefa
 kg   Kyrgyzstan,           KGZ,  fifa › afc
 tj   Tajikistan,           TJK,  fifa › afc
 tm   Turkmenistan,         TKM,  fifa › afc
@@ -319,7 +319,7 @@ ki   Kiribati,    KIR,   ofc      # note: NOT fifa member
 nz   New Zealand,     NZL,  fifa › ofc
 ws   Samoa,           SAM,  fifa › ofc
 to   Tonga,           TGA,  fifa › ofc
-tv   Tuvalu,          TUV          ofc  # note: NOT fifa member
+tv   Tuvalu,          TUV,         ofc  # note: NOT fifa member
 
 
 
@@ -351,9 +351,9 @@ nu   Niue         › NZ,    NIU      # OFC
 ==================================
 ==  North America
 
-ca   Canada,               CAN,  fifa › concacaf › concacaf_nafu
-us   United States,        USA,  fifa › concacaf › concacaf_nafu
-mx   Mexico,               MEX,  fifa › concacaf › concacaf_nafu
+ca   Canada,               CAN,  fifa › concacaf › nafu
+us   United States,        USA,  fifa › concacaf › nafu
+mx   Mexico,               MEX,  fifa › concacaf › nafu
       | México [es]
 
 # Territories & dependencies
@@ -363,41 +363,41 @@ bm   Bermuda › UK,         BER   ## ???
 ==================================
 ==  Central America
 
-bz   Belize,               BLZ,  fifa › concacaf › concacaf_uncaf
-gt   Guatemala,            GUA,  fifa › concacaf › concacaf_uncaf
-cr   Costa Rica,           CRC,  fifa › concacaf › concacaf_uncaf
-hn   Honduras,             HON,  fifa › concacaf › concacaf_uncaf
-sv   El Salvador,          SLV,  fifa › concacaf › concacaf_uncaf
-ni   Nicaragua,            NCA,  fifa › concacaf › concacaf_uncaf
-pa   Panama,               PAN,  fifa › concacaf › concacaf_uncaf
+bz   Belize,               BLZ,  fifa › concacaf › uncaf
+gt   Guatemala,            GUA,  fifa › concacaf › uncaf
+cr   Costa Rica,           CRC,  fifa › concacaf › uncaf
+hn   Honduras,             HON,  fifa › concacaf › uncaf
+sv   El Salvador,          SLV,  fifa › concacaf › uncaf
+ni   Nicaragua,            NCA,  fifa › concacaf › uncaf
+pa   Panama,               PAN,  fifa › concacaf › uncaf
       | Panamá [es]
 
 
 ===============================================
 ==  Caribbean        ## Caribbean Islands
 
-cu   Cuba,                 CUB,  fifa › concacaf › concacaf_cfu
-jm   Jamaica,              JAM,  fifa › concacaf › concacaf_cfu
-do   Dominican Republic,   DOM,  fifa › concacaf › concacaf_cfu
-ht   Haiti,                HAI,  fifa › concacaf › concacaf_cfu
+cu   Cuba,                 CUB,  fifa › concacaf › cfu
+jm   Jamaica,              JAM,  fifa › concacaf › cfu
+do   Dominican Republic,   DOM,  fifa › concacaf › cfu
+ht   Haiti,                HAI,  fifa › concacaf › cfu
 
 
-ag   Antigua and Barbuda,  ATG,  fifa › concacaf › concacaf_cfu
+ag   Antigua and Barbuda,  ATG,  fifa › concacaf › cfu
       | Antigua/Barb.
-bs   Bahamas,              BAH,  fifa › concacaf › concacaf_cfu
-bb   Barbados,             BRB,  fifa › concacaf › concacaf_cfu
-dm   Dominica,             DMA,  fifa › concacaf › concacaf_cfu
-gd   Grenada,              GRN,  fifa › concacaf › concacaf_cfu
-kn   Saint Kitts and Nevis,  SKN, fifa › concacaf › concacaf_cfu
+bs   Bahamas,              BAH,  fifa › concacaf › cfu
+bb   Barbados,             BRB,  fifa › concacaf › cfu
+dm   Dominica,             DMA,  fifa › concacaf › cfu
+gd   Grenada,              GRN,  fifa › concacaf › cfu
+kn   Saint Kitts and Nevis,  SKN, fifa › concacaf › cfu
       | St. Kitts/N.
-lc   Saint Lucia,          LCA,  fifa › concacaf ›concacaf_cfu
-vc   Saint Vincent and the Grenadines,  VIN, fifa › concacaf › concacaf_cfu
+lc   Saint Lucia,          LCA,  fifa › concacaf › cfu
+vc   Saint Vincent and the Grenadines,  VIN, fifa › concacaf › cfu
       | St. Vincent/G.
-tt   Trinidad and Tobago,  TRI, fifa › concacaf › concacaf_cfu
+tt   Trinidad and Tobago,  TRI, fifa › concacaf › cfu
       | Trinidad/Tob.
 
 # Territories & dependencies
-pr   Puerto Rico       › US,  PUR.  fifa › concacaf ›concacaf_cfu
+pr   Puerto Rico       › US,  PUR,  fifa › concacaf › cfu
 vi   US Virgin Islands › US,  VIR        # Virgin Islands (U.S.)
       | United States Virgin Islands | US Virgin I.
 
@@ -414,8 +414,8 @@ vg   British Virgin Islands › UK,  VGB
 
 ## Non-FIFA member codes
 
-gp   Guadeloupe    › FR,  GPE,     concacaf › concacaf_cfu
-mq   Martinique    › FR,  MTQ,     concacaf › concacaf_cfu
+gp   Guadeloupe    › FR,  GPE,     concacaf › cfu
+mq   Martinique    › FR,  MTQ,     concacaf › cfu
 mf   Saint Martin  › FR,  SMT     # CONCACAF ??
       | Saint Martin (French part)
 sx   Sint Maarten  › NL,  SXM     # CONCACAF  ??
@@ -438,7 +438,7 @@ pe   Peru,                 PER,  fifa › conmebol
 uy   Uruguay,              URU,  fifa › conmebol
 ve   Venezuela,            VEN,  fifa › conmebol
 
-gy   Guyana,               GUY,  fifa › concacaf › concacaf_cfu
-sr   Suriname,             SUR,  fifa › concacaf › concacaf_cfu
+gy   Guyana,               GUY,  fifa › concacaf › cfu
+sr   Suriname,             SUR,  fifa › concacaf › cfu
 
-gf   French Guiana › FR,  GYF,  concacaf › concacaf_cfu     # note: NOT fifa member
+gf   French Guiana › FR,  GYF,  concacaf › cfu     # note: NOT fifa member

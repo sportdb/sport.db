@@ -32,6 +32,10 @@ def self.parse( txt )
     line = line.sub( /#.*/, '' ).strip
     pp line
 
+    ## skip headings (and headings) for now too
+    next if line.start_with?( '=' )
+
+
 
     if line.start_with?( '|' )
       ## assume continuation with line of alternative names
@@ -56,9 +60,25 @@ def self.parse( txt )
         ##         Puerto Rico › US  => Puerto Rico
         geos = split_geo( values[0] )
         name = geos[0]    ## note: ignore all other geos for now
-        fifa = values[1]  ## todo: check if fifa is nil - why? why not?
 
-        last_country = country = Country.new( key, name, fifa )
+        fifa = if values[1] && values[1] =~ /^[A-Z]{3}$/   ## note: also check format
+                 values[1]
+               else
+                 if values[1]
+                   puts "** !!! ERROR !!! wrong fifa code format >#{values[1]}<; expected three-letter all up-case"
+                 else
+                   puts "** !!! ERROR !!! missing fifa code for (canonical) country name"
+                 end
+                 exit 1
+               end
+
+        tags = if values[2]   ## check if tags presents
+                 split_tags( values[2] )
+               else
+                 []
+               end
+
+        last_country = country = Country.new( key, name, fifa: fifa, tags: tags )
         countries << country
       else
         puts "** !! ERROR !! missing key for (canonical) country name"
@@ -72,7 +92,13 @@ end  # method parse
 
 #######################################
 ##  helpers
-def self.split_geo( str )
+def self.split_tags( str )
+  tags = str.split( /[|<>‹›]/ )   ## allow pipe (|) and (<>‹›) as divider for now - add more? why? why not?
+  tags = tags.map { |tag| tag.strip }
+  tags
+end
+
+def self.split_geo( str )   ## todo/check: rename to parse_geo(s) - why? why not?
   ## split into geo tree
   geos = str.split( /[<>‹›]/ )          ## note: allow > < or › ‹ for now
   geos = geos.map { |geo| geo.strip }   ## remove all whitespaces

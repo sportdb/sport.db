@@ -363,7 +363,7 @@ mx   Mexico,               MEX,  fifa › concacaf › nafu
 
 # Territories & Dependencies
 bm   Bermuda › UK,         BER,  fifa › concacaf › cfu
-grl  Greenland › DK,       GRL
+gl   Greenland › DK,       GRL
 
 
 ==================================
@@ -428,7 +428,7 @@ mf   Saint Martin  › FR,  SMN,     concacaf › cfu   # note: NOT fifa member
       ## check alternative code SMT for Saint Martin in use ???
 sx   Sint Maarten  › NL,  SMA,     concacaf › cfu   # note: NOT fifa member
       | Sint Maarten (Dutch part)
-      ## check alternative code SXM for Sint Maarten in use ??? 
+      ## check alternative code SXM for Sint Maarten in use ???
 bq   Bonaire       › NL,  BOE,     concacaf › cfu   # note: NOT fifa member
 
 

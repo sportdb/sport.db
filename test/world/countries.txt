@@ -363,7 +363,7 @@ mx   Mexico,               MEX,  fifa › concacaf › nafu
 
 # Territories & Dependencies
 bm   Bermuda › UK,         BER,  fifa › concacaf › cfu
-grl  Greenland › DK,       GRL
+gl   Greenland › DK,       GRL
 
 
 ==================================

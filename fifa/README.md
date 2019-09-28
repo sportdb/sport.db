@@ -67,6 +67,44 @@ aut.fifa   #=> "AUT"
 ...
 ```
 
+Or get all countries / members by continental confederation:
+
+- Asian Football Confederation (AFC; 47 members) (a)
+- Confederation of African Football (CAF; 56 members)
+- Confederation of North, Central American and Caribbean Association Football (CONCACAF; 41 members) (b)
+- Confederación Sudamericana de Fútbol (CONMEBOL; 10 members)
+- Oceania Football Confederation (OFC; 14 members) (a)
+- Union of European Football Associations (UEFA; 55 members) (c)
+
+(a) Australia has been a member of the AFC since 2006.
+
+(b) French Guiana, Guyana and Suriname are CONCACAF members although they are in South America. The French Guiana team is a member of CONCACAF but not of FIFA.
+
+(c) Teams representing the nations of Armenia, Azerbaijan, Cyprus, Georgia, Israel, Kazakhstan, Russia and Turkey are UEFA members, although the majority or entirety of their territory is outside of continental Europe. Monaco is not member of UEFA or FIFA.
+
+
+``` ruby
+Fifa.members( 'FIFA' ).size          #=> 211 members  -or-
+Fifa.members( 'World' ).size         #=> 211 members
+
+Fifa.members( 'AFC' ).size           #=> 47 members   -or-
+Fifa.members( 'Asia' ).size          #=> 47 members
+
+Fifa.members( 'CAF').size            #=> 56 members  -or-
+Fifa.members( 'Africa' ).size        #=> 56 members
+
+Fifa.members( 'CONCACAF').size       #=> 41 members  -or-
+Fifa.members( 'North, Central America and Caribbean').size   #=> 41 members
+
+Fifa.members( 'CONMEBOL' ).size      #=> 10 members  -or-
+Fifa.members( 'South America' ).size #=> 10 members
+
+Fifa.members( 'OFC' ).size           #=> 14 members  -or-
+Fifa.members( 'Oceania' ).size       #=> 14 members
+
+Fifa.members( 'UEFA' ).size          #=> 55 members  -or-
+Fifa.members( 'Europe' ).size        #=> 55 members
+```
 
 That's it.
 

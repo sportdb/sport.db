@@ -106,9 +106,15 @@ ge   Georgia,              GEO,  fifa › uefa
 fo   Faroe Islands › DK,   FRO,  fifa › uefa
 gi   Gibraltar     › UK,   GIB,  fifa › uefa
 
+nkr  Artsakh        › AZ,  NKR   # note: NOT fifa or uefa member
+bsq  Basque Country › ES,  BSQ   # note: NOT fifa or uefa member
+cat  Catalonia      › ES,  CAT   # note: NOT fifa or uefa member
+## fix (use four-letter codes!!)
+## trnc Northern Cyprus › CY, TRNC  # note: NOT fifa or uefa member
 
 ## not members
 # - Great Britain - only all its member e.g. England/Wales/Scotland/Northern Irland
+uk   Great Britain,    GBR     # note: NOT fifa or uefa member
 eng  England          › UK, ENG,  fifa › uefa
 wal  Wales            › UK, WAL,  fifa › uefa
 sco  Scotland         › UK, SCO,  fifa › uefa
@@ -153,10 +159,10 @@ td   Chad,                 CHA, fifa › caf
 cg   Congo,                CGO, fifa › caf
       | Congo-Brazzaville | Congo-Brazz.
 cd   Congo DR,             COD, fifa › caf
-      | Democratic Republic of the Congo
+      | DR Congo | Democratic Republic of the Congo
       | Congo-Kinshasa | Congo-Kinsh.
 gq   Equatorial Guinea,    EQG, fifa › caf
-       | Equat. Guinea
+      | Equat. Guinea
 ga   Gabon,                GAB, fifa › caf
 st   São Tomé and Príncipe,  STP, fifa › caf
       | São Tomé e Príncipe | São Tomé/Pr.
@@ -357,6 +363,7 @@ mx   Mexico,               MEX,  fifa › concacaf › nafu
 
 # Territories & Dependencies
 bm   Bermuda › UK,         BER,  fifa › concacaf › cfu
+grl  Greenland › DK,       GRL
 
 
 ==================================
@@ -413,12 +420,15 @@ vg   British Virgin Islands › UK,  VGB,    fifa › concacaf › cfu
 
 ## Non-FIFA member codes
 
-gp   Guadeloupe    › FR,  GPE,     concacaf › cfu   # note: NOT fifa member
+gp   Guadeloupe    › FR,  GLP,     concacaf › cfu   # note: NOT fifa member
+       ## check alternative code GPE for Guadeloupe ???
 mq   Martinique    › FR,  MTQ,     concacaf › cfu   # note: NOT fifa member
-mf   Saint Martin  › FR,  SMT,     concacaf › cfu   # note: NOT fifa member
+mf   Saint Martin  › FR,  SMN,     concacaf › cfu   # note: NOT fifa member
       | Saint Martin (French part)
-sx   Sint Maarten  › NL,  SXM,     concacaf › cfu   # note: NOT fifa member
+      ## check alternative code SMT for Saint Martin in use ???
+sx   Sint Maarten  › NL,  SMA,     concacaf › cfu   # note: NOT fifa member
       | Sint Maarten (Dutch part)
+      ## check alternative code SXM for Sint Maarten in use ??? 
 bq   Bonaire       › NL,  BOE,     concacaf › cfu   # note: NOT fifa member
 
 
@@ -440,4 +450,5 @@ ve   Venezuela,            VEN,  fifa › conmebol
 gy   Guyana,               GUY,  fifa › concacaf › cfu
 sr   Suriname,             SUR,  fifa › concacaf › cfu
 
-gf   French Guiana › FR,  GYF,  concacaf › cfu     # note: NOT fifa member
+gf   French Guiana › FR,  GUF,  concacaf › cfu     # note: NOT fifa member
+       ## check alternative code GYF for French Guiana ??

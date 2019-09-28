@@ -24,3 +24,15 @@ and membership of a confederation is a prerequisite to FIFA membership.
 (c) French Guiana, Guyana and Suriname are CONCACAF members although they are in South America. The French Guiana team is a member of CONCACAF but not of FIFA.
 
 (d) Teams representing the nations of Armenia, Azerbaijan, Cyprus, Georgia, Israel, Kazakhstan, Russia and Turkey are UEFA members, although the majority or entirety of their territory is outside of continental Europe. Monaco is not member of UEFA or FIFA.
+
+
+## Links
+
+- <https://www.fifa.com/associations/>
+
+The AFC in Asia, CAF in Africa, the Football Confederation (CONCACAF) in North and Central America and the Caribbean, CONMEBOL in South America, UEFA in Europe and the OFC in Oceania...
+
+AFRICA - ASIA - EUROPE - NORTH, CENTRAL AMERICA AND CARIBBEAN - OCEANIA - SOUTH AMERICA
+
+- <https://www.fifa.com/associations/association/gib/about> -  GIB - Gibraltar
+- <https://www.fifa.com/associations/association/kvx/about> - KVX - Kosovo   

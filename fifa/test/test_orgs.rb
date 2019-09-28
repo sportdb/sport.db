@@ -1,0 +1,81 @@
+# encoding: utf-8
+
+###
+#  to run use
+#     ruby -I ./lib -I ./test test/test_orgs.rb
+
+
+require 'helper'
+
+class TestOrgs < MiniTest::Test
+
+  def test_orgs
+    orgs = Fifa.orgs
+    pp orgs
+
+    ## print counts
+    puts "#{'%3d' % Fifa.countries.size} countries:"
+    orgs.each do |org|
+      countries = Fifa.members( org )
+      puts "#{'%3d' % countries.size} #{org}"
+    end
+
+    ## pp Fifa.members( 'OFC' ).sort_by {|rec| rec.name }
+
+    assert_equal  47, Fifa.members( 'AFC' ).size      # => Asian Football Confederation
+    assert_equal  56, Fifa.members( 'CAF' ).size      # => Confédération Africaine de Football
+    assert_equal  41, Fifa.members( 'CONCACAF').size  # => Confederation of North, Central American and Caribbean Association Football
+    assert_equal  10, Fifa.members( 'CONMEBOL' ).size # => Confederación Sudamericana de Fútbol
+    assert_equal  14, Fifa.members( 'OFC' ).size      # => Oceania Football Confederation
+    assert_equal  55, Fifa.members( 'UEFA' ).size     # => Union of European Football Associations
+
+    assert_equal   3, Fifa.members( 'NAFU' ).size     # => North American Football Union
+    assert_equal   7, Fifa.members( 'UNCAF').size     # => Unión Centroamericana de Fútbol
+    assert_equal  31, Fifa.members( 'CFU' ).size      # => Caribbean Football Union
+
+    assert_equal  12, Fifa.members( 'WAFF' ).size     # => West Asian Football Federation
+
+    assert_equal 211, Fifa.members( 'FIFA' ).size
+
+
+    ## print countries NOT members of fifa (but of confederation)
+    puts "non-fifa member codes:"
+    Fifa.countries.each do |country|
+      if country.tags.empty? == false &&
+         country.tags.include?( 'fifa' ) == false
+        puts "  #{country.name}, #{country.fifa}, #{country.tags.join(' | ')}"
+      end
+    end
+
+    ## print countries NOT members of fifa or any confederation (irregular codes)
+    puts "irregular codes:"
+    Fifa.countries.each do |country|
+      puts "  #{country.name}, #{country.fifa}"    if country.tags.empty?
+    end
+  end
+
+
+  def test_alt_names
+    ## check normalize org key / name
+    assert_equal 'NorthAmericaCentralAmericaCaribbean', Fifa.normalize_org( 'North America, Central America and the Caribbean' )
+    assert_equal 'NorthCentralAmericaCaribbean', Fifa.normalize_org( 'North and Central America and the Caribbean' )
+    assert_equal 'NorthCentralAmericaCaribbean', Fifa.normalize_org( 'North & Central America & Caribbean' )
+
+
+    assert_equal Fifa.members( 'FIFA' ).size,     Fifa.members( 'World' ).size
+    assert_equal Fifa.members( 'UEFA' ).size,     Fifa.members( 'Europe' ).size
+    assert_equal Fifa.members( 'CAF' ).size,      Fifa.members( 'Africa' ).size
+    assert_equal Fifa.members( 'CONCACAF' ).size, Fifa.members( 'North America, Central America and the Caribbean' ).size
+    assert_equal Fifa.members( 'CONCACAF' ).size, Fifa.members( 'North and Central America and the Caribbean' ).size
+    assert_equal Fifa.members( 'CONCACAF' ).size, Fifa.members( 'North & Central America & Caribbean' ).size
+    assert_equal Fifa.members( 'NAFU' ).size,     Fifa.members( 'North America' ).size
+    assert_equal Fifa.members( 'UNCAF' ).size,    Fifa.members( 'Central America' ).size
+    assert_equal Fifa.members( 'CFU' ).size,      Fifa.members( 'Caribbean' ).size
+    assert_equal Fifa.members( 'CONMEBOL' ).size, Fifa.members( 'South America' ).size
+    assert_equal Fifa.members( 'AFC' ).size,      Fifa.members( 'Asia' ).size
+    assert_equal Fifa.members( 'WAFF' ).size,     Fifa.members( 'Middle East' ).size
+    assert_equal Fifa.members( 'OFC' ).size,      Fifa.members( 'Oceania' ).size
+    assert_equal Fifa.members( 'OFC' ).size,      Fifa.members( 'Pacific' ).size
+  end
+
+end # class TestOrgs

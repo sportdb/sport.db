@@ -104,6 +104,8 @@ Fifa.members( 'Oceania' ).size       #=> 14 members
 
 Fifa.members( 'UEFA' ).size          #=> 55 members  -or-
 Fifa.members( 'Europe' ).size        #=> 55 members
+
+...
 ```
 
 That's it.
@@ -113,7 +115,7 @@ That's it.
 ## What's FIFA¹?
 
 The World's Football Association / Governing Body
-uses its own country list and (three-letter) codes - see
+uses its own country list and (three-letter²) codes - see
 the [List of FIFA country codes @ Wikipedia](https://en.wikipedia.org/wiki/List_of_FIFA_country_codes)
 or the [`countries.txt`](https://github.com/sportdb/sport.db/blob/master/fifa/config/countries.txt) list shipping with this library.
 
@@ -147,16 +149,14 @@ from countries in use by regional confederations too, for example:
 - Palau (PLW)
 - Réunion › FR (REU)
 - Zanzibar › TZ (ZAN)
-- Saint Martin › FR (SMT)
-- Sint Maarten › NL (SXM)
+- Saint Martin › FR (SMN)
+- Sint Maarten › NL (SMA)
 - and others
 
 
 ¹: [Fédération Internationale de Football Association (FIFA) @ Wikipedia](https://en.wikipedia.org/wiki/FIFA)
 
-<!--
 ²: Northern Cyprus (TRNC)	has a four-letter FIFA country code  
--->
 
 
 ## License

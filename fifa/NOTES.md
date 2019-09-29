@@ -1,5 +1,15 @@
 # Notes
 
+
+Use to sync / copy countries:
+
+```
+copy config\countries.txt ..\test\world
+```
+
+
+## Confederations
+
 Six confederations and 211 national associations
 
 Teams which are either members of Fédération Internationale de Football Association (FIFA),
@@ -36,3 +46,10 @@ AFRICA - ASIA - EUROPE - NORTH, CENTRAL AMERICA AND CARIBBEAN - OCEANIA - SOUTH 
 
 - <https://www.fifa.com/associations/association/gib/about> -  GIB - Gibraltar
 - <https://www.fifa.com/associations/association/kvx/about> - KVX - Kosovo   
+
+<!-- break -->
+
+- <https://www.uefa.com/memberassociations/association=gib> - GIB - Gibraltar
+  - UEFA affiliation: 2013; FIFA affiliation: not affiliated yet  (2016 NOT updated!?)
+- <https://www.uefa.com/memberassociations/association=kos> - KOS - Kosove
+  - UEFA affiliation: 2016; FIFA affiliation: 2016

@@ -66,8 +66,8 @@ li   Liechtenstein,        LIE,  fifa › uefa
 lt   Lithuania,            LTU,  fifa › uefa
 lu   Luxembourg,           LUX,  fifa › uefa
 
-mk   Macedonia,            MKD,  fifa › uefa
-      | North Macedonia
+mk   North Macedonia,      MKD,  fifa › uefa
+      | Macedonia
 mt   Malta,                MLT,  fifa › uefa
 md   Moldova,              MDA,  fifa › uefa
 me   Montenegro,           MNE,  fifa › uefa
@@ -131,86 +131,87 @@ mc   Monaco,        MCO    ## no "official" fifa code - listed in "irregular" co
 ==  Africa
 
 ### Eastern Africa
-bi   Burundi,              BDI, fifa › caf
-km   Comoros,              COM, fifa › caf
-dj   Djibouti,             DJI, fifa › caf
-er   Eritrea,              ERI, fifa › caf
-et   Ethiopia,             ETH, fifa › caf
-ke   Kenya,                KEN, fifa › caf
-mg   Madagascar,           MAD, fifa › caf
-mw   Malawi,               MWI, fifa › caf
-mu   Mauritius,            MRI, fifa › caf
-mz   Mozambique,           MOZ, fifa › caf
-rw   Rwanda,               RWA, fifa › caf
-sc   Seychelles,           SEY, fifa › caf
-so   Somalia,              SOM, fifa › caf
-tz   Tanzania,             TAN, fifa › caf
-ug   Uganda,               UGA, fifa › caf
-zm   Zambia,               ZAM, fifa › caf
-zw   Zimbabwe,             ZIM, fifa › caf
+bi   Burundi,              BDI, fifa › caf › cecafa
+dj   Djibouti,             DJI, fifa › caf › cecafa
+er   Eritrea,              ERI, fifa › caf › cecafa
+et   Ethiopia,             ETH, fifa › caf › cecafa
+ke   Kenya,                KEN, fifa › caf › cecafa
+rw   Rwanda,               RWA, fifa › caf › cecafa
+so   Somalia,              SOM, fifa › caf › cecafa
+tz   Tanzania,             TAN, fifa › caf › cecafa
+ug   Uganda,               UGA, fifa › caf › cecafa
+
+km   Comoros,              COM, fifa › caf › cosafa
+mg   Madagascar,           MAD, fifa › caf › cosafa
+mw   Malawi,               MWI, fifa › caf › cosafa
+mu   Mauritius,            MRI, fifa › caf › cosafa
+mz   Mozambique,           MOZ, fifa › caf › cosafa
+sc   Seychelles,           SEY, fifa › caf › cosafa
+zm   Zambia,               ZAM, fifa › caf › cosafa
+zw   Zimbabwe,             ZIM, fifa › caf › cosafa
 
 
 ### Central Africa
-ao   Angola,               ANG, fifa › caf
-cm   Cameroon,             CMR, fifa › caf
-cf   Central African Republic,  CTA, fifa › caf
+ao   Angola,               ANG, fifa › caf › cosafa
+cm   Cameroon,             CMR, fifa › caf › uniffac
+cf   Central African Republic,  CTA, fifa › caf › uniffac
       | C. Afr. Rep.
-td   Chad,                 CHA, fifa › caf
-cg   Congo,                CGO, fifa › caf
+td   Chad,                 CHA, fifa › caf › uniffac
+cg   Congo,                CGO, fifa › caf › uniffac
       | Congo-Brazzaville | Congo-Brazz.
-cd   Congo DR,             COD, fifa › caf
+cd   Congo DR,             COD, fifa › caf › uniffac    ## use "Congo, DR"
       | DR Congo | Democratic Republic of the Congo
       | Congo-Kinshasa | Congo-Kinsh.
-gq   Equatorial Guinea,    EQG, fifa › caf
+gq   Equatorial Guinea,    EQG, fifa › caf › uniffac
       | Equat. Guinea
-ga   Gabon,                GAB, fifa › caf
-st   São Tomé and Príncipe,  STP, fifa › caf
+ga   Gabon,                GAB, fifa › caf › uniffac
+st   São Tomé and Príncipe,  STP, fifa › caf › uniffac
       | São Tomé e Príncipe | São Tomé/Pr.
 
 
 ### Northern Africa
-dz   Algeria,              ALG, fifa › caf
-eg   Egypt,                EGY, fifa › caf
-ma   Morocco,              MAR, fifa › caf
-ly   Libya,                LBY, fifa › caf
-tn   Tunisia,              TUN, fifa › caf
-ss   South Sudan,          SSD, fifa › caf
-sd   Sudan,                SDN, fifa › caf
+dz   Algeria,              ALG, fifa › caf › unaf
+eg   Egypt,                EGY, fifa › caf › unaf
+ma   Morocco,              MAR, fifa › caf › unaf
+ly   Libya,                LBY, fifa › caf › unaf
+tn   Tunisia,              TUN, fifa › caf › unaf
+ss   South Sudan,          SSD, fifa › caf › cecafa
+sd   Sudan,                SDN, fifa › caf › cecafa
 
 
 ### Southern Africa
-za   South Africa,         RSA, fifa › caf
-bw   Botswana,             BOT, fifa › caf
-ls   Lesotho,              LES, fifa › caf
-na   Namibia,              NAM, fifa › caf
-sz   Eswatini,             SWZ, fifa › caf
+za   South Africa,         RSA, fifa › caf › cosafa
+bw   Botswana,             BOT, fifa › caf › cosafa
+ls   Lesotho,              LES, fifa › caf › cosafa
+na   Namibia,              NAM, fifa › caf › cosafa
+sz   Eswatini,             SWZ, fifa › caf › cosafa
       | Swaziland       # officially renamed in 2018 from Swaziland to Eswatini
 
 
 ### Western Africa
-bj   Benin,                BEN, fifa › caf
-bf   Burkina Faso,         BFA, fifa › caf
-cv   Cabo Verde,           CPV, fifa › caf
+bj   Benin,                BEN, fifa › caf › wafu
+bf   Burkina Faso,         BFA, fifa › caf › wafu
+cv   Cabo Verde,           CPV, fifa › caf › wafu
       | Cape Verde | Cape Verde Islands
-ci   Côte d'Ivoire,        CIV, fifa › caf
+ci   Côte d'Ivoire,        CIV, fifa › caf › wafu
       | Ivory Coast [en]
-gm   Gambia,               GAM, fifa › caf
-gh   Ghana,                GHA, fifa › caf
-gn   Guinea,               GUI, fifa › caf
-gw   Guinea-Bissau,        GNB, fifa › caf
-lr   Liberia,              LBR, fifa › caf
-ml   Mali,                 MLI, fifa › caf
-mr   Mauritania,           MTN, fifa › caf
-ne   Niger,                NIG, fifa › caf
-ng   Nigeria,              NGA, fifa › caf
-sn   Senegal,              SEN, fifa › caf
-sl   Sierra Leone,         SLE, fifa › caf
-tg   Togo,                 TOG, fifa › caf
+gm   Gambia,               GAM, fifa › caf › wafu
+gh   Ghana,                GHA, fifa › caf › wafu
+gn   Guinea,               GUI, fifa › caf › wafu
+gw   Guinea-Bissau,        GNB, fifa › caf › wafu
+lr   Liberia,              LBR, fifa › caf › wafu
+ml   Mali,                 MLI, fifa › caf › wafu
+mr   Mauritania,           MTN, fifa › caf › wafu
+ne   Niger,                NIG, fifa › caf › wafu
+ng   Nigeria,              NGA, fifa › caf › wafu
+sn   Senegal,              SEN, fifa › caf › wafu
+sl   Sierra Leone,         SLE, fifa › caf › wafu
+tg   Togo,                 TOG, fifa › caf › wafu
 
 
 # Territories & Dependencies
-re   Réunion  › FR, REU,   caf    # note: NOT fifa member
-zan  Zanzibar › TZ, ZAN,   caf    # note: NOT fifa member  -- is a semi-autonomous region of Tanzania
+re   Réunion  › FR, REU,   caf             # note: NOT fifa member
+zan  Zanzibar › TZ, ZAN,   caf › cecafa    # note: NOT fifa member  -- is a semi-autonomous region of Tanzania
 
 
 
@@ -239,7 +240,7 @@ sy   Syria,                SYR,  fifa › afc › waff
 
 
 ### Iranian Plateau
-ir   Iran,                 IRN,  fifa › afc   # note: NOT waff member
+ir   Iran,                 IRN,  fifa › afc › cafa   # note: NOT waff member
       | IR Iran | Islamic Republic of Iran
 
 
@@ -250,62 +251,62 @@ ir   Iran,                 IRN,  fifa › afc   # note: NOT waff member
 
 ### Central Asia
 kz   Kazakhstan,           KAZ,  fifa › uefa     # note: was formerly a member of AFC (1993–2002)
-kg   Kyrgyzstan,           KGZ,  fifa › afc
+kg   Kyrgyzstan,           KGZ,  fifa › afc › cafa
       | Kyrgyz Republic
-tj   Tajikistan,           TJK,  fifa › afc
-tm   Turkmenistan,         TKM,  fifa › afc
-uz   Uzbekistan,           UZB,  fifa › afc
+tj   Tajikistan,           TJK,  fifa › afc › cafa
+tm   Turkmenistan,         TKM,  fifa › afc › cafa
+uz   Uzbekistan,           UZB,  fifa › afc › cafa
 
 
 ### East Asia
-jp   Japan,                JPN,  fifa › afc
-kr   South Korea,          KOR,  fifa › afc
-      | Korea Republic | Republic of Korea
-kp   North Korea,          PRK,  fifa › afc
-      | Korea DPR | Democratic People's Republic of Korea
-cn   China,                CHN,  fifa › afc
-      | China PR | People's Republic of China
-tw   Taiwan,               TPE,  fifa › afc    #  was a member of OFC from 1975 to 1989
+jp   Japan,                JPN,  fifa › afc › eaff
+kr   South Korea,          KOR,  fifa › afc › eaff
+      | Korea Republic | Republic of Korea    ## use "Korea, Republic"
+kp   North Korea,          PRK,  fifa › afc › eaff
+      | Korea DPR | Democratic People's Republic of Korea    ## use "Korea, DPR"
+cn   China,                CHN,  fifa › afc › eaff
+      | China PR | People's Republic of China                ## use "China, PR"
+tw   Taiwan,               TPE,  fifa › afc › eaff    #  was a member of OFC from 1975 to 1989
       | Chinese Taipei |  Republic of China
-mn   Mongolia,             MNG,  fifa › afc
+mn   Mongolia,             MNG,  fifa › afc › eaff
 
 # Territories & dependencies
-hk   Hong Kong › CN,       HKG,  fifa › afc
-mo   Macao     › CN,       MAC,  fifa › afc
+hk   Hong Kong › CN,       HKG,  fifa › afc › eaff
+mo   Macao     › CN,       MAC,  fifa › afc › eaff
       | Macau
 
 
 ### South Asia
-af   Afghanistan,          AFG,  fifa › afc
-pk   Pakistan,             PAK,  fifa › afc
-in   India,                IND,  fifa › afc
-bd   Bangladesh,           BAN,  fifa › afc
-lk   Sri Lanka,            SRI,  fifa › afc
-np   Nepal,                NEP,  fifa › afc
-bt   Bhutan,               BHU,  fifa › afc
-mv   Maldives,             MDV,  fifa › afc
+af   Afghanistan,          AFG,  fifa › afc › cafa
+pk   Pakistan,             PAK,  fifa › afc › saff
+in   India,                IND,  fifa › afc › saff
+bd   Bangladesh,           BAN,  fifa › afc › saff
+lk   Sri Lanka,            SRI,  fifa › afc › saff
+np   Nepal,                NEP,  fifa › afc › saff
+bt   Bhutan,               BHU,  fifa › afc › saff
+mv   Maldives,             MDV,  fifa › afc › saff
 
 
 ### Southeast Asia
-id   Indonesia,            IDN,  fifa › afc
-my   Malaysia,             MAS,  fifa › afc
-sg   Singapore,            SIN,  fifa › afc
-th   Thailand,             THA,  fifa › afc
-ph   Philippines,          PHI,  fifa › afc
-vn   Vietnam,              VIE,  fifa › afc
-bn   Brunei,               BRU,  fifa › afc
+id   Indonesia,            IDN,  fifa › afc › aff
+my   Malaysia,             MAS,  fifa › afc › aff
+sg   Singapore,            SIN,  fifa › afc › aff
+th   Thailand,             THA,  fifa › afc › aff
+ph   Philippines,          PHI,  fifa › afc › aff
+vn   Vietnam,              VIE,  fifa › afc › aff
+bn   Brunei,               BRU,  fifa › afc › aff
       | Brunei Darussalam
-mm   Myanmar,              MYA,  fifa › afc
-kh   Cambodia,             CAM,  fifa › afc
-tl   Timor-Leste,          TLS,  fifa › afc
+mm   Myanmar,              MYA,  fifa › afc › aff
+kh   Cambodia,             CAM,  fifa › afc › aff
+tl   Timor-Leste,          TLS,  fifa › afc › aff
       | East Timor
-la   Laos,                 LAO,  fifa › afc
+la   Laos,                 LAO,  fifa › afc › aff
 
 
 ==============================================
 ==  Pacific      ## Oceania & Australia
 
-au   Australia,            AUS,  fifa › afc    # formerly a member of OFC (1966–2006)
+au   Australia,            AUS,  fifa › afc › aff   # formerly a member of OFC (1966–2006)
 
 ### Melanesia
 pg   Papua New Guinea,     PNG,  fifa › ofc
@@ -340,8 +341,8 @@ nc   New Caledonia › FR,   NCL,   fifa › ofc
 
 as   American Samoa           › US,  ASA, fifa › ofc
       | Am. Samoa
-gu   Guam                     › US,  GUM, fifa › afc
-mp   Northern Mariana Islands › US,  NMI,        afc  # note: NOT fifa member  -- was formerly a member of OFC (2005–2009)
+gu   Guam                     › US,  GUM, fifa › afc › eaff
+mp   Northern Mariana Islands › US,  NMI,        afc › eaff  # note: NOT fifa member  -- was formerly a member of OFC (2005–2009)
 
 ck   Cook Islands › NZ,    COK,   fifa › ofc
 nu   Niue         › NZ,    NIU,          ofc  # note: NOT fifa member

@@ -25,8 +25,17 @@ class Fifa
     'centralamerica' => 'uncaf',  #=> Unión Centroamericana de Fútbol
     'caribbean' => 'cfu',  #=> Caribbean Football Union
     'africa' => 'caf',      # => Confédération Africaine de Football
+    'eastcentralafrica' => 'cecafa',  # => Council for East and Central Africa Football Associations
+    'southernafrica' => 'cosafa',   # => Council of Southern Africa Football Associations
+    'westafrica' => 'wafu',         # => West African Football Union/Union du Football de l'Ouest Afrique
+    'northafrica' => 'unaf',        # => Union of North African Federations
+    'centralafrica' => 'uniffac',  # => Union des Fédérations du Football de l'Afrique Centrale
     'asia'   => 'afc',      # => Asian Football Confederation
     'middleeast' => 'waff', # => West Asian Football Federation  -- note: excludes Iran and Israel
+    'eastasia'   => 'eaff',
+    'centralasia' => 'cafa',
+    'southasia' => 'saff',
+    'southeastasia' => 'aff',
     'oceania'    => 'ofc',  # =>  Oceania Football Confederation
     'pacific'    => 'ofc',
     'southamerica' => 'conmebol',  #=>  Confederación Sudamericana de Fútbol

@@ -21,3 +21,17 @@ allow language code before `|`  results in `Bayern Munich [en]` and ``FC Bayern 
 allow year before `|` results in `Stahl Linz (2001-2012)` and `FC Stahl Linz (2001-2012)` etc.
 
 
+## Team B or Team II
+
+How to mark the parent/child relation of B teams?
+
+```
+FC Barcelona
+
+FC Barcelona B › FC Barcelona
+-or-
+ii) FC Barcelona B
+-or-
+b)  FC Barcelona B
+-or-
+?????

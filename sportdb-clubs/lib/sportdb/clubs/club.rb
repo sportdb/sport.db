@@ -74,7 +74,9 @@ class Club
    ###################################
    # "global" helper - move to ___ ? why? why not?
 
-   YEAR_REGEX = /\([0-9,\- ]+?\)/
+   ## note: allow placeholder years to e.g. (-___) or (-????)
+   ##    for marking missing (to be filled in) years
+   YEAR_REGEX = /\([0-9,\-_? ]+?\)/
    def self.strip_year( name )
      ## check for year(s) e.g. (1887-1911), (-2013),
      ##                        (1946-2001, 2013-) etc.
@@ -100,7 +102,9 @@ class Club
   end
 
 
-  NORM_REGEX =  /[.'º\-\/]/
+  ## note: also add () e.g.
+  ##   Estudiantes (LP) => Estudiantes LP
+  NORM_REGEX =  /[.'º\/()-]/   # note: in [] dash (-) if last doesn't need to get escaped
   ## note: remove all dots (.), dash (-), ', º, /, etc.
   ##         for norm(alizing) names
   def self.strip_norm( name )
@@ -109,8 +113,6 @@ class Club
 
   def self.normalize( name )
     # note: do NOT call sanitize here (keep normalize "atomic" for reuse)
-
-    ## remove all dots (.), dash (-), º, /, etc.
     name = strip_norm( name )
     name = name.gsub( ' ', '' )  # note: also remove all spaces!!!
 

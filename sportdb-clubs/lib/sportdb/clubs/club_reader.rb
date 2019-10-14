@@ -49,8 +49,9 @@ def self.parse( txt )
     line = line.strip
 
     next if line.empty?
-    next if line.start_with?( '#' )   ## skip comments too
     break if line == '__END__'
+
+    next if line.start_with?( '#' )   ## skip comments too
 
     ## strip inline (until end-of-line) comments too
     ##  e.g Eupen        => KAS Eupen,    ## [de]

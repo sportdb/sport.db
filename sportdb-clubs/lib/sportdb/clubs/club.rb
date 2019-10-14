@@ -7,13 +7,16 @@ module SportDb
 #  note: use our own (internal) club struct for now - why? why not?
 #    - check that shape/structure/fields/attributes match
 #      the Team struct in sportdb-text (in SportDb::Struct::Team)  !!!!
+
+
+## more attribs - todo/fix - also add "upstream" to struct & model!!!!!
+#   district, geos, year_end, country, etc.
+
 class Club
   ##  todo: use just names for alt_names - why? why not?
   attr_accessor :name, :alt_names,
-                :year, :ground, :city
-
-  ## more attribs - todo/fix - also add "upstream" to struct & model!!!!!
-  attr_accessor :district, :geos, :year_end, :country
+                :year, :year_end,
+                :ground
 
   ## special import only attribs
   attr_accessor :alt_names_auto    ## auto-generated alt names
@@ -21,6 +24,18 @@ class Club
 
   def historic?()  @year_end ? true : false; end
   alias_method  :past?, :historic?
+
+
+  attr_accessor :a, :b
+  def a?()  @a == nil; end  ## is a (1st) team / club (i)?            if a is NOT set
+  def b?()  @a != nil; end  ## is b (2nd/reserve/jr) team / club (ii) if a is     set
+
+  ## note: delegate/forward all geo attributes for team b for now (to team a) - keep - why? why not?
+  attr_writer  :city, :district, :country, :geos
+  def city()      @a == nil ?  @city     : @a.city;     end
+  def district()  @a == nil ?  @district : @a.district; end
+  def country()   @a == nil ?  @country  : @a.country;  end
+  def geos()      @a == nil ?  @geos     : @a.geos;     end
 
 
   def wikipedia?()  @wikipedia; end

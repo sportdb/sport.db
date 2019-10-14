@@ -9,10 +9,54 @@ require 'helper'
 
 class TestClubReader < MiniTest::Test
 
+  def test_parse_ii   ## test club/team B/II
+    recs = SportDb::Import::ClubReader.parse( <<TXT )
+= Austria
+
+FK Austria Wien, Wien
+   | Austria Vienna | Austria Wien
+(ii) Young Violets Austria Wien
+   | Young Violets A. W.
+
+SK Rapid Wien, Wien
+  | Rapid Vienna | Rapid Wien
+(2) SK Rapid Wien II
+  | Rapid Wien Am.
+TXT
+
+    pp recs
+
+    assert_equal 4, recs.size
+    assert_equal 'FK Austria Wien',             recs[0].name
+    assert_equal 'Young Violets Austria Wien',  recs[0].b.name
+    assert_equal 'Wien',                        recs[0].city
+    assert       recs[0].a?
+    assert       recs[0].b? == false
+
+    assert_equal 'Young Violets Austria Wien',  recs[1].name
+    assert_equal 'FK Austria Wien',             recs[1].a.name
+    assert_equal 'Wien',                        recs[1].city
+    assert       recs[1].a? == false
+    assert       recs[1].b?
+
+
+    assert_equal 'SK Rapid Wien',    recs[2].name
+    assert_equal 'SK Rapid Wien II', recs[2].b.name
+    assert_equal 'Wien',             recs[2].city
+    assert       recs[2].a?
+    assert       recs[2].b? == false
+
+    assert_equal 'SK Rapid Wien II', recs[3].name
+    assert_equal 'SK Rapid Wien',    recs[3].a.name
+    assert_equal 'Wien',             recs[3].city
+    assert       recs[3].a? == false
+    assert       recs[3].b?
+  end
+
   def test_parse_at
     recs = SportDb::Import::ClubReader.parse( <<TXT )
 ==================================
-=  Austria (at)
+=  Austria
 
 FK Austria Wien, Wien
   | Austria Vienna | Austria Wien
@@ -31,7 +75,7 @@ TXT
   def test_parse_us
     recs = SportDb::Import::ClubReader.parse( <<TXT )
 ==================================================
-= United States (us)
+=  United States
 
 #######################################
 # Major League Soccer (MLS) teams
@@ -60,7 +104,7 @@ TXT
 
   def test_parse_years
     recs = SportDb::Import::ClubReader.parse( <<TXT )
-= United States (us)
+= United States
 FC Dallas (1996-),         Frisco        › Texas
 Miami Fusion (1998-2001),  Fort Lauderdale › Florida
 CD Chivas USA (-2014),     Carson          › California
@@ -85,7 +129,7 @@ TXT
 
   def test_parse_geos
     recs = SportDb::Import::ClubReader.parse( <<TXT )
-=  England (eng)
+=  England
 == Greater London
 
 Fulham FC, 1879,  @ Craven Cottage,   London (Fulham)   › Greater London
@@ -93,7 +137,7 @@ Fulham FC, 1879,  @ Craven Cottage,   London (Fulham)   › Greater London
 Charlton Athletic FC,  @ The Valley,  London (Charlton) › Greater London
   | Charlton | Charlton Athletic
 
-=  Deutschland (de)
+=  Deutschland
 == Hamburg
 
 St. Pauli,   Hamburg (St. Pauli)
@@ -127,8 +171,9 @@ TXT
 ==============
 ====
 ===========
-= Heading 1   - Austria (at)
-= Heading 1   - Austria (at) ==================
+## note: Heading 1  - always expects / requires country as text for now
+= Austria
+= Austria ==================
 == Heading 2
 == Heading 2 =========
 === Heading 3

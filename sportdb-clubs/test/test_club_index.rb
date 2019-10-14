@@ -13,7 +13,7 @@ class TestClubIndex < MiniTest::Test
 
     recs = SportDb::Import::ClubReader.parse( <<TXT )
 =================================
-=  Österreich • Austria (at)
+=  Austria
 
 == Wien ==
 
@@ -24,7 +24,7 @@ SK Rapid Wien,     Wien (Hütteldorf)
 
 
 ====================================
-=  England (eng)
+=  England
 
 Arsenal FC, 1886, @ Emirates Stadium, London   ## Greater London
   | Arsenal | FC Arsenal
@@ -33,14 +33,14 @@ Chelsea FC, 1905, @ Stamford Bridge, London   ## Greater London
 
 
 =====================================
-=  Russia (ru)
+=  Russia
 
 Arsenal Tula,  Tula
   | Arsenal | FC Arsenal Tula
 
 
 ===========================
-=  Argentina (ar)
+=  Argentina
 
 == Buenos Aires ==
 
@@ -130,7 +130,7 @@ def test_wikipedia    # test wikipedia names and links/urls
 
    recs = SportDb::Import::ClubReader.parse( <<TXT )
 ==================================
-=  Belgium (be)
+=  Belgium
 
 == Brussels ==
 

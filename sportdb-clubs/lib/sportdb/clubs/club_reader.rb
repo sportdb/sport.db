@@ -29,6 +29,17 @@ def self.read( path )   ## use - rename to read_file or from_file etc. - why? wh
 end
 
 
+##  pattern for b (child) team / club marker e.g.
+##    (ii) or ii) or ii.) or (ii.) or (II)
+##    (b)  or b)  or b.)  or (b.)  or (B)
+##    (2)  or 2)  or 2.)  or (2.)
+B_TEAM_MARKER_REGEX = /^  \(?     # optional opening bracket
+                          (?:ii|b|2)
+                          \.?     # optional dot - keep and allow dot - why? why not?
+                          \)      # required closing bracket
+                      /xi   ## note: add case-insenstive (e.g. II/ii or B/b)
+
+
 def self.parse( txt )
   recs = []
   last_rec  = nil
@@ -39,6 +50,7 @@ def self.parse( txt )
 
     next if line.empty?
     next if line.start_with?( '#' )   ## skip comments too
+    break if line == '__END__'
 
     ## strip inline (until end-of-line) comments too
     ##  e.g Eupen        => KAS Eupen,    ## [de]
@@ -76,27 +88,21 @@ def self.parse( txt )
        if heading =~ /^\?+$/    ## note: use ? or ?? or ?? to reset level to nil
          ## keep level empty
        else
-
-         ## quick hack:   if level is 1 assume country for now
-         ##                 and extract country code e.g.
-         ##                    Austria (at) => at
-         ##  todo/fix:  allow code only e.g. at or aut without enclosing () too - why? why not?
+         ## note: if level is 1 assume country for now
          if heading_level == 1
-             if heading =~ /\(([a-z]{2,3})\)/i    ## note allow (at) or (AUT) too
-               country_code = $1
-
-               ## check country code - MUST exist for now!!!!
-               country = config.countries[ country_code ]
-               if country.nil?
-                 puts "!!! error [team reader] - unknown country with code >#{country_code}< - sorry - add country to config to fix"
-                 exit 1
-               end
-
-               headings.push( country.key )
-             else
-               puts "!!! error - heading level 1 - missing country code - >#{heading}<"
+             ## assume country in heading; allow all "formats" supported by parse e.g.
+             ##   Österreich • Austria (at)
+             ##   Österreich • Austria
+             ##   Austria
+             ##   Deutschland (de) • Germany
+             country = config.countries.parse( heading )
+             ## check country code - MUST exist for now!!!!
+             if country.nil?
+               puts "!!! error [team reader] - unknown country with code >#{country_code}< - sorry - add country to config to fix"
                exit 1
              end
+
+             headings.push( country.key )
          else
           ## quick hack:
           ##   remove known fill/dummy words incl:
@@ -141,6 +147,31 @@ def self.parse( txt )
         ##                  e.g. don't exit on  A.F.C. == AFC etc.
         ## exit 1
       end
+    ## check for b (child) team / club marker e.g.
+    ##    (ii) or ii) or ii.) or (ii.)
+    ##    (b)  or b)  or b.)  or (b.)
+    ##    (2)  or 2)  or 2.)  or (2.)
+    elsif line =~ B_TEAM_MARKER_REGEX
+       line = line.sub( B_TEAM_MARKER_REGEX, '' ).strip   ## remove (leading) b team marker
+
+       ## todo/fix: move into "regular" club branch - (re)use, that is, use the same code
+       #                                                for both a and b team / club
+       rec = Club.new
+       value = line    ## note: assume / allow just canonical name for now
+       ## strip and  squish (white)spaces
+       #   e.g. New York FC      (2011-)  => New York FC (2011-)
+       value = value.strip.gsub( /[ \t]+/, ' ' )
+       rec.name = value            # canoncial name (global unique "beautiful/long" name)
+       rec.add_variants( value )   # auto-add (possible) auto-generated variant names
+
+       ### link a and b team / clubs
+       ##   assume last_rec is the a team
+       ##   todo/fix: check last_rec required NOT null
+       rec.a      = last_rec
+       last_rec.b = rec
+
+       last_rec = rec
+       recs << rec
     else
       values = line.split( ',' )
 

@@ -72,26 +72,20 @@ def self.parse( txt )
          exit 1
        end
 
-         ## quick hack:   if level is 1 assume country for now
-         ##                 and extract country code e.g.
-         ##                    Austria (at) => at
-         ##  todo/fix:  allow code only e.g. at or aut without enclosing () too - why? why not?
-             if heading =~ /\(([a-z]{2,3})\)/i    ## note allow (at) or (AUT) too
-               country_code = $1
+      ## assume country in heading; allow all "formats" supported by parse e.g.
+      ##   Österreich • Austria (at)
+      ##   Österreich • Austria
+      ##   Austria
+      ##   Deutschland (de) • Germany
+      country = config.countries.parse( heading )
+      ## check country code - MUST exist for now!!!!
+      if country.nil?
+        puts "!!! error [wiki reader] - unknown country >#{heading}< - sorry - add country to config to fix"
+        exit 1
+      end
 
-               ## check country code - MUST exist for now!!!!
-               country = config.countries[ country_code ]
-               if country.nil?
-                 puts "** !!! ERROR [wiki reader] !!! - unknown country with code >#{country_code}< - sorry - add country to config to fix"
-                 exit 1
-               end
-
-               last_country = country
-             else
-               puts "!!! error - heading level 1 - missing country code - >#{heading}<"
-               exit 1
-             end
-       pp last_country
+      last_country = country
+      pp last_country
     else
       ## strip and  squish (white)spaces
       #   e.g. New York FC      (2011-)  => New York FC (2011-)

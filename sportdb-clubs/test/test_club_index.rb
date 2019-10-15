@@ -149,7 +149,7 @@ TXT
 
     recs = SportDb::Import::WikiReader.parse( <<TXT )
 ==================================
-=  Belgium (be)
+=  Belgium
 
 R.S.C. Anderlecht
 Club Brugge KV

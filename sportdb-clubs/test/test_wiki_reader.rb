@@ -12,7 +12,7 @@ class TestWikiReader < MiniTest::Test
   def test_parse_at
     recs = SportDb::Import::WikiReader.parse( <<TXT )
 ===================================
-=  Albania (al)
+=  Albania
 
 FK Partizani Tirana
 KF Tirana
@@ -32,7 +32,7 @@ TXT
   def test_parse_be
     recs = SportDb::Import::WikiReader.parse( <<TXT )
 ===========================
-= Belgium (be)
+= Belgium
 
 R.S.C._Anderlecht
 Royal_Antwerp_F.C.
@@ -51,12 +51,12 @@ TXT
 
   def test_parse_world
     recs = SportDb::Import::WikiReader.parse( <<TXT )
-= Albania (al) =
+= Albania =
 
 FK Partizani Tirana
 
 
-= Belgium (be) =
+= Belgium =
 
 # some comments here
 R.S.C._Anderlecht     # some end-of-line comments here

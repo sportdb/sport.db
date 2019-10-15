@@ -99,7 +99,7 @@ def self.parse( txt )
              country = config.countries.parse( heading )
              ## check country code - MUST exist for now!!!!
              if country.nil?
-               puts "!!! error [team reader] - unknown country with code >#{country_code}< - sorry - add country to config to fix"
+               puts "!!! error [club reader] - unknown country >#{heading}< - sorry - add country to config to fix"
                exit 1
              end
 

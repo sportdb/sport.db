@@ -87,6 +87,7 @@ sk   Slovakia,  SVK,     fifa › uefa
 si   Slovenia,  SVN,     fifa › uefa
 se   Sweden,  SWE,       fifa › uefa
 ch   Switzerland,  SUI,  fifa › uefa
+      | Confoederatio Helvetica
 
 tr   Turkey,  TUR,   fifa › uefa
 ua   Ukraine,  UKR,  fifa › uefa

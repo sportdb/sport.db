@@ -1,5 +1,15 @@
 # Dev Tips
 
+## Countries
+
+To synch countries list use (in fifa and test). Use:
+
+```
+cp fifa\config\countries.txt test\world
+```
+
+
+
 ## Hoe
 
 ### Configure Manifest Excludes

@@ -36,3 +36,5 @@ path = "../../../openfootball/eng-england/2017-18/1-premierleague.conf.txt"
 recs = SportDb::EventReaderV2.read( path )
 path = "../../../openfootball/eng-england/2017-18/1-premierleague-i.txt"
 recs = SportDb::MatchReaderV2.read( path )
+path = "../../../openfootball/eng-england/2017-18/1-premierleague-ii.txt"
+recs = SportDb::MatchReaderV2.read( path )

@@ -10,10 +10,46 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
      @mapper_teams = TeamMapper.new( teams )
      @start_at     = start_at
 
-     @last_date    = nil
+     ## build lookup hash by (team) key
+     @teams =  teams.reduce({}) { |h,team| h[team.key]=team; h }
+
+     ## debug_dump_teams( teams )
+     ## exit 1
   end
 
+  def debug_dump_teams( teams )
+    puts "== #{teams.size} teams"
+    teams.each do |team|
+      print "#{team.key}, "
+      print "#{team.title}, "
+      print "#{team.synonyms.split('|').join(', ')}"
+      puts
+    end
+  end
+
+
+
+  Round = Struct.new( :pos, :title )
+  ##
+  ##  todo:  change db schema
+  ##    make start and end date optional
+  ##    change pos to num - why? why not?
+  ##    make pos/num optional too
+  ##
+  ##    sort round by scheduled/planed start date
+  Match = Struct.new( :date,
+                      :team1,     :team2,      ## todo/fix: use team1_name, team2_name or similar - for compat with db activerecord version? why? why not?
+                      :score1i,   :score2i,    ## half time (first (i) part)
+                      :score1,    :score2,     ## full time
+                      :round )
+
   def parse
+    @last_date    = nil
+    @last_round   = nil
+    @rounds  = {}
+    @matches = []
+
+
     @lines.each do |line|
       if is_round?( line )
         parse_round_header( line )
@@ -25,6 +61,8 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
         logger.info "skipping line (no match found): >#{line}<"
       end
     end # lines.each
+
+    [@rounds.values, @matches]
   end # method parse
 
 
@@ -118,6 +156,16 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
 
     logger.debug "  line: >#{line}<"
 
+
+    round = @rounds[ title ]
+    if round.nil?
+      round = Round.new( pos, title )
+      @rounds[ title ] = round
+    end
+    ## todo/check: if pos match (MUST always match for now)
+    @last_round = round
+
+
     ## NB: dummy/placeholder start_at, end_at date
     ##  replace/patch after adding all games for round
 
@@ -193,15 +241,7 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
 
     ## pos = find_game_pos!( line )
 
-#      if is_postponed?( line )
-#        postponed  = true
-#        date_v2    = find_date!( line, start_at: @start_at )
-#        date       = find_date!( line, start_at: @start_at )
-#      else
-      postponed = false
-      date_v2   = nil
       date      = find_date!( line, start_at: @start_at )
-#      end
 
     ###
     # check if date found?
@@ -218,6 +258,16 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
 
     logger.debug "  line: >#{line}<"
 
+
+    ## todo/check: scores are integers or strings?
+    @matches << Match.new( date,
+                           @teams[ team1_key ],
+                           @teams[ team2_key ],
+                           scores[0],  ## score1i - half time (first (i) part)
+                           scores[1],  ## score2i
+                           scores[2],  ## score1  - full time
+                           scores[3],  ## score2
+                           @last_round )
 
     ### todo: cache team lookups in hash?
 
@@ -397,7 +447,7 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
     team1_key = team_keys[0]
     team2_key = team_keys[1]
 
-    date  = find_date!( line, start_at: @start_at )
+    date = find_date!( line, start_at: @start_at )
 
     if date && team1_key.nil? && team2_key.nil?
       logger.debug( "date header line found: >#{line}<")

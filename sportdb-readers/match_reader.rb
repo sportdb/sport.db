@@ -14,17 +14,23 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
     pp recs
 
     recs.each do |rec|
-      ## todo/fix: just use find!! do NOT use create!!!!
-      league = Sync::League.find_or_create( rec[:league] )
-      season = Sync::Season.find_or_create( rec[:season] )
+      league = Sync::League.find!( rec[:league] )
+      season = Sync::Season.find!( rec[:season] )
 
-      event  = Sync::Event.find_or_create( league: league, season: season )
+      event  = Sync::Event.find!( league: league, season: season )
 
       ## todo/fix: set lang for now depending on league country!!!
       parser = MatchParserSimpleV2.new( rec[:lines],
                                 event.teams,
                                 event.start_at )
-      parser.parse
+      round_recs, match_recs = parser.parse
+
+      round_recs.each do |round_rec|
+        round = Sync::Round.find_or_create( round_rec, event: event )  ## check: use/rename to EventRound why? why not?
+      end
+      match_recs.each do |match_rec|
+        match = Sync::Match.create_or_update( match_rec, event: event )
+      end
     end
 
     recs

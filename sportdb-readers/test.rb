@@ -32,13 +32,15 @@ require_relative 'match_parser'
 require_relative 'match_reader'
 
 
-# path = "../../../openfootball/eng-england/2017-18/1-premierleague.conf.txt"
-path = "../../../openfootball/eng-england/2018-19/1-premierleague.conf.txt"
-# path = "../../../openfootball/eng-england/2019-20/1-premierleague.conf.txt"
+path = "../../../openfootball/england/2015-16/.conf.txt"
+# path = "../../../openfootball/england/2017-18/.conf.txt"
+# path = "../../../openfootball/england/2018-19/.conf.txt"
+# path = "../../../openfootball/england/2019-20/.conf.txt"
 recs = SportDb::EventReaderV2.read( path )
-# path = "../../../openfootball/eng-england/2017-18/1-premierleague-i.txt"
-path = "../../../openfootball/eng-england/2018-19/1-premierleague.txt"
-# path = "../../../openfootball/eng-england/2019-20/1-premierleague.txt"
+path = "../../../openfootball/england/2015-16/1-premierleague-i.txt"
+# path = "../../../openfootball/england/2017-18/1-premierleague-i.txt"
+# path = "../../../openfootball/england/2018-19/1-premierleague.txt"
+# path = "../../../openfootball/england/2019-20/1-premierleague.txt"
 recs = SportDb::MatchReaderV2.read( path )
-# path = "../../../openfootball/eng-england/2017-18/1-premierleague-ii.txt"
+# path = "../../../openfootball/england/2017-18/1-premierleague-ii.txt"
 #recs = SportDb::MatchReaderV2.read( path )

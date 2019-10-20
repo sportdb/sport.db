@@ -19,7 +19,32 @@ class EventReaderV2    ## todo/check: rename to EventsReaderV2 (use plural?) why
       league = rec[:league]
       clubs = []    ## convert lines to clubs
       rec[:lines].each do |line|
-        clubs << find_club( line, league.country )
+
+        next if line =~ /^[ -]+$/   ## skip decorative lines with dash only (e.g. ---- or - - - -) etc.
+
+        scan = StringScanner.new( line )
+
+        if scan.check( /\d{1,2}[ ]+/ )    ## entry with standaning starts with ranking e.g. 1,2,3, etc.
+          puts "  table entry >#{line}<"
+          rank = scan.scan( /\d{1,2}[ ]+/ ).strip   # note: strip trailing spaces
+
+          ## note: uses look ahead scan until we hit at least two spaces
+          ##  or the end of string  (standing records for now optional)
+          name = scan.scan_until( /(?=\s{2})|$/ )
+          if scan.eos?
+            standing = nil
+          else
+            standing = scan.rest.strip   # note: strip leading and trailing spaces
+          end
+          puts "   rank: >#{rank}<, name: >#{name}<, standing: >#{standing}<"
+
+          ## note: rank and standing gets ignored (not used) for now
+        else
+          ## assume club is full line
+          name = line
+        end
+
+        clubs << find_club( name, league.country )
       end
 
       rec[:clubs] = clubs

@@ -21,12 +21,23 @@ module Sync
     end
   end # class Country
 
+
   class League
-    def self.find!( league )
-      SportDb::Model::League.find_by!( key: league.key )
+    def self.find( league )
+      SportDb::Model::League.find_by( key: league.key )
     end
+    def self.find!( league )
+      rec = find( league )
+      if rec.nil?
+        puts "** !!!ERROR!!! db sync - no league match found for:"
+        pp league
+        exit 1
+      end
+      rec
+    end
+
     def self.find_or_create( league )
-       rec = SportDb::Model::League.find_by( key: league.key )
+       rec = find( league )
        if rec.nil?
          ## use title and not name - why? why not?
          ##  quick fix:  change name to title
@@ -43,7 +54,7 @@ module Sync
   end # class League
 
   class Season
-    def self.find!( key )
+    def self.normalize_key( key )    ## helper for season key (rename to norm_key ???)
       ## note:  "normalize" season key
       ##   always use 2017/18  (and not 2017-18 or 2017-2018 or 2017/2018)
       ## 1) change 2017-18 to 2017/18
@@ -52,21 +63,27 @@ module Sync
       if key.length == 9
         key = "#{key[0..3]}/#{key[7..8]}"
       end
-      SportDb::Model::Season.find_by!( key: key )
+      key
     end
-    def self.find_or_create( key )  ## e.g. key = '2017-18'
 
-      ## note:  "normalize" season key
-      ##   always use 2017/18  (and not 2017-18 or 2017-2018 or 2017/2018)
-      ## 1) change 2017-18 to 2017/18
-      key = key.tr( '-', '/' )
-      ## 2) check for 2017/2018 - change to 2017/18
-      if key.length == 9
-        key = "#{key[0..3]}/#{key[7..8]}"
-      end
-
-      rec = SportDb::Model::Season.find_by( key: key )
+    def self.find( key )
+      key = normalize_key( key )
+      SportDb::Model::Season.find_by( key: key )
+    end
+    def self.find!( key )
+      rec = find( key )
       if rec.nil?
+        puts "** !!!ERROR!!! db sync - no season match found for >#{normalize_key(key)}<:"
+        pp key
+        exit 1
+      end
+      rec
+    end
+
+    def self.find_or_create( key )  ## e.g. key = '2017/18'
+      rec = find( key )
+      if rec.nil?
+         key = normalize_key( key )  ## note: do NOT forget to normalize key e.g. always use slash (2019/20) etc.
          attribs = { key:   key,
                      title: key  }
          rec = SportDb::Model::Season.create!( attribs )
@@ -102,11 +119,22 @@ module Sync
   end # class Club
 
   class Event
-    def self.find!( league:, season: )
-      SportDb::Model::Event.find_by!( league_id: league.id, season_id: season.id  )
+    def self.find( league:, season: )
+      SportDb::Model::Event.find_by( league_id: league.id, season_id: season.id  )
     end
+    def self.find!( league:, season: )
+      rec = find( league: league, season: season )
+      if rec.nil?
+        puts "** !!!ERROR!!! db sync - no event match found for:"
+        pp league
+        pp season
+        exit 1
+      end
+      rec
+    end
+
     def self.find_or_create( league:, season: )
-      rec = SportDb::Model::Event.find_by( league_id: league.id, season_id: season.id  )
+      rec = find( league: league, season: season )
       if rec.nil?
         ## quick hack/change later !!
         ##  todo/fix: check season  - if is length 4 (single year) use 2017, 1, 1
@@ -148,7 +176,7 @@ module Sync
     end
   end # class Round
 
-  class Match
+  class Match   ## todo/check:  add alias for Game class - why? why not?
     def self.create_or_update( match, event: )
        ## note: MUST find round, thus, use bang (!)
        round_rec = SportDb::Model::Round.find_by!( event_id: event.id,

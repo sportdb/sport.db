@@ -84,7 +84,12 @@ class LeagueOutlineReader
         end
       elsif node[0] == :l   ## regular (text) line
         line = node[1]
-        recs[-1][:lines] << line
+        ## note: skip lines if no heading seen
+        if recs.empty?
+          puts "** !! WARN !! - skipping line (no heading) >#{line}<"
+        else
+          recs[-1][:lines] << line
+        end
       else
         puts "** !!! ERROR !!! unknown line type; for now only heading 1 for leagues supported; sorry:"
         pp node

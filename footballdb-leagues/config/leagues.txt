@@ -1,6 +1,6 @@
 ##########################################
 # auto-generated all-in-one single datafile leagues.txt bundle
-#    on 2019-10-22 11:07:39 +0200 from 7 datafile(s)
+#    on 2019-10-23 11:03:21 +0200 from 7 datafile(s)
 #  please, do NOT edit here; use the source
 #    see https://github.com/openfootball/leagues - updates welcome!
 
@@ -11,7 +11,7 @@
 asia.cl  AFC Champions League     # afc = asian football confederation ?
           | AFC CL
 
-= Japan (jp) =
+= Japan =
 
 cup      J. League Cup                    # note: league cup (incl. all teams from J. League and 0-2 teams from J2 League)
           | JPN LC | Japan Nabisco Cup    # check - $$$ Nabisco is a sponsor?
@@ -21,12 +21,12 @@ cup.fa   Emperor's Cup                    # note: national cup
           | Japan FA Cup 
 
 
-= Kazakhstan (kz) =
+= Kazakhstan =
 
 1        Kazakh Premier League A
 
 
-= Costa Rica (cr) =
+= Costa Rica =
 
 1  Costa Rica Primera División
      | CRC 1
@@ -42,24 +42,27 @@ el      UEFA Europa League
 
 
 
-= Germany • Deutschland (de) =
+= Germany =
 1       Bundesliga
-         | GER BL
+         | GER 1 | GER BL
          | German Bundesliga
-         | Deutschland Bundesliga
+         | Deutschland Bundesliga | Deutsche Bundesliga
 2       2. Bundesliga
-         | GER 2  | Deutschland 2. Bundesliga
+         | GER 2  | Deutschland 2. Bundesliga | Deutsche 2. Bundesliga
 3       3. Liga
-         | GER 3  | Deutschland 3. Liga
+         | GER 3  | Deutschland 3. Liga | Deutsche 3. Liga
 
-= Austria (at) =
+cup     DFB Pokal
+
+
+= Austria =
 1       Bundesliga                    # Each year (July→December/February→May)
-         | AUT BL
+         | AUT 1 | AUT BL
          | Austrian Bundesliga
-         | Österreich Bundesliga
+         | Österreich Bundesliga | Österr. Bundesliga 
 2       2. Liga                       # Each year (July→May)
          | AUT 2 | Österreich Zweite Liga
-
+         | Österr. Erste Liga | Österr. 1. Liga      # note: before 2018/19 2. Liga was known as 1. Liga / Erste Liga
 
 3.o     Regionalliga Ost
          | AUT RLO | Österreich Regionalliga Ost
@@ -76,7 +79,7 @@ cup     ÖFB Cup
          | Österreich ÖFB Cup
          | AUT CUP | Austrian Cup
 
-= Switzerland • Confoederatio Helvetica (ch) =
+= Switzerland =
 1      Super League
         | SUI SL
         | Swiss Super League
@@ -87,11 +90,11 @@ cup    Schweizer Cup
         | SUI P
 
 
-= England (eng) =    ## add incl. Wales   as country2 or something - why? why not?
+= England =       ## add incl. Wales   as country2 or something - why? why not?
 1       English Premier League
-          | ENG PL | ENG 1 | England Premier League | Premier League
+          | ENG 1 | ENG PL | England Premier League | Premier League
 2       English Championship
-          | ENG CS | ENG 2 | England Championship | Championship
+          | ENG 2 | ENG CS | England Championship | Championship
 3       English League One
           | ENG 3  | England League One | League One
 4       English League Two
@@ -106,7 +109,7 @@ cup.trophy  EFL Trophy
              | ENG LTR | ENG T
 
 
-= Scotland (sco) =
+= Scotland =
 1       Scottish Premiership
          | SCO 1 | SCO PS
          | Schottland Premiership [de]
@@ -115,35 +118,35 @@ cup.trophy  EFL Trophy
 3       Scottish League One
 4       Scottish League Two
 
-= Wales (wal) =
+= Wales =
 1        Welsh Premier League
           | WAL 1 | Wales Premier League
 
-= Northern Ireland (nir) =
+= Northern Ireland =
 1     Premiership
         | NIRL 1
         | Northern Irish Premiership
         | Nordirland Premiership
 
-= Ireland (ie) =
+= Ireland =
 1      Premier Division
         | IRL 1
         | Irish Premier Division A
         | Irland Premier Division
 
 
-= Iceland (is) =
+= Iceland =
 1      Urvalsdeild
         | ISL 1
         | Island Urvalsdeild
         | Icelandic Premier League
 
-= Faroe Islands (fo) =
+= Faroe Islands =
 1      Faroese Premier Division
 
 
 
-= Spain • España (es) =
+= Spain =
 1        Primera División
           | ESP 1
           | Spanish Liga | La Liga
@@ -151,7 +154,7 @@ cup.trophy  EFL Trophy
 2        Segunda División
           | ESP 2 | Spanien Segunda Division
 
-= Portugal (pt) =
+= Portugal =
 1       Primeira Liga
           | POR 1
           | Portuguese First Division
@@ -162,14 +165,14 @@ cup      Taça da Liga                   # note: League Cup (and NOT National Cu
           | Portugal Carlsberg Cup [de]   ## $$$ Carlsberg is sponsor
 
 
-= Gibraltar (gi) =
+= Gibraltar =
 1     Gibraltarian Premier League A
 
-= Andorra (ad) =
+= Andorra =
 1     Andorran Premier Division
 
 
-= France (fr) =     ## add incl. Monaco - why? why not?
+= France =     ## add incl. Monaco - why? why not?
 1        Ligue 1
           | FRA 1
           | French Ligue 1
@@ -181,7 +184,7 @@ cup      Coupe de la Ligue    ## French League Cup
           | FRA LC | Frankreich Coupe de la Ligue
 
 
-= Italy (it) =
+= Italy =
 1       Serie A
           | ITA A
           | Italian Serie A
@@ -194,36 +197,36 @@ cup      Coupe de la Ligue    ## French League Cup
           | ITA C1B | Italien Lega Pro Prima Divisione Girone B
 
 
-= San Marino (sm) =
+= San Marino =
 1     San Marinese Championship
 
 
 
 
-= Turkey (tr) =
+= Turkey =
 1        Süper Lig
            | TUR 1
            | Turkish Super League
            | Türkei Süper Lig
 
-= Greece (gr) =
+= Greece =
 1     Greek Super League
        | GRE 1  
        | Griechenland Super League [de]
 
 
-= Cyprus (cy) =
+= Cyprus =
 1     Cypriot First Division
        | CYP 1
        | Zypern 1. Division [de]
 
 
-= Malta (mt) =
+= Malta =
 1     Maltese Premier League
 
 
 
-= Denmark (dk) =
+= Denmark =
 1        Superligaen
           | DEN 1
           | Danish Super League
@@ -235,7 +238,7 @@ cup     Landspokalturneringen
           | Dänemark Landspokalturneringen
           | DBU Pokalen
 
-= Norway (no) =
+= Norway =
 1       Tippeligaen
           | NOR 1
           | Norwegian Premier Division A | Eliteserien
@@ -248,7 +251,7 @@ cup      Norwegian Football Cup
           | Norwegen Cup [de]
 
 
-= Sweden (se) =
+= Sweden =
 1       Allsvenskan
          | SWE 1
          | Swedish First Division
@@ -258,7 +261,7 @@ cup      Norwegian Football Cup
 cup     Cup
          | SWE CUP | Schweden Cup
 
-= Finland (fi) =
+= Finland =
 1      Veikkausliiga
         | FIN 1
         | Finnland Veikkausliiga
@@ -270,7 +273,7 @@ cup     Cup
 
 
 
-= Netherlands (nl) =
+= Netherlands =
 1       Eredivisie
           | Dutch First Division
           | NL 1  | NED 1
@@ -278,18 +281,18 @@ cup     Cup
 2       Eerste Divisie
           | NED 2
 
-= Belgium (be) =
+= Belgium =
 1      Pro League
           | BEL 1
           | Belgian First League
           | Belgien Pro League | Belgien Eerste Klasse
 
-= Luxembourg (lu) =
+= Luxembourg =
 1      Luxembourger First Division
 
 
 
-= Poland (pl) =
+= Poland =
 1      Ekstraklasa
         | POL 1
         | Polish First Division
@@ -297,35 +300,35 @@ cup     Cup
 2      I Liga
         | POL 2  | Polen I Liga
 
-= Hungary (hu) =
+= Hungary =
 1     Hungarian First League
        | HUN 1 | NB I
 
-= Czech Republic (cz) =
+= Czech Republic =
 1     Czech First League
        | CZE1 | 1. Liga
 
 
-= Slovakia (sk) =
+= Slovakia =
 1     Slovak First League
         | SVK 1 
         | Slowakei Corgon Liga [de]    ## check - Corgon is sponsor?
 
 
 
-= Slovenia (si) =
+= Slovenia =
 1     Slovene First League
        | SLO 1 | Prva Liga
 cup   Slowenien Cup
        | SLO CUP
 
-= Croatia • Hrvatska (hr) =
+= Croatia  =
 1      1. HNL
         | CRO 1
         | Croatian First League
         | Kroatien 1. HNL
 
-= Bosnia and Herzegovina (ba) =
+= Bosnia and Herzegovina =
 1     Premier Liga
        | BOS 1
        | Bosnian-Herzegovinian Premier League
@@ -335,30 +338,30 @@ cup   Bosnia and Herzegovina Football Cup
        | BOS CUP  
        | Bosnien Cup [de]
 
-= Serbia (rs) =
+= Serbia =
 1     Serbian Super League
         | SERB 1   
         | Serbien Meridijan Superliga        ## check - Meridijan is sponsor?
 
 
-= Kosovo (xk) =
+= Kosovo =
 1     Kosovan Superliga A
 
-= Albania (al) =
+= Albania =
 1     Albanian Super League
 
-= Moldova (md) =
+= Moldova =
 1     Moldovan First Division
 
-= Montenegro (me) =
+= Montenegro =
 1     Montenegrin First League
 
-= Macedonia (mk) =
+= Macedonia =
 1     Macedonian First League
 
 
 
-= Romania (ro) =
+= Romania =
 1    Liga 1
       | ROU 1
       | Romania Liga 1 | Romanian First Division
@@ -366,7 +369,7 @@ cup   Bosnia and Herzegovina Football Cup
 2    Liga 2
       | ROU 2 | Rumänien Liga 2
 
-= Bulgaria (bg) =
+= Bulgaria =
 1     Premier League
        | BUL 1
        | Bulgarian A League
@@ -374,13 +377,13 @@ cup   Bosnia and Herzegovina Football Cup
 
 
 
-= Latvia (lv) =
+= Latvia =
 1      Latvian First Division
 
-= Lithuania (lt) =
+= Lithuania =
 1      Lithuanian First Division
 
-= Estonia (ee) =
+= Estonia =
 1      Meistriliiga
          | EST 1
          | Estonian First League A
@@ -388,7 +391,7 @@ cup   Bosnia and Herzegovina Football Cup
 
 
 
-= Russia (ru) =
+= Russia =
 1    Premier League
       | RUS PL
       | Russian Premier League
@@ -396,22 +399,22 @@ cup   Bosnia and Herzegovina Football Cup
 cup  Russian Cup
       | RUS CUP | Russland Russian Cup
 
-= Ukraine (ua) =
+= Ukraine =
 1     Premier League
        | UKR 1
        | Ukrainian Premier League
        | Ukraine Premier League
 
-= Belarus (by) =
+= Belarus =
 1     Belarusian Premier League
 
-= Armenia (am) =
+= Armenia =
 1     Armenian Premier League
 
-= Azerbaijan (az) =
+= Azerbaijan =
 1     Azerbaijani Premier League A
 
-= Georgia (ge) =
+= Georgia =
 1     Georgian Premier League A
 
 
@@ -420,14 +423,14 @@ cup  Russian Cup
 
 
 
-= Israel (il) =
+= Israel =
 1    Winner League
       | ISR 1
-      |  Israeli Premier League
-      |  Israel Winner League
+      | Israeli Premier League
+      | Israel Winner League
       
 2    National League
-      | ISR 2 |  Israel National League
+      | ISR 2 | Israel National League
 
 cup  League Cup National
       | ISR LCN | Israel League Cup National 
@@ -440,16 +443,16 @@ usmx.cup   US & Mexican Leagues Cup    ## check if clubs include country code?
           | USMXLC
 
 
-= United States (us) =        ## add incl. Canada - why? why not?
+= United States =        ## add incl. Canada - why? why not?
 1       Major League Soccer                   ### todo: use mls (and not us.1) as "primary" key - why? why not?
-         | USA MLS | USA 1 | USA Major League Soccer
+         | USA 1 | USA MLS | USA Major League Soccer
 
 cup     US Open Cup
          | USA CUP | USA US Open Cup
 
 
 
-= Australia (au) =
+= Australia =
 cup     FFA Cup
          | AUS CUP | Australien FFA Cup
 
@@ -464,7 +467,7 @@ copa.s  Copa Sudamericana
 
 
 
-= Brazil (br) =
+= Brazil =
 1        Brasileiro Série A
            | BRA 1 | Brasilien Brasilero Serie A
 2        Brasileiro Série B
@@ -474,18 +477,18 @@ cup      Copa do Brasil
            | BRA CUP | Brasilien Cup | Brazil Cup
 
 
-= Paraguay (py) =
+= Paraguay =
 1     Primera Division
         | PAR 1 | Paraguay Primera Division
 
-= Peru (pe) =
+= Peru =
 1      Primera Division
          | PER 1 | Peru Primera Division
 
 cup.bic  Copa Bicentenario 2019
            | CP BIC | Peru Copa Bicentenario
 
-= Colombia (co) =
+= Colombia =
 1   Primera A
      | Categoría Primera A
      | COL 1  | Kolumbien Primera Liga [de]
@@ -493,12 +496,12 @@ cup.bic  Copa Bicentenario 2019
 cup  Copa Colombia
       | COL P
 
-= Uruguay (uy) =
+= Uruguay =
 1   Primera División
       | URU 1 | Uruguay Primera Division
 
 
 
-= Venezuela (ve) =
+= Venezuela =
 1   Primera División
       | VEN 1 | Venezuela Primera Divison

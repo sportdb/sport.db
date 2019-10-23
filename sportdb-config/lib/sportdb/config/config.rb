@@ -150,9 +150,9 @@ end # method build_club_index
 def build_league_index
   leagues = if leagues_dir   ## check if clubs_dir is defined / set (otherwise it's nil)
               LeagueIndex.build( leagues_dir )
-            else   ## no leagues_dir set
-              puts "** !!! ERROR !! no config.leagues_dir set; sorry; CANNOT continue; please set"
-              exit 1
+            else   ## no leagues_dir set - try using builtin from footballdb-leagues
+              ## todo/fix:  use build_league_index make public (remove private)!!!!
+              FootballDb::Import::League.league_index
             end
 end
 

@@ -34,7 +34,8 @@ class League    ## todo/check: use a module instead of class - why? why not?
 
   def self.mappings()   league_index.mappings; end
 
-  def self.match( name ) league_index.match( name ); end
+  def self.match( name )               league_index.match( name ); end
+  def self.match_by( name:, country: ) league_index.match_by( name: name, country: country ); end
 
 
   def self.league_index

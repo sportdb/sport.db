@@ -9,6 +9,7 @@ require 'sportdb/leagues'
 ### "built-in" default dataset libs / gems
 require 'fifa'    ## get a list of all fifa countries with (three letter) codes
 require 'footballdb/clubs'
+require 'footballdb/leagues'
 
 
 ###

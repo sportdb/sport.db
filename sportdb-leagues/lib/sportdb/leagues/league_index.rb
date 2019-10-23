@@ -102,6 +102,34 @@ class LeagueIndex
     @leagues_by_name[ name ]
   end
 
+
+  def match_by( name:, country: )
+    ## note: match must for now always include name
+    m = match( name )
+    if m    ## filter by country
+      ## note: country assumes / allows the country key or fifa code for now
+
+      ## note: allow passing in of country struct too
+      country_rec = if country.is_a?( Country )
+                       country   ## (re)use country struct - no need to run lookup again
+                    else
+                       ## note:  use own "global" countries index setting for ClubIndex - why? why not?
+                       rec = config.countries[ country ]
+                       if rec.nil?
+                         puts "** !!! ERROR !!! - unknown country >#{country}< - no match found, sorry - add to world/countries.txt in config"
+                         exit 1
+                       end
+                       rec
+                    end
+
+      ## note: also skip international leagues & cups (e.g. champions league etc.) for now - why? why not?
+      m = m.select { |league| league.national? &&
+                              league.country.key == country_rec.key }
+      m = nil   if m.empty?     ## note: reset to nil if no more matches
+    end
+    m
+  end
+
   def dump_duplicates # debug helper - report duplicate club name records
      @leagues_by_name.each do |name, leagues|
        if leagues.size > 1

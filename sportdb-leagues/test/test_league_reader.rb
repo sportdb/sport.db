@@ -12,9 +12,9 @@ class TestClubReader < MiniTest::Test
   def test_parse_at
     recs = SportDb::Import::LeagueReader.parse( <<TXT )
 ==============================
-= Austria (at)
+= Austria
 1       Bundesliga
-         | AUT BL | Österreich Bundesliga
+         | AUT 1 | AUT BL | Österreich Bundesliga
 2       2. Liga
          | AUT 2 | Österreich Zweite Liga
 
@@ -40,7 +40,7 @@ TXT
   def test_parse_us
     recs = SportDb::Import::LeagueReader.parse( <<TXT )
 =============================================
-= United States (us)
+= United States
 1       Major League Soccer
          | USA MLS | USA Major League Soccer
 cup     US Open Cup

@@ -72,20 +72,20 @@ def self.parse( txt )
         if heading =~ /international|int'l/i
           country = nil
           intl    = true
-        elsif heading =~ /\(([a-z]{2,3})\)/i
-          country_code = $1
-          intl         = false
+        else
+          ## assume country in heading; allow all "formats" supported by parse e.g.
+          ##   Österreich • Austria (at)
+          ##   Österreich • Austria
+          ##   Austria
+          ##   Deutschland (de) • Germany
+          country = config.countries.parse( heading )
+          intl    = false
 
           ## check country code - MUST exist for now!!!!
-          country = config.countries[ country_code ]
           if country.nil?
-            puts "!!! error [league reader] - unknown country with code >#{country_code}< - sorry - add country to config to fix"
+            puts "!!! error [league reader] - unknown country >#{heading}< - sorry - add country to config to fix"
             exit 1
           end
-        else
-          puts "** !! ERROR !! no match found for heading (expected country code or internationa):"
-          pp line
-          exit 1
         end
       end
     elsif line.start_with?( '|' )

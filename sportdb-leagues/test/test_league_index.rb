@@ -10,15 +10,14 @@ require 'helper'
 class TestLeagueIndex < MiniTest::Test
 
   def test_match
-
     recs = SportDb::Import::LeagueReader.parse( <<TXT )
-= England (eng) =
+= England =
 1       English Premier League
-          | ENG PL | England Premier League | Premier League
+          | ENG 1 | ENG PL | England Premier League | Premier League
 2       English Championship
-          | ENG CS | England Championship | Championship
+          | ENG 2 | ENG CS | England Championship | Championship
 3       English League One
-          | ENG 1  | England League One | League One
+          | ENG 3  | England League One | League One
 4       English League Two
 5       English National League
 
@@ -26,7 +25,7 @@ cup      EFL Cup
           | League Cup | Football League Cup
           | ENG LC | England Liga Cup
 
-= Scotland (sco) =
+= Scotland =
 1       Scottish Premiership
 2       Scottish Championship
 3       Scottish League One
@@ -84,6 +83,48 @@ TXT
     assert_equal 'eng.1',                  m[0].key
     assert_equal 'England',                m[0].country.name
     assert_equal 'eng',                    m[0].country.key
+end
+
+  def test_match_by
+    recs = SportDb::Import::LeagueReader.parse( <<TXT )
+= Germany =
+1       Bundesliga
+
+= Austria =
+1       Bundesliga
+
+= England =
+1       English Premier League
+          | Premier League
+
+= Wales =
+1       Welsh Premier League
+          | Premier League
+TXT
+
+    leagues = SportDb::Import::LeagueIndex.new
+    leagues.add( recs )
+
+    pp leagues.errors
+
+    leagues.dump_duplicates
+
+    m = leagues.match( 'Bundesliga' )
+    assert_equal 2, m.size
+
+    m = leagues.match_by( name: 'Bundesliga', country: 'at' )
+    assert_equal 1, m.size
+    m = leagues.match_by( name: 'Bundesliga', country: 'de' )
+    assert_equal 1, m.size
+
+
+    m = leagues.match( 'Premier League' )
+    assert_equal 2, m.size
+
+    m = leagues.match_by( name: 'Premier League', country: 'eng' )
+    assert_equal 1, m.size
+    m = leagues.match_by( name: 'Premier League', country: 'wal' )
+    assert_equal 1, m.size
 end
 
 end # class TestLeagueIndex

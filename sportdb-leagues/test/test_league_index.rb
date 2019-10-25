@@ -13,11 +13,11 @@ class TestLeagueIndex < MiniTest::Test
     recs = SportDb::Import::LeagueReader.parse( <<TXT )
 = England =
 1       English Premier League
-          | ENG 1 | ENG PL | England Premier League | Premier League
+          | ENG PL | England Premier League | Premier League
 2       English Championship
-          | ENG 2 | ENG CS | England Championship | Championship
+          | ENG CS | England Championship | Championship
 3       English League One
-          | ENG 3  | England League One | League One
+          | England League One | League One
 4       English League Two
 5       English National League
 
@@ -112,6 +112,20 @@ TXT
     m = leagues.match( 'Bundesliga' )
     assert_equal 2, m.size
 
+    m = leagues.match( 'AT' )               ## check auto-generated/added shortcut names
+    assert_equal 1,            m.size
+    assert_equal 'Bundesliga', m[0].name
+    m = leagues.match( 'AT 1' )
+    assert_equal 1,            m.size
+    assert_equal 'Bundesliga', m[0].name
+    m = leagues.match( 'AUT' )
+    assert_equal 1,            m.size
+    assert_equal 'Bundesliga', m[0].name
+    m = leagues.match( 'AUT 1' )
+    assert_equal 1,            m.size
+    assert_equal 'Bundesliga', m[0].name
+
+
     m = leagues.match_by( name: 'Bundesliga', country: 'at' )
     assert_equal 1, m.size
     m = leagues.match_by( name: 'Bundesliga', country: 'de' )
@@ -120,6 +134,13 @@ TXT
 
     m = leagues.match( 'Premier League' )
     assert_equal 2, m.size
+
+    m = leagues.match( 'ENG' )               ## check auto-generated/added shortcut names
+    assert_equal 1,            m.size
+    assert_equal 'English Premier League', m[0].name
+    m = leagues.match( 'ENG 1' )
+    assert_equal 1,            m.size
+    assert_equal 'English Premier League', m[0].name
 
     m = leagues.match_by( name: 'Premier League', country: 'eng' )
     assert_equal 1, m.size

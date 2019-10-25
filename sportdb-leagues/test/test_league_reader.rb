@@ -14,9 +14,9 @@ class TestClubReader < MiniTest::Test
 ==============================
 = Austria
 1       Bundesliga
-         | AUT 1 | AUT BL | Österreich Bundesliga
+         | AUT BL | Österreich Bundesliga
 2       2. Liga
-         | AUT 2 | Österreich Zweite Liga
+         | Österreich Zweite Liga
 
 3.o     Regionalliga Ost
          | AUT RLO | Österreich Regionalliga Ost
@@ -44,7 +44,7 @@ TXT
 1       Major League Soccer
          | USA MLS | USA Major League Soccer
 cup     US Open Cup
-         | USA CUP | USA US Open Cup
+         | USA US Open Cup
 TXT
 
     pp recs

@@ -108,15 +108,34 @@ def self.parse( txt )
 
         puts "key: >#{league_key}<, name: >#{league_name}<"
 
+
+        alt_names_auto = []
+        if country
+          alt_names_auto << "#{country.key.upcase} #{league_key.upcase.gsub('.', ' ')}"
+          alt_names_auto << "#{country.key.upcase}"   if league_key == '1'   ## add shortcut for top level 1 (just country key)
+          if country.key.upcase != country.fifa
+            alt_names_auto << "#{country.fifa} #{league_key.upcase.gsub('.', ' ')}"
+            alt_names_auto << "#{country.fifa}"    if league_key == '1'   ## add shortcut for top level 1 (just country key)
+          end
+        else   ## assume int'l (no country) e.g. champions league, etc.
+          ## only auto-add key (e.g. CL, EL, etc.)
+          alt_names_auto << league_key.upcase.gsub('.', ' ')   ## note: no country code (prefix/leading) used
+        end
+
+        pp alt_names_auto
+
         ## prepend country key/code if country present
         ##   todo/fix: only auto-prepend country if key/code start with a number (level) or incl. cup
         ##    why? lets you "overwrite" key if desired - use it - why? why not?
-        league_key = "#{country.key}.#{league_key}"   if country
+        if country
+          league_key = "#{country.key}.#{league_key}"
+        end
 
-        rec = League.new( key:     league_key,
-                          name:    league_name,
-                          country: country,
-                          intl:    intl)
+        rec = League.new( key:            league_key,
+                          name:           league_name,
+                          alt_names_auto: alt_names_auto,
+                          country:        country,
+                          intl:           intl)
         recs << rec
         last_rec = rec
       else

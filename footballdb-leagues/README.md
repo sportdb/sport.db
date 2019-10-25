@@ -37,9 +37,8 @@ resulting in:
 ]
 ```
 
-Let's find football leagues in the world that run
+Let's find football leagues in the world
 with the name `Premier League`:
-
 
 ``` ruby
 m = League.match( 'Premier League' )

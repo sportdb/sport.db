@@ -52,9 +52,6 @@ class LeagueIndex
 
       ## step 2) add all names (canonical name + alt names + alt names (auto))
       names = [rec.name] + rec.alt_names
-      more_names = []
-
-      names += more_names
       ## check for duplicates - simple check for now - fix/improve
       ## todo/fix: (auto)remove duplicates - why? why not?
       count      = names.size
@@ -66,6 +63,9 @@ class LeagueIndex
         exit 1
       end
 
+      ## todo/fix: move alt_names_auto up for check unique names
+      ##    e.g. remove/avoid auto-generated duplicates ENG 1, AUT 1, etc
+      names += rec.alt_names_auto
 
       names.each_with_index do |name,i|
         ## check lang codes e.g. [en], [fr], etc.
@@ -77,13 +77,11 @@ class LeagueIndex
           ## check if include club rec already or is new club rec
           if alt_recs.include?( rec )
             ## note: do NOT include duplicate club record
-            ## todo/fix: check country might be nil (if intl)
-            msg = "** !!! WARN !!! - (norm) name conflict/duplicate for league - >#{name}< normalized to >#{norm}< already included >#{rec.name}, #{rec.country.key}<"
+            msg = "** !!! WARN !!! - (norm) name conflict/duplicate for league - >#{name}< normalized to >#{norm}< already included >#{rec.name}, #{rec.country ? rec.country.key : '?'}<"
             puts msg
             @errors << msg
           else
-            ## todo/fix: check country might be nil (if intl)
-            msg = "** !!! WARN !!! - name conflict/duplicate - >#{name}< will overwrite >#{alt_recs[0].name}, #{alt_recs[0].country.key}< with >#{rec.name}, #{rec.country.key}<"
+            msg = "** !!! WARN !!! - name conflict/duplicate - >#{name}< will overwrite >#{alt_recs[0].name}, #{alt_recs[0].country ? alt_recs[0].country.key : '?'}< with >#{rec.name}, #{rec.country ? rec.country.key : '?'}<"
             puts msg
             @errors << msg
             alt_recs << rec
@@ -123,12 +121,13 @@ class LeagueIndex
                     end
 
       ## note: also skip international leagues & cups (e.g. champions league etc.) for now - why? why not?
-      m = m.select { |league| league.national? &&
+      m = m.select { |league| league.country &&
                               league.country.key == country_rec.key }
       m = nil   if m.empty?     ## note: reset to nil if no more matches
     end
     m
   end
+
 
   def dump_duplicates # debug helper - report duplicate club name records
      @leagues_by_name.each do |name, leagues|

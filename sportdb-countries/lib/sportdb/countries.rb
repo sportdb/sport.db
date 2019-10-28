@@ -1,26 +1,6 @@
 # encoding: utf-8
 
-
-require 'date'
-require 'fileutils'
-
-
-## 3rd party gems
-require 'alphabets'      # downcase_i18n, unaccent, variants, ...
-
-
-###################
-##  todo/fix: move csvreader up to sportdb-config - why? why not?
-require 'csvreader'
-
-def read_csv( path )
-  CsvHash.read( path, :header_converters => :symbol )
-end
-
-def parse_csv( txt )
-  CsvHash.parse( txt, :header_converters => :symbol )
-end
-
+require 'sportdb/formats'
 
 
 ###
@@ -101,22 +81,6 @@ end   # module SportDb
 require 'sportdb/countries/country_reader'
 require 'sportdb/countries/country_index'
 
-
-
-
-## let's put test configuration in its own namespace / module
-module SportDb
-
-class Test    ## todo/check: works with module too? use a module - why? why not?
-
-  ####
-  #  todo/fix:  find a better way to configure shared test datasets - why? why not?
-  #    note: use one-up (..) directory for now as default - why? why not?
-  def self.data_dir()        @data_dir ||= '../test'; end
-  def self.data_dir=( path ) @data_dir = path; end
-end
-
-end   # module SportDb
 
 
 

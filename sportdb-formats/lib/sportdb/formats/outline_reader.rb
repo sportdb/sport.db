@@ -22,6 +22,8 @@ class OutlineReader
         ## strip inline (until end-of-line) comments too
         ##  e.g Eupen | KAS Eupen ## [de]
         ##   => Eupen | KAS Eupen
+        ##  e.g bq   Bonaire,  BOE        # CONCACAF
+        ##   => bq   Bonaire,  BOE
         line = line.sub( /#.*/, '' ).strip
         pp line
 

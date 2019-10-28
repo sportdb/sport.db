@@ -13,7 +13,7 @@ class TestCountryReader < MiniTest::Test
     recs = SportDb::Import::CountryReader.read( "#{SportDb::Test.data_dir}/world/countries.txt" )
     pp recs
 
-    assert_equal 227, recs.size
+    assert_equal 232, recs.size
 
     assert_equal 'Albania',        recs[0].name
     assert_equal 'ALB',            recs[0].fifa

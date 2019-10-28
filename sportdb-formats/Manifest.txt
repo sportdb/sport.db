@@ -1,0 +1,10 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/sportdb/formats.rb
+lib/sportdb/formats/outline_reader.rb
+lib/sportdb/formats/version.rb
+test/helper.rb
+test/test_csv_reader.rb
+test/test_outline_reader.rb

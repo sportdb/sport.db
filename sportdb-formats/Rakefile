@@ -1,11 +1,11 @@
 require 'hoe'
-require './lib/sportdb/countries/version.rb'
+require './lib/sportdb/formats/version.rb'
 
-Hoe.spec 'sportdb-countries' do
+Hoe.spec 'sportdb-formats' do
 
-  self.version = SportDb::Countries::VERSION
+  self.version = SportDb::Formats::VERSION
 
-  self.summary = "sportdb-countries - sport.db countries of the world reader and zero-config quick starter settings"
+  self.summary = "sportdb-formats - sport.db format and text utilities"
   self.description = summary
 
   self.urls = ['https://github.com/sportdb/sport.db']
@@ -20,11 +20,12 @@ Hoe.spec 'sportdb-countries' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-formats', '>= 0.0.1']
+    ['alphabets',   '>= 0.1.0'],
+    ['csvreader',   '>= 1.2.4'],
   ]
 
   self.spec_extras = {
-    required_ruby_version: '>= 2.2.2'
+   required_ruby_version: '>= 2.2.2'
   }
 
 end

@@ -8,9 +8,9 @@ class ClubIndex
 
   def self.build( path )
     recs = []
-    datafiles = Configuration.find_datafiles_clubs( path )
+    datafiles = Datafile.find_clubs( path )
     datafiles.each do |datafile|
-      recs += ClubReader.read( datafile )
+      recs += ClubReader.read( datafile )   ## todo: use shortcut Club.read
     end
     recs
 
@@ -19,7 +19,7 @@ class ClubIndex
 
     ## add wiki(pedia) anchored links
     recs = []
-    datafiles = Configuration.find_datafiles_clubs_wiki( path )
+    datafiles = Datafile.find_clubs_wiki( path )
     datafiles.each do |datafile|
        recs += WikiReader.read( datafile )
     end
@@ -35,9 +35,9 @@ class LeagueIndex
 
   def self.build( path )
     recs = []
-    datafiles = Configuration.find_datafiles_leagues( path )
+    datafiles = Datafile.find_leagues( path )
     datafiles.each do |datafile|
-      recs += LeagueReader.read( datafile )
+      recs += LeagueReader.read( datafile )      ## todo: use shortcut League.read
     end
     recs
 
@@ -86,41 +86,6 @@ class Configuration
   attr_accessor   :leagues_dir
   def leagues_dir()    @leagues_dir; end
 
-
-  CLUBS_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
-                       (?:[a-z]{1,3}\.)?   # optional country code/key e.g. eng.clubs.txt
-                       clubs\.txt$
-                   }x
-
-  CLUBS_WIKI_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
-                           (?:[a-z]{1,3}\.)?   # optional country code/key e.g. eng.clubs.wiki.txt
-                          clubs\.wiki\.txt$
-                       }x
-
-  LEAGUES_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
-                     (?:[a-z]{1,3}\.)?   # optional country code/key e.g. eng.clubs.txt
-                     leagues\.txt$
-                    }x
-
-
-  def self.find_datafiles( path, pattern )
-     datafiles = []   ## note: [country, path] pairs for now
-
-     ## check all txt files as candidates  (MUST include country code for now)
-     candidates = Dir.glob( "#{path}/**/*.txt" )
-     pp candidates
-     candidates.each do |candidate|
-       datafiles << candidate    if pattern.match( candidate )
-     end
-
-     pp datafiles
-     datafiles
-  end
-
-  def self.find_datafiles_clubs( path )       find_datafiles( path, CLUBS_REGEX ); end
-  def self.find_datafiles_clubs_wiki( path )  find_datafiles( path, CLUBS_WIKI_REGEX ); end
-
-  def self.find_datafiles_leagues( path )     find_datafiles( path, LEAGUES_REGEX ); end
 
 
   def build_club_index

@@ -8,7 +8,7 @@ class WikiIndex
 
   def self.build( path )
     recs = []
-    datafiles = Configuration.find_datafiles_clubs_wiki( path )
+    datafiles = Datafile.find_clubs_wiki( path )
     datafiles.each do |datafile|
         recs += WikiReader.read( datafile )
     end

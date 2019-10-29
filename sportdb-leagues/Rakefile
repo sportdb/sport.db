@@ -14,18 +14,16 @@ Hoe.spec 'sportdb-leagues' do
   self.email = 'opensport@googlegroups.com'
 
   # switch extension to .markdown for gihub formatting
-  self.readme_file = 'README.md'
+  self.readme_file  = 'README.md'
   self.history_file = 'CHANGELOG.md'
 
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['alphabets',           '>= 0.1.0'],
-    ['sportdb-countries',   '>= 0.2.0'],
+    ['sportdb-countries',   '>= 0.5.1']
   ]
 
   self.spec_extras = {
-   :required_ruby_version => '>= 2.2.2'
+    required_ruby_version: '>= 2.2.2'
   }
-
 end

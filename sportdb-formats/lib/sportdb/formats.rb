@@ -23,7 +23,7 @@ end
 require 'sportdb/formats/version' # let version always go first
 require 'sportdb/formats/outline_reader'
 require 'sportdb/formats/datafile'
-
+require 'sportdb/formats/season_utils'
 
 
 

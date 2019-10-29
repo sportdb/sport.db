@@ -29,22 +29,22 @@ module Datafile      # note: keep Datafile in its own top-level module/namespace
                           clubs\.wiki\.txt$
                        }x
 
-  def self.find_clubs( path )       find( path, CLUBS_REGEX ); end
-  def self.find_clubs_wiki( path )  find( path, CLUBS_WIKI_REGEX ); end
+  def self.find_clubs( path, pattern: CLUBS_REGEX )            find( path, pattern ); end
+  def self.find_clubs_wiki( path, pattern: CLUBS_WIKI_REGEX )  find( path, pattern ); end
 
 
   LEAGUES_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
                      leagues\.txt$
                     }x
 
-  def self.find_leagues( path )     find( path, LEAGUES_REGEX ); end
+  def self.find_leagues( path, pattern: LEAGUES_REGEX )       find( path, pattern ); end
 
 
   CONF_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
                      \.conf\.txt$
                  }x
 
-  def self.find_conf( path )       find( path, CONF_REGEX ); end
+  def self.find_conf( path, pattern: CONF_REGEX )             find( path, pattern ); end
 
 
 

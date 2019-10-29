@@ -5,7 +5,7 @@ module SportDb
 module Formats
 
   MAJOR = 0    ## todo: namespace inside version or something - why? why not??
-  MINOR = 0
+  MINOR = 1
   PATCH = 1
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 

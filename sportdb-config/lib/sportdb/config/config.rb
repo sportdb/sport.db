@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+
 module SportDb
   module Import
 
@@ -10,7 +11,7 @@ class ClubIndex
     recs = []
     datafiles = Datafile.find_clubs( path )
     datafiles.each do |datafile|
-      recs += ClubReader.read( datafile )   ## todo: use shortcut Club.read
+      recs += Club.read( datafile )
     end
     recs
 
@@ -37,7 +38,7 @@ class LeagueIndex
     recs = []
     datafiles = Datafile.find_leagues( path )
     datafiles.each do |datafile|
-      recs += LeagueReader.read( datafile )      ## todo: use shortcut League.read
+      recs += League.read( datafile )
     end
     recs
 

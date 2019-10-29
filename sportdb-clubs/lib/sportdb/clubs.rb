@@ -2,14 +2,8 @@
 
 
 ###
-# gems / libraries
-require 'alphabets'      # downcase_i18n, unaccent, variants, ...
-
-
-###
 #  sport.db gems / libraries
 require 'sportdb/countries'
-
 
 
 ###
@@ -19,6 +13,20 @@ require 'sportdb/clubs/club'
 require 'sportdb/clubs/club_reader'
 require 'sportdb/clubs/club_index'
 require 'sportdb/clubs/wiki_reader'
+
+
+###
+# add convenience helpers / shortcuts
+module SportDb
+module Import
+class Club
+  def self.read( path )  ClubReader.read( path ); end
+  def self.parse( txt )  ClubReader.parse( txt ); end
+end # class Club
+end   # module Import
+end   # module SportDb
+
+
 
 
 

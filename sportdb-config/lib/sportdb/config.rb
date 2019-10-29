@@ -15,8 +15,6 @@ require 'footballdb/leagues'
 ###
 # our own code
 require 'sportdb/config/version' # let version always go first
-
-require 'sportdb/config/season_utils'
 require 'sportdb/config/wiki_index'
 require 'sportdb/config/config'
 

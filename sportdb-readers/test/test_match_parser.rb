@@ -1,12 +1,31 @@
-# encoding: UTF-8
+# encoding: utf-8
+
+###
+#  to run use
+#     ruby -I ./lib -I ./test test/test_match_parser.rb
 
 
-require 'sportdb/models'
+require 'helper'
 
 
-require_relative 'match_parser'
 
-txt = <<TXT
+class TestMatchParser < MiniTest::Test
+
+    ## build ActiveRecord-like club records/structs
+    Club = Struct.new( :key, :title, :synonyms )
+    def Club.read( txt )
+      recs = []
+      txt.each_line do |line|
+        values = line.split( ',' )
+        values = values.map {|value| value.strip }
+        recs << Club.new( values[0], values[1], values.size > 2 ? values[2..-1].join('|') : nil )
+      end
+      recs
+    end
+
+
+  def test_parse
+    txt = <<TXT
 Matchday 1
 
 [Fri Aug/11]
@@ -41,7 +60,7 @@ Matchday 2
   Manchester City          1-1  Everton FC
 TXT
 
-clubs_txt = <<TXT
+    clubs_txt = <<TXT
 arsenalfc, Arsenal FC, Arsenal, FC Arsenal
 leicestercityfc, Leicester City FC, Leicester, Leicester City
 watfordfc, Watford FC, Watford, FC Watford
@@ -65,29 +84,18 @@ westhamunitedfc, West Ham United FC, West Ham, West Ham United
 TXT
 
 
-module Test
-  Club = Struct.new( :key, :title, :synonyms )
-  def self.build_clubs( txt )
-    recs = []
-    txt.each_line do |line|
-      values = line.split( ',' )
-      values = values.map {|value| value.strip }
-      recs << Club.new( values[0], values[1], values.size > 2 ? values[2..-1].join('|') : nil )
-    end
-    recs
-  end
-end
+    clubs = Club.read( clubs_txt )
+    pp clubs
 
-clubs = Test.build_clubs( clubs_txt )
-pp clubs
+    lines = txt.split( /\n+/ )    # note: removes/strips empty lines
+    pp lines
 
-lines = txt.split( /\n+/ )
-pp lines
-
-start_at= Date.new( 2017, 7, 1 )
+    start_at= Date.new( 2017, 7, 1 )
 
 
-parser = SportDb::MatchParserSimpleV2.new( lines, clubs, start_at )
-rounds, matches = parser.parse
-pp rounds
-pp matches
+    parser = SportDb::MatchParserSimpleV2.new( lines, clubs, start_at )
+    rounds, matches = parser.parse
+    pp rounds
+    pp matches
+  end   # method test_parse
+end   # class TestMatchParser

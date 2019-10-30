@@ -16,9 +16,15 @@ class TestMatchParser < MiniTest::Test
     def Club.read( txt )
       recs = []
       txt.each_line do |line|
-        values = line.split( ',' )
-        values = values.map {|value| value.strip }
-        recs << Club.new( values[0], values[1], values.size > 2 ? values[2..-1].join('|') : nil )
+        values = line.split( '|' )
+        values = values.map { |value| value.strip }
+
+        title    = values[0]
+        ## note: quick hack - auto-generate key, that is, remove all non-ascii chars and downcase
+        key      = title.downcase.gsub( /[^a-z]/, '' )
+        synonyms = values.size > 1 ? values[1..-1].join( '|' ) : nil
+
+        recs << Club.new( key, title, synonyms )
       end
       recs
     end
@@ -61,26 +67,26 @@ Matchday 2
 TXT
 
     clubs_txt = <<TXT
-arsenalfc, Arsenal FC, Arsenal, FC Arsenal
-leicestercityfc, Leicester City FC, Leicester, Leicester City
-watfordfc, Watford FC, Watford, FC Watford
-liverpoolfc, Liverpool FC, Liverpool, FC Liverpool
-chelseafc, Chelsea FC, Chelsea, FC Chelsea
-burnleyfc, Burnley FC, Burnley, FC Burnley
-crystalpalacefc, Crystal Palace FC, Crystal Palace, C Palace, Palace, Crystal P
-huddersfieldtownafc, Huddersfield Town AFC, Huddersfield, Huddersfield Town
-evertonfc, Everton FC, Everton, FC Everton
-stokecityfc, Stoke City FC, Stoke, Stoke City
-southamptonfc, Southampton FC, Southampton, FC Southampton
-swanseacityfc, Swansea City FC, Swansea, Swansea City, Swansea City AFC
-westbromwichalbionfc, West Bromwich Albion FC, West Brom, West Bromwich Albion, West Bromwich, Albion
-afcbournemouth, AFC Bournemouth, Bournemouth, A.F.C. Bournemouth, Bournemouth FC
-brightonhovealbionfc, Brighton & Hove Albion FC, Brighton, Brighton & Hove, Brighton & Hove Albion
-manchestercityfc, Manchester City FC, Man City, Manchester City, Man. City, Manchester C
-newcastleunitedfc, Newcastle United FC, Newcastle, Newcastle Utd, Newcastle United
-tottenhamhotspurfc, Tottenham Hotspur FC, Tottenham, Tottenham Hotspur, Spurs
-manchesterunitedfc, Manchester United FC, Man Utd, Man. United, Manchester U., Manchester Utd, Manchester United
-westhamunitedfc, West Ham United FC, West Ham, West Ham United
+Arsenal FC | Arsenal | FC Arsenal
+Leicester City FC | Leicester | Leicester City
+Watford FC | Watford | FC Watford
+Liverpool FC | Liverpool | FC Liverpool
+Chelsea FC | Chelsea | FC Chelsea
+Burnley FC | Burnley | FC Burnley
+Crystal Palace FC | Crystal Palace | C Palace | Palace | Crystal P
+Huddersfield Town AFC | Huddersfield | Huddersfield Town
+Everton FC | Everton | FC Everton
+Stoke City FC | Stoke | Stoke City
+Southampton FC | Southampton | FC Southampton
+Swansea City FC | Swansea | Swansea City | Swansea City AFC
+West Bromwich Albion FC | West Brom | West Bromwich Albion | West Bromwich | Albion
+AFC Bournemouth | Bournemouth | A.F.C. Bournemouth | Bournemouth FC
+Brighton & Hove Albion FC | Brighton | Brighton & Hove | Brighton & Hove Albion
+Manchester City FC | Man City | Manchester City | Man. City | Manchester C
+Newcastle United FC | Newcastle | Newcastle Utd | Newcastle United
+Tottenham Hotspur FC | Tottenham | Tottenham Hotspur | Spurs
+Manchester United FC | Man Utd | Man. United | Manchester U. | Manchester Utd | Manchester United
+West Ham United FC | West Ham | West Ham United
 TXT
 
 

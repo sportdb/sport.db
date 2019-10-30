@@ -1,0 +1,37 @@
+
+$base-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+body
+{
+  font-family: $base-font-family;
+}
+
+
+a {
+  color: black;
+  text-decoration: none;
+
+  &:hover {
+   color: black;
+   background-color: aqua;
+   text-decoration: underline;
+  }
+
+  &:visited { color: black; }
+}
+
+
+/////////////////////////
+// version / powered_by
+
+.version
+{
+   text-align: center;
+   margin-top: 10px;
+   color: grey;
+   
+   a, span {
+     font-size: 12px;
+     color: grey
+   }
+}

@@ -5,7 +5,11 @@ module SportDb
 
 ## shared "higher-level" outline reader
 ##  todo: add CountryOutlineReader - why? why not?
+
 class LeagueOutlineReader
+
+  def self.config() Import.config; end    ## shortcut convenience helper
+
   ## split into league + season
   ##  e.g. Österr. Bundesliga 2015/16   ## or 2015-16
   ##       World Cup 2018
@@ -62,7 +66,7 @@ class LeagueOutlineReader
 
   def self.find_league( name )
     league = nil
-    m = LEAGUES.match( name )
+    m = config.leagues.match( name )
     # pp m
 
     if m.nil?

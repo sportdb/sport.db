@@ -5,6 +5,9 @@ module SportDb
 
 class EventReaderV2    ## todo/check: rename to EventsReaderV2 (use plural?) why? why not?
 
+  def self.config() Import.config; end    ## shortcut convenience helper
+
+
   def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
     txt = File.open( path, 'r:utf-8' ).read
     parse( txt )
@@ -74,16 +77,16 @@ class EventReaderV2    ## todo/check: rename to EventsReaderV2 (use plural?) why
 
   def self.find_club( name, country )   ## todo/fix: add international or league flag?
     club = nil
-    m = CLUBS.match_by( name: name, country: country )
+    m = config.clubs.match_by( name: name, country: country )
 
     if m.nil?
       ## (re)try with second country - quick hacks for known leagues
       ##  todo/fix: add league flag to activate!!!
-      m = CLUBS.match_by( name: name, country: COUNTRIES['wal'])  if country.key == 'eng'
-      m = CLUBS.match_by( name: name, country: COUNTRIES['nir'])  if country.key == 'ie'
-      m = CLUBS.match_by( name: name, country: COUNTRIES['mc'])   if country.key == 'fr'
-      m = CLUBS.match_by( name: name, country: COUNTRIES['li'])   if country.key == 'ch'
-      m = CLUBS.match_by( name: name, country: COUNTRIES['ca'])   if country.key == 'us'
+      m = config.clubs.match_by( name: name, country: config.countries['wal'])  if country.key == 'eng'
+      m = config.clubs.match_by( name: name, country: config.countries['nir'])  if country.key == 'ie'
+      m = config.clubs.match_by( name: name, country: config.countries['mc'])   if country.key == 'fr'
+      m = config.clubs.match_by( name: name, country: config.countries['li'])   if country.key == 'ch'
+      m = config.clubs.match_by( name: name, country: config.countries['ca'])   if country.key == 'us'
     end
 
     if m.nil?

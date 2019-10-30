@@ -5,7 +5,7 @@ Hoe.spec 'sportdb-readers' do
 
   self.version = SportDb::Readers::VERSION
 
-  self.summary = "sportdb-readers - sport.db readers"
+  self.summary = "sportdb-readers - sport.db readers for leagues, seasons, clubs, match schedules and results, and more"
   self.description = summary
 
   self.urls = ['https://github.com/sportdb/sport.db']

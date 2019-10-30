@@ -37,17 +37,44 @@ ActiveRecord::Base.logger = Logger.new( STDOUT )
 
 ## assumes football.db datasets for England in ./england directory
 ##   see github.com/openfootball/england
-SportDb::EventReaderV2.read( './england/2015-16/.conf.txt' )
+SportDb::ConfReaderV2.read( './england/2015-16/.conf.txt' )
 SportDb::MatchReaderV2.read( './england/2015-16/1-premierleague-i.txt' )
 SportDb::MatchReaderV2.read( './england/2015-16/1-premierleague-ii.txt' )
 
 ## let's try another season
-SportDb::EventReaderV2.read( './england/2019-20/.conf.txt' )
+SportDb::ConfReaderV2.read( './england/2019-20/.conf.txt' )
 SportDb::MatchReaderV2.read( './england/2019-20/1-premierleague.txt' )
 ```
 
-That's it. All leagues, seasons, clubs, match days and rounds, match fixtures and results,
+All leagues, seasons, clubs, match days and rounds, match fixtures and results,
 and more are now in your (SQL) database of choice.
+
+
+Or as an alternative use the `read` convenience all-in-one shortcut helper:
+
+``` ruby
+## assumes football.db datasets for England in ./england directory
+##   see github.com/openfootball/england
+SportDb.read( './england/2015-16/.conf.txt' )
+SportDb.read( './england/2015-16/1-premierleague-i.txt' )
+SportDb.read( './england/2015-16/1-premierleague-ii.txt' )
+
+## let's try another season
+SportDb.read( './england/2019-20/.conf.txt' )
+SportDb.read( './england/2019-20/1-premierleague.txt' )
+```
+
+Or as an alternative pass in the "package" directory and let `read` figure
+out what datafiles to read:
+
+``` ruby
+## assumes football.db datasets for England in ./england directory
+##   see github.com/openfootball/england
+SportDb.read( './england' )
+```
+
+That's it.
+
 
 
 ## License

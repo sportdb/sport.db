@@ -9,7 +9,7 @@ module SportDb
 
     def run
       # for now delete all tables
-      
+
       ## stats
       AlltimeStandingEntry.delete_all
       AlltimeStanding.delete_all
@@ -25,18 +25,20 @@ module SportDb
       EventGround.delete_all
       Group.delete_all
       GroupTeam.delete_all
+      Stage.delete_all
+      StageTeam.delete_all
       Round.delete_all
       Badge.delete_all
 
       Roster.delete_all
 
       Team.delete_all
-      
+
       League.delete_all
       Season.delete_all
-      
+
       Ground.delete_all   # stadiums
-      
+
       Assoc.delete_all       # associations / organizations
       AssocAssoc.delete_all  # associations / organizations
 
@@ -46,7 +48,7 @@ module SportDb
 ##      Race.delete_all
 ##      Track.delete_all
     end
-    
+
   end # class Deleter
-  
+
 end # module SportDb

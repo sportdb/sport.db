@@ -27,6 +27,8 @@ lib/sportdb/models/person.rb
 lib/sportdb/models/roster.rb
 lib/sportdb/models/round.rb
 lib/sportdb/models/season.rb
+lib/sportdb/models/stage.rb
+lib/sportdb/models/stage_team.rb
 lib/sportdb/models/stats/alltime_standing.rb
 lib/sportdb/models/stats/alltime_standing_entry.rb
 lib/sportdb/models/stats/event_standing.rb

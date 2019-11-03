@@ -28,6 +28,7 @@ AssocAssoc  = SportDb::Model::AssocAssoc
 
 Round      = SportDb::Model::Round
 Group      = SportDb::Model::Group
+Stage      = SportDb::Model::Stage
 Game       = SportDb::Model::Game
 GameCursor = SportDb::Model::GameCursor
 
@@ -147,4 +148,3 @@ end
 # setup db -> schema / tables
 
 SportDb.setup_in_memory_db
-

@@ -32,7 +32,7 @@ module SportDb
       datafiles.each { |datafile| MatchReaderV2.read( datafile ) }
     else
       ## check if datafile matches configuration naming (e.g. .conf.txt)
-      if Datafile::CONF_REGEX.match( path )   ## fix: use Datafile.match_conf
+      if Datafile.match_conf( path )
         EventReaderV2.read( path )
       else   ## assume "regular" match datafile
         MatchReaderV2.read( path )

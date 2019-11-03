@@ -15,6 +15,7 @@ else
   has_many :rounds, -> { order('pos') }  # all (fix and flex) rounds
   has_many :groups, -> { order('pos') }
 end
+  has_many :stages
 
   has_many :games, :through => :rounds
 
@@ -40,7 +41,7 @@ end
     # event key is composite of league + season (e.g. at.2012/13) etc.
     self.key = "#{league.key}.#{season.key}"
   end
-  
+
   def title
     "#{league.title} #{season.title}"
   end

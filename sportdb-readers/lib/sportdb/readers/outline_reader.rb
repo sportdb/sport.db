@@ -25,13 +25,15 @@ class LeagueOutlineReader
     recs=[]
     OutlineReader.parse( txt ).each do |node|
       if node[0] == :h1
-        ## check for league and season
+        ## check for league (and stage) and season
         heading = node[1]
-        if m=heading.match( LEAGUE_SEASON_HEADING_REGEX )
+        values = split_league( heading )
+        if m=values[0].match( LEAGUE_SEASON_HEADING_REGEX )
           puts "league >#{m[:league]}<, season >#{m[:season]}<"
 
            recs << { league: m[:league],
                      season: m[:season],
+                     stage:  values[1],     ## note: defaults to nil if not present
                      lines:  []
                    }
         else
@@ -58,10 +60,37 @@ class LeagueOutlineReader
     recs.each do |rec|
       league = find_league( rec[:league] )
       rec[:league] = league
+
+      check_stage( rec[:stage] )   if rec[:stage]   ## note: only check for now (no remapping etc.)
     end
 
     recs
   end # method parse
+
+
+  def self.split_league( str )   ## todo/check: rename to parse_league(s) - why? why not?
+    ## split into league / stage / ... e.g.
+    ##  => Österr. Bundesliga 2018/19, Regular Season
+    ##  => Österr. Bundesliga 2018/19, Championship Round
+    ##  etc.
+    values = str.split( /[,<>‹›]/ )  ## note: allow , > < or › ‹ for now
+    values = values.map { |value| value.strip }   ## remove all whitespaces
+    values
+  end
+
+  def self.check_stage( name )
+    known_stages = ['regular season',
+                    'championship round',
+                    'relegation round',
+                   ]
+
+    if known_stages.include?( name.downcase )
+       ## everything ok
+    else
+      puts "** !!! ERROR !!! no (league) stage match found for >#{name}<, add to (builtin) stages table; sorry"
+      exit 1
+    end
+  end
 
 
   def self.find_league( name )

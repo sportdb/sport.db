@@ -141,6 +141,16 @@ end
 add_index :groups, :event_id  # fk event_id index
 
 
+create_table :stages do |t|     # e.g. regular season, champions round, etc.
+  t.references :event,    null: false, index: false    ## Note: do NOT auto-add index
+  t.string     :title,    null: false
+  t.timestamps
+end
+
+add_index :stages, :event_id  # fk event_id index
+
+
+
 ###########################
 # fix: rename table to matches
 create_table :games do |t|
@@ -148,6 +158,7 @@ create_table :games do |t|
   t.references :round,    null: false, index: false   ## Note: do NOT auto-add index
   t.integer    :pos,      null: false
   t.references :group,                 index: false   ## Note: do NOT auto-add index  -- group is optional
+  t.references :stage,                 index: false     # optional - regular seasion / champions round etc.
   t.references :team1,    null: false, index: false   ## Note: do NOT auto-add index
   t.references :team2,    null: false, index: false   ## Note: do NOT auto-add index
 
@@ -197,8 +208,20 @@ create_table :events_teams do |t|
   t.timestamps
 end
 
-add_index :events_teams, [:event_id,:team_id], unique: true
+add_index :events_teams, [:event_id, :team_id], unique: true
 add_index :events_teams, :event_id
+
+
+# todo: remove id from join table (without extra fields)? why?? why not??
+create_table :stages_teams do |t|
+  t.references :stage, null: false, index: false    ## Note: do NOT auto-add index
+  t.references :team,  null: false, index: false    ## Note: do NOT auto-add index
+  t.timestamps
+end
+
+add_index :stages_teams, [:stage_id, :team_id], unique: true
+add_index :stages_teams, :stage_id
+
 
 
 # todo: remove id from join table (without extra fields)? why?? why not??
@@ -208,7 +231,7 @@ create_table :events_grounds do |t|
   t.timestamps
 end
 
-add_index :events_grounds, [:event_id,:ground_id], unique: true
+add_index :events_grounds, [:event_id, :ground_id], unique: true
 add_index :events_grounds, :event_id
 
 
@@ -219,7 +242,7 @@ create_table :groups_teams do |t|
   t.timestamps
 end
 
-add_index :groups_teams, [:group_id,:team_id], unique: true
+add_index :groups_teams, [:group_id, :team_id], unique: true
 add_index :groups_teams, :group_id
 
 

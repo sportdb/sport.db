@@ -36,6 +36,8 @@ require 'sportdb/models/person'
 require 'sportdb/models/roster'
 require 'sportdb/models/round'
 require 'sportdb/models/season'
+require 'sportdb/models/stage'
+require 'sportdb/models/stage_team'
 require 'sportdb/models/team'
 require 'sportdb/models/team_compat'   ### fix/todo: move to compat gem !!!!!
 

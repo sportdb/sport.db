@@ -59,14 +59,25 @@ class EventReaderV2    ## todo/check: rename to EventsReaderV2 (use plural?) why
        league = Sync::League.find_or_create( rec[:league] )
        season = Sync::Season.find_or_create( rec[:season] )
 
+
        event  = Sync::Event.find_or_create( league: league, season: season )
+       if rec[:stage]
+         stage = Sync::Stage.find_or_create( rec[:stage], event: event )
+       else
+         stage = nil
+       end
+
 
        rec[:clubs].each do |club_rec|
          club = Sync::Club.find_or_create( club_rec )
          ## add teams to event
          ##   todo/fix: check if team is alreay included?
          ##    or clear/destroy_all first!!!
-         event.teams << club
+         if stage
+           stage.teams << club
+         else
+           event.teams << club
+         end
        end
     end
 

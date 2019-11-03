@@ -54,6 +54,7 @@ module Sync
     end
   end # class League
 
+
   class Season
     def self.normalize_key( key )    ## helper for season key (rename to norm_key ???)
       ## note:  "normalize" season key
@@ -176,6 +177,38 @@ module Sync
        rec
     end
   end # class Round
+
+
+  class Stage
+    def self.find( name, event: )
+      SportDb::Model::Stage.find_by( title: name, event_id: event.id  )
+    end
+    def self.find!( name, event: )
+      rec = find( name, event: event  )
+      if rec.nil?
+        puts "** !!!ERROR!!! db sync - no stage match found for:"
+        pp name
+        pp event
+        exit 1
+      end
+      rec
+    end
+
+    def self.find_or_create( name, event: )
+       rec = find( name, event: event )
+       if rec.nil?
+         ## use title and not name - why? why not?
+         ##  quick fix:  change name to title
+         attribs = { event_id: event.id,
+                     title:    name,
+                   }
+         rec = SportDb::Model::Stage.create!( attribs )
+       end
+       rec
+    end
+  end # class Stage
+
+
 
   class Match   ## todo/check:  add alias for Game class - why? why not?
     def self.create_or_update( match, event: )

@@ -3,8 +3,6 @@
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_event_table_reader.rb
-#  or better
-#     rake -I ./lib test
 
 
 require 'helper'
@@ -52,10 +50,8 @@ class TestEventTableReaderXX < MiniTest::Test  # note: TestEventTableReader alre
 
     r = TestEventReader.from_file( 'at-austria/2015_16/cup' )
     r.read
- 
+
     assert true   ## if we get here; assume everything ok
   end
 
 end # class TestEventReader
-
-

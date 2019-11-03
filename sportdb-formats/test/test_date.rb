@@ -17,7 +17,7 @@ class TestDate < MiniTest::Test
       [ '[21.1.]',          '2013-01-21 12:00' ]
     ]
 
-    assert_dates( data, start_at: DateTime.new( 2013, 1, 1 ) )
+    assert_dates( data, start_at: Date.new( 2013, 1, 1 ) )
   end
 
   def test_date_fr
@@ -33,7 +33,7 @@ class TestDate < MiniTest::Test
       [ '[Sam 7. Fév]', '2015-02-07' ],
     ]
 
-    assert_dates( data, start_at: DateTime.new( 2014, 8, 1 ) )
+    assert_dates( data, start_at: Date.new( 2014, 8, 1 ) )
   end
 
   def test_date_en
@@ -54,8 +54,8 @@ class TestDate < MiniTest::Test
       [ '13 June',           '2013-06-13' ],
       [ '13 June',           '2013-06-13 12:00' ]
     ]
-    
-    assert_dates( data, start_at: DateTime.new( 2013, 1, 1 ) )
+
+    assert_dates( data, start_at: Date.new( 2013, 1, 1 ) )
   end
 
 
@@ -70,13 +70,13 @@ private
       else
         assert_date( DateTime.strptime( str, '%Y-%m-%d' ), parse_date( line, opts ))
       end
-    end  
+    end
   end
 
   ## todo: check if assert_datetime or assert_date exist already? what is the best practice to check dates ???
   def assert_date( exp, act )
     assert_equal exp.year,  act.year
-    assert_equal exp.month, act.month 
+    assert_equal exp.month, act.month
     assert_equal exp.day,   act.day
   end
 
@@ -97,4 +97,4 @@ private
      finder.find!( line, opts )
   end
 
-end # class TestScores
+end # class TestDate

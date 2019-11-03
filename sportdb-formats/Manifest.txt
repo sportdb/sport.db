@@ -2,8 +2,17 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
+config/fixtures/de.yml
+config/fixtures/en.yml
+config/fixtures/es.yml
+config/fixtures/fr.yml
+config/fixtures/it.yml
+config/fixtures/pt.yml
+config/fixtures/ro.yml
 lib/sportdb/formats.rb
 lib/sportdb/formats/datafile.rb
+lib/sportdb/formats/date.rb
+lib/sportdb/formats/lang.rb
 lib/sportdb/formats/outline_reader.rb
 lib/sportdb/formats/season_utils.rb
 lib/sportdb/formats/version.rb
@@ -11,5 +20,7 @@ test/helper.rb
 test/test_csv_reader.rb
 test/test_datafile.rb
 test/test_datafile_match.rb
+test/test_date.rb
+test/test_lang.rb
 test/test_outline_reader.rb
 test/test_season_utils.rb

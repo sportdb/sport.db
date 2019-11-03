@@ -1,5 +1,9 @@
 # encoding: utf-8
 
+###
+#  to run use
+#     ruby -I ./lib -I ./test test/test_changes.rb
+
 require 'helper'
 
 class TestChanges < MiniTest::Test
@@ -23,11 +27,11 @@ class TestChanges < MiniTest::Test
       score1p:  nil,
       score2p:  nil
     }
-    
+
     assert_equal  false, game1.check_for_changes( game_attribs )
     assert_equal  true,  game2.check_for_changes( game_attribs )
   end
-  
+
   def test_play_at
     game1 = Game.new
     game1.score1 = 1
@@ -44,7 +48,7 @@ class TestChanges < MiniTest::Test
       score2:  2,
       play_at: DateTime.new( 2012, 11, 5 )
     }
-    
+
     assert_equal  false, game1.check_for_changes( game_attribs )
     assert_equal  true,  game2.check_for_changes( game_attribs )
   end
@@ -65,10 +69,10 @@ class TestChanges < MiniTest::Test
       score2:  2,
       group_id: 1
     }
-    
+
     assert_equal  false, game1.check_for_changes( game_attribs )
     assert_equal  true,  game2.check_for_changes( game_attribs )
   end
 
-  
+
 end # class TestChanges

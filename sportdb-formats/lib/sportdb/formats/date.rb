@@ -51,8 +51,7 @@ class DateFinderBase
         'Dic' => '12' }
 
 private
-  def calc_year( month, day, opts )
-    start_at = opts[:start_at]
+  def calc_year( month, day, start_at: )   ## note: start_at required param for now on!!!
 
     logger.debug "   [calc_year] ????-#{month}-#{day} -- start_at: #{start_at}"
 
@@ -65,8 +64,9 @@ private
     end
   end
 
+
   def parse_date_time( match_data, opts={} )
-    
+
     # convert regex match_data captures to hash
     # - note: cannont use match_data like a hash (e.g. raises exception if key/name not present/found)
     h = {}
@@ -372,7 +372,7 @@ class DateFinder < DateFinderBase
     #   date in [] will become [[DATE.DE4]] - when getting removed will keep ]!!!!
     #   fix: change regex to \[[A-Z0-9.]\]  !!!!!!  plus add unit test too!!!
     #
- 
+
     md = nil
     FORMATS.each do |format|
       tag     = format[0]
@@ -411,7 +411,7 @@ class RsssfDateFinder < DateFinderBase
              'Oct|'+
              'Nov|'+
              'Dec'
-  
+
   ## e.g.
   ##  [Jun 7]  or [Aug 12] etc.  - not MUST include brackets e.g. []
   ##
@@ -425,7 +425,7 @@ class RsssfDateFinder < DateFinderBase
   def find!( line, opts={} )
     # fix: use more lookahead for all required trailing spaces!!!!!
     # fix: use <name capturing group> for month,day,year etc.!!!
- 
+
     tag     = '[EN_MONTH_DD]'
     pattern = EN__MONTH_DD__DATE_REGEX
     md = pattern.match( line )

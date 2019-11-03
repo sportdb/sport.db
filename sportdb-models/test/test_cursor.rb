@@ -1,12 +1,17 @@
 # encoding: utf-8
 
+###
+#  to run use
+#     ruby -I ./lib -I ./test test/test_cursor.rb
+
+
 require 'helper'
 
 class TestCursor < MiniTest::Test
 
   def test_games
     games = []
-    
+
     games << Game.new( score1: 3, score2: 1, play_at: DateTime.new(2013, 8, 9) )
     games << Game.new( score1: 1, score2: 3, play_at: DateTime.new(2013, 8, 10) )
     games << Game.new( score1: 2, score2: 0, play_at: DateTime.new(2013, 8, 10) )

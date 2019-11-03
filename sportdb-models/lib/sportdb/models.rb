@@ -2,11 +2,12 @@
 
 
 # core and stlibs  (note: get included via worlddb-models gem; see worlddb-models gem/lib)
-require 'csv'    # used by  CsvGameReader
-
-
 require 'worlddb/models'     # NOTE: include worlddb-models gem (not cli tools gem, that is, worlddb)
 require 'persondb/models'
+
+
+require 'sportdb/formats'   ## todo/fix: move all readers out-of-models AND than (finally) remove sportdb/formats dependency
+
 
 
 # our own code
@@ -51,7 +52,6 @@ require 'sportdb/models/utils'   # e.g. GameCursor
 
 require 'sportdb/schema'       # NB: requires sportdb/models (include SportDB::Models)
 
-require 'sportdb/finders/date'
 require 'sportdb/finders/scores'
 
 require 'sportdb/utils'
@@ -71,7 +71,7 @@ require 'sportdb/mapper_teams'
 require 'sportdb/finders/goals'   # no: requires FixturesHelpers
 
 require 'sportdb/readers/assoc'
-require 'sportdb/readers/event'           ## old event reader (remove later??) 
+require 'sportdb/readers/event'           ## old event reader (remove later??)
 require 'sportdb/readers/event_table'     ## new "standard" event reader
 require 'sportdb/readers/event_meta'      ## new "standard" event reader for meta data
 require 'sportdb/readers/game'
@@ -88,8 +88,6 @@ require 'sportdb/reader_zip'
 require 'sportdb/indexers/team'
 
 
-require 'sportdb/lang'
-
 require 'sportdb/deleter'
 require 'sportdb/stats'
 
@@ -97,34 +95,14 @@ require 'sportdb/pretty_printer'
 
 ## "simplified" match reader for rsssf-formated/style leagues
 require 'sportdb/rsssf_reader'
-require 'sportdb/csv_reader'
 
 
 module SportDb
-
-  def self.config_path
-    "#{root}/config"
-  end
-
-  def self.data_path
-    "#{root}/data"
-  end
 
   def self.test_data_path
     "#{root}/test/data"
   end
 
-
-  def self.lang
-    # todo/fix: find a better way for single instance ??
-    #  will get us ruby warning:  instance variable @lang not initialized   => find a better way!!!
-    #   just use @lang w/o .nil?  e.g.
-    #  @lang =|| Lang.new   why? why not??  or better use @@lang =|| Lang.new  for class variable!!!
-     if @lang.nil?
-       @lang = Lang.new
-     end
-     @lang
-  end
 
 
   def self.create
@@ -159,7 +137,7 @@ module SportDb
   end
 
   def self.read_builtin
-    read_setup( 'setups/all', data_path )
+    puts "!! WARN - deprecated SportDb.read_builtin call - remove!! no longer in use; will get removed soon"
   end
 
 
@@ -221,7 +199,7 @@ module SportDb
     end
 
     ## todo/check: use if defined?( JRUBY_VERSION ) instead ??
-    if RUBY_PLATFORM =~ /java/ && config[:adapter] == 'sqlite3' 
+    if RUBY_PLATFORM =~ /java/ && config[:adapter] == 'sqlite3'
       # quick hack for JRuby sqlite3 support via jdbc
       puts "jruby quick hack - adding jdbc libs for jruby sqlite3 database support"
       require 'jdbc/sqlite3'
@@ -234,7 +212,7 @@ module SportDb
     ActiveRecord::Base.establish_connection( config )
     # ActiveRecord::Base.logger = Logger.new( STDOUT )
 
-    ## if sqlite3 add (use) some pragmas for speedups 
+    ## if sqlite3 add (use) some pragmas for speedups
     if config[:adapter] == 'sqlite3'
       ## check/todo: if in memory e.g. ':memory:' no pragma needed!!
       con = ActiveRecord::Base.connection

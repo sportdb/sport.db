@@ -46,7 +46,7 @@ class TestLang < MiniTest::Test
      assert_equal knockout_round, lang.knockout_round
 
   end
-  
+
   def test_getters_de
      lang = SportDb.lang
      lang.lang = 'de'
@@ -100,13 +100,13 @@ class TestLang < MiniTest::Test
       '(5) SEMI-FINALS',
       '(6) FINAL'
      ]
-     
+
      lines.each do |line|
        assert( line =~ lang.regex_knockout_round )
      end
 
   end
-  
+
   def test_regex_knockout_round_de
     lang = SportDb.lang
     lang.lang = 'de'

@@ -22,6 +22,7 @@ Hoe.spec 'sportdb-formats' do
   self.extra_deps = [
     ['alphabets',   '>= 0.1.0'],
     ['csvreader',   '>= 1.2.4'],
+    ['textutils',   '>= 1.4.0'],
   ]
 
   self.spec_extras = {

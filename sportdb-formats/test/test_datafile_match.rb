@@ -9,10 +9,10 @@ require 'helper'
 
 class TestDatafileMatch < MiniTest::Test
 
-  def match_clubs( txt )      Datafile::CLUBS_REGEX.match( txt ); end
-  def match_clubs_wiki( txt ) Datafile::CLUBS_WIKI_REGEX.match( txt ); end
-  def match_leagues( txt )    Datafile::LEAGUES_REGEX.match( txt ); end
-  def match_conf( txt )       Datafile::CONF_REGEX.match( txt ); end
+  def match_clubs( txt )      Datafile.match_clubs( txt ); end
+  def match_clubs_wiki( txt ) Datafile.match_clubs_wiki( txt ); end
+  def match_leagues( txt )    Datafile.match_leagues( txt ); end
+  def match_conf( txt )       Datafile.match_conf( txt ); end
 
 
   CLUBS_TXT = [ ## with country code

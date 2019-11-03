@@ -3,8 +3,6 @@
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_assoc_reader.rb
-#  or better
-#     rake -I ./lib test
 
 
 require 'helper'
@@ -153,7 +151,7 @@ class TestAssocReaderXX < MiniTest::Test    # note: TestAssocReader alreay defin
     assocreader.read()
 
     assert_equal 20, Assoc.count
-    
+
     ## add countries
     countries = [['mx', 'Mexico', 'MEX'],
                  ['us', 'United States', 'USA'],

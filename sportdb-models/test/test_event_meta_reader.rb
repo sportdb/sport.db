@@ -3,8 +3,6 @@
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_event_meta_reader.rb
-#  or better
-#     rake -I ./lib test
 
 
 require 'helper'
@@ -47,4 +45,3 @@ class TestEventMetaReaderXX < MiniTest::Test  # note: TestEventMetaReader alreay
   end
 
 end # class TestEventMetaReader
-

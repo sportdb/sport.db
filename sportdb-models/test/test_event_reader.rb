@@ -3,8 +3,6 @@
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_event_reader.rb
-#  or better
-#     rake -I ./lib test
 
 
 require 'helper'
@@ -31,7 +29,7 @@ class TestEventReaderXX < MiniTest::Test  # note: TestEventReader alreay defined
   def test_bl
     r = TestEventReader.from_file( 'at-austria/2015_16/1-bundesliga' )
     r.read
-    
+
     pp r.fixtures
 
     assert_equal ['1-bundesliga-i', '1-bundesliga-ii'], r.fixtures
@@ -59,10 +57,8 @@ class TestEventReaderXX < MiniTest::Test  # note: TestEventReader alreay defined
 
     r = TestEventReader.from_file( 'at-austria/2015_16/cup' )
     r.read
- 
+
     assert true   ## if we get here; assume everything ok
   end
 
 end # class TestEventReader
-
-

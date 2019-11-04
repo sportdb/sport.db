@@ -1,0 +1,9 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/sportdb/sync.rb
+lib/sportdb/sync/sync.rb
+lib/sportdb/sync/version.rb
+test/helper.rb
+test/test_sync.rb

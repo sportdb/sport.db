@@ -1,15 +1,14 @@
-# encoding: UTF-8
+# encoding: utf-8
 
 
 require 'sportdb/config'
 require 'sportdb/models'   ## add sql database support
-
+require 'sportdb/sync'
 
 
 ###
 # our own code
 require 'sportdb/readers/version' # let version always go first
-require 'sportdb/readers/sync'
 require 'sportdb/readers/outline_reader'
 require 'sportdb/readers/event_reader'
 require 'sportdb/readers/match_parser'

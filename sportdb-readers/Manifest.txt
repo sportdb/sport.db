@@ -7,7 +7,6 @@ lib/sportdb/readers/event_reader.rb
 lib/sportdb/readers/match_parser.rb
 lib/sportdb/readers/match_reader.rb
 lib/sportdb/readers/outline_reader.rb
-lib/sportdb/readers/sync.rb
 lib/sportdb/readers/version.rb
 test/helper.rb
 test/test_match_parser.rb

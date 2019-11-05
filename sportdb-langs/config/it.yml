@@ -35,21 +35,3 @@ final:          Finale
 
 leg1:  Andata
 leg2:  Ritorno
-
-
-#######################
-# months of year
-
-january:   gennaio
-february:  febbraio
-march:     marzo
-april:     aprile
-may:       maggio
-june:      giugno
-july:      luglio
-august:    agosto
-september: settembre
-october:   ottobre
-november:  novembre
-december:  dicembre
-

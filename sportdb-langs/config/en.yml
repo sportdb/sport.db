@@ -33,22 +33,3 @@ final:          Final|Finals
 
 leg1:  1st leg|First leg
 leg2:  2nd leg|Second leg
-
-
-#######################
-# months of year
-
-january:   January
-february:  February
-march:     March
-april:     April
-may:       May
-june:      June
-july:      July
-august:    August
-september: September
-october:   October
-november:  November
-december:  December
-
-

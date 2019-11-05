@@ -1,11 +1,11 @@
 require 'hoe'
-require './lib/sportdb/formats/version.rb'
+require './lib/sportdb/langs/version.rb'
 
-Hoe.spec 'sportdb-formats' do
+Hoe.spec 'sportdb-langs' do
 
-  self.version = SportDb::Formats::VERSION
+  self.version = SportDb::Langs::VERSION
 
-  self.summary = "sportdb-formats - sport.db format and text utilities"
+  self.summary = "sportdb-langs - sport.db language utilities"
   self.description = summary
 
   self.urls = ['https://github.com/sportdb/sport.db']
@@ -20,12 +20,11 @@ Hoe.spec 'sportdb-formats' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['alphabets',     '>= 0.1.0'],
-    ['csvreader',     '>= 1.2.4'],
-    ['sportdb-langs', '>= 0.0.1'],
+    ['logutils',   '>= 0.6.1'],
   ]
 
   self.spec_extras = {
    required_ruby_version: '>= 2.2.2'
   }
+
 end

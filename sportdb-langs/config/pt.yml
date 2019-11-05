@@ -25,22 +25,3 @@ final:          Final
 
 leg1:  1º jogo    # Ida  -- exists ??
 leg2:  2º jogo    # Volta  -- exists ??
-
-
-
-#######################
-# months of year
-
-january:   janeiro
-february:  fevereiro
-march:     março
-april:     abril
-may:       maio
-june:      junho
-july:      julho
-august:    agosto
-september: setembro
-october:   outubro
-november:  novembro
-december:  dezembro
-

@@ -14,7 +14,8 @@ def parse_csv( txt )
 end
 
 
-require 'textutils'     # TextUtils::Classifier, ...
+## more sportdb libs/gems
+require 'sportdb/langs'
 
 
 ###
@@ -24,7 +25,6 @@ require 'sportdb/formats/outline_reader'
 require 'sportdb/formats/datafile'
 require 'sportdb/formats/season_utils'
 
-require 'sportdb/formats/lang'
 require 'sportdb/formats/date'
 
 ## let's put test configuration in its own namespace / module
@@ -39,17 +39,6 @@ class Test    ## todo/check: works with module too? use a module - why? why not?
 end
 end   # module SportDb
 
-
-module SportDb
-  def self.lang
-    # todo/fix: find a better way for single instance ??
-    #  will get us ruby warning:  instance variable @lang not initialized   => find a better way!!!
-    #   just use @lang w/o .nil?  e.g.
-    #  @lang =|| Lang.new   why? why not??  or better use @@lang =|| Lang.new  for class variable!!!
-     @lang ||= Lang.new
-     @lang
-  end
-end # module SportDb
 
 
 

@@ -3,14 +3,12 @@
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_lang.rb
-#  or better
-#     rake -I ./lib test
 
 require 'helper'
 
 class TestLang < MiniTest::Test
 
-  def test_getters
+  def test_en
 
      lang = SportDb.lang
      lang.lang = 'en'
@@ -40,14 +38,13 @@ class TestLang < MiniTest::Test
      assert_equal round, lang.round
      assert_equal knockout_round, lang.knockout_round
 
-     # NB: call twice to test caching with ||=
+     # Note: call twice to test caching with ||=
      assert_equal group, lang.group
      assert_equal round, lang.round
      assert_equal knockout_round, lang.knockout_round
-
   end
 
-  def test_getters_de
+  def test_de
      lang = SportDb.lang
      lang.lang = 'de'
 
@@ -75,14 +72,14 @@ class TestLang < MiniTest::Test
      assert_equal round, lang.round
      assert_equal knockout_round, lang.knockout_round
 
-     # NB: call twice to test caching with ||=
-
+     # Note: call twice to test caching with ||=
      assert_equal group, lang.group
      assert_equal round, lang.round
      assert_equal knockout_round, lang.knockout_round
   end
 
-  def test_regex_knockout_round
+
+  def test_en__knockout_round_re
      lang = SportDb.lang
      lang.lang = 'en'
 
@@ -102,12 +99,11 @@ class TestLang < MiniTest::Test
      ]
 
      lines.each do |line|
-       assert( line =~ lang.regex_knockout_round )
+       assert( line =~ lang.knockout_round_re )
      end
-
   end
 
-  def test_regex_knockout_round_de
+  def test_de__knockout_round_re
     lang = SportDb.lang
     lang.lang = 'de'
 
@@ -122,9 +118,8 @@ class TestLang < MiniTest::Test
     ]
 
      lines.each do |line|
-       assert( line =~ lang.regex_knockout_round )
+       assert( line =~ lang.knockout_round_re )
      end
-
   end
 
 end # class TestLang

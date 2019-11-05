@@ -25,22 +25,3 @@ final:          Finale|Endspiel
 
 leg1:  Hin|Hinspiel|Hinspiele
 leg2:  Rück|Rückspiel|Rückspiele
-
-
-#######################
-# months of year
-
-january:   Jänner|Januar
-february:  Feber|Februar
-march:     März
-april:     April
-may:       Mai
-june:      Juni
-july:      Juli
-august:    August
-september: September
-october:   Oktober
-november:  November
-december:  Dezember
-
-

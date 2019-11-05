@@ -35,21 +35,3 @@ final:          Finala
 
 leg1:  Tur     ##  Prima manșă - use too ??
 leg2:  Retur   ##  Manșa secundă  - use too ??
-
-
-#######################
-# months of year
-
-january:   ianuarie
-february:  februarie
-march:     martie
-april:     aprilie
-may:       mai
-june:      iunie
-july:      iulie
-august:    august
-september: septembrie
-october:   octombrie
-november:  noiembrie
-december:  decembrie
-

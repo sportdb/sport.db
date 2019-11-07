@@ -1,6 +1,10 @@
 module DateFormats
 module Source
 
+# todo: make more generic for reuse
+### fix:
+##    use  date/en.txt or en.txt etc. --  why? why not?  
+  
   MONTH_EN = <<TXT
 January    Jan
 February   Feb

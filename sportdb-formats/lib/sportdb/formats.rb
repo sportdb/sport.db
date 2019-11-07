@@ -3,6 +3,15 @@
 
 ## 3rd party gems
 require 'alphabets'      # downcase_i18n, unaccent, variants, ...
+require 'date-formats'   ## todo/fix: also allow loading w/ date/formats - why? why not!!!!
+
+module SportDb
+  ## add alias for now for old code; DEPRECATED - remove later!!!!!
+  DateFinder       =  DateFormats::DateFinder
+  RsssfDateFinder  =  DateFormats::RsssfDateFinder
+end  # module SportDb
+
+
 require 'csvreader'
 
 def read_csv( path )
@@ -25,7 +34,6 @@ require 'sportdb/formats/outline_reader'
 require 'sportdb/formats/datafile'
 require 'sportdb/formats/season_utils'
 
-require 'sportdb/formats/date'
 
 ## let's put test configuration in its own namespace / module
 module SportDb

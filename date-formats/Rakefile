@@ -19,10 +19,11 @@ Hoe.spec 'date-formats' do
 
   self.licenses = ['Public Domain']
 
-  self.extra_deps = []
+  self.extra_deps = [
+    ['logutils', '>= 0.6.1'],
+  ]
 
   self.spec_extras = {
-   :required_ruby_version => '>= 2.2.2'
+    required_ruby_version: '>= 2.2.2'
   }
-
 end

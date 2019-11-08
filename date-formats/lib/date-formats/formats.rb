@@ -176,26 +176,8 @@ FR__DAY_DD_MONTH__DATE_RE = /\b
 
 
 
-#
-# map table - 1) tag, 2) regex - note: order matters; first come-first matched/served
-##  todo/fix: remove (move to attic)???  always use lang specific - why? why not?
-FORMATS_ALL = [
-  [ DB__DATE_TIME_RE,                '[YYYY_MM_DD_hh_mm]'       ],
-  [ DB__DATE_RE,                     '[YYYY_MM_DD]'             ],
-  [ DD_MM_YYYY__DATE_TIME_RE,        '[DD_MM_YYYY_hh_mm]'       ],
-  [ DD_MM__DATE_TIME_RE,             '[DD_MM_hh_mm]'            ],
-  [ DD_MM_YYYY__DATE_RE,             '[DD_MM_YYYY]'             ],
-  [ DD_MM__DATE_RE,                  '[DD_MM]'                  ],
-  [ FR__DAY_DD_MONTH__DATE_RE,       '[FR_DAY_DD_MONTH]'        ],
-  [ EN__DD_MONTH_YYYY__DATE_TIME_RE, '[EN_DD_MONTH_YYYY_hh_mm]' ],
-  [ EN__MONTH_DD_YYYY__DATE_TIME_RE, '[EN_MONTH_DD_YYYY_hh_mm]' ],
-  [ EN__MONTH_DD__DATE_TIME_RE,      '[EN_MONTH_DD_hh_mm]'      ],
-  [ EN__MONTH_DD_YYYY__DATE_RE,      '[EN_MONTH_DD_YYYY]'       ],
-  [ EN__MONTH_DD__DATE_RE,           '[EN_MONTH_DD]'            ],
-  [ EN__DD_MONTH__DATE_RE,           '[EN_DD_MONTH]'            ],
-  [ ES__DD_MONTH__DATE_RE,           '[ES_DD_MONTH]'            ]
-]
-
+#############################################
+# map tables - 1) regex,  2) tag - note: order matters; first come-first matched/served
 
 FORMATS_BASE = [    ### all numbers (no month names or weekday) - find a better name?
   [ DB__DATE_TIME_RE,         '[YYYY_MM_DD_hh_mm]' ],
@@ -229,6 +211,5 @@ FORMATS = {
   fr: FORMATS_BASE+FORMATS_FR,
   es: FORMATS_BASE+FORMATS_ES,
 }
-
 
 end  # module DateFormats

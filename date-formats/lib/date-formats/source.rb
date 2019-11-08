@@ -4,7 +4,9 @@ module Source
 # todo: make more generic for reuse
 ### fix:
 ##    use  date/en.txt or en.txt etc. --  why? why not?
-
+  
+##  note: always sort lines with longest words, abbrevations first!!!!
+  
   MONTH_EN = <<TXT
 January    Jan
 February   Feb
@@ -22,9 +24,9 @@ TXT
 
   WEEKDAY_EN = <<TXT
 Monday      Mon
-Tuesday     Tu  Tue  Tues
+Tuesday     Tues  Tue  Tu
 Wednesday   Wed
-Thursday    Th  Thu  Thur  Thurs
+Thursday    Thurs  Thur  Thu  Th
 Friday      Fri
 Saturday    Sat
 Sunday      Sun

@@ -40,12 +40,16 @@ module DateFormats
 
     include LogUtils::Logging
 
-    def initialize( lang: )
+    def initialize( lang:, formats: nil )
       @lang = lang.to_sym
 
-      ## fallback to english if lang not available
-      ##  todo/fix: add/issue warning!!!!!          
-      @formats =  FORMATS[ @lang ] || FORMATS[:en]
+      @formats = if formats
+                    formats
+                 else
+                    ## fallback to english if lang not available
+                    ##  todo/fix: add/issue warning!!!!!          
+                    FORMATS[ @lang ] || FORMATS[:en]
+                 end
       
       ## fix/fix:  add MONTH_NAMES and DAY_NAMES if present and build/gen mappings etc.  (do NOT forget to downcase!!!)
     end

@@ -1,45 +1,108 @@
 # encoding: utf-8
 
+
 module DateFormats
 
 
   def self.lang
-    @@lang ||= 'en'         ## defaults to english (en)
+    @@lang ||= :en            ## defaults to english (:en)
   end
   def self.lang=( value )
-    @@lang  = value.to_s;   ## note: make sure lang is a string for now (NOT a symbol)
+    @@lang  = value.to_sym    ## note: make sure lang is always a symbol for now (NOT a string)
   end
 
   def self.parse( line,
-                  lang:    lang,
+                  lang:    DateFormats.lang,    ## todo/check: if is for modules something like self.class.lang??
                   start:   Date.new( Date.today.year, 1, 1 ),  ## note: default to current YYYY.01.01. if no start provided
                   formats: nil )
 
-     lang = lang.to_s  ## note: make sure lang is a string for now (NOT a symbol)
+     lang = lang.to_sym  ## note: make sure lang is always a symbol for now (NOT a string)
 
      if formats
         parser = DateParser.new( lang: lang, formats: formats )
      else
        ## note: cache all "built-in" lang versions (e.g. formats == nil)
+       @@parser ||= {}
        parser = @@parser[ lang ] ||= DateParser.new( lang: lang )
      end
-     parser.parse( line, start )
+     parser.parse( line, start: start )
   end
 
   def self.find!( line,
-                  lang:  lang,
-                  start: Date.new( Date.today.year, 1, 1 ))  ## note: default to current YYYY.01.01. if no start provided
+                  lang:  DateFormats.lang,    ## todo/check: if is for modules something like self.class.lang??
+                  start: Date.new( Date.today.year, 1, 1 ) ## note: default to current YYYY.01.01. if no start provided
+                )
+     lang = lang.to_sym  ## note: make sure lang is always a symbol for now (NOT a string)
+
      ## note: cache all "built-in" lang versions
+     @@parser ||= {}
      parser = @@parser[ lang ] ||= DateParser.new( lang: lang )
-     parser.find!( line, start )
+     parser.find!( line, start: start )
   end
 
 
 
 
+  class DateParser
 
-### todo/fix: change to DateParserBase
-  class DateFinderBase
+    include LogUtils::Logging
+
+    def initialize( lang:, formats: nil )
+      @lang = lang.to_sym
+
+      @formats = if formats
+                   formats
+                 else
+                   ## fallback to english if lang not available
+                   ##  todo/fix: add/issue warning!!!!!
+                   FORMATS[ @lang ] || FORMATS[:en]
+                 end
+    end
+
+    def parse( line, start: )
+      date = nil
+      @formats.each do |format|
+        re = format[0]
+        m = re.match( line )
+        if m
+          date = parse_match_data( m, start: start )
+          break
+        end
+        # no match; continue; try next regex pattern
+      end
+
+      ## todo/fix - raise ArgumentError - invalid date; no format match found
+      date  # note: nil if no match found
+    end
+
+
+    def find!( line, start: )
+      # fix: use more lookahead for all required trailing spaces!!!!!
+      # fix: use <name capturing group> for month,day,year etc.!!!
+
+      #
+      # fix: !!!!
+      #   date in [] will become [[DATE.DE4]] - when getting removed will keep ]!!!!
+      #   fix: change regex to \[[A-Z0-9.]\]  !!!!!!  plus add unit test too!!!
+      #
+
+      date = nil
+      @formats.each do |format|
+        re  = format[0]
+        tag = format[1]
+        m = re.match( line )
+        if m
+          date = parse_match_data( m, start: start )
+          ## fix: use md[0] e.g. match for sub! instead of using regex again - why? why not???
+          ## fix: use md.begin(0), md.end(0)
+          line.sub!( m[0], tag )
+          ## todo/fix: make sure match data will not get changed (e.g. using sub! before parse_date_time)
+          break
+        end
+        # no match; continue; try next regex pattern
+      end
+      date  # note: nil if no match found
+    end
 
   private
     def calc_year( month, day, start: )
@@ -56,16 +119,16 @@ module DateFormats
     end
 
 
-    def parse_match_data( match_data, start: )
+    def parse_match_data( m, start: )
       # convert regex match_data captures to hash
       # - note: cannont use match_data like a hash (e.g. raises exception if key/name not present/found)
       h = {}
       # - note: do NOT forget to turn name into symbol for lookup in new hash (name.to_sym)
-      match_data.names.each { |name| h[name.to_sym] = match_data[name] }  # or use match_data.names.zip( match_data.captures )  - more cryptic but "elegant"??
+      m.names.each { |name| h[name.to_sym] = m[name] }  # or use match_data.names.zip( match_data.captures )  - more cryptic but "elegant"??
 
       ## puts "[parse_date_time] match_data:"
       ## pp h
-      logger.debug "   [parse_date_time] hash: >#{h.inspect}<"
+      logger.debug "   [parse_match_data] hash: >#{h.inspect}<"
 
       h[ :month ] = MONTH_EN_TO_MM[ h[:month_en] ]  if h[:month_en]
       h[ :month ] = MONTH_ES_TO_MM[ h[:month_es] ]  if h[:month_es]
@@ -93,83 +156,11 @@ module DateFormats
         Date.strptime( value, '%Y-%m-%d' )
       end
     end  # method parse
-  end  # class DateFinderBase
-
-
-  ### todo/fix: change to DateParser
-
-  class DateFinder < DateFinderBase
-
-    include LogUtils::Logging
-
-
-    def self.lang()        @@lang ||= 'en';  end    ## defaults to english (en)
-    def self.lang=(value)  @@lang   = value; end
-
-
-    def initialize( lang: self.class.lang, formats: nil )
-      @lang    = lang.to_s
-      ## fallback to english if lang not available
-      ##  todo/fix: add/issue warning!!!!!
-      if formats
-        @formats = formats
-      else
-        @formats = FORMATS[ @lang ] || FORMATS['en']
-      end
-    end
-
-    def parse( line, start: )
-      date = nil
-      @formats.each do |format|
-        tag     = format[0]
-        pattern = format[1]    ## todo/fix: switch let pattern/re go first!!!
-        m=pattern.match( line )
-        if m
-          date = parse_match_data( m, start: start )
-          break
-        end
-        # no match; continue; try next pattern
-      end
-
-      ## todo/fix - raise ArgumentError - invalid date; no format match found
-      date  # note: nil if no match found
-    end
-
-
-    def find!( line, start: )
-      # fix: use more lookahead for all required trailing spaces!!!!!
-      # fix: use <name capturing group> for month,day,year etc.!!!
-
-      #
-      # fix: !!!!
-      #   date in [] will become [[DATE.DE4]] - when getting removed will keep ]!!!!
-      #   fix: change regex to \[[A-Z0-9.]\]  !!!!!!  plus add unit test too!!!
-      #
-
-      date = nil
-      @formats.each do |format|
-        tag     = format[0]
-        pattern = format[1]    ## todo/fix: switch let pattern/re go first!!!
-        m=pattern.match( line )
-        if m
-          date = parse_match_data( m, start: start )
-          ## fix: use md[0] e.g. match for sub! instead of using regex again - why? why not???
-          ## fix: use md.begin(0), md.end(0)
-          line.sub!( m[0], tag )
-          ## todo/fix: make sure match data will not get changed (e.g. using sub! before parse_date_time)
-          break
-        end
-        # no match; continue; try next pattern
-      end
-      date  # note: nil if no match found
-    end
-  end # class DateFinder
+  end # class DateParser
 
 
 
-  ### todo/fix: change to RsssfDateParser
-
-  class RsssfDateFinder < DateFinderBase
+  class RsssfDateParser < DateParser
 
     MONTH_EN = 'Jan|'+
                'Feb|'+
@@ -196,8 +187,9 @@ module DateFormats
 
     def initialize
       super( lang:    'en',
-             formats: [[EN__MONTH_DD__DATE_RE, '[EN_MONTH_DD]']] )
+             formats: [[EN__MONTH_DD__DATE_RE, '[EN_MONTH_DD]']]
+           )
     end
-  end  ## class RsssfDateFinder
+  end  ## class RsssfDateParser
 
-  end # module DateFormats
+end # module DateFormats

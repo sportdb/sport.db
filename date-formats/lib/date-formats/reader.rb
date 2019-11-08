@@ -44,10 +44,10 @@ class Reader   ## todo/check: rename to WordReader or something for easy (re)use
         lines
     end
 
-    def self.parse_weekday( txt )
+    def self.parse_day( txt )
         lines = parse( txt )
         if lines.size != 7
-          puts "*** !!! ERROR !!! reading weekday names; got #{lines.size} lines - expected 7"
+          puts "*** !!! ERROR !!! reading day names; got #{lines.size} lines - expected 7"
           exit 1
         end
         lines

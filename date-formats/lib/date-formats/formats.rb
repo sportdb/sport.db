@@ -165,13 +165,13 @@ ES__DD_MONTH__DATE_RE = /\b
 
 # e.g. Ven 8 Août  or [Ven 8 Août] or Ven 8. Août  or [Ven 8. Août]
 ### note: do NOT consume [] in regex (use lookahead assert)
-FR__WEEKDAY_DD_MONTH__DATE_RE = /\b
-     (?:#{WEEKDAY_FR})   # note: skip weekday for now; do NOT capture
+FR__DAY_DD_MONTH__DATE_RE = /\b
+     (?<day_fr>:#{DAY_FR})    ## use day_name or day_name_fr - why? why not?
        \s+
      (?<day>\d{1,2})
        \.?        # note: make dot optional
        \s+
-     (?<month_fr>#{MONTH_FR})
+     (?<month_fr>#{MONTH_FR})   ## use month_name or month_name_fr - why? why not?
        (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too
 
 
@@ -180,54 +180,54 @@ FR__WEEKDAY_DD_MONTH__DATE_RE = /\b
 # map table - 1) tag, 2) regex - note: order matters; first come-first matched/served
 ##  todo/fix: remove (move to attic)???  always use lang specific - why? why not?
 FORMATS_ALL = [
-  [ '[YYYY_MM_DD_hh_mm]',        DB__DATE_TIME_RE         ],
-  [ '[YYYY_MM_DD]',              DB__DATE_RE              ],
-  [ '[DD_MM_YYYY_hh_mm]',        DD_MM_YYYY__DATE_TIME_RE ],
-  [ '[DD_MM_hh_mm]',             DD_MM__DATE_TIME_RE ],
-  [ '[DD_MM_YYYY]',              DD_MM_YYYY__DATE_RE ],
-  [ '[DD_MM]',                   DD_MM__DATE_RE ],
-  [ '[FR_WEEKDAY_DD_MONTH]',     FR__WEEKDAY_DD_MONTH__DATE_RE ],
-  [ '[EN_DD_MONTH_YYYY_hh_mm]',  EN__DD_MONTH_YYYY__DATE_TIME_RE ],
-  [ '[EN_MONTH_DD_YYYY_hh_mm]',  EN__MONTH_DD_YYYY__DATE_TIME_RE ],
-  [ '[EN_MONTH_DD_hh_mm]',       EN__MONTH_DD__DATE_TIME_RE ],
-  [ '[EN_MONTH_DD_YYYY]',        EN__MONTH_DD_YYYY__DATE_RE ],
-  [ '[EN_MONTH_DD]',             EN__MONTH_DD__DATE_RE ],
-  [ '[EN_DD_MONTH]',             EN__DD_MONTH__DATE_RE ],
-  [ '[ES_DD_MONTH]',             ES__DD_MONTH__DATE_RE ]
+  [ DB__DATE_TIME_RE,                '[YYYY_MM_DD_hh_mm]'       ],
+  [ DB__DATE_RE,                     '[YYYY_MM_DD]'             ],
+  [ DD_MM_YYYY__DATE_TIME_RE,        '[DD_MM_YYYY_hh_mm]'       ],
+  [ DD_MM__DATE_TIME_RE,             '[DD_MM_hh_mm]'            ],
+  [ DD_MM_YYYY__DATE_RE,             '[DD_MM_YYYY]'             ],
+  [ DD_MM__DATE_RE,                  '[DD_MM]'                  ],
+  [ FR__DAY_DD_MONTH__DATE_RE,       '[FR_DAY_DD_MONTH]'        ],
+  [ EN__DD_MONTH_YYYY__DATE_TIME_RE, '[EN_DD_MONTH_YYYY_hh_mm]' ],
+  [ EN__MONTH_DD_YYYY__DATE_TIME_RE, '[EN_MONTH_DD_YYYY_hh_mm]' ],
+  [ EN__MONTH_DD__DATE_TIME_RE,      '[EN_MONTH_DD_hh_mm]'      ],
+  [ EN__MONTH_DD_YYYY__DATE_RE,      '[EN_MONTH_DD_YYYY]'       ],
+  [ EN__MONTH_DD__DATE_RE,           '[EN_MONTH_DD]'            ],
+  [ EN__DD_MONTH__DATE_RE,           '[EN_DD_MONTH]'            ],
+  [ ES__DD_MONTH__DATE_RE,           '[ES_DD_MONTH]'            ]
 ]
 
 
 FORMATS_BASE = [    ### all numbers (no month names or weekday) - find a better name?
-  [ '[YYYY_MM_DD_hh_mm]',        DB__DATE_TIME_RE         ],
-  [ '[YYYY_MM_DD]',              DB__DATE_RE              ],
-  [ '[DD_MM_YYYY_hh_mm]',        DD_MM_YYYY__DATE_TIME_RE ],
-  [ '[DD_MM_hh_mm]',             DD_MM__DATE_TIME_RE ],
-  [ '[DD_MM_YYYY]',              DD_MM_YYYY__DATE_RE ],
-  [ '[DD_MM]',                   DD_MM__DATE_RE ],
+  [ DB__DATE_TIME_RE,         '[YYYY_MM_DD_hh_mm]' ],
+  [ DB__DATE_RE,              '[YYYY_MM_DD]'       ],
+  [ DD_MM_YYYY__DATE_TIME_RE, '[DD_MM_YYYY_hh_mm]' ],
+  [ DD_MM__DATE_TIME_RE,      '[DD_MM_hh_mm]'      ],
+  [ DD_MM_YYYY__DATE_RE,      '[DD_MM_YYYY]'       ],
+  [ DD_MM__DATE_RE,           '[DD_MM]'            ],
 ]
 
 FORMATS_EN = [
-  [ '[EN_DD_MONTH_YYYY_hh_mm]',  EN__DD_MONTH_YYYY__DATE_TIME_RE ],
-  [ '[EN_MONTH_DD_YYYY_hh_mm]',  EN__MONTH_DD_YYYY__DATE_TIME_RE ],
-  [ '[EN_MONTH_DD_hh_mm]',       EN__MONTH_DD__DATE_TIME_RE ],
-  [ '[EN_MONTH_DD_YYYY]',        EN__MONTH_DD_YYYY__DATE_RE ],
-  [ '[EN_MONTH_DD]',             EN__MONTH_DD__DATE_RE ],
-  [ '[EN_DD_MONTH]',             EN__DD_MONTH__DATE_RE ],
+  [ EN__DD_MONTH_YYYY__DATE_TIME_RE, '[EN_DD_MONTH_YYYY_hh_mm]' ],
+  [ EN__MONTH_DD_YYYY__DATE_TIME_RE, '[EN_MONTH_DD_YYYY_hh_mm]' ],
+  [ EN__MONTH_DD__DATE_TIME_RE,      '[EN_MONTH_DD_hh_mm]'      ],
+  [ EN__MONTH_DD_YYYY__DATE_RE,      '[EN_MONTH_DD_YYYY]'       ],
+  [ EN__MONTH_DD__DATE_RE,           '[EN_MONTH_DD]'            ],
+  [ EN__DD_MONTH__DATE_RE,           '[EN_DD_MONTH]'            ],
 ]
 
 FORMATS_FR = [
-  [ '[FR_WEEKDAY_DD_MONTH]',     FR__WEEKDAY_DD_MONTH__DATE_RE ],
+  [ FR__DAY_DD_MONTH__DATE_RE,       '[FR_DAY_DD_MONTH]' ],
 ]
 
 FORMATS_ES = [
-  [ '[ES_DD_MONTH]',             ES__DD_MONTH__DATE_RE ],
+  [ ES__DD_MONTH__DATE_RE,           '[ES_DD_MONTH]' ],
 ]
 
 
 FORMATS = {
-  'en' => FORMATS_BASE+FORMATS_EN,
-  'fr' => FORMATS_BASE+FORMATS_FR,
-  'es' => FORMATS_BASE+FORMATS_ES,
+  en: FORMATS_BASE+FORMATS_EN,
+  fr: FORMATS_BASE+FORMATS_FR,
+  es: FORMATS_BASE+FORMATS_ES,
 }
 
 

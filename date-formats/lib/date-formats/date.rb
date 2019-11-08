@@ -6,21 +6,21 @@ module DateFormats
 class DateFinderBase
 
 private
-  def calc_year( month, day, start_at: )   ## note: start_at required param for now on!!!
+  def calc_year( month, day, start: )  ## note: start required param for now on!!!
 
-    logger.debug "   [calc_year] ????-#{month}-#{day} -- start_at: #{start_at}"
+    logger.debug "   [calc_year] ????-#{month}-#{day} -- start: #{start}"
 
-    if month >= start_at.month
+    if month >= start.month
       # assume same year as start_at event (e.g. 2013 for 2013/14 season)
-      start_at.year
+      start.year
     else
       # assume year+1 as start_at event (e.g. 2014 for 2013/14 season)
-      start_at.year+1
+      start.year+1
     end
   end
 
 
-  def parse_date_time( match_data, start_at: )
+  def parse_date_time( match_data, start: )
 
     # convert regex match_data captures to hash
     # - note: cannont use match_data like a hash (e.g. raises exception if key/name not present/found)
@@ -35,10 +35,13 @@ private
     h[ :month ] = MONTH_EN_TO_MM[ h[:month_en] ]  if h[:month_en]
     h[ :month ] = MONTH_ES_TO_MM[ h[:month_es] ]  if h[:month_es]
     h[ :month ] = MONTH_FR_TO_MM[ h[:month_fr] ]  if h[:month_fr]
+    h[ :month ] = MONTH_DE_TO_MM[ h[:month_de] ]  if h[:month_de]
+    h[ :month ] = MONTH_IT_TO_MM[ h[:month_it] ]  if h[:month_it]
+    h[ :month ] = MONTH_PT_TO_MM[ h[:month_pt] ]  if h[:month_pt]
 
     month   = h[:month]
     day     = h[:day]
-    year    = h[:year]     || calc_year( month.to_i, day.to_i, start_at: start_at ).to_s
+    year    = h[:year]     || calc_year( month.to_i, day.to_i, start: start ).to_s
 
     hours   = h[:hours]    || '00'   # default to 00:00 for HH:MM (hours:minutes)
     minutes = h[:minutes]  || '00'
@@ -50,6 +53,7 @@ private
   end
 
 end  # class DateFinderBase
+
 
 
 class DateFinder < DateFinderBase
@@ -68,7 +72,7 @@ class DateFinder < DateFinderBase
     @formats = FORMATS[ @lang ] || FORMATS['en']
   end
 
-  def find!( line, start_at: )
+  def find!( line, start_at: )     ## todo/fix: change start_at to start only!!!
     # fix: use more lookahead for all required trailing spaces!!!!!
     # fix: use <name capturing group> for month,day,year etc.!!!
 
@@ -84,7 +88,7 @@ class DateFinder < DateFinderBase
       pattern = format[1]
       m=pattern.match( line )
       if m
-        date = parse_date_time( m, start_at: start_at )
+        date = parse_date_time( m, start: start_at )
         ## fix: use md[0] e.g. match for sub! instead of using regex again - why? why not???
         ## fix: use md.begin(0), md.end(0)
         line.sub!( m[0], tag )
@@ -128,7 +132,7 @@ class RsssfDateFinder < DateFinderBase
                    (?<day>\d{1,2})
                      \]/x
 
-  def find!( line, start_at: )
+  def find!( line, start_at: )     ## todo/fix: change start_at to start only!!!
     # fix: use more lookahead for all required trailing spaces!!!!!
     # fix: use <name capturing group> for month,day,year etc.!!!
 
@@ -136,7 +140,7 @@ class RsssfDateFinder < DateFinderBase
     pattern = EN__MONTH_DD__DATE_RE
     m = pattern.match( line )
     if m
-      date = parse_date_time( m, start_at: start_at )
+      date = parse_date_time( m, start: start_at )
       ## fix: use md[0] e.g. match for sub! instead of using regex again - why? why not???
       ## fix: use md.begin(0), md.end(0)
       line.sub!( m[0], tag )

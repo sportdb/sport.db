@@ -43,7 +43,17 @@ class Reader   ## todo/check: rename to WordReader or something for easy (re)use
         end
         lines
     end
+
+    def self.parse_weekday( txt )
+        lines = parse( txt )
+        if lines.size != 7
+          puts "*** !!! ERROR !!! reading weekday names; got #{lines.size} lines - expected 7"
+          exit 1
+        end
+        lines
+    end
 end # class Reader
+
 
 def self.build_re( lines )
   ## join all words together into a single string e.g.
@@ -66,5 +76,3 @@ def self.build_map( lines )
   end
 end
 end # module DateFormats
-
-

@@ -4,20 +4,21 @@
 #  to run use
 #     ruby -I ./lib -I ./test test/test_date.rb
 
+
 require 'helper'
 
 class TestDate < MiniTest::Test
 
   def test_date
     data = [
-      [ '19.01.2013 22.00', '2013-01-19 22:00' ],
-      [ '21.01.2013 21.30', '2013-01-21 21:30' ],
-      [ '26.01.2013',       '2013-01-26' ],
-      [ '[26.01.2013]',     '2013-01-26' ],
-      [ '[21.1.]',          '2013-01-21 00:00' ]
+      [ '19.01.2013 22.00', '2013-01-19 22:00', '[DD_MM_YYYY_hh_mm]' ],
+      [ '21.01.2013 21.30', '2013-01-21 21:30', '[DD_MM_YYYY_hh_mm]' ],
+      [ '26.01.2013',       '2013-01-26',       '[DD_MM_YYYY]'       ],
+      [ '[26.01.2013]',     '2013-01-26',       '[[DD_MM_YYYY]]'     ],
+      [ '[21.1.]',          '2013-01-21 00:00', '[[DD_MM]]'          ]
     ]
 
-    assert_dates( data, start_at: Date.new( 2013, 1, 1 ) )
+    assert_dates( data, start: Date.new( 2013, 1, 1 ) )
   end
 
   def test_date_fr
@@ -33,7 +34,7 @@ class TestDate < MiniTest::Test
       [ '[Sam 7. Fév]',   '2015-02-07' ],
     ]
 
-    assert_dates( data, start_at: Date.new( 2014, 8, 1 ), lang: 'fr' )
+    assert_dates( data, start: Date.new( 2014, 8, 1 ), lang: 'fr' )
   end
 
   def test_date_en
@@ -55,17 +56,23 @@ class TestDate < MiniTest::Test
       [ '13 June',           '2013-06-13 00:00' ]
     ]
 
-    assert_dates( data, start_at: Date.new( 2013, 1, 1 ), lang: 'en' )
+    assert_dates( data, start: Date.new( 2013, 1, 1 ), lang: 'en' )
   end
 
 
 
 private
-  def assert_dates( data, start_at:, lang: 'en' )
+  def assert_dates( data, start:, lang: 'en' )
     data.each do |rec|
-      line = rec[0]
-      str  = rec[1]
-      value = parse_date( line, start_at: start_at, lang: lang )
+      line         = rec[0]
+      str          = rec[1]
+      value = parse_date( line, start: start, lang: lang )
+
+      tagged_line  = rec[2]  ## optinal tagged line
+      if tagged_line      ## note: line gets tagged inplace!!! (no new string)
+        assert_equal line, tagged_line
+        puts "#{line} == #{tagged_line}"
+      end
 
       if str.index( ':' )
         assert_datetime( DateTime.strptime( str, '%Y-%m-%d %H:%M' ), value )
@@ -93,10 +100,10 @@ private
   end
 
 
-  def parse_date( line, start_at:, lang: )
+  def parse_date( line, start:, lang: )
      # e.g. lets you pass in opts[:start_at] ???
      finder = DateFormats::DateFinder.new( lang: lang )
-     finder.find!( line, start_at: start_at )
+     finder.find!( line, start_at: start )
   end
 
 end # class TestDate

@@ -7,4 +7,4 @@ require 'minitest/autorun'
 
 ## our own code
 
-require 'date-formats'
+require 'date/formats'     ## or require 'date-formats'

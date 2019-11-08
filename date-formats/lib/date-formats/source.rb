@@ -3,8 +3,8 @@ module Source
 
 # todo: make more generic for reuse
 ### fix:
-##    use  date/en.txt or en.txt etc. --  why? why not?  
-  
+##    use  date/en.txt or en.txt etc. --  why? why not?
+
   MONTH_EN = <<TXT
 January    Jan
 February   Feb
@@ -20,6 +20,18 @@ November   Nov
 December   Dec
 TXT
 
+  WEEKDAY_EN = <<TXT
+Monday      Mon
+Tuesday     Tu  Tue  Tues
+Wednesday   Wed
+Thursday    Th  Thu  Thur  Thurs
+Friday      Fri
+Saturday    Sat
+Sunday      Sun
+TXT
+
+
+
   MONTH_FR = <<TXT
 Janvier    Janv   Jan     ## check janv in use??
 Février    Févr   Fév     ## check fevr in use???
@@ -34,6 +46,18 @@ Octobre    Octo   Oct     ## check octo in use??
 Novembre   Nove   Nov     ##  check nove in use??
 Décembre   Déce   Déc     ## check dece in use??
 TXT
+
+  WEEKDAY_FR = <<TXT
+Lundi     Lun  L
+Mardi     Mar  Ma
+Mercredi  Mer  Me
+Jeudi     Jeu  J
+Vendredi  Ven  V
+Samedi    Sam  S
+Dimanche  Dim  D
+TXT
+
+
 
   MONTH_ES = <<TXT
 Enero      Ene
@@ -51,18 +75,18 @@ Diciembre  Dic
 TXT
 
   MONTH_DE = <<TXT
-Jänner  Januar
-Feber   Februar
-März
-April
-Mai
-Juni
-Juli
-August
-September
-Oktober
-November
-Dezember
+Jänner  Januar    Jan  Jän    # note: in Austria - Jänner; in Deutschland Januar allow both ??
+Feber   Februar   Feb
+März              Mär
+April             Apr
+Mai               Mai
+Juni              Jun
+Juli              Jul
+August            Aug
+September         Sep
+Oktober           Okt
+November          Nov
+Dezember          Dez
 TXT
 
   MONTH_IT = <<TXT
@@ -112,4 +136,3 @@ TXT
 
 end # module Source
 end # module DateFormats
-

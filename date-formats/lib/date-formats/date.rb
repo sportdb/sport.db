@@ -11,35 +11,28 @@ module DateFormats
     @@lang  = value.to_sym    ## note: make sure lang is always a symbol for now (NOT a string)
   end
 
+  
+  def self.parser( lang: )  ## find parser
+    lang = lang.to_sym  ## note: make sure lang is always a symbol for now (NOT a string)
+
+     ## note: cache all "built-in" lang versions (e.g. formats == nil)
+     @@parser ||= {}
+     parser = @@parser[ lang ] ||= DateParser.new( lang: lang )
+   end
+    
   def self.parse( line,
                   lang:    DateFormats.lang,    ## todo/check: if is for modules something like self.class.lang??
-                  start:   Date.new( Date.today.year, 1, 1 ),  ## note: default to current YYYY.01.01. if no start provided
-                  formats: nil )
-
-     lang = lang.to_sym  ## note: make sure lang is always a symbol for now (NOT a string)
-
-     if formats
-        parser = DateParser.new( lang: lang, formats: formats )
-     else
-       ## note: cache all "built-in" lang versions (e.g. formats == nil)
-       @@parser ||= {}
-       parser = @@parser[ lang ] ||= DateParser.new( lang: lang )
-     end
-     parser.parse( line, start: start )
+                  start:   Date.new( Date.today.year, 1, 1 )  ## note: default to current YYYY.01.01. if no start provided
+                )
+     parser( lang: lang ).parse( line, start: start )
   end
 
   def self.find!( line,
                   lang:  DateFormats.lang,    ## todo/check: if is for modules something like self.class.lang??
                   start: Date.new( Date.today.year, 1, 1 ) ## note: default to current YYYY.01.01. if no start provided
                 )
-     lang = lang.to_sym  ## note: make sure lang is always a symbol for now (NOT a string)
-
-     ## note: cache all "built-in" lang versions
-     @@parser ||= {}
-     parser = @@parser[ lang ] ||= DateParser.new( lang: lang )
-     parser.find!( line, start: start )
+     parser( lang: lang ).find!( line, start: start )
   end
-
 
 
 
@@ -47,16 +40,14 @@ module DateFormats
 
     include LogUtils::Logging
 
-    def initialize( lang:, formats: nil )
+    def initialize( lang: )
       @lang = lang.to_sym
 
-      @formats = if formats
-                   formats
-                 else
-                   ## fallback to english if lang not available
-                   ##  todo/fix: add/issue warning!!!!!
-                   FORMATS[ @lang ] || FORMATS[:en]
-                 end
+      ## fallback to english if lang not available
+      ##  todo/fix: add/issue warning!!!!!          
+      @formats =  FORMATS[ @lang ] || FORMATS[:en]
+      
+      ## fix/fix:  add MONTH_NAMES and DAY_NAMES if present and build/gen mappings etc.  (do NOT forget to downcase!!!)
     end
 
     def parse( line, start: )
@@ -130,7 +121,7 @@ module DateFormats
       ## pp h
       logger.debug "   [parse_match_data] hash: >#{h.inspect}<"
 
-      h[ :month ] = MONTH_EN_TO_MM[ h[:month_en] ]  if h[:month_en]
+      h[ :month ] = MONTH_EN_TO_MM[ h[:month_en] ]  if h[:month_en]   ## todo/fix: change to "generic" month_name and day_name !!!
       h[ :month ] = MONTH_ES_TO_MM[ h[:month_es] ]  if h[:month_es]
       h[ :month ] = MONTH_FR_TO_MM[ h[:month_fr] ]  if h[:month_fr]
       h[ :month ] = MONTH_DE_TO_MM[ h[:month_de] ]  if h[:month_de]

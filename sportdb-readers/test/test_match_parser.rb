@@ -96,10 +96,10 @@ TXT
     lines = txt.split( /\n+/ )    # note: removes/strips empty lines
     pp lines
 
-    start_at= Date.new( 2017, 7, 1 )
+    start = Date.new( 2017, 7, 1 )
 
-
-    parser = SportDb::MatchParserSimpleV2.new( lines, clubs, start_at )
+    DateFormats.lang = 'en'
+    parser = SportDb::MatchParserSimpleV2.new( lines, clubs, start )
     rounds, matches = parser.parse
     pp rounds
     pp matches

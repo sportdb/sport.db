@@ -28,8 +28,16 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       ## hack for now: switch lang
       if ['at', 'de'].include?( league.country.key )
         SportDb.lang.lang = 'de'
+        DateFormats.lang = 'de'
+      elsif ['fr'].include?( league.country.key )
+        SportDb.lang.lang = 'fr'
+        DateFormats.lang = 'fr'
+      elsif ['es'].include?( league.country.key )
+        SportDb.lang.lang = 'es'
+        DateFormats.lang = 'es'
       else
         SportDb.lang.lang = 'en'
+        DateFormats.lang = 'en'
       end
 
       ## todo/fix: set lang for now depending on league country!!!

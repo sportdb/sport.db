@@ -5,10 +5,10 @@ module SportDb
 class MatchParserSimpleV2   ## simple match parser for club match schedules
   include LogUtils::Logging
 
-  def initialize( lines, teams, start_at )
+  def initialize( lines, teams, start )
      @lines        = lines     ## todo/check: change to text instead of array of lines - why? why not?
      @mapper_teams = TeamMapper.new( teams )
-     @start_at     = start_at
+     @start        = start
 
      ## build lookup hash by (team) key
      @teams =  teams.reduce({}) { |h,team| h[team.key]=team; h }
@@ -241,7 +241,7 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
 
     ## pos = find_game_pos!( line )
 
-      date      = find_date!( line, start_at: @start_at )
+      date      = find_date!( line, start: @start )
 
     ###
     # check if date found?
@@ -422,17 +422,16 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
     parse_date_header( line.dup )
   end
 
-  def find_date!( line, opts={} )
+  def find_date!( line, start: )
     ## NB: lets us pass in start_at/end_at date (for event)
     #   for auto-complete year
 
     # extract date from line
     # and return it
     # NB: side effect - removes date from line string
-
-    finder = DateFinder.new
-    finder.find!( line, opts )
+    DateFormats.find!( line, start: start )
   end
+
 
   def parse_date_header( line )
     # note: returns true if parsed, false if no match
@@ -447,7 +446,7 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
     team1_key = team_keys[0]
     team2_key = team_keys[1]
 
-    date = find_date!( line, start_at: @start_at )
+    date = find_date!( line, start: @start )
 
     if date && team1_key.nil? && team2_key.nil?
       logger.debug( "date header line found: >#{line}<")

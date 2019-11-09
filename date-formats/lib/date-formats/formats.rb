@@ -18,7 +18,7 @@ DB__DATE_TIME_RE = /\b
                (?<minutes>\d{2})
                 \b/x
 
-# e.g. 2012-09-14  w/ implied hours (set to 12:00)
+# e.g. 2012-09-14    => YYYY-MM-DD
 #  note: allow 2012-9-3 e.g. no leading zero required
 # regex_db2
 DB__DATE_RE = /\b
@@ -61,7 +61,7 @@ DD_MM__DATE_TIME_RE = /\b
                       (?<minutes>\d{2})
                         \b/x
 
-# e.g. 14.09.2012  => DD.MM.YYYY w/ implied hours (set to 12:00)
+# e.g. 14.09.2012  => DD.MM.YYYY
 # regex_de3
 DD_MM_YYYY__DATE_RE = /\b
                   (?<day>\d{1,2})
@@ -71,7 +71,7 @@ DD_MM_YYYY__DATE_RE = /\b
                   (?<year>\d{4})
                     \b/x
 
-# e.g. 14.09.  => DD.MM. w/ implied year and implied hours (set to 12:00)
+# e.g. 14.09.  => DD.MM. w/ implied year
 #  note: allow end delimiter ] e.g. [Sa 12.01.] or end-of-string ($) too
 #  note: we use a lookahead for last part e.g. (?:\s+|$|[\]]) - do NOT cosume
 # regex_de4 (use lookahead assert)
@@ -89,7 +89,7 @@ DD_MM__DATE_RE = /\b
 EN__DD_MONTH_YYYY__DATE_TIME_RE = /\b
               (?<day>\d{1,2})
                  \s
-              (?<month_en>#{MONTH_EN})
+              (?<month_name>#{MONTH_EN})
                  \s
               (?<year>\d{4})
                  \s+
@@ -98,22 +98,16 @@ EN__DD_MONTH_YYYY__DATE_TIME_RE = /\b
               (?<minutes>\d{2})
                 \b/x
 
-###
-# fix: pass in lang (e.g. en or es)
-#  only process format for lang plus fallback to en?
-#   e.g.  EN__DD_MONTH and ES__DD_MONTH depend on order for match (first listed will match)
-
-# e.g. 12 May  => D|DD.MMM  w/ implied year and implied hours
+# e.g. 12 May  => D|DD.MMM  w/ implied year
 EN__DD_MONTH__DATE_RE = /\b
               (?<day>\d{1,2})
                  \s
-              (?<month_en>#{MONTH_EN})
+              (?<month_name>#{MONTH_EN})
                  \b/x
-
 
 # e.g.  Jun/12 2011 14:00
 EN__MONTH_DD_YYYY__DATE_TIME_RE = /\b
-                 (?<month_en>#{MONTH_EN})
+                 (?<month_name>#{MONTH_EN})
                    \/
                  (?<day>\d{1,2})
                    \s
@@ -126,7 +120,7 @@ EN__MONTH_DD_YYYY__DATE_TIME_RE = /\b
 
 # e.g.  Jun/12 14:00  w/ implied year H|HH:MM
 EN__MONTH_DD__DATE_TIME_RE = /\b
-                 (?<month_en>#{MONTH_EN})
+                 (?<month_name>#{MONTH_EN})
                    \/
                  (?<day>\d{1,2})
                    \s+
@@ -135,9 +129,9 @@ EN__MONTH_DD__DATE_TIME_RE = /\b
                  (?<minutes>\d{2})
                    \b/x
 
-# e.g. Jun/12 2013  w/ implied hours (set to 12:00)
+# e.g. Jun/12 2013
 EN__MONTH_DD_YYYY__DATE_RE = /\b
-              (?<month_en>#{MONTH_EN})
+              (?<month_name>#{MONTH_EN})
                  \/
               (?<day>\d{1,2})
                  \s
@@ -150,28 +144,28 @@ EN__MONTH_DD_YYYY__DATE_RE = /\b
 #  fix: remove  space again for now - and use simple en date reader or something!!!
 ##  was [\/ ]   changed back to \/
 EN__MONTH_DD__DATE_RE = /\b
-                 (?<month_en>#{MONTH_EN})
+                 (?<month_name>#{MONTH_EN})
                     \/
                  (?<day>\d{1,2})
                    \b/x
 
 
-# e.g.  12 Ene  w/ implied year and implied hours (set to 12:00)
+# e.g.  12 Ene  w/ implied year
 ES__DD_MONTH__DATE_RE = /\b
                  (?<day>\d{1,2})
                    \s
-                 (?<month_es>#{MONTH_ES})
+                 (?<month_name>#{MONTH_ES})
                    \b/x
 
 # e.g. Ven 8 Août  or [Ven 8 Août] or Ven 8. Août  or [Ven 8. Août]
 ### note: do NOT consume [] in regex (use lookahead assert)
 FR__DAY_DD_MONTH__DATE_RE = /\b
-     (?<day_fr>:#{DAY_FR})    ## use day_name or day_name_fr - why? why not?
+     (?<day_name>#{DAY_FR})
        \s+
      (?<day>\d{1,2})
        \.?        # note: make dot optional
        \s+
-     (?<month_fr>#{MONTH_FR})   ## use month_name or month_name_fr - why? why not?
+     (?<month_name>#{MONTH_FR})
        (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too
 
 

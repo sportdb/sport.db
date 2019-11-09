@@ -11,43 +11,27 @@ require 'logutils'
 ###
 # our own code
 require 'date-formats/version' # let version always go first
-require 'date-formats/source'
 require 'date-formats/reader'
+require 'date-formats/source'
 
 
 module DateFormats
-  
-MONTH_NAMES = {
-  en: Reader.parse_month( Source::MONTH_EN ),
-  fr: Reader.parse_month( Source::MONTH_FR ),
-  es: Reader.parse_month( Source::MONTH_ES ),
-}
 
-DAY_NAMES = {
-  en: Reader.parse_day( Source::DAY_EN ),
-  fr: Reader.parse_day( Source::DAY_FR ),
-}
+#############
+# helpers for building format regex patterns
+MONTH_EN       = build_names( MONTH_NAMES[:en] )
+# e.g. Jan|Feb|March|Mar|April|Apr|May|June|Jun|...
+DAY_EN         = build_names( DAY_NAMES[:en] )
+# e.g.
 
-  
-MONTH_EN       = build_re( MONTH_NAMES[:en] )
-DAY_EN         = build_re( DAY_NAMES[:en] )
+MONTH_FR       = build_names( MONTH_NAMES[:fr] )
+DAY_FR         = build_names( DAY_NAMES[:fr] )
 
-MONTH_FR       = build_re( MONTH_NAMES[:fr] )
-DAY_FR         = build_re( DAY_NAMES[:fr] )
+MONTH_ES       = build_names( MONTH_NAMES[:es] )
+MONTH_PT       = build_names( MONTH_NAMES[:pt] )
+MONTH_DE       = build_names( MONTH_NAMES[:de] )
+MONTH_IT       = build_names( MONTH_NAMES[:it] )
 
-MONTH_ES       = build_re( MONTH_NAMES[:es] )
-
-
-
-MONTH_DE_LINES = Reader.parse_month( Source::MONTH_DE )
-MONTH_DE_TO_MM = build_map( MONTH_DE_LINES )
-MONTH_DE       = build_re( MONTH_DE_LINES )
-
-  
-## MONTH_EN_TO_MM = build_map( MONTH_EN_LINES )   ### fix: move inside date parser  and ALWAYS downcase (fix: add downcase)
-## MONTH_FR_TO_MM = build_map( MONTH_FR_LINES )     ### fix: move inside date parser
-## MONTH_ES_TO_MM = build_map( MONTH_ES_LINES )
-    
 end  # module DateFormats
 
 

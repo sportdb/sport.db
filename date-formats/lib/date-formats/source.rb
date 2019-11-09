@@ -1,13 +1,16 @@
 module DateFormats
-module Source
 
 # todo: make more generic for reuse
 ### fix:
 ##    use  date/en.txt or en.txt etc. --  why? why not?
 
 ##  note: always sort lines with longest words, abbrevations first!!!!
+##  todo/fix: add/split into MONTH_NAMES and MONTH_ABBREVS (and DAY_NAMES and DAY_ABBREVS) - why? why not?
+  MONTH_NAMES = {}
+  DAY_NAMES   = {}
 
-  MONTH_EN = <<TXT
+
+  MONTH_NAMES[:en] = <<TXT
 January    Jan
 February   Feb
 March      Mar
@@ -22,7 +25,8 @@ November   Nov
 December   Dec
 TXT
 
-  DAY_EN = <<TXT
+
+  DAY_NAMES[:en] = <<TXT
 Monday      Mon
 Tuesday     Tues  Tue  Tu
 Wednesday   Wed
@@ -34,7 +38,7 @@ TXT
 
 
 
-  MONTH_FR = <<TXT
+  MONTH_NAMES[:fr] = <<TXT
 Janvier    Janv   Jan     ## check janv in use??
 Février    Févr   Fév     ## check fevr in use???
 Mars              Mar
@@ -49,7 +53,7 @@ Novembre   Nove   Nov     ##  check nove in use??
 Décembre   Déce   Déc     ## check dece in use??
 TXT
 
-  DAY_FR = <<TXT
+  DAY_NAMES[:fr] = <<TXT
 Lundi     Lun  L
 Mardi     Mar  Ma
 Mercredi  Mer  Me
@@ -61,7 +65,7 @@ TXT
 
 
 
-  MONTH_ES = <<TXT
+  MONTH_NAMES[:es] = <<TXT
 Enero      Ene
 Febrero    Feb
 Marzo      Mar
@@ -76,7 +80,7 @@ Noviembre  Nov
 Diciembre  Dic
 TXT
 
-  MONTH_DE = <<TXT
+  MONTH_NAMES[:de] = <<TXT
 Jänner  Januar    Jan  Jän    # note: in Austria - Jänner; in Deutschland Januar allow both ??
 Feber   Februar   Feb
 März              Mär
@@ -91,7 +95,7 @@ November          Nov
 Dezember          Dez
 TXT
 
-  MONTH_IT = <<TXT
+  MONTH_NAMES[:it] = <<TXT
 Gennaio
 Febbraio
 Marzo
@@ -106,7 +110,7 @@ Novembre
 Dicembre
 TXT
 
-  MONTH_PT = <<TXT
+  MONTH_NAMES[:pt] = <<TXT
 Janeiro
 Fevereiro
 Março
@@ -121,7 +125,7 @@ Novembro
 Dezembro
 TXT
 
-  MONTH_RO = <<TXT
+  MONTH_NAMES[:ro] = <<TXT
 Ianuarie
 Februarie
 Martie
@@ -136,5 +140,9 @@ Noiembrie
 Decembrie
 TXT
 
-end # module Source
+############################################
+## convert (unparsed) text to (parsed) lines with words
+MONTH_NAMES.each {|k,v| MONTH_NAMES[k] = parse_month(v) }
+DAY_NAMES.each   {|k,v| DAY_NAMES[k]   = parse_day(v) }
+
 end # module DateFormats

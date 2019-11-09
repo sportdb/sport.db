@@ -8,30 +8,30 @@ module DateFormats
     @@lang ||= :en            ## defaults to english (:en)
   end
   def self.lang=( value )
-    @@lang  = value.to_sym    ## note: make sure lang is always a symbol for now (NOT a string)
+    @@lang = value.to_sym    ## note: make sure lang is always a symbol for now (NOT a string)
   end
 
-  
+
   def self.parser( lang: )  ## find parser
     lang = lang.to_sym  ## note: make sure lang is always a symbol for now (NOT a string)
 
-     ## note: cache all "built-in" lang versions (e.g. formats == nil)
-     @@parser ||= {}
-     parser = @@parser[ lang ] ||= DateParser.new( lang: lang )
-   end
-    
+    ## note: cache all "built-in" lang versions (e.g. formats == nil)
+    @@parser ||= {}
+    parser = @@parser[ lang ] ||= DateParser.new( lang: lang )
+  end
+
   def self.parse( line,
-                  lang:    DateFormats.lang,    ## todo/check: if is for modules something like self.class.lang??
+                  lang:    self.class.lang,
                   start:   Date.new( Date.today.year, 1, 1 )  ## note: default to current YYYY.01.01. if no start provided
                 )
-     parser( lang: lang ).parse( line, start: start )
+    parser( lang: lang ).parse( line, start: start )
   end
 
   def self.find!( line,
-                  lang:  DateFormats.lang,    ## todo/check: if is for modules something like self.class.lang??
+                  lang:  self.class.lang,
                   start: Date.new( Date.today.year, 1, 1 ) ## note: default to current YYYY.01.01. if no start provided
                 )
-     parser( lang: lang ).find!( line, start: start )
+    parser( lang: lang ).find!( line, start: start )
   end
 
 
@@ -40,19 +40,32 @@ module DateFormats
 
     include LogUtils::Logging
 
-    def initialize( lang:, formats: nil )
-      @lang = lang.to_sym
+    def initialize( lang:,
+                    formats: nil, month_names: nil, day_names: nil
+                  )
+      @lang = lang.to_sym   ## note: make sure lang is always a symbol for now (NOT a string)
 
-      @formats = if formats
-                    formats
-                 else
-                    ## fallback to english if lang not available
-                    ##  todo/fix: add/issue warning!!!!!          
-                    FORMATS[ @lang ] || FORMATS[:en]
-                 end
-      
-      ## fix/fix:  add MONTH_NAMES and DAY_NAMES if present and build/gen mappings etc.  (do NOT forget to downcase!!!)
+      if formats
+        @formats = formats
+      else
+        @formats = FORMATS[ @lang ]
+        if @formats
+          month_names = MONTH_NAMES[ @lang ]
+          day_names   = DAY_NAMES[ @lang ]
+        else
+          ## fallback to english if lang not available
+          ##  todo/fix: add/issue warning!!!!!
+          @formats    = FORMATS[ :en ]
+          month_names = MONTH_NAMES[ :en ]
+          day_names   = DAY_NAMES[ :en ]
+        end
+      end
+
+      ## convert month_names and day_names to map if present
+      @month_names = month_names ? build_map( month_names ) : nil
+      @day_names   = day_names   ? build_map( day_names )   : nil
     end
+
 
     def parse( line, start: )
       date = nil
@@ -60,7 +73,7 @@ module DateFormats
         re = format[0]
         m = re.match( line )
         if m
-          date = parse_match_data( m, start: start )
+          date = parse_matchdata( m, start: start )
           break
         end
         # no match; continue; try next regex pattern
@@ -87,7 +100,7 @@ module DateFormats
         tag = format[1]
         m = re.match( line )
         if m
-          date = parse_match_data( m, start: start )
+          date = parse_matchdata( m, start: start )
           ## fix: use md[0] e.g. match for sub! instead of using regex again - why? why not???
           ## fix: use md.begin(0), md.end(0)
           line.sub!( m[0], tag )
@@ -114,7 +127,7 @@ module DateFormats
     end
 
 
-    def parse_match_data( m, start: )
+    def parse_matchdata( m, start: )
       # convert regex match_data captures to hash
       # - note: cannont use match_data like a hash (e.g. raises exception if key/name not present/found)
       h = {}
@@ -123,14 +136,32 @@ module DateFormats
 
       ## puts "[parse_date_time] match_data:"
       ## pp h
-      logger.debug "   [parse_match_data] hash: >#{h.inspect}<"
+      logger.debug "   [parse_matchdata] hash: >#{h.inspect}<"
 
-      h[ :month ] = MONTH_EN_TO_MM[ h[:month_en] ]  if h[:month_en]   ## todo/fix: change to "generic" month_name and day_name !!!
-      h[ :month ] = MONTH_ES_TO_MM[ h[:month_es] ]  if h[:month_es]
-      h[ :month ] = MONTH_FR_TO_MM[ h[:month_fr] ]  if h[:month_fr]
-      h[ :month ] = MONTH_DE_TO_MM[ h[:month_de] ]  if h[:month_de]
-      h[ :month ] = MONTH_IT_TO_MM[ h[:month_it] ]  if h[:month_it]
-      h[ :month ] = MONTH_PT_TO_MM[ h[:month_pt] ]  if h[:month_pt]
+      if h[:month_name]
+        ## todo/fix: issue error if no month names defined !!!
+        if @month_names
+         h[ :month ] = @month_names[ h[:month_name] ]
+        else
+          ## todo/fix: change to ArgumentError( "invalid date; ")
+          puts "** !!! ERROR !!! - no month names defined for lang #{@lang}; cannot match:"
+          pp m
+          exit 1
+        end
+      end
+
+      if h[:day_name]
+        if @day_names
+          ## note: use cwday  in ruby date to get days from 1-7 (Monday (1) to Sunday (7))
+          ##            wday  gives you 0-6 (Sunday (0), Monday (1) to Saturday (6))
+          h[ :cwday ] = @day_names[ h[:day_name ] ]
+        else
+          ## todo/fix: change to ArgumentError( "invalid date; ")
+          puts "** !!! ERROR !!! - no day names defined for lang #{@lang}; cannot match:"
+          pp m
+          exit 1
+        end
+      end
 
       month   = h[:month]
       day     = h[:day]
@@ -143,46 +174,73 @@ module DateFormats
         value = '%d-%02d-%02d %02d:%02d' % [year.to_i, month.to_i, day.to_i, hours.to_i, minutes.to_i]
         logger.debug "   datetime: >#{value}<"
 
-        DateTime.strptime( value, '%Y-%m-%d %H:%M' )
+        date = DateTime.strptime( value, '%Y-%m-%d %H:%M' )
       else
         value = '%d-%02d-%02d' % [year.to_i, month.to_i, day.to_i]
         logger.debug "   date: >#{value}<"
 
-        Date.strptime( value, '%Y-%m-%d' )
+        date = Date.strptime( value, '%Y-%m-%d' )
       end
+
+      ## check/assert cwday if present!!!!
+      date
     end  # method parse
+
+  ##################
+  # helpers
+  private
+    def build_map( lines )
+      ## build a lookup map that maps the word to the index (line no) plus 1 e.g.
+      ##   note: index is a string too
+      ##  {"January" => "1",  "Jan" => "1",
+      ##   "February" => "2", "Feb" => "2",
+      ##   "March" => "3",    "Mar" => "3",
+      ##   "April" => "4",    "Apr" => "4",
+      ##   "May" => "5",
+      ##   "June" => "6",     "Jun" => "6", ...
+      lines.each_with_index.reduce( {} ) do |h,(line,i)|
+        line.each { |name| h[ name ] = (i+1).to_s }  ## note: start mapping with 1 (and NOT zero-based, that is, 0)
+        h
+      end
+    end
   end # class DateParser
+
 
 
 
   class RsssfDateParser < DateParser
 
-    MONTH_EN = 'Jan|'+
-               'Feb|'+
-               'March|Mar|'+
-               'April|Apr|'+
-               'May|'+
-               'June|Jun|'+
-               'July|Jul|'+
-               'Aug|'+
-               'Sept|Sep|'+
-               'Oct|'+
-               'Nov|'+
-               'Dec'
+    MONTH_NAMES = DateFormats.parse_month( <<TXT )
+Jan
+Feb
+March  Mar
+April  Apr
+May
+June   Jun
+July   Jul
+Aug
+Sept   Sep
+Oct
+Nov
+Dec
+TXT
+
+    MONTH_EN = DateFormats.build_names( MONTH_NAMES )    ## re helper e.g. Jan|Feb|March|Mar|...
 
     ## e.g.
     ##  [Jun 7]  or [Aug 12] etc.  - not MUST include brackets e.g. []
     ##
     ##  check add \b at the beginning and end - why?? why not?? working??
     EN__MONTH_DD__DATE_RE = /\[
-                     (?<month_en>#{MONTH_EN})
+                     (?<month_name>#{MONTH_EN})
                         \s
                      (?<day>\d{1,2})
                        \]/x
 
     def initialize
-      super( lang:    'en',
-             formats: [[EN__MONTH_DD__DATE_RE, '[EN_MONTH_DD]']]
+      super( lang: 'en',
+             formats: [[EN__MONTH_DD__DATE_RE, '[EN_MONTH_DD]']],
+             month_names: MONTH_NAMES
            )
     end
   end  ## class RsssfDateParser

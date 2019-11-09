@@ -21,14 +21,14 @@ module DateFormats
   end
 
   def self.parse( line,
-                  lang:    self.class.lang,
+                  lang:    DateFormats.lang,    ## todo/check: is there a "generic" like self.class.lang form?
                   start:   Date.new( Date.today.year, 1, 1 )  ## note: default to current YYYY.01.01. if no start provided
                 )
     parser( lang: lang ).parse( line, start: start )
   end
 
   def self.find!( line,
-                  lang:  self.class.lang,
+                  lang:  DateFormats.lang,    ## todo/check: is there a "generic" like self.class.lang form?
                   start: Date.new( Date.today.year, 1, 1 ) ## note: default to current YYYY.01.01. if no start provided
                 )
     parser( lang: lang ).find!( line, start: start )

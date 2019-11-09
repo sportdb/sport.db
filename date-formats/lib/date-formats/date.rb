@@ -167,20 +167,20 @@ module DateFormats
       day     = h[:day]
       year    = h[:year]     || calc_year( month.to_i, day.to_i, start: start ).to_s
 
-      if h[:hours] || h[:minutes]   ## check time (hours or minutes) is present (otherwise asume just Date and NOT DateTime)
-        hours   = h[:hours]    || '00'   # default to 00:00 for HH:MM (hours:minutes)
-        minutes = h[:minutes]  || '00'
+      date =  if h[:hours] || h[:minutes]   ## check time (hours or minutes) is present (otherwise asume just Date and NOT DateTime)
+                 hours   = h[:hours]    || '00'   # default to 00:00 for HH:MM (hours:minutes)
+                 minutes = h[:minutes]  || '00'
 
-        value = '%d-%02d-%02d %02d:%02d' % [year.to_i, month.to_i, day.to_i, hours.to_i, minutes.to_i]
-        logger.debug "   datetime: >#{value}<"
+                 value = '%d-%02d-%02d %02d:%02d' % [year.to_i, month.to_i, day.to_i, hours.to_i, minutes.to_i]
+                 logger.debug "   datetime: >#{value}<"
 
-        date = DateTime.strptime( value, '%Y-%m-%d %H:%M' )
-      else
-        value = '%d-%02d-%02d' % [year.to_i, month.to_i, day.to_i]
-        logger.debug "   date: >#{value}<"
+                 DateTime.strptime( value, '%Y-%m-%d %H:%M' )
+              else
+                 value = '%d-%02d-%02d' % [year.to_i, month.to_i, day.to_i]
+                 logger.debug "   date: >#{value}<"
 
-        date = Date.strptime( value, '%Y-%m-%d' )
-      end
+                 Date.strptime( value, '%Y-%m-%d' )
+              end
 
       ## check/assert cwday if present!!!!
       date

@@ -12,7 +12,7 @@ require 'logutils'
 # our own code
 require 'date-formats/version' # let version always go first
 require 'date-formats/reader'
-require 'date-formats/source'
+require 'date-formats/names'   ## month and day names (e.g. January,.. Monday,...)
 
 
 module DateFormats
@@ -37,7 +37,7 @@ end  # module DateFormats
 
 
 require 'date-formats/formats'
-require 'date-formats/date'
+require 'date-formats/parser'
 
 
 

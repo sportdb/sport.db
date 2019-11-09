@@ -2,12 +2,12 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_formats.rb
+#     ruby -I ./lib -I ./test test/test_version.rb
 
 
 require 'helper'
 
-class TestFormats < MiniTest::Test
+class TestVersion < MiniTest::Test
 
   def test_version
     pp DateFormats::VERSION
@@ -15,4 +15,4 @@ class TestFormats < MiniTest::Test
     pp DateFormats.root
   end
 
-end # class TestFormats
+end # class TestVersion

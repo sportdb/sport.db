@@ -2,12 +2,12 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_date.rb
+#     ruby -I ./lib -I ./test test/test_parse.rb
 
 
 require 'helper'
 
-class TestDate < MiniTest::Test
+class TestParse < MiniTest::Test
 
   def test_date
     data = [
@@ -43,17 +43,11 @@ class TestDate < MiniTest::Test
       [ 'Oct/12 2013 16:00', '2013-10-12 16:00', '[EN_MONTH_DD_YYYY_hh_mm]' ],
 
       [ 'Jan/26 2011',       '2011-01-26', '[EN_MONTH_DD_YYYY]' ],
-      [ 'Jan/26 2011',       '2011-01-26', '[EN_MONTH_DD_YYYY]' ],
-
-      [ 'Jan/26',            '2013-01-26', '[EN_MONTH_DD]' ],
       [ 'Jan/26',            '2013-01-26', '[EN_MONTH_DD]' ],
       [ '26 January',        '2013-01-26', '[EN_DD_MONTH]' ],
-      [ '26 January',        '2013-01-26', '[EN_DD_MONTH]' ],
 
-      [ 'Jun/13',            '2013-06-13', '[EN_MONTH_DD]' ],
       [ 'Jun/13',            '2013-06-13', '[EN_MONTH_DD]' ],
       [ '13 June',           '2013-06-13', '[EN_DD_MONTH]' ],
-      [ '13 June',           '2013-06-13', '[EN_DD_MONTH]' ]
     ]
 
     assert_dates( data, start: Date.new( 2013, 1, 1 ), lang: 'en' )
@@ -105,4 +99,4 @@ private
     assert_date( exp, value )
     assert_time( exp, value )
   end
-end # class TestDate
+end # class TestParse

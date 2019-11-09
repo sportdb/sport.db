@@ -9,7 +9,7 @@ module DateFormats
   end
   def self.lang=( value )
     @@lang = value.to_sym    ## note: make sure lang is always a symbol for now (NOT a string)
-    @@lang
+    @@lang      ## todo/check: remove  =() method always returns passed in value? double check
   end
 
 
@@ -22,7 +22,7 @@ module DateFormats
   end
 
   def self.parse( line,
-                  lang:    DateFormats.lang,    ## todo/check: is there a "generic" like self.class.lang form?
+                  lang:    DateFormats.lang,    ## todo/check: is there a "generic" like self.class.lang form? yes, module DateFormats needs to get changed to class DateFormats to work!!
                   start:   Date.new( Date.today.year, 1, 1 )  ## note: default to current YYYY.01.01. if no start provided
                 )
     parser( lang: lang ).parse( line, start: start )

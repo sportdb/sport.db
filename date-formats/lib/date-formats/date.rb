@@ -9,6 +9,7 @@ module DateFormats
   end
   def self.lang=( value )
     @@lang = value.to_sym    ## note: make sure lang is always a symbol for now (NOT a string)
+    @@lang
   end
 
 

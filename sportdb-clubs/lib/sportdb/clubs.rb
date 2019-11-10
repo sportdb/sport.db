@@ -30,6 +30,11 @@ class ClubLinter
   def self.parse( txt )  ClubLintReader.parse( txt ); end
 end # class ClubLinter
 
+class ConfLinter
+  def self.read( path )  ConfClubLintReader.read( path ); end
+  def self.parse( txt )  ConfClubLintReader.parse( txt ); end
+end # class ConfLinter
+
 end   # module Import
 end   # module SportDb
 

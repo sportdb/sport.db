@@ -11,6 +11,7 @@ require 'sportdb/countries'
 require 'sportdb/clubs/version' # let version always go first
 require 'sportdb/clubs/club'
 require 'sportdb/clubs/club_reader'
+require 'sportdb/clubs/club_linter'
 require 'sportdb/clubs/club_index'
 require 'sportdb/clubs/wiki_reader'
 
@@ -23,6 +24,12 @@ class Club
   def self.read( path )  ClubReader.read( path ); end
   def self.parse( txt )  ClubReader.parse( txt ); end
 end # class Club
+
+class ClubLinter
+  def self.read( path )  ClubLintReader.read( path ); end
+  def self.parse( txt )  ClubLintReader.parse( txt ); end
+end # class ClubLinter
+
 end   # module Import
 end   # module SportDb
 

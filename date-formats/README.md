@@ -10,7 +10,70 @@
 
 ## Usage
 
-To be done
+Did you know?
+Ruby's built-in standard date parser (that is, `Date.parse`)
+only supports English month and day names.
+Example:
+
+```ruby
+Date.parse( '1 Jan' )
+#=> <Date: 2019-01-01 ((2458485j,0s,0n),+0s,2299161j)>
+```
+
+Let's try Spanish:
+
+```ruby
+Date.parse( '1 Ene' )
+#=> invalid date (ArgumentError) in `parse`
+```
+
+What to do? Let's welcome the `date-formats` library
+that lets you parse dates in foreign languages.
+Example:
+
+```ruby
+require `date/formats`
+DateFormats.parse( '1 Ene', lang: 'es' )
+#=> <Date: 2019-01-01 ((2458485j,0s,0n),+0s,2299161j)>
+```
+
+Or in French:
+
+```ruby
+DateFormats.parse( 'Lundi 1 Janvier', lang: 'fr')
+#=> <Date: 2019-01-01 ((2458485j,0s,0n),+0s,2299161j)>
+```
+
+How does it work?
+The  `date-formats` library uses text patterns (that is, regular expressions)
+for defining and parsing new date formats.
+See the [`formats.rb`](lib/date-formats/formats.rb) script for all
+current supported formats and languages.
+
+For example, the Spanish date `1 Ene` gets matched by:
+
+```ruby
+ES__DD_MONTH__DATE_RE = /\b
+                 (?<day>\d{1,2})
+                   \s
+                 (?<month_name>#{MONTH_ES})
+                   \b/x
+```
+
+And the French date `Lundi 1 Janvier` gets matched by:
+
+```ruby
+FR__DAY_DD_MONTH__DATE_RE = /\b
+     (?<day_name>#{DAY_FR})
+       \s+
+     (?<day>\d{1,2})
+       \.?        # note: make dot optional
+       \s+
+     (?<month_name>#{MONTH_FR})
+       (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too
+```
+
+And so on.
 
 
 ## License

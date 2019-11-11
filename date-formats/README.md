@@ -53,11 +53,11 @@ current supported formats and languages.
 For example, the Spanish date `1 Ene` gets matched by:
 
 ```ruby
-ES__DD_MONTH__DATE_RE = /\b
-                 (?<day>\d{1,2})
-                   \s
-                 (?<month_name>#{MONTH_ES})
-                   \b/x
+/\b
+ (?<day>\d{1,2})
+   \s
+ (?<month_name>#{MONTH_ES})
+ \b/x
 ```
 
 Where `MONTH_ES` is any of:
@@ -80,14 +80,14 @@ Diciembre  Dic
 And the French date `Lundi 1 Janvier` gets matched by:
 
 ```ruby
-FR__DAY_DD_MONTH__DATE_RE = /\b
-     (?<day_name>#{DAY_FR})
-       \s+
-     (?<day>\d{1,2})
-       \.?        # note: make dot optional
-       \s+
-     (?<month_name>#{MONTH_FR})
-       (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too
+/\b
+ (?<day_name>#{DAY_FR})
+   \s+
+ (?<day>\d{1,2})
+   \.?        # note: make dot optional
+   \s+
+ (?<month_name>#{MONTH_FR})
+ (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too
 ```
 
 Where `DAY_FR` is any of:

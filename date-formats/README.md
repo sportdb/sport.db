@@ -87,7 +87,7 @@ And the French date `Lundi 1 Janvier` gets matched by:
    \.?        # note: make dot optional
    \s+
  (?<month_name>#{MONTH_FR})
- (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too
+ \b/x
 ```
 
 Where `DAY_FR` is any of:

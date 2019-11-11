@@ -1,8 +1,18 @@
 # Date (and Time) Formats
 
-## Todos
 
-- [ ]  find a better (gem) name   - world-dates? - world-calendar? etc.
+## Regex / Patterns
+
+###  Word boundary `\b` 
+
+WARNING - Word boundary `\b` does NOT work for non-latin alphabets
+The word boundary test `\b` checks that there should be `\w` on the one side from the position 
+and "not `\w`" – on the other side.
+
+But `\w` means a latin letter a-z (or a digit or an underscore), so the test does NOT work for other characters, 
+e.g. cyrillic letters or hieroglyphs.
+
+
 
 
 ## Gems / Libraries

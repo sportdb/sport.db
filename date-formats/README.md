@@ -60,6 +60,23 @@ ES__DD_MONTH__DATE_RE = /\b
                    \b/x
 ```
 
+Where `MONTH_ES` is any of:
+
+```
+Enero      Ene
+Febrero    Feb
+Marzo      Mar
+Abril      Abr
+Mayo       May
+Junio      Jun
+Julio      Jul
+Agosto     Ago
+Septiembre  Sept  Sep  Set
+Octubre    Oct
+Noviembre  Nov
+Diciembre  Dic
+```
+
 And the French date `Lundi 1 Janvier` gets matched by:
 
 ```ruby
@@ -71,6 +88,35 @@ FR__DAY_DD_MONTH__DATE_RE = /\b
        \s+
      (?<month_name>#{MONTH_FR})
        (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too
+```
+
+Where `DAY_FR` is any of:
+
+```
+Lundi     Lun  L
+Mardi     Mar  Ma
+Mercredi  Mer  Me
+Jeudi     Jeu  J
+Vendredi  Ven  V
+Samedi    Sam  S
+Dimanche  Dim  D
+```
+
+And `MONTH_FR` is any of:
+
+```
+Janvier    Janv   Jan
+Février    Févr   Fév
+Mars              Mar
+Avril      Avri   Avr
+Mai
+Juin
+Juillet    Juil
+Août
+Septembre  Sept
+Octobre    Octo   Oct
+Novembre   Nove   Nov
+Décembre   Déce   Déc
 ```
 
 And so on.

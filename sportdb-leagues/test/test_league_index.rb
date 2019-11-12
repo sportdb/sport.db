@@ -124,6 +124,9 @@ TXT
     m = leagues.match( 'AUT 1' )
     assert_equal 1,            m.size
     assert_equal 'Bundesliga', m[0].name
+    m = leagues.match( 'Austria 1' )
+    assert_equal 1,            m.size
+    assert_equal 'Bundesliga', m[0].name
 
 
     m = leagues.match_by( name: 'Bundesliga', country: 'at' )
@@ -139,6 +142,9 @@ TXT
     assert_equal 1,            m.size
     assert_equal 'English Premier League', m[0].name
     m = leagues.match( 'ENG 1' )
+    assert_equal 1,            m.size
+    assert_equal 'English Premier League', m[0].name
+    m = leagues.match( 'England 1' )
     assert_equal 1,            m.size
     assert_equal 'English Premier League', m[0].name
 

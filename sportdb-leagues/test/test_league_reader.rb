@@ -35,7 +35,17 @@ TXT
     assert_equal 'at.2',        recs[1].key
     assert_equal 'Austria',     recs[1].country.name
     assert_equal 'at',          recs[1].country.key
+
+    assert recs[0].alt_names_auto.include?( 'AT' )
+    assert recs[0].alt_names_auto.include?( 'AT 1' )
+    assert recs[0].alt_names_auto.include?( 'AUT 1' )
+    assert recs[0].alt_names_auto.include?( 'Austria 1' )
+
+    assert recs[1].alt_names_auto.include?( 'AT 2' )
+    assert recs[1].alt_names_auto.include?( 'AUT 2' )
+    assert recs[1].alt_names_auto.include?( 'Austria 2' )
   end
+
 
   def test_parse_us
     recs = SportDb::Import::LeagueReader.parse( <<TXT )

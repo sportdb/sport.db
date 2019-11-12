@@ -33,36 +33,15 @@ def self.parse( txt )
   country  = nil    # last country
   intl     = false  # is international (league/tournament/cup/competition)
 
-  txt.each_line do |line|
-    line = line.strip
-
-    next  if line.empty?
-    break if line == '__END__'
-
-    next if line.start_with?( '#' )   ## skip comments too
-
-    ## strip inline (until end-of-line) comments too
-    ##  e.g  ţ  t  ## U+0163
-    ##   =>  ţ  t
-    line = line.sub( /#.*/, '' ).strip
-
-
-    next if line =~ /^={1,}$/          ## skip "decorative" only heading e.g. ========
-
-    ## note: like in wikimedia markup (and markdown) all optional trailing ==== too
-    ##  todo/check:  allow ===  Text  =-=-=-=-=-=   too - why? why not?
-    if line =~ /^(={1,})       ## leading ======
-                ([^=]+?)      ##  text   (note: for now no "inline" = allowed)
-                =*            ## (optional) trailing ====
-                $/x
-      heading_marker = $1
-      heading_level  = $1.length   ## count number of = for heading level
-      heading        = $2.strip
+  OutlineReader.parse( txt ).each do |node|
+    if [:h1,:h2,:h3,:h4,:h5,:h6].include?( node[0] )
+      heading_level  = node[0][1].to_i
+      heading        = node[1]
 
       puts "heading #{heading_level} >#{heading}<"
 
       if heading_level != 1
-        puts "** !! ERROR !! unsupported headin level; expected heading 1 for now only; sorry"
+        puts "** !!! ERROR !!! unsupported heading level; expected heading 1 for now only; sorry"
         pp line
         exit 1
       else
@@ -88,7 +67,10 @@ def self.parse( txt )
           end
         end
       end
-    elsif line.start_with?( '|' )
+    elsif node[0] == :l   ## regular (text) line
+      line = node[1]
+
+      if line.start_with?( '|' )
           ## assume continuation with line of alternative names
           ##  note: skip leading pipe
           values = line[1..-1].split( '|' )   # team names - allow/use pipe(|)
@@ -98,50 +80,56 @@ def self.parse( txt )
           puts "alt_names: #{values.join( '|' )}"
 
           last_rec.alt_names += values
-    else
-      ## assume "regular" line
-      ##  check if starts with id  (todo/check: use a more "strict"/better regex capture pattern!!!)
-      if line =~ /^([a-z0-9][a-z0-9.]*)[ ]+(.+)$/
-        league_key  = $1
-        ## strip and  squish (white)spaces
-        league_name = $2.gsub( /[ \t]+/, ' ' ).strip
-
-        puts "key: >#{league_key}<, name: >#{league_name}<"
-
-
-        alt_names_auto = []
-        if country
-          alt_names_auto << "#{country.key.upcase} #{league_key.upcase.gsub('.', ' ')}"
-          alt_names_auto << "#{country.key.upcase}"   if league_key == '1'   ## add shortcut for top level 1 (just country key)
-          if country.key.upcase != country.fifa
-            alt_names_auto << "#{country.fifa} #{league_key.upcase.gsub('.', ' ')}"
-            alt_names_auto << "#{country.fifa}"    if league_key == '1'   ## add shortcut for top level 1 (just country key)
-          end
-        else   ## assume int'l (no country) e.g. champions league, etc.
-          ## only auto-add key (e.g. CL, EL, etc.)
-          alt_names_auto << league_key.upcase.gsub('.', ' ')   ## note: no country code (prefix/leading) used
-        end
-
-        pp alt_names_auto
-
-        ## prepend country key/code if country present
-        ##   todo/fix: only auto-prepend country if key/code start with a number (level) or incl. cup
-        ##    why? lets you "overwrite" key if desired - use it - why? why not?
-        if country
-          league_key = "#{country.key}.#{league_key}"
-        end
-
-        rec = League.new( key:            league_key,
-                          name:           league_name,
-                          alt_names_auto: alt_names_auto,
-                          country:        country,
-                          intl:           intl)
-        recs << rec
-        last_rec = rec
       else
-        puts "** !! ERROR !! missing key for (canonical) league name"
-        exit 1
+        ## assume "regular" line
+        ##  check if starts with id  (todo/check: use a more "strict"/better regex capture pattern!!!)
+        if line =~ /^([a-z0-9][a-z0-9.]*)[ ]+(.+)$/
+          league_key  = $1
+          ## strip and  squish (white)spaces
+          league_name = $2.gsub( /[ \t]+/, ' ' ).strip
+
+          puts "key: >#{league_key}<, name: >#{league_name}<"
+
+
+          alt_names_auto = []
+          if country
+            alt_names_auto << "#{country.key.upcase} #{league_key.upcase.gsub('.', ' ')}"
+            alt_names_auto << "#{country.key.upcase}"   if league_key == '1'   ## add shortcut for top level 1 (just country key)
+            if country.key.upcase != country.fifa
+              alt_names_auto << "#{country.fifa} #{league_key.upcase.gsub('.', ' ')}"
+              alt_names_auto << "#{country.fifa}"    if league_key == '1'   ## add shortcut for top level 1 (just country key)
+            end
+            alt_names_auto << "#{country.name} #{league_key}"  if league_key =~ /^[0-9]+$/   ## if all numeric e.g. add Austria 1 etc.
+          else   ## assume int'l (no country) e.g. champions league, etc.
+            ## only auto-add key (e.g. CL, EL, etc.)
+            alt_names_auto << league_key.upcase.gsub('.', ' ')   ## note: no country code (prefix/leading) used
+          end
+
+          pp alt_names_auto
+
+          ## prepend country key/code if country present
+          ##   todo/fix: only auto-prepend country if key/code start with a number (level) or incl. cup
+          ##    why? lets you "overwrite" key if desired - use it - why? why not?
+          if country
+            league_key = "#{country.key}.#{league_key}"
+          end
+
+          rec = League.new( key:            league_key,
+                            name:           league_name,
+                            alt_names_auto: alt_names_auto,
+                            country:        country,
+                            intl:           intl)
+          recs << rec
+          last_rec = rec
+        else
+          puts "** !!! ERROR !!! missing key for (canonical) league name"
+          exit 1
+        end
       end
+    else
+      puts "** !!! ERROR !!! [league reader] - unknown line type:"
+      pp node
+      exit 1
     end
     ## pp line
   end

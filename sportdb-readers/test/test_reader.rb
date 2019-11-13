@@ -24,7 +24,7 @@ class TestReader < MiniTest::Test
     # path = "../../../openfootball/england/2017-18/.conf.txt"
     # path = "../../../openfootball/england/2018-19/.conf.txt"
     # path = "../../../openfootball/england/2019-20/.conf.txt"
-    recs = SportDb::EventReaderV2.read( path )
+    recs = SportDb::ConfReaderV2.read( path )
     # path = "../../../openfootball/austria/2018-19/1-bundesliga.txt"
     path = "../../../openfootball/england/2015-16/1-premierleague-i.txt"
     # path = "../../../openfootball/england/2017-18/1-premierleague-i.txt"

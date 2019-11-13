@@ -82,6 +82,7 @@ class LeagueOutlineReader
     known_stages = ['regular season',
                     'championship round',
                     'relegation round',
+                    'play-offs'
                    ]
 
     if known_stages.include?( name.downcase )

@@ -93,6 +93,8 @@ class ClubLintReader
 end # class ClubLintReader
 
 
+###
+##  todo/fix: rename to "just" ConfLintReader to "shadow" ConfReaderV2 !!!!
 class ConfClubLintReader   ### todo/check: rename to ??? - find a better name? why? why not?
 
   def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?

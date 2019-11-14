@@ -43,7 +43,7 @@ TXT
   end
 
   def test_conf_parse_at
-    headings = SportDb::Import::ConfClubLintReader.parse( <<TXT )
+    headings = SportDb::Import::ConfLintReader.parse( <<TXT )
 = Österr. Bundesliga 2018/19, Regular Season    ## Grunddurchgang
 
  1  FC Red Bull Salzburg       22  17   4   1  51:18  +33  55

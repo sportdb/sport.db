@@ -8,16 +8,16 @@ class ConfLinter
   def self.config() Import.config; end    ## shortcut convenience helper
 
 
-  def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
+  def self.read( path, season: nil )   ## use - rename to read_file or from_file etc. - why? why not?
     puts "reading conf(iguration) datafile >#{path}<..."
     txt = File.open( path, 'r:utf-8' ).read
-    parse( txt )
+    parse( txt, season: season )
   end
 
-  def self.parse( txt )
-    recs = LeagueOutlineReader.parse( txt )
+  def self.parse( txt, season: nil )
+    recs = LeagueOutlineReader.parse( txt, season: season )
 
-    if recs.empty?
+    if recs.empty?     ## todo: check for season filter - why? why not?
       puts "  ** !!! WARN !!! - no league headings found"
     else
       puts "  found #{recs.size} league (+season+stage) headings"
@@ -59,7 +59,7 @@ class ConfLinter
           name = line
         end
 
-        clubs << find_club( name, league.country )
+        clubs << config.clubs.find_by!( name: name, country: league.country )
       end
 
       rec[:clubs] = clubs
@@ -68,36 +68,6 @@ class ConfLinter
 
     recs
   end # method read
-
-
-  ### todo/fix: move to clubs for sharing!!!!!!!  use clubs.find_by!( name:, country: )
-  def self.find_club( name, country )   ## todo/fix: add international or league flag?
-    club = nil
-    m = config.clubs.match_by( name: name, country: country )
-
-    if m.nil?
-      ## (re)try with second country - quick hacks for known leagues
-      ##  todo/fix: add league flag to activate!!!
-      m = config.clubs.match_by( name: name, country: config.countries['wal'])  if country.key == 'eng'
-      m = config.clubs.match_by( name: name, country: config.countries['nir'])  if country.key == 'ie'
-      m = config.clubs.match_by( name: name, country: config.countries['mc'])   if country.key == 'fr'
-      m = config.clubs.match_by( name: name, country: config.countries['li'])   if country.key == 'ch'
-      m = config.clubs.match_by( name: name, country: config.countries['ca'])   if country.key == 'us'
-    end
-
-    if m.nil?
-      puts "** !!! ERROR !!! no match for club >#{name}<"
-      exit 1
-    elsif m.size > 1
-      puts "** !!! ERROR !!! too many matches (#{m.size}) for club >#{name}<:"
-      pp m
-      exit 1
-    else   # bingo; match - assume size == 1
-      club = m[0]
-    end
-
-    club
-  end
 
 end # class ConfLinter
 end # module SportDb

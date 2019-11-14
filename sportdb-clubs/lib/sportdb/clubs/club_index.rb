@@ -152,7 +152,7 @@ class ClubIndex
   end # method add
 
 
-  def []( name )    ## lookup by canoncial name only
+  def []( name )    ## lookup by canoncial name only;  todo/fix: add find alias why? why not?
     @clubs[ name ]
   end
 
@@ -188,6 +188,45 @@ class ClubIndex
     m
   end
 
+
+
+  def find_by!( name:, country: )    ## todo/fix: add international or league flag?
+    club = find_by( name: name, country: country )
+
+    if club.nil?
+      puts "** !!! ERROR !!! no match for club >#{name}<"
+      exit 1
+    end
+
+    club
+  end
+
+  def find_by( name:, country: )    ## todo/fix: add international or league flag?
+    club = nil
+    m = match_by( name: name, country: country )
+
+    if m.nil?
+      ## (re)try with second country - quick hacks for known leagues
+      ##  todo/fix: add league flag to activate!!!
+      m = match_by( name: name, country: config.countries['wal'])  if country.key == 'eng'
+      m = match_by( name: name, country: config.countries['nir'])  if country.key == 'ie'
+      m = match_by( name: name, country: config.countries['mc'])   if country.key == 'fr'
+      m = match_by( name: name, country: config.countries['li'])   if country.key == 'ch'
+      m = match_by( name: name, country: config.countries['ca'])   if country.key == 'us'
+    end
+
+    if m.nil?
+      ## puts "** !!! WARN !!! no match for club >#{name}<"
+    elsif m.size > 1
+      puts "** !!! ERROR !!! too many matches (#{m.size}) for club >#{name}<:"
+      pp m
+      exit 1
+    else   # bingo; match - assume size == 1
+      club = m[0]
+    end
+
+    club
+  end
 
 
   def dump_duplicates # debug helper - report duplicate club name records

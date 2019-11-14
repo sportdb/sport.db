@@ -93,9 +93,8 @@ class ClubLintReader
 end # class ClubLintReader
 
 
-###
-##  todo/fix: rename to "just" ConfLintReader to "shadow" ConfReaderV2 !!!!
-class ConfClubLintReader   ### todo/check: rename to ??? - find a better name? why? why not?
+
+class ConfLintReader   ### todo/check: rename to ??? - find a better name? why? why not?
 
   def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
     txt = File.open( path, 'r:utf-8' ).read
@@ -158,14 +157,14 @@ class ConfClubLintReader   ### todo/check: rename to ??? - find a better name? w
             clubs << { name: line }
          end
        else
-         puts "** !!! ERROR !!! [conf club lint reader] - unknown line type:"
+         puts "** !!! ERROR !!! [conf lint reader] - unknown line type:"
          pp node
          exit 1
        end
     end
     headings
   end # method parse
-end # class ConfClubLintReader
+end # class ConfLintReader
 
 
 end ## module Import

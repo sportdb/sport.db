@@ -31,8 +31,8 @@ class ClubLinter
 end # class ClubLinter
 
 class ConfLinter
-  def self.read( path )  ConfClubLintReader.read( path ); end
-  def self.parse( txt )  ConfClubLintReader.parse( txt ); end
+  def self.read( path )  ConfLintReader.read( path ); end
+  def self.parse( txt )  ConfLintReader.parse( txt ); end
 end # class ConfLinter
 
 end   # module Import

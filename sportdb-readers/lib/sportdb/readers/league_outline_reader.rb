@@ -21,7 +21,8 @@ class LeagueOutlineReader
          )
             $/x
 
-  def self.parse( txt )
+
+  def self.parse( txt, season: nil )
     recs=[]
     OutlineReader.parse( txt ).each do |node|
       if node[0] == :h1
@@ -56,7 +57,22 @@ class LeagueOutlineReader
       end
     end
 
-    ## pass 2 - check & map; replace inline (string with data record)
+
+    ## pass 2 - filter seasons if filter present
+    if season
+       filtered_recs = []
+       filter = normalize_seasons( season )
+       recs.each do |rec|
+         if filter.include?( SeasonUtils.key( rec[:season] ))
+           filtered_recs << rec
+         else
+           puts "  skipping season >#{rec[:season]}< NOT matched by filter"
+         end
+       end
+       recs = filtered_recs
+    end
+
+    ## pass 3 - check & map; replace inline (string with data record)
     recs.each do |rec|
       league = find_league( rec[:league] )
       rec[:league] = league
@@ -66,6 +82,18 @@ class LeagueOutlineReader
 
     recs
   end # method parse
+
+
+
+  def self.normalize_seasons( season_or_seasons )     ## todo/check: add alias norm_seasons - why? why not?
+      seasons = if season_or_seasons.is_a? String    ## wrap in array
+                  [season_or_seasons]
+                else  ## assume it's an array already
+                   season_or_seasons
+                end
+
+      seasons.map { |season| SeasonUtils.key( season ) }
+  end
 
 
   def self.split_league( str )   ## todo/check: rename to parse_league(s) - why? why not?
@@ -94,6 +122,7 @@ class LeagueOutlineReader
   end
 
 
+  ### fix/todo: move find_league  to sportdb-league index use find_by! and find_by !!!!
   def self.find_league( name )
     league = nil
     m = config.leagues.match( name )

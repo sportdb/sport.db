@@ -102,11 +102,23 @@ TXT
     assert_equal 'England',    m[0].country.name
     assert_equal 'London',     m[0].city
 
+    club = clubs.find_by!( name: 'Arsenal', country: 'eng' )
+    assert_equal 'Arsenal FC', club.name
+    assert_equal 'England',    club.country.name
+    assert_equal 'London',     club.city
+
+
     m = clubs.match_by( name: 'Arsenal', country: 'ar' )
     assert_equal 1, m.size
     assert_equal 'Arsenal de Sarandí', m[0].name
     assert_equal 'Argentina',          m[0].country.name
     assert_equal 'Sarandí',            m[0].city
+
+    club = clubs.find_by!( name: 'Arsenal', country: 'ar' )
+    assert_equal 'Arsenal de Sarandí', club.name
+    assert_equal 'Argentina',          club.country.name
+    assert_equal 'Sarandí',            club.city
+
 
     m = clubs.match_by( name: 'Arsenal', country: 'ru' )
     assert_equal 1, m.size
@@ -123,12 +135,12 @@ TXT
 
     m = clubs.match( '...A.r.s.e.n.a.l... F.C...' )
     assert_equal 2, m.size
-end
+  end
 
 
-def test_wikipedia    # test wikipedia names and links/urls
+  def test_wikipedia    # test wikipedia names and links/urls
 
-   recs = SportDb::Import::ClubReader.parse( <<TXT )
+    recs = SportDb::Import::ClubReader.parse( <<TXT )
 ==================================
 =  Belgium
 

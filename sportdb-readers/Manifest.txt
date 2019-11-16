@@ -5,6 +5,7 @@ Rakefile
 lib/sportdb/readers.rb
 lib/sportdb/readers/conf_linter.rb
 lib/sportdb/readers/conf_reader.rb
+lib/sportdb/readers/datafile.rb
 lib/sportdb/readers/league_outline_reader.rb
 lib/sportdb/readers/match_linter.rb
 lib/sportdb/readers/match_parser.rb

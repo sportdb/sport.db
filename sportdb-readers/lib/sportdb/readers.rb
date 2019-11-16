@@ -1,5 +1,8 @@
 # encoding: utf-8
 
+require 'zip'     ## todo/check: if zip is alreay included in a required module?
+
+
 
 require 'sportdb/config'
 require 'sportdb/models'   ## add sql database support
@@ -15,6 +18,7 @@ require 'sportdb/readers/conf_linter'
 require 'sportdb/readers/match_parser'
 require 'sportdb/readers/match_reader'
 require 'sportdb/readers/match_linter'
+require 'sportdb/readers/datafile'
 
 
 
@@ -22,42 +26,55 @@ require 'sportdb/readers/match_linter'
 ##  add convenience shortcut helpers
 module SportDb
 
-  def self.read_conf( path, sync: true, season: nil )    ## note: sync is dry run (for lint checking)
+  ## note: sync is dry run (for lint checking)
+  def self.read_conf( path, season: nil, sync: true )
     sync ? ConfReaderV2.read( path, season: season )
          : ConfLinter.read( path, season: season )
   end
 
-  ### todo: add alias read_matches - why? why not?
-  def self.read_match( path, sync: true, season: nil )     ## note: sync is dry run (for lint checking)
+  def self.read_match( path, season: nil, sync: true )  ### todo/check: add alias read_matches - why? why not?
     sync ? MatchReaderV2.read( path, season: season )
          : MatchLinter.read( path, season: season )
   end
 
-  def self.lint_conf( path, season: nil )   read_conf( path, sync: false, season: season ); end
-  def self.lint_match( path, season: nil )  read_match( path, sync: false, season: season ); end
+
+  def self.parse_conf( txt, season: nil, sync: true )
+    sync ? ConfReaderV2.parse( txt, season: season )
+         : ConfLinter.parse( txt, season: season )
+  end
+
+  def self.parse_match( txt, season: nil, sync: true )  ### todo/check: add alias read_matches - why? why not?
+    sync ? MatchReaderV2.parse( txt, season: season )
+         : MatchLinter.parse( txt, season: season )
+  end
 
 
-  def self.read( path, sync: true, season: nil )
-    ## step 1: collect all datafiles
-    if File.directory?( path )   ## if directory read complete package
-      datafiles_conf = Datafile.find_conf( path )
-      datafiles      = Datafile.find( path, %r{/\d{4}-\d{2}    ## season folder e.g. /2019-20
-                                               /[a-z0-9_-]+\.txt$    ## txt e.g /1-premierleague.txt
-                                              }x )
+  def self.read( path, season: nil, sync: true )
+    pack = if File.directory?( path )          ## if directory assume "unzipped" package
+              Datafile::DirPackage.new( path )
+           elsif Datafile.match_zip( path )    ## check if file is a .zip (archive) file
+              Datafile::ZipPackage.new( path )
+           else                                ## no package; assume single (standalone) datafile
+             nil
+           end
 
-      datafiles_conf.each { |datafile| read_conf( datafile, sync: sync, season: season ) }
-      datafiles.each { |datafile| read_match( datafile, sync: sync, season: season ) }
+    if pack
+       pack.read_conf( season: season, sync: sync )
+       pack.read_match( season: season, sync: sync )
     else
-      ## check if datafile matches conf(iguration) naming (e.g. .conf.txt)
-      if Datafile.match_conf( path )
-        read_conf( path, sync: sync, season: season )
-      else   ## assume "regular" match datafile
-        read_match( path, sync: sync, season: season )
+      if Datafile.match_conf( path )      ## check if datafile matches conf(iguration) naming (e.g. .conf.txt)
+        read_conf( path, season: season, sync: sync )
+      else                                ## assume "regular" match datafile
+        read_match( path, season: season, sync: sync )
       end
     end
   end  # method read
 
-  def self.lint( path, season: nil )  read( path, sync: false, season: season ); end
+
+  ## (more) convenience helpers for lint(ing)
+  def self.lint( path, season: nil )        read( path, season: season, sync: false ); end
+  def self.lint_conf( path, season: nil )   read_conf( path, season: season, sync: false ); end
+  def self.lint_match( path, season: nil )  read_match( path, season: season, sync: false ); end
 
 end # module SportDb
 

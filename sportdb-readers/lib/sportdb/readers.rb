@@ -18,6 +18,7 @@ require 'sportdb/readers/conf_linter'
 require 'sportdb/readers/match_parser'
 require 'sportdb/readers/match_reader'
 require 'sportdb/readers/match_linter'
+require 'sportdb/readers/club_props_reader'
 require 'sportdb/readers/datafile'
 
 

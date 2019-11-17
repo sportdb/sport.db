@@ -12,6 +12,12 @@ module Datafile
                  /[a-z0-9_-]+\.txt$  ## txt e.g /1-premierleague.txt
               }x
 
+  CLUBS_PROPS_RE = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
+                         (?:[a-z]{1,4}\.)?   # optional country code/key e.g. eng.clubs.props.txt
+                        clubs\.props\.txt$
+                     }x
+  def self.match_clubs_props( path, pattern: CLUBS_PROPS_RE ) pattern.match( path ); end
+
   ZIP_RE = %r{ \.zip$
             }x
   def self.match_zip( path, pattern: ZIP_RE ) pattern.match( path ); end
@@ -25,6 +31,14 @@ class PackageBase
   def each_conf( &blk )   each( pattern: CONF_RE, &blk ); end
   def each_match( &blk )  each( pattern: MATCH_RE, &blk ); end
 
+
+
+  def read_clubs_props
+    each_read( pattern: CLUBS_PROPS_RE ) do |name, txt|
+      ## todo/fix:  add/use SportDb.parse_club_props helper !!!!!!
+      SportDb::Import::ClubPropsReader.parse( txt )
+    end
+  end
 
   def read_conf( *names,
                  season: nil, sync: true )
@@ -58,11 +72,13 @@ class PackageBase
   def read( *names,
             season: nil, sync: true )
     if names.empty?   ##  read all datafiles
+      read_clubs_props()   if sync
       read_conf( season: season, sync: sync )
       read_match( season: season, sync: sync )
     else
       names.each do |name|
         txt = read_entry( name )
+        ## fix/todo: add read_clubs_props too!!!
         if Datafile.match_conf( name )      ## check if datafile matches conf(iguration) naming (e.g. .conf.txt)
           SportDb.parse_conf( txt, season: season, sync: sync )
         else                                ## assume "regular" match datafile

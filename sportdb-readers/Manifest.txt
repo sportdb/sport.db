@@ -13,5 +13,6 @@ lib/sportdb/readers/match_reader.rb
 lib/sportdb/readers/version.rb
 test/helper.rb
 test/test_match_parser.rb
+test/test_package.rb
 test/test_read.rb
 test/test_reader.rb

@@ -1,84 +1,106 @@
-require 'pp'
 
+module SportDb
+  class Package
 
+    CONF_RE        = Datafile::CONF_RE
+    CLUB_PROPS_RE  = Datafile::CLUB_PROPS_RE
 
-class Package
-  attr_reader :name, :path
+    ## note: if pattern includes directory add here (otherwise move to more "generic" datafile) - why? why not?
+    MATCH_RE = %r{ /\d{4}-\d{2}        ## season folder e.g. /2019-20
+                   /[a-z0-9_-]+\.txt$  ## txt e.g /1-premierleague.txt
+                }x
 
-  ################################
-  ## builder-style overloading of new for convenience
+    def initialize( path_or_pack )
+      if path_or_pack.is_a?( Datafile::DirPackage ) ||
+         path_or_pack.is_a?( Datafile::ZipPackage )
+        @pack = path_or_pack
+      else   ## assume it's a (string) path
+        path = path_or_pack
+        if !File.exist?( path )  ## file or directory
+          puts "** !!! ERROR !!! file NOT found >#{path}<; cannot open package"
+          exit 1
+        end
 
-  def self.open( path )
-    if !File.exist?( path )  ## file or directory
-      puts "** !!! ERROR !!! file NOT found >#{path}<; cannot open package"
-      exit 1
+        if File.directory?( path )
+          @pack = Datafile::DirPackage.new( path )     ## delegate to "generic" package
+        elsif File.file?( path ) && File.extname( path ) == '.zip'  # note: includes dot (.) eg .zip
+          @pack = Datafile::ZipPackage.new( path )
+        else
+          puts "** !!! ERROR !!! cannot open package - directory or file with .zip extension required"
+          exit 1
+        end
+      end
     end
 
-    if File.extname( path ) == '.zip' &&   # note: includes dot (.) eg .zip
-       File.file?( path )
-      ZipPackage.new( path )
-    elsif File.directory?( path )
-      DirPackage.new( path )
-    else
-      puts "** !!! ERROR !!! cannot open package - directory or file with .zip extension required"
-      exit 1
+    def each_conf( &blk )       @pack.each( pattern: CONF_RE, &blk ); end
+    def each_match( &blk )      @pack.each( pattern: MATCH_RE, &blk ); end
+    def each_club_props( &blk ) @pack.each( pattern: CLUB_PROPS_RE, &blk ); end
+
+
+    def read_club_props( sync: true )
+      each_club_props do |entry|
+        SportDb.parse_club_props( entry.read, sync: sync )
+      end
     end
+
+    def read_conf( *names,
+                   season: nil, sync: true )
+      if names.empty?   ## no (entry) names passed in; read in all
+        each_conf do |entry|
+          SportDb.parse_conf( entry.read, season: season, sync: sync )
+        end
+      else
+        names.each do |name|
+          entry = @pack.find( name )
+          SportDb.parse_conf( entry.read, season: season, sync: sync )
+        end
+      end
+    end
+
+    def read_match( *names,
+                    season: nil, sync: true )
+      if names.empty?   ## no (entry) names passed in; read in all
+        each_match do |entry|
+          SportDb.parse_match( entry.read, season: season, sync: sync )
+        end
+      else
+        names.each do |name|
+          entry = @pack.find( name )
+          SportDb.parse_match( entry.read, season: season, sync: sync )
+        end
+      end
+    end
+
+
+    def read( *names,
+              season: nil, sync: true )
+      if names.empty?   ##  read all datafiles
+        read_club_props( sync: sync )
+        read_conf( season: season, sync: sync )
+        read_match( season: season, sync: sync )
+      else
+        names.each do |name|
+          entry = @pack.find( name )
+          ## fix/todo: add read_clubs_props too!!!
+          if Datafile.match_conf( name )      ## check if datafile matches conf(iguration) naming (e.g. .conf.txt)
+            SportDb.parse_conf( entry.read, season: season, sync: sync )
+          elsif Datafile.match_club_props( name )
+            SportDb.parse_club_props( entry.read, sync: sync )
+          else   ## assume "regular" match datafile
+            SportDb.parse_match( entry.read, season: season, sync: sync )
+          end
+        end
+      end
+    end
+  end   # class Package
+
+
+  class DirPackage < Package
+    def initialize( path )   super( Datafile::DirPackage.new( path ) ); end
   end
 
-  def self.create( path )
-    open( path )
+  class ZipPackage < Package
+    def initialize( path )   super( Datafile::ZipPackage.new( path ) ); end
   end
 
-  class << self
-    alias_method :old_new, :new           # note: store "old" orginal version of new
-    alias_method :new,     :create        #   replace original version with build_class
-  end
-end
-
-
-class DirPackage < Package
-
-  def initialize( path )
-    @path = path
-
-    basename = File.basename( path )   ## note: ALWAYS keeps "extension"-like name if present (e.g. ./austria.zip => austria.zip)
-    @name = basename
-  end
-
-  def self.new( *new_args )
-    old_new( *new_args )
-  end
-end
-
-
-class ZipPackage < Package
-
-  def initialize( path )
-    @path = path
-
-    extname  = File.extname( path )    ## todo/check: double check if extension is .zip - why? why not?
-    basename = File.basename( path, extname )
-    @name = basename
-  end
-
-  def self.new( *new_args )
-    old_new( *new_args )
-  end
-end
-
-
-pack1  = Package.new( 'austria.zip' )
-pack2a = Package.new( 'austria' )
-pack2b = Package.new( './austria/' )
-pack3  = ZipPackage.new( './england.zip' )
-
-pp pack1.class
-pp pack1
-
-pp pack2a.class
-pp pack2a
-pp pack2b.class
-pp pack2b
-
-pp pack3.class
-pp pack3
+end   # module SportDb

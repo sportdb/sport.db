@@ -11,6 +11,7 @@ lib/sportdb/readers/league_outline_reader.rb
 lib/sportdb/readers/match_linter.rb
 lib/sportdb/readers/match_parser.rb
 lib/sportdb/readers/match_reader.rb
+lib/sportdb/readers/package.rb
 lib/sportdb/readers/version.rb
 test/helper.rb
 test/test_match_parser.rb

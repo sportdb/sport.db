@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require 'zip'     ## todo/check: if zip is alreay included in a required module?
+require 'zip'     ## todo/check: if zip is alreay included in a required module - move into sportdb-formats and add datafile!!!
 
 
 
@@ -20,6 +20,8 @@ require 'sportdb/readers/match_reader'
 require 'sportdb/readers/match_linter'
 require 'sportdb/readers/club_props_reader'
 require 'sportdb/readers/datafile'
+require 'sportdb/readers/package'
+
 
 
 
@@ -32,44 +34,52 @@ module SportDb
     sync ? ConfReaderV2.read( path, season: season )
          : ConfLinter.read( path, season: season )
   end
-
-  def self.read_match( path, season: nil, sync: true )  ### todo/check: add alias read_matches - why? why not?
-    sync ? MatchReaderV2.read( path, season: season )
-         : MatchLinter.read( path, season: season )
-  end
-
-
   def self.parse_conf( txt, season: nil, sync: true )
     sync ? ConfReaderV2.parse( txt, season: season )
          : ConfLinter.parse( txt, season: season )
   end
 
+  def self.read_match( path, season: nil, sync: true )  ### todo/check: add alias read_matches - why? why not?
+    sync ? MatchReaderV2.read( path, season: season )
+         : MatchLinter.read( path, season: season )
+  end
   def self.parse_match( txt, season: nil, sync: true )  ### todo/check: add alias read_matches - why? why not?
     sync ? MatchReaderV2.parse( txt, season: season )
          : MatchLinter.parse( txt, season: season )
   end
 
+  def self.read_club_props( path, sync: true )
+    ## note: for now run only if sync (e.g. run with db updates)
+    SportDb::Import::ClubPropsReader.read( path )   if sync
+  end
+  def self.parse_club_props( txt, sync: true )
+    ## note: for now run only if sync (e.g. run with db updates)
+    SportDb::Import::ClubPropsReader.parse( txt )   if sync
+  end
+
 
   def self.read( path, season: nil, sync: true )
     pack = if File.directory?( path )          ## if directory assume "unzipped" package
-              Datafile::DirPackage.new( path )
-           elsif Datafile.match_zip( path )    ## check if file is a .zip (archive) file
-              Datafile::ZipPackage.new( path )
+              DirPackage.new( path )
+           elsif File.file?( path ) && Datafile.match_zip( path )  ## check if file is a .zip (archive) file
+              ZipPackage.new( path )
            else                                ## no package; assume single (standalone) datafile
              nil
            end
 
     if pack
-       pack.read_conf( season: season, sync: sync )
-       pack.read_match( season: season, sync: sync )
+       pack.read( season: season, sync: sync )
     else
       if Datafile.match_conf( path )      ## check if datafile matches conf(iguration) naming (e.g. .conf.txt)
         read_conf( path, season: season, sync: sync )
+      elsif Datafile.match_club_props( path )
+        read_club_props( path, sync: sync )
       else                                ## assume "regular" match datafile
         read_match( path, season: season, sync: sync )
       end
     end
   end  # method read
+
 
 
   ## (more) convenience helpers for lint(ing)

@@ -8,15 +8,13 @@ module Datafile
   CONF_RE  = %r{ /\.conf\.txt$
                }x
 
-  MATCH_RE = %r{ /\d{4}-\d{2}        ## season folder e.g. /2019-20
-                 /[a-z0-9_-]+\.txt$  ## txt e.g /1-premierleague.txt
-              }x
 
-  CLUBS_PROPS_RE = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
+  CLUB_PROPS_RE = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
                          (?:[a-z]{1,4}\.)?   # optional country code/key e.g. eng.clubs.props.txt
                         clubs\.props\.txt$
                      }x
-  def self.match_clubs_props( path, pattern: CLUBS_PROPS_RE ) pattern.match( path ); end
+  def self.match_club_props( path, pattern: CLUB_PROPS_RE ) pattern.match( path ); end
+
 
   ZIP_RE = %r{ \.zip$
             }x
@@ -24,124 +22,73 @@ module Datafile
 
 
 
-class PackageBase
-
-  ## note: "abstract" methods - each and read required in derived class !!!!
-
-  def each_conf( &blk )   each( pattern: CONF_RE, &blk ); end
-  def each_match( &blk )  each( pattern: MATCH_RE, &blk ); end
-
-
-
-  def read_clubs_props
-    each_read( pattern: CLUBS_PROPS_RE ) do |name, txt|
-      ## todo/fix:  add/use SportDb.parse_club_props helper !!!!!!
-      SportDb::Import::ClubPropsReader.parse( txt )
-    end
+class DirPackage    ## todo/check: find a better name e.g. UnzippedPackage, FilesystemPackage, etc. - why? why not?
+class Entry
+  def initialize( pack, path )
+    @pack = pack  ## parent package
+    @path = path
+    ## todo/fix!!!!: calculate @name (cut-off pack.path!!!)
+    @name =  path
   end
-
-  def read_conf( *names,
-                 season: nil, sync: true )
-    if names.empty?   ## no (entry) names passed in; read in all
-      each_read( pattern: CONF_RE ) do |name, txt|
-        SportDb.parse_conf( txt, season: season, sync: sync )
-      end
-    else
-      names.each do |name|
-        txt = read_entry( name )
-        SportDb.parse_conf( txt, season: season, sync: sync )
-      end
-    end
-  end
-
-  def read_match( *names,
-                  season: nil, sync: true )
-    if names.empty?   ## no (entry) names passed in; read in all
-      each_read( pattern: MATCH_RE ) do |name, txt|
-        SportDb.parse_match( txt, season: season, sync: sync )
-      end
-    else
-      names.each do |name|
-        txt = read_entry( name )
-        SportDb.parse_match( txt, season: season, sync: sync )
-      end
-    end
-  end
+  def name()  @name; end
+  def read()  File.open( @path, 'r:utf-8' ).read; end
+end  # class DirPackage::Entry
 
 
-  def read( *names,
-            season: nil, sync: true )
-    if names.empty?   ##  read all datafiles
-      read_clubs_props()   if sync
-      read_conf( season: season, sync: sync )
-      read_match( season: season, sync: sync )
-    else
-      names.each do |name|
-        txt = read_entry( name )
-        ## fix/todo: add read_clubs_props too!!!
-        if Datafile.match_conf( name )      ## check if datafile matches conf(iguration) naming (e.g. .conf.txt)
-          SportDb.parse_conf( txt, season: season, sync: sync )
-        else                                ## assume "regular" match datafile
-          SportDb.parse_match( txt, season: season, sync: sync )
-        end
-      end
-    end
-  end
-end   # class PackageBase
-
-
-
-
-class DirPackage < PackageBase    ## todo/check: find a better name e.g. UnzippedPackage, FilesystemPackage, etc. - why? why not?
+  attr_reader :name, :path
 
   def initialize( path )
     @path = path   ## rename to root_path or base_path or somehting - why? why not?
+
+    basename = File.basename( path )   ## note: ALWAYS keeps "extension"-like name if present (e.g. ./austria.zip => austria.zip)
+    @name = basename
   end
 
-
-  def each_file( pattern: )    ## todo/check: rename to glob or something - why? why not?
+  def each( pattern:,  extension: 'txt' )    ## todo/check: rename to glob or something - why? why not?
+    ##   use just .* for extension or remove and check if File.file? and skip File.directory? - why? why not?
     ## note: incl. files starting with dot (.)) as candidates (normally excluded with just *)
-    Dir.glob( "#{@path}/**/{*,.*}.txt" ).each do |path|
+    Dir.glob( "#{@path}/**/{*,.*}.#{extension}" ).each do |path|
       ## todo/fix: (auto) skip and check for directories
       if pattern.match( path )
-        yield( path )
+        yield( Entry.new( self, path ))
       else
         ## puts "  skipping >#{path}<"
       end
     end
   end
 
-
-  Entry = Struct.new( :name )
-
-  def each( pattern: )   ## todo/check: rename to each_entry - why? why not?
-    each_file( pattern: pattern ) do |path|
-      ## fix: split path like a "virtual" zip like entry
-      yield( Entry.new( path ) )
-    end
-  end
-
-  def read_entry( name )
-    txt = File.open( "#{@path}/#{name}", 'r:utf-8').read
-    txt
-  end
-
-  def each_read( pattern: )
-    each_file( pattern: pattern ) do |path|
-      txt = File.open( path, 'r:utf-8').read
-      yield( path, txt )  ## only pass along txt - why? why not? or pass along entry and not just entry.name?
-    end
+  def find( name )
+    Entry.new( self, "#{@path}/#{name}" )
   end
 end  # class DirPackage
 
 
-
 ## helper wrapper for datafiles in zips
-class ZipPackage < PackageBase
-  def initialize( path )
-    @path = path
+class ZipPackage
+class Entry
+  def initialize( pack, entry )
+    @pack  = pack
+    @entry = entry
   end
 
+  def name()  @entry.name; end
+  def read
+    txt = @entry.get_input_stream.read
+    ##  puts "** encoding: #{txt.encoding}"  #=> encoding: ASCII-8BIT
+    txt = txt.force_encoding( Encoding::UTF_8 )
+    txt
+  end
+end # class ZipPackage::Entry
+
+  attr_reader :name, :path
+
+  def initialize( path )
+    @path = path
+
+    extname  = File.extname( path )    ## todo/check: double check if extension is .zip - why? why not?
+    basename = File.basename( path, extname )
+    @name = basename
+  end
 
   def each( pattern: )
     Zip::File.open( @path ) do |zipfile|
@@ -150,21 +97,35 @@ class ZipPackage < PackageBase
           next ## skip
         elsif entry.file?
           if pattern.match( entry.name )
-            yield( entry )
+            yield( Entry.new( self, entry ) )   # wrap entry in uniform access interface / api
           else
             ## puts "  skipping >#{entry.name}<"
           end
         else
-          puts "** !! ERROR !! #{entry.name} is unknown zip file type in >#{@path}<, sorry"
+          puts "** !!! ERROR !!! #{entry.name} is unknown zip file type in >#{@path}<, sorry"
           exit 1
         end
       end
     end
   end
 
+  def find( name )
+     entries = match_entry( name )
+     if entries.empty?
+       puts "** !!! ERROR !!! zip entry >#{name}< not found in >#{@path}<; sorry"
+       exit 1
+     elsif entries.size > 1
+       puts "** !!! ERROR !!! ambigious zip entry >#{name}<; found #{entries.size} entries in >#{@path}<:"
+       pp entries
+       exit 1
+     else
+       Entry.new( self, entries[0] )    # wrap entry in uniform access interface / api
+     end
+  end
 
+private
   def match_entry( name )
-    ## todo/fix:  use Zip::File.glob or find_entry or ?  why? why not?
+    ## todo/fix:  use Zip::File.glob or find_entry or something better/faster?  why? why not?
 
     pattern = %r{ #{Regexp.escape( name )}    ## match string if ends with name
                    $
@@ -180,39 +141,12 @@ class ZipPackage < PackageBase
             entries << entry
           end
         else
-          puts "** !! ERROR !! #{entry.name} is unknown zip file type in >#{@path}<, sorry"
+          puts "** !!! ERROR !!! #{entry.name} is unknown zip file type in >#{@path}<, sorry"
           exit 1
         end
       end
     end
     entries
-  end
-
-  def read_entry( name )
-     entries = match_entry( name )
-     if entries.empty?
-       puts "** !!! ERROR !!! zip entry >#{name}< not found in >#{@path}<; sorry"
-       exit 1
-     elsif entries.size > 1
-       puts "** !!! ERROR !!! ambigious zip entry >#{name}<; found #{entries.size} entries in >#{@path}<:"
-       pp entries
-       exit 1
-     else
-       entry = entries[0]
-       txt = entry.get_input_stream.read
-       ##  puts "** encoding: #{txt.encoding}"  #=> encoding: ASCII-8BIT
-       txt = txt.force_encoding( Encoding::UTF_8 )
-     end
-  end
-
-
-  def each_read( pattern: )
-    each( pattern: pattern ) do |entry|
-      txt = entry.get_input_stream.read
-      ##  puts "** encoding: #{txt.encoding}"  #=> encoding: ASCII-8BIT
-      txt = txt.force_encoding( Encoding::UTF_8 )
-      yield( "#{@path}!/#{entry.name}", txt )    ## only pass along txt - why? why not? or pass along entry and not just entry.name?
-    end
   end
 end  # class ZipPackage
 end  # module Datafile

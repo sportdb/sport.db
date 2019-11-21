@@ -14,14 +14,14 @@
 
 ## Usage
 
-The sportdb gem lets you load fixtures in plain text into your sports database
+The sportdb gem lets you read datasets in plain text into your sports database
 
 ```
 SYNOPSIS
     sportdb [global options] command [command options] [arguments...]
 
 VERSION
-    1.8
+    2.0
 
 GLOBAL OPTIONS
     -d, --dbpath=PATH - Database path (default: .)
@@ -30,87 +30,47 @@ GLOBAL OPTIONS
     --version         - Show version
 
 COMMANDS
+    new, n        - Build DB w/ quick starter Datafile templates
+    build, b      - Build DB (download/create/read); use ./Datafile - zips get downloaded to ./tmp
+    serve, server - Start web service (HTTP JSON API)
+
+MORE COMMANDS    
     create        - Create DB schema
-    setup, s      - Create DB schema 'n' load all world and sports data
-    update, up, u - Update all sports data
-    load, l       - Load sports fixtures
+    download, dl  - Download datasets; use ./Datafile - zips get downloaded to ./tmp
+    read, r       - Read datasets; use ./Datafile - zips required in ./tmp
     logs          - Show logs
     props         - Show props
-    pull          - Pull (auto-update) event fixtures from upstream sources  
-    serve, server - Start web service (HTTP JSON API)
     stats         - Show stats
     test          - (Debug) Test command suite
     help          - Shows a list of commands or help for one command
 ```
 
 
-### `setup` Command
+### `new` Command
 
 ```
 NAME
-    setup - Create DB schema 'n' load all world and sports data
-
+    new - Build DB w/ quick starter Datafile templates
 SYNOPSIS
-    sportdb [global options] setup [command options] NAME
-
-COMMAND OPTIONS
-    -i, --include=PATH  - Sports data path (default: .)
-    --worldinclude=PATH - World data path (default: none)
+    sportdb [global options] new NAME
 
 EXAMPLES
-    sportdb setup --include ./at-austria --worldinclude ./world.db
-    sportdb setup 2013_14 --include ./at-austria --worldinclude ./world.db
+    sportdb new eng2019-20
+    sportdb new eng
 ```
 
 
-### `update` Command
+### `build` Command
 
 ```
 NAME
-    update - Update all sports data
+    build - Build DB (download/create/read); use ./Datafile - zips get downloaded to ./tmp
 
 SYNOPSIS
-    sportdb [global options] update [command options] NAME
-
-COMMAND OPTIONS
-    --delete           - Delete all sports data records
-    -i, --include=PATH - Sports data path (default: .)
+    sportdb [global options] build
 
 EXAMPLES
-    sportdb update --include ./at-austria
-    sportdb update --include ./at-austria --delete
-    sportdb update 2013_14 --include ./at-austria --delete
-```
-
-### `load` Command
-
-```
-NAME
-    load - Load sports fixtures
-
-SYNOPSIS
-    sportdb [global options] load [command options] NAME
-
-COMMAND OPTIONS
-    --delete - Delete all sports data records
-
-EXAMPLES
-    sportdb load --include ./at-austria 2013_14/bl
-    sportdb load --include ./at-austria 2013_14/bl 2013_14/cup
-```
-
-
-### `pull` Command
-
-```
-NAME
-    pull - Pull (auto-update) event fixtures from upstream sources
-
-SYNOPSIS
-    sportdb [global options] pull
-
-EXAMPLES
-    sportdb pull
+    sportdb build
 ```
 
 

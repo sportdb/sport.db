@@ -9,7 +9,7 @@ Hoe.spec 'sportdb' do
   self.summary = 'sportdb - sport.db Command Line Tool'
   self.description = summary
 
-  self.urls    = ['https://github.com/sportdb/sport.db.ruby']
+  self.urls    = ['https://github.com/sportdb/sport.db']
 
   self.author  = 'Gerald Bauer'
   self.email   = 'opensport@googlegroups.com'
@@ -20,14 +20,15 @@ Hoe.spec 'sportdb' do
   self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
-    ['sportdb-models', '>= 1.10.1'],
+    ['sportdb-models',  '>= 1.18.2'],
+    ['sportdb-readers', '>= 0.3.3'],
 
-    ['fetcher', '>= 0.4.4'],    ## check if included already in datafil ??
-    ['datafile', '>= 0.1.1'],
+    ['fetcher', '>= 0.4.5'],    ## check if included already in datafil ??
+    ['datafile', '>= 0.3.0'],
 
     ### sportdb addons
     ## ['sportdb-keys'],
-    ['sportdb-update'],
+    ## ['sportdb-update'],
     ['sportdb-service'],
 
     ## 3rd party
@@ -40,7 +41,7 @@ Hoe.spec 'sportdb' do
   self.licenses = ['Public Domain']
 
   self.spec_extras = {
-    required_ruby_version: '>= 1.9.2'
+    required_ruby_version: '>= 2.2.2'
   }
 
   self.post_install_message =<<EOS

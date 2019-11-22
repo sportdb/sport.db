@@ -58,6 +58,17 @@ module SportDb
   end
 
 
+  def self.parse_leagues( txt )
+    recs = SportDb::Import::LeagueReader.parse( txt )
+    Import::config.leagues.add( recs )
+  end
+
+  def self.parse_clubs( txt )
+    recs = SportDb::Import::ClubReader.parse( txt )
+    Import::config.clubs.add( recs )
+  end
+
+
   def self.read( path, season: nil, sync: true )
     pack = if File.directory?( path )          ## if directory assume "unzipped" package
               DirPackage.new( path )

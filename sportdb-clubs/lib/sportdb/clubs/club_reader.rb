@@ -40,6 +40,30 @@ B_TEAM_MARKER_RE = /^  \(?     # optional opening bracket
                       /xi   ## note: add case-insenstive (e.g. II/ii or B/b)
 
 
+
+def self.add_alt_names( rec, names )   ## helper for adding alternat names
+
+  ## strip and  squish (white)spaces
+  #   e.g. New York FC      (2011-)  => New York FC (2011-)
+  names = names.map { |name| name.strip.gsub( /[ \t]+/, ' ' ) }
+  rec.alt_names += names
+  rec.add_variants( names ) # auto-add (possible) auto-generated variant names
+
+  ## check for duplicates
+  if rec.duplicates?
+    duplicates = rec.duplicates
+    puts "*** !!! WARN !!! - #{duplicates.size} duplicate alt name mapping(s):"
+    pp duplicates
+    pp rec
+    ##
+    ##  todo/fix:  make it only an error with exit 1
+    ##               if (not normalized) names are the same (not unique/uniq)
+    ##                  e.g. don't exit on  A.F.C. == AFC etc.
+    ## exit 1
+  end
+end
+
+
 def self.parse( txt )
   recs = []
   last_rec  = nil
@@ -110,24 +134,9 @@ def self.parse( txt )
         ## assume continuation with line of alternative names
         ##  note: skip leading pipe
         values = line[1..-1].split( '|' )   # team names - allow/use pipe(|)
-        ## strip and  squish (white)spaces
-        #   e.g. New York FC      (2011-)  => New York FC (2011-)
-        values = values.map { |value| value.strip.gsub( /[ \t]+/, ' ' ) }
-        last_rec.alt_names += values
-        last_rec.add_variants( values ) # auto-add (possible) auto-generated variant names
 
-        ## check for duplicates
-        if last_rec.duplicates?
-          duplicates = last_rec.duplicates
-          puts "*** !!! WARN !!! - #{duplicates.size} duplicate alt name mapping(s):"
-          pp duplicates
-          pp last_rec
-          ##
-          ##  todo/fix:  make it only an error with exit 1
-          ##               if (not normalized) names are the same (not unique/uniq)
-          ##                  e.g. don't exit on  A.F.C. == AFC etc.
-          ## exit 1
-        end
+        add_alt_names( last_rec, values )   ## note: use alt_names helper for (re)use
+
       ## check for b (child) team / club marker e.g.
       ##    (ii) or ii) or ii.) or (ii.)
       ##    (b)  or b)  or b.)  or (b.)
@@ -157,12 +166,21 @@ def self.parse( txt )
         values = line.split( ',' )
 
         rec = Club.new
-        value = values.shift    ## get first item
+
+        col  = values.shift    ## get first item
+        ## note: allow optional alt names for convenience with required canoncial name
+        names = col.split( '|' )   # team names - allow/use pipe(|)
+        value     = names[0]         ## canonical name
+        alt_names = names[1..-1]     ## optional (inline) alt names
+
         ## strip and  squish (white)spaces
         #   e.g. New York FC      (2011-)  => New York FC (2011-)
         value = value.strip.gsub( /[ \t]+/, ' ' )
         rec.name = value            # canoncial name (global unique "beautiful/long" name)
         rec.add_variants( value )   # auto-add (possible) auto-generated variant names
+
+        ## note: add optional (inline) alternate names if present
+        add_alt_names( rec, alt_names )   if alt_names.size > 0
 
         ## note:
         ##   check/todo!!!!!!!!!!!!!!!!!-

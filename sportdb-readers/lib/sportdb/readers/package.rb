@@ -4,6 +4,9 @@ module SportDb
 
     CONF_RE        = Datafile::CONF_RE
     CLUB_PROPS_RE  = Datafile::CLUB_PROPS_RE
+    LEAGUES_RE     = Datafile::LEAGUES_REGEX   ## todo/check: rename to _RE
+    CLUBS_RE       = Datafile::CLUBS_REGEX     ## todo/check: rename to _RE
+
 
     ## note: if pattern includes directory add here (otherwise move to more "generic" datafile) - why? why not?
     MATCH_RE = %r{ /\d{4}-\d{2}        ## season folder e.g. /2019-20
@@ -36,8 +39,24 @@ module SportDb
     def each_match( &blk )      @pack.each( pattern: MATCH_RE, &blk ); end
     def each_club_props( &blk ) @pack.each( pattern: CLUB_PROPS_RE, &blk ); end
 
+    def each_leagues( &blk )    @pack.each( pattern: LEAGUES_RE, &blk ); end
+    def each_clubs( &blk )      @pack.each( pattern: CLUBS_RE, &blk ); end
 
-    def read_club_props( sync: true )
+
+    def read_leagues
+      each_leagues do |entry|
+        SportDb.parse_leagues( entry.read )
+      end
+    end
+
+    def read_clubs
+      each_clubs do |entry|
+        SportDb.parse_clubs( entry.read )
+      end
+    end
+
+
+    def read_club_props( sync: true )   ## todo/fix: remove sync!! - why? why not?
       each_club_props do |entry|
         SportDb.parse_club_props( entry.read, sync: sync )
       end
@@ -75,13 +94,15 @@ module SportDb
     def read( *names,
               season: nil, sync: true )
       if names.empty?   ##  read all datafiles
-        read_club_props( sync: sync )
+        read_leagues()
+        read_clubs()
+        read_club_props( sync: sync )   ## todo/fix: remove sync - why? why not?
         read_conf( season: season, sync: sync )
         read_match( season: season, sync: sync )
       else
         names.each do |name|
           entry = @pack.find( name )
-          ## fix/todo: add read_clubs_props too!!!
+          ## fix/todo: add read_leagues, read_clubs too!!!
           if Datafile.match_conf( name )      ## check if datafile matches conf(iguration) naming (e.g. .conf.txt)
             SportDb.parse_conf( entry.read, season: season, sync: sync )
           elsif Datafile.match_club_props( name )

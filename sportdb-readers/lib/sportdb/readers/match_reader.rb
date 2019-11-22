@@ -48,6 +48,8 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       pp round_recs
 
       round_recs.each do |round_rec|
+        ## quick hack:  if pos missing fill with dummy 999 for now
+        round_rec.pos = 999    if round_rec.pos.nil?
         round = Sync::Round.find_or_create( round_rec, event: event )  ## check: use/rename to EventRound why? why not?
       end
       match_recs.each do |match_rec|

@@ -1,12 +1,12 @@
 ##########################################
 # auto-generated all-in-one single datafile clubs.wiki.txt bundle
-#    on 2019-08-31 20:06:32 +0200 from 5 datafile(s)
+#    on 2019-11-22 11:02:46 +0100 from 5 datafile(s)
 #  please, do NOT edit here; use the source
 #    see https://github.com/openfootball/clubs - updates welcome!
 
 
 ===========================
-=  China (cn)
+=  China
 
 Beijing Renhe F.C.
 Beijing Sinobo Guoan
@@ -27,13 +27,13 @@ Tianjin Teda F.C.
 
 
 ==================================
-=   Kazakhstan (kz)
+=   Kazakhstan
 
 FC Astana
 
 
 =========================
-=   Japan (jp)
+=   Japan
 
 Cerezo Osaka
 Consadole Sapporo
@@ -53,10 +53,8 @@ Urawa Red Diamonds
 Vegalta Sendai
 Vissel Kobe
 Yokohama F. Marinos
-
-
 ===================================
-=  Albania (al)
+=  Albania
 
 Flamurtari Vlorë
 FC Kamza
@@ -71,7 +69,7 @@ KF Tirana
 
 
 =================================
-= Austria (at)
+= Austria
 
 FC Admira Wacker Mödling
 FK Austria Wien
@@ -90,7 +88,7 @@ WSG Wattens
 
 
 ===========================
-= Belgium (be)
+= Belgium
 
 R.S.C. Anderlecht
 Royal Antwerp F.C.
@@ -114,7 +112,7 @@ Oud-Heverlee Leuven
 
 
 ==============================
-=  Bulgaria (bg)
+=  Bulgaria
 
 PFC Levski Sofia
 PFC Slavia Sofia
@@ -131,7 +129,7 @@ FC Pirin Blagoevgrad
 
 
 ====================================
-=  Czech Republic (cz)
+=  Czech Republic
 
 FC Baník Ostrava
 Bohemians 1905
@@ -154,7 +152,7 @@ FC Zbrojovka Brno
 
 
 ==========================
-=  Denmark (dk)
+=  Denmark
 
 F.C. Copenhagen
 FC Nordsjælland
@@ -172,7 +170,7 @@ Esbjerg fB
 
 
 ====================================
-=  England (eng)
+=  England
 
 Arsenal F.C.
 A.F.C. Bournemouth
@@ -271,7 +269,7 @@ Yeovil Town F.C.
 
 
 ====================================
-=  France (fr)
+=  France
 
 Amiens SC
 FC Girondins de Bordeaux
@@ -303,7 +301,7 @@ AC Ajaccio
 
 
 ============================================
-= Germany • Deutschland (de)
+= Germany • Deutschland
 
 FC Augsburg
 Hertha BSC
@@ -366,7 +364,7 @@ FSV Zwickau
 
 
 ==========================================
-=  Italy (it)
+=  Italy
 
 Atalanta B.C.
 Bologna F.C. 1909
@@ -390,19 +388,19 @@ Torino F.C.
 Udinese Calcio
 
 ===================================
-=  Liechtenstein (li)
+=  Liechtenstein
 
 FC Vaduz
 
 
 ========================================
-=   Monaco (mc)
+=   Monaco
 
 AS Monaco FC
 
 
 =====================================
-=  Netherlands (nl)
+=  Netherlands
 
 ADO Den Haag
 AFC Ajax
@@ -430,7 +428,7 @@ SC Cambuur
 
 
 ====================================
-= Poland (pl)
+= Poland
 
 Arka Gdynia
 KS_Cracovia_(football)
@@ -441,7 +439,7 @@ Bruk-Bet Termalica Nieciecza
 
 
 ====================================
-=  Portugal (pt)
+=  Portugal
 
 Belenenses SAD
 S.L. Benfica
@@ -463,7 +461,7 @@ Vitória S.C.    ## Vitória de Guimarães
 Vitória F.C.    ## Vitória de Setúbal
 
 =====================================
-=  Russia (ru)
+=  Russia
 
 FC Akhmat Grozny
 FC Terek Grozny
@@ -494,7 +492,7 @@ FC Tom Tomsk
 
 
 ==============================================
-=  Scotland (sco)
+=  Scotland
 
 Aberdeen F.C.
 Celtic F.C.
@@ -518,7 +516,7 @@ Gretna F.C.
 
 
 ====================================
-=  Spain • España (es)
+=  Spain • España
 
 Deportivo Alavés
 Athletic Bilbao
@@ -543,7 +541,7 @@ Villarreal CF
 
 
 ===================================================
-=  Switzerland • Confoederatio Helvetica (ch)
+=  Switzerland
 
 FC Basel
 Grasshopper Club Zürich
@@ -559,7 +557,7 @@ FC Zürich
 
 
 ===================================
-=  Turkey (tr)
+=  Turkey
 
 Akhisar Belediyespor
 Alanyaspor
@@ -582,15 +580,13 @@ Yeni Malatyaspor
 
 
 ================================
-=  Wales (wal)
+=  Wales
 
 Cardiff City F.C.
 Swansea City A.F.C.
 Newport County A.F.C.
-
-
 =================================
-=  Israel (il)
+=  Israel
 
 F.C. Ashdod
 Beitar Jerusalem F.C.
@@ -606,10 +602,8 @@ Maccabi Haifa F.C.
 Maccabi Netanya F.C.
 Maccabi Petah Tikva F.C.
 Maccabi Tel Aviv F.C.
-
-
 ============================
-=  Canada (ca)
+=  Canada
 
 Montreal Impact
 Toronto FC
@@ -617,7 +611,7 @@ Vancouver Whitecaps FC
 
 
 ===========================================
-=  Mexico (mx)
+=  Mexico
 
 Club América
 Club Atlas
@@ -642,7 +636,7 @@ Atlético San Luis
 
 
 ==============================================
-=  United States (us)
+=  United States 
 
 Atlanta United FC
 Chicago Fire Soccer Club
@@ -668,10 +662,8 @@ Sporting Kansas City
 Chivas USA
 Miami Fusion
 Tampa Bay Mutiny
-
-
 ===========================
-=  Argentina (ar)
+=  Argentina
 
 Aldosivi
 Argentinos Juniors
@@ -701,7 +693,7 @@ Club Atlético Vélez Sarsfield
 
 
 ======================
-=  Brazil (br)
+=  Brazil 
 
 Club Athletico Paranaense
 Clube Atlético Mineiro

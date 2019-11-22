@@ -14,7 +14,8 @@
 
 ## Usage
 
-The sportdb gem lets you read datasets in plain text into your sports database
+The sportdb tool lets you read in (parse) datasets (e.g. leagues, clubs, match schedules, etc.) 
+in plain text into your sports SQL database of choice (e.g. SQLite, PostgreSQL, etc.)
 
 ```
 SYNOPSIS
@@ -93,6 +94,18 @@ EXAMPLES
 Just install the gem:
 
     $ gem install sportdb
+
+
+
+## More Documentation / Getting Started Guides
+
+See the **[football.db League Starter Sample - Mauritius Premier League](https://github.com/openfootball/league-starter)**
+if you want to start from scratch (zero) with your very own league.
+
+See the **[football.db Quick Starter Datafile Templates](https://github.com/openfootball/quick-starter)** if you want to read in ready-to-use /
+ready-to-fork packages incl. the English Premier League, the German
+Bundesliga, the Spanish Primera División and some more.
+
 
 
 ## License

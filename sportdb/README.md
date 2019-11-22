@@ -103,7 +103,7 @@ See the **[football.db League Starter Sample - Mauritius Premier League](https:/
 if you want to start from scratch (zero) with your very own league.
 
 See the **[football.db Quick Starter Datafile Templates](https://github.com/openfootball/quick-starter)** if you want to read in ready-to-use /
-ready-to-fork packages incl. the English Premier League, the German
+ready-to-fork dataset packages incl. the English Premier League, the German
 Bundesliga, the Spanish Primera División and some more.
 
 

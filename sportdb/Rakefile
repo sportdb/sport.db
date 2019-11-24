@@ -20,11 +20,13 @@ Hoe.spec 'sportdb' do
   self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
-    ['sportdb-models',  '>= 1.18.2'],
-    ['sportdb-readers', '>= 0.3.3'],
+    ['sportdb-models',     '>= 1.18.2'],
+    ['sportdb-readers',    '>= 0.3.6'],
+    ['footballdb-leagues', '>= 2019.11.22' ],     ## add minimum for datasets
+    ['footballdb-clubs',   '>= 2019.11.22' ],
 
-    ['fetcher', '>= 0.4.5'],    ## check if included already in datafil ??
-    ['datafile', '>= 0.3.0'],
+    ['fetcher',  '>= 0.4.5'],    ## check if included already in datafil ??
+    ['datafile', '>= 0.3.1'],
 
     ### sportdb addons
     ## ['sportdb-keys'],
@@ -44,13 +46,13 @@ Hoe.spec 'sportdb' do
     required_ruby_version: '>= 2.2.2'
   }
 
-  self.post_install_message =<<EOS
+  self.post_install_message =<<TXT
 ******************************************************************************
 
 Questions? Comments? Send them along to the mailing list.
 https://groups.google.com/group/opensport
 
 ******************************************************************************
-EOS
+TXT
 
 end

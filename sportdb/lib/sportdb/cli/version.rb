@@ -2,11 +2,11 @@
 
 # Note: SportDb::VERSION gets used by core, that is, sportdb-models
 
-
+## todo/fix: yes, rename to SportDbTool
 module SportDbCli    # todo/check - rename to SportDbTool or SportDbCommands or SportDbShell ??
 
   MAJOR = 2 ## todo: namespace inside version or something - why? why not??
-  MINOR = 0
+  MINOR = 1
   PATCH = 0
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 

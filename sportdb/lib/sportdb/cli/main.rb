@@ -47,25 +47,8 @@ program_desc 'sport.db command line tool'
 version SportDbCli::VERSION
 
 
-=begin
-### add to help use new sections
-
-Examples:
-    sportdb cl/teams cl/2012_13/cl                     # import champions league (cl)
-    sportdb --create                                   # create database schema
-
-More Examples:
-    sportdb                                            # show stats (table counts, table props)
-    sportdb -i ../sport.db/db cl/teams cl/2012_13/cl   # import champions league (cl) in db folder
-
-Further information:
-  http://geraldb.github.com/sport.db
-=end
-
-
 ### global option (required)
 ## todo: add check that path is valid?? possible?
-
 
 desc 'Database path'
 arg_name 'PATH'
@@ -103,14 +86,25 @@ command [:build,:b] do |c|
 
   c.action do |g,o,args|
 
-    datafile = Datafile::Datafile.load_file( './Datafile' )
-    datafile.download  # datafile step 1 - download all datasets/zips
+    ## check if datafile exists, if NOT assume working dir (./) is a package
+    if File.file?( './Datafile' )   ## note use file? (exist? will also check for directory/folder!!)
+      datafile = Datafile::Datafile.load_file( './Datafile' )
+      datafile.download  # datafile step 1 - download all datasets/zips
 
-    connect_to_db( opts )
+      connect_to_db( opts )
 
-    SportDb.create_all
+      SportDb.create_all
 
-    datafile.read  # datafile step 2 - read all datasets
+      datafile.read  # datafile step 2 - read all datasets
+    else
+      puts "no ./Datafile found; try local build in >#{Dir.pwd}<"
+
+      connect_to_db( opts )
+
+      SportDb.create_all
+      pack = SportDb::DirPackage.new( Dir.pwd )  ## note: pass in full path for now (and NOT ./) - why? why not?
+      pack.read   # read all datasets
+    end
 
     puts 'Done.'
   end # action
@@ -122,14 +116,25 @@ command [:read,:r] do |c|
 
   c.action do |g,o,args|
 
-    connect_to_db( opts )
+    ## check if datafile exists, if NOT assume working dir (./) is a package
+    if File.file?( './Datafile' )   ## note use file? (exist? will also check for directory/folder!!)
+      connect_to_db( opts )
 
-    datafile = Datafile::Datafile.load_file( './Datafile' )
-    datafile.read
+      datafile = Datafile::Datafile.load_file( './Datafile' )
+      datafile.read
+    else
+      puts "no ./Datafile found; try local read in >#{Dir.pwd}<"
+
+      connect_to_db( opts )
+
+      pack = SportDb::DirPackage.new( Dir.pwd )  ## note: pass in full path for now (and NOT ./) - why? why not?
+      pack.read   # read all datasets
+    end
 
     puts 'Done.'
   end # action
 end  # command setup
+
 
 desc "Download datasets; use ./Datafile - zips get downloaded to ./tmp"
 command [:download,:dl] do |c|

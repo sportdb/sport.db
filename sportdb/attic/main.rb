@@ -1,3 +1,20 @@
+=begin
+### add to help use new sections
+
+Examples:
+    sportdb cl/teams cl/2012_13/cl                     # import champions league (cl)
+    sportdb --create                                   # create database schema
+
+More Examples:
+    sportdb                                            # show stats (table counts, table props)
+    sportdb -i ../sport.db/db cl/teams cl/2012_13/cl   # import champions league (cl) in db folder
+
+Further information:
+  http://geraldb.github.com/sport.db
+=end
+
+
+
 desc "Create DB schema 'n' load all world and sports data"
 arg_name 'NAME'   # optional setup profile name
 command [:setup,:s] do |c|

@@ -19,11 +19,10 @@ require 'sportdb/cli/opts'
 require 'sportdb/cli/main'
 
 
+
 module SportDb
 
-  def self.main
-    Tool.new.run(ARGV)
-  end
+  def self.main() Tool.new.run( ARGV ); end
 
 end  # module SportDb
 
@@ -33,10 +32,11 @@ end  # module SportDb
 
 ## puts 'before auto-load (require) sportdb addons'
 ## puts '  before sportdb/update'
-require 'sportdb/update'
-## puts '  before sportdb/service'
+## require 'sportdb/update'
+
+puts '  before sportdb/service'
 require 'sportdb/service'
-## puts 'after auto-load (require) sportdb addons'
+puts 'after auto-load (require) sportdb addons'
 
 
 SportDb.main   if __FILE__ == $0

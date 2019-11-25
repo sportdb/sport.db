@@ -5,8 +5,9 @@ module SportDb
 class Opts
 
   def merge_gli_options!( options = {} )
-    @db_path   = options[:dbpath]  if options[:dbpath].present?
-    @db_name   = options[:dbname]  if options[:dbname].present?
+    @db_path   = options[:dbpath]    if options[:dbpath].present?
+    @db_name   = options[:dbname]    if options[:dbname].present?
+    @datafile  = options[:datafile]  if options[:datafile].present?
 
     @verbose = true     if options[:verbose] == true
   end
@@ -22,13 +23,11 @@ class Opts
   end
 
 
-  def db_path
-    @db_path || '.'
-  end
+  def db_path()   @db_path || '.';         end
+  def db_name()   @db_name || 'sport.db';  end
 
-  def db_name
-    @db_name || 'sport.db'
-  end
+  def datafile()  @datafile || './Datafile';  end
+  def datafile?() @datafile;  end    ## note: let's you check if datafile is set (or "untouched")
 end # class Opts
 
 end # module SportDb

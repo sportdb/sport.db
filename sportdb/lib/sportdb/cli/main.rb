@@ -60,6 +60,12 @@ arg_name 'NAME'
 default_value opts.db_name
 flag [:n, :dbname]
 
+desc 'Datafile'
+arg_name 'FILE'
+default_value opts.datafile
+flag [:f, :datafile]
+
+
 desc '(Debug) Show debug messages'
 switch [:verbose], negatable: false    ## todo: use -w for short form? check ruby interpreter if in use too?
 
@@ -87,8 +93,8 @@ command [:build,:b] do |c|
   c.action do |g,o,args|
 
     ## check if datafile exists, if NOT assume working dir (./) is a package
-    if File.file?( './Datafile' )   ## note use file? (exist? will also check for directory/folder!!)
-      datafile = Datafile::Datafile.load_file( './Datafile' )
+    if File.file?( opts.datafile )   ## note use file? (exist? will also check for directory/folder!!)
+      datafile = Datafile::Datafile.load_file( opts.datafile )
       datafile.download  # datafile step 1 - download all datasets/zips
 
       connect_to_db( opts )
@@ -97,7 +103,7 @@ command [:build,:b] do |c|
 
       datafile.read  # datafile step 2 - read all datasets
     else
-      puts "no ./Datafile found; try local build in >#{Dir.pwd}<"
+      puts "no datafile >#{opts.datafile}< found; trying local build in >#{Dir.pwd}<"
 
       connect_to_db( opts )
 
@@ -117,13 +123,13 @@ command [:read,:r] do |c|
   c.action do |g,o,args|
 
     ## check if datafile exists, if NOT assume working dir (./) is a package
-    if File.file?( './Datafile' )   ## note use file? (exist? will also check for directory/folder!!)
+    if File.file?( opts.datafile )   ## note use file? (exist? will also check for directory/folder!!)
       connect_to_db( opts )
 
-      datafile = Datafile::Datafile.load_file( './Datafile' )
+      datafile = Datafile::Datafile.load_file( opts.datafile )
       datafile.read
     else
-      puts "no ./Datafile found; try local read in >#{Dir.pwd}<"
+      puts "no datafile >#{opts.datafile}< found; trying local read in >#{Dir.pwd}<"
 
       connect_to_db( opts )
 
@@ -143,7 +149,7 @@ command [:download,:dl] do |c|
 
     # note: no database connection needed (check - needed for logs?? - not setup by default???)
 
-    datafile = Datafile::Datafile.load_file( './Datafile' )
+    datafile = Datafile::Datafile.load_file( opts.datafile )
     datafile.download
 
     puts 'Done.'
@@ -162,6 +168,8 @@ command [:new,:n] do |c|
 
     worker = Fetcher::Worker.new
     worker.copy( "https://github.com/openfootball/datafile/raw/master/#{setup}.rb", './Datafile' )
+
+    ## todo/check: use custom datafile (opts.datafile) if present? why? why not?
 
     ## step 2: same as command build (todo - reuse code)
     datafile = Datafile::Datafile.load_file( './Datafile' )

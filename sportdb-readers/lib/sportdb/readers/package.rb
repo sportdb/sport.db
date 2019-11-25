@@ -14,8 +14,7 @@ module SportDb
                 }x
 
     def initialize( path_or_pack )
-      if path_or_pack.is_a?( Datafile::DirPackage ) ||
-         path_or_pack.is_a?( Datafile::ZipPackage )
+      if path_or_pack.is_a?( Datafile::Package )
         @pack = path_or_pack
       else   ## assume it's a (string) path
         path = path_or_pack

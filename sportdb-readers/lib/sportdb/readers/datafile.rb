@@ -22,7 +22,19 @@ module Datafile
 
 
 
-class DirPackage    ## todo/check: find a better name e.g. UnzippedPackage, FilesystemPackage, etc. - why? why not?
+  ## exclude pattern
+  ##  for now exclude all files in directories starting with a dot (e.g. .git/ or .github/ or .build/ etc.)
+  ##  todo/check: rename to EXCLUDE_DOT_DIRS_RE - why? why not?
+  EXCLUDE_RE = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
+                        \.[a-zA-Z0-9_-]+  ## (almost) any name BUT must start with dot e.g.  .git, .build, etc.
+                        /
+                     }x
+  def self.match_exclude( path, pattern: EXCLUDE_RE ) pattern.match( path ); end
+
+
+class Package; end    ## use a shared base class for DirPackage, ZipPackage, etc.
+
+class DirPackage < Package    ## todo/check: find a better name e.g. UnzippedPackage, FilesystemPackage, etc. - why? why not?
 class Entry
   def initialize( pack, path )
     @pack = pack  ## parent package
@@ -38,6 +50,7 @@ end  # class DirPackage::Entry
   attr_reader :name, :path
 
   def initialize( path )
+    ## todo/fix:  expand_path ?! - why? why not? if you pass in ./ basename will be . and NOT directory name, for example!!!
     @path = path   ## rename to root_path or base_path or somehting - why? why not?
 
     basename = File.basename( path )   ## note: ALWAYS keeps "extension"-like name if present (e.g. ./austria.zip => austria.zip)
@@ -49,7 +62,9 @@ end  # class DirPackage::Entry
     ## note: incl. files starting with dot (.)) as candidates (normally excluded with just *)
     Dir.glob( "#{@path}/**/{*,.*}.#{extension}" ).each do |path|
       ## todo/fix: (auto) skip and check for directories
-      if pattern.match( path )
+      if EXCLUDE_RE.match( path )
+        ## note: skip dot dirs (e.g. .build/, .git/, etc.)
+      elsif pattern.match( path )
         yield( Entry.new( self, path ))
       else
         ## puts "  skipping >#{path}<"
@@ -64,7 +79,7 @@ end  # class DirPackage
 
 
 ## helper wrapper for datafiles in zips
-class ZipPackage
+class ZipPackage < Package
 class Entry
   def initialize( pack, entry )
     @pack  = pack
@@ -96,7 +111,9 @@ end # class ZipPackage::Entry
         if entry.directory?
           next ## skip
         elsif entry.file?
-          if pattern.match( entry.name )
+          if EXCLUDE_RE.match( entry.name )
+            ## note: skip dot dirs (e.g. .build/, .git/, etc.)
+          elsif pattern.match( entry.name )
             yield( Entry.new( self, entry ) )   # wrap entry in uniform access interface / api
           else
             ## puts "  skipping >#{entry.name}<"
@@ -137,8 +154,12 @@ private
         if entry.directory?
           next ## skip
         elsif entry.file?
-          if pattern.match( entry.name )
+          if EXCLUDE_RE.match( entry.name )
+            ## note: skip dot dirs (e.g. .build/, .git/, etc.)
+          elsif pattern.match( entry.name )
             entries << entry
+          else
+            ## no match; skip too
           end
         else
           puts "** !!! ERROR !!! #{entry.name} is unknown zip file type in >#{@path}<, sorry"

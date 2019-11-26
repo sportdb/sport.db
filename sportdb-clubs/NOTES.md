@@ -1,5 +1,15 @@
 # Notes
 
+## Fix
+
+How to check if country is Import::Country or Model::Country?
+Model::Country now gets NOT checked with is_a?  
+and lib should NOT depend on db models - what to do?
+check for respond_to? key or check if is a string or symbol?
+otherwise assume country record!!!!
+
+
+
 ## Todos
 
 Add more short cut options to the format:
@@ -42,7 +52,7 @@ b)  FC Barcelona B
 FK Austria Wien,   Wien (Favoriten)
   | Austria Wien
   | Austria Vienna [en]
-  
+
   (2) Young Violets Austria Wien
        | Young Violets A.W.
   -or-

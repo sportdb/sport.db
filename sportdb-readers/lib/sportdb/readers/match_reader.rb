@@ -4,6 +4,10 @@ module SportDb
 
 class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why? why not?
 
+  def self.config()  Import.config; end
+
+
+
   def self.read( path, season: nil )   ## use - rename to read_file or from_file etc. - why? why not?
     txt = File.open( path, 'r:utf-8' ).read
     parse( txt, season: season )
@@ -14,12 +18,61 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
     pp recs
 
     recs.each do |rec|
-      league = Sync::League.find!( rec[:league] )
-      season = Sync::Season.find!( rec[:season] )
+      league = Sync::League.find_or_create( rec[:league] )
+      season = Sync::Season.find_or_create( rec[:season] )
 
-      event  = Sync::Event.find!( league: league, season: season )
+      stage = nil
+      auto_conf_clubs = nil
       if rec[:stage]
-        stage = Sync::Stage.find!( rec[:stage], event: event )
+        event  = Sync::Event.find_or_create( league: league, season: season )
+        stage  = Sync::Stage.find( rec[:stage], event: event )
+        if stage.nil?
+          ## fix: just use Stage.create
+          stage = Sync::Stage.find_or_create( rec[:stage], event: event )
+
+          auto_conf_clubs = AutoConfParser.parse( rec[:lines],
+                                                  start: event.start_at )
+        end
+      else
+        event  = Sync::Event.find( league: league, season: season )
+        if event.nil?
+          ## fix: just use Event.create
+          event  = Sync::Event.find_or_create( league: league, season: season )
+
+          auto_conf_clubs = AutoConfParser.parse( rec[:lines],
+                                                  start: event.start_at )
+        end
+      end
+
+
+      if auto_conf_clubs
+        ## step 1: map/find clubs
+        club_recs = []
+        ## note: loop over keys (holding the names); values hold the usage counter!! e.g. 'Arsenal' => 2, etc.
+        country = config.countries[ league.country.key ]  ## hack/fix: convert to Import::Country from Model::Country
+        ## todo: check is_a? Country check to respond_to? :key  in match in sportdb-clubs !!!!!
+        ##  todo/fix: just pass in league.country (and NOT key)
+        auto_conf_clubs.keys.each do |name|
+           club_rec = config.clubs.find_by!( name: name, country: country )
+           club_recs << club_rec
+        end
+
+        ## step 2: add to database
+        club_recs.each do |club_rec|
+          club = Sync::Club.find_or_create( club_rec )
+          ## add teams to event
+          ##   todo/fix: check if team is alreay included?
+          ##    or clear/destroy_all first!!!
+          if stage
+            stage.teams << club
+          else
+            event.teams << club
+          end
+        end
+      end
+
+
+      if rec[:stage]
         teams = stage.teams
       else
         teams = event.teams

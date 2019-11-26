@@ -21,7 +21,7 @@ Hoe.spec 'sportdb' do
 
   self.extra_deps = [
     ['sportdb-models',     '>= 1.18.2'],
-    ['sportdb-readers',    '>= 0.3.6'],
+    ['sportdb-readers',    '>= 0.3.7'],
     ['footballdb-leagues', '>= 2019.11.22' ],     ## add minimum for datasets
     ['footballdb-clubs',   '>= 2019.11.22' ],
 
@@ -34,7 +34,7 @@ Hoe.spec 'sportdb' do
     ['sportdb-service'],
 
     ## 3rd party
-    ['gli', '>= 2.12.2'],
+    ['gli', '>= 2.19.0'],
 
     ## ['activerecord'],  # Note: will include activesupport,etc.
     ['sqlite3']

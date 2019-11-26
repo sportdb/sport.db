@@ -5,6 +5,14 @@ module SportDb
 
 class AutoConfParser
 
+  def self.parse( lines, start: )
+    ##  todo/fix: add support for txt and lines
+    ##    check if lines_or_txt is an array or just a string
+    parser = new( lines, start )
+    parser.parse
+  end
+
+
   include LogUtils::Logging
 
   def initialize( lines, start )

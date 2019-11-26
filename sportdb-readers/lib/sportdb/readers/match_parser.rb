@@ -3,6 +3,16 @@
 module SportDb
 
 class MatchParserSimpleV2   ## simple match parser for club match schedules
+
+  def self.parse( lines, teams, start: )
+    ##  todo/fix: add support for txt and lines
+    ##    check if lines_or_txt is an array or just a string
+    ##   use teams: like start:  why? why not?
+    parser = new( lines, teams, start )
+    parser.parse
+  end
+
+
   include LogUtils::Logging
 
   def initialize( lines, teams, start )

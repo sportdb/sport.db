@@ -22,7 +22,9 @@ require 'sportdb/cli/main'
 
 module SportDb
 
-  def self.main() Tool.new.run( ARGV ); end
+  def self.main( args=ARGV )
+    Tool.new.run( args )
+  end
 
 end  # module SportDb
 

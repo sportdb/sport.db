@@ -14,13 +14,13 @@ Hoe.spec 'fifa' do
   self.email = 'opensport@googlegroups.com'
 
   # switch extension to .markdown for gihub formatting
-  self.readme_file = 'README.md'
+  self.readme_file  = 'README.md'
   self.history_file = 'CHANGELOG.md'
 
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-countries',   '>= 0.4.0'],
+    ['sportdb-countries',   '>= 0.5.1'],
   ]
 
   self.spec_extras = {

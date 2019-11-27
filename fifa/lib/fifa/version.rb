@@ -4,9 +4,9 @@
 ## note: use class for now - change to module - possible? - why? why not?
 
 class Fifa
-  MAJOR = 1    ## todo: namespace inside version or something - why? why not??
-  MINOR = 2
-  PATCH = 1
+  MAJOR = 2019    ## todo: namespace inside version or something - why? why not??
+  MINOR = 11
+  PATCH = 27
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 
   def self.version

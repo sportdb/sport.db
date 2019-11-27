@@ -21,7 +21,7 @@ Hoe.spec 'footballdb-leagues' do
 
   self.extra_deps = [
     ['sportdb-leagues',   '>= 0.2.2'],
-    ['fifa',              '>= 1.2.1'],
+    ['fifa',              '>= 2019.11.27'],
   ]
 
   self.spec_extras = {

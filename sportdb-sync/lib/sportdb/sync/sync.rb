@@ -98,18 +98,22 @@ module Sync
     def self.find_or_create( club )
       rec = SportDb::Model::Team.find_by( title: club.name )
       if rec.nil?
-        ## remove all non-ascii a-z chars
-        key  = club.name.downcase.gsub( /[^a-z]/, '' )
+        ## check if key is present otherwise generate e.g. remove all non-ascii a-z chars
+        key  =  club.key || club.name.downcase.gsub( /[^a-z]/, '' )
         puts "add club: #{key}, #{club.name}, #{club.country.name} (#{club.country.key})"
 
         attribs = {
-          key:       key,
-          title:     club.name,
+          key:        key,
+          title:      club.name,
           country_id: Country.find_or_create( club.country ).id,
           club:       true,
           national:   false  ## check -is default anyway - use - why? why not?
           ## todo/fix: add city if present - why? why not?
         }
+
+        attribs[:code] = club.code   if club.code   ## add code (abbreviation) if present
+
+
         if club.alt_names.empty? == false
           attribs[:synonyms] = club.alt_names.join('|')
         end

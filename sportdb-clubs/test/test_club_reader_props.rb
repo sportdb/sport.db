@@ -2,12 +2,12 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_props.rb
+#     ruby -I ./lib -I ./test test/test_club_reader_props.rb
 
 
 require 'helper'
 
-class TestProps < MiniTest::Test
+class TestClubPropsReader < MiniTest::Test
 
   ENG_CLUBS_PROPS_TXT =<<TXT
 ####################################
@@ -35,13 +35,21 @@ TXT
 
 
   def test_parse
-    SportDb.connect( adapter: 'sqlite3', database: ':memory:' )
-    SportDb.create_all   ## build schema
-
-    ## turn on logging to console
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
-
     SportDb::Import::ClubPropsReader.parse( ENG_CLUBS_PROPS_TXT )
+
+    clubs = SportDb::Import::ClubReader.config.clubs
+
+    m = clubs.match( 'Chelsea FC' )
+    club = m[0]
+    assert_equal 'chelsea',     club.key
+    assert_equal 'Chelsea FC',  club.name
+    assert_equal 'CHE',         club.code
+
+    m = clubs.match( 'Arsenal FC' )
+    club = m[0]
+    assert_equal 'arsenal',     club.key
+    assert_equal 'Arsenal FC',  club.name
+    assert_equal 'ARS',         club.code
   end  # method test_parse
 
-end # class TestProps
+end # class TestClubPropsProps

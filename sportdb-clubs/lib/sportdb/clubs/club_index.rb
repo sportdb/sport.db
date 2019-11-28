@@ -156,10 +156,20 @@ class ClubIndex
     @clubs[ name ]
   end
 
+
   def match( name )
     ## todo/check: return empty array if no match!!! and NOT nil (add || []) - why? why not?
     name = normalize( name )
-    @clubs_by_name[ name ]
+    m = @clubs_by_name[ name ]
+
+    ## no match - retry with unaccented variant if different
+    ##    e.g. example is Preussen Münster  (with mixed accent and unaccented letters) that would go unmatched for now
+    ##      Preussen Münster => preussenmünster (norm) => preussenmunster (norm+unaccent)
+    if m.nil?
+      name2 = unaccent( name )
+      m = @clubs_by_name[ name2 ]    if name2 != name
+    end
+    m
   end
 
 
@@ -170,9 +180,7 @@ class ClubIndex
       ## note: country assumes / allows the country key or fifa code for now
 
       ## note: allow passing in of country struct too
-      country_rec = if country.is_a?( Country )
-                       country   ## (re)use country struct - no need to run lookup again
-                    else
+      country_rec = if country.is_a?( String )
                        ## note:  use own "global" countries index setting for ClubIndex - why? why not?
                        rec = config.countries[ country ]
                        if rec.nil?
@@ -180,6 +188,8 @@ class ClubIndex
                          exit 1
                        end
                        rec
+                    else
+                      country  ## (re)use country struct - no need to run lookup again
                     end
 
       m = m.select { |club| club.country.key == country_rec.key }

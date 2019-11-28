@@ -7,7 +7,11 @@ module Import
 
 class ClubPropsReader
 
-  def self.config() Import.config; end    ## shortcut convenience helper
+   ## shortcut convenience helper
+   ##  note: uses config via "central" ClubReader!!! allows "easy" reconfig
+   ## todo/fix:   move config to shared/central/all-in-one-place  SportDb::Import::Club.config - why? why not?
+  def self.config() ClubReader.config; end
+
 
   def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
     txt = File.open( path, 'r:utf-8' ).read
@@ -51,15 +55,10 @@ class ClubPropsReader
         ## todo/fix:  also add props to in-memory structs/records!!!
         ## todo/fix:   only updated "on-demand" from in-memory struct/records!!!!
 
-        ## update database
-        club = Sync::Club.find_or_create( club_rec )
         ##  update attributes
-        attributes = {}
-        attributes[:key]  = rec[:key]      if rec[:key]
-        attributes[:code] = rec[:code]     if rec[:code]
-
-        club.attributes = attributes
-        club.save!
+        club_rec.key  = rec[:key]      if rec[:key]
+        club_rec.code = rec[:code]     if rec[:code]
+        ## todo/fix: add (some) more props e.g. address, web, etc.
       end
     end
   end # method parse

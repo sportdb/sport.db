@@ -14,7 +14,8 @@ module SportDb
 
 class Club
   ##  todo: use just names for alt_names - why? why not?
-  attr_accessor :name, :alt_names,
+  attr_accessor :key, :name, :alt_names,
+                :code,    ## code == abbreviation e.g. ARS etc.
                 :year, :year_end,
                 :ground
 

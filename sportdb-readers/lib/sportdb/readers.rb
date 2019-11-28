@@ -1,6 +1,7 @@
 # encoding: utf-8
 
-require 'zip'     ## todo/check: if zip is alreay included in a required module - move into sportdb-formats and add datafile!!!
+require 'zip'     ## todo/check: if zip is alreay included in a required module
+                  ## - move into sportdb-formats and add datafile!!!
 
 
 
@@ -19,7 +20,6 @@ require 'sportdb/readers/conf_linter'
 require 'sportdb/readers/match_parser'
 require 'sportdb/readers/match_reader'
 require 'sportdb/readers/match_linter'
-require 'sportdb/readers/club_props_reader'
 require 'sportdb/readers/datafile'
 require 'sportdb/readers/package'
 

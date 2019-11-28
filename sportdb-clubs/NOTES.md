@@ -9,6 +9,16 @@ check for respond_to? key or check if is a string or symbol?
 otherwise assume country record!!!!
 
 
+## Fix2
+
+```
+move config to SportDb::Import::Club.config  !!
+  from SportDb::Import::ClubReader,ClubIndex,etc.
+
+add convenience helpers Club.match  and Club.match_by and Club.find_by etc. too!!
+```
+
+
 
 ## Todos
 

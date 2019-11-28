@@ -1,7 +1,7 @@
 # sportdb-service - sport.db addon for web service (HTTP JSON API)
 
-* home  :: [github.com/sportdb/sport.db.service.ruby](https://github.com/sportdb/sport.db.service.ruby)
-* bugs  :: [github.com/sportdb/sport.db.service.ruby/issues](https://github.com/sportdb/sport.db.service.ruby/issues)
+* home  :: [github.com/sportdb/sport.db](https://github.com/sportdb/sport.db)
+* bugs  :: [github.com/sportdb/sport.db/issues](https://github.com/sportdb/sport.db/issues)
 * gem   :: [rubygems.org/gems/sportdb-service](https://rubygems.org/gems/sportdb-service)
 * rdoc  :: [rubydoc.info/gems/sportdb-service](http://rubydoc.info/gems/sportdb-service)
 * forum :: [groups.google.com/group/opensport](https://groups.google.com/group/opensport)

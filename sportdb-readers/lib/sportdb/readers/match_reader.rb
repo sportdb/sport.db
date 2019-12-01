@@ -21,6 +21,12 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       league = Sync::League.find_or_create( rec[:league] )
       season = Sync::Season.find_or_create( rec[:season] )
 
+
+      ## todo/fix:
+      ##    always auto create
+      ##   1) check for clubs count on event/stage - only if count == 0 use autoconf!!!
+      ##   2) add lang switch for date/lang too!!!!
+
       stage = nil
       auto_conf_clubs = nil
       if rec[:stage]
@@ -49,9 +55,7 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
         ## step 1: map/find clubs
         club_recs = []
         ## note: loop over keys (holding the names); values hold the usage counter!! e.g. 'Arsenal' => 2, etc.
-        country = config.countries[ league.country.key ]  ## hack/fix: convert to Import::Country from Model::Country
-        ## todo: check is_a? Country check to respond_to? :key  in match in sportdb-clubs !!!!!
-        ##  todo/fix: just pass in league.country (and NOT key)
+        country = league.country
         auto_conf_clubs.keys.each do |name|
            club_rec = config.clubs.find_by!( name: name, country: country )
            club_recs << club_rec
@@ -79,18 +83,24 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       end
 
       ## hack for now: switch lang
-      if ['at', 'de'].include?( league.country.key )
+      if ['de', 'at'].include?( league.country.key )
         SportDb.lang.lang = 'de'
-        DateFormats.lang = 'de'
+        DateFormats.lang  = 'de'
       elsif ['fr'].include?( league.country.key )
         SportDb.lang.lang = 'fr'
-        DateFormats.lang = 'fr'
-      elsif ['es'].include?( league.country.key )
+        DateFormats.lang  = 'fr'
+      elsif ['it'].include?( league.country.key )
+        SportDb.lang.lang = 'it'
+        DateFormats.lang  = 'it'
+      elsif ['es', 'mx'].include?( league.country.key )
         SportDb.lang.lang = 'es'
-        DateFormats.lang = 'es'
+        DateFormats.lang  = 'es'
+      elsif ['pt', 'br'].include?( league.country.key )
+        SportDb.lang.lang = 'pt'
+        DateFormats.lang  = 'pt'
       else
         SportDb.lang.lang = 'en'
-        DateFormats.lang = 'en'
+        DateFormats.lang  = 'en'
       end
 
       ## todo/fix: set lang for now depending on league country!!!

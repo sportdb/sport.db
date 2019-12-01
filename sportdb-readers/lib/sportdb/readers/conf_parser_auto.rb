@@ -53,11 +53,13 @@ class AutoConfParser
 
     ## remove all protected text runs e.g. []
     ##   fix: add [ to end-of-line too
+    ##  todo/fix: move remove protected text runs AFTER find date!! - why? why not?
 
     line = line.gsub( /\[
                         [^\]]+?
                        \]/x, '' ).strip
     return true if line.empty?    ## note: return true (for valid line with no match/clubs)
+
 
     ## split by geo (@) - remove for now
     values = line.split( '@' )
@@ -71,8 +73,18 @@ class AutoConfParser
                           [^\]]+?
                          \]/x, '' ).strip
 
-      return true if line.empty?    ## note: return true (for valid line with no match/clubs)
+    else
+      ##  check for leading hours only e.g.  20.30 or 20:30 or 20h30
+      ##   todo/fix: make language dependent (or move to find_date/hour etc.) - why? why not?
+      line = line.sub(  %r{^
+                            [12]?[0-9]
+                            [h.:]
+                            [0-9][0-9]
+                           (?=[ ])    ## must be followed by space for now (add end of line too - why? why not?)
+                          }x, '' ).strip
     end
+
+    return true if line.empty?    ## note: return true (for valid line with no match/clubs)
 
 
     scores = find_scores!( line )
@@ -103,6 +115,15 @@ class AutoConfParser
      values = values.select { |value| !value.empty? }   ## remove empty strings
 
      return true    if values.size == 0  ## note: return true (for valid line with no match/clubs)
+
+     if values.size == 1
+       puts "(auto config) try matching clubs separated by spaces (2+):"
+       pp values
+
+       values = values[0].split( /[ ]{2,}/ )
+       pp values
+     end
+
      return false   if values.size != 2
 
      puts "(auto config) try matching clubs:"

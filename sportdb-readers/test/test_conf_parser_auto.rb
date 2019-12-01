@@ -36,19 +36,23 @@ class TestAutoConfParser < MiniTest::Test
 
 TXT
 
-  clubs = parse( txt, lang: 'de' )
+  clubs, rounds = parse( txt, lang: 'de' )
 
     assert_equal Hash(
-    'RB Salzburg' => 2,
-    'Wacker Innsbruck' => 2,
-    'SV Ried' => 2,
-    'Austria Wien' => 2,
-    'Kapfenberger SV' => 2,
-    'Admira Wacker' => 2,
-    'Rapid Wien' => 2,
-    'Wr. Neustadt' => 2,
-    'SV Mattersburg' => 2,
-    'Sturm Graz' => 2 ), clubs
+     'RB Salzburg' => 2,
+     'Wacker Innsbruck' => 2,
+     'SV Ried' => 2,
+     'Austria Wien' => 2,
+     'Kapfenberger SV' => 2,
+     'Admira Wacker' => 2,
+     'Rapid Wien' => 2,
+     'Wr. Neustadt' => 2,
+     'SV Mattersburg' => 2,
+     'Sturm Graz' => 2 ), clubs
+
+    assert_equal Hash(
+     '29. Runde' => { count: 1, match_count: 5 },
+     '30. Runde' => { count: 1, match_count: 5 } ), rounds
   end
 
   def test_es
@@ -81,9 +85,9 @@ Jornada 2
 25.08.2012   Atlético  Athletic  4-0
 TXT
 
-    clubs = parse( txt, lang: 'es' )
+    clubs, rounds = parse( txt, lang: 'es' )
 
-    assert_equal Hash(#
+    assert_equal Hash(
  'Barcelona' => 2,
  'R. Sociedad' => 2,
  'Levante' => 2,
@@ -104,6 +108,10 @@ TXT
  'Granada' => 2,
  'Deportivo' => 2,
  'Osasuna' => 2), clubs
+
+  assert_equal Hash(
+   'Jornada 1' => {count: 1, match_count: 10},
+   'Jornada 2' => {count: 1, match_count: 10} ), rounds
   end
 
 
@@ -142,7 +150,7 @@ Journée 2
   21h00  Girondins de Bordeaux 4-1 AS Monaco FC
 TXT
 
-    clubs = parse( txt, lang: 'fr' )
+    clubs, rounds = parse( txt, lang: 'fr' )
 
     assert_equal Hash(
  'Stade de Reims' => 2,
@@ -165,7 +173,12 @@ TXT
  'Stade Rennais FC' => 2,
  'AS Monaco FC' => 2,
  'FC Lorient' => 2), clubs
+
+    assert_equal Hash(
+ 'Journée 1' => { count: 1, match_count: 10 },
+ 'Journée 2' => { count: 1, match_count: 10 } ), rounds
   end
+
 
   def test_eng
     txt = <<TXT
@@ -203,7 +216,7 @@ Matchday 2
   Manchester City          1-1  Everton FC
 TXT
 
-    clubs = parse( txt )
+    clubs, rounds = parse( txt )
 
     assert_equal Hash(
  'Arsenal FC'     => 2,
@@ -226,6 +239,10 @@ TXT
  'Tottenham Hotspur' => 2,
  'Manchester United' => 2,
  'West Ham United'   => 2 ), clubs
+
+    assert_equal Hash(
+ 'Matchday 1' => { count: 1, match_count: 10},
+ 'Matchday 2' => { count: 1, match_count: 10} ), rounds
 
 
     txt =<<TXT
@@ -255,7 +272,7 @@ May/14 Blackpool 4-3 Bolton
 May/14 Sunderland 1-3 Wolves
 May/14 West Brom 1-0 Everton
 TXT
-    clubs = parse( txt )
+    clubs, rounds = parse( txt )
 
     assert_equal Hash(
   'Aston Villa' => 2,
@@ -278,6 +295,10 @@ TXT
   'Sunderland' => 2,
   'Wolves' => 2,
   'Blackburn' => 2), clubs
+
+    assert_equal Hash(
+     'Round 38' => { count: 1, match_count: 10 },
+     'Round 37' => { count: 1, match_count: 10 } ), rounds
   end   # method test_parse
 
 
@@ -306,7 +327,7 @@ Final
   Petite Rivière Noire         2-0  Pamplemousses                   @ New George V Stadium, Curepipe
 TXT
 
-    clubs = parse( txt )
+    clubs, rounds = parse( txt )
 
     assert_equal Hash(
      'Pointe-aux-Sables Mates' => 1,
@@ -318,6 +339,12 @@ TXT
      'Pamplemousses'           => 3,
      'Savanne SC'              => 1,
      'Entente Boulet Rouge'    => 2), clubs
+
+    assert_equal Hash(
+ 'Preliminary Round' => {count: 1, match_count: 1},
+ 'Quarterfinals'     => {count: 1, match_count: 4},
+ 'Semifinals'        => {count: 1, match_count: 2},
+ 'Final'             => {count: 1, match_count: 1} ), rounds
   end
 
 
@@ -329,10 +356,13 @@ def parse( txt, lang: 'en' )
 
   start = Date.new( 2017, 7, 1 )
 
-  DateFormats.lang = lang  # e.g. 'en'
+  DateFormats.lang  = lang  # e.g. 'en'
+  SportDb.lang.lang = lang
+
   parser = SportDb::AutoConfParser.new( lines, start )
-  clubs = parser.parse
+  clubs, rounds = parser.parse
+  pp rounds
   pp clubs
-  clubs
+  [clubs, rounds]
 end
 end   # class AutoConfParser

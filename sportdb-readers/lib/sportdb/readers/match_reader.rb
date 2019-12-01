@@ -21,6 +21,26 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       league = Sync::League.find_or_create( rec[:league] )
       season = Sync::Season.find_or_create( rec[:season] )
 
+      ## hack for now: switch lang
+      if ['de', 'at'].include?( league.country.key )
+        SportDb.lang.lang = 'de'
+        DateFormats.lang  = 'de'
+      elsif ['fr'].include?( league.country.key )
+        SportDb.lang.lang = 'fr'
+        DateFormats.lang  = 'fr'
+      elsif ['it'].include?( league.country.key )
+        SportDb.lang.lang = 'it'
+        DateFormats.lang  = 'it'
+      elsif ['es', 'mx'].include?( league.country.key )
+        SportDb.lang.lang = 'es'
+        DateFormats.lang  = 'es'
+      elsif ['pt', 'br'].include?( league.country.key )
+        SportDb.lang.lang = 'pt'
+        DateFormats.lang  = 'pt'
+      else
+        SportDb.lang.lang = 'en'
+        DateFormats.lang  = 'en'
+      end
 
       ## todo/fix:
       ##    always auto create
@@ -36,8 +56,8 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
           ## fix: just use Stage.create
           stage = Sync::Stage.find_or_create( rec[:stage], event: event )
 
-          auto_conf_clubs = AutoConfParser.parse( rec[:lines],
-                                                  start: event.start_at )
+          auto_conf_clubs, _ = AutoConfParser.parse( rec[:lines],
+                                                      start: event.start_at )
         end
       else
         event  = Sync::Event.find( league: league, season: season )
@@ -45,8 +65,8 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
           ## fix: just use Event.create
           event  = Sync::Event.find_or_create( league: league, season: season )
 
-          auto_conf_clubs = AutoConfParser.parse( rec[:lines],
-                                                  start: event.start_at )
+          auto_conf_clubs, _ = AutoConfParser.parse( rec[:lines],
+                                                      start: event.start_at )
         end
       end
 
@@ -80,27 +100,6 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
         teams = stage.teams
       else
         teams = event.teams
-      end
-
-      ## hack for now: switch lang
-      if ['de', 'at'].include?( league.country.key )
-        SportDb.lang.lang = 'de'
-        DateFormats.lang  = 'de'
-      elsif ['fr'].include?( league.country.key )
-        SportDb.lang.lang = 'fr'
-        DateFormats.lang  = 'fr'
-      elsif ['it'].include?( league.country.key )
-        SportDb.lang.lang = 'it'
-        DateFormats.lang  = 'it'
-      elsif ['es', 'mx'].include?( league.country.key )
-        SportDb.lang.lang = 'es'
-        DateFormats.lang  = 'es'
-      elsif ['pt', 'br'].include?( league.country.key )
-        SportDb.lang.lang = 'pt'
-        DateFormats.lang  = 'pt'
-      else
-        SportDb.lang.lang = 'en'
-        DateFormats.lang  = 'en'
       end
 
       ## todo/fix: set lang for now depending on league country!!!

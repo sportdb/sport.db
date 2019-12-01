@@ -22,19 +22,26 @@ class AutoConfParser
 
   def parse
     ## try to  find all clubs in match schedule
-    @clubs = Hash.new(0)   ## keep track of usage counter
+    @last_round   = nil
+    @rounds       = {}           ## track usage counter and match (two clubs) counter
+    @clubs        = Hash.new(0)   ## keep track of usage counter
+
 
     @lines.each do |line|
       if is_round?( line )
         logger.info "skipping matched round line: >#{line}<"
+
+        round = @rounds[ line ] ||= {count: 0, match_count: 0}   ## usage counter, match counter
+        round[:count] +=1
+        @last_round = round
       elsif try_parse_game( line )
         # do nothing here
       else
-        logger.info "skipping line (no match found): >#{line}<"
+        logger.warn "skipping line (no match found): >#{line}<"
       end
     end # lines.each
 
-    @clubs
+    [@clubs, @rounds]
   end
 
   def is_round?( line )
@@ -128,8 +135,11 @@ class AutoConfParser
 
      puts "(auto config) try matching clubs:"
      pp values
+
      @clubs[ values[0] ] += 1    ## update usage counters
      @clubs[ values[1] ] += 1
+
+     @last_round[ :match_count ] += 1
 
      true
   end

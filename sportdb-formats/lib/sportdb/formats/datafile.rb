@@ -39,6 +39,7 @@ module Datafile      # note: keep Datafile in its own top-level module/namespace
 
 
   LEAGUES_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
+                        (?:[a-z]{1,4}\.)?   # optional country code/key e.g. eng.clubs.wiki.txt
                      leagues\.txt$
                     }x
 

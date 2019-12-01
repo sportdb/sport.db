@@ -21,8 +21,8 @@ Hoe.spec 'sportdb-config' do
 
   self.extra_deps = [
     ['sportdb-countries',  '>= 0.5.1'],
-    ['sportdb-clubs',      '>= 0.2.3'],
-    ['sportdb-leagues',    '>= 0.2.1'],
+    ['sportdb-clubs',      '>= 0.4.0'],
+    ['sportdb-leagues',    '>= 0.2.2'],
     ## dataset libs / gems
     ['fifa',               '>= 2019.11.27'],    ## for (builtin/default) countries
     ['footballdb-clubs',   '>= 2019.11.22'],    ## for (builtin/default) clubs

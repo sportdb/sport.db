@@ -72,6 +72,8 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
 
 
       if auto_conf_clubs
+        pp auto_conf_clubs
+
         ## step 1: map/find clubs
         club_recs = []
         ## note: loop over keys (holding the names); values hold the usage counter!! e.g. 'Arsenal' => 2, etc.
@@ -80,6 +82,9 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
            club_rec = config.clubs.find_by!( name: name, country: country )
            club_recs << club_rec
         end
+
+        ## todo/fix: check if all clubs are unique
+
 
         ## step 2: add to database
         club_recs.each do |club_rec|

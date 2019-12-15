@@ -13,6 +13,9 @@ module SportDb
                    /[a-z0-9_-]+\.txt$  ## txt e.g /1-premierleague.txt
                 }x
 
+
+    attr_reader :pack     ## allow access to embedded ("low-level") delegate package
+
     def initialize( path_or_pack )
       if path_or_pack.is_a?( Datafile::Package )
         @pack = path_or_pack

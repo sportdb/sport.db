@@ -1,6 +1,6 @@
 ##########################################
 # auto-generated all-in-one single datafile clubs.txt bundle
-#    on 2019-11-22 11:02:46 +0100 from 90 datafile(s)
+#    on 2019-12-16 10:13:21 +0100 from 90 datafile(s)
 #  please, do NOT edit here; use the source
 #    see https://github.com/openfootball/clubs - updates welcome!
 
@@ -1336,7 +1336,8 @@ Leyton Orient FC,     @ Brisbane Road,  London  ##   London (Leyton) or London-L
 Barnet FC,           @ The Hive Stadium, London ##   London (Canons Park ??)  or London-Edgware ??
   | Barnet
 Dagenham & Redbridge FC,  @ Victoria Road,  London  ##  London (Dagenham)  or London-Dagenham
-  | Dag and Red | Dagenham and Redbridge | Dagenham & Redbridge
+  | Dagenham & Red. | Dagenham & Redbridge
+  | Dag and Red | Dagenham and Redbridge 
 
 Bromley FC,                London   ## London-Bromley
   | Bromley
@@ -1496,7 +1497,7 @@ North Ferriby United AFC,  North Ferriby › East Yorkshire
   | North Ferriby
 
 Sheffield Wednesday FC,   @ Hillsborough,  Sheffield › South Yorkshire
-  | Sheffield Weds | Sheffield Wednes. | Sheffield Wednesday
+  | Sheffield Wed | Sheffield Weds | Sheffield Wednes. | Sheffield Wednesday
 Sheffield United FC,  @ Bramall Lane,  Sheffield › South Yorkshire
   | Sheffield United | Sheff. United | Sheffield Utd
 
@@ -1536,12 +1537,12 @@ Watford FC, 1881,   @ Vicarage Road,  Watford › Hertfordshire
   | Watford | FC Watford
 
 Oxford United FC,      @ Kassam Stadium,   Oxford › Oxfordshire
-  | Oxford | Oxford United
+  | Oxford | Oxford Utd | Oxford United
 
 Peterborough United FC, @ Abax Stadium,   Peterborough › Cambridgeshire
-  | Peterboro  | Peterborough Utd. | Peterborough United
+  | Peterboro  | Peterborough | Peterborough Utd. | Peterborough United
 Cambridge United FC,    @ Abbey Stadium,   Cambridge › Cambridgeshire
-  | Cambridge | Cambridge United
+  | Cambridge | Cambridge Utd | Cambridge United
 ## note: there's also <=> Cambridge City  (!!)
 
 Histon FC,          Histon and Impington › Cambridgeshire
@@ -2163,7 +2164,6 @@ Arminia Bielefeld,  1905,    Bielefeld
   | Bielefeld | DSC Arminia Bielefeld
 Preußen Münster,     Münster
   | Münster | SC Preußen 06 | SC Preußen Münster
-  | Preussen Münster  ## todo/check/fix - should get auto-generated with auto-variant too?
 
 Gütersloh,            Gütersloh
 KFC Uerdingen,        Krefeld          ## bis 1995 FC Bayer 05 Uerdingen
@@ -4214,6 +4214,7 @@ UD Almería,       Almería
   | Almería | Unión Deportiva Almería
 Cádiz CF,         Cádiz
   | Cádiz
+  | FC Cádiz [de]
 Córdoba CF,       Córdoba
   | Córdoba | Córdoba Club de Fútbol
 Écija Balompié,   Écija
@@ -4281,6 +4282,7 @@ CD Alcoyano,    Alcoy
   | Alcoyano
 Elche CF,       Elche
   | Elche
+  | FC Elche [de]
 CD Castellón,   Castellón de la Plana
   | Castellón
 
@@ -4294,7 +4296,8 @@ ii) Villarreal CF B
 == País Vasco ==
 
 Real Sociedad,     San Sebastián
-  | Sociedad | R. Sociedad | R. S. San Sebastian
+  | Sociedad | R. Sociedad | R. S. San Sebastián 
+  | RSociedad San Sebastián     ## todo/fix: change to R Sociedad San Sebastian - add auto-add (missing) variant in auto-config 
   | Real Sociedad San Sebastián | Real Sociedad de Fútbol
 Deportivo Alavés,  Vitoria
   | Alavés | CD Alavés
@@ -4383,7 +4386,7 @@ ii) RCD Mallorca B
 == Canarias ==
 CD Tenerife,   Santa Cruz de Tenerife
   | Tenerife | Club Deportivo Tenerife
-  | Teneriffa CD [de]
+  | Teneriffa CD [de] | CD Teneriffa [de]
 
 
 
@@ -4886,7 +4889,7 @@ Cardiff City FC,  @ Cardiff City Stadium, Cardiff
   | Cardiff | Cardiff City
 
 Newport County AFC, 1912,  @ Rodney Parade, Newport
-  | Newport County
+  | Newport | Newport County
 
 Wrexham AFC,             Wrexham
   | Wrexham

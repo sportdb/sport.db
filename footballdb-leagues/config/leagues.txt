@@ -1,6 +1,6 @@
 ##########################################
 # auto-generated all-in-one single datafile leagues.txt bundle
-#    on 2019-11-22 10:56:43 +0100 from 8 datafile(s)
+#    on 2019-12-16 10:17:30 +0100 from 10 datafile(s)
 #  please, do NOT edit here; use the source
 #    see https://github.com/openfootball/leagues - updates welcome!
 
@@ -32,14 +32,147 @@ cup.l    J. League Cup                    # note: league cup (incl. all teams fr
 = Costa Rica =
 
 1  Costa Rica Primera División
+= Austria =
 
-= International =
+1       Bundesliga                    # Each year (July→December/February→May)
+         | AUT BL
+         | Austrian Bundesliga
+         | Österreich Bundesliga | Österr. Bundesliga 
+2       2. Liga                       # Each year (July→May)
+         | Österreich Zweite Liga
+         | Österr. Erste Liga | Österr. 1. Liga      # note: before 2018/19 2. Liga was known as 1. Liga / Erste Liga
 
-cl      UEFA Champions League
-el      UEFA Europa League
+# todo/check: use groups for West/Mitte/Ost??
+#  and just use at.3, Österr. Regionalliga
+#  use 3.ost / 3.mitte / 3.west ? 
 
 
+3.o     Regionalliga Ost
+         | AUT RLO 
+         | Österr. Regionalliga Ost | Österreich Regionalliga Ost
+3.m     Regionalliga Mitte
+         | AUT RLM 
+         | Österr. Regionalliga Mitte | Österreich Regionalliga Mitte
+3.sbg   Regionalliga Salzburg
+         | RL SBG
+3.t     Regionalliga Tirol
+         | RL TIR
+3.v     Eliteliga Vorarlberg
+         | RL VBG
+       
+3.w     Regionalliga West                   # note: split in three leagues (Salzburg/Tirol/Vorarlber with playoff) in 2019/20   
+         | Österr. Regionalliga West
+
+cup     ÖFB Cup
+         | Österreich ÖFB Cup
+         | Austrian Cup
+
+###
+# 9 leagues (one per bundesland/state)
+
+#
+# add .ost .mitte .west to key ?? why? why not??
+
+### Regionalliga Ost
+4.ost.w       Wiener Stadtliga
+4.ost.n       Landesliga Niederösterreich
+               | 1. Niederösterreichische Landesliga
+4.ost.b       Landesliga Burgenland
+               | Burgendland Liga | Burgenlandliga
+
+### Regionalliga Mitte
+4.mitte.st    Steirische Landesliga
+               | Landesliga Steiermark
+4.mitte.o     Landesliga Oberösterreich
+               | OÖ Liga | Oberösterreich Liga
+4.mitte.k     Kärtner Liga
+               | Landesliga Kärnten
+
+### Regionalliga West
+4.west.s      Salzburger Liga
+               | Landesliga Salzburg | 1. Salzburger Landesliga
+4.west.t      Tiroler Liga
+               | Tirol Liga
+4.west.v      Vorarlberg Liga
+               | Vorarlbergliga
+
+
+## niederösterreich 
+
+############## -- 2. Landesliga (2 Staffeln)
+5.n.ost     2. Landesliga Ost (NÖ)        ## todo/check: use – (geviertstrich) to avoid () e.g. 2. Landesliga Ost – NÖ
+5.n.west    2. Landesliga West (NÖ)       ## todo/check: use – (geviertstrich) to avoid () e.g. 2. Landesliga West – NÖ
+
+############## -- Gebietsliga (4 Staffeln)
+#####  2. Landesliga Ost (NÖ)
+6.n.ost.sso    Gebietsliga Süd/Südost (NÖ)
+6.n.ost.nnw    Gebietsliga Nord/Nordwest (NÖ)
+
+#####  2. Landesliga West (NÖ)
+6.n.west.w     Gebietsliga West (NÖ)
+6.n.west.nww   Gebietsliga Nordwest/Waldviertel (NÖ)
+
+
+########## -- 1. Klasse (8 Staffeln)
+######  Gebietsliga Süd/Südost (NÖ)
+7.n.ost.sso.s   1. Klasse Süd (NÖ)
+7.n.ost.sso.o   1. Klasse Ost (NÖ)
+
+######  Gebietsliga Nord/Nordwest (NÖ)
+7.n.ost.nnw.n    1. Klasse Nord (NÖ)
+7.n.ost.nnw.nw   1. Klasse Nordwest (NÖ)
+
+###### Gebietsliga West (NÖ)
+7.n.west.w.w     1. Klasse West (NÖ)
+7.n.west.w.wm    1. Klasse West-Mitte (NÖ)
+
+###### Gebietsliga Nordwest/Waldviertel (NÖ)
+7.n.west.nww.nwm   1. Klasse Nordwest-Mitte (NÖ)
+7.n.west.nww.w     1. Klasse Waldviertel (NÖ)
+
+
+################  -- 2. Klasse (18 Staffeln)
+
+######## 1. Klasse Süd (NÖ)
+8.n.steinfeld      2. Klasse Steinfeld (NÖ)
+8.n.wechsel        2. Klasse Wechsel (NÖ)
+8.n.triestingtal   2. Klasse Triestingtal (NÖ)
+
+######## 1. Klasse Ost (NÖ)
+8.n.ostmitte       2. Klasse Ost/Mitte (NÖ)    ## use ost_mitte or ost+mitte
+8.n.ost            2. Klasse Ost (NÖ)
+
+######## 1. Klasse Nord (NÖ)
+8.n.weinviertel.n    2. Klasse Weinviertel Nord (NÖ)
+8.n.weinviertel.s    2. Klasse Weinviertel Süd (NÖ)
+8.n.marchfeld        2. Klasse Marchfeld (NÖ)
+
+####### 1. Klasse Nordwest (NÖ)
+8.n.donau        2. Klasse Donau (NÖ)
+8.n.pulkautal    2. Klasse Pulkautal (NÖ)
+
+####### 1. Klasse West (NÖ)
+8.n.ybbstal      2. Klasse Ybbstal (NÖ)
+8.n.yspertal     2. Klasse Yspertal (NÖ)
+
+####### 1. Klasse  1. Klasse West-Mitte (NÖ)
+8.n.alpenvorland    2. Klasse Alpenvorland (NÖ)
+8.n.traisental      2. Klasse Traisental (NÖ)
+
+####### 1. Klasse Nordwest-Mitte (NÖ)
+8.n.wachau        2. Klasse Wachau (NÖ)
+8.n.schmidatal    2. Klasse Schmidatal (NÖ)
+
+####### 1. Klasse Waldviertel (NÖ)
+8.n.waldviertelthayatal   2. Klasse Waldviertel Thayatal (NÖ)
+8.n.waldviertel.s         2. Klasse Waldviertel/Süd (NÖ)
+
+
+#############  -- 3. Klasse 
+9.n.hornerwald   3. Klasse Hornerwald (NÖ)
+9.n.mistelbach   3. Klasse Mistelbach (NÖ)
 = Germany =
+
 1       Bundesliga
          | GER BL
          | German Bundesliga
@@ -52,39 +185,42 @@ el      UEFA Europa League
 cup     DFB Pokal
 
 
-= Austria =
-1       Bundesliga                    # Each year (July→December/February→May)
-         | AUT BL
-         | Austrian Bundesliga
-         | Österreich Bundesliga | Österr. Bundesliga 
-2       2. Liga                       # Each year (July→May)
-         | Österreich Zweite Liga
-         | Österr. Erste Liga | Österr. 1. Liga      # note: before 2018/19 2. Liga was known as 1. Liga / Erste Liga
+4.nord        Regionalliga Nord
+4.nordost     Regionalliga Nordost
+4.west        Regionalliga West
+4.suedwest    Regionalliga Südwest
+4.by          Regionalliga Bayern
 
-3.o     Regionalliga Ost
-         | AUT RLO | Österreich Regionalliga Ost
-3.m     Regionalliga Mitte
-         | AUT RLM | Österreich Regionalliga Mitte
-3.sbg   Regionalliga Salzburg
-         | RL SBG
-3.t     Regionalliga Tirol
-         | RL TIR
-3.v     Eliteliga Vorarlberg
-         | RL VBG
+# add .nord .nordost .west, .suedwest, .by to key ?? why? why not??
 
-cup     ÖFB Cup
-         | Österreich ÖFB Cup
-         | Austrian Cup
+##  Regionalliga Nord
+5.nord.sh     Schleswig-Holstein-Liga
+5.nord.hh     Oberliga Hamburg
+5.nord.hb     Bremen-Liga
+5.nord.ni     Oberliga Niedersachsen
 
-= Switzerland =
-1      Super League
-        | SUI SL
-        | Swiss Super League
-        | Schweiz Super League
-2      Challenge League
+## Regionalliga Nordost
+5.nordost.n   Oberliga Nordost (Nord)    ## todo/check: use – (geviertstrich) to avoid () e.g. Oberliga Nordost – Nord
+5.nordost.s   Oberliga Nordost (Süd)     ## todo/check: use – (geviertstrich) to avoid () e.g. Oberliga Nordost – Süd 
 
-cup    Schweizer Cup
-        | SUI P
+## Regionalliga West
+5.west.niederrhein   Oberliga Niederrhein
+5.west.mittelrhein   Mittelrheinliga
+5.west.westfalen     Oberliga Westfalen
+
+## Regionalliga Südwest
+5.suedwest.rp.sl   Oberliga Rheinland-Pfalz/Saar        ## change key rp.sl to rp_sl or rp+sl ??
+5.suedwest.he      Hessenliga
+5.suedwest.bw      Oberliga Baden-Württemberg
+
+## Regionalliga Bayern
+5.by.n    Bayernliga (Nord)    ## todo/check: use – (geviertstrich) to avoid () e.g. Bayernliga – Nord
+5.by.s    Bayernliga (Süd)     ## todo/check: use – (geviertstrich) to avoid () e.g. Bayernliga – Süd
+
+= International =
+
+cl      UEFA Champions League
+el      UEFA Europa League
 
 
 = England =       ## add incl. Wales   as country2 or something - why? why not?
@@ -149,10 +285,15 @@ cup.l  League Cup
 
 = Spain =
 1        Primera División
+          | Primera División de España
           | Spanish Liga | La Liga
           | Spanien Primera Division
 2        Segunda División
-          | Spanien Segunda Division
+          | Segunda División de España
+          | Spanien Segunda Division      # todo: add Liga Adelante ??
+
+cup      Copa del Rey
+
 
 = Portugal =
 1       Primeira Liga
@@ -319,6 +460,18 @@ cup     Cup
 
 cup   Cup
        | Tschechien Cup
+
+= Switzerland =
+1      Super League
+        | SUI SL
+        | Swiss Super League
+        | Schweiz Super League
+2      Challenge League
+
+cup    Schweizer Cup
+        | SUI P
+
+
 
 
 = Slovakia =

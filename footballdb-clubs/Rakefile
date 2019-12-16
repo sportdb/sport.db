@@ -20,12 +20,12 @@ Hoe.spec 'footballdb-clubs' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-clubs',   '>= 0.2.0'],
+    ['sportdb-clubs',   '>= 0.4.0'],
     ['fifa',            '>= 2019.11.27'],
   ]
 
   self.spec_extras = {
-   :required_ruby_version => '>= 2.2.2'
+    required_ruby_version: '>= 2.2.2'
   }
 
 end

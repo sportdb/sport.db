@@ -54,15 +54,14 @@ Décembre   Déce   Déc     ## check dece in use??
 TXT
 
   DAY_NAMES[:fr] = <<TXT
-Lundi     Lun  L
+Lundi     Lun  Lu  L
 Mardi     Mar  Ma
 Mercredi  Mer  Me
-Jeudi     Jeu  J
-Vendredi  Ven  V
-Samedi    Sam  S
-Dimanche  Dim  D
+Jeudi     Jeu  Je  J
+Vendredi  Ven  Ve  V
+Samedi    Sam  Sa  S
+Dimanche  Dim  Di  D
 TXT
-
 
 
   MONTH_NAMES[:es] = <<TXT
@@ -80,6 +79,17 @@ Noviembre  Nov
 Diciembre  Dic
 TXT
 
+  DAY_NAMES[:es] = <<TXT
+Lunes       Lun  Lu
+Martes      Mar  Ma
+Miércoles   Mié  Mi
+Jueves      Jue  Ju
+Viernes     Vie  Vi
+Sábado      Sáb  Sá
+Domingo     Dom  Do
+TXT
+
+  
   MONTH_NAMES[:de] = <<TXT
 Jänner  Januar    Jan  Jän    # note: in Austria - Jänner; in Deutschland Januar allow both ??
 Feber   Februar   Feb
@@ -95,6 +105,17 @@ November          Nov
 Dezember          Dez
 TXT
 
+  DAY_NAMES[:de] = <<TXT
+Montag      Mo
+Dienstag    Di
+Mittwoch    Mi
+Donnerstag  Do
+Freitag     Fr
+Samstag     Sa
+Sonntag     So
+TXT
+  
+  
   MONTH_NAMES[:it] = <<TXT
 Gennaio
 Febbraio
@@ -109,6 +130,17 @@ Ottobre
 Novembre
 Dicembre
 TXT
+
+  DAY_NAMES[:it] = <<TXT
+Lunedì    Lun
+Martedì   Mar
+Mercoledì Mer
+Giovedì   Gio
+Venerdì   Ven
+Sabato    Sab
+Domenica  Dom   Do
+TXT
+  
 
   MONTH_NAMES[:pt] = <<TXT
 Janeiro
@@ -125,6 +157,17 @@ Novembro
 Dezembro
 TXT
 
+  DAY_NAMES[:pt] = <<TXT
+Segunda-feira  Seg
+Terça-feira    Ter
+Quarta-feira   Qua
+Quinta-feira   Qui
+Sexta-feira    Sex
+Sábado         Sab
+Domingo        Dom
+TXT
+  
+  
   MONTH_NAMES[:ro] = <<TXT
 Ianuarie
 Februarie
@@ -140,6 +183,51 @@ Noiembrie
 Decembrie
 TXT
 
+   DAY_NAMES[:ro] = <<TXT
+Luni      Lu
+Marți     Ma
+Miercuri  Mi
+Joi       Jo
+Vineri    Vi
+Sâmbătă   Sb
+Duminică  Du
+TXT
+
+
+  
+  DAY_NAMES[:nl] = <<TXT
+Maandag          Ma
+Dinsdag          Di
+Woensdag   Woe   Wo
+Donderdag  Don   Do
+Vrijdag    Vrij  Vr
+Zaterdag   Zat   Za
+Zondag     Zon   Zo
+TXT
+
+  DAY_NAMES[:cz] = <<TXT
+Pondělí  Po
+Úterý    Út
+Středa   St
+Čtvrtek  Čt
+Pátek    Pá
+Sobota   So
+Neděle   Ne
+TXT
+
+  DAY_NAMES[:hu] = <<TXT
+Hétfő      H
+Kedd       K
+Szerda     Sze
+Csütörtök  Csüt
+Péntek     P
+Szombat    Szo
+Vasárnap   Vas
+TXT
+  
+  
+  
+  
 ############################################
 ## convert (unparsed) text to (parsed) lines with words
 MONTH_NAMES.each {|k,v| MONTH_NAMES[k] = parse_month(v) }

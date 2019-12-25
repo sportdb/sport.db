@@ -27,12 +27,11 @@ module SportDb
 #
 
   TEAM_KEY_PATTERN  = '\A[a-z]{3,}\z'
-  TEAM_KEY_PATTERN_MESSAGE = "expected three or more lowercase letters a-z /#{TEAM_KEY_PATTERN}/" 
+  TEAM_KEY_PATTERN_MESSAGE = "expected three or more lowercase letters a-z /#{TEAM_KEY_PATTERN}/"
 
-  # must start w/ letter a-z (2 n 3 can be number or underscore _)
-  TEAM_CODE_PATTERN = '\A[A-Z][A-Z0-9][A-Z0-9_]?\z'
-  TEAM_CODE_PATTERN_MESSAGE = "expected two or three uppercase letters A-Z (and 0-9_; must start with A-Z) /#{TEAM_CODE_PATTERN}/"
+  # must start w/ letter A-Z (2nd,3rd,4th or 5th can be number or underscore _)
+  TEAM_CODE_PATTERN = '\A[A-Z_][A-Z0-9_]{1,4}\z'
+  TEAM_CODE_PATTERN_MESSAGE = "expected two or three or four or five uppercase letters A-Z (and 0-9_; must start with A-Z) /#{TEAM_CODE_PATTERN}/"
 
 
 end # module SportDb
-

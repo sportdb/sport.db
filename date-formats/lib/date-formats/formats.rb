@@ -105,6 +105,15 @@ EN__DD_MONTH__DATE_RE = /\b
               (?<month_name>#{MONTH_EN})
                  \b/x
 
+# e.g. Fri Aug/9
+EN__DAY_MONTH_DD__DATE_RE = /\b
+     (?<day_name>#{DAY_EN})
+        \s
+     (?<month_name>#{MONTH_EN})
+        \/
+     (?<day>\d{1,2})
+        \b/x
+
 # e.g.  Jun/12 2011 14:00
 EN__MONTH_DD_YYYY__DATE_TIME_RE = /\b
                  (?<month_name>#{MONTH_EN})
@@ -158,6 +167,32 @@ ES__DD_MONTH__DATE_RE = /\b
                  (?<month_name>#{MONTH_ES})
                    \b/x
 
+# e.g. Vie. 16.8. or  Sáb. 17.8.
+#  or  Vie 16.8.  or  Sáb 17.8.
+ES__DAY_MM_DD__DATE_RE = /\b
+        (?<day_name>#{DAY_ES})
+           \.?        # note: make dot optional
+           \s
+        (?<day>\d{1,2})
+           \.
+        (?<month>\d{1,2})
+           \.
+          (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too/x
+
+
+# e.g. Sab. 24.8. or Dom. 25.8.
+#  or  Sab 24.8.  or Dom 25.8.
+IT__DAY_MM_DD__DATE_RE = /\b
+        (?<day_name>#{DAY_IT})
+           \.?        # note: make dot optional
+           \s
+        (?<day>\d{1,2})
+           \.
+        (?<month>\d{1,2})
+           \.
+          (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too/x
+
+
 # e.g. Ven 8 Août  or [Ven 8 Août] or Ven 8. Août  or [Ven 8. Août]
 ### note: do NOT consume [] in regex (use lookahead assert)
 FR__DAY_DD_MONTH__DATE_RE = /\b
@@ -167,7 +202,34 @@ FR__DAY_DD_MONTH__DATE_RE = /\b
        \.?        # note: make dot optional
        \s+
      (?<month_name>#{MONTH_FR})
-       (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too
+       \b/x
+
+
+# e.g. 29/03/2003 - Sábado  or
+#      29/3/2003 Sábado
+PT__DD_MM_YYYY_DAY__DATE_RE = /\b
+        (?<day>\d{1,2})
+           \/
+        (?<month>\d{1,2})
+           \/
+        (?<year>\d{4})
+           \s+
+           (?: -\s+ )?   # note: make dash separator (-) optional
+        (?<day_name>#{DAY_PT})
+       \b/x
+
+
+# e.g. Fr. 26.7. or  Sa. 27.7.
+#  or  Fr 26.7.  or  Sa 27.7.
+DE__DAY_MM_DD__DATE_RE = /\b
+        (?<day_name>#{DAY_DE})
+           \.?        # note: make dot optional
+           \s
+        (?<day>\d{1,2})
+           \.
+        (?<month>\d{1,2})
+           \.
+          (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too/x
 
 
 
@@ -188,6 +250,7 @@ FORMATS_EN = [
   [ EN__MONTH_DD_YYYY__DATE_TIME_RE, '[EN_MONTH_DD_YYYY_hh_mm]' ],
   [ EN__MONTH_DD__DATE_TIME_RE,      '[EN_MONTH_DD_hh_mm]'      ],
   [ EN__MONTH_DD_YYYY__DATE_RE,      '[EN_MONTH_DD_YYYY]'       ],
+  [ EN__DAY_MONTH_DD__DATE_RE,       '[EN_DAY_MONTH_DD]',       ],
   [ EN__MONTH_DD__DATE_RE,           '[EN_MONTH_DD]'            ],
   [ EN__DD_MONTH__DATE_RE,           '[EN_DD_MONTH]'            ],
 ]
@@ -198,13 +261,29 @@ FORMATS_FR = [
 
 FORMATS_ES = [
   [ ES__DD_MONTH__DATE_RE,           '[ES_DD_MONTH]' ],
+  [ ES__DAY_MM_DD__DATE_RE,          '[ES_DAY_MM_DD]' ],
+]
+
+FORMATS_PT = [
+  [ PT__DD_MM_YYYY_DAY__DATE_RE,     '[PT_DD_MM_YYYY_DAY]' ],
+]
+
+FORMATS_DE = [
+   [ DE__DAY_MM_DD__DATE_RE,         '[DE_DAY_MM_DD]' ],
+]
+
+FORMATS_IT = [
+   [ IT__DAY_MM_DD__DATE_RE,          '[IT_DAY_MM_DD]' ],
 ]
 
 
 FORMATS = {
-  en: FORMATS_BASE+FORMATS_EN,
-  fr: FORMATS_BASE+FORMATS_FR,
-  es: FORMATS_BASE+FORMATS_ES,
+  en: FORMATS_EN + FORMATS_BASE,
+  fr: FORMATS_FR + FORMATS_BASE,
+  es: FORMATS_ES + FORMATS_BASE,
+  pt: FORMATS_PT + FORMATS_BASE,
+  de: FORMATS_DE + FORMATS_BASE,
+  it: FORMATS_IT + FORMATS_BASE,
 }
 
 end  # module DateFormats

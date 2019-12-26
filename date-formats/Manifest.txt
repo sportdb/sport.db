@@ -12,4 +12,10 @@ lib/date/formats.rb
 test/helper.rb
 test/test_parse.rb
 test/test_parse_custom.rb
+test/test_parse_de.rb
+test/test_parse_en.rb
+test/test_parse_es.rb
+test/test_parse_fr.rb
+test/test_parse_it.rb
+test/test_parse_pt.rb
 test/test_version.rb

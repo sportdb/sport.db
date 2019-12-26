@@ -3,9 +3,6 @@
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_scores.rb
-#  or better
-#     rake -I ./lib test
-
 
 
 require 'helper'
@@ -18,12 +15,17 @@ class TestScores < MiniTest::Test
      [ '10:0',  [nil,nil,10,0]],
      [ '1:22',  [nil,nil,1,22]],
      [ '1-22',  [nil,nil,1,22]],
+     [ '1x22',  [nil,nil,1,22]],
+     [ '1X22',  [nil,nil,1,22]],
+
 
      ## do not support three digits
      [ '1-222', []],
      [ '111-0', []],
      [ '1:222', []],
      [ '111:0', []],
+     [ '111x0', []],
+     [ '111X0', []],
 
      ## penality only
      [ '3-4iE',    [nil,nil,nil,nil,nil,nil,3,4]],

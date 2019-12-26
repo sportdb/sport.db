@@ -79,10 +79,11 @@ class ScoresFinder
 # more
 
   # e.g. 1:2 or 0:2 or 3:3  or
-  #      1-1 or 0-2 or 3-3
+  #      1-1 or 0-2 or 3-3  or
+  #      1x1 or 1X1 or 0x2 or 3x3   -- used in Brazil / Portugal
   FT_REGEX = /\b
             (?<score1>\d{1,2})
-               [:\-]
+               [:\-xX]
             (?<score2>\d{1,2})
            \b/x
 
@@ -92,7 +93,7 @@ class ScoresFinder
   # note: possible ending w/ . -> thus cannot use /b will not work w/ .; use zero look-ahead
   ET_REGEX = /\b
                (?<score1>\d{1,2})
-                  [:\-]
+                  [:\-xX]
                (?<score2>\d{1,2})
                   \s?                # allow optional space
                 (?:nv|n\.v\.|aet|a\.e\.t\.)        # allow optional . e.g. nV or n.V.
@@ -106,7 +107,7 @@ class ScoresFinder
   # note: possible ending w/ . -> thus cannot use /b will not work w/ .; use zero look-ahead
   P_REGEX = /\b
               (?<score1>\d{1,2})
-                  [:\-]
+                  [:\-xX]
               (?<score2>\d{1,2})
                   \s?                # allow optional space
                 (?:iE|i\.E\.|p|pen|PSO)       # allow optional . e.g. iE or i.E.

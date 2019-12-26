@@ -14,6 +14,8 @@ class TestParseDe < MiniTest::Test
       [ 'Fr. 26.7.',     '2019-07-26', '[DE_DAY_MM_DD]' ],
       [ 'Fr. 26.07.',    '2019-07-26', '[DE_DAY_MM_DD]' ],
       [ 'Fr 26.7.',      '2019-07-26', '[DE_DAY_MM_DD]' ],
+      [ 'Fr., 26.07.',   '2019-07-26', '[DE_DAY_MM_DD]' ],
+      [ 'Fr, 26.7.',     '2019-07-26', '[DE_DAY_MM_DD]' ],
       [ '[Fr. 26.7.]',   '2019-07-26', '[[DE_DAY_MM_DD]]' ],
     ]
 

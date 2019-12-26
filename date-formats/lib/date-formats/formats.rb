@@ -6,6 +6,9 @@ module DateFormats
 # e.g. 2012-09-14 20:30   => YYYY-MM-DD HH:MM
 #  note: allow 2012-9-3 7:30 e.g. no leading zero required
 # regex_db
+
+##  todo/fix: add rule with allowed / separator (e.g. 2019/12/11)
+##    BUT must be used in all following case too (NO mix'n'match allowed e.g. 2019-11/12)
 DB__DATE_TIME_RE = /\b
                (?<year>\d{4})
                  -
@@ -14,7 +17,7 @@ DB__DATE_TIME_RE = /\b
                (?<day>\d{1,2})
                 \s+
                (?<hours>\d{1,2})
-                 :
+                 [:.hH]
                (?<minutes>\d{2})
                 \b/x
 
@@ -42,7 +45,7 @@ DD_MM_YYYY__DATE_TIME_RE = /\b
                         (?<year>\d{4})
                           \s+
                         (?<hours>\d{1,2})
-                          [:.]
+                          [:.hH]
                         (?<minutes>\d{2})
                           \b/x
 
@@ -57,7 +60,7 @@ DD_MM__DATE_TIME_RE = /\b
                          \.
                          \s+
                       (?<hours>\d{1,2})
-                         [:.]
+                         [:.hH]
                       (?<minutes>\d{2})
                         \b/x
 
@@ -86,6 +89,7 @@ DD_MM__DATE_RE = /\b
 
 ##
 # e.g. 12 May 2013 14:00  => D|DD.MMM.YYYY H|HH:MM
+#   or 12 May 2013 14h00
 EN__DD_MONTH_YYYY__DATE_TIME_RE = /\b
               (?<day>\d{1,2})
                  \s
@@ -94,7 +98,7 @@ EN__DD_MONTH_YYYY__DATE_TIME_RE = /\b
               (?<year>\d{4})
                  \s+
               (?<hours>\d{1,2})
-                :
+                [:hH]
               (?<minutes>\d{2})
                 \b/x
 
@@ -105,44 +109,53 @@ EN__DD_MONTH__DATE_RE = /\b
               (?<month_name>#{MONTH_EN})
                  \b/x
 
-# e.g. Fri Aug/9
+# e.g. Fri Aug/9  or Fri Aug 9
+#      Fri, Aug/9 or Fri, Aug 9
 EN__DAY_MONTH_DD__DATE_RE = /\b
      (?<day_name>#{DAY_EN})
+        ,?   # note: allow optional comma
         \s
      (?<month_name>#{MONTH_EN})
-        \/
+        (?: \/|\s )
      (?<day>\d{1,2})
         \b/x
 
-# e.g.  Jun/12 2011 14:00
+# e.g.  Jun/12 2011 14:00  or
+#       Jun 12, 2011 14:00 or
+#       Jun 12, 2011 14h00
 EN__MONTH_DD_YYYY__DATE_TIME_RE = /\b
                  (?<month_name>#{MONTH_EN})
-                   \/
+                   (?: \/|\s )
                  (?<day>\d{1,2})
+                   ,?   # note: allow optional comma
                    \s
                  (?<year>\d{4})
                    \s+
                  (?<hours>\d{1,2})
-                   :
+                   [:hH]
                  (?<minutes>\d{2})
                    \b/x
 
 # e.g.  Jun/12 14:00  w/ implied year H|HH:MM
+#   or  Jun 12 14h00
 EN__MONTH_DD__DATE_TIME_RE = /\b
                  (?<month_name>#{MONTH_EN})
-                   \/
+                   (?: \/|\s )
                  (?<day>\d{1,2})
                    \s+
                  (?<hours>\d{1,2})
-                   :
+                   [:hH]
                  (?<minutes>\d{2})
                    \b/x
 
 # e.g. Jun/12 2013
+#   or Jun 12 2013
+#   or Jun 12, 2013
 EN__MONTH_DD_YYYY__DATE_RE = /\b
               (?<month_name>#{MONTH_EN})
-                 \/
+                 (?: \/|\s )
               (?<day>\d{1,2})
+                 ,?   # note: allow optional comma
                  \s
               (?<year>\d{4})
                 \b/x
@@ -152,11 +165,14 @@ EN__MONTH_DD_YYYY__DATE_RE = /\b
 #   -- fix: might eat french weekday mar 12  is mardi (mar)  !!! see FR__ pattern
 #  fix: remove  space again for now - and use simple en date reader or something!!!
 ##  was [\/ ]   changed back to \/
+
+## check if [\/ ] works!!!! in \x mode ??
 EN__MONTH_DD__DATE_RE = /\b
                  (?<month_name>#{MONTH_EN})
-                    \/
+                    (?: \/|\s )
                  (?<day>\d{1,2})
                    \b/x
+
 
 
 
@@ -166,6 +182,31 @@ ES__DD_MONTH__DATE_RE = /\b
                    \s
                  (?<month_name>#{MONTH_ES})
                    \b/x
+
+# e.g.  Vie 12 Ene  w/ implied year
+ES__DAY_DD_MONTH__DATE_RE = /\b
+                 (?<day_name>#{DAY_ES})
+                   \.?        # note: make dot optional
+                   \s
+                 (?<day>\d{1,2})
+                   \s
+                 (?<month_name>#{MONTH_ES})
+                   \b/x
+
+# e.g. Sáb 5 Ene 19:30
+ES__DAY_DD_MONTH__DATE_TIME_RE = /\b
+                 (?<day_name>#{DAY_ES})
+                   \.?        # note: make dot optional
+                   \s
+                 (?<day>\d{1,2})
+                   \s
+                 (?<month_name>#{MONTH_ES})
+                   \s+
+                 (?<hours>\d{1,2})
+                   [:hH]
+                 (?<minutes>\d{2})
+                   \b/x
+
 
 # e.g. Vie. 16.8. or  Sáb. 17.8.
 #  or  Vie 16.8.  or  Sáb 17.8.
@@ -221,9 +262,11 @@ PT__DD_MM_YYYY_DAY__DATE_RE = /\b
 
 # e.g. Fr. 26.7. or  Sa. 27.7.
 #  or  Fr 26.7.  or  Sa 27.7.
+#  or  Fr, 26.7. or  Sa, 27.7.
 DE__DAY_MM_DD__DATE_RE = /\b
         (?<day_name>#{DAY_DE})
            \.?        # note: make dot optional
+           ,?         # note: allow optional comma too
            \s
         (?<day>\d{1,2})
            \.
@@ -260,9 +303,12 @@ FORMATS_FR = [
 ]
 
 FORMATS_ES = [
+  [ ES__DAY_DD_MONTH__DATE_TIME_RE,  '[ES_DAY_DD_MONTH_hh_mm]' ],
+  [ ES__DAY_DD_MONTH__DATE_RE,       '[ES_DAY_DD_MONTH]' ],
   [ ES__DD_MONTH__DATE_RE,           '[ES_DD_MONTH]' ],
   [ ES__DAY_MM_DD__DATE_RE,          '[ES_DAY_MM_DD]' ],
 ]
+
 
 FORMATS_PT = [
   [ PT__DD_MM_YYYY_DAY__DATE_RE,     '[PT_DD_MM_YYYY_DAY]' ],

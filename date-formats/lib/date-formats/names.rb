@@ -27,13 +27,13 @@ TXT
 
 
   DAY_NAMES[:en] = <<TXT
-Monday      Mon
-Tuesday     Tues  Tue  Tu
-Wednesday   Wed
+Monday                   Mon
+Tuesday            Tues  Tue  Tu
+Wednesday                Wed
 Thursday    Thurs  Thur  Thu  Th
-Friday      Fri
-Saturday    Sat
-Sunday      Sun
+Friday                   Fri
+Saturday                 Sat
+Sunday                   Sun
 TXT
 
 
@@ -65,31 +65,31 @@ TXT
 
 
   MONTH_NAMES[:es] = <<TXT
-Enero      Ene
-Febrero    Feb
-Marzo      Mar
-Abril      Abr
-Mayo       May
-Junio      Jun
-Julio      Jul
-Agosto     Ago
-Septiembre  Sept  Sep  Set    ## check set in use??
-Octubre    Oct
-Noviembre  Nov
-Diciembre  Dic
+Enero             Ene
+Febrero           Feb
+Marzo             Mar
+Abril             Abr
+Mayo              May
+Junio             Jun
+Julio             Jul
+Agosto            Ago
+Septiembre  Sept  Sep Set    ## check Set in use??
+Octubre           Oct
+Noviembre         Nov
+Diciembre         Dic
 TXT
 
   DAY_NAMES[:es] = <<TXT
-Lunes       Lun  Lu
-Martes      Mar  Ma
-Miércoles   Mié  Mi
-Jueves      Jue  Ju
-Viernes     Vie  Vi
-Sábado      Sáb  Sá
-Domingo     Dom  Do
+Lunes       Lun      Lu
+Martes      Mar      Ma
+Miércoles   Mié Mie  Mi      # note: add unaccented variant (for abbreviation) - why? why not?
+Jueves      Jue      Ju
+Viernes     Vie      Vi
+Sábado      Sáb Sab  Sá Sa   # note: add unaccented variants (for abbreviations) - why? why not?
+Domingo     Dom      Do
 TXT
 
-  
+
   MONTH_NAMES[:de] = <<TXT
 Jänner  Januar    Jan  Jän    # note: in Austria - Jänner; in Deutschland Januar allow both ??
 Feber   Februar   Feb
@@ -114,8 +114,8 @@ Freitag     Fr
 Samstag     Sa
 Sonntag     So
 TXT
-  
-  
+
+
   MONTH_NAMES[:it] = <<TXT
 Gennaio
 Febbraio
@@ -140,7 +140,7 @@ Venerdì   Ven
 Sabato    Sab
 Domenica  Dom   Do
 TXT
-  
+
 
   MONTH_NAMES[:pt] = <<TXT
 Janeiro
@@ -166,8 +166,8 @@ Sexta-feira    Sex
 Sábado         Sab
 Domingo        Dom
 TXT
-  
-  
+
+
   MONTH_NAMES[:ro] = <<TXT
 Ianuarie
 Februarie
@@ -194,7 +194,7 @@ Duminică  Du
 TXT
 
 
-  
+
   DAY_NAMES[:nl] = <<TXT
 Maandag          Ma
 Dinsdag          Di
@@ -224,10 +224,10 @@ Péntek     P
 Szombat    Szo
 Vasárnap   Vas
 TXT
-  
-  
-  
-  
+
+
+
+
 ############################################
 ## convert (unparsed) text to (parsed) lines with words
 MONTH_NAMES.each {|k,v| MONTH_NAMES[k] = parse_month(v) }

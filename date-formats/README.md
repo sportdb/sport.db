@@ -44,6 +44,54 @@ DateFormats.parse( 'Lundi 1 Janvier', lang: 'fr')
 #=> <Date: 2019-01-01 ((2458485j,0s,0n),+0s,2299161j)>
 ```
 
+Pre-configured date formats for now include:
+
+**Base - Work for All Languages**
+
+- `YYYY_MM_DD_hh_mm`  e.g. 2020-01-19 22:00  or 2020-1-19 22:00
+- `YYYY_MM_DD` e.g. 2020-01-19   or 2020-1-19
+- `DD_MM_YYYY_hh_mm` e.g. 19.01.2020 22.00  or 19.1.2020 22:00
+- `DD_MM_hh_mm` e.g. 19.01. 22.00  or 19.1. 22:00
+- `DD_MM_YYYY` e.g. 19.01.2020  or 19.1.2020
+- `DD_MM`  e.g. 19.01.  or 19.1.
+
+**English (`en`)**
+
+- `DD_MONTH_YYYY_hh_mm` e.g. 19 Jan 2020 22:00
+- `MONTH_DD_YYYY_hh_mm` e.g. Jan 19 2020 22:00 or Jan 19, 2020 22:00
+- `MONTH_DD_hh_mm` e.g. Jan 19 22:00
+- `MONTH_DD_YYYY` e.g. Jan 19 2020 or Jan 19, 2020 or January 19, 2020
+- `DAY_MONTH_DD` e.g. Sun Jan 19 or Sun, Jan 19 or Sunday, January 19
+- `MONTH_DD` e.g. Jan 19 or Jan/19
+- `DD_MONTH` e.g. 19 Jan or 19/Jan
+
+**Spanish / Español (`es`)**
+
+- `DAY_DD_MONTH_hh_mm` e.g. Dom 19 Ene 22:00 or Dom 19 Ene 22h00
+- `DAY_DD_MONTH` e.g. Dom 19 Ene or Dom 19 Enero
+- `DD_MONTH` e.g. 19 Ene
+- `DAY_DD_MM` e.g. Dom 19.01. or Dom 19.1.
+
+**Portuguese / Português (`pt`)**
+
+- `DD_MM_YYYY_DAY` e.g.  19/1/2020 Domenica
+- `DAY_DD_MONTH` e.g. Dom 19 Jan  or  Dom 19 Janeiro
+- `DAY_DD_MM` e.g. Dom 19/01  or Dom 19/1
+
+**French / Français (`fr`)**
+
+- `DAY_DD_MONTH` e.g. Dim. 19 Janv or Dim. 19 Janvier
+
+**Italian / Italiano (`it`)**
+
+- `DAY_MM_DD` e.g. Dom. 19.1.
+
+**German / Deutsch (`de`)**
+
+- `DAY_MM_DD` e.g. So 19.1. or So 19.01.
+
+
+
 How does it work?
 The  `date-formats` library uses text patterns (that is, regular expressions)
 for defining and parsing new date formats.
@@ -120,6 +168,7 @@ Décembre   Déce   Déc
 ```
 
 And so on.
+
 
 
 ## License

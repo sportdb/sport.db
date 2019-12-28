@@ -210,7 +210,7 @@ ES__DAY_DD_MONTH__DATE_TIME_RE = /\b
 
 # e.g. Vie. 16.8. or  Sáb. 17.8.
 #  or  Vie 16.8.  or  Sáb 17.8.
-ES__DAY_MM_DD__DATE_RE = /\b
+ES__DAY_DD_MM__DATE_RE = /\b
         (?<day_name>#{DAY_ES})
            \.?        # note: make dot optional
            \s
@@ -259,6 +259,33 @@ PT__DD_MM_YYYY_DAY__DATE_RE = /\b
         (?<day_name>#{DAY_PT})
        \b/x
 
+# e.g. Sáb, 13/Maio or Qui, 08/Junho
+#  or  Sáb 13 Maio or Qui 8 Junho
+PT__DAY_DD_MONTH__DATE_RE = /\b
+        (?<day_name>#{DAY_PT})
+           \.?        # note: make dot optional
+           ,?         # note: allow optional comma too
+           \s
+        (?<day>\d{1,2})
+           (?: \/|\s )
+        (?<month_name>#{MONTH_PT})
+       \b/x
+
+# e.g. Sáb, 29/07 or  Seg, 31/07
+#      Sáb 29/07  or  Seg 31/07
+PT__DAY_DD_MM__DATE_RE = /\b
+        (?<day_name>#{DAY_PT})
+           \.?        # note: make dot optional
+           ,?         # note: allow optional comma too
+           \s
+        (?<day>\d{1,2})
+           \/
+        (?<month>\d{1,2})
+       \b/x
+
+
+
+
 
 # e.g. Fr. 26.7. or  Sa. 27.7.
 #  or  Fr 26.7.  or  Sa 27.7.
@@ -306,12 +333,14 @@ FORMATS_ES = [
   [ ES__DAY_DD_MONTH__DATE_TIME_RE,  '[ES_DAY_DD_MONTH_hh_mm]' ],
   [ ES__DAY_DD_MONTH__DATE_RE,       '[ES_DAY_DD_MONTH]' ],
   [ ES__DD_MONTH__DATE_RE,           '[ES_DD_MONTH]' ],
-  [ ES__DAY_MM_DD__DATE_RE,          '[ES_DAY_MM_DD]' ],
+  [ ES__DAY_DD_MM__DATE_RE,          '[ES_DAY_DD_MM]' ],
 ]
 
 
 FORMATS_PT = [
   [ PT__DD_MM_YYYY_DAY__DATE_RE,     '[PT_DD_MM_YYYY_DAY]' ],
+  [ PT__DAY_DD_MONTH__DATE_RE,       '[PT_DAY_DD_MONTH]' ],
+  [ PT__DAY_DD_MM__DATE_RE,          '[PT_DAY_DD_MM]' ],
 ]
 
 FORMATS_DE = [

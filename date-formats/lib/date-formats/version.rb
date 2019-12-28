@@ -4,7 +4,7 @@
 module DateFormats
   MAJOR = 0    ## todo: namespace inside version or something - why? why not??
   MINOR = 2
-  PATCH = 3
+  PATCH = 4
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 
   def self.version

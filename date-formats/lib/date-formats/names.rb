@@ -1,5 +1,10 @@
 module DateFormats
 
+###
+# sources:
+##   see https://web.library.yale.edu/cataloging/months
+##   and others
+
 # todo: make more generic for reuse
 ### fix:
 ##    use  date/en.txt or en.txt etc. --  why? why not?
@@ -27,13 +32,13 @@ TXT
 
 
   DAY_NAMES[:en] = <<TXT
-Monday                   Mon
+Monday                   Mon  Mo
 Tuesday            Tues  Tue  Tu
-Wednesday                Wed
+Wednesday                Wed  We
 Thursday    Thurs  Thur  Thu  Th
-Friday                   Fri
-Saturday                 Sat
-Sunday                   Sun
+Friday                   Fri  Fr
+Saturday                 Sat  Sa
+Sunday                   Sun  Su
 TXT
 
 
@@ -117,18 +122,18 @@ TXT
 
 
   MONTH_NAMES[:it] = <<TXT
-Gennaio
-Febbraio
-Marzo
-Aprile
-Maggio
+Gennaio     Genn
+Febbraio    Febbr
+Marzo       Mar
+Aprile      Apr
+Maggio      Magg
 Giugno
 Luglio
-Agosto
-Settembre
-Ottobre
-Novembre
-Dicembre
+Agosto      Ag
+Settembre   Sett
+Ottobre     Ott
+Novembre    Nov
+Dicembre    Dic
 TXT
 
   DAY_NAMES[:it] = <<TXT
@@ -143,18 +148,18 @@ TXT
 
 
   MONTH_NAMES[:pt] = <<TXT
-Janeiro
-Fevereiro
+Janeiro      Jan
+Fevereiro    Fev
 Março
 Abril
 Maio
 Junho
 Julho
 Agosto
-Setembro
-Outubro
-Novembro
-Dezembro
+Setembro     Set
+Outubro      Out
+Novembro     Nov
+Dezembro     Dez
 TXT
 
   DAY_NAMES[:pt] = <<TXT
@@ -163,7 +168,7 @@ Terça-feira    Ter
 Quarta-feira   Qua
 Quinta-feira   Qui
 Sexta-feira    Sex
-Sábado         Sab
+Sábado         Sáb Sab    # note: add unaccented variant (for abbreviation) - why? why not?
 Domingo        Dom
 TXT
 

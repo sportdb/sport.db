@@ -8,32 +8,153 @@
 require 'helper'
 
 
-
 class TestAutoConfParser < MiniTest::Test
+
+  def test_mx
+    txt= <<TXT
+Jornada 1  //  3, 4 y 5 de enero
+
+Vie 3 Ene  Monarcas Morelia      vs. Querétaro      @ Estadio Morelos
+Vie 3 Ene  Santos Laguna         vs. Guadalajara    @ Estadio Corona TSM
+Sáb 4 Ene  América               vs. Tigres UANL    @ Estadio Azteca
+Sáb 4 Ene  Monterrey             vs. Cruz Azul      @ Estadio Tecnológico
+Sáb 4 Ene  Pachuca               vs. Toluca         @ Estadio Hidalgo
+Sáb 4 Ene  Jaguares de Chiapas   vs. Veracruz       @ Estadio Víctor M. Reyna
+Sáb 4 Ene  Atlas                 vs. Tijuana        @ Estadio Jalisco
+Dom 5 Ene  Universidad Nacional  vs. Puebla         @ Estadio Olímpico Universitario
+Dom 5 Ene  Atlante               vs. León           @ Estadio Andrés Quintana Roo
+
+Jornada 2  //  10, 11 y 12 de enero
+
+Vie 10 Ene  Querétaro    vs. Universidad Nacional   @ Estadio La Corregidora
+Vie 10 Ene  Tijuana      vs. América                @ Estadio Caliente
+Sáb 11 Ene  Veracruz     vs. Atlante                @ Estadio Luis Pirata Fuente
+Sáb 11 Ene  Cruz Azul    vs. Santos Laguna          @ Estadio Azul
+Sáb 11 Ene  Tigres UANL  vs. Pachuca                @ Estadio Universitario
+Sáb 11 Ene  León         vs. Atlas                  @ Estadio Nou Camp
+Dom 12 Ene  Puebla       vs. Monterrey              @ Estadio Cuauhtémoc
+Dom 12 Ene  Toluca       vs. Monarcas Morelia       @ Estadio Nemesio Díez
+Dom 12 Ene  Guadalajara  vs. Jaguares de Chiapas    @ Estadio Omnilife
+TXT
+  clubs, rounds = parse( txt, lang: 'es' )
+
+  assert_equal Hash(
+   'Monarcas Morelia'=>2,
+   'Querétaro'=>2,
+   'Santos Laguna'=>2,
+   'Guadalajara'=>2,
+   'América'=>2,
+   'Tigres UANL'=>2,
+   'Monterrey'=>2,
+   'Cruz Azul'=>2,
+   'Pachuca'=>2,
+   'Toluca'=>2,
+   'Jaguares de Chiapas'=>2,
+   'Veracruz'=>2,
+   'Atlas'=>2,
+   'Tijuana'=>2,
+   'Universidad Nacional'=>2,
+   'Puebla'=>2,
+   'Atlante'=>2,
+   'León'=>2 ), clubs
+
+   assert_equal Hash(
+     'Jornada 1  //  3, 4 y 5 de enero'    => { count: 1, match_count: 9},
+     'Jornada 2  //  10, 11 y 12 de enero' => { count: 1, match_count: 9} ), rounds
+  end
+
+  def test_br
+    txt= <<TXT
+1ª Rodada
+29/03/2003 - Sábado
+16h00  Guarani       4x2 Vasco          @ Brinco de Ouro
+       Atlético-PR   2x0 Grêmio         @ Arena da Baixada
+
+30/03/2003 - Domingo
+09h00  Flamengo      1x1 Coritiba       @ Maracanã
+16h00  Goiás         2x2 Paysandu       @ Serra Dourada
+       Internacional 1x1 Ponte Preta    @ Beira Rio
+       Criciúma      2x0 Fluminense     @ Heriberto Hulse
+       Juventude     2x2 São Paulo      @ Alfredo Jaconi
+       Fortaleza     0x0 Bahia          @ Castelão
+       Cruzeiro      2x2 São Caetano    @ Mineirão
+       Vitória       1x1 Figueirense    @ Barradão
+18h00  Santos        2x2 Paraná         @ Vila Belmiro
+       Corinthians   0x3 Atlético-MG    @ Pacaembu
+
+2ª Rodada
+05/04/2003 - Sábado
+16h00  Fluminense    1x1 Fortaleza      @ Maracanã
+       Atlético-MG   0x0 Santos         @ Mineirão
+       Coritiba      0x1 Internacional  @ Couto Pereira
+18h00  Grêmio        3x1 Guarani        @ Olímpico
+
+06/04/2003 - Domingo
+16h00  Bahia         1x2 Flamengo       @ Fonte Nova
+       Figueirense   3x3 Corinthians    @ Orlando Scarpelli
+       Paysandu      1x2 Vitória        @ Mangueirão
+       Ponte Preta   1x0 Juventude      @ Moisés Lucarelli
+       Paraná        3x0 Atlético-PR    @ Pinheirão
+       São Caetano   3x2 Criciúma       @ Anacleto Campanella
+18h00  São Paulo     2x4 Cruzeiro       @ Morumbi
+       Vasco         6x4 Goiás          @ São Januário
+TXT
+   clubs, rounds = parse( txt, lang: 'pt' )
+
+   assert_equal Hash(
+     'Guarani'=>2,
+     'Vasco'=>2,
+     'Atlético-PR'=>2,
+     'Grêmio'=>2,
+     'Flamengo'=>2,
+     'Coritiba'=>2,
+     'Goiás'=>2,
+     'Paysandu'=>2,
+     'Internacional'=>2,
+     'Ponte Preta'=>2,
+     'Criciúma'=>2,
+     'Fluminense'=>2,
+     'Juventude'=>2,
+     'São Paulo'=>2,
+     'Fortaleza'=>2,
+     'Bahia'=>2,
+     'Cruzeiro'=>2,
+     'São Caetano'=>2,
+     'Vitória'=>2,
+     'Figueirense'=>2,
+     'Santos'=>2,
+     'Paraná'=>2,
+     'Corinthians'=>2,
+     'Atlético-MG'=>2 ), clubs
+
+     assert_equal Hash(
+       '1ª Rodada' => {count: 1, match_count: 12},
+       '2ª Rodada' => {count: 1, match_count: 12} ), rounds
+  end
+
 
   def test_at
     txt = <<TXT
 29. Runde
 
-[Sa 7.4.]
+Sa 7.4.
   16.00   RB Salzburg       2:0   Wacker Innsbruck
   18.30   SV Ried           0:1   Austria Wien
           Kapfenberger SV   2:3   Admira Wacker
           Rapid Wien        2:1   Wr. Neustadt
-[So 8.4.]
+So 8.4.
   16.00   SV Mattersburg    0:2   Sturm Graz
 
 
 30. Runde
 
-[Sa 14.4.]
+Sa 14.4.
   16.00   Wr. Neustadt         0:0   Kapfenberger SV
   18.30   Admira Wacker        1:1   Wacker Innsbruck
           Sturm Graz           2:2   RB Salzburg
           SV Ried              2:0   SV Mattersburg
-[So 15.4.]
+So 15.4.
   16.00   Austria Wien         0:0   Rapid Wien
-
 TXT
 
   clubs, rounds = parse( txt, lang: 'de' )
@@ -119,9 +240,9 @@ TXT
     txt = <<TXT
 Journée 1
 
-[Ven 8. Août]
+Ven 8. Août
   20h30  Stade de Reims  2-2  Paris SG
-[Sam 9. Août]
+Sam 9. Août
   21h00  SC Bastia      3-3  Olympique de Marseille
          Évian TG       0-3  SM Caen
          EA Guingamp    0-2  AS Saint-Étienne
@@ -129,22 +250,22 @@ Journée 1
          Montpellier Hérault SC  0-1  Girondins de Bordeaux
          FC Nantes      1-0  RC Lens
          OGC Nice       3-2  Toulouse FC
-[Dim 10. Août]
+Dim 10. Août
   17h00  Olympique Lyonnais  2-0  Stade Rennais FC
   21h00  AS Monaco FC  1-2  FC Lorient
 
 Journée 2
 
-[Ven 15. Août]
+Ven 15. Août
   20h30  SM Caen 0-1 LOSC Lille
-[Sam 16. Août]
+Sam 16. Août
   17h00  Paris SG 2-0 SC Bastia
   20h00  RC Lens 0-1 EA Guingamp
          FC Lorient 0-0 OGC Nice
          FC Metz 1-1 FC Nantes
          Stade Rennais FC 6-2 Évian TG
          Toulouse FC 2-1 Olympique Lyonnais
-[Dim 17. Août]
+Dim 17. Août
   17h00  Olympique de Marseille 0-2 Montpellier Hérault SC
          AS Saint-Étienne 3-1 Stade de Reims
   21h00  Girondins de Bordeaux 4-1 AS Monaco FC
@@ -184,9 +305,9 @@ TXT
     txt = <<TXT
 Matchday 1
 
-[Fri Aug/11]
+Fri, Aug 11
   Arsenal FC               4-3  Leicester City
-[Sat Aug/12]
+Sat, Aug 12
   Watford FC               3-3  Liverpool FC
   Chelsea FC               2-3  Burnley FC
   Crystal Palace           0-3  Huddersfield Town
@@ -194,14 +315,14 @@ Matchday 1
   Southampton FC           0-0  Swansea City
   West Bromwich Albion     1-0  AFC Bournemouth
   Brighton & Hove Albion   0-2  Manchester City
-[Sun Aug/13]
+Sun, Aug 13
   Newcastle United         0-2  Tottenham Hotspur
   Manchester United        4-0  West Ham United
 
 
 Matchday 2
 
-[Sat Aug/19]
+Sat, Aug 19
   Swansea City             0-4  Manchester United
   AFC Bournemouth          0-2  Watford FC
   Burnley FC               0-1  West Bromwich Albion
@@ -209,10 +330,10 @@ Matchday 2
   Liverpool FC             1-0  Crystal Palace
   Southampton FC           3-2  West Ham United
   Stoke City               1-0  Arsenal FC
-[Sun Aug/20]
+Sun, Aug 20
   Huddersfield Town        1-0  Newcastle United
   Tottenham Hotspur        1-2  Chelsea FC
-[Mon Aug/21]
+Mon, Aug 21
   Manchester City          1-1  Everton FC
 TXT
 
@@ -305,25 +426,25 @@ TXT
   def test_mauritius
     txt = <<TXT
 Preliminary Round
-[Mon Jun/22]
+Mon Jun 22
   Pointe-aux-Sables Mates      3-4  AS Port-Louis 2000              @ St. François Xavier Stadium, Port Louis
 
 Quarterfinals
-[Wed Jun/24]
+Wed Jun 24
   Rivière du Rempart           3-1 pen (1-1) La Cure Sylvester      @ Auguste Vollaire Stadium, Central Flacq
   Chamarel SC                  3-4           Petite Rivière Noire   @ Germain Comarmond Stadium, Bambous
-[Thu Jun/25]
+Thu Jun 25
   Pamplemousses                2-0  AS Port-Louis 2000              @ Auguste Vollaire Stadium, Central Flacq
-[Sat Jun/27]
+Sat Jun 27
   Savanne SC                   3-6  Entente Boulet Rouge            @ Anjalay Stadium, Mapou
 
 Semifinals
-[Wed Jul/15]
+Wed Jul 15
   Rivière du Rempart           2-3  Petite Rivière Noire            @  New George V Stadium, Curepipe
   Entente Boulet Rouge         0-2  Pamplemousses                   @  Germain Comarmond Stadium, Bambous
 
 Final
-[Sun Jul/19]
+Sun Jul 19
   Petite Rivière Noire         2-0  Pamplemousses                   @ New George V Stadium, Curepipe
 TXT
 

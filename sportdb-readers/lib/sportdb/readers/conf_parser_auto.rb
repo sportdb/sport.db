@@ -81,11 +81,11 @@ class AutoConfParser
                          \]/x, '' ).strip
 
     else
-      ##  check for leading hours only e.g.  20.30 or 20:30 or 20h30
+      ##  check for leading hours only e.g.  20.30 or 20:30 or 20h30 or 20H30 or 09h00
       ##   todo/fix: make language dependent (or move to find_date/hour etc.) - why? why not?
-      line = line.sub(  %r{^
-                            [12]?[0-9]
-                            [h.:]
+      line = line.sub(  %r{^           ## MUST be anchored to beginning of line
+                            [012]?[0-9]
+                            [.:hH]
                             [0-9][0-9]
                            (?=[ ])    ## must be followed by space for now (add end of line too - why? why not?)
                           }x, '' ).strip
@@ -113,7 +113,10 @@ class AutoConfParser
 
      ## check for more match separators e.g. - or vs for now
      line = line.sub( / \s+
-                          (-|vs|v)
+                          (   -
+                            | v
+                            | vs\.?    # note: allow optional dot eg. vs.
+                          )
                         \s+
                        /ix, '$$' )
 

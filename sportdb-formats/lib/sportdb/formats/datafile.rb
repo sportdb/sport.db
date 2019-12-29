@@ -19,40 +19,44 @@ module Datafile      # note: keep Datafile in its own top-level module/namespace
   end
 
 
-
-  CLUBS_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
-                       (?:[a-z]{1,4}\.)?   # optional country code/key e.g. eng.clubs.txt
+  CLUBS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+                       (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.txt
                        clubs\.txt$
                    }x
 
-  CLUBS_WIKI_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
+  CLUBS_WIKI_RE = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
                            (?:[a-z]{1,4}\.)?   # optional country code/key e.g. eng.clubs.wiki.txt
                           clubs\.wiki\.txt$
                        }x
 
-  def self.find_clubs( path, pattern: CLUBS_REGEX )            find( path, pattern ); end
-  def self.find_clubs_wiki( path, pattern: CLUBS_WIKI_REGEX )  find( path, pattern ); end
+  CLUB_PROPS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+                       (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.props.txt
+                      clubs\.props\.txt$
+                   }x
 
-  def self.match_clubs( path )       CLUBS_REGEX.match( path ); end
-  def self.match_clubs_wiki( path )  CLUBS_WIKI_REGEX.match( path ); end
+  def self.find_clubs( path, pattern: CLUBS_RE )            find( path, pattern ); end
+  def self.find_clubs_wiki( path, pattern: CLUBS_WIKI_RE )  find( path, pattern ); end
+
+  def self.match_clubs( path )       CLUBS_RE.match( path ); end
+  def self.match_clubs_wiki( path )  CLUBS_WIKI_RE.match( path ); end
+  def self.match_club_props( path, pattern: CLUB_PROPS_RE ) pattern.match( path ); end
 
 
-
-  LEAGUES_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
-                        (?:[a-z]{1,4}\.)?   # optional country code/key e.g. eng.clubs.wiki.txt
+  LEAGUES_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+                        (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.wiki.txt
                      leagues\.txt$
                     }x
 
-  def self.find_leagues( path, pattern: LEAGUES_REGEX )  find( path, pattern ); end
-  def self.match_leagues( path )  LEAGUES_REGEX.match( path ); end
+  def self.find_leagues( path, pattern: LEAGUES_RE )  find( path, pattern ); end
+  def self.match_leagues( path )  LEAGUES_RE.match( path ); end
 
 
-  CONF_REGEX = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
+  CONF_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
                      \.conf\.txt$
                  }x
 
-  def self.find_conf( path, pattern: CONF_REGEX )  find( path, pattern ); end
-  def self.match_conf( path )  CONF_REGEX.match( path ); end
+  def self.find_conf( path, pattern: CONF_RE )  find( path, pattern ); end
+  def self.match_conf( path )  CONF_RE.match( path ); end
 
 
 

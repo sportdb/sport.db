@@ -24,9 +24,11 @@ Hoe.spec 'sportdb-formats' do
     ['date-formats',  '>= 0.2.4'],
     ['csvreader',     '>= 1.2.4'],
     ['sportdb-langs', '>= 0.0.1'],
+
+    ['rubyzip',       '>= 1.2.4' ],
   ]
 
   self.spec_extras = {
-   required_ruby_version: '>= 2.2.2'
+    required_ruby_version: '>= 2.2.2'
   }
 end

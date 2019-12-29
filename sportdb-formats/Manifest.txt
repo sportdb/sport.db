@@ -6,6 +6,7 @@ lib/sportdb/formats.rb
 lib/sportdb/formats/datafile.rb
 lib/sportdb/formats/goals.rb
 lib/sportdb/formats/outline_reader.rb
+lib/sportdb/formats/package.rb
 lib/sportdb/formats/scores.rb
 lib/sportdb/formats/season_utils.rb
 lib/sportdb/formats/version.rb
@@ -15,5 +16,6 @@ test/test_datafile.rb
 test/test_datafile_match.rb
 test/test_goals.rb
 test/test_outline_reader.rb
+test/test_package.rb
 test/test_scores.rb
 test/test_season_utils.rb

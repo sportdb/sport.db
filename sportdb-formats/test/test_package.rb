@@ -10,20 +10,6 @@ require 'helper'
 
 class TestPackage < MiniTest::Test
 
-  def test_exclude
-    assert Datafile.match_exclude( '.build/' )
-    assert Datafile.match_exclude( '.git/' )
-
-    assert Datafile.match_exclude( '/.build/' )
-    assert Datafile.match_exclude( '/.git/' )
-
-    assert Datafile.match_exclude( '.build/leagues.txt' )
-    assert Datafile.match_exclude( '.git/leagues.txt' )
-
-    assert Datafile.match_exclude( '/.build/leagues.txt' )
-    assert Datafile.match_exclude( '/.git/leagues.txt' )
-  end
-
   def test_read
     [Datafile::DirPackage.new( '../../../openfootball/england' ),
      Datafile::ZipPackage.new( 'tmp/england-master.zip' )].each do |eng|

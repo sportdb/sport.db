@@ -4,12 +4,14 @@ module SportDb
 
     CONF_RE        = Datafile::CONF_RE
     CLUB_PROPS_RE  = Datafile::CLUB_PROPS_RE
-    LEAGUES_RE     = Datafile::LEAGUES_REGEX   ## todo/check: rename to _RE
-    CLUBS_RE       = Datafile::CLUBS_REGEX     ## todo/check: rename to _RE
+    LEAGUES_RE     = Datafile::LEAGUES_RE
+    CLUBS_RE       = Datafile::CLUBS_RE
 
 
     ## note: if pattern includes directory add here (otherwise move to more "generic" datafile) - why? why not?
-    MATCH_RE = %r{ /\d{4}-\d{2}        ## season folder e.g. /2019-20
+    MATCH_RE = %r{ /(?: \d{4}-\d{2}        ## season folder e.g. /2019-20
+                      | \d{4}              ## season year-only folder e.g. /2019
+                    )
                    /[a-z0-9_-]+\.txt$  ## txt e.g /1-premierleague.txt
                 }x
 

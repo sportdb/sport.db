@@ -10,10 +10,25 @@ require 'helper'
 
 class TestDatafile < MiniTest::Test
 
+  def test_exclude
+    assert Datafile.match_exclude( '.build/' )
+    assert Datafile.match_exclude( '.git/' )
+
+    assert Datafile.match_exclude( '/.build/' )
+    assert Datafile.match_exclude( '/.git/' )
+
+    assert Datafile.match_exclude( '.build/leagues.txt' )
+    assert Datafile.match_exclude( '.git/leagues.txt' )
+
+    assert Datafile.match_exclude( '/.build/leagues.txt' )
+    assert Datafile.match_exclude( '/.git/leagues.txt' )
+  end
+
+
+
   CLUBS_DIR   = '../../../openfootball/clubs'    ## source repo directory path
   LEAGUES_DIR = '../../../openfootball/leagues'
   AUSTRIA_DIR = '../../../openfootball/austria'
-
 
   def test_find
     datafiles = Datafile.find_clubs( CLUBS_DIR )
@@ -28,6 +43,7 @@ class TestDatafile < MiniTest::Test
     datafiles = Datafile.find_conf( AUSTRIA_DIR )
     pp datafiles
   end
+
 
   def test_bundle
     datafiles = Datafile.find_clubs( CLUBS_DIR )

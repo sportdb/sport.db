@@ -10,10 +10,8 @@ require 'sportdb/sync'
 # our own code
 require 'sportdb/readers/version' # let version always go first
 require 'sportdb/readers/league_outline_reader'
-require 'sportdb/readers/conf_parser_auto'
 require 'sportdb/readers/conf_reader'
 require 'sportdb/readers/conf_linter'
-require 'sportdb/readers/match_parser'
 require 'sportdb/readers/match_reader'
 require 'sportdb/readers/match_linter'
 require 'sportdb/readers/package'

@@ -6,8 +6,7 @@ require 'worlddb/models'     # NOTE: include worlddb-models gem (not cli tools g
 require 'persondb/models'
 
 
-require 'sportdb/formats'   ## todo/fix: move all readers out-of-models AND than (finally) remove sportdb/formats dependency
-
+require 'sportdb/match/formats'  ## todo/fix: move all readers out-of-models AND than (finally) remove sportdb/formats dependency
 
 
 # our own code
@@ -66,7 +65,6 @@ require 'sportdb/utils_goals'
 require 'sportdb/matcher'
 require 'sportdb/calc'       # fix/todo: obsolete - replace w/ standings
 require 'sportdb/standings'
-require 'sportdb/mapper_teams'
 
 
 require 'sportdb/readers/assoc'

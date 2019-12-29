@@ -5,7 +5,6 @@ Rakefile
 lib/sportdb/calc.rb
 lib/sportdb/deleter.rb
 lib/sportdb/indexers/team.rb
-lib/sportdb/mapper_teams.rb
 lib/sportdb/matcher.rb
 lib/sportdb/models.rb
 lib/sportdb/models/assoc.rb

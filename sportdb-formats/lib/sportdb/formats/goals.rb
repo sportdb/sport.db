@@ -41,8 +41,23 @@ class GoalStruct
 
   ## add pos  for sequence number? e.g. 1,2,3,4  (1st goald, 2nd goal, etc.) ???
 
-  def initialize
-    # do nothing
+
+  def initialize( **kwargs )    ## add/allow quick and dirty quick init with keywords
+    if kwargs.empty?
+      # do nothing
+    else
+      kwargs.each do |key,value|
+        send( "#{key}=", value )
+      end
+    end
+  end
+
+  def ==(o)
+    o.class == self.class && o.state == state
+  end
+
+  def state
+    [@name, @team, @minute, @offset, @penalty, @owngoal, @score1, @score2]
   end
 end
 
@@ -51,7 +66,7 @@ end
 # todo: find a better name? to avoid confusing w/ GoalsParser? use MatchGoalsParser or similar?
 class GoalsFinder
   include LogUtils::Logging
-  include FixtureHelpers   # e.g. cut_off_end_of_line_comment!
+
 
   def initialize
     # nothing here for now
@@ -59,8 +74,10 @@ class GoalsFinder
 
   def find!( line, opts={} )
     # remove end-of-line comments
-    #   - move to textutils ?? why? why not??
-    cut_off_end_of_line_comment!( line )     ## note: func defined in utils.rb (FixtureHelpers)
+    line = line.sub( /#.*$/ ) do |_|
+             logger.debug "   cutting off end of line comment - >>#{$&}<<"
+             ''
+           end
 
     # remove [] if presents e.g. [Neymar 12']
     line = line.gsub( /[\[\]]/, '' )
@@ -71,7 +88,7 @@ class GoalsFinder
     #            right hand side (rhs) for team2
 
     values = line.split( ';' )
-    
+
     # note: allow empty right hand side (e.g. team2 did NOT score any goals e.g. 3-0 etc.)
     lhs = values[0]
     rhs = values[1]
@@ -86,7 +103,7 @@ class GoalsFinder
     lhs_data = parser.parse!( lhs )
     pp lhs_data
 
-    logger.debug "  rhs (team2): >#{rhs}<"    
+    logger.debug "  rhs (team2): >#{rhs}<"
     rhs_data = parser.parse!( rhs )
     pp rhs_data
 
@@ -122,7 +139,7 @@ class GoalsFinder
     # sort by minute + offset
     goals = goals.sort do |l,r|
       res = l.minute <=> r.minute
-      if res == 0 
+      if res == 0
         res =  l.offset <=> r.offset  # pass 2: sort by offset
       end
       res
@@ -163,7 +180,7 @@ class GoalsParser
                 [^0-9]+
                /x
 
-  
+
   # todo/check: change to MINUTE_REGEX ??
   # add MINUTE_SKIP_REGEX or MINUTE_SEP_REGEX /^[ ,]+/
   # todo/fix:  split out  penalty and owngoal flag in PATTERN constant for reuse
@@ -189,7 +206,7 @@ class GoalsParser
   def parse!( line, opts={} )
 
     ## for now assume
-    ##    everything up-to  0-9 and , and () is part of player name 
+    ##    everything up-to  0-9 and , and () is part of player name
 
     ## try parsing lhs
     ##  todo: check for  empty -    remove (make it same as empty string)
@@ -199,10 +216,10 @@ class GoalsParser
     name = get_player_name!( line )
     while name
       logger.debug "  found player name >#{name}< - remaining >#{line}<"
-      
+
       player = GoalsPlayerStruct.new
       player.name = name
-      
+
       minute_hash = get_minute_hash!( line )
       while minute_hash
         logger.debug "  found minutes >#{minute_hash.inspect}< - remaining >#{line}<"
@@ -220,7 +237,7 @@ class GoalsParser
         line.sub!( /^[ ,]+/, '' )
         minute_hash = get_minute_hash!( line )
       end
-      
+
       players << player
       name = get_player_name!( line )
     end

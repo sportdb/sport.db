@@ -4,8 +4,6 @@ README.md
 Rakefile
 lib/sportdb/calc.rb
 lib/sportdb/deleter.rb
-lib/sportdb/finders/goals.rb
-lib/sportdb/finders/scores.rb
 lib/sportdb/indexers/team.rb
 lib/sportdb/mapper_teams.rb
 lib/sportdb/matcher.rb
@@ -149,7 +147,6 @@ test/test_round_auto.rb
 test/test_round_def.rb
 test/test_round_header.rb
 test/test_rsssf_reader.rb
-test/test_scores.rb
 test/test_squad_club_reader.rb
 test/test_squad_national_team_reader.rb
 test/test_standings.rb

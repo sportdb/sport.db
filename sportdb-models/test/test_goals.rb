@@ -3,8 +3,6 @@
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_goals.rb
-#  or better
-#     rake -I ./lib test
 
 
 require 'helper'
@@ -33,7 +31,7 @@ class TestGoals < MiniTest::Test
       ['uy', 'Uruguay',        'URU' ],
       ['pe', 'Peru',           'PER' ],
       ['py', 'Paraguay',       'PAR' ],
- 
+
       ['mx', 'Mexico',         'MEX' ],
       ['us', 'United States',  'USA' ],
       ['ht', 'Haiti',          'HAI' ],
@@ -46,7 +44,7 @@ class TestGoals < MiniTest::Test
       ['bg', 'Bulgaria',       'BUL' ],
       ['cz', 'Czech Republic', 'CZE' ],
       ['en', 'England',        'ENG' ],
-      ['de', 'Germany',        'GER' ], 
+      ['de', 'Germany',        'GER' ],
       ['hu', 'Hungary',        'HUN' ],
       ['it', 'Italy',          'ITA' ],
       ['ru', 'Russia',         'RUS' ],

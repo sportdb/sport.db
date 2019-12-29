@@ -27,6 +27,10 @@ require 'sportdb/formats/datafile'
 require 'sportdb/formats/season_utils'
 
 
+require 'sportdb/formats/scores'
+require 'sportdb/formats/goals'
+
+
 ## let's put test configuration in its own namespace / module
 module SportDb
 class Test    ## todo/check: works with module too? use a module - why? why not?

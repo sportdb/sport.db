@@ -54,7 +54,6 @@ require 'sportdb/models/utils'   # e.g. GameCursor
 
 require 'sportdb/schema'       # NB: requires sportdb/models (include SportDB::Models)
 
-require 'sportdb/finders/scores'
 
 require 'sportdb/utils'
 require 'sportdb/utils_date'
@@ -69,8 +68,6 @@ require 'sportdb/calc'       # fix/todo: obsolete - replace w/ standings
 require 'sportdb/standings'
 require 'sportdb/mapper_teams'
 
-
-require 'sportdb/finders/goals'   # no: requires FixturesHelpers
 
 require 'sportdb/readers/assoc'
 require 'sportdb/readers/event'           ## old event reader (remove later??)

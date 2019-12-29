@@ -1,0 +1,6 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/sportdb/match/formats.rb
+lib/sportdb/match/formats/version.rb

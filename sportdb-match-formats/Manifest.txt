@@ -2,5 +2,15 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
+lib/sportdb/match-formats.rb
 lib/sportdb/match/formats.rb
+lib/sportdb/match/formats/mapper.rb
+lib/sportdb/match/formats/mapper_teams.rb
+lib/sportdb/match/formats/match_parser.rb
+lib/sportdb/match/formats/match_parser_auto_conf.rb
 lib/sportdb/match/formats/version.rb
+test/helper.rb
+test/test_match.rb
+test/test_match_auto.rb
+test/test_match_auto_mu.rb
+test/test_match_auto_mx.rb

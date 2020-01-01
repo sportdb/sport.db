@@ -7,6 +7,7 @@ class Lang
   include LogUtils::Logging
 
   attr_reader :lang
+  attr_reader :words   ## note: allow access to builtin data / word lists
 
   def initialize
     # fix/todo: load on demand; only if no fixtures loaded/configured use builtin
@@ -81,7 +82,7 @@ class Lang
 
   def build_group
     h = @words[ @lang ]
-    values = ""   # Note: always construct a new string (do NOT use a reference to hash value)
+    values = String.new   # note: always construct a new string (do NOT use a reference to hash value)
     values << h['group']
     values
   end
@@ -93,7 +94,7 @@ class Lang
     ##  sort by length first - to allow best match e.g.
     ##    3rd place play-off  instead of Play-off ?? etc.  - why? why not?
     h = @words[ @lang ]
-    values = ""   # NB: always construct a new string (do NOT use a reference to hash value)
+    values = String.new   # note: always construct a new string (do NOT use a reference to hash value)
     values << h['round']
 
     ### add knockout rounds values too
@@ -110,21 +111,21 @@ class Lang
 
   def build_leg1
     h = @words[ @lang ]
-    values = ""  # NB: always construct a new string (do NOT use a reference to hash value)
+    values = String.new  # note: always construct a new string (do NOT use a reference to hash value)
     values << h['leg1']
     values
   end
 
   def build_leg2
     h = @words[ @lang ]
-    values = ""  # NB: always construct a new string (do NOT use a reference to hash value)
+    values = String.new   # note: always construct a new string (do NOT use a reference to hash value)
     values << h['leg2']
     values
   end
 
   def build_knockout_round
     h = @words[ @lang ]
-    values = ""  # NB: always construct a new string (do NOT use a reference to hash value)
+    values = String.new  # note: always construct a new string (do NOT use a reference to hash value)
     values << h['round32']
     values << "|" << h['round16']
     values << "|" << h['quarterfinals']

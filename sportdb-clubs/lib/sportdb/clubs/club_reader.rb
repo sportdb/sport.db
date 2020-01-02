@@ -162,6 +162,19 @@ def self.parse( txt )
 
          last_rec = rec
          recs << rec
+
+       ## check for address line e.g.
+       ##    use just one style / syntax - why? why not?
+       ##  Fischhofgasse 12 ~ 1100 Wien or
+       ##  Fischhofgasse 12 // 1100 Wien or Fischhofgasse 12 /// 1100 Wien
+       ##  Fischhofgasse 12 ++ 1100 Wien or Fischhofgasse 12 +++ 1100 Wien
+       elsif line =~ %r{ (^|[ ])                      ## space or beginning of line
+                                (~ | /{2,} | \+{2,})
+                           ([ ]|$)                    ## space or end of line
+                       }x
+         # note skip for now!!!
+         # todo/fix: add support for address line!!!
+         puts "  skipping address line for now >#{line}<"
       else
         values = line.split( ',' )
 

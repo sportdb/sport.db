@@ -15,11 +15,17 @@ class TestClubReader < MiniTest::Test
 
 FK Austria Wien, Wien
    | Austria Vienna | Austria Wien
+  Fischhofgasse 12 ~ 1100 Wien    ## address line style a
+  Fischhofgasse 12 ++ 1100 Wien   ## address line style b
+  Fischhofgasse 12 // 1100 Wien   ## address line style c
 (ii) Young Violets Austria Wien
    | Young Violets A. W.
 
 SK Rapid Wien, Wien
   | Rapid Vienna | Rapid Wien
+ Keisslergasse 3 ~ 1140 Wien     ## address line style a
+ Keisslergasse 3 +++ 1140 Wien   ## address line style b
+ Keisslergasse 3 /// 1140 Wien   ## address line style c
 (2) SK Rapid Wien II
   | Rapid Wien Am.
 TXT

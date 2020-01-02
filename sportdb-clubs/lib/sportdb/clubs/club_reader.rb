@@ -33,13 +33,22 @@ end
 ##    (ii) or ii) or ii.) or (ii.) or (II)
 ##    (b)  or b)  or b.)  or (b.)  or (B)
 ##    (2)  or 2)  or 2.)  or (2.)
-B_TEAM_MARKER_RE = /^  \(?     # optional opening bracket
-                          (?:ii|b|2)
+B_TEAM_MARKER_RE = %r{^  \(?     # optional opening bracket
+                          (?: ii|b|2 )
                           \.?     # optional dot - keep and allow dot - why? why not?
                           \)      # required closing bracket
-                      /xi   ## note: add case-insenstive (e.g. II/ii or B/b)
+                     }xi   ## note: add case-insenstive (e.g. II/ii or B/b)
 
-
+## pattern for checking for address line e.g.
+##    use just one style / syntax - why? why not?
+##  Fischhofgasse 12 ~ 1100 Wien or
+##  Fischhofgasse 12 // 1100 Wien   or Fischhofgasse 12 /// 1100 Wien
+##  Fischhofgasse 12 ++ 1100 Wien   or Fischhofgasse 12 +++ 1100 Wien
+ADDR_MARKER_RE =  %r{ (?: ^|[ ] )                # space or beginning of line
+                        (?: ~ | /{2,} | \+{2,} )
+                      (?: [ ]|$)                 # space or end of line
+                       }x  
+  
 
 def self.add_alt_names( rec, names )   ## helper for adding alternat names
 
@@ -168,10 +177,7 @@ def self.parse( txt )
        ##  Fischhofgasse 12 ~ 1100 Wien or
        ##  Fischhofgasse 12 // 1100 Wien or Fischhofgasse 12 /// 1100 Wien
        ##  Fischhofgasse 12 ++ 1100 Wien or Fischhofgasse 12 +++ 1100 Wien
-       elsif line =~ %r{ (^|[ ])                      ## space or beginning of line
-                                (~ | /{2,} | \+{2,})
-                           ([ ]|$)                    ## space or end of line
-                       }x
+       elsif line =~ ADDR_MARKER_RE 
          # note skip for now!!!
          # todo/fix: add support for address line!!!
          puts "  skipping address line for now >#{line}<"

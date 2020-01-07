@@ -99,22 +99,48 @@ DOWNCASE = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z].reduce({}) do
   end.merge( Reader.parse( <<TXT ) )
     Ä ä
     Á á
+    À à
+    Â â
     Å å
     Æ æ   # LATIN LETTER AE  - ae ligature
+    Ą ą
+    Ã ã
 
     Ç ç   # LATIN LETTER C WITH CEDILLA
     Č č
+    Ć ć
+
+    Ď ď
 
     É é
+    È è
+    Ë ë
+    Ê ê
+    Ę ę
+    Ě ě
 
     İ i
     Í í
+    Ì ì
+    Ï ï
+    Î î
 
     Ł ł
 
-    Ö ö
-    Œ œ   # LATIN LIGATURE OE
+    Ń ń
+    Ň ň
+    Ñ ñ
 
+    Ö ö
+    Ő ő
+    Œ œ   # LATIN LIGATURE OE
+    Ó ó
+    Ò ò
+    Ô ô
+    Õ õ
+
+    Ř ř
+    
     Ś ś
     Ş ş   # LATIN LETTER S WITH CEDILLA
     Ș ș   # LATIN LETTER S WITH COMMA BELOW
@@ -122,11 +148,23 @@ DOWNCASE = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z].reduce({}) do
 
     Ţ ţ   # LATIN LETTER T WITH CEDILLA
     Ț ț   # LATIN LETTER T WITH COMMA BELOW
+    Ť ť
 
     Ü ü
     Ú ú
+    Ù ù
+    Ů ů 
+    Û û
+
+    Ý ý
+    Ÿ ÿ
 
     Ž ž
+    Ż ż
+    Ź ź
+
+    Ð ð    # iceland - d
+    Þ þ    # iceland - p
 TXT
 
 end  # class Alphabet

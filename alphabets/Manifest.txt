@@ -1,4 +1,4 @@
-HISTORY.md
+CHANGELOG.md
 Manifest.txt
 NOTES.md
 README.md

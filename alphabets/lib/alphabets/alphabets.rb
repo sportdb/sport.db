@@ -41,6 +41,7 @@ UNACCENT = Reader.parse( <<TXT )
 
     Ö O   ö o
           ó o
+          ò o
           õ o
           ô o
           ø o

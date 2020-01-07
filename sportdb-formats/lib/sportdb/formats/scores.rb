@@ -7,8 +7,9 @@ class ScoresFinder
   include LogUtils::Logging
 
 
-  ## e.g. 3-4 pen. 2-2 a.e.t. (1-1, 1-1)
-  EN__P_ET_FT_HT__REGEX = /\b
+  ## e.g. 3-4 pen. 2-2 a.e.t. (1-1, 1-1)  or
+  ##      3-4 pen. 2-2 a.e.t. (1-1, )
+  EN__P_ET_FT_HT__RE = /\b
              (?<score1p>\d{1,2})
                    -
              (?<score2p>\d{1,2})
@@ -28,16 +29,19 @@ class ScoresFinder
                 \s*
                 ,
                 \s*
-            (?<score1i>\d{1,2})
-               -
-            (?<score2i>\d{1,2})
-               \)
+              (?:
+                  (?<score1i>\d{1,2})
+                    -
+                  (?<score2i>\d{1,2})
+              )?    # note: make half time (HT) score optional for now
+            \)
            (?=[\s\]]|$)/xi    ## todo/check:  remove loakahead assertion here - why require space?
                              ## note: \b works only after non-alphanum e.g. )
 
 
-  ## e.g. 2-1 a.e.t. (1-1, 0-0)
-  EN__ET_FT_HT__REGEX = /\b
+  ## e.g. 2-1 a.e.t. (1-1, 0-0)  or
+  ##      2-1 a.e.t. (1-1, )
+  EN__ET_FT_HT__RE = /\b
              (?<score1et>\d{1,2})
                    -
              (?<score2et>\d{1,2})
@@ -51,16 +55,18 @@ class ScoresFinder
                 \s*
                 ,
                 \s*
-            (?<score1i>\d{1,2})
-               -
-            (?<score2i>\d{1,2})
-               \)
+              (?:
+                (?<score1i>\d{1,2})
+                  -
+                (?<score2i>\d{1,2})
+              )?    # note: make half time (HT) score optional for now
+            \)
            (?=[\s\]]|$)/xi    ## todo/check:  remove loakahead assertion here - why require space?
                              ## note: \b works only after non-alphanum e.g. )
 
 
   ## e.g. 2-1 (1-1)
-  EN__FT_HT__REGEX = /\b
+  EN__FT_HT__RE = /\b
             (?<score1>\d{1,2})
                -
             (?<score2>\d{1,2})
@@ -81,7 +87,7 @@ class ScoresFinder
   # e.g. 1:2 or 0:2 or 3:3  or
   #      1-1 or 0-2 or 3-3  or
   #      1x1 or 1X1 or 0x2 or 3x3   -- used in Brazil / Portugal
-  FT_REGEX = /\b
+  FT_RE = /\b
             (?<score1>\d{1,2})
                [:\-xX]
             (?<score2>\d{1,2})
@@ -91,7 +97,7 @@ class ScoresFinder
   # e.g. 1:2nV  => after extra time a.e.t
 
   # note: possible ending w/ . -> thus cannot use /b will not work w/ .; use zero look-ahead
-  ET_REGEX = /\b
+  ET_RE = /\b
                (?<score1>\d{1,2})
                   [:\-xX]
                (?<score2>\d{1,2})
@@ -105,7 +111,7 @@ class ScoresFinder
 
 
   # note: possible ending w/ . -> thus cannot use /b will not work w/ .; use zero look-ahead
-  P_REGEX = /\b
+  P_RE = /\b
               (?<score1>\d{1,2})
                   [:\-xX]
               (?<score2>\d{1,2})
@@ -153,72 +159,78 @@ class ScoresFinder
     score2p  = nil
 
 
-    if (md = EN__P_ET_FT_HT__REGEX.match( line ))
-      score1i   = md[:score1i].to_i
-      score2i   = md[:score2i].to_i
-      score1    = md[:score1].to_i
-      score2    = md[:score2].to_i
-      score1et  = md[:score1et].to_i
-      score2et  = md[:score2et].to_i
-      score1p   = md[:score1p].to_i
-      score2p   = md[:score2p].to_i
+    if (m = EN__P_ET_FT_HT__RE.match( line ))
+      if m[:score1i] && m[:score2i]   ## note: half time (HT) score is optional now
+        score1i   = m[:score1i].to_i
+        score2i   = m[:score2i].to_i
+      end
+
+      score1    = m[:score1].to_i
+      score2    = m[:score2].to_i
+      score1et  = m[:score1et].to_i
+      score2et  = m[:score2et].to_i
+      score1p   = m[:score1p].to_i
+      score2p   = m[:score2p].to_i
 
       logger.debug "   score.en__p_et_ft_ht: >#{score1p}-#{score2p} pen. #{score1et}-#{score2et} a.e.t. (#{score1}-#{score2}, #{score1i}-#{score2i})<"
 
-      line.sub!( md[0], '[SCORES.EN__P_ET_FT_HT]' )
+      line.sub!( m[0], '[SCORES.EN__P_ET_FT_HT]' )
 
-    elsif (md = EN__ET_FT_HT__REGEX.match( line ))
-      score1i   = md[:score1i].to_i
-      score2i   = md[:score2i].to_i
-      score1    = md[:score1].to_i
-      score2    = md[:score2].to_i
-      score1et  = md[:score1et].to_i
-      score2et  = md[:score2et].to_i
+    elsif (m = EN__ET_FT_HT__RE.match( line ))
+      if m[:score1i] && m[:score2i]   ## note: half time (HT) score is optional now
+        score1i   = m[:score1i].to_i
+        score2i   = m[:score2i].to_i
+      end
+
+      score1    = m[:score1].to_i
+      score2    = m[:score2].to_i
+      score1et  = m[:score1et].to_i
+      score2et  = m[:score2et].to_i
 
       logger.debug "   score.en__et_ft_ht: >#{score1et}-#{score2et} a.e.t. (#{score1}-#{score2}, #{score1i}-#{score2i})<"
 
-      line.sub!( md[0], '[SCORES.EN__ET_FT_HT]' )
+      line.sub!( m[0], '[SCORES.EN__ET_FT_HT]' )
 
-    elsif (md = EN__FT_HT__REGEX.match( line ))
-      score1i = md[:score1i].to_i
-      score2i = md[:score2i].to_i
-      score1  = md[:score1].to_i
-      score2  = md[:score2].to_i
+    elsif (m = EN__FT_HT__RE.match( line ))
+      score1i = m[:score1i].to_i
+      score2i = m[:score2i].to_i
+      score1  = m[:score1].to_i
+      score2  = m[:score2].to_i
 
       logger.debug "   score.en__ft_ht: >#{score1}-#{score2} (#{score1i}-#{score2i})<"
 
-      line.sub!( md[0], '[SCORES.EN__FT_HT]' )
+      line.sub!( m[0], '[SCORES.EN__FT_HT]' )
     else
       #######################################################
       ## try "standard" generic patterns for fallbacks
 
-      if (md = ET_REGEX.match( line ))
-        score1et = md[:score1].to_i
-        score2et = md[:score2].to_i
+      if (m = ET_RE.match( line ))
+        score1et = m[:score1].to_i
+        score2et = m[:score2].to_i
 
         logger.debug "   score.et: >#{score1et}-#{score2et}<"
 
-        line.sub!( md[0], '[SCORE.ET]' )
+        line.sub!( m[0], '[SCORE.ET]' )
       end
 
-      if (md = P_REGEX.match( line ))
-        score1p = md[:score1].to_i
-        score2p = md[:score2].to_i
+      if (m = P_RE.match( line ))
+        score1p = m[:score1].to_i
+        score2p = m[:score2].to_i
 
         logger.debug "   score.p: >#{score1p}-#{score2p}<"
 
-        line.sub!( md[0], '[SCORE.P]' )
+        line.sub!( m[0], '[SCORE.P]' )
       end
 
       ## let full time (ft) standard regex go last - has no marker
 
-      if (md = FT_REGEX.match( line ))
-        score1 = md[:score1].to_i
-        score2 = md[:score2].to_i
+      if (m = FT_RE.match( line ))
+        score1 = m[:score1].to_i
+        score2 = m[:score2].to_i
 
         logger.debug "   score: >#{score1}-#{score2}<"
 
-        line.sub!( md[0], '[SCORE]' )
+        line.sub!( m[0], '[SCORE]' )
       end
     end
 

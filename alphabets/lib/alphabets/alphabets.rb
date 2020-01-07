@@ -5,50 +5,59 @@ class Alphabet
 UNACCENT = Reader.parse( <<TXT )
     Ä A   ä a
     Á A   á a
-          à a
-          ã a
-          â a
+    À A   à a
+    Ã A   ã a
+    Â A   â a
     Å A   å a
     Æ AE  æ ae   # ae ligature
           ā a
           ă a
           ą a    # ą - U+0105 (261) - LATIN SMALL LETTER A WITH OGONEK
-
+    Ą A   ą a    # check if duplicate with letter just above??
+    
     Ç C   ç c    # ç - U+00E7 (231) - LATIN SMALL LETTER C WITH CEDILLA
-          ć c
+    Ć C   ć c
     Č C   č c
 
+    Ď D   ď d 
+    Ð D   ð d    # iceland - d
+    
     É E   é e
-          è e
-          ê e
-          ë e
+    È E   è e
+    Ê E   ê e
+    Ë E   ë e
           ė e
           ę e
-
+    Ę E   ę e
+    Ě E   ě e
+    
           ğ g
 
     İ I
     Í I   í i
-          î i
+    Ì I   ì i
+    Î I   î i
           ī i
           ı i    # ı - U+0131 (305) - LATIN SMALL LETTER DOTLESS I
-
+    Ï I   ï i 
+    
     Ł L   ł l
 
-          ñ n
-          ń n
-          ň n
+    Ñ N   ñ n
+    Ń N   ń n
+    Ň N   ň n
 
     Ö O   ö o
-          ó o
-          ò o
-          õ o
-          ô o
+    Ő OE  ő oe    # hungarian - just use O/o  - why? why not?
+    Ó O   ó o
+    Ò O   ò o
+    Õ O   õ o
+    Ô O   ô o
           ø o
           ő o
     Œ OE  œ oe   # oe ligature
 
-          ř r
+    Ř R   ř r
 
     Ś S   ś s
     Ş S   ş s   # ş - U+015F (351) - LATIN SMALL LETTER S WITH CEDILLA
@@ -56,20 +65,25 @@ UNACCENT = Reader.parse( <<TXT )
     Š S   š s
           ß ss  # ß - U+00DF (223) - LATIN SMALL LETTER SHARP S
 
-    Ţ t   ţ t   # ţ - U+0163 (355) - LATIN SMALL LETTER T WITH CEDILLA
-    Ț t   ț t   # ț - U+021B (539) - LATIN SMALL LETTER T WITH COMMA BELOW
-
-          þ p   # þ - U+00FE (254) - LATIN SMALL LETTER THORN
+    Ţ T   ţ t   # ţ - U+0163 (355) - LATIN SMALL LETTER T WITH CEDILLA
+    Ț T   ț t   # ț - U+021B (539) - LATIN SMALL LETTER T WITH COMMA BELOW
+    Ť T   ť t
+    
+    Þ P   þ p   # þ - U+00FE (254) - LATIN SMALL LETTER THORN
                 #### fix/check!!!! icelandic - use p is p or th - why? why not?
 
     Ü U   ü u
     Ú U   ú u
+    Ù U   ù u
           ū u
-
-          ý y
-
-          ź z
-          ż z
+    Ů U   ů u
+    Û U   û u
+    
+    Ý Y   ý y
+    Ÿ Y   ÿ y
+    
+    Ź Z   ź z
+    Ż Z   ż z
     Ž Z   ž z
 TXT
 
@@ -112,6 +126,8 @@ DOWNCASE = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z].reduce({}) do
 
     Ď ď
 
+    Ð ð    # iceland - d
+
     É é
     È è
     Ë ë
@@ -139,6 +155,8 @@ DOWNCASE = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z].reduce({}) do
     Ô ô
     Õ õ
 
+    Þ þ    # iceland - p
+
     Ř ř
     
     Ś ś
@@ -162,9 +180,6 @@ DOWNCASE = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z].reduce({}) do
     Ž ž
     Ż ż
     Ź ź
-
-    Ð ð    # iceland - d
-    Þ þ    # iceland - p
 TXT
 
 end  # class Alphabet

@@ -12,25 +12,23 @@ UNACCENT = Reader.parse( <<TXT )
     Æ AE  æ ae   # ae ligature
           ā a
           ă a
-          ą a    # ą - U+0105 (261) - LATIN SMALL LETTER A WITH OGONEK
-    Ą A   ą a    # check if duplicate with letter just above??
-    
+    Ą A   ą a    # ą - U+0105 (261) - LATIN SMALL LETTER A WITH OGONEK
+
     Ç C   ç c    # ç - U+00E7 (231) - LATIN SMALL LETTER C WITH CEDILLA
     Ć C   ć c
     Č C   č c
 
-    Ď D   ď d 
+    Ď D   ď d
     Ð D   ð d    # iceland - d
-    
+
     É E   é e
     È E   è e
     Ê E   ê e
     Ë E   ë e
           ė e
-          ę e
     Ę E   ę e
     Ě E   ě e
-    
+
           ğ g
 
     İ I
@@ -39,8 +37,8 @@ UNACCENT = Reader.parse( <<TXT )
     Î I   î i
           ī i
           ı i    # ı - U+0131 (305) - LATIN SMALL LETTER DOTLESS I
-    Ï I   ï i 
-    
+    Ï I   ï i
+
     Ł L   ł l
 
     Ñ N   ñ n
@@ -48,13 +46,12 @@ UNACCENT = Reader.parse( <<TXT )
     Ň N   ň n
 
     Ö O   ö o
-    Ő OE  ő oe    # hungarian - just use O/o  - why? why not?
+    Ő OE  ő oe    # hungarian - just use O/o  - why? (it's not a ligature) why not?
     Ó O   ó o
     Ò O   ò o
     Õ O   õ o
     Ô O   ô o
           ø o
-          ő o
     Œ OE  œ oe   # oe ligature
 
     Ř R   ř r
@@ -68,7 +65,7 @@ UNACCENT = Reader.parse( <<TXT )
     Ţ T   ţ t   # ţ - U+0163 (355) - LATIN SMALL LETTER T WITH CEDILLA
     Ț T   ț t   # ț - U+021B (539) - LATIN SMALL LETTER T WITH COMMA BELOW
     Ť T   ť t
-    
+
     Þ P   þ p   # þ - U+00FE (254) - LATIN SMALL LETTER THORN
                 #### fix/check!!!! icelandic - use p is p or th - why? why not?
 
@@ -78,10 +75,10 @@ UNACCENT = Reader.parse( <<TXT )
           ū u
     Ů U   ů u
     Û U   û u
-    
+
     Ý Y   ý y
     Ÿ Y   ÿ y
-    
+
     Ź Z   ź z
     Ż Z   ż z
     Ž Z   ž z
@@ -158,7 +155,7 @@ DOWNCASE = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z].reduce({}) do
     Þ þ    # iceland - p
 
     Ř ř
-    
+
     Ś ś
     Ş ş   # LATIN LETTER S WITH CEDILLA
     Ș ș   # LATIN LETTER S WITH COMMA BELOW
@@ -171,7 +168,7 @@ DOWNCASE = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z].reduce({}) do
     Ü ü
     Ú ú
     Ù ù
-    Ů ů 
+    Ů ů
     Û û
 
     Ý ý

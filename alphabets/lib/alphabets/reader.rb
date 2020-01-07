@@ -10,7 +10,9 @@ class Reader   ## todo/check: rename to CharReader or something - why? why not?
   def self.parse( txt )
     h = {}  ## char(acter) table mappings
 
+    lineno = 0
     txt.each_line do |line|
+      lineno += 1
       line = line.strip
 
       next if line.empty?
@@ -27,7 +29,7 @@ class Reader   ## todo/check: rename to CharReader or something - why? why not?
 
       ## check - must be a even - a multiple of two
       if values.size % 2 != 0
-        puts "** !!! ERROR !!! - missing mapping pair - mappings must be even (a multiple of two):"
+        puts "** !!! ERROR !!! - [line:#{lineno}] missing mapping pair - mappings must be even (a multiple of two):"
         pp values
         exit 1
       end
@@ -40,14 +42,14 @@ class Reader   ## todo/check: rename to CharReader or something - why? why not?
 
         ## check - key must be a single-character/letter in unicode
         if key.size != 1
-          puts "** !!! ERROR !!! - mapping character must be a single-character, size is #{key.size}"
+          puts "** !!! ERROR !!! - [line:#{lineno}] mapping character must be a single-character, size is #{key.size}"
           pp slice
           exit 1
         end
 
         ## check - check for duplicates
         if h[ key ]
-          puts "** !!! ERROR !!! - duplicate mapping character; key already present"
+          puts "** !!! ERROR !!! - [line:#{lineno}] duplicate mapping character; key already present"
           pp slice
           exit 1
         else

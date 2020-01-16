@@ -74,9 +74,12 @@ def self.parse( txt )
           ## assume continuation with line of alternative names
           ##  note: skip leading pipe
           values = line[1..-1].split( '|' )   # team names - allow/use pipe(|)
-          ## strip and  squish (white)spaces
+          ## 1) strip (commerical) sponsor markers/tags e.g. $$ Liga $$BBV$$ MX
+          ## 2) strip and  squish (white)spaces
           #   e.g. New York FC      (2011-)  => New York FC (2011-)
-          values = values.map { |value| value.strip.gsub( /[ \t]+/, ' ' ) }
+          values = values.map { |value| value.gsub( '$', '' )
+                                             .gsub( /[ \t]+/, ' ' )
+                                             .strip  }
           puts "alt_names: #{values.join( '|' )}"
 
           last_rec.alt_names += values
@@ -85,8 +88,11 @@ def self.parse( txt )
         ##  check if starts with id  (todo/check: use a more "strict"/better regex capture pattern!!!)
         if line =~ /^([a-z0-9][a-z0-9.]*)[ ]+(.+)$/
           league_key  = $1
-          ## strip and  squish (white)spaces
-          league_name = $2.gsub( /[ \t]+/, ' ' ).strip
+          ## 1) strip (commercial) sponsor markers/tags e.g $$
+          ## 2) strip and squish (white)spaces
+          league_name = $2.gsub( '$', '' )
+                          .gsub( /[ \t]+/, ' ' )
+                          .strip
 
           puts "key: >#{league_key}<, name: >#{league_name}<"
 
@@ -94,6 +100,9 @@ def self.parse( txt )
           alt_names_auto = []
           if country
             alt_names_auto << "#{country.key.upcase} #{league_key.upcase.gsub('.', ' ')}"
+            ## todo/check: add "hack" for cl (chile) and exclude?
+            ##             add a list of (auto-)excluded country codes with conflicts? why? why not?
+            ##                 cl - a) Chile  b) Champions League
             alt_names_auto << "#{country.key.upcase}"   if league_key == '1'   ## add shortcut for top level 1 (just country key)
             if country.key.upcase != country.fifa
               alt_names_auto << "#{country.fifa} #{league_key.upcase.gsub('.', ' ')}"

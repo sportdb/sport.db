@@ -54,7 +54,8 @@ def self.add_alt_names( rec, names )   ## helper for adding alternat names
 
   ## strip and  squish (white)spaces
   #   e.g. New York FC      (2011-)  => New York FC (2011-)
-  names = names.map { |name| name.strip.gsub( /[ \t]+/, ' ' ) }
+  names = names.map { |name| name.gsub( '$', '' ).strip
+                                 .gsub( /[ \t]+/, ' ' ) }
   rec.alt_names += names
   rec.add_variants( names ) # auto-add (possible) auto-generated variant names
 
@@ -159,7 +160,9 @@ def self.parse( txt )
          value = line    ## note: assume / allow just canonical name for now
          ## strip and  squish (white)spaces
          #   e.g. New York FC      (2011-)  => New York FC (2011-)
-         value = value.strip.gsub( /[ \t]+/, ' ' )
+         value = value.gsub( '$', '' ).strip
+                      .gsub( /[ \t]+/, ' ' )
+
          rec.name = value            # canoncial name (global unique "beautiful/long" name)
          rec.add_variants( value )   # auto-add (possible) auto-generated variant names
 
@@ -194,7 +197,8 @@ def self.parse( txt )
 
         ## strip and  squish (white)spaces
         #   e.g. New York FC      (2011-)  => New York FC (2011-)
-        value = value.strip.gsub( /[ \t]+/, ' ' )
+        value = value.gsub( '$', '' ).strip
+                     .gsub( /[ \t]+/, ' ' )
         rec.name = value            # canoncial name (global unique "beautiful/long" name)
         rec.add_variants( value )   # auto-add (possible) auto-generated variant names
 

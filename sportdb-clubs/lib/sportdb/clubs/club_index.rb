@@ -219,6 +219,7 @@ class ClubIndex
       ## (re)try with second country - quick hacks for known leagues
       ##  todo/fix: add league flag to activate!!!
       m = match_by( name: name, country: config.countries['wal'])  if country.key == 'eng'
+      m = match_by( name: name, country: config.countries['eng'])  if country.key == 'sco'
       m = match_by( name: name, country: config.countries['nir'])  if country.key == 'ie'
       m = match_by( name: name, country: config.countries['mc'])   if country.key == 'fr'
       m = match_by( name: name, country: config.countries['li'])   if country.key == 'ch'

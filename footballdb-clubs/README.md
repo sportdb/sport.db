@@ -12,7 +12,7 @@
 
 Note: This library ships with a built-in copy of the
 [open (public domain) football.db /clubs datasets](https://github.com/openfootball/clubs)
-(1500+ football clubs from around the world)
+(2500+ football clubs from around the world)
 bundled up into a single [`clubs.txt`](config/clubs.txt) datafile
 for easy zero-configuration "out-of-the-box" usage.
 

@@ -10,7 +10,7 @@ end
 
 
 def build     ## todo/check: always use render as name - why? why not?
-  canonical_teams =  SportDb::Import.config.teams
+  canonical_teams =  SportDb::Import.config.clubs
 
   cities        = {}
   missing_teams = []

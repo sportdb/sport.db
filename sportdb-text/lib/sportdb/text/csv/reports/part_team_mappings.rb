@@ -10,7 +10,7 @@ end
 
 def build   ## todo/check: always use render as name - why? why not?
 
-  canonical_teams =  SportDb::Import.config.teams
+  canonical_teams =  SportDb::Import.config.clubs
 
 
   ## show list of teams without known canoncial/pretty print name

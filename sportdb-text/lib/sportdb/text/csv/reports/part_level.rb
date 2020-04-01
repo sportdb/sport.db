@@ -43,7 +43,7 @@ def build
   end
 
 
-  canonical_teams = SportDb::Import.config.teams
+  canonical_teams = SportDb::Import.config.clubs
 
   ## sort by key (e.g. seasons_count : integer)
   teams_by_seasons.keys.sort.reverse.each do |seasons_count|

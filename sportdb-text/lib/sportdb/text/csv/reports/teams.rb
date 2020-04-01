@@ -43,7 +43,7 @@ def build
   end
 
 
-  canonical_teams = SportDb::Import.config.teams  ## was pretty_print_team_names
+  canonical_teams = SportDb::Import.config.clubs  ## was pretty_print_team_names
 
 
   buf = ''

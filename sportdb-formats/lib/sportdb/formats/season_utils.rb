@@ -4,15 +4,15 @@
 module SeasonHelper ## use Helpers why? why not?
   def prev( season )
     ## todo: add 1964-1965 format too!!!
-    if season =~ /^(\d{4})-(\d{2})$/    ## season format is  1964-65
+    if season =~ /^(\d{4})[\-\/](\d{2})$/    ## season format is  1964-65
       fst = $1.to_i - 1
       snd = (100 + $2.to_i - 1) % 100    ## note: add 100 to turn 00 => 99
-      "%4d-%02d" % [fst,snd]
+      "%4d/%02d" % [fst,snd]
     elsif season =~ /^(\d{4})$/
       fst = $1.to_i - 1
       "%4d" % [fst]
     else
-      puts "*** !!!! wrong season format >>#{season}<<; exit; sorry"
+      fail "*** !!!! [prev] wrong season format >>#{season}<<; exit; sorry"
       exit 1
     end
   end  # method prev
@@ -26,7 +26,7 @@ module SeasonHelper ## use Helpers why? why not?
     elsif basename =~ /^(\d{4})$/
       $1
     else
-      puts "*** !!!! wrong season format >>#{basename}<<; exit; sorry"
+      fail "*** !!!! [key] wrong season format >>#{basename}<<; exit; sorry"
       exit 1
     end
   end  # method key
@@ -46,13 +46,13 @@ module SeasonHelper ## use Helpers why? why not?
       years = [$1.to_i, $1.to_i+1]
       ## note: check that season end year is (always) season start year + 1
       if ($1.to_i+1) % 100 != $2.to_i
-        puts "*** !!!! wrong season format >>#{season}<<; season end year MUST (always) equal season start year + 1; exit; sorry"
+        fail "*** !!!! [directory] wrong season format >>#{season}<<; season end year MUST (always) equal season start year + 1; exit; sorry"
         exit 1
       end
     elsif season =~ /^(\d{4})$/
       years = [$1.to_i]
     else
-      puts "*** !!!! wrong season format >>#{season}<<; exit; sorry"
+      fail "*** !!!! [directory] wrong season format >>#{season}<<; exit; sorry"
       exit 1
     end
 
@@ -85,7 +85,7 @@ module SeasonHelper ## use Helpers why? why not?
     elsif season =~ /^(\d{4})$/
       $1
     else
-      puts "*** !!!! wrong season format >>#{season}<<; exit; sorry"
+      fail "*** !!!! [start_year] wrong season format >>#{season}<<; exit; sorry"
       exit 1
     end
   end
@@ -102,7 +102,7 @@ module SeasonHelper ## use Helpers why? why not?
     elsif season =~ /^(\d{4})$/
       $1
     else
-      puts "*** !!!! wrong season format >>#{season}<<; exit; sorry"
+      fail "*** !!!! [end_year] wrong season format >>#{season}<<; exit; sorry"
       exit 1
     end
   end

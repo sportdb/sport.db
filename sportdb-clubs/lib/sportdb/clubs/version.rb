@@ -6,7 +6,7 @@ module Clubs
 
   MAJOR = 0    ## todo: namespace inside version or something - why? why not??
   MINOR = 4
-  PATCH = 4
+  PATCH = 5
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 
   def self.version

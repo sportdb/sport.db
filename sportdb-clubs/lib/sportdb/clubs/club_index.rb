@@ -173,33 +173,42 @@ class ClubIndex
   end
 
 
+  ## helper to always convert (possible) country key to existing country record
+  ##  todo: make private - why? why not?
+  def country( country )   
+    if country.is_a?( String ) || country.is_a?( Symbol )
+      ## note:  use own "global" countries index setting for ClubIndex - why? why not?
+      rec = config.countries[ country.to_s ]
+      if rec.nil?
+        puts "** !!! ERROR !!! - unknown country >#{country}< - no match found, sorry - add to world/countries.txt in config"
+        exit 1
+      end
+      rec
+    else
+      country  ## (re)use country struct - no need to run lookup again
+    end
+  end
+
+
+  ## match - always returns an array (with one or more matches) or nil
   def match_by( name:, country: )
+    ## note: allow passing in of country key too (auto-counvert)
+    ##       and country struct too
+    ##     - country assumes / allows the country key or fifa code for now
+    country = country( country )
+
     ## note: match must for now always  include name
     m = match( name )
     if m    ## filter by country
-      ## note: country assumes / allows the country key or fifa code for now
-
-      ## note: allow passing in of country struct too
-      country_rec = if country.is_a?( String )
-                       ## note:  use own "global" countries index setting for ClubIndex - why? why not?
-                       rec = config.countries[ country ]
-                       if rec.nil?
-                         puts "** !!! ERROR !!! - unknown country >#{country}< - no match found, sorry - add to world/countries.txt in config"
-                         exit 1
-                       end
-                       rec
-                    else
-                      country  ## (re)use country struct - no need to run lookup again
-                    end
-
-      m = m.select { |club| club.country.key == country_rec.key }
+      m = m.select { |club| club.country.key == country.key }
       m = nil   if m.empty?     ## note: reset to nil if no more matches
     end
     m
   end
 
 
-
+  ## find - always returns a single record / match or nil
+  ##   if there is more than one match than find aborts / fails
   def find_by!( name:, country: )    ## todo/fix: add international or league flag?
     club = find_by( name: name, country: country )
 
@@ -211,21 +220,27 @@ class ClubIndex
     club
   end
 
+
   def find_by( name:, country: )    ## todo/fix: add international or league flag?
-    club = nil
+    ## note: allow passing in of country key too (auto-counvert)
+    ##       and country struct too
+    ##     - country assumes / allows the country key or fifa code for now
+    country = country( country )
+ 
     m = match_by( name: name, country: country )
 
     if m.nil?
       ## (re)try with second country - quick hacks for known leagues
-      ##  todo/fix: add league flag to activate!!!
-      m = match_by( name: name, country: config.countries['wal'])  if country.key == 'eng'
-      m = match_by( name: name, country: config.countries['eng'])  if country.key == 'sco'
-      m = match_by( name: name, country: config.countries['nir'])  if country.key == 'ie'
-      m = match_by( name: name, country: config.countries['mc'])   if country.key == 'fr'
-      m = match_by( name: name, country: config.countries['li'])   if country.key == 'ch'
-      m = match_by( name: name, country: config.countries['ca'])   if country.key == 'us'
+      ##  todo/fix: add league flag to activate!!!  - why? why not
+      m = match_by( name: name, country: 'wal' )  if country.key == 'eng'
+      m = match_by( name: name, country: 'eng' )  if country.key == 'sco'
+      m = match_by( name: name, country: 'nir' )  if country.key == 'ie'
+      m = match_by( name: name, country: 'mc' )   if country.key == 'fr'
+      m = match_by( name: name, country: 'li' )   if country.key == 'ch'
+      m = match_by( name: name, country: 'ca' )   if country.key == 'us'
     end
 
+    club = nil
     if m.nil?
       ## puts "** !!! WARN !!! no match for club >#{name}<"
     elsif m.size > 1

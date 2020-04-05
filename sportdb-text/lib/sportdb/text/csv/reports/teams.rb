@@ -4,6 +4,16 @@
 class CsvTeamsReport    ## change to CsvPackageTeamsReport - why? why not?
 
 
+# attr_reader  :errors,    ## use errors, warnings - why? why not?
+#              :warnings
+
+attr_reader  :team_names,
+             :missing_teams,
+             :duplicate_teams,
+             :usage_teams,
+             :levels
+
+
 def initialize( pack, country: nil )
   @pack    = pack    # CsvPackage e.g.pack = CsvPackage.new( repo, path: path )
 
@@ -14,13 +24,27 @@ def initialize( pack, country: nil )
   else
     @country = country
   end
+
+  @errors     = []   ## e.g. missing team names - use - why? why not?
+  @warnings   = []   ## e.g. duplicate team names - use - why? why not?
+
+  @team_names = []
+  @missing_teams = []
+  @duplicate_teams = {}
+  @usage_teams = {}
+  @levels = {}
 end
 
 
-def build
-  ###
-  ## todo - add count for seasons by level !!!!!
-  ##   e.g. level 1 - 25 seasons, 2 - 14 seasons, etc.
+def prepare
+  @errors     = []   ## e.g. missing team names
+  @warnings   = []   ## e.g. duplicate team names
+
+  @team_names = []
+  @missing_teams = []
+  @duplicate_teams = {}
+  @usage_teams = {}
+  @levels = {}
 
   ## find all teams and generate a map w/ all teams n some stats
   teams = SportDb::Struct::TeamUsage.new
@@ -51,34 +75,99 @@ def build
   end
 
 
-  canonical_teams = SportDb::Import.config.clubs  ## was pretty_print_team_names
+  ## use all team names from team usage stats (all used teams)
+  team_names = teams.to_a.map { |t| t.team }
+  ## provide a usage lookup by team name
+  usage_teams = teams.to_a.reduce({}) { |h,t| h[t.team]=t; h }
 
+  ## show list of teams without known canoncial/pretty print name
+  ##  note: skip duplicates for now
+  missing_teams   = []
+  duplicate_teams = {}   ## check for duplicates (that is, different name same club)
 
-  buf = ''
+  team_names.each do |team_name|
+    team = find_team( team_name )
+ 
+    if team.nil?
+      missing_teams << team_name 
+    else
+      duplicate_teams[team] ||= []
+      duplicate_teams[team] << team_name
+    end
+  end
+ 
+  ## remove all non-duplicate entries e.g. size == 1
+  duplicate_teams = duplicate_teams.reduce({}) do |h,(k,v)|
+                                                 h[k]=v  if v.size > 1 
+                                                 h 
+                                               end
+
+  @team_names      = team_names
+  @missing_teams   = missing_teams
+  @duplicate_teams = duplicate_teams
+  @usage_teams     = usage_teams
+  @levels          = levels                           
+end
+
+def build
+  prepare
+
+  ###
+  ## todo - add count for seasons by level !!!!!
+  ##   e.g. level 1 - 25 seasons, 2 - 14 seasons, etc.
+
+  buf = String.new('')
   buf << "## Teams\n\n"
 
-  ary = teams.to_a
+  if missing_teams.size > 0
+    missing_teams_sorted = missing_teams.sort   ## sort from a-z
+
+    buf << "#{missing_teams_sorted.size} missing / unknown / (???) teams:\n"
+    buf << "#{missing_teams_sorted.join(', ')}\n"
+    buf << "\n\n"
+
+    ############################
+    ## for easy update add cut-n-paste code snippet
+    buf << "```\n"
+    missing_teams_sorted.each do |team_name|
+      buf << ("%-22s\n" % team_name)
+    end
+    buf << "```\n\n"
+  end
+
+  ## check for duplicate clubs (more than one mapping / name)
+  if duplicate_teams.size > 0
+    buf << "\n\n"
+    buf << "#{duplicate_teams.size} duplicates:\n"
+    duplicate_teams.each do |team, rec|
+      buf << "- **#{team.name}** (#{rec.size}) #{rec.join(' · ')}\n"
+    end 
+    buf << "\n\n"
+  end
+
+
 
   buf << "```\n"
-  buf << "  #{ary.size} teams:\n"
+  buf << "  #{usage_teams.size} teams:\n"
 
-  ary.each_with_index do |t,j|
+  usage_teams.each_with_index do |(_,t),j|
     buf << ('  %5s  '   % "[#{j+1}]")
-    if canonical_teams[t.team]   ## add marker e.g. (*) for pretty print team name
-      team_name_with_marker = "#{t.team}"    ## add (*) - why? why not?
-    else
-      team_name_with_marker = " x #{t.team} (???)"
-    end
+
     ### todo/fix: add pluralize (match/matches) - check: pluralize method in rails?
-    buf << ('%-30s  '   % team_name_with_marker)
-    buf << (':: %4d matches in ' % t.matches)
-    buf << ('%3d seasons' % t.seasons.size)
+    buf << ('%-30s  '   % t.team)
+    buf << (":: %4d matches in " % t.matches)
+    
+    buf << ("%3d " % t.seasons.size)
+    buf << pluralize('season', t.seasons.size)
 
     ## note: only add levels breakdown if levels.size greater (>1)
     ##  note: use "global" levels tracker
     if levels.size > 1
 
-      buf << " / #{t.levels.size} levels - "
+      buf << " / #{t.levels.size} "
+      buf << pluralize('level', t.levels.size)
+      buf << " - "
+
       ## note: format levels in aligned blocks (10-chars wide)
       levels.each do |level_key,_|
          level = t.levels[ level_key ]
@@ -99,41 +188,27 @@ def build
   buf << "\n\n"
 
 
-
-  ## use all team names from team usage stats (all used teams)
-  team_names = teams.to_a.map { |t| t.team }
-
   buf << "### Team Name Mappings\n\n"
   buf << TeamMappingsPart.new( team_names, country: @country ).build
   buf << "\n\n"
 
 
-  buf << "### Teams by City\n\n"
-  buf << TeamsByCityPart.new( team_names ).build
-  buf << "\n\n"
-
+  # buf << "### Teams by City\n\n"
+  # buf << TeamsByCityPart.new( team_names ).build
+  # buf << "\n\n"
 
 
   ## show details
   buf << "### Season\n\n"
 
-  ary = teams.to_a
-  ary.each do |t|
+  usage_teams.each do |_,t|
     buf << "- "
-    if canonical_teams[t.team]   ## add marker e.g. (*) for pretty print team name
+    if find_team( t.team )   ## add marker e.g. (*) for pretty print team name
       team_name_with_marker = "**#{t.team}**"    ## add (*) - why? why not?
     else
       team_name_with_marker = "x #{t.team} (???)"
     end
-    buf << "#{team_name_with_marker} - #{t.seasons.size} #{pluralize('season',t.seasons.size)} in #{t.levels.size} #{pluralize('level',t.levels.size)}\n"
-    levels.each do |level_key,_|
-       level = t.levels[ level_key ]
-       if level
-         buf << "  - #{level_key} (#{level.seasons.size}): "
-         buf << SeasonUtils.pretty_print( level.seasons )
-         buf << "\n"
-       end
-    end
+    buf << build_team_seasons( team_name_with_marker, t, levels )
 
     ## add levels up/down line e.g. ⇑ (2) / ⇓ (1):  1 ⇑2 2 ⇓1 1 ⇑2 2 2 2
     if t.levels.size > 1
@@ -143,6 +218,39 @@ def build
     end
   end
   buf << "\n"
+
+
+
+  if missing_teams.size > 0
+    buf << "```\n"
+    buf << "#{missing_teams.size} missing:\n"
+    missing_teams.sort.each_with_index do |team_name, i|  ## sort from a-z
+      buf << "[#{i+1}] **#{team_name}**\n"
+      t = usage_teams[ team_name ]
+      buf << build_team_seasons( team_name, t, levels )
+      buf << "\n"
+    end
+    buf << "```\n\n"
+  end
+
+
+  ## check for duplicate clubs (more than one mapping / name)
+  if duplicate_teams.size > 0
+    buf << "\n\n"
+    buf << "```\n"
+    buf << "#{duplicate_teams.size} duplicates:\n"
+    duplicate_teams.each_with_index do |(team, rec), i|
+        buf << "[#{i+1}] **#{team.name}** (#{rec.size}) #{rec.join(' · ')}\n"
+        rec.each do |team_name|   
+          t = usage_teams[ team_name ]
+          buf << build_team_seasons( team_name, t, levels )
+        end
+        buf << "\n"
+    end 
+    buf << "```\n"
+    buf << "\n\n"
+  end
+
 
   buf
 end # method build
@@ -161,6 +269,20 @@ end
 
 #### private helpers
 private
+def build_team_seasons( team_name, t, levels )
+  buf = String.new('')
+  buf << "#{team_name} - #{t.seasons.size} #{pluralize('season',t.seasons.size)} in #{t.levels.size} #{pluralize('level',t.levels.size)}\n"
+  levels.each do |level_key,_|
+     level = t.levels[ level_key ]
+     if level
+       buf << "  - #{level_key} (#{level.seasons.size}): "
+       buf << SeasonUtils.pretty_print( level.seasons )
+       buf << "\n"
+     end
+  end
+  buf
+end  
+
 
 def pluralize( noun, counter )
    if counter == 1
@@ -168,6 +290,28 @@ def pluralize( noun, counter )
    else
      "#{noun}s"
    end
+end
+
+def find_team( team_name )
+  team_index = SportDb::Import.config.clubs
+
+  if @country
+    team = team_index.find_by( name: team_name, country: @country )
+  else ## try global match
+    m = team_index.match( team_name )
+    if m.nil?
+      ## puts "** !!! WARN !!! no match for club >#{name}<"
+      team = nil
+    elsif m.size > 1
+      puts "** !!! ERROR !!! too many matches (#{m.size}) for club >#{name}<:"
+      pp m
+      exit 1
+    else   # bingo; match - assume size == 1
+      team = m[0]
+    end
+  end
+  
+  team
 end
 
 

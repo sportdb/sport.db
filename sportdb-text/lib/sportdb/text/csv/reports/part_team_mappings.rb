@@ -11,42 +11,7 @@ end
 
 def build   ## todo/check: always use render as name - why? why not?
 
-  ## show list of teams without known canoncial/pretty print name
-  ##  note: skip duplicates for now
-  missing_teams = []
-  duplicate_teams = {}   ## check for duplicates (that is, different name same club)
-
-  @team_names.each do |team_name|
-    team = find_team( team_name )
- 
-    if team.nil?
-       missing_teams << team_name
-    else
-      duplicate_teams[team] ||= []
-      duplicate_teams[team] << team_name
-    end
-  end
-
-
-  buf = ''
-
-  if missing_teams.size > 0
-    missing_teams = missing_teams.sort   ## sort from a-z
-
-    buf << "#{missing_teams.size} missing / unknown / (???) teams:\n"
-    buf << "#{missing_teams.join(', ')}\n"
-    buf << "\n\n"
-
-    ############################
-    ## for easy update add cut-n-paste code snippet
-    buf << "```\n"
-    missing_teams.each do |team_name|
-      buf << ("%-22s =>\n" % team_name)
-    end
-    buf << "```\n\n"
-  end
-
-
+  buf = String.new('')
 
   buf << "\n\n"
   buf << "```\n"
@@ -82,16 +47,6 @@ def build   ## todo/check: always use render as name - why? why not?
     buf << "\n"
   end
   buf << "```\n\n"
-
-
-  ## check for duplicate clubs (more than one mapping / name)
-  buf << "\n\nduplicates:\n"
-  duplicate_teams.each do |team, rec|
-     if rec.size > 1
-       buf << "- **#{team.name} (#{rec.size}) #{rec.join(' · ')}**\n"
-     end
-  end 
-  buf << "\n\n"
 
   buf
 end  # method build

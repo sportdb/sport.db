@@ -4,8 +4,16 @@
 class CsvTeamsReport    ## change to CsvPackageTeamsReport - why? why not?
 
 
-def initialize( pack )
-  @pack = pack    # CsvPackage e.g.pack = CsvPackage.new( repo, path: path )
+def initialize( pack, country: nil )
+  @pack    = pack    # CsvPackage e.g.pack = CsvPackage.new( repo, path: path )
+
+  if country.is_a?( String ) || country.is_a?( Symbol )
+    ## convert to country record
+    ## todo/fix: check / assert NOT nil; country record returned
+    @country = SportDb::Import.config.countries[ country.to_s ]
+  else
+    @country = country
+  end
 end
 
 
@@ -96,7 +104,7 @@ def build
   team_names = teams.to_a.map { |t| t.team }
 
   buf << "### Team Name Mappings\n\n"
-  buf << TeamMappingsPart.new( team_names ).build
+  buf << TeamMappingsPart.new( team_names, country: @country ).build
   buf << "\n\n"
 
 

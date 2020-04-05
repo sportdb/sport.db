@@ -11,7 +11,8 @@ attr_reader  :team_names,
              :missing_teams,
              :duplicate_teams,
              :usage_teams,
-             :levels
+             :levels,
+             :team_mapping
 
 
 def initialize( pack, country: nil )
@@ -33,6 +34,8 @@ def initialize( pack, country: nil )
   @duplicate_teams = {}
   @usage_teams = {}
   @levels = {}
+
+  @team_mapping = {}
 end
 
 
@@ -45,6 +48,9 @@ def prepare
   @duplicate_teams = {}
   @usage_teams = {}
   @levels = {}
+
+  @team_mapping = {}
+
 
   ## find all teams and generate a map w/ all teams n some stats
   teams = SportDb::Struct::TeamUsage.new
@@ -82,12 +88,16 @@ def prepare
 
   ## show list of teams without known canoncial/pretty print name
   ##  note: skip duplicates for now
+  team_mapping    = {}
+
   missing_teams   = []
   duplicate_teams = {}   ## check for duplicates (that is, different name same club)
 
   team_names.each do |team_name|
     team = find_team( team_name )
  
+    team_mapping[team_name] = team
+
     if team.nil?
       missing_teams << team_name 
     else
@@ -106,7 +116,9 @@ def prepare
   @missing_teams   = missing_teams
   @duplicate_teams = duplicate_teams
   @usage_teams     = usage_teams
-  @levels          = levels                           
+  @levels          = levels
+
+  @team_mapping    = team_mapping                            
 end
 
 def build
@@ -189,7 +201,7 @@ def build
 
 
   buf << "### Team Name Mappings\n\n"
-  buf << TeamMappingsPart.new( team_names, country: @country ).build
+  buf << TeamMappingsPart.new( team_mapping ).build
   buf << "\n\n"
 
 
@@ -203,12 +215,7 @@ def build
 
   usage_teams.each do |_,t|
     buf << "- "
-    if find_team( t.team )   ## add marker e.g. (*) for pretty print team name
-      team_name_with_marker = "**#{t.team}**"    ## add (*) - why? why not?
-    else
-      team_name_with_marker = "x #{t.team} (???)"
-    end
-    buf << build_team_seasons( team_name_with_marker, t, levels )
+    buf << build_team_seasons( t.team, t, levels )
 
     ## add levels up/down line e.g. ⇑ (2) / ⇓ (1):  1 ⇑2 2 ⇓1 1 ⇑2 2 2 2
     if t.levels.size > 1

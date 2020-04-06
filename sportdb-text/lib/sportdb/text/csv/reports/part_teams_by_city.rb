@@ -4,23 +4,22 @@
 class TeamsByCityPart    ## change to TeamCityPart/Block/Partial/Builder or something - why? why not?
 
 
-def initialize( team_names )
-  @team_names = team_names
+def initialize( team_mapping )
+  @team_mapping = team_mapping
 end
 
 
 def build     ## todo/check: always use render as name - why? why not?
-  canonical_teams =  SportDb::Import.config.clubs
-
   cities        = {}
   missing_teams = []
 
-  @team_names.each do |team_name|
-    team = canonical_teams[team_name]
+  @team_mapping.each do |team_name,team|
     if team
        team_city = team.city || '?'    ## convert nil to ?
+
+       ## note: do NOT include duplicate teams (twice or three times)
        cities[team_city] ||= []
-       cities[team_city] << team
+       cities[team_city] << team    unless cities[team_city].include?( team )
     else
       ## collect missing teams too - why? why not?
       missing_teams << team_name
@@ -28,12 +27,12 @@ def build     ## todo/check: always use render as name - why? why not?
   end
 
 
-  buf = ''
+  buf = String.new('')
 
   if missing_teams.size > 0
     missing_teams = missing_teams.sort  ## sort from a-z
 
-    buf << "#{missing_teams.size} missing / unknown / (???) teams:\n"
+    buf << "#{missing_teams.size} missing teams:\n"
     buf << missing_teams.join( ', ' )
     buf << "\n\n"
   end
@@ -68,7 +67,7 @@ def build     ## todo/check: always use render as name - why? why not?
             ##  todo/fix:
             ##    add check for matching city name !!!!
             ##     sort by smallest first - why? why not?
-            buf << " (#{t.alt_names.size}) #{t.alt_names.join(' • ')}"
+            buf << " (#{t.alt_names.size}) #{t.alt_names.join(' · ')}"
         end
         buf << "\n"
       else
@@ -80,7 +79,7 @@ def build     ## todo/check: always use render as name - why? why not?
             ##  todo/fix:
             ##    add check for matching city name !!!!
             ##     sort by smallest first - why? why not?
-            buf << " (#{t.alt_names.size}) #{t.alt_names.join(' • ')}"
+            buf << " (#{t.alt_names.size}) #{t.alt_names.join(' · ')}"
           end
           buf << "\n"
         end

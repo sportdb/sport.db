@@ -98,6 +98,12 @@ def build
       ## keep track of statistics with "line" records for level, season, team, etc.
       matches   = CsvMatchReader.read( @pack.expand_path( season_file ) )
 
+      if matches.size == 0
+        puts "!! error - no matches found in datafile: #{season_file}"
+        pp matches
+        exit 1
+      end
+
       matchlist = SportDb::Struct::Matchlist.new( matches )
       all_datafiles[season_file] = matchlist
 
@@ -157,13 +163,14 @@ def build
 =end
 
 
+  buf << "\n## Datafiles by Level\n\n"
   ## loop 2) datafile quick (one-line) summary grouped by level
   all_levels.keys.each do |level_key|
     level = all_levels[level_key]
     buf << DatafilesByLevelPart.new( all_datafiles, level ).build
   end
 
-
+  buf << "\n## Datafiles by Season\n\n"
   ## loop 3) datafile summary with details grouped by season
   all_seasons.keys.each do |season_key|
     prev_season_key = SeasonUtils.prev( season_key )

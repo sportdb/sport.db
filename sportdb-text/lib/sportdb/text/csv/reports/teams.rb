@@ -206,7 +206,7 @@ def build
 
 
   # buf << "### Teams by City\n\n"
-  # buf << TeamsByCityPart.new( team_names ).build
+  # buf << TeamsByCityPart.new( team_mapping ).build
   # buf << "\n\n"
 
 

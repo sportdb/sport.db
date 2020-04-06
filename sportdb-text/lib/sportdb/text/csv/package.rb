@@ -6,22 +6,27 @@ class CsvPackage
 
   attr_reader :name, :path
 
-  def initialize( path )
+  def initialize( path, filter: nil )
+     @filter = filter   ## allow optional filter e.g. filter by country etc.
+
      ## todo/check: make path (always) absolute (using expand_path())- why? why not?
-
-     @name = File.basename( path )
-
      ## e.g convert eng-england  to ./eng-england
      ##   always add ./ to path if empty (not specified) - why? why not?
 
-     dirname  = File.dirname( path )   ## note: returns ./ if name is without dirs e.g. eng-england etc.
-     @path = "#{dirname}/#{@name}"   # note: should be the same as name - use name itself!!! - why? why not
+     @path = File.expand_path( path )
+     @name = File.basename( @path )
+
+     dirname  = File.dirname( @path )   ## note: returns ./ if name is without dirs e.g. eng-england etc.
+     path_exp = "#{dirname}/#{@name}"   # note: should be the same as name - use name itself!!! - why? why not
+     
+     fail "assert failed - path #{path} do NOT match #{path_exp} =! #{@path}"  unless path_exp == @path
   end
 
 
-  def expand_path( name )
+  def expand_path( name )    ## rename to real_path or full_path - why? why not? - check zip gem what is the convention?
     File.expand_path( name, @path )
   end
+
 
   ### assume /1998-99/ =>   or
   ##         /1998/    =>
@@ -126,6 +131,12 @@ class CsvPackage
      ##  - use sort. (will not sort by default)
      datafile_paths = Dir.glob( "#{season_path}/*.csv").sort
      datafile_paths.each_with_index do |datafile_path,j|
+         if @filter
+           datafile_basename = File.basename( datafile_path )
+           ## allow (support) match by string or regexp for now
+           next  if @filter.is_a?(String) && datafile_basename.start_with?( @filter ) == false
+           next  if @filter.is_a?(Regexp) && @filter.match( datafile_basename ) == nil
+         end
 
          ## note: cut-off in_root (to pretty print path)
          datafile_path_rel = datafile_path[root_path.length+1..-1]
@@ -134,7 +145,8 @@ class CsvPackage
          season[1] << datafile_path_rel
      end  # each datafile_paths
 
-      entries << season
+      ## note only add if season has entries
+      entries << season      if season[1].size > 0
     end # each season_paths
     entries
   end # method find_entries_by_season

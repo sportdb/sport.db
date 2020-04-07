@@ -18,18 +18,43 @@ def build   ## todo/check: always use render as name - why? why not?
 
   @team_mapping.each do |team_name,team|
     if team
-       alt_team_names =  team.alt_names
-
-       buf << ('%-26s  ' % team_name)
-       if team_name == team.name
-         ## do (print) nothing
+       if team.historic?
+         buf << "xxx "   ### check if year is in name?
        else
-         buf << "=> #{team.name}"
-         if alt_team_names.size >= 1
-            buf << "  (#{alt_team_names.size}) "
-            buf << alt_team_names.join(' · ')
-         end
+         buf << "    "
        end
+
+       buf << "%-26s" %  team_name
+       if team.name != team_name
+         buf << " => %-25s |" % team.name
+       else
+         buf << (" #{' '*28} |")
+       end  
+      
+       if team.city
+         buf << " #{team.city}"
+         buf << " (#{team.district})"   if team.district
+       else
+         buf << " ?  "
+       end
+
+       if team.geos
+         buf << ",  #{team.geos.join(' › ')}"
+       end
+
+       # alt_team_names =  team.alt_names
+       #
+       # buf << ('%-26s  ' % team_name)
+       # if team_name == team.name
+       #  ## do (print) nothing
+       # else
+       #  buf << "=> #{team.name}"
+       #  if alt_team_names.size >= 1
+       #     buf << "  (#{alt_team_names.size}) "
+       #     buf << alt_team_names.join(' · ')
+       #  end
+       # end
+       #
        # elsif alt_team_names.size == 1
        #  buf << "=> #{alt_team_names[0]}"
        # elsif alt_team_names.size > 1
@@ -40,7 +65,7 @@ def build   ## todo/check: always use render as name - why? why not?
        #  ## canonical name is mapping name - do not repeat/print for now
        # end
     else
-       buf << " x #{team_name} (???)"
+       buf << "!!! #{team_name} (???)"
     end
     buf << "\n"
   end

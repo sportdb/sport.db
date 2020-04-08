@@ -302,9 +302,36 @@ end
 def find_team( team_name )
   team_index = SportDb::Import.config.clubs
 
-  if @country
-    team = team_index.find_by( name: team_name, country: @country )
-  else ## try global match
+  ##  todo/fix: move team_parts machinery lookup into index itself for reuse!!!!
+
+  ## check for country in names; split in parts
+  ##   AC Milan › ITA
+  team_parts = team_name.split( /[<>‹›]/ )  ## note: allow > < or › ‹
+  team_parts = team_parts.map { |part| part.strip }   ## remove all (surrounding) whitespaces
+ 
+  ## note: valid country part must be LAST and always UPPERCASE e.g. ITA, etc. for now
+  country, name = if team_parts.size > 1 && team_parts[-1] =~ /^[A-Z]+$/
+              ## assume last entry is country
+              country_key = team_parts[-1]
+              ## convert to country record
+              ## todo/fix: check / assert NOT nil; country record returned
+              country = SportDb::Import.config.countries[ country_key ]
+              if country.nil?
+                puts "!! ERROR: team name >#{team_name}< - no matching country found for >#{country_key}<"
+                exit 1
+              end
+              [country, team_parts[0]]
+            else   ## fallback - use default country (note: might be nil)
+              [@country, team_name]
+            end
+
+
+  if country
+    team = team_index.find_by( name: name, country: country )
+  else ## try global match - fail for now!! - why? why not?
+    puts "!! ERROR: team name >#{team_name}< - no country specified BUT required, sorry"
+    exit 1
+
     m = team_index.match( team_name )
     if m.nil?
       ## puts "** !!! WARN !!! no match for club >#{name}<"

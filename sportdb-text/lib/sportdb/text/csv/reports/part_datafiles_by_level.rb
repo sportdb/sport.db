@@ -38,17 +38,50 @@ def build
         buf << " #{matchlist.teams.size} teams, "
         buf << " #{matchlist.matches.size} matches, "
         buf << " #{matchlist.goals} goals, "
-        if matchlist.rounds?
-          buf << " #{matchlist.rounds} rounds, "
+        if matchlist.stages.size > 1
+          buf << " #{matchlist.stages.size} stages (#{matchlist.stages.join(' · ')}), "
         else
-          buf << " **WARN - unbalanced rounds - fix/double check?!**"
+          ## note: (auto-)check balanced rounds only if assuming "simple" regular season 
+          if matchlist.rounds?
+            buf << " #{matchlist.rounds} rounds, "
+          else
+            buf << " **WARN - unbalanced rounds** #{matchlist.match_counts_str} matches played × team, "
+          end
         end
-        if matchlist.start_date? && matchlist.end_date?  ## note: start_date/end_date might be optional/missing
-          buf << " #{matchlist.start_date.strftime( '%a %d %b %Y' )} - #{matchlist.end_date.strftime( '%a %d %b %Y' )}"
+
+        if matchlist.has_dates?  ## note: start_date/end_date might be optional/missing
+          buf << " #{matchlist.dates_str} (#{matchlist.days}d)"
         else
           buf << "**WARN - start: ???, end: ???**"
         end
         buf << "\n"
+
+        if matchlist.stage_usage.size > 1
+          matchlist.stage_usage.each do |stage_name,stage|
+            buf << "  - #{stage_name} :: "
+            buf << " #{stage.teams.size} teams, "
+            buf << " #{stage.matches} matches, "
+            buf << " #{stage.goals} goals, "
+            
+            if ['Regular'].include?(stage_name)
+              ## note: (auto-)check balanced rounds only if assuming "simple" regular season 
+              if stage.rounds?
+                buf << " #{stage.rounds} rounds, "
+              else
+                buf << " **WARN - unbalanced rounds** #{stage.match_counts_str} matches played × team, "
+              end
+            else
+              buf << " #{stage.match_counts_str} matches played × team, "
+            end
+ 
+            if stage.has_dates?  ## note: start_date/end_date might be optional/missing
+              buf << " #{stage.dates_str} (#{stage.days}d)"
+            else
+              buf << "**WARN - start: ???, end: ???**"
+            end
+            buf << "\n"
+          end
+        end
     end
   end
 

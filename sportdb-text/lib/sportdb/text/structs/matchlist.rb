@@ -21,140 +21,201 @@ class Matchlist  ## todo: find a better name - MatchStats, MatchFixtures, MatchS
   end
 
 
-  def team_usage
-    @team_usage ||= build_team_usage_in_matches_txt( @matches )
-    @team_usage
+  def usage
+    @usage ||= build_usage( @matches )
+    @usage
   end
 
+  def team_usage() usage.team_usage; end
+ 
   def teams
     @team_names ||= team_usage.keys.sort
     @team_names
   end
 
-  def goals
-    @goals ||= calc_goals_in_matches_txt( @matches )
-  end
+  def goals() usage.goals; end
+ 
+  ## note: start_date and end_date might be nil / optional missing!!!!
+  def start_date?() usage.start_date?; end
+  def end_date?()   usage.end_date?; end
 
+  def start_date()  usage.start_date; end 
+  def end_date()    usage.end_date; end
+ 
+  def has_dates?()  usage.has_dates?; end
+  def dates_str()   usage.dates_str; end
+  def days()        usage.days; end
+ 
 
-## note: start_date and end_date might be nil / optional missing!!!!
-  def start_date?
-    if @has_start_date.nil?
-      if @matches[0].date    ## todo/fix: use min/max for start date?
-         @start_date     = Date.strptime( @matches[0].date, '%Y-%m-%d' )
-         @has_start_date = true
-      else
-         @start_date     = nil
-         @has_start_date = false
-      end
-    end
-    @has_start_date
-  end
-
-  def start_date  ## todo/fix: scan all records/matches - remove "quick" hack !!!
-    start_date?
-    @start_date
-  end
-
-  def end_date?
-    if @has_end_date.nil?
-      if @matches[-1].date  ## todo/fix: use min/max for end date?
-         @end_date     = Date.strptime( @matches[-1].date, '%Y-%m-%d' )
-         @has_end_date = true
-      else
-         @end_date     = nil
-         @has_end_date = false
-      end
-    end
-    @has_end_date
-  end
-
-  def end_date   ## todo/fix: scan all records/matches - remove "quick" hack !!!
-    ## return date as string as is - why? why not?
-    end_date?
-    @end_date
-  end
-
-
-
-  def rounds
-    rounds?   ## note: use rounds? to calculate (cache) rounds
-    @rounds   ## note: return number of rounds or nil (for uneven matches played by teams)
-  end
-
+  def rounds() usage.rounds; end
+ 
   ## todo: add has_rounds? alias for rounds? too
-  def rounds?
-     ## return true if all match_played in team_usage are the same
-     ##  e.g. assumes league with matchday rounds
-     if @has_rounds.nil?    ## check/todo: if undefined attribute is nil by default??
-        ## check/calc rounds
-        ##  note: values => matches_played by team
-        matches_played = team_usage.values.uniq
-        if matches_played.size == 1
-          @rounds = matches_played[0]
-        else
-          @rounds = nil
-        end
-        @has_rounds = @rounds ? true : false
-     end
-     @has_rounds
+  ## return true if all match_played in team_usage are the same
+  ##  e.g. assumes league with matchday rounds
+  def rounds?() usage.rounds?; end
+
+  def match_counts() usage.match_counts; end
+  def match_counts_str() usage.match_counts_str; end
+
+
+
+  def stage_usage
+    @stage_usage ||= build_stage_usage( @matches )
+    @stage_usage
   end
 
+  def stages() stage_usage.keys; end  ## note: returns empty array for stages for now - why? why not?
+
+
+############################
+#  matchlist helpers
+private
+  class StatLine
+     attr_reader :team_usage,
+                 :matches,
+                 :goals,
+                 :rounds,   ## keep rounds - why? why not?
+                 :start_date,
+                 :end_date
+     
+     def teams() @team_usage.keys.sort; end   ## (auto-)sort here always - why? why not?
+     
+     def start_date?() @start_date.nil? == false; end
+     def end_date?()   @end_date.nil? == false; end
+
+     def has_dates?()  @start_date && @end_date; end
+     def dates_str
+      ## note: start_date/end_date might be optional/missing
+      if has_dates?
+        "#{start_date.strftime( '%a %d %b %Y' )} - #{end_date.strftime( '%a %d %b %Y' )}"
+      else
+        "??? - ???"
+      end
+    end
+  
+    def days() end_date.jd - start_date.jd; end
+
+
+    def rounds
+      rounds?   ## note: use rounds? to calculate (cache) rounds
+      @rounds   ## note: return number of rounds or nil (for uneven matches played by teams)
+    end
+  
+    ## todo: add has_rounds? alias for rounds? too
+    def rounds?
+       ## return true if all match_played in team_usage are the same
+       ##  e.g. assumes league with matchday rounds
+       if @has_rounds.nil?    ## check/todo: if undefined attribute is nil by default??
+          ## check/calc rounds
+          ##  note: values => matches_played by team
+          if match_counts.size == 1
+            @rounds = match_counts[0][0]
+          else
+            @rounds = nil
+          end
+          @has_rounds = @rounds ? true : false
+       end
+       @has_rounds
+    end
+
+
+    def build_match_counts   ## use/rename to matches_played - why? why not?
+      counts = Hash.new(0)
+      team_usage.values.each do |count|
+        counts[count] += 1
+      end
+
+      ## sort (descending) highest usage value first (in returned array)
+      ##  e.g. [[32,8],[31,2]]  ## 32 matches by 8 teams, 31 matches by 2 teams etc.
+      counts.sort_by {|count, usage| -count }       
+    end
+
+    def match_counts
+      # match counts / nos played per team
+      @match_counts ||= build_match_counts
+      @match_counts
+    end
+
+    def match_counts_str
+      ## pretty print / formatted match_counts
+      buf = String.new('')
+      match_counts.each_with_index do |rec,i|
+        buf << ' '  if i > 0   ## add (space) separator
+        buf << "#{rec[0]}×#{rec[1]}"
+      end
+      buf
+    end
+
+
+
+     def initialize
+        @matches    = 0
+        @goals      = 0
+
+        @start_date = nil
+        @end_date   = nil
+
+        @team_usage = Hash.new(0)
+        
+        @match_counts = nil
+     end
+
+           
+     def update( match )
+        @matches += 1    ## match counter
+        
+        if match.score1 && match.score2
+          @goals += match.score1
+          @goals += match.score2
+    
+          ## todo: add after extra time? if knock out (k.o.) - why? why not?
+          ##   make it a flag/opt?
+        end
+        
+        @team_usage[ match.team1 ] += 1
+        @team_usage[ match.team2 ] += 1
+
+        if match.date
+          ## return / store date as string as is - why? why not?
+          date = Date.strptime( match.date, '%Y-%m-%d' )
+
+          @start_date = date  if @start_date.nil? || date < @start_date
+          @end_date   = date  if @end_date.nil?   || date > @end_date  
+        end
+     end
+  end  # class StatLine 
+
+
+  ## collect total usage stats (for all matches)
+  def build_usage( matches )
+    stat = StatLine.new
+    matches.each do |match|
+      stat.update( match )
+    end
+    stat
+  end
+
+  ## collect usage stats by stage (e.g. regular / playoff / etc.)
+  def build_stage_usage( matches )
+    stages = {}
+
+    matches.each do |match|
+       stage_key = if match.stage.nil?
+                     'Regular'  ## note: assume Regular stage if not defined (AND not explicit unknown)
+                   else
+                     match.stage
+                   end
+
+        stages[ stage_key ] ||= StatLine.new
+        stages[ stage_key ].update( match ) 
+    end
+  
+    stages
+  end
+   
 end  # class Matchlist
 
 
 
   end # module Struct
 end # module SportDb
-
-
-
-###########################
-# match.txt helpers
-#
-#  todo/fix: move into Matchlist !!!!!!!!!!!!!!!!!!!!!!!!
-
-
-def build_team_usage_in_matches_txt( matches )
-
-  teams = Hash.new( 0 )   ## default value is 0
-
-  matches.each_with_index do |match,i|
-    teams[ match.team1 ] += 1
-    teams[ match.team2 ] += 1
-  end
-
-  teams
-end
-
-
-def calc_goals_in_matches_txt( matches )
-  ## total goals
-  goals = 0
-  matches.each_with_index do |match|
-    if match.score1 && match.score2
-      goals += match.score1
-      goals += match.score2
-
-      ## todo: add after extra time? if knock out (k.o.) - why? why not?
-      ##   make it a flag/opt?
-    end
-  end
-  goals
-end
-
-
-
-def find_teams_in_matches_txt( matches )
-
-  teams = Hash.new( 0 )   ## default value is 0
-
-  matches.each_with_index do |match,i|
-    teams[ match.team1 ] += 1
-    teams[ match.team2 ] += 1
-  end
-
-  pp teams
-
-  ## note: only return team names (not hash with usage counter)
-  teams.keys
-end

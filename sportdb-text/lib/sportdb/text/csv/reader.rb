@@ -8,20 +8,13 @@ class CsvMatchReader
 ##
 ##  fix: change col_sep to sep !!!!
 
-##
-##  todo/check: what keyword to use for normalize names - normalize? canonicalize? other?
-##    note: todo/fix: allow passing in of country filter for normalize too - why? why not?
-
-def self.read( path, headers: nil, filters: nil, converters: nil, col_sep: ',',
-                 normalize: false )
+def self.read( path, headers: nil, filters: nil, converters: nil, col_sep: ',' )
    text = File.open( path, 'r:utf-8' ).read   ## note: make sure to use (assume) utf-8
-   parse( text, headers: headers, filters: filters, converters: converters, col_sep: col_sep,
-           normalize: normalize )
+   parse( text, headers: headers, filters: filters, converters: converters, col_sep: col_sep )
 end
 
 
-def self.parse( text, headers: nil, filters: nil, converters: nil, col_sep: ',',
-                   normalize: false )
+def self.parse( text, headers: nil, filters: nil, converters: nil, col_sep: ',' )
 
   headers_mapping = {}
 
@@ -31,7 +24,8 @@ def self.parse( text, headers: nil, filters: nil, converters: nil, col_sep: ',',
 
   csv = CSV.parse( text, csv_options )
 
-  pp csv
+  ## fix/todo: use logger!!!!
+  ## pp csv
 
   if headers   ## use user supplied headers if present
     headers_mapping = headers_mapping.merge( headers )
@@ -54,6 +48,10 @@ def self.parse( text, headers: nil, filters: nil, converters: nil, col_sep: ',',
        headers_mapping[:scorei] = find_header( headers, ['HT'] )
 
        headers_mapping[:round]  = find_header( headers, ['Round'] )
+
+       ## optional headers - note: find_header returns nil if header NOT found
+       header_stage = find_header( headers, ['Stage'] )
+       headers_mapping[:stage]  =  header_stage   if header_stage 
     else
        ## else try footballdata.uk and others
        headers_mapping[:team1]  = find_header( headers, ['HomeTeam', 'HT', 'Home'] )
@@ -85,7 +83,8 @@ def self.parse( text, headers: nil, filters: nil, converters: nil, col_sep: ',',
 
   csv.each_with_index do |row,i|
 
-    puts "[#{i}] " + row.inspect  if i < 2
+    ## fix/todo: use logger!!!!
+    ## puts "[#{i}] " + row.inspect  if i < 2
 
 
      if filters    ## filter MUST match if present e.g. row['Season'] == '2017/2018'
@@ -120,7 +119,7 @@ def self.parse( text, headers: nil, filters: nil, converters: nil, col_sep: ',',
 
     ## check if data present - if not skip (might be empty row)
     if team1.nil? && team2.nil?
-      puts "*** skipping empty? row[#{i}] - no teams found:"
+      puts "*** WARN: skipping empty? row[#{i}] - no teams found:"
       pp row
       next
     end
@@ -129,31 +128,6 @@ def self.parse( text, headers: nil, filters: nil, converters: nil, col_sep: ',',
     team1 = team1.sub( /\(\d+\)/, '' ).strip
     team2 = team2.sub( /\(\d+\)/, '' ).strip
 
-
-    ## reformat team if match  (e.g. Bayern Munich => Bayern München etc.)
-    ##  use "global" default/built-in team mappings for now
-    ##   todo/fix:  make more flexible
-    if normalize
-       club_mappings = SportDb::Import.config.clubs
-       ## fix/todo: if country defined - use filter
-       m = club_mappings.match( team1 )
-       if m.nil? || m.size > 1
-         puts "** !!! ERROR !!! - no match or too many matches found for >#{team1}<"
-         pp m
-         exit 1
-       else
-         team1 = m[0].name
-       end
-
-       m = club_mappings.match( team2 )
-       if m.nil? || m.size > 1
-         puts "** !!! ERROR !!! - no match or too many matches found for >#{team1}<"
-         pp m
-         exit 1
-       else
-         team2 = m[0].name
-       end
-    end
 
 
     col = row[ headers_mapping[ :date ]]
@@ -244,11 +218,29 @@ def self.parse( text, headers: nil, filters: nil, converters: nil, col_sep: ',',
     end
 
 
-    match = SportDb::Struct::Match.new( date:  date,
-                                        team1: team1,     team2: team2,
-                                        score1: score1,   score2: score2,
+    ## try some optional headings / columns
+    stage = nil
+    if headers_mapping[ :stage ]
+      col = row[ headers_mapping[ :stage ]]
+      ## todo/fix: check can col be nil e.g. col.nil? possible?
+      stage =  if col.nil? || col.empty? || col == '-' || col == 'n/a'
+                  ## note: allow missing stage for match / defaults to "regular"
+                  nil
+               elsif col == '?'
+                   ## note: default explicit unknown to unknown for now AND not regular - why? why not?
+                  '?'   ## todo/check: use unkown and NOT ?  - why? why not?   
+               else
+                  col
+               end
+    end
+ 
+
+    match = SportDb::Struct::Match.new( date:    date,
+                                        team1:   team1,   team2:   team2,
+                                        score1:  score1,  score2:  score2,
                                         score1i: score1i, score2i: score2i,
-                                        round:  round )
+                                        round:   round,
+                                        stage:   stage )
     matches << match
   end
 

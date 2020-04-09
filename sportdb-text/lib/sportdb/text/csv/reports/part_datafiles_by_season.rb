@@ -39,99 +39,94 @@ def build
       buf << " #{matchlist.teams.size} teams, "
       buf << " #{matchlist.matches.size} matches, "
       buf << " #{matchlist.goals} goals, "
-      buf << " #{matchlist.rounds} rounds, "    if matchlist.rounds?
-      if matchlist.start_date? && matchlist.end_date?
-        buf << " #{matchlist.start_date.strftime( '%a %-d %b %Y' )} - #{matchlist.end_date.strftime( '%a %-d %b %Y' )}"
+      if matchlist.stages.size > 1
+        buf << " #{matchlist.stages.size} stages (#{matchlist.stages.join(' · ')}), "
+      else
+        buf << " #{matchlist.rounds} rounds, "    if matchlist.rounds?
+      end
+      if matchlist.has_dates?
+        buf << " #{matchlist.dates_str}"
       else
         buf << " start: ???, end: ???"
       end
       buf << "\n"
 
+   
+
       buf << "  "  if datafiles.size > 1   ## add extra ident if multiple datafiles
-      if matchlist.rounds?
-        buf << "    - #{matchlist.teams.join(', ')}"
-        buf << "\n"
-      else
-        buf << "    - **unbalanced rounds - add teams with matches played here**"
-        buf << "\n"
-      end
-
-
-      ## find previous/last season if available for diff
-      ## fix/todo: only works for single datafiles for now!!!
-      ##   make more "generic" - how???
-      if @prev_season
-        prev_datafiles = @prev_season.levels[level_key]
-        if prev_datafiles && datafiles.size == 1      ## note: level might be missing in prev season!!
-          ## buf << "    - diff #{season_key} <=> #{prev_season_key}:\n"
-          prev_matchlist = @all_datafiles[ prev_datafiles[0] ]  ## work with first datafile only for now
-
-          diff_plus   = (matchlist.teams - prev_matchlist.teams).sort
-          diff_minus  = (prev_matchlist.teams -  matchlist.teams).sort
-
-          buf << "      - (++) new in season #{@season.name}: "
-          buf << "(#{diff_plus.size}) #{diff_plus.join(', ')}\n"
-
-          buf << "      - (--) out "
-          if level_key == 1    ## todo: check level_key is string or int?
-            buf << "down: "
-          else
-            buf << "up/down: "   ## assume up/down for all other levels in pyramid
-          end
-          buf << "(#{diff_minus.size}) #{diff_minus.join(', ')}\n"
+  
+      if matchlist.stages.size == 1
+        if matchlist.rounds?
+          buf << "    - #{matchlist.teams.join(', ')}"
+          buf << "\n"
+        else
+          buf << "    - **unbalanced rounds #{matchlist.match_counts_str} matches played × team**"
+          buf << "      #{build_team_usage( matchlist.team_usage )}"
           buf << "\n"
         end
+      else ## assume more than one stage 
+
+        matchlist.stage_usage.each do |stage_name,stage|
+          buf << "    - #{stage_name} :: "
+          buf << " #{stage.teams.size} teams, "
+          buf << " #{stage.matches} matches, "
+          buf << " #{stage.goals} goals, "
+          
+          if ['Regular'].include?(stage_name)
+            ## note: (auto-)check balanced rounds only if assuming "simple" regular season 
+            if stage.rounds?
+              buf << " #{stage.rounds} rounds, "
+            else
+              buf << " **WARN - unbalanced rounds** #{stage.match_counts_str} matches played × team, "
+            end
+          else
+            buf << " #{stage.match_counts_str} matches played × team, "
+          end
+
+          if stage.has_dates?  ## note: start_date/end_date might be optional/missing
+            buf << " #{stage.dates_str} (#{stage.days}d)"
+          else
+            buf << "**WARN - start: ???, end: ???**"
+          end
+          buf << "\n"
+
+          if stage.rounds?
+            buf << "        - #{matchlist.teams.join(', ')}"
+            buf << "\n"
+          else
+            buf << "        - #{build_team_usage( stage.team_usage )}"
+            buf << "\n"
+          end  
+        end
       end
-
     end  # each datafile
-
-## todo/fix: print teams with match played
-=begin
-team_usage_hash = build_team_usage_in_matches_txt( matches )
-team_usage = team_usage_hash.to_a
-## sort by matches_played and than by team_name !!!!
-team_usage = team_usage.sort do |l,r|
- res = r[1] <=> l[1]     ## note: reverse order - bigger number first e.g. 30 > 28 etc.
- res = l[0] <=> r[0]  if res == 0
- res
-end
-
-buf_details << "  - #{team_usage.size} teams: "
-team_usage.each do |rec|
-team_name      = rec[0]
-matches_played = rec[1]
-buf_details << "#{team_name} (#{matches_played}) "
-end
-buf_details << "\n"
-=end
-
-
-    ## todo/fix:
-    ##    add unknown (missing canonical mapping) teams!!!!
-
-=begin
-canonical_teams = SportDb::Import.config.teams  ## was pretty_print_team_names
-
-## find all unmapped/unknown/missing teams
-##   with no pretty print team names in league
-names = []
-team_usage.each do |rec|
-team_name = rec[0]
-names << team_name     if canonical_teams[team_name].nil?
-end
-names = names.sort   ## sort from a-z
-
-if names.size > 0
-buf_details << "    - #{names.size} teams unknown / missing / ???: "
-buf_details << "#{names.join(', ')}\n"
-end
-=end
-
   end  # each level
   buf << "\n\n"
   buf
 end # method build
 
 alias_method :render, :build
+
+
+####
+# helper methods
+
+def build_team_usage( team_usage )
+   ## teams by match count
+
+   ## sort by matches_played and than by team_name !!!!
+   team_usage = team_usage.to_a.sort do |l,r|
+    res = r[1] <=> l[1]     ## note: reverse order - bigger number first e.g. 30 > 28 etc.
+    res = l[0] <=> r[0]  if res == 0
+    res
+   end
+   
+   buf = String.new('')
+   team_usage.each do |rec|
+      buf << "#{rec[0]} (#{(rec[1])}) "
+   end
+   buf
+end
+
 
 end # class DatafilesBySeasonPart

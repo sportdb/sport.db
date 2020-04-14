@@ -1,6 +1,6 @@
 ##########################################
 # auto-generated all-in-one single datafile clubs.wiki.txt bundle
-#    on 2020-03-30 19:48:21 +0200 from 5 datafile(s)
+#    on 2020-04-14 16:45:09 +0200 from 5 datafile(s)
 #  please, do NOT edit here; use the source
 #    see https://github.com/openfootball/clubs - updates welcome!
 

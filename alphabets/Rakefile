@@ -22,7 +22,7 @@ Hoe.spec 'alphabets' do
   self.extra_deps = []
 
   self.spec_extras = {
-   :required_ruby_version => '>= 2.2.2'
+    required_ruby_version: '>= 2.2.2'
   }
 
 end

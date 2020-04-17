@@ -17,5 +17,6 @@ test/test_club_linter.rb
 test/test_club_reader.rb
 test/test_club_reader_props.rb
 test/test_clubs.rb
+test/test_norm.rb
 test/test_regex.rb
 test/test_wiki_reader.rb

@@ -87,12 +87,13 @@ class Club
     end
   end
 
+
    ###################################
    # "global" helper - move to ___ ? why? why not?
 
    ## note: allow placeholder years to e.g. (-___) or (-????)
    ##    for marking missing (to be filled in) years
-   YEAR_REGEX = /\([0-9,\-_? ]+?\)/
+   YEAR_REGEX = /\([0-9, ?_-]+?\)/    # note: non-greedy (minimum/first) match
    def self.strip_year( name )
      ## check for year(s) e.g. (1887-1911), (-2013),
      ##                        (1946-2001, 2013-) etc.
@@ -118,10 +119,25 @@ class Club
   end
 
 
-  ## note: also add () e.g.
+  ## note: also add (),’,−  etc. e.g.
   ##   Estudiantes (LP) => Estudiantes LP
-  NORM_REGEX =  /[.'º\/()-]/   # note: in [] dash (-) if last doesn't need to get escaped
+  ##   Saint Patrick’s Athletic FC => Saint Patricks Athletic FC
+  ##   Myllykosken Pallo −47 => Myllykosken Pallo 47
+
+  NORM_REGEX =  %r{
+                    [.'’º/()−-]
+                  }x   # note: in [] dash (-) if last doesn't need to get escaped
   ## note: remove all dots (.), dash (-), ', º, /, etc.
+  #   .  U+002E (46) - FULL STOP
+  #   '  U+0027 (39) - APOSTROPHE
+  #   ’  U+2019 (8217) - RIGHT SINGLE QUOTATION MARK
+  #   º  U+00BA (186) - MASCULINE ORDINAL INDICATOR
+  #   /  U+002F (47) - SOLIDUS
+  #   (  U+0028 (40) - LEFT PARENTHESIS
+  #   )  U+0029 (41) - RIGHT PARENTHESIS
+  #   −  U+2212 (8722) - MINUS SIGN
+  #   -  U+002D (45) - HYPHEN-MINUS
+
   ##         for norm(alizing) names
   def self.strip_norm( name )
     name.gsub( NORM_REGEX, '' )

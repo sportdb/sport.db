@@ -46,7 +46,7 @@ UNACCENT = Reader.parse( <<TXT )
     Ň N   ň n
 
     Ö O   ö o
-    Ő OE  ő oe    # hungarian - just use O/o  - why? (it's not a ligature) why not?
+    Ő O   ő o    # hungarian - use OE/oe  - why? (it's not a ligature) why not?
     Ó O   ó o
     Ò O   ò o
     Õ O   õ o
@@ -101,8 +101,10 @@ UNACCENT_DE = Reader.parse( <<TXT )
           ß ss
 TXT
 
-  ## add UNACCENT_ES - why? why not?  is Espanyol catalan spelling or spanish (castillian)?
-  # 'ñ'=>'ny',    ## e.g. Español => Espanyol
+
+## add UNACCENT_ES - why? why not?  is Espanyol catalan spelling or spanish (castillian)?
+# 'ñ'=>'ny',    ## e.g. Español => Espanyol
+
 
 DOWNCASE = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z].reduce({}) do |h,ch|
     h[ch] = ch.downcase

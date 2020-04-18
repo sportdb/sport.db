@@ -5,35 +5,38 @@
 ##   reuse standings helper/calculator from sportdb
 ##   do NOT duplicate
 
+
+##
+# note: add all "former" structs to the SportDb::Import module / namespace
+
 module SportDb
-  module Struct
-
-
-class StandingsLine
-  attr_accessor  :rank, :team,
-                 :played, :won, :lost, :drawn,                      ## -- total
-                 :goals_for, :goals_against, :pts,
-                 :home_played, :home_won, :home_lost, :home_drawn,  ## -- home
-                 :home_goals_for, :home_goals_against, :home_pts,
-                 :away_played, :away_won, :away_lost, :away_drawn,  ## -- away
-                 :away_goals_for, :away_goals_against, :away_pts
-
-  def initialize( team )
-    @rank = nil # use 0? why? why not?
-    @team = team
-    @played = @home_played = @away_played = 0
-    @won    = @home_won    = @away_won    = 0
-    @lost   = @home_lost   = @away_lost   = 0
-    @drawn  = @home_drawn  = @away_drawn  = 0
-    @goals_for     = @home_goals_for     = @away_goals_for     = 0
-    @goals_against = @home_goals_against = @away_goals_against = 0
-    @pts    = @home_pts    = @away_pts    = 0
-  end
-end # class StandingsLine
-
+  module Import
 
 
 class Standings
+
+  class StandingsLine     ## nested class StandinsLine
+    attr_accessor  :rank, :team,
+                   :played, :won, :lost, :drawn,                      ## -- total
+                   :goals_for, :goals_against, :pts,
+                   :home_played, :home_won, :home_lost, :home_drawn,  ## -- home
+                   :home_goals_for, :home_goals_against, :home_pts,
+                   :away_played, :away_won, :away_lost, :away_drawn,  ## -- away
+                   :away_goals_for, :away_goals_against, :away_pts
+
+    def initialize( team )
+      @rank = nil # use 0? why? why not?
+      @team = team
+      @played = @home_played = @away_played = 0
+      @won    = @home_won    = @away_won    = 0
+      @lost   = @home_lost   = @away_lost   = 0
+      @drawn  = @home_drawn  = @away_drawn  = 0
+      @goals_for     = @home_goals_for     = @away_goals_for     = 0
+      @goals_against = @home_goals_against = @away_goals_against = 0
+      @pts    = @home_pts    = @away_pts    = 0
+    end
+  end # (nested) class StandingsLine
+
 
   def initialize( opts={} )
     ## fix:
@@ -49,17 +52,14 @@ class Standings
 
   def update( match_or_matches )
     ## convenience - update all matches at once
-    if match_or_matches.is_a? Array
-      matches = match_or_matches
-      matches.each_with_index do |match,i| # note: index(i) starts w/ zero (0)
-        update_match( match )
-      end
-    else
-      match = match_or_matches
+    matches = match_or_matches.is_a?(Array) ? match_or_matches : [match_or_matches]
+
+    matches.each_with_index do |match,i| # note: index(i) starts w/ zero (0)
       update_match( match )
     end
     self  # note: return self to allow chaining
   end
+
 
   def to_a
     ## return lines; sort and add rank
@@ -246,5 +246,5 @@ private
 end  # class Standings
 
 
-end # module Struct
+end # module Import
 end # module SportDb

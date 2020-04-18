@@ -53,7 +53,7 @@ def prepare
 
 
   ## find all teams and generate a map w/ all teams n some stats
-  teams = SportDb::Struct::TeamUsage.new
+  teams = SportDb::Import::TeamUsage.new
   levels = Hash.new(0)   ## keep a counter of levels usage (more than one level?)
 
   season_entries = @pack.find_entries_by_season
@@ -95,21 +95,21 @@ def prepare
 
   team_names.each do |team_name|
     team = find_team( team_name )
- 
+
     team_mapping[team_name] = team
 
     if team.nil?
-      missing_teams << team_name 
+      missing_teams << team_name
     else
       duplicate_teams[team] ||= []
       duplicate_teams[team] << team_name
     end
   end
- 
+
   ## remove all non-duplicate entries e.g. size == 1
   duplicate_teams = duplicate_teams.reduce({}) do |h,(k,v)|
-                                                 h[k]=v  if v.size > 1 
-                                                 h 
+                                                 h[k]=v  if v.size > 1
+                                                 h
                                                end
 
   @team_names      = team_names
@@ -118,7 +118,7 @@ def prepare
   @usage_teams     = usage_teams
   @levels          = levels
 
-  @team_mapping    = team_mapping                            
+  @team_mapping    = team_mapping
 end
 
 def build
@@ -153,7 +153,7 @@ def build
     buf << "#{duplicate_teams.size} duplicates:\n"
     duplicate_teams.each do |team, rec|
       buf << "- **#{team.name}** (#{rec.size}) #{rec.join(' · ')}\n"
-    end 
+    end
     buf << "\n\n"
   end
 
@@ -168,7 +168,7 @@ def build
     ### todo/fix: add pluralize (match/matches) - check: pluralize method in rails?
     buf << ('%-30s  '   % t.team)
     buf << (":: %4d matches in " % t.matches)
-    
+
     buf << ("%3d " % t.seasons.size)
     buf << pluralize('season', t.seasons.size)
 
@@ -248,12 +248,12 @@ def build
     buf << "#{duplicate_teams.size} duplicates:\n"
     duplicate_teams.each_with_index do |(team, rec), i|
         buf << "[#{i+1}] **#{team.name}** (#{rec.size}) #{rec.join(' · ')}\n"
-        rec.each do |team_name|   
+        rec.each do |team_name|
           t = usage_teams[ team_name ]
           buf << build_team_seasons( team_name, t, levels )
         end
         buf << "\n"
-    end 
+    end
     buf << "```\n"
     buf << "\n\n"
   end
@@ -288,7 +288,7 @@ def build_team_seasons( team_name, t, levels )
      end
   end
   buf
-end  
+end
 
 
 def pluralize( noun, counter )
@@ -308,7 +308,7 @@ def find_team( team_name )
   ##   AC Milan › ITA
   team_parts = team_name.split( /[<>‹›]/ )  ## note: allow > < or › ‹
   team_parts = team_parts.map { |part| part.strip }   ## remove all (surrounding) whitespaces
- 
+
   ## note: valid country part must be LAST and always UPPERCASE e.g. ITA, etc. for now
   country, name = if team_parts.size > 1 && team_parts[-1] =~ /^[A-Z]+$/
               ## assume last entry is country
@@ -344,7 +344,7 @@ def find_team( team_name )
       team = m[0]
     end
   end
-  
+
   team
 end
 

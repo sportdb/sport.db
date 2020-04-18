@@ -9,9 +9,19 @@ require 'helper'
 
 class TestClubs < MiniTest::Test
 
+  Club = SportDb::Import::Club
+
+  def test_create
+    club = Club.create( name: 'Rapid Wien' )
+
+    assert_equal 'Rapid Wien',   club.name
+    assert_equal ['Rapid Wien'], club.names
+  end
+
+
   def test_duplicates
-    club = SportDb::Import::Club.new
-    club.name = "Rapid Wien"
+    club = Club.new
+    club.name = 'Rapid Wien'
 
     assert_equal false, club.duplicates?
     duplicates = {}

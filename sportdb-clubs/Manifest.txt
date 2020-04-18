@@ -3,7 +3,6 @@ Manifest.txt
 README.md
 Rakefile
 lib/sportdb/clubs.rb
-lib/sportdb/clubs/club.rb
 lib/sportdb/clubs/club_index.rb
 lib/sportdb/clubs/club_linter.rb
 lib/sportdb/clubs/club_reader.rb
@@ -11,12 +10,9 @@ lib/sportdb/clubs/club_reader_props.rb
 lib/sportdb/clubs/version.rb
 lib/sportdb/clubs/wiki_reader.rb
 test/helper.rb
-test/test_club_helpers.rb
 test/test_club_index.rb
 test/test_club_linter.rb
 test/test_club_reader.rb
 test/test_club_reader_props.rb
-test/test_clubs.rb
-test/test_norm.rb
 test/test_regex.rb
 test/test_wiki_reader.rb

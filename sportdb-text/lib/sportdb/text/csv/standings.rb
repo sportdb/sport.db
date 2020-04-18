@@ -33,7 +33,7 @@ def write( path: nil )   ## change/rename to recalc / build / etc. - why? why no
        puts "   datafile (#{i+1}/#{season_files.size}): #{season_file}"
 
        matches   = CsvMatchReader.read( @pack.expand_path( season_file ) )
-       standings = SportDb::Struct::Standings.new
+       standings = SportDb::Import::Standings.new
        standings.update( matches )
        ## pp standings.to_a
 

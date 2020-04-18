@@ -9,7 +9,6 @@ require 'sportdb/countries'
 ###
 # our own code
 require 'sportdb/clubs/version' # let version always go first
-require 'sportdb/clubs/club'
 require 'sportdb/clubs/club_reader'
 require 'sportdb/clubs/club_reader_props'
 require 'sportdb/clubs/club_linter'

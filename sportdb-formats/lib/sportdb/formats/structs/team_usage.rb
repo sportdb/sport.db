@@ -1,28 +1,31 @@
 # encoding: utf-8
 
+
+##
+# note: add all "former" structs to the SportDb::Import module / namespace
+
 module SportDb
-  module Struct
-
-
-class TeamUsageLine
-  attr_accessor  :team,
-                 :matches,  ## number of matches (played),
-                 :seasons,  ## (optianl) array of seasons, use seasons.size for count
-                 :levels    ## (optional) hash of levels (holds mapping level to TeamUsageLine)
-
-  def initialize( team )
-    @team = team
-
-    @matches  = 0
-    @seasons  = []
-    @levels   = {}
-  end
-end # class TeamUsageLine
-
-
+  module Import
 
 
 class TeamUsage
+
+  class TeamUsageLine   ## nested class
+    attr_accessor  :team,
+                   :matches,  ## number of matches (played),
+                   :seasons,  ## (optianl) array of seasons, use seasons.size for count
+                   :levels    ## (optional) hash of levels (holds mapping level to TeamUsageLine)
+
+    def initialize( team )
+      @team = team
+
+      @matches  = 0
+      @seasons  = []
+      @levels   = {}
+    end
+  end # (nested) class TeamUsageLine
+
+
 
   def initialize( opts={} )
     @lines = {}   # StandingsLines cached by team name/key
@@ -84,5 +87,5 @@ private
 
 end # class TeamUsage
 
-end # module Struct
+end # module Import
 end # module SportDb

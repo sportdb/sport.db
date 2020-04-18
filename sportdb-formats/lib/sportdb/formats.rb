@@ -30,7 +30,14 @@ require 'sportdb/formats/outline_reader'
 require 'sportdb/formats/datafile'
 require 'sportdb/formats/package'
 require 'sportdb/formats/season_utils'
-require 'sportdb/formats/season'
+
+require 'sportdb/formats/structs/season'
+require 'sportdb/formats/structs/club'
+require 'sportdb/formats/structs/match'
+require 'sportdb/formats/structs/matchlist'
+require 'sportdb/formats/structs/standings'
+require 'sportdb/formats/structs/team_usage'
+
 
 require 'sportdb/formats/scores'
 require 'sportdb/formats/goals'

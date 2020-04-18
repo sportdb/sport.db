@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 
-require 'csv'
+require 'csv'     ## fix:  always use read_csv from sportdb/formats  - why? why not?
 
 ## 3rd party gemss
 require 'sportdb/config'
@@ -11,11 +11,6 @@ require 'sportdb/config'
 # our own code
 require 'sportdb/text/version' # let version always go first
 
-require 'sportdb/text/structs/team'
-require 'sportdb/text/structs/match'
-require 'sportdb/text/structs/matchlist'
-require 'sportdb/text/structs/standings'
-require 'sportdb/text/structs/team_usage'
 
 
 require 'sportdb/text/season_utils'
@@ -41,11 +36,6 @@ require 'sportdb/text/csv/reports/part_datafiles_by_season.rb'
 
 
 require 'sportdb/text/txt/writer.rb'
-
-
-module SportDb
-   Structs = Struct ## add convenience alias (e.g. lets you use include SportDb::Structs)
-end
 
 
 

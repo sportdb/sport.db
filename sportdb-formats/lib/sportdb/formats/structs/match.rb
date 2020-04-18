@@ -1,37 +1,17 @@
 # encoding: utf-8
 
-
+##
+# note: add all "former" structs to the SportDb::Import module / namespace
 
 module SportDb
-  module Struct
+  module Import
 
 
 class Match
 
-  attr_reader :date,
-              :team1,     :team2,      ## todo/fix: use team1_name, team2_name or similar - for compat with db activerecord version? why? why not?
-              :score1,    :score2,     ## full time
-              :score1i,   :score2i,    ## half time (first (i) part)
-              :score1et,  :score2et,   ## extra time
-              :score1p,   :score2p,    ## penalty
-              :score1agg, :score2agg,  ## full time (all legs) aggregated
-              :winner,    # return 1,2,0   1 => team1, 2 => team2, 0 => draw/tie
-              :round,     ## todo/fix:  use round_num or similar - for compat with db activerecord version? why? why not?
-              :leg,      ## e.g. '1','2','3','replay', etc.   - use leg for marking **replay** too - keep/make leg numeric?! - why? why not?
-              :stage,
-              :group,
-              :conf1,    :conf2,      ## special case for mls e.g. conference1, conference2 (e.g. west, east, central)
-              :country1, :country2,    ## special case for champions league etc. - uses FIFA country code
-              :comments
-
-  def initialize( **kwargs )
-    update( kwargs )  unless kwargs.empty?
-  end
-
   def self.create( **kwargs )    ## keep using create why? why not?
-    self.new.update( kwargs )
+    new.update( kwargs )
   end
-
 
   def update( **kwargs )
     ## note: check with has_key?  because value might be nil!!!
@@ -110,6 +90,28 @@ class Match
   end
 
 
+  attr_reader :date,
+              :team1,     :team2,      ## todo/fix: use team1_name, team2_name or similar - for compat with db activerecord version? why? why not?
+              :score1,    :score2,     ## full time
+              :score1i,   :score2i,    ## half time (first (i) part)
+              :score1et,  :score2et,   ## extra time
+              :score1p,   :score2p,    ## penalty
+              :score1agg, :score2agg,  ## full time (all legs) aggregated
+              :winner,    # return 1,2,0   1 => team1, 2 => team2, 0 => draw/tie
+              :round,     ## todo/fix:  use round_num or similar - for compat with db activerecord version? why? why not?
+              :leg,      ## e.g. '1','2','3','replay', etc.   - use leg for marking **replay** too - keep/make leg numeric?! - why? why not?
+              :stage,
+              :group,
+              :conf1,    :conf2,      ## special case for mls e.g. conference1, conference2 (e.g. west, east, central)
+              :country1, :country2,    ## special case for champions league etc. - uses FIFA country code
+              :comments
+
+
+
+  def initialize( **kwargs )
+    update( kwargs )  unless kwargs.empty?
+  end
+
 
   def over?()      true; end  ## for now all matches are over - in the future check date!!!
   def complete?()  true; end  ## for now all scores are complete - in the future check scores; might be missing - not yet entered
@@ -124,6 +126,6 @@ class Match
   end
 
 end  # class Match
-end # module Struct
+end # module Import
 
 end # module SportDb

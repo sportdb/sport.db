@@ -104,7 +104,7 @@ def build
         exit 1
       end
 
-      matchlist = SportDb::Struct::Matchlist.new( matches )
+      matchlist = SportDb::Import::Matchlist.new( matches )
       all_datafiles[season_file] = matchlist
 
 

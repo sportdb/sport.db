@@ -12,16 +12,45 @@ module SportDb
 ## more attribs - todo/fix - also add "upstream" to struct & model!!!!!
 #   district, geos, year_end, country, etc.
 
+
+
+
 class Club
+
+  def self.create( **kwargs )
+    new.update( kwargs )
+  end
+
+  def update( **kwargs )
+    @name        = kwargs[:name]       if kwargs.has_key?( :name )
+    @alt_names   = kwargs[:alt_names]  if kwargs.has_key?( :alt_names )
+    @city        = kwargs[:city]       if kwargs.has_key?( :city )
+    ## todo/fix:  use city struct - why? why not?
+    ## todo/fix: add country too  or report unused keywords / attributes - why? why not?
+
+    self   ## note - MUST return self for chaining
+  end
+
+
   ##  todo: use just names for alt_names - why? why not?
   attr_accessor :key, :name, :alt_names,
                 :code,    ## code == abbreviation e.g. ARS etc.
-                :year, :year_end,
+                :year, :year_end,   ## todo/fix: change year_end to end_year (like in season)!!!
                 :ground
+
+
+  alias_method :title, :name  ## add alias/compat - why? why not
+
+  def names
+    ## todo/check: add alt_names_auto too? - why? why not?
+    [@name] + @alt_names
+  end   ## all names
+
 
   ## special import only attribs
   attr_accessor :alt_names_auto    ## auto-generated alt names
   attr_accessor :wikipedia   # wikipedia page name (for english (en))
+
 
   def historic?()  @year_end ? true : false; end
   alias_method  :past?, :historic?
@@ -176,6 +205,17 @@ private
 
   def variants( name )  Variant.find( name ); end
 end # class Club
+
+
+
+############
+#  convenience
+#   Club and Team are for now alias
+#     in the future make
+#        Club > Team
+#        NationalTeam > Team  - why? why not?
+Team = Club
+
 
 end   # module Import
 end   # module SportDb

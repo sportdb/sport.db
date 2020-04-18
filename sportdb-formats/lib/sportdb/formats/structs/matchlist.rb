@@ -1,9 +1,11 @@
 # encoding: utf-8
 
 
-module SportDb
-  module Struct
+##
+# note: add all "former" structs to the SportDb::Import module / namespace
 
+module SportDb
+  module Import
 
 
 class Matchlist  ## todo: find a better name - MatchStats, MatchFixtures, MatchSchedule, ...
@@ -27,28 +29,28 @@ class Matchlist  ## todo: find a better name - MatchStats, MatchFixtures, MatchS
   end
 
   def team_usage() usage.team_usage; end
- 
+
   def teams
     @team_names ||= team_usage.keys.sort
     @team_names
   end
 
   def goals() usage.goals; end
- 
+
   ## note: start_date and end_date might be nil / optional missing!!!!
   def start_date?() usage.start_date?; end
   def end_date?()   usage.end_date?; end
 
-  def start_date()  usage.start_date; end 
+  def start_date()  usage.start_date; end
   def end_date()    usage.end_date; end
- 
+
   def has_dates?()  usage.has_dates?; end
   def dates_str()   usage.dates_str; end
   def days()        usage.days; end
- 
+
 
   def rounds() usage.rounds; end
- 
+
   ## todo: add has_rounds? alias for rounds? too
   ## return true if all match_played in team_usage are the same
   ##  e.g. assumes league with matchday rounds
@@ -77,9 +79,9 @@ private
                  :rounds,   ## keep rounds - why? why not?
                  :start_date,
                  :end_date
-     
+
      def teams() @team_usage.keys.sort; end   ## (auto-)sort here always - why? why not?
-     
+
      def start_date?() @start_date.nil? == false; end
      def end_date?()   @end_date.nil? == false; end
 
@@ -92,7 +94,7 @@ private
         "??? - ???"
       end
     end
-  
+
     def days() end_date.jd - start_date.jd; end
 
 
@@ -100,7 +102,7 @@ private
       rounds?   ## note: use rounds? to calculate (cache) rounds
       @rounds   ## note: return number of rounds or nil (for uneven matches played by teams)
     end
-  
+
     ## todo: add has_rounds? alias for rounds? too
     def rounds?
        ## return true if all match_played in team_usage are the same
@@ -127,7 +129,7 @@ private
 
       ## sort (descending) highest usage value first (in returned array)
       ##  e.g. [[32,8],[31,2]]  ## 32 matches by 8 teams, 31 matches by 2 teams etc.
-      counts.sort_by {|count, usage| -count }       
+      counts.sort_by {|count, usage| -count }
     end
 
     def match_counts
@@ -156,22 +158,22 @@ private
         @end_date   = nil
 
         @team_usage = Hash.new(0)
-        
+
         @match_counts = nil
      end
 
-           
+
      def update( match )
         @matches += 1    ## match counter
-        
+
         if match.score1 && match.score2
           @goals += match.score1
           @goals += match.score2
-    
+
           ## todo: add after extra time? if knock out (k.o.) - why? why not?
           ##   make it a flag/opt?
         end
-        
+
         @team_usage[ match.team1 ] += 1
         @team_usage[ match.team2 ] += 1
 
@@ -180,10 +182,10 @@ private
           date = Date.strptime( match.date, '%Y-%m-%d' )
 
           @start_date = date  if @start_date.nil? || date < @start_date
-          @end_date   = date  if @end_date.nil?   || date > @end_date  
+          @end_date   = date  if @end_date.nil?   || date > @end_date
         end
      end
-  end  # class StatLine 
+  end  # class StatLine
 
 
   ## collect total usage stats (for all matches)
@@ -207,15 +209,15 @@ private
                    end
 
         stages[ stage_key ] ||= StatLine.new
-        stages[ stage_key ].update( match ) 
+        stages[ stage_key ].update( match )
     end
-  
+
     stages
   end
-   
+
 end  # class Matchlist
 
 
 
-  end # module Struct
+  end # module Import
 end # module SportDb

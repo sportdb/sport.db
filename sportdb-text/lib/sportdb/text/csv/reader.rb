@@ -51,7 +51,7 @@ def self.parse( text, headers: nil, filters: nil, converters: nil, col_sep: ',' 
 
        ## optional headers - note: find_header returns nil if header NOT found
        header_stage = find_header( headers, ['Stage'] )
-       headers_mapping[:stage]  =  header_stage   if header_stage 
+       headers_mapping[:stage]  =  header_stage   if header_stage
     else
        ## else try footballdata.uk and others
        headers_mapping[:team1]  = find_header( headers, ['HomeTeam', 'HT', 'Home'] )
@@ -228,14 +228,14 @@ def self.parse( text, headers: nil, filters: nil, converters: nil, col_sep: ',' 
                   nil
                elsif col == '?'
                    ## note: default explicit unknown to unknown for now AND not regular - why? why not?
-                  '?'   ## todo/check: use unkown and NOT ?  - why? why not?   
+                  '?'   ## todo/check: use unkown and NOT ?  - why? why not?
                else
                   col
                end
     end
- 
 
-    match = SportDb::Struct::Match.new( date:    date,
+
+    match = SportDb::Import::Match.new( date:    date,
                                         team1:   team1,   team2:   team2,
                                         score1:  score1,  score2:  score2,
                                         score1i: score1i, score2i: score2i,

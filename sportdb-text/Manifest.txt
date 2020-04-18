@@ -19,16 +19,10 @@ lib/sportdb/text/csv/standings.rb
 lib/sportdb/text/csv/writer.rb
 lib/sportdb/text/level_utils.rb
 lib/sportdb/text/season_utils.rb
-lib/sportdb/text/structs/match.rb
-lib/sportdb/text/structs/matchlist.rb
-lib/sportdb/text/structs/standings.rb
-lib/sportdb/text/structs/team.rb
-lib/sportdb/text/structs/team_usage.rb
 lib/sportdb/text/txt/writer.rb
 lib/sportdb/text/version.rb
 test/helper.rb
 test/test_level_utils.rb
-test/test_match.rb
 test/test_match_reader.rb
 test/test_package.rb
 test/test_splitter.rb

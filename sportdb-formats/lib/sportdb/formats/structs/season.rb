@@ -1,9 +1,6 @@
 # encoding: utf-8
 
 
-##
-# note: add all "former" structs to the SportDb::Import module / namespace
-
 module SportDb
   module Import
 

@@ -3,17 +3,9 @@
 module SportDb
   module Import
 
-##
-#  note: use our own (internal) club struct for now - why? why not?
-#    - check that shape/structure/fields/attributes match
-#      the Team struct in sportdb-text (in SportDb::Struct::Team)  !!!!
-
-
-## more attribs - todo/fix - also add "upstream" to struct & model!!!!!
+########
+# more attribs - todo/fix - also add "upstream" to struct & model!!!!!
 #   district, geos, year_end, country, etc.
-
-
-
 
 class Club
 
@@ -22,9 +14,9 @@ class Club
   end
 
   def update( **kwargs )
-    @name        = kwargs[:name]       if kwargs.has_key?( :name )
-    @alt_names   = kwargs[:alt_names]  if kwargs.has_key?( :alt_names )
-    @city        = kwargs[:city]       if kwargs.has_key?( :city )
+    @name        = kwargs[:name]       if kwargs.has_key? :name
+    @alt_names   = kwargs[:alt_names]  if kwargs.has_key? :alt_names
+    @city        = kwargs[:city]       if kwargs.has_key? :city
     ## todo/fix:  use city struct - why? why not?
     ## todo/fix: add country too  or report unused keywords / attributes - why? why not?
 

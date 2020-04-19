@@ -20,7 +20,7 @@ Hoe.spec 'sportdb-leagues' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-countries',   '>= 0.5.1']
+    ['sportdb-countries',   '>= 0.6.0']
   ]
 
   self.spec_extras = {

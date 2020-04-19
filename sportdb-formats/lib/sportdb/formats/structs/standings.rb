@@ -6,9 +6,6 @@
 ##   do NOT duplicate
 
 
-##
-# note: add all "former" structs to the SportDb::Import module / namespace
-
 module SportDb
   module Import
 

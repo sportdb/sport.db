@@ -38,21 +38,6 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
   end
 
 
-
-  Round = Struct.new( :pos, :title )
-  ##
-  ##  todo:  change db schema
-  ##    make start and end date optional
-  ##    change pos to num - why? why not?
-  ##    make pos/num optional too
-  ##
-  ##    sort round by scheduled/planed start date
-  Match = Struct.new( :date,
-                      :team1,     :team2,      ## todo/fix: use team1_name, team2_name or similar - for compat with db activerecord version? why? why not?
-                      :score1i,   :score2i,    ## half time (first (i) part)
-                      :score1,    :score2,     ## full time
-                      :round )
-
   def parse
     @last_date    = nil
     @last_round   = nil
@@ -170,7 +155,8 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
 
     round = @rounds[ title ]
     if round.nil?
-      round = Round.new( pos, title )
+      round = Import::Round.new( pos:   pos,
+                         title: title )
       @rounds[ title ] = round
     end
     ## todo/check: if pos match (MUST always match for now)
@@ -271,14 +257,14 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
 
 
     ## todo/check: scores are integers or strings?
-    @matches << Match.new( date,
-                           @teams[ team1_key ],
-                           @teams[ team2_key ],
-                           scores[0],  ## score1i - half time (first (i) part)
-                           scores[1],  ## score2i
-                           scores[2],  ## score1  - full time
-                           scores[3],  ## score2
-                           @last_round )
+    @matches << Import::Match.new( date:    date,
+                                   team1:   @teams[ team1_key ],
+                                   team2:   @teams[ team2_key ],
+                                   score1i: scores[0],  ## score1i - half time (first (i) part)
+                                   score2i: scores[1],  ## score2i
+                                   score1:  scores[2],  ## score1  - full time
+                                   score2:  scores[3],  ## score2
+                                   round:   @last_round )
 
     ### todo: cache team lookups in hash?
 

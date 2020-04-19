@@ -3,7 +3,6 @@ Manifest.txt
 README.md
 Rakefile
 lib/sportdb/leagues.rb
-lib/sportdb/leagues/league.rb
 lib/sportdb/leagues/league_index.rb
 lib/sportdb/leagues/league_reader.rb
 lib/sportdb/leagues/version.rb

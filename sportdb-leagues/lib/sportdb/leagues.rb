@@ -10,7 +10,6 @@ require 'sportdb/countries'
 ###
 # our own code
 require 'sportdb/leagues/version' # let version always go first
-require 'sportdb/leagues/league'
 require 'sportdb/leagues/league_reader'
 require 'sportdb/leagues/league_index'
 

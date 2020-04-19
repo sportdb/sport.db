@@ -1,8 +1,5 @@
 # encoding: utf-8
 
-##
-# note: add all "former" structs to the SportDb::Import module / namespace
-
 module SportDb
   module Import
 
@@ -16,8 +13,11 @@ class Match
   def update( **kwargs )
     ## note: check with has_key?  because value might be nil!!!
     @date     = kwargs[:date]     if kwargs.has_key? :date
+
+    ## todo/fix: use team1_name, team2_name or similar - for compat with db activerecord version? why? why not?
     @team1    = kwargs[:team1]    if kwargs.has_key? :team1
     @team2    = kwargs[:team2]    if kwargs.has_key? :team2
+
     @conf1    = kwargs[:conf1]    if kwargs.has_key? :conf1
     @conf2    = kwargs[:conf2]    if kwargs.has_key? :conf2
     @country1 = kwargs[:country1]  if kwargs.has_key? :country1
@@ -124,8 +124,7 @@ class Match
   def scorei_str    # pretty print (half time) scores; convenience method
     "#{@score1i}-#{@score2i}"
   end
-
 end  # class Match
-end # module Import
 
+end # module Import
 end # module SportDb

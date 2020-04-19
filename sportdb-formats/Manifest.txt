@@ -10,8 +10,11 @@ lib/sportdb/formats/package.rb
 lib/sportdb/formats/scores.rb
 lib/sportdb/formats/season_utils.rb
 lib/sportdb/formats/structs/club.rb
+lib/sportdb/formats/structs/country.rb
+lib/sportdb/formats/structs/league.rb
 lib/sportdb/formats/structs/match.rb
 lib/sportdb/formats/structs/matchlist.rb
+lib/sportdb/formats/structs/round.rb
 lib/sportdb/formats/structs/season.rb
 lib/sportdb/formats/structs/standings.rb
 lib/sportdb/formats/structs/team_usage.rb

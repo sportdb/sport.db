@@ -69,7 +69,10 @@ def self.parse( txt )
                    []
                  end
 
-          last_country = country = Country.new( key, name, fifa: fifa, tags: tags )
+          last_country = country = Country.new( key: key,
+                                                name: name,
+                                                fifa: fifa,
+                                                tags: tags )
           countries << country
         else
           puts "** !! ERROR !! missing key for (canonical) country name"

@@ -19,8 +19,10 @@ class League
     @country        = country
     @intl           = intl
   end
+
   def intl?()      @intl == true; end
   def national?()  @intl == false; end
+  alias_method   :domestic?, :national?
 
 
 

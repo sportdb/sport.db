@@ -6,25 +6,68 @@ module SportDb
 ## note: this was/is a cut-n-page (inline) copy of TextUtils::TitleMapper2
 ##   see https://github.com/textkit/textutils/blob/master/textutils/lib/textutils/title_mapper2.rb
 
+
 class MapperV2      ## todo/check: rename to NameMapper/TitleMapper ? why? why not??
 
   include LogUtils::Logging
 
   attr_reader :known_titles   ## rename to mapping or mappings or just titles - why? why not?
 
-  ##
+  ########
   ##  key:      e.g. augsburg
   ##  title:    e.g. FC Augsburg
-  ##  length (of title - not pattern):   e.g. 11   -- do not count dots (e.g. U.S.A. => 3 or 6) why? why not?
-  MappingStruct =  Struct.new( :key, :title, :length, :pattern)   ## todo/check: use (rename to) TitleStruct - why? why not??
+  ##  length (of title(!!) - not regex pattern):   e.g. 11   -- do not count dots (e.g. U.S.A. => 3 or 6) why? why not?
+  MappingStruct =  Struct.new( :key, :title, :length, :pattern)     ## todo/check: use (rename to) TitleStruct - why? why not??
+
+  ######
+  ## convenience helper - (auto)build ActiveRecord-like club records/structs
+  Record = Struct.new( :key, :title, :synonyms )
+  def build_records( txt )
+    recs = []
+    txt.each_line do |line|
+      line = line.strip
+
+      next if line.empty? || line.start_with?( '#' )  ## note: skip empty and comment lines
+
+      values = line.split( '|' )
+      values = values.map { |value| value.strip }
+
+      title    = values[0]
+      ## note: quick hack - auto-generate key, that is, remove all non-ascii chars and downcase
+      key      = title.downcase.gsub( /[^a-z]/, '' )
+      synonyms = values.size > 1 ? values[1..-1].join( '|' ) : nil
+
+      recs << Record.new( key, title, synonyms )
+    end
+    recs
+  end
 
 
-  def initialize( records, tag )
-    @known_titles = build_title_table_for( records )   ## build mapping lookup table
+  def initialize( records_or_mapping, tag )
+    ## for convenience allow easy (auto-)convert text (lines) to records
+    records_or_mapping = build_records( records_or_mapping )   if records_or_mapping.is_a?( String )
+
+    ## build mapping lookup table
+    @known_titles =  if records_or_mapping.is_a?( Array )  ## assume array of records
+                        build_title_table_for_records( records_or_mapping )
+                     else  ## assume "custom" mapping hash table (title/name=>record)
+                        build_title_table_for_mapping( records_or_mapping )
+                     end
+
+    ## build lookup hash by record (e.g. team/club/etc.) key
+    records = if records_or_mapping.is_a?( Array )
+                  records_or_mapping
+              else   ## assume hash (uses values assuming to be all records - note might include duplicates)
+                  records_or_mapping.values
+              end
+
+    @records = records.reduce({}) { |h,rec| h[rec.key]=rec; h }
+
 
     ## todo: rename tag to attrib or attrib_name - why ?? why not ???
     @tag = tag   # e.g. tag name use for @@brewery@@ @@team@@ etc.
   end
+
 
 
   def map_titles!( line )   ## rename to just map! - why?? why not???
@@ -33,26 +76,44 @@ class MapperV2      ## todo/check: rename to NameMapper/TitleMapper ? why? why n
     end while found
   end
 
-  def find_key!( line )
-    find_key_for!( @tag, line )
+  def find_rec!( line )
+    find_rec_for!( @tag, line, @records )
   end
 
-  def find_keys!( line )  # note: keys (plural!) - will return array
+  def find_recs!( line )  # note: keys (plural!) - will return array
     counter = 1
-    keys = []
+    recs = []
 
-    key = find_key_for!( "#{@tag}#{counter}", line )
-    while key && !key.empty?    ## note: key MUST exist and NOT be an empty string
-      keys << key
+    rec = find_rec_for!( "#{@tag}#{counter}", line, @records )
+    while rec
+      recs << rec
       counter += 1
-      key = find_key_for!( "#{@tag}#{counter}", line )
+      rec = find_rec_for!( "#{@tag}#{counter}", line, @records )
     end
-    keys
+    recs
   end
 
 
 private
-  def build_title_table_for( records )
+  def build_title_table_for_mapping( mapping )
+    known_titles = []
+
+    mapping.each do |title, rec|
+      m = MappingStruct.new
+      m.key     = rec.key
+      m.title   = title
+      m.length  = title.length
+      m.pattern = Regexp.escape( title )   ## note: just use "standard" regex escape (e.g. no extras for umlauts,accents,etc.)
+
+      known_titles << m
+    end
+
+    ## note: sort here by length (largest goes first - best match)
+    known_titles = known_titles.sort { |l,r| r.length <=> l.length }
+    known_titles
+  end
+
+  def build_title_table_for_records( records )
 
     ## build known tracks table w/ synonyms e.g.
     #
@@ -114,52 +175,48 @@ private
 
     ## note: sort here by length (largest goes first - best match)
       #  exclude code and key (key should always go last)
-    known_titles = known_titles.sort { |left,right| right.length <=> left.length }
+    known_titles = known_titles.sort { |l,r| r.length <=> l.length }
     known_titles
   end
 
 
+
   def map_title_for!( tag, line, mappings )
-
-    downcase_tag = tag.downcase
-
     mappings.each do |mapping|
-
-      key   = mapping.key
-      value = mapping.pattern
+      key     = mapping.key
+      pattern = mapping.pattern
       ## nb: \b does NOT include space or newline for word boundry (only alphanums e.g. a-z0-9)
       ## (thus add it, allows match for Benfica Lis.  for example - note . at the end)
 
       ## check add $ e.g. (\b| |\t|$) does this work? - check w/ Benfica Lis.$
-      regex = /\b#{value}(\b| |\t|$)/   # wrap with world boundry (e.g. match only whole words e.g. not wac in wacker)
-      if line =~ regex
-        logger.debug "     match for #{downcase_tag}  >#{key}< >#{value}<"
+      re = /\b#{pattern}(\b| |\t|$)/   # wrap with world boundry (e.g. match only whole words e.g. not wac in wacker)
+      if line =~ re
+        logger.debug "     match for #{tag.downcase}  >#{key}< >#{pattern}<"
         # make sure @@oo{key}oo@@ doesn't match itself with other key e.g. wacker, wac, etc.
-        line.sub!( regex, "@@oo#{key}oo@@ " )    # NB: add one space char at end
+        line.sub!( re, "@@oo#{key}oo@@ " )    # NB: add one space char at end
         return true    # break out after first match (do NOT continue)
       end
     end
-    return false
+
+    false
   end
 
 
-  def find_key_for!( tag, line )
-    regex = /@@oo([^@]+?)oo@@/     # e.g. everything in @@ .... @@ (use non-greedy +? plus all chars but not @, that is [^@])
+  def find_rec_for!( tag, line, records )
+    re = /@@oo([^@]+?)oo@@/     # e.g. everything in @@ .... @@ (use non-greedy +? plus all chars but not @, that is [^@])
 
-    upcase_tag    = tag.upcase
-    downcase_tag  = tag.downcase
+    if line =~ re
+      key = $1
+      logger.debug "   #{tag.downcase}: >#{key}<"
 
-    if line =~ regex
-      value = "#{$1}"
-      logger.debug "   #{downcase_tag}: >#{value}<"
+      line.sub!( re, "[#{tag.upcase}]" )
 
-      line.sub!( regex, "[#{upcase_tag}]" )
-
-      return $1
+      records[ key ]  ## note: map key to record (using records hash table mapping)
     else
-      return nil
+      nil
     end
   end # method find_key_for!
+
 
 ####
 # title helper cut-n-paste copy from TextUtils

@@ -15,26 +15,15 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
 
   include LogUtils::Logging
 
+
   def initialize( lines, teams, start )
-     @lines        = lines     ## todo/check: change to text instead of array of lines - why? why not?
-     @mapper_teams = TeamMapper.new( teams )
-     @start        = start
+    # for convenience split string into lines
+    ##    note: removes/strips empty lines
+    lines = lines.split( /\n+/ )   if lines.is_a?( String )
 
-     ## build lookup hash by (team) key
-     @teams =  teams.reduce({}) { |h,team| h[team.key]=team; h }
-
-     ## debug_dump_teams( teams )
-     ## exit 1
-  end
-
-  def debug_dump_teams( teams )
-    puts "== #{teams.size} teams"
-    teams.each do |team|
-      print "#{team.key}, "
-      print "#{team.title}, "
-      print "#{team.synonyms.split('|').join(', ')}"
-      puts
-    end
+    @lines        = lines     ## todo/check: change to text instead of array of lines - why? why not?
+    @mapper_teams = TeamMapper.new( teams )
+    @start        = start
   end
 
 
@@ -225,13 +214,18 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
   def parse_game( line )
     logger.debug "parsing game (fixture) line: >#{line}<"
 
+
+    ## todo/fix:
+    ##   split into parts e.g. break using @ !!!
+
+
     @mapper_teams.map_teams!( line )   ### todo/fix: limit mapping to two(2) teams - why? why not?  might avoid matching @ Barcelona ??
-    team_keys = @mapper_teams.find_teams!( line )
-    team1_key = team_keys[0]
-    team2_key = team_keys[1]
+    teams = @mapper_teams.find_teams!( line )
+    team1 = teams[0]
+    team2 = teams[1]
 
     ## note: if we do NOT find two teams; return false - no match found
-    if team1_key.nil? || team2_key.nil?
+    if team1.nil? || team2.nil?
       logger.debug "  no game match (two teams required) found for line: >#{line}<"
       return false
     end
@@ -258,8 +252,8 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
 
     ## todo/check: scores are integers or strings?
     @matches << Import::Match.new( date:    date,
-                                   team1:   @teams[ team1_key ],
-                                   team2:   @teams[ team2_key ],
+                                   team1:   team1,
+                                   team2:   team2,
                                    score1i: scores[0],  ## score1i - half time (first (i) part)
                                    score2i: scores[1],  ## score2i
                                    score1:  scores[2],  ## score1  - full time
@@ -439,13 +433,13 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
     #   Jun/17:   etc.
 
     @mapper_teams.map_teams!( line )
-    team_keys = @mapper_teams.find_teams!( line )
-    team1_key = team_keys[0]
-    team2_key = team_keys[1]
+    teams = @mapper_teams.find_teams!( line )
+    team1 = teams[0]
+    team2 = teams[1]
 
     date = find_date!( line, start: @start )
 
-    if date && team1_key.nil? && team2_key.nil?
+    if date && team1.nil? && team2.nil?
       logger.debug( "date header line found: >#{line}<")
       logger.debug( "    date: #{date}")
 

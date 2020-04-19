@@ -10,25 +10,6 @@ require 'helper'
 
 class TestMatchParser < MiniTest::Test
 
-    ## build ActiveRecord-like club records/structs
-    Club = Struct.new( :key, :title, :synonyms )
-    def Club.read( txt )
-      recs = []
-      txt.each_line do |line|
-        values = line.split( '|' )
-        values = values.map { |value| value.strip }
-
-        title    = values[0]
-        ## note: quick hack - auto-generate key, that is, remove all non-ascii chars and downcase
-        key      = title.downcase.gsub( /[^a-z]/, '' )
-        synonyms = values.size > 1 ? values[1..-1].join( '|' ) : nil
-
-        recs << Club.new( key, title, synonyms )
-      end
-      recs
-    end
-
-
   def test_parse
     txt = <<TXT
 Matchday 1
@@ -65,7 +46,7 @@ Matchday 2
   Manchester City          1-1  Everton FC
 TXT
 
-    clubs_txt = <<TXT
+    clubs = <<TXT
 Arsenal FC | Arsenal | FC Arsenal
 Leicester City FC | Leicester | Leicester City
 Watford FC | Watford | FC Watford
@@ -89,18 +70,12 @@ West Ham United FC | West Ham | West Ham United
 TXT
 
 
-    clubs = Club.read( clubs_txt )
-    pp clubs
-
-    lines = txt.split( /\n+/ )    # note: removes/strips empty lines
-    pp lines
-
     start = Date.new( 2017, 7, 1 )
 
     DateFormats.lang = 'en'
     SportDb.lang.lang = 'en'
 
-    parser = SportDb::MatchParserSimpleV2.new( lines, clubs, start )
+    parser = SportDb::MatchParserSimpleV2.new( txt, clubs, start )
     rounds, matches = parser.parse
     pp rounds
     pp matches

@@ -15,9 +15,14 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
 
   include LogUtils::Logging
 
+
   def initialize( lines, start )
-     @lines        = lines     ## todo/check: change to text instead of array of lines - why? why not?
-     @start        = start
+    # for convenience split string into lines
+    ##    note: removes/strips empty lines
+    lines = lines.split( /\n+/ )   if lines.is_a?( String )
+
+    @lines        = lines     ## todo/check: change to text instead of array of lines - why? why not?
+    @start        = start
   end
 
   def parse

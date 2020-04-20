@@ -42,74 +42,61 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
         DateFormats.lang  = 'en'
       end
 
+
       ## todo/fix:
       ##    always auto create
       ##   1) check for clubs count on event/stage - only if count == 0 use autoconf!!!
       ##   2) add lang switch for date/lang too!!!!
 
-      stage = nil
-      auto_conf_clubs = nil
-      if rec[:stage]
-        event  = Sync::Event.find_or_create( league: league, season: season )
-        stage  = Sync::Stage.find( rec[:stage], event: event )
-        if stage.nil?
-          ## fix: just use Stage.create
-          stage = Sync::Stage.find_or_create( rec[:stage], event: event )
+      event = Sync::Event.find_or_create( league: league, season: season )
 
-          auto_conf_clubs, _ = AutoConfParser.parse( rec[:lines],
-                                                      start: event.start_at )
-        end
+      stage = if rec[:stage]
+        Sync::Stage.find_or_create( rec[:stage], event: event )
       else
-        event  = Sync::Event.find( league: league, season: season )
-        if event.nil?
-          ## fix: just use Event.create
-          event  = Sync::Event.find_or_create( league: league, season: season )
-
-          auto_conf_clubs, _ = AutoConfParser.parse( rec[:lines],
-                                                      start: event.start_at )
-        end
+        nil
       end
 
 
-      if auto_conf_clubs
-        pp auto_conf_clubs
+      auto_conf_clubs, _ = AutoConfParser.parse( rec[:lines],
+                                                 start: event.start_at )
 
-        ## step 1: map/find clubs
-        club_recs = []
-        ## note: loop over keys (holding the names); values hold the usage counter!! e.g. 'Arsenal' => 2, etc.
-        country = league.country
-        auto_conf_clubs.keys.each do |name|
-           club_rec = config.clubs.find_by!( name: name, country: country )
-           club_recs << club_rec
-        end
+      ## step 1: map/find clubs
+      club_recs    = []   ## array of struct records
+      club_mapping = {}   ## name => database (ActiveRecord) record
 
-        ## todo/fix: check if all clubs are unique
+      ## note: loop over keys (holding the names); values hold the usage counter!! e.g. 'Arsenal' => 2, etc.
+      country = league.country
+      auto_conf_clubs.keys.each do |name|
+        club_rec = config.clubs.find_by!( name: name, country: country )
+        club_recs << club_rec
 
-
-        ## step 2: add to database
-        club_recs.each do |club_rec|
-          club = Sync::Club.find_or_create( club_rec )
-          ## add teams to event
-          ##   todo/fix: check if team is alreay included?
-          ##    or clear/destroy_all first!!!
-          if stage
-            stage.teams << club
-          else
-            event.teams << club
-          end
-        end
+        club = Sync::Club.find_or_create( club_rec )
+        club_mapping[ name ] = club
       end
 
 
-      if rec[:stage]
-        teams = stage.teams
-      else
-        teams = event.teams
+      ## todo/fix: check if all clubs are unique
+      ##   check if uniq works for club record (struct) - yes,no ??
+      clubs = club_mapping.values.uniq
+
+
+      ## step 2: add to database
+      teams     =  stage ? stage.teams    : event.teams
+      team_ids  =  stage ? stage.team_ids : event.team_ids
+
+      clubs.each do |club|
+        ## add teams to event
+        ##   for now check if team is alreay included
+        ##   todo/fix: clear/destroy_all first - why? why not!!!
+
+        teams << club    unless team_ids.include?( club.id )
       end
+
+
 
       ## todo/fix: set lang for now depending on league country!!!
       parser = MatchParserSimpleV2.new( rec[:lines],
-                                teams,  ## note: use event OR stage teams (if stage is present)
+                                club_mapping,
                                 event.start_at )   ## note: keep season start_at date for now (no need for more specific stage date need for now)
       round_recs, match_recs = parser.parse
       pp round_recs

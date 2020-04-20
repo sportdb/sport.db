@@ -11,7 +11,7 @@ require 'helper'
 class TestReader < MiniTest::Test
 
 
-  def test_read_mauritius
+  def xxx_test_read_mauritius
     SportDb.connect( adapter: 'sqlite3', database: ':memory:' )
     SportDb.create_all   ## build schema
 
@@ -91,7 +91,7 @@ TXT
   end  # method test_read_mauritius
 
 
-  def xxx_test_read_eng
+  def test_read_eng
     SportDb.connect( adapter: 'sqlite3', database: ':memory:' )
     SportDb.create_all   ## build schema
 

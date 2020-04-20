@@ -98,7 +98,9 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       parser = MatchParserSimpleV2.new( rec[:lines],
                                 club_mapping,
                                 event.start_at )   ## note: keep season start_at date for now (no need for more specific stage date need for now)
-      round_recs, match_recs = parser.parse
+
+      match_recs, round_recs = parser.parse
+
       pp round_recs
 
       round_recs.each do |round_rec|
@@ -106,6 +108,7 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
         round_rec.pos = 999    if round_rec.pos.nil?
         round = Sync::Round.find_or_create( round_rec, event: event )  ## check: use/rename to EventRound why? why not?
       end
+
       match_recs.each do |match_rec|
         ## todo/fix: pass along stage (if present): stage  - optional!!!!
         match = Sync::Match.create_or_update( match_rec, event: event )

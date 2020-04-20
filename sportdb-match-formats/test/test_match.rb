@@ -76,7 +76,8 @@ TXT
     SportDb.lang.lang = 'en'
 
     parser = SportDb::MatchParserSimpleV2.new( txt, clubs, start )
-    rounds, matches = parser.parse
+    matches, rounds  = parser.parse
+
     pp rounds
     pp matches
   end   # method test_parse

@@ -46,8 +46,7 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
       end
     end # lines.each
 
-    ## todo/fix: reverse - pass matches as first para
-    [@rounds.values, @matches]
+    [@matches, @rounds.values]
   end # method parse
 
 

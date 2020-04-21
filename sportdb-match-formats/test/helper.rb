@@ -23,3 +23,10 @@ def parse_auto_conf( txt, lang: 'en' )
   pp clubs
   [clubs, rounds]
 end
+
+def parse_conf( txt )
+  parser = SportDb::ConfParser.new( txt )
+  clubs = parser.parse
+  pp clubs
+  clubs
+end

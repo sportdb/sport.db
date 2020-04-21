@@ -19,9 +19,19 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
   def initialize( lines, teams, start )
     # for convenience split string into lines
     ##    note: removes/strips empty lines
-    lines = lines.split( /\n+/ )   if lines.is_a?( String )
+    if lines.is_a?( String )
+      @lines = []
+      lines.each_line do |line|    ## preprocess
+         line = line.strip
 
-    @lines        = lines     ## todo/check: change to text instead of array of lines - why? why not?
+         next if line.empty? || line.start_with?('#')   ###  skip empty lines and comments
+         line = line.sub( /#.*/, '' ).strip             ###  cut-off end-of line comments too
+         @lines << line
+      end
+    else    ## assume alreay preprocess / cleaned-up
+      @lines        = lines     ## todo/check: change to text instead of array of lines - why? why not?
+    end
+
     @mapper_teams = TeamMapper.new( teams )
     @start        = start
   end

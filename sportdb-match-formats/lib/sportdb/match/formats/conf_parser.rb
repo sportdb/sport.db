@@ -28,10 +28,29 @@ module SportDb
     end
 
 
+
+    COUNTRY_RE = %r{ [<>‹›,]
+                     [ ]*
+                     (?<country>[A-Z]{2,4})   ## todo/check: allow one-letter (motor vehicle plates) or 5 letter possible?
+                    \b}xi
+
     def parse
+
       clubs = {}    ## convert lines to clubs
+
       @lines.each do |line|
         next if line =~ /^[ -]+$/   ## skip decorative lines with dash only (e.g. ---- or - - - -) etc.
+
+
+        ## quick hack - check for/extract (optional) county code (for clubs) first
+        ##  allow as separators <>‹›,  NOTE: includes (,) comma for now too
+        m = nil
+        country = nil
+        if m=COUNTRY_RE.match( line )
+          country = m[:country]
+          line = line.sub( m[0], ' ' )  ## replace match with single (white)space
+        end
+
 
         scan = StringScanner.new( line )
 
@@ -41,7 +60,7 @@ module SportDb
 
           ## note: uses look ahead scan until we hit at least two spaces
           ##  or the end of string  (standing records for now optional)
-          name = scan.scan_until( /(?=\s{2})|$/ )
+          name = scan.scan_until( /(?=\s{2})|$/ ).strip  # note: strip trailing spaces
           if scan.eos?
             standing = nil
           else
@@ -51,14 +70,16 @@ module SportDb
 
           club = clubs[ name ] ||= { count: 0 }
           club[ :count ]    += 1    ## track double usage - why? why not? report/raise error/exception on duplicates?
+          club[ :country ]   = country     if country
           club[ :rank ]      = rank
           club[ :standing ]  = standing    if standing
         else
           ## assume club is full line
-          name = line
+          name = line.strip  # note: strip leading and trailing spaces
 
           club = clubs[ name ] ||= { count: 0 }
-          club[ :count ] += 1
+          club[ :count ]   += 1
+          club[ :country ]  = country     if country
         end
       end
 

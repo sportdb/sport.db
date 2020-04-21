@@ -10,6 +10,21 @@ require 'helper'
 
 class TestConf < MiniTest::Test
 
+  COUNTRY_RE = SportDb::ConfParser::COUNTRY_RE
+
+  def test_re
+    m=COUNTRY_RE.match( 'Manchester United › ENG' )
+    pp m
+    pp m[0]
+    assert_equal  'ENG', m[:country]
+
+    m=COUNTRY_RE.match( 'Manchester United›ENG' )
+    pp m
+    pp m[0]
+    assert_equal  'ENG', m[:country]
+  end
+
+
   def test_at
     txt= <<TXT
 FC Red Bull Salzburg      ## Bundesliga
@@ -104,29 +119,29 @@ TXT
   def test_champs
     txt= <<TXT
 Manchester United › ENG
-Liverpool › ENG
-Chelsea › ENG
-Manchester City › ENG
+Liverpool         › ENG
+Chelsea           › ENG
+Manchester City   › ENG
 Tottenham Hotspur › ENG
 
 Atlético Madrid › ESP
-Barcelona › ESP
-Sevilla › ESP
-Real Madrid › ESP
+Barcelona       › ESP
+Sevilla         › ESP
+Real Madrid     › ESP
 
-Roma › ITA
+Roma     › ITA
 Juventus › ITA
-Napoli › ITA
+Napoli   › ITA
 
-Bayern München › GER
+Bayern München    › GER
 Borussia Dortmund › GER
-RB Leipzig › GER
+RB Leipzig        › GER
 
-Benfica › POR
+Benfica     › POR
 Sporting CP › POR
-Porto › POR
+Porto       › POR
 
-CSKA Moscow › RUS
+CSKA Moscow    › RUS
 Spartak Moscow › RUS
 
 Paris Saint-Germain › FRA
@@ -146,37 +161,37 @@ TXT
     clubs = parse_conf( txt )
 
     assert_equal Hash(
-      'Manchester United › ENG'   =>{:count=>1},
-      'Liverpool › ENG'           =>{:count=>1},
-      'Chelsea › ENG'             =>{:count=>1},
-      'Manchester City › ENG'     =>{:count=>1},
-      'Tottenham Hotspur › ENG'   =>{:count=>1},
-      'Atlético Madrid › ESP'     =>{:count=>1},
-      'Barcelona › ESP'           =>{:count=>1},
-      'Sevilla › ESP'             =>{:count=>1},
-      'Real Madrid › ESP'         =>{:count=>1},
-      'Roma › ITA'                =>{:count=>1},
-      'Juventus › ITA'            =>{:count=>1},
-      'Napoli › ITA'              =>{:count=>1},
-      'Bayern München › GER'      =>{:count=>1},
-      'Borussia Dortmund › GER'   =>{:count=>1},
-      'RB Leipzig › GER'          =>{:count=>1},
-      'Benfica › POR'             =>{:count=>1},
-      'Sporting CP › POR'         =>{:count=>1},
-      'Porto › POR'               =>{:count=>1},
-      'CSKA Moscow › RUS'         =>{:count=>1},
-      'Spartak Moscow › RUS'      =>{:count=>1},
-      'Paris Saint-Germain › FRA' =>{:count=>1},
-      'Basel › SUI'               =>{:count=>1},
-      'Celtic › SCO'              =>{:count=>1},
-      'Anderlecht › BEL'          =>{:count=>1},
-      'Qarabağ › AZE'             =>{:count=>1},
-      'Olympiacos › GRE'          =>{:count=>1},
-      'Maribor › SVN'             =>{:count=>1},
-      'Shakhtar Donetsk › UKR'    =>{:count=>1},
-      'Feyenoord › NED'           =>{:count=>1},
-      'Beşiktaş › TUR'            =>{:count=>1},
-      'Monaco › MCO'              =>{:count=>1},
-      'APOEL › CYP'               =>{:count=>1}), clubs
+      'Manchester United'   =>{:count=>1, :country=>'ENG'},
+      'Liverpool'           =>{:count=>1, :country=>'ENG'},
+      'Chelsea'             =>{:count=>1, :country=>'ENG'},
+      'Manchester City'     =>{:count=>1, :country=>'ENG'},
+      'Tottenham Hotspur'   =>{:count=>1, :country=>'ENG'},
+      'Atlético Madrid'     =>{:count=>1, :country=>'ESP'},
+      'Barcelona'           =>{:count=>1, :country=>'ESP'},
+      'Sevilla'             =>{:count=>1, :country=>'ESP'},
+      'Real Madrid'         =>{:count=>1, :country=>'ESP'},
+      'Roma'                =>{:count=>1, :country=>'ITA'},
+      'Juventus'            =>{:count=>1, :country=>'ITA'},
+      'Napoli'              =>{:count=>1, :country=>'ITA'},
+      'Bayern München'      =>{:count=>1, :country=>'GER'},
+      'Borussia Dortmund'   =>{:count=>1, :country=>'GER'},
+      'RB Leipzig'          =>{:count=>1, :country=>'GER'},
+      'Benfica'             =>{:count=>1, :country=>'POR'},
+      'Sporting CP'         =>{:count=>1, :country=>'POR'},
+      'Porto'               =>{:count=>1, :country=>'POR'},
+      'CSKA Moscow'         =>{:count=>1, :country=>'RUS'},
+      'Spartak Moscow'      =>{:count=>1, :country=>'RUS'},
+      'Paris Saint-Germain' =>{:count=>1, :country=>'FRA'},
+      'Basel'               =>{:count=>1, :country=>'SUI'},
+      'Celtic'              =>{:count=>1, :country=>'SCO'},
+      'Anderlecht'          =>{:count=>1, :country=>'BEL'},
+      'Qarabağ'             =>{:count=>1, :country=>'AZE'},
+      'Olympiacos'          =>{:count=>1, :country=>'GRE'},
+      'Maribor'             =>{:count=>1, :country=>'SVN'},
+      'Shakhtar Donetsk'    =>{:count=>1, :country=>'UKR'},
+      'Feyenoord'           =>{:count=>1, :country=>'NED'},
+      'Beşiktaş'            =>{:count=>1, :country=>'TUR'},
+      'Monaco'              =>{:count=>1, :country=>'MCO'},
+      'APOEL'               =>{:count=>1, :country=>'CYP'}), clubs
   end
 end   # class TestConf

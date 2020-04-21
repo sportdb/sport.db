@@ -25,6 +25,54 @@ class TestConfReader < MiniTest::Test
     # path = "../../../openfootball/england/2017-18/.conf.txt"
     # path = "../../../openfootball/england/2018-19/.conf.txt"
     # path = "../../../openfootball/england/2019-20/.conf.txt"
-    recs = SportDb::ConfReaderV2.read( path )
+    SportDb::ConfReaderV2.read( path )
   end  # method test_read
+
+
+  def test_read_champs
+txt =<<TXT
+= UEFA Champions League 2017/18
+
+Manchester United › ENG
+Liverpool         › ENG
+Chelsea           › ENG
+Manchester City   › ENG
+Tottenham Hotspur › ENG
+
+Atlético Madrid › ESP
+Barcelona       › ESP
+Sevilla         › ESP
+Real Madrid     › ESP
+
+Roma     › ITA
+Juventus › ITA
+Napoli   › ITA
+
+Bayern München    › GER
+Borussia Dortmund › GER
+RB Leipzig        › GER
+
+Benfica     › POR
+Sporting CP › POR
+Porto       › POR
+
+CSKA Moscow    › RUS
+Spartak Moscow › RUS
+
+Paris Saint-Germain › FRA
+Basel › SUI
+Celtic › SCO
+Anderlecht › BEL
+Qarabağ › AZE
+Olympiacos › GRE
+Maribor › SVN
+Shakhtar Donetsk › UKR
+Feyenoord › NED
+Beşiktaş › TUR
+Monaco › MCO
+APOEL › CYP
+TXT
+
+    SportDb::ConfReaderV2.parse( txt )
+  end
 end  # class TestConfReader

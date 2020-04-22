@@ -146,7 +146,7 @@ class Club
   ##   Myllykosken Pallo −47 => Myllykosken Pallo 47
 
   NORM_REGEX =  %r{
-                    [.'’º/()−-]
+                    [.'’º/()_−-]
                   }x   # note: in [] dash (-) if last doesn't need to get escaped
   ## note: remove all dots (.), dash (-), ', º, /, etc.
   #   .  U+002E (46) - FULL STOP

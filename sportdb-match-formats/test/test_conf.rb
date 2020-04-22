@@ -11,6 +11,7 @@ require 'helper'
 class TestConf < MiniTest::Test
 
   COUNTRY_RE = SportDb::ConfParser::COUNTRY_RE
+  TABLE_RE   = SportDb::ConfParser::TABLE_RE
 
   def test_re
     m=COUNTRY_RE.match( 'Manchester United › ENG' )
@@ -22,6 +23,24 @@ class TestConf < MiniTest::Test
     pp m
     pp m[0]
     assert_equal  'ENG', m[:country]
+
+
+    m=TABLE_RE.match( '1  Manchester City         38  32  4  2 106-27 100' )
+    pp m
+    assert_equal 'Manchester City', m[:club]
+
+    m=TABLE_RE.match( '1.  Manchester City         38  32  4  2 106:27 100' )
+    pp m
+    assert_equal 'Manchester City', m[:club]
+
+    m=TABLE_RE.match( '-  Manchester City         38  32  4  2 106 - 27 100' )
+    pp m
+    assert_equal 'Manchester City', m[:club]
+
+
+    m=TABLE_RE.match( '1.  1. FC Mainz           38  32  4  2 106-27 100  [-7]' )
+    pp m
+    assert_equal '1. FC Mainz', m[:club]
   end
 
 
@@ -93,26 +112,182 @@ TXT
   clubs = parse_conf( txt )
 
   assert_equal Hash(
-  'Manchester City'        =>{:count=>1, :rank=>'1',  :standing=>'38  32  4  2 106-27 100'},
-  'Manchester United'      =>{:count=>1, :rank=>'2',  :standing=>'38  25  6  7  68-28  81'},
-  'Tottenham Hotspur'      =>{:count=>1, :rank=>'3',  :standing=>'38  23  8  7  74-36  77'},
-  'Liverpool'              =>{:count=>1, :rank=>'4',  :standing=>'38  21 12  5  84-38  75'},
-  'Chelsea'                =>{:count=>1, :rank=>'5',  :standing=>'38  21  7 10  62-38  70'},
-  'Arsenal'                =>{:count=>1, :rank=>'6',  :standing=>'38  19  6 13  74-51  63'},
-  'Burnley'                =>{:count=>1, :rank=>'7',  :standing=>'38  14 12 12  36-39  54'},
-  'Everton'                =>{:count=>1, :rank=>'8',  :standing=>'38  13 10 15  44-58  49'},
-  'Leicester City'         =>{:count=>1, :rank=>'9',  :standing=>'38  12 11 15  56-60  47'},
-  'Newcastle United'       =>{:count=>1, :rank=>'10', :standing=>'38  12  8 18  39-47  44'},
-  'Crystal Palace'         =>{:count=>1, :rank=>'11', :standing=>'38  11 11 16  45-55  44'},
-  'AFC Bournemouth'        =>{:count=>1, :rank=>'12', :standing=>'38  11 11 16  45-61  44'},
-  'West Ham United'        =>{:count=>1, :rank=>'13', :standing=>'38  10 12 16  48-68  42'},
-  'Watford'                =>{:count=>1, :rank=>'14', :standing=>'38  11  8 19  44-64  41'},
-  'Brighton & Hove Albion' =>{:count=>1, :rank=>'15', :standing=>'38   9 13 16  34-54  40'},
-  'Huddersfield Town'      =>{:count=>1, :rank=>'16', :standing=>'38   9 10 19  28-58  37'},
-  'Southampton'            =>{:count=>1, :rank=>'17', :standing=>'38   7 15 16  37-56  36'},
-  'Swansea City'           =>{:count=>1, :rank=>'18', :standing=>'38   8  9 21  28-56  33'},
-  'Stoke City'             =>{:count=>1, :rank=>'19', :standing=>'38   7 12 19  35-68  33'},
-  'West Bromwich Albion'   =>{:count=>1, :rank=>'20', :standing=>'38   6 13 19  31-56  31'}), clubs
+   'Manchester City'=> {:count=>1, :rank=>'1',
+     :standing=> {:pld=>'38', :w=>'32', :d=>'4', :l=>'2', :gf=>'106', :ga=>'27', :pts=>'100'}},
+   'Manchester United'=> {:count=>1, :rank=>'2',
+     :standing=> {:pld=>'38', :w=>'25', :d=>'6', :l=>'7', :gf=>'68', :ga=>'28', :pts=>'81'}},
+   'Tottenham Hotspur'=> {:count=>1, :rank=>'3',
+     :standing=> {:pld=>'38', :w=>'23', :d=>'8', :l=>'7', :gf=>'74', :ga=>'36', :pts=>'77'}},
+   'Liverpool'=> {:count=>1,
+     :rank=>'4',
+     :standing=>
+      {:pld=>'38',
+       :w=>'21',
+       :d=>'12',
+       :l=>'5',
+       :gf=>'84',
+       :ga=>'38',
+       :pts=>'75'}},
+   'Chelsea'=> {:count=>1,
+     :rank=>'5',
+     :standing=>
+      {:pld=>'38',
+       :w=>'21',
+       :d=>'7',
+       :l=>'10',
+       :gf=>'62',
+       :ga=>'38',
+       :pts=>'70'}},
+   'Arsenal'=> {:count=>1,
+     :rank=>'6',
+     :standing=>
+      {:pld=>'38',
+       :w=>'19',
+       :d=>'6',
+       :l=>'13',
+       :gf=>'74',
+       :ga=>'51',
+       :pts=>'63'}},
+   'Burnley'=> {:count=>1,
+     :rank=>'7',
+     :standing=>
+      {:pld=>'38',
+       :w=>'14',
+       :d=>'12',
+       :l=>'12',
+       :gf=>'36',
+       :ga=>'39',
+       :pts=>'54'}},
+   'Everton'=> {:count=>1,
+     :rank=>'8',
+     :standing=>
+      {:pld=>'38',
+       :w=>'13',
+       :d=>'10',
+       :l=>'15',
+       :gf=>'44',
+       :ga=>'58',
+       :pts=>'49'}},
+   'Leicester City'=> {:count=>1,
+     :rank=>'9',
+     :standing=>
+      {:pld=>'38',
+       :w=>'12',
+       :d=>'11',
+       :l=>'15',
+       :gf=>'56',
+       :ga=>'60',
+       :pts=>'47'}},
+   'Newcastle United'=> {:count=>1,
+     :rank=>'10',
+     :standing=>
+      {:pld=>'38',
+       :w=>'12',
+       :d=>'8',
+       :l=>'18',
+       :gf=>'39',
+       :ga=>'47',
+       :pts=>'44'}},
+   'Crystal Palace'=> {:count=>1,
+     :rank=>'11',
+     :standing=>
+      {:pld=>'38',
+       :w=>'11',
+       :d=>'11',
+       :l=>'16',
+       :gf=>'45',
+       :ga=>'55',
+       :pts=>'44'}},
+   'AFC Bournemouth'=> {:count=>1,
+     :rank=>'12',
+     :standing=>
+      {:pld=>'38',
+       :w=>'11',
+       :d=>'11',
+       :l=>'16',
+       :gf=>'45',
+       :ga=>'61',
+       :pts=>'44'}},
+   'West Ham United'=> {:count=>1,
+     :rank=>'13',
+     :standing=>
+      {:pld=>'38',
+       :w=>'10',
+       :d=>'12',
+       :l=>'16',
+       :gf=>'48',
+       :ga=>'68',
+       :pts=>'42'}},
+   'Watford'=> {:count=>1,
+     :rank=>'14',
+     :standing=>
+      {:pld=>'38',
+       :w=>'11',
+       :d=>'8',
+       :l=>'19',
+       :gf=>'44',
+       :ga=>'64',
+       :pts=>'41'}},
+   'Brighton & Hove Albion'=> {:count=>1,
+     :rank=>'15',
+     :standing=>
+      {:pld=>'38',
+       :w=>'9',
+       :d=>'13',
+       :l=>'16',
+       :gf=>'34',
+       :ga=>'54',
+       :pts=>'40'}},
+   'Huddersfield Town'=> {:count=>1,
+     :rank=>'16',
+     :standing=>
+      {:pld=>'38',
+       :w=>'9',
+       :d=>'10',
+       :l=>'19',
+       :gf=>'28',
+       :ga=>'58',
+       :pts=>'37'}},
+   'Southampton'=> {:count=>1,
+     :rank=>'17',
+     :standing=>
+      {:pld=>'38',
+       :w=>'7',
+       :d=>'15',
+       :l=>'16',
+       :gf=>'37',
+       :ga=>'56',
+       :pts=>'36'}},
+   'Swansea City'=> {:count=>1,
+     :rank=>'18',
+     :standing=>
+      {:pld=>'38',
+       :w=>'8',
+       :d=>'9',
+       :l=>'21',
+       :gf=>'28',
+       :ga=>'56',
+       :pts=>'33'}},
+   'Stoke City'=> {:count=>1,
+     :rank=>'19',
+     :standing=>
+      {:pld=>'38',
+       :w=>'7',
+       :d=>'12',
+       :l=>'19',
+       :gf=>'35',
+       :ga=>'68',
+       :pts=>'33'}},
+   'West Bromwich Albion'=> {:count=>1,
+     :rank=>'20',
+     :standing=>
+      {:pld=>'38',
+       :w=>'6',
+       :d=>'13',
+       :l=>'19',
+       :gf=>'31',
+       :ga=>'56',
+       :pts=>'31'}}), clubs
   end
 
 

@@ -2,7 +2,8 @@ module SportDb
   module Import
 
     class Round
-      attr_reader :pos, :title
+      attr_reader   :title
+      attr_accessor :pos   # note: make read & writable
 
       ##
       ##  todo:  change db schema

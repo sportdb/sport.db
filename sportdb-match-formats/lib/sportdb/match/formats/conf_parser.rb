@@ -34,8 +34,41 @@ module SportDb
                      (?<country>[A-Z]{2,4})   ## todo/check: allow one-letter (motor vehicle plates) or 5 letter possible?
                     \b}xi
 
-    def parse
 
+    ## standings table row regex matcher e.g.
+    ##     1  Manchester City         38  32  4  2 106-27 100
+    ## or  1. Manchester City         38  32  4  2 106:27 100
+    TABLE_RE = %r{ ^
+                    (?:
+                      (?<rank>\d+)\.?
+                         |
+                        [-]
+                     )
+                    [ ]+
+                      (?<club>.+?)   ## note: let's use non-greedy (MINIMUM length) match for now
+                    [ ]+
+                      (?<pld>\d+)    ## (pl)aye(d)
+                    [ ]+
+                      (?<w>\d+)      ## (w)ins
+                    [ ]+
+                      (?<d>\d+)     ## (d)raws
+                    [ ]+
+                      (?<l>\d+)      ## (l)ost
+                    [ ]+
+                      (?<gf>\d+)     ## (g)oal (f)or
+                        [ ]*
+                        [:-]    ## note: allow 10-10 or 10:10 or 10 - 10 or 10 : 10 etc.
+                        [ ]*
+                      (?<ga>\d+)      ## (g)oal (a)gainst
+                     [ ]+
+                      (?<pts>\d+)      ## (p)oin(ts)
+                         (?:     ## allow optional deductions e.g. [-7]
+                               [ ]+
+                            \[(?<deduction>-\d+)\]
+                         )?
+                      $}x
+
+    def parse
       clubs = {}    ## convert lines to clubs
 
       @lines.each do |line|
@@ -48,30 +81,32 @@ module SportDb
         country = nil
         if m=COUNTRY_RE.match( line )
           country = m[:country]
-          line = line.sub( m[0], ' ' )  ## replace match with single (white)space
+          line = line.sub( m[0], '' )  ## replace match with nothing for now
         end
 
+        if m=TABLE_RE.match( line )
+          puts "  matching table entry >#{line}<"
 
-        scan = StringScanner.new( line )
+          name = m[:club]
+          rank = m[:rank]
 
-        if scan.check( /\d{1,2}[ ]+/ )    ## entry with standaning starts with ranking e.g. 1,2,3, etc.
-          puts "  table entry >#{line}<"
-          rank = scan.scan( /\d{1,2}[ ]+/ ).strip   # note: strip trailing spaces
+          standing = {
+            pld: m[:pld],
+            w:   m[:w],
+            d:   m[:d],
+            l:   m[:l],
+            gf:  m[:gf],
+            ga:  m[:ga],
+            pts: m[:pts]
+          }
+          standing[ :deduction ] = m[:deduction]  if m[:deduction]
 
-          ## note: uses look ahead scan until we hit at least two spaces
-          ##  or the end of string  (standing records for now optional)
-          name = scan.scan_until( /(?=\s{2})|$/ ).strip  # note: strip trailing spaces
-          if scan.eos?
-            standing = nil
-          else
-            standing = scan.rest.strip   # note: strip leading and trailing spaces
-          end
-          puts "   rank: >#{rank}<, name: >#{name}<, standing: >#{standing}<"
 
           club = clubs[ name ] ||= { count: 0 }
           club[ :count ]    += 1    ## track double usage - why? why not? report/raise error/exception on duplicates?
           club[ :country ]   = country     if country
-          club[ :rank ]      = rank
+
+          club[ :rank ]      = rank        if rank
           club[ :standing ]  = standing    if standing
         else
           ## assume club is full line

@@ -5,6 +5,7 @@ require 'minitest/autorun'
 
 
 ## note: use the local version of sportdb gems
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-match-formats/lib' ))
 
 

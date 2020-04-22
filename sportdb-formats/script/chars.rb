@@ -18,7 +18,7 @@ end
 # -   Saint Patrick’s Athletic FC, Ireland =>  ’ => '
 
 
-norm = ". '’ º/ () −-"
+norm = ". '’ º/ () _−-"
 
 puts "norm:"
 print_chars( norm )

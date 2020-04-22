@@ -4,16 +4,15 @@
 module SportDb
 module Import
 
-class WikiClub
-  attr_reader :name, :country
-  def initialize( name, country )
-    @name, @country = name, country
-  end
-end
-
-
 
 class WikiReader    ## todo/check: rename to WikiClubReader - why? why not?
+
+  class WikiClub  # nested class
+    attr_reader :name, :country
+    def initialize( name, country )
+      @name, @country = name, country
+    end
+  end  # (nested) class WikiClub
 
 ##
 ## todo/check: make countries a method arg and NOT a global setting - why? why not?

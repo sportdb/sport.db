@@ -37,12 +37,25 @@ class ClubIndex
 
 
   ## helpers from club - use a helper module for includes - why? why not?
-  def strip_year( name ) Club.strip_year( name ); end
-  def has_year?( name)   Club.has_year?( name ); end
-  def strip_lang( name ) Club.strip_lang( name ); end
-  def strip_wiki( name ) Club.strip_wiki( name ); end
-  def normalize( name )  Club.normalize( name ); end
+  include NameHelper
+  ## incl. strip_year( name )
+  ##       has_year?( name)
+  ##       strip_lang( name )
+  ##       normalize( name )
 
+  def strip_wiki( name )     # todo/check: rename to strip_wikipedia_en - why? why not?
+    ## note: strip disambiguationn qualifier from wikipedia page name if present
+    ##        note: only remove year and foot... for now
+    ## e.g. FC Wacker Innsbruck (2002) => FC Wacker Innsbruck
+    ##      Willem II (football club)  => Willem II
+    ##
+    ## e.g. do NOT strip others !! e.g.
+    ##   América Futebol Clube (MG)
+    ##  only add more "special" cases on demand (that, is) if we find more
+    name = name.gsub( /\([12][^\)]+?\)/, '' ).strip  ## starting with a digit 1 or 2 (assuming year)
+    name = name.gsub( /\(foot[^\)]+?\)/, '' ).strip  ## starting with foot (assuming football ...)
+    name
+  end
 
   def add_wiki( rec_or_recs )   ## add wiki(pedia club record / links
     recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]      ## wrap (single) rec in array
@@ -175,7 +188,7 @@ class ClubIndex
 
   ## helper to always convert (possible) country key to existing country record
   ##  todo: make private - why? why not?
-  def country( country )   
+  def country( country )
     if country.is_a?( String ) || country.is_a?( Symbol )
       ## note:  use own "global" countries index setting for ClubIndex - why? why not?
       rec = config.countries[ country.to_s ]
@@ -226,7 +239,7 @@ class ClubIndex
     ##       and country struct too
     ##     - country assumes / allows the country key or fifa code for now
     country = country( country )
- 
+
     m = match_by( name: name, country: country )
 
     if m.nil?

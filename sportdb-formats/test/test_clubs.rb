@@ -11,13 +11,13 @@ class TestClubs < MiniTest::Test
 
   Club = SportDb::Import::Club
 
-  def test_create
-    club = Club.create( name: 'Rapid Wien' )
+
+  def test_new
+    club = Club.new( name: 'Rapid Wien' )
 
     assert_equal 'Rapid Wien',   club.name
     assert_equal ['Rapid Wien'], club.names
   end
-
 
   def test_duplicates
     club = Club.new

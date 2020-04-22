@@ -36,9 +36,9 @@ class LeagueIndex
 
 
   ## helpers from club - use a helper module for includes - why? why not?
-  def strip_lang( name ) League.strip_lang( name ); end
-  def normalize( name )  League.normalize( name ); end
-
+  include NameHelper
+  ## incl. strip_lang( name )
+  ##       normalize( name )
 
 
   def add( rec_or_recs )   ## add club record / alt_names

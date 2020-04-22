@@ -31,6 +31,8 @@ require 'sportdb/formats/datafile'
 require 'sportdb/formats/package'
 require 'sportdb/formats/season_utils'
 
+require 'sportdb/formats/name_helper'
+
 require 'sportdb/formats/structs/country'
 require 'sportdb/formats/structs/season'
 require 'sportdb/formats/structs/league'

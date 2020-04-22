@@ -18,10 +18,11 @@ class CountryIndex
 
 
   ## helpers from country - use a helper module for includes (share with clubs etc.) - why? why not?
-  def strip_year( name ) Country.strip_year( name ); end
-  def has_year?( name)   Country.has_year?( name ); end
-  def strip_lang( name ) Country.strip_lang( name ); end
-  def normalize( name )  Country.normalize( name ); end
+  include NameHelper
+  ## incl. strip_year( name )
+  ##       has_year?( name)
+  ##       strip_lang( name )
+  ##       normalize( name )
 
 
   def add( recs )

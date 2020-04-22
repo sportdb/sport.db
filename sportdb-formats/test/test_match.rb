@@ -25,12 +25,6 @@ class TestMatch < MiniTest::Test
     m.update( round: 4 )
     pp m
     assert_equal 4, m.round
-
-    m = Match.create( team1: 'Team 1',
-                      team2: 'Team 2',
-                      round: 5 )
-    pp m
-    assert_equal 5, m.round
   end  # method test_round
 
 end # class TestMatch

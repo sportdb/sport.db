@@ -71,11 +71,27 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       teams     =  stage ? stage.teams    : event.teams
       team_ids  =  stage ? stage.team_ids : event.team_ids
 
+
+
       ## note: loop over keys (holding the names); values hold the usage counter!! e.g. 'Arsenal' => 2, etc.
       if rec[:league].intl?    ## todo/fix: add intl? to ActiveRecord league!!!
+
+        ### quick hack mods for popular/known ambigious club names
+        ##    todo/fix: make more generic / reuseable!!!!
+        mods = {
+         'uefa.cl' => { 'Liverpool'     => config.clubs.find_by!( name: 'Liverpool FC', country: 'ENG' ),
+                        'Liverpool FC'  => config.clubs.find_by!( name: 'Liverpool FC', country: 'ENG' ),
+                        'Arsenal'       => config.clubs.find_by!( name: 'Arsenal FC',   country: 'ENG' ),
+                        'Arsenal FC'    => config.clubs.find_by!( name: 'Arsenal FC',   country: 'ENG' ),
+                        'Barcelona'     => config.clubs.find_by!( name: 'FC Barcelona', country: 'ESP' ),
+                        'Valencia'      => config.clubs.find_by!( name: 'Valencia CF',  country: 'ESP' ),
+                      }
+        }
+        known_club_mods  = mods[ rec[:league].key ]
+
         ## build a quick lookup map (w/ canonical name) to check if club alreay in db
         ##  todo/fix: to double check use club.title+club.country.key  for lookup (that is,add country.key) - why? why not?
-        known_clubs = teams.reduce( {} ) {|h,club| h[club.title]=club; h }
+        known_clubs      = teams.reduce( {} ) {|h,club| h[club.title]=club; h }
 
         auto_conf_clubs.keys.each do |name|
           club_rec = nil
@@ -85,15 +101,16 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
             exit 1
           elsif m.size == 1
             club_rec = m[0]
-            club = known_clubs[ club_rec.name ]
-            if club.nil?
-              puts "!! WARN: club >#{name}< => >#{club_rec.name}< not found in db config for intl competition:"
-              pp known_clubs
+          else  ## assume more than one match
+            ## 1) check for "hard-coded" club mod
+            if known_club_mods
+              m = m.select {|club_rec| club_rec == known_club_mods[name] }
             end
-            ## todo/fix:  check for matching country and/or club included in db config!!!
-          else  ## assume more than once match
-            ## check for best match in db config
-            m = m.select {|club_rec| known_clubs[ club_rec.name ] }
+            ## 2) check for best match in db config next (if still ambigious)
+            if m.size > 1
+              m = m.select {|club_rec| known_clubs[ club_rec.name ] }
+            end
+
             if m.empty?
               puts "no db config match found for club >#{name}<; sorry - update db config:"
               pp known_clubs
@@ -108,6 +125,16 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
             end
           end
           club_recs << club_rec
+
+          ## todo/fix:  (double) check for matching country and/or club included in db config!!!
+          ##  note: only warn if known_clubs NOT empty
+          if known_clubs.size > 0
+            club = known_clubs[ club_rec.name ]
+            if club.nil?
+              puts "!! WARN: club >#{name}< => >#{club_rec.name}, #{club_rec.country.name} (#{club_rec.country.key})< not found in db config for intl competition:"
+              pp known_clubs
+            end
+          end
 
           club = Sync::Club.find_or_create( club_rec )
           club_mapping[ name ] = club

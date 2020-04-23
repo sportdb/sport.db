@@ -2,13 +2,13 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_reader_champs.rb
+#     ruby -I ./lib -I ./test test/test_match_reader_champs.rb
 
 
 require 'helper'
 
 
-class TestReaderChamps < MiniTest::Test
+class TestMatchReaderChamps < MiniTest::Test
 
   def setup
     SportDb.connect( adapter:  'sqlite3',
@@ -21,52 +21,6 @@ class TestReaderChamps < MiniTest::Test
 
 
   def test_read
-txt =<<TXT
-= UEFA Champions League 2017/18
-
-Manchester United › ENG
-Liverpool         › ENG
-Chelsea           › ENG
-Manchester City   › ENG
-Tottenham Hotspur › ENG
-
-Atlético Madrid › ESP
-Barcelona       › ESP
-Sevilla         › ESP
-Real Madrid     › ESP
-
-Roma     › ITA
-Juventus › ITA
-Napoli   › ITA
-
-Bayern München    › GER
-Borussia Dortmund › GER
-RB Leipzig        › GER
-
-Benfica     › POR
-Sporting CP › POR
-Porto       › POR
-
-CSKA Moscow    › RUS
-Spartak Moscow › RUS
-
-Paris Saint-Germain › FRA
-Basel › SUI
-Celtic › SCO
-Anderlecht › BEL
-Qarabağ › AZE
-Olympiacos › GRE
-Maribor › SVN
-Shakhtar Donetsk › UKR
-Feyenoord › NED
-Beşiktaş › TUR
-Monaco › MCO
-APOEL › CYP
-TXT
-
-    SportDb::ConfReaderV2.parse( txt )
-
-
 txt =<<TXT
 = UEFA Champions League 2017/18
 
@@ -184,4 +138,4 @@ TXT
   end
 
 
-end  # class TestReaderChamps
+end  # class TestMatchReaderChamps

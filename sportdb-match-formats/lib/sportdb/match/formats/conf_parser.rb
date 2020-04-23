@@ -60,6 +60,10 @@ module SportDb
                         [:-]    ## note: allow 10-10 or 10:10 or 10 - 10 or 10 : 10 etc.
                         [ ]*
                       (?<ga>\d+)      ## (g)oal (a)gainst
+                     (?:          ## allow optional (g)oal (d)ifference
+                        [ ]+
+                        (?<gd>[±+-]?\d+)  ## (g)oal (d)ifference
+                      )?
                      [ ]+
                       (?<pts>\d+)      ## (p)oin(ts)
                          (?:     ## allow optional deductions e.g. [-7]
@@ -97,8 +101,9 @@ module SportDb
             l:   m[:l],
             gf:  m[:gf],
             ga:  m[:ga],
-            pts: m[:pts]
           }
+          standing[ :gd ]        = m[:gd]         if m[:gd]
+          standing[ :pts ]       = m[:pts]
           standing[ :deduction ] = m[:deduction]  if m[:deduction]
 
 

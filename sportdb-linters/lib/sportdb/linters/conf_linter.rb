@@ -52,4 +52,5 @@ class ConfLinter
   end # method read
 
 end # class ConfLinter
+
 end # module SportDb

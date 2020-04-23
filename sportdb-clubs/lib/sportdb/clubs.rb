@@ -11,7 +11,6 @@ require 'sportdb/countries'
 require 'sportdb/clubs/version' # let version always go first
 require 'sportdb/clubs/club_reader'
 require 'sportdb/clubs/club_reader_props'
-require 'sportdb/clubs/club_linter'
 require 'sportdb/clubs/club_index'
 require 'sportdb/clubs/wiki_reader'
 
@@ -28,18 +27,6 @@ class Club
   def self.parse_props( txt )  ClubPropsReader.parse( txt ); end
   ##  todo/check: use ClubProps.read and ClubProps.parse convenience alternate shortcuts - why? why not?
 end # class Club
-
-
-class ClubLinter
-  def self.read( path )  ClubLintReader.read( path ); end
-  def self.parse( txt )  ClubLintReader.parse( txt ); end
-end # class ClubLinter
-
-class ConfLinter
-  def self.read( path )  ConfLintReader.read( path ); end
-  def self.parse( txt )  ConfLintReader.parse( txt ); end
-end # class ConfLinter
-
 end   # module Import
 end   # module SportDb
 

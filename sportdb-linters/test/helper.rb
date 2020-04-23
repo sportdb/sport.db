@@ -11,13 +11,6 @@ $LOAD_PATH.unshift( File.expand_path( '../sportdb-match-formats/lib' ))
 require 'minitest/autorun'
 
 
-
 ## our own code
-require 'sportdb/readers'
+require 'sportdb/linters'
 
-
-
-
-## use (switch to) "external" datasets
-SportDb::Import.config.leagues_dir = "../../../openfootball/leagues"
-SportDb::Import.config.clubs_dir   = "../../../openfootball/clubs"

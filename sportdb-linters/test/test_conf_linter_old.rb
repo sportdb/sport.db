@@ -2,48 +2,19 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_club_linter.rb
+#     ruby -I ./lib -I ./test test/test_conf_linter_old.rb
 
 
 require 'helper'
 
-class TestClubLinter < MiniTest::Test
 
+class TestConfLinterOld < MiniTest::Test
 
-  def test_parse_at
-    headings = SportDb::Import::ClubLintReader.parse( <<TXT )
-= Austrian Bundesliga =
+  ConfLinterOld = SportDb::ConfLinterOld
 
- 1  FC Salzburg               |  Salzburg
- 2  LASK
- 3  Wolfsberger AC            |  Wolfsberg
- 4  SK Sturm Graz             |  Sturm
- 5  TSV Sparkasse Hartberg    |  TSV
- 6  SK Rapid Wien             |  Rapid Wien
- 7  SV Mattersburg            |  Mattersburg
- 8  FK Austria Wien           |  Austria Wien
- 9  WSG Wattens               |  Wattens
-10  SKN St Pölten             |  St Pölten
-11  SCR Altach                |  Altach
-12  FC Admira Wacker Mödling  |  Admira
-TXT
-
-    pp headings
-
-    heading = headings[0]
-    recs    = heading[1]
-
-    assert_equal 1, headings.size
-    assert_equal 'Austrian Bundesliga', heading[0]
-    assert_equal 12, recs.size
-    assert_equal Hash( names: ['FC Salzburg', 'Salzburg'],
-                       geos:[] ), recs[0]
-    assert_equal Hash( names: ['LASK'],
-                       geos: [] ),recs[1]
-  end
 
   def test_conf_parse_at
-    headings = SportDb::Import::ConfLintReader.parse( <<TXT )
+    headings = ConfLinterOld.parse( <<TXT )
 = Österr. Bundesliga 2018/19, Regular Season    ## Grunddurchgang
 
  1  FC Red Bull Salzburg       22  17   4   1  51:18  +33  55
@@ -93,4 +64,4 @@ TXT
                       name: 'LASK',
                       standing: '22  13   7   2  40:19  +21  46' ), recs[1]
   end
-end # class TestClubLinter
+end # class TestConfLinterOld

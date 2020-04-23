@@ -12,6 +12,7 @@ require 'sportdb/countries'
 require 'sportdb/leagues/version' # let version always go first
 require 'sportdb/leagues/league_reader'
 require 'sportdb/leagues/league_index'
+require 'sportdb/leagues/league_outline_reader'
 
 
 ##

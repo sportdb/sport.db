@@ -7,24 +7,15 @@ module SportDb
       parser.parse
     end
 
+    include Logging         ## e.g. logger#debug, logger#info, etc.
+    include ParserHelper    ## e.g. read_lines, etc.
 
-    include LogUtils::Logging
 
     def initialize( lines )
       # for convenience split string into lines
       ##    note: removes/strips empty lines
-      if lines.is_a?( String )
-         @lines = []
-         lines.each_line do |line|    ## preprocess
-            line = line.strip
-
-            next if line.empty? || line.start_with?('#')   ###  skip empty lines and comments
-            line = line.sub( /#.*/, '' ).strip             ###  cut-off end-of line comments too
-            @lines << line
-         end
-      else
-        @lines        = lines     ## todo/check: change to text instead of array of lines - why? why not?
-      end
+      ## todo/check: change to text instead of array of lines - why? why not?
+      @lines        = lines.is_a?( String ) ? read_lines( lines ) : lines
     end
 
 

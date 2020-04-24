@@ -13,24 +13,15 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
   end
 
 
-  include LogUtils::Logging
+  include Logging         ## e.g. logger#debug, logger#info, etc.
+  include ParserHelper    ## e.g. read_lines, etc.
 
 
   def initialize( lines, teams, start )
     # for convenience split string into lines
     ##    note: removes/strips empty lines
-    if lines.is_a?( String )
-      @lines = []
-      lines.each_line do |line|    ## preprocess
-         line = line.strip
-
-         next if line.empty? || line.start_with?('#')   ###  skip empty lines and comments
-         line = line.sub( /#.*/, '' ).strip             ###  cut-off end-of line comments too
-         @lines << line
-      end
-    else    ## assume alreay preprocess / cleaned-up
-      @lines        = lines     ## todo/check: change to text instead of array of lines - why? why not?
-    end
+    ## todo/check: change to text instead of array of lines - why? why not?
+    @lines        = lines.is_a?( String ) ? read_lines( lines ) : lines
 
     @mapper_teams = TeamMapper.new( teams )
     @start        = start
@@ -223,9 +214,10 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
   def parse_game( line )
     logger.debug "parsing game (fixture) line: >#{line}<"
 
-
-    ## todo/fix:
+    ## split by geo (@) - remove for now
     ##   split into parts e.g. break using @ !!!
+    values = line.split( '@' )
+    line = values[0]
 
 
     @mapper_teams.map_teams!( line )   ### todo/fix: limit mapping to two(2) teams - why? why not?  might avoid matching @ Barcelona ??

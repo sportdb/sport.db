@@ -13,42 +13,58 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
   end
 
 
-  include LogUtils::Logging
+  include Logging         ## e.g. logger#debug, logger#info, etc.
+  include ParserHelper    ## e.g. read_lines, etc.
 
 
   def initialize( lines, start )
     # for convenience split string into lines
     ##    note: removes/strips empty lines
-    if lines.is_a?( String )
-      @lines = []
-      lines.each_line do |line|    ## preprocess
-         line = line.strip
-
-         next if line.empty? || line.start_with?('#')   ###  skip empty lines and comments
-         line = line.sub( /#.*/, '' ).strip             ###  cut-off end-of line comments too
-         @lines << line
-      end
-    else    ## assume alreay preprocess / cleaned-up
-      @lines        = lines     ## todo/check: change to text instead of array of lines - why? why not?
-    end
-
+    ## todo/check: change to text instead of array of lines - why? why not?
+    @lines        = lines.is_a?( String ) ? read_lines( lines ) : lines
     @start        = start
   end
 
   def parse
     ## try to  find all clubs in match schedule
     @last_round   = nil
+    @last_group   = nil
+
+    ## definitions/defs
+    @round_defs = Hash.new(0)
+    @group_defs = Hash.new(0)
+
+    ## usage/refs
     @rounds       = {}           ## track usage counter and match (two clubs) counter
+    @groups       = {}           ##  -"-
     @clubs        = Hash.new(0)   ## keep track of usage counter
 
 
     @lines.each do |line|
-      if is_round?( line )
+      if is_round_def?( line )
+        ## todo/fix:  add round definition (w begin n end date)
+        ## todo: do not patch rounds with definition (already assume begin/end date is good)
+        ##  -- how to deal with matches that get rescheduled/postponed?
+        logger.info "skipping matched round def line: >#{line}<"
+        @round_defs[ line ] += 1
+      elsif is_round?( line )
         logger.info "skipping matched round line: >#{line}<"
 
         round = @rounds[ line ] ||= {count: 0, match_count: 0}   ## usage counter, match counter
         round[:count] +=1
         @last_round = round
+      elsif is_group_def?( line ) ## NB: group goes after round (round may contain group marker too)
+        ### todo: add pipe (|) marker (required)
+        logger.info "skipping matched group def line: >#{line}<"
+        @group_defs[ line ] += 1
+      elsif is_group?( line )
+        ##  -- lets you set group  e.g. Group A etc.
+        logger.info "skipping matched group line: >#{line}<"
+
+        group = @groups[ line ] ||= {count: 0, match_count: 0}
+        group[:count] +=1
+        @last_group = group
+        ## todo/fix:  parse group line!!!
       elsif try_parse_game( line )
         # do nothing here
       else
@@ -56,13 +72,9 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
       end
     end # lines.each
 
-    [@clubs, @rounds]
+    [@clubs, @rounds, @groups, @round_defs, @group_defs]
   end
 
-  def is_round?( line )
-    ## note: =~ return nil if not match found, and 0,1, etc for match
-    (line =~ SportDb.lang.regex_round) != nil
-  end
 
   def try_parse_game( line )
     # note: clone line; for possible test do NOT modify in place for now
@@ -157,7 +169,8 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
      @clubs[ values[0] ] += 1    ## update usage counters
      @clubs[ values[1] ] += 1
 
-     @last_round[ :match_count ] += 1
+     @last_round[ :match_count ] += 1    if @last_round
+     @last_group[ :match_count ] += 1    if @last_group
 
      true
   end

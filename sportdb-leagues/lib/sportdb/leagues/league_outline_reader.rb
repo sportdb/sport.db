@@ -13,14 +13,19 @@ class LeagueOutlineReader
   ## split into league + season
   ##  e.g. Österr. Bundesliga 2015/16   ## or 2015-16
   ##       World Cup 2018
-  LEAGUE_SEASON_HEADING_REGEX =  /^
+  LEAGUE_SEASON_HEADING_RE =  %r{^
          (?<league>.+?)     ## non-greedy
             \s+
          (?<season>\d{4}
-            (?:[\/-]\d{2})?     ## optional 2nd year in season
+            (?:[\/-]\d{1,4})?     ## optional 2nd year in season
          )
-            $/x
+            $}x
 
+
+  def self.read( path, season: nil )   ## use - rename to read_file or from_file etc. - why? why not?
+    txt = File.open( path, 'r:utf-8' ).read
+    parse( txt, season: season )
+  end
 
   def self.parse( txt, season: nil )
     recs=[]
@@ -29,7 +34,7 @@ class LeagueOutlineReader
         ## check for league (and stage) and season
         heading = node[1]
         values = split_league( heading )
-        if m=values[0].match( LEAGUE_SEASON_HEADING_REGEX )
+        if m=values[0].match( LEAGUE_SEASON_HEADING_RE )
           puts "league >#{m[:league]}<, season >#{m[:season]}<"
 
            recs << { league: m[:league],

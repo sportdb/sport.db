@@ -1,4 +1,9 @@
-## $:.unshift(File.dirname(__FILE__))
+## note: use the local version of sportdb gems
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-countries/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-leagues/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-clubs/lib' ))
+
 
 ## minitest setup
 require 'minitest/autorun'
@@ -18,15 +23,10 @@ def parse_auto_conf( txt, lang: 'en' )
   SportDb.lang.lang = lang
 
   parser = SportDb::AutoConfParser.new( txt, start )
-  clubs, rounds = parser.parse
-  pp rounds
-  pp clubs
-  [clubs, rounds]
+  parser.parse
 end
 
 def parse_conf( txt )
   parser = SportDb::ConfParser.new( txt )
-  clubs = parser.parse
-  pp clubs
-  clubs
+  parser.parse
 end

@@ -23,6 +23,13 @@ end
 require 'sportdb/langs'
 
 
+## todo/fix: move shortcut to sportdb/langs!!!
+module SportDb
+  Logging = LogUtils::Logging     ## logging machinery shortcut; use LogUtils for now
+end
+
+
+
 ###
 # our own code
 require 'sportdb/formats/version' # let version always go first
@@ -32,6 +39,7 @@ require 'sportdb/formats/package'
 require 'sportdb/formats/season_utils'
 
 require 'sportdb/formats/name_helper'
+require 'sportdb/formats/parser_helper'
 
 require 'sportdb/formats/structs/country'
 require 'sportdb/formats/structs/season'

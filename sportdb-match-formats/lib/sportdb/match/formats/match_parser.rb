@@ -49,7 +49,11 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
       elsif is_round?( line )
         parse_round_header( line )
       elsif is_group_def?( line ) ## NB: group goes after round (round may contain group marker too)
+        ### todo: add pipe (|) marker (required)
+        parse_group_def( line )
       elsif is_group?( line )
+        ##  -- lets you set group  e.g. Group A etc.
+        parse_group_header( line )
       elsif try_parse_game( line )
         # do nothing here
       elsif try_parse_date_header( line )
@@ -60,8 +64,97 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
       end
     end # lines.each
 
-    [@matches, @rounds.values]
+    [@matches, @rounds.values, @groups.values]
   end # method parse
+
+
+
+  def parse_group_header( line )
+    logger.debug "parsing group header line: >#{line}<"
+
+    # note: group header resets (last) round  (allows, for example):
+    #  e.g.
+    #  Group Playoffs/Replays       -- round header
+    #    team1 team2                -- match
+    #  Group B:                     -- group header
+    #    team1 team2 - match  (will get new auto-matchday! not last round)
+    @last_round     = nil
+
+    title, pos = find_group_title_and_pos!( line )
+
+    logger.debug "    title: >#{title}<"
+    logger.debug "    pos: >#{pos}<"
+    logger.debug "  line: >#{line}<"
+
+    group = @groups[ title ]
+    if group.nil?
+      puts "!! ERROR - no group def found for >#{title}<"
+      exit 1
+    end
+
+    # set group for games
+    @last_group = group
+  end
+
+  def parse_group_def( line )
+    logger.debug "parsing group def line: >#{line}<"
+
+    @mapper_teams.map_teams!( line )
+    teams = @mapper_teams.find_teams!( line )
+
+    title, pos = find_group_title_and_pos!( line )
+
+    logger.debug "  line: >#{line}<"
+
+    group = Import::Group.new( pos: pos,
+                               title: title,
+                               teams: teams.map {|team| team.title } )
+
+    @groups[ title ] = group
+  end
+
+
+  def find_group_title_and_pos!( line )
+    ## group pos - for now support single digit e.g 1,2,3 or letter e.g. A,B,C or HEX
+    ## nb:  (?:)  = is for non-capturing group(ing)
+
+    ## fix:
+    ##   get Group|Gruppe|Grupo from lang!!!! do NOT hardcode in place
+
+    ## todo:
+    ##   check if Group A:  or [Group A]  works e.g. : or ] get matched by \b ???
+    regex = /(?:Group|Gruppe|Grupo)\s+((?:\d{1}|[A-Z]{1,3}))\b/
+
+    m = regex.match( line )
+
+    return [nil,nil] if m.nil?
+
+    pos = case m[1]
+          when 'A' then 1
+          when 'B' then 2
+          when 'C' then 3
+          when 'D' then 4
+          when 'E' then 5
+          when 'F' then 6
+          when 'G' then 7
+          when 'H' then 8
+          when 'I' then 9
+          when 'J' then 10
+          when 'K' then 11
+          when 'L' then 12
+          when 'HEX' then 666    # HEX for Hexagonal - todo/check: map to something else ??
+          else  m[1].to_i
+          end
+
+    title = m[0]
+
+    logger.debug "   title: >#{title}<"
+    logger.debug "   pos: >#{pos}<"
+
+    line.sub!( regex, '[GROUP.TITLE+POS]' )
+
+    [title,pos]
+  end
 
 
   def parse_round_def( line )
@@ -228,12 +321,13 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
     round = @rounds[ title ]
     if round.nil?    ## auto-add / create if missing
       round = Import::Round.new( pos:   pos,
-                         title: title )
+                                 title: title )
       @rounds[ title ] = round
     end
 
     ## todo/check: if pos match (MUST always match for now)
     @last_round = round
+    @last_group = nil   # note: reset group to no group - why? why not?
 
 
     ## NB: dummy/placeholder start_at, end_at date
@@ -356,14 +450,18 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
 
 
     ## todo/check: scores are integers or strings?
+
+    ## todo/check: pass along round and group refs or just string (canonical names) - why? why not?
+
     @matches << Import::Match.new( date:    date,
-                                   team1:   team1,
-                                   team2:   team2,
+                                   team1:   team1,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team1.title)
+                                   team2:   team2,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team2.title)
                                    score1i: scores[0],  ## score1i - half time (first (i) part)
                                    score2i: scores[1],  ## score2i
                                    score1:  scores[2],  ## score1  - full time
                                    score2:  scores[3],  ## score2
-                                   round:   round )
+                                   round:   round       ? round.title       : nil,   ## note: for now always use string (assume unique canonical name for event)
+                                   group:   @last_group ? @last_group.title : nil )  ## note: for now always use string (assume unique canonical name for event)
 
     ### todo: cache team lookups in hash?
 

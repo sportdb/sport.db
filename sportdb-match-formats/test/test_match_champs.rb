@@ -393,9 +393,10 @@ TXT
     SportDb.lang.lang = 'en'
 
     parser = SportDb::MatchParserSimpleV2.new( txt, clubs, start )
-    matches, rounds  = parser.parse
+    matches, rounds, groups  = parser.parse
 
     pp rounds
+    pp groups
     pp matches[-1]     ## only dump last record for now
   end   # method test_parse
 end   # class TestMatchChamps

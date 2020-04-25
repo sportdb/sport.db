@@ -217,23 +217,53 @@ module Sync
   class Match   ## todo/check:  add alias for Game class - why? why not?
     def self.create_or_update( match, event: )
        ## note: MUST find round, thus, use bang (!)
-       round_rec = SportDb::Model::Round.find_by!( event_id: event.id,
-                                                   title:    match.round.title )
 
-       rec = SportDb::Model::Game.find_by( round_id: round_rec.id,
-                                           team1_id: match.team1.id,
-                                           team2_id: match.team2.id )
+       ## todo/check: allow strings too - why? why not?
+
+       ## query for round - allow string or round rec
+       round_title = match.round.is_a?( String ) ? match.round : match.round.title
+       round_rec   = Model::Round.find_by!( event_id: event.id,
+                                            title:    round_title )
+
+
+       team1_rec =  if match.team1.is_a?( String )
+                      Model::Team.find_by!( title: match.team1  )
+                    else
+                      match.team1  ### note: assumes ActiveRecord team record with id!!
+                    end
+       team2_rec =  if match.team2.is_a?( String )
+                      Model::Team.find_by!( title: match.team2 )
+                    else
+                      match.team2  ### note: assumes ActiveRecord team record with id!!
+                    end
+
+
+       ## check optional group (e.g. Group A, etc.)
+       group_rec = if match.group
+                     group_title = match.group.is_a?( String ) ? match.group : match.group.title
+                     Model::Group.find_by!( event_id: event.id,
+                                            title:    group_title )
+                   else
+                     nil
+                   end
+
+
+       rec = Model::Game.find_by( round_id: round_rec.id,
+                                  team1_id: team1_rec.id,
+                                  team2_id: team2_rec.id )
        if rec.nil?
          attribs = { round_id: round_rec.id,
-                     team1_id: match.team1.id,
-                     team2_id: match.team2.id,
+                     team1_id: team1_rec.id,
+                     team2_id: team2_rec.id,
                      pos:      999,    ## make optional why? why not? - change to num?
                      play_at:  match.date.to_date,
                      score1:   match.score1,
                      score2:   match.score2,
                      score1i:  match.score1i,
                      score2i:  match.score2i }
-         rec = SportDb::Model::Game.create!( attribs )
+         attribs[ :group_id ] = group_rec.id   if group_rec
+
+         rec = Model::Game.create!( attribs )
        else
          # update - todo
        end

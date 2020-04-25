@@ -183,6 +183,22 @@ module Sync
   end # class Round
 
 
+  class Group
+    def self.find_or_create( group, event: )
+       rec = Model::Group.find_by( title: group.title, event_id: event.id )
+       if rec.nil?
+         attribs = { event_id: event.id,
+                     title:    group.title,
+                     pos:      group.pos
+                   }
+         rec = SportDb::Model::Group.create!( attribs )
+       end
+       ## todo/fix: add/update teams in group too!!!!!
+       rec
+    end
+  end # class Group
+
+
   class Stage
     def self.find( name, event: )
       SportDb::Model::Stage.find_by( title: name, event_id: event.id  )

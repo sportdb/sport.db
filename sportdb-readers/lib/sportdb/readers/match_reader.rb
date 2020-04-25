@@ -87,6 +87,8 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
                         'Valencia'      => config.clubs.find_by!( name: 'Valencia CF',  country: 'ESP' ),
                       }
         }
+        mods[ 'uefa.el' ] = mods[ 'uefa.cl' ]   ## europa league uses same mods as champions league
+
         known_club_mods  = mods[ rec[:league].key ]
 
         ## build a quick lookup map (w/ canonical name) to check if club alreay in db
@@ -112,11 +114,11 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
             end
 
             if m.empty?
-              puts "no db config match found for club >#{name}<; sorry - update db config:"
+              puts "no db config match found for club >#{name}<; sorry - update db config >#{rec[:league].name}<:"
               pp known_clubs
               exit 1
             elsif m.size > 1
-              puts "too many db config matches found for club >#{name}<; sorry - update db config:"
+              puts "too many db config matches found for club >#{name}<; sorry - update db config >#{rec[:league].name}<:"
               pp m
               pp known_clubs
               exit 1
@@ -173,14 +175,19 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
                                 club_mapping,
                                 event.start_at )   ## note: keep season start_at date for now (no need for more specific stage date need for now)
 
-      match_recs, round_recs = parser.parse
+      match_recs, round_recs, group_recs = parser.parse
 
       pp round_recs
+      pp group_recs
 
       round_recs.each do |round_rec|
         ## quick hack:  if pos missing fill with dummy 999 for now
         round_rec.pos = 999    if round_rec.pos.nil?
         round = Sync::Round.find_or_create( round_rec, event: event )  ## check: use/rename to EventRound why? why not?
+      end
+
+      group_recs.each do |group_rec|
+        group = Sync::Group.find_or_create( group_rec, event: event )   ## check: use/rename to EventGroup why? why not?
       end
 
       match_recs.each do |match_rec|

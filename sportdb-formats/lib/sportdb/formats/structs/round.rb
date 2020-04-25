@@ -2,7 +2,7 @@ module SportDb
   module Import
 
     class Round
-      attr_reader   :title
+      attr_reader   :title, :start_date, :end_date, :knockout
       attr_accessor :pos   # note: make read & writable
 
       ##
@@ -12,9 +12,18 @@ module SportDb
       ##    make pos/num optional too
       ##
       ##    sort round by scheduled/planed start date
-      def initialize( pos:, title: )
-        @pos   = pos
-        @title = title
+      def initialize( title:,
+                      pos: nil,
+                      start_date: nil,
+                      end_date: nil,
+                      knockout: false,
+                      auto: true )
+        @title      = title
+        @pos        = pos
+        @start_date = start_date
+        @end_date   = end_date
+        @knockout   = knockout
+        @auto       = auto        # auto-created (inline reference/header without proper definition before)
       end
     end  # class Round
 

@@ -79,6 +79,6 @@ TXT
     matches, rounds  = parser.parse
 
     pp rounds
-    pp matches
+    pp matches[-1]   ## only dump last record for now
   end   # method test_parse
 end   # class TestMatchParser

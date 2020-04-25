@@ -31,19 +31,32 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
   def parse
     @last_date    = nil
     @last_round   = nil
+    @last_group   = nil
+
     @rounds  = {}
+    @groups  = {}
     @matches = []
+
+    @warns        = []    ## track list of warnings (unmatched lines)  too - why? why not?
 
 
     @lines.each do |line|
-      if is_round?( line )
+      if is_round_def?( line )
+        ## todo/fix:  add round definition (w begin n end date)
+        ## todo: do not patch rounds with definition (already assume begin/end date is good)
+        ##  -- how to deal with matches that get rescheduled/postponed?
+        parse_round_def( line )
+      elsif is_round?( line )
         parse_round_header( line )
+      elsif is_group_def?( line ) ## NB: group goes after round (round may contain group marker too)
+      elsif is_group?( line )
       elsif try_parse_game( line )
         # do nothing here
       elsif try_parse_date_header( line )
         # do nothing here
       else
         logger.info "skipping line (no match found): >#{line}<"
+        @warns << line
       end
     end # lines.each
 
@@ -51,10 +64,53 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
   end # method parse
 
 
-  def is_round?( line )
-    ## note: =~ return nil if not match found, and 0,1, etc for match
-    (line =~ SportDb.lang.regex_round) != nil
+  def parse_round_def( line )
+    logger.debug "parsing round def line: >#{line}<"
+
+    start_date = find_date!( line, start: @start )
+    end_date   = find_date!( line, start: @start )
+
+    # note: if end_date missing -- assume start_date is (==) end_at
+    end_date = start_date  if end_date.nil?
+
+    # note: - NOT needed; start_at and end_at are saved as date only (NOT datetime)
+    #  set hours,minutes,secs to beginning and end of day (do NOT use default 12.00)
+    #   e.g. use 00.00 and 23.59
+    # start_at = start_at.beginning_of_day
+    # end_at   = end_at.end_of_day
+
+    # note: make sure start_at/end_at is date only (e.g. use start_at.to_date)
+    #   sqlite3 saves datetime in date field as datetime, for example (will break date compares later!)
+    start_date = start_date.to_date
+    end_date   = end_date.to_date
+
+
+    pos   = find_round_pos!( line )
+    title = find_round_def_title!( line )
+    # NB: use extracted round title for knockout check
+    knockout_flag = is_knockout_round?( title )
+
+
+    logger.debug "    start_date: #{start_date}"
+    logger.debug "    end_date:   #{end_date}"
+    logger.debug "    pos:      #{pos}"
+    logger.debug "    title:    >#{title}<"
+    logger.debug "    knockout_flag:   #{knockout_flag}"
+
+    logger.debug "  line: >#{line}<"
+
+    #######################################
+    # todo/fix: add auto flag is false !!!! - why? why not?
+    round = Import::Round.new( pos:        pos,
+                               title:      title,
+                               start_date: start_date,
+                               end_date:   end_date,
+                               knockout:   knockout_flag,
+                               auto:       false )
+
+    @rounds[ title ] = round
   end
+
 
 
   def find_round_pos!( line )
@@ -103,6 +159,32 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
     end
   end # method find_round_pos!
 
+  def find_round_def_title!( line )
+    # assume everything before pipe (\) is the round title
+    #  strip [ROUND.POS],  todo:?? [ROUND.TITLE2]
+
+    # todo/fix: add title2 w/  // or /  why? why not?
+    #  -- strip / or / chars
+
+    buf = line.dup
+    logger.debug "  find_round_def_title! line-before: >>#{buf}<<"
+
+    ## cut-off everything after (including) pipe (|)
+    buf = buf[ 0...buf.index('|') ]
+
+    # e.g. remove [ROUND.POS], [ROUND.TITLE2], [GROUP.TITLE+POS] etc.
+    buf.gsub!( /\[[^\]]+\]/, '' )    ## fix: use helper for (re)use e.g. remove_match_placeholder/marker or similar?
+    # remove leading and trailing whitespace
+    buf.strip!
+
+    logger.debug "  find_round_def_title! line-after: >>#{buf}<<"
+
+    logger.debug "   title: >>#{buf}<<"
+    line.sub!( buf, '[ROUND.TITLE]' )
+
+    buf
+  end
+
   def find_round_header_title!( line )
     # assume everything left is the round title
     #  extract all other items first (round title2, round pos, group title n pos, etc.)
@@ -129,6 +211,7 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
     buf
   end
 
+
   def parse_round_header( line )
     logger.debug "parsing round header line: >#{line}<"
 
@@ -143,11 +226,12 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
 
 
     round = @rounds[ title ]
-    if round.nil?
+    if round.nil?    ## auto-add / create if missing
       round = Import::Round.new( pos:   pos,
                          title: title )
       @rounds[ title ] = round
     end
+
     ## todo/check: if pos match (MUST always match for now)
     @last_round = round
 
@@ -237,7 +321,7 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
 
     ###
     # check if date found?
-    #   NB: ruby falsey is nil & false only (not 0 or empty array etc.)
+    #   note: ruby falsey is nil & false only (not 0 or empty array etc.)
     if date
       ### check: use date_v2 if present? why? why not?
       @last_date = date    # keep a reference for later use
@@ -251,6 +335,26 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
     logger.debug "  line: >#{line}<"
 
 
+    round = nil
+    if @last_round
+      round = @last_round
+    else
+      ## find (first) matching round by date
+      @rounds.values.each do |round_rec|
+        if (round_rec.start_date && round_rec.end_date) &&
+           (date >= round_rec.start_date && date <= round_rec.end_date)
+          round = round_rec
+          break
+        end
+      end
+      if round.nil?
+        puts "!! ERROR - no matching round found for match date:"
+        pp date
+        exit 1
+      end
+    end
+
+
     ## todo/check: scores are integers or strings?
     @matches << Import::Match.new( date:    date,
                                    team1:   team1,
@@ -259,7 +363,7 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
                                    score2i: scores[1],  ## score2i
                                    score1:  scores[2],  ## score1  - full time
                                    score2:  scores[3],  ## score2
-                                   round:   @last_round )
+                                   round:   round )
 
     ### todo: cache team lookups in hash?
 

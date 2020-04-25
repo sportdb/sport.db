@@ -39,6 +39,8 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
     @groups       = {}           ##  -"-
     @clubs        = Hash.new(0)   ## keep track of usage counter
 
+    @warns        = []    ## track list of warnings (unmatched lines)  too - why? why not?
+
 
     @lines.each do |line|
       if is_round_def?( line )
@@ -69,10 +71,11 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
         # do nothing here
       else
         logger.warn "skipping line (no match found): >#{line}<"
+        @warns << line
       end
     end # lines.each
 
-    [@clubs, @rounds, @groups, @round_defs, @group_defs]
+    [@clubs, @rounds, @groups, @round_defs, @group_defs, @warns]
   end
 
 

@@ -1,20 +1,20 @@
 ##
 #  use
-#   $ ruby -I ./lib script/read_champs.rb
+#   $ ruby -I ./lib script/read_eng.rb
 
 
 require_relative 'boot'
 
 
 SportDb.connect( adapter:  'sqlite3',
-                 database: './champs.db' )
+                 database: './eng.db' )
 SportDb.create_all   ## build schema
 
 ## turn on logging to console
 ## ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 
-path = "#{OPENFOOTBALL_PATH}/europe-champions-league"
+path = "#{OPENFOOTBALL_PATH}/england"
 
 pack = SportDb::Package.new( path )
 pack.read_match

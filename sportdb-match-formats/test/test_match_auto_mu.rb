@@ -11,48 +11,19 @@ require 'helper'
 class TestMatchAutoMu < MiniTest::Test
 
   def test_mauritius
-    txt = <<TXT
-Preliminary Round
-Mon Jun 22
-  Pointe-aux-Sables Mates      3-4  AS Port-Louis 2000              @ St. François Xavier Stadium, Port Louis
+    txt, exp = read_test( 'match_auto/mu.txt' )
 
-Quarterfinals
-Wed Jun 24
-  Rivière du Rempart           3-1 pen (1-1) La Cure Sylvester      @ Auguste Vollaire Stadium, Central Flacq
-  Chamarel SC                  3-4           Petite Rivière Noire   @ Germain Comarmond Stadium, Bambous
-Thu Jun 25
-  Pamplemousses                2-0  AS Port-Louis 2000              @ Auguste Vollaire Stadium, Central Flacq
-Sat Jun 27
-  Savanne SC                   3-6  Entente Boulet Rouge            @ Anjalay Stadium, Mapou
+    teams, rounds = parse_auto_conf( txt )
 
-Semifinals
-Wed Jul 15
-  Rivière du Rempart           2-3  Petite Rivière Noire            @  New George V Stadium, Curepipe
-  Entente Boulet Rouge         0-2  Pamplemousses                   @  Germain Comarmond Stadium, Bambous
+    ## note: json always returns hash tables with string keys (not symbols),
+    ##        thus, always stringify keys before comparing!!!!
+    assert_equal exp['teams'],  teams.deep_stringify_keys
+    assert_equal exp['rounds'], rounds.deep_stringify_keys
 
-Final
-Sun Jul 19
-  Petite Rivière Noire         2-0  Pamplemousses                   @ New George V Stadium, Curepipe
-TXT
-
-    clubs, rounds = parse_auto_conf( txt )
-
-    assert_equal Hash(
-     'Pointe-aux-Sables Mates' => 1,
-     'AS Port-Louis 2000'      => 2,
-     'Rivière du Rempart'      => 2,
-     'La Cure Sylvester'       => 1,
-     'Chamarel SC'             => 1,
-     'Petite Rivière Noire'    => 3,
-     'Pamplemousses'           => 3,
-     'Savanne SC'              => 1,
-     'Entente Boulet Rouge'    => 2), clubs
-
-    assert_equal Hash(
- 'Preliminary Round' => {count: 1, match_count: 1},
- 'Quarterfinals'     => {count: 1, match_count: 4},
- 'Semifinals'        => {count: 1, match_count: 2},
- 'Final'             => {count: 1, match_count: 1} ), rounds
+    # puts JSON.pretty_generate( { clubs:  clubs,
+    #                             rounds: rounds
+    #                           } )
+    # exit 1
   end
 
 end  # class TestMatchAutoMu

@@ -83,23 +83,23 @@ module SportDb
           puts "  matching table entry >#{line}<"
 
           name = m[:club]
-          rank = m[:rank]
+          rank = m[:rank] ? Integer(m[:rank]) : nil
 
           standing = {
-            pld: m[:pld],
-            w:   m[:w],
-            d:   m[:d],
-            l:   m[:l],
-            gf:  m[:gf],
-            ga:  m[:ga],
+            pld: Integer(m[:pld]),
+            w:   Integer(m[:w]),
+            d:   Integer(m[:d]),
+            l:   Integer(m[:l]),
+            gf:  Integer(m[:gf]),
+            ga:  Integer(m[:ga]),
           }
-          standing[ :gd ]        = m[:gd]         if m[:gd]
-          standing[ :pts ]       = m[:pts]
-          standing[ :deduction ] = m[:deduction]  if m[:deduction]
+          standing[ :gd ]        = Integer(m[:gd].gsub(/[±+]/,''))    if m[:gd]
+          standing[ :pts ]       = Integer(m[:pts])
+          standing[ :deduction ] = Integer(m[:deduction])  if m[:deduction]
 
 
-          club = clubs[ name ] ||= { count: 0 }
-          club[ :count ]    += 1    ## track double usage - why? why not? report/raise error/exception on duplicates?
+          ## todo/fix: track double usage - why? why not? report/raise error/exception on duplicates?
+          club = clubs[ name ] ||= { }
           club[ :country ]   = country     if country
 
           club[ :rank ]      = rank        if rank
@@ -108,8 +108,7 @@ module SportDb
           ## assume club is full line
           name = line.strip  # note: strip leading and trailing spaces
 
-          club = clubs[ name ] ||= { count: 0 }
-          club[ :count ]   += 1
+          club = clubs[ name ] ||= { }
           club[ :country ]  = country     if country
         end
       end

@@ -18,12 +18,24 @@ class WikiIndex
   end
 
 
+  include NameHelper
+  ## e.g. strip_lang, strip_year, normalize
 
-  ## helpers from club - use a helper module for includes - why? why not?
-  def strip_lang( name ) Club.strip_lang( name ); end
-  def strip_year( name ) Club.strip_year( name ); end
-  def normalize( name )  Club.normalize( name ); end
-  def strip_wiki( name)  Club.strip_wiki( name ); end
+  ## fix/todo:
+  ##  also used / duplicated in ClubIndex#add_wiki !!!
+  def strip_wiki( name )     # todo/check: rename to strip_wikipedia_en - why? why not?
+    ## note: strip disambiguationn qualifier from wikipedia page name if present
+    ##        note: only remove year and foot... for now
+    ## e.g. FC Wacker Innsbruck (2002) => FC Wacker Innsbruck
+    ##      Willem II (football club)  => Willem II
+    ##
+    ## e.g. do NOT strip others !! e.g.
+    ##   América Futebol Clube (MG)
+    ##  only add more "special" cases on demand (that, is) if we find more
+    name = name.gsub( /\([12][^\)]+?\)/, '' ).strip  ## starting with a digit 1 or 2 (assuming year)
+    name = name.gsub( /\(foot[^\)]+?\)/, '' ).strip  ## starting with foot (assuming football ...)
+    name
+  end
 
 
   def initialize( recs )

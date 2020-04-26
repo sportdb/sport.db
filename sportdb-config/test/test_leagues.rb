@@ -9,16 +9,32 @@ require 'helper'
 
 class TestLeagues < MiniTest::Test
 
+  LEAGUES = SportDb::Import.config.leagues
+
+
   def test_match
-    pp SportDb::Import.config.leagues.errors
+    pp LEAGUES.errors
 
-    SportDb::Import.config.leagues.dump_duplicates
+    LEAGUES.dump_duplicates
 
-    m = SportDb::Import.config.leagues.match( 'English Premier League' )
-    assert_equal 'English Premier League', m[0].name
+    m = LEAGUES.match( 'English Premier League' )
+    pp m
+    assert_equal 'Premier League',         m[0].name
     assert_equal 'eng.1',                  m[0].key
     assert_equal 'England',                m[0].country.name
     assert_equal 'eng',                    m[0].country.key
+    assert                                 m[0].clubs?
+    assert                                 m[0].domestic?
+    assert_equal false,                    m[0].intl?
+    assert_equal false,                    m[0].national_teams?
+
+    m = LEAGUES.match( 'Euro' )
+    pp m
+    assert_equal 'Euro',                   m[0].name
+    assert_equal 'euro',                   m[0].key
+    assert                                 m[0].national_teams?
+    assert                                 m[0].intl?
+    assert_equal false,                    m[0].clubs?
   end
 
 end # class TestLeagues

@@ -7,22 +7,11 @@ module SportDb
 ##
 ##  todo/fix:  remove self.create in structs!!!  use just new!!!
 
-
-
-
-########
-# more attribs - todo/fix - also add "upstream" to struct & model!!!!!
-#   district, geos, year_end, country, etc.
-
-class Club
-
-
+class Team
   ##  todo: use just names for alt_names - why? why not?
   attr_accessor :key, :name, :alt_names,
                 :code,    ## code == abbreviation e.g. ARS etc.
-                :year, :year_end,   ## todo/fix: change year_end to end_year (like in season)!!!
-                :ground
-
+                :year, :year_end   ## todo/fix: change year_end to end_year (like in season)!!!
 
   alias_method :title, :name  ## add alias/compat - why? why not
 
@@ -31,7 +20,6 @@ class Club
     [@name] + @alt_names
   end   ## all names
 
-
   ## special import only attribs
   attr_accessor :alt_names_auto    ## auto-generated alt names
   attr_accessor :wikipedia   # wikipedia page name (for english (en))
@@ -39,19 +27,6 @@ class Club
 
   def historic?()  @year_end ? true : false; end
   alias_method  :past?, :historic?
-
-
-  attr_accessor :a, :b
-  def a?()  @a == nil; end  ## is a (1st) team / club (i)?            if a is NOT set
-  def b?()  @a != nil; end  ## is b (2nd/reserve/jr) team / club (ii) if a is     set
-
-  ## note: delegate/forward all geo attributes for team b for now (to team a) - keep - why? why not?
-  attr_writer  :city, :district, :country, :geos
-  def city()      @a == nil ?  @city     : @a.city;     end
-  def district()  @a == nil ?  @district : @a.district; end
-  def country()   @a == nil ?  @country  : @a.country;  end
-  def geos()      @a == nil ?  @geos     : @a.geos;     end
-
 
   def wikipedia?()  @wikipedia; end
   def wikipedia_url
@@ -75,12 +50,10 @@ class Club
   end
 
   def update( **kwargs )
+    @key         = kwargs[:key]        if kwargs.has_key? :key
     @name        = kwargs[:name]       if kwargs.has_key? :name
+    @code        = kwargs[:code]       if kwargs.has_key? :code
     @alt_names   = kwargs[:alt_names]  if kwargs.has_key? :alt_names
-    @city        = kwargs[:city]       if kwargs.has_key? :city
-    ## todo/fix:  use city struct - why? why not?
-    ## todo/fix: add country too  or report unused keywords / attributes - why? why not?
-
     self   ## note - MUST return self for chaining
   end
 
@@ -115,17 +88,55 @@ class Club
       self.alt_names_auto += variants( name )
     end
   end
+end   # class Team
+
+
+
+class NationalTeam < Team
+  def initialize( **kwargs )
+    super
+  end
+
+  def update( **kwargs )
+    super
+    self   ## note - MUST return self for chaining
+  end
+
+end  # class NationalTeam
+
+
+########
+# more attribs - todo/fix - also add "upstream" to struct & model!!!!!
+#   district, geos, year_end, country, etc.
+
+class Club < Team
+  attr_accessor  :ground
+
+  attr_accessor :a, :b
+  def a?()  @a == nil; end  ## is a (1st) team / club (i)?            if a is NOT set
+  def b?()  @a != nil; end  ## is b (2nd/reserve/jr) team / club (ii) if a is     set
+
+  ## note: delegate/forward all geo attributes for team b for now (to team a) - keep - why? why not?
+  attr_writer  :city, :district, :country, :geos
+  def city()      @a == nil ?  @city     : @a.city;     end
+  def district()  @a == nil ?  @district : @a.district; end
+  def country()   @a == nil ?  @country  : @a.country;  end
+  def geos()      @a == nil ?  @geos     : @a.geos;     end
+
+
+  def initialize( **kwargs )
+    super
+  end
+
+  def update( **kwargs )
+    super
+    @city        = kwargs[:city]       if kwargs.has_key? :city
+    ## todo/fix:  use city struct - why? why not?
+    ## todo/fix: add country too  or report unused keywords / attributes - why? why not?
+
+    self   ## note - MUST return self for chaining
+  end
 end # class Club
-
-
-
-############
-#  convenience
-#   Club and Team are for now alias
-#     in the future make
-#        Club > Team
-#        NationalTeam > Team  - why? why not?
-Team = Club
 
 
 end   # module Import

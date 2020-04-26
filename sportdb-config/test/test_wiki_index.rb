@@ -9,15 +9,20 @@ require 'helper'
 
 class TestWikiIndex < MiniTest::Test
 
+  Club      = SportDb::Import::Club
+
+  COUNTRIES = SportDb::Import.config.countries
+
+
   def test_clubs
     wiki = SportDb::Import::WikiIndex.build( SportDb::Import.config.clubs_dir )
     ## pp wiki
 
     ##############################################
     ## test wikipedia names and links/urls
-    be = SportDb::Import.config.countries[ 'be' ]
+    be = COUNTRIES.find( 'be' )
 
-    club = SportDb::Import::Club.new
+    club = Club.new
     club.name    = 'Club Brugge KV'
     club.country = be
 
@@ -25,7 +30,7 @@ class TestWikiIndex < MiniTest::Test
     assert_equal 'Club Brugge KV', rec.name
 
 
-    club = SportDb::Import::Club.new
+    club = Club.new
     club.name    = 'RSC Anderlecht'
     club.country = be
 

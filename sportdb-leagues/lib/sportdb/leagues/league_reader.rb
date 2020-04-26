@@ -19,6 +19,7 @@ def self.config     ## todo/check: rename to find_country( ) or something - why?
     exit 1
   end
 end
+def config() self.class.config; end
 
 
 
@@ -28,29 +29,48 @@ def self.read( path )   ## use - rename to read_file or from_file etc. - why? wh
 end
 
 def self.parse( txt )
+  new( txt ).parse
+end
+
+
+
+include Logging
+
+def initialize( txt )
+  @txt = txt
+end
+
+def parse
   recs = []
   last_rec = nil
+
   country  = nil    # last country
   intl     = false  # is international (league/tournament/cup/competition)
+  clubs    = true   # or clubs|national teams
 
-  OutlineReader.parse( txt ).each do |node|
+  OutlineReader.parse( @txt ).each do |node|
     if [:h1,:h2,:h3,:h4,:h5,:h6].include?( node[0] )
       heading_level  = node[0][1].to_i
       heading        = node[1]
 
-      puts "heading #{heading_level} >#{heading}<"
+      logger.debug "heading #{heading_level} >#{heading}<"
 
       if heading_level != 1
         puts "** !!! ERROR !!! unsupported heading level; expected heading 1 for now only; sorry"
         pp line
         exit 1
       else
-        puts "heading (#{heading_level}) >#{heading}<"
+        logger.debug "heading (#{heading_level}) >#{heading}<"
         last_heading = heading
-        ## map to country or international / int'l
-        if heading =~ /international|int'l/i
+        ## map to country or international / int'l or national teams
+        if heading =~ /national team/i   ## national team tournament
           country = nil
           intl    = true
+          clubs   = false
+        elsif heading =~ /international|int'l/i  ## int'l club tournament
+          country = nil
+          intl    = true
+          clubs   = true
         else
           ## assume country in heading; allow all "formats" supported by parse e.g.
           ##   Österreich • Austria (at)
@@ -59,6 +79,7 @@ def self.parse( txt )
           ##   Deutschland (de) • Germany
           country = config.countries.parse( heading )
           intl    = false
+          clubs   = true
 
           ## check country code - MUST exist for now!!!!
           if country.nil?
@@ -80,7 +101,7 @@ def self.parse( txt )
           values = values.map { |value| value.gsub( '$', '' )
                                              .gsub( /[ \t]+/, ' ' )
                                              .strip  }
-          puts "alt_names: #{values.join( '|' )}"
+          logger.debug "alt_names: #{values.join( '|' )}"
 
           last_rec.alt_names += values
       else
@@ -94,7 +115,7 @@ def self.parse( txt )
                           .gsub( /[ \t]+/, ' ' )
                           .strip
 
-          puts "key: >#{league_key}<, name: >#{league_name}<"
+          logger.debug "key: >#{league_key}<, name: >#{league_name}<"
 
 
           alt_names_auto = []
@@ -127,7 +148,8 @@ def self.parse( txt )
                             name:           league_name,
                             alt_names_auto: alt_names_auto,
                             country:        country,
-                            intl:           intl)
+                            intl:           intl,
+                            clubs:          clubs)
           recs << rec
           last_rec = rec
         else

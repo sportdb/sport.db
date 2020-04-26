@@ -9,24 +9,27 @@ require 'helper'
 
 class TestCountries < MiniTest::Test
 
-  def test_countries
-    ## pp SportDb::Import.config.countries
+  COUNTRIES = SportDb::Import.config.countries
 
-    eng = SportDb::Import.config.countries[:eng]
+
+  def test_countries
+    ## pp COUNTRIES
+
+    eng = COUNTRIES[:eng]
     assert_equal 'eng',      eng.key
     assert_equal 'England',  eng.name
     assert_equal 'ENG',      eng.fifa
 
-    at  = SportDb::Import.config.countries[:at]
+    at  = COUNTRIES[:at]
     assert_equal 'at',       at.key
     assert_equal 'Austria',  at.name
     assert_equal 'AUT',      at.fifa
 
-    assert at == SportDb::Import.config.countries['AT']
-    assert at == SportDb::Import.config.countries['at']
-    assert at == SportDb::Import.config.countries['AUT']
-    assert at == SportDb::Import.config.countries['aut']
-    assert at == SportDb::Import.config.countries[:aut]
+    assert at == COUNTRIES['AT']
+    assert at == COUNTRIES['at']
+    assert at == COUNTRIES['AUT']
+    assert at == COUNTRIES['aut']
+    assert at == COUNTRIES[:aut]
   end
 
 end # class TestCountries

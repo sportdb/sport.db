@@ -19,11 +19,6 @@ class TestMatchAutoMu < MiniTest::Test
     ##        thus, always stringify keys before comparing!!!!
     assert_equal exp['teams'],  teams.deep_stringify_keys
     assert_equal exp['rounds'], rounds.deep_stringify_keys
-
-    # puts JSON.pretty_generate( { clubs:  clubs,
-    #                             rounds: rounds
-    #                           } )
-    # exit 1
   end
 
 end  # class TestMatchAutoMu

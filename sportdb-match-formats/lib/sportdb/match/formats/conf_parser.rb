@@ -36,7 +36,7 @@ module SportDb
                         [-]
                      )
                     [ ]+
-                      (?<club>.+?)   ## note: let's use non-greedy (MINIMUM length) match for now
+                      (?<team>.+?)   ## note: let's use non-greedy (MINIMUM length) match for now
                     [ ]+
                       (?<pld>\d+)    ## (pl)aye(d)
                     [ ]+
@@ -64,13 +64,13 @@ module SportDb
                       $}x
 
     def parse
-      clubs = {}    ## convert lines to clubs
+      teams = {}    ## convert lines to teams
 
       @lines.each do |line|
         next if line =~ /^[ -]+$/   ## skip decorative lines with dash only (e.g. ---- or - - - -) etc.
 
 
-        ## quick hack - check for/extract (optional) county code (for clubs) first
+        ## quick hack - check for/extract (optional) county code (for teams) first
         ##  allow as separators <>‹›,  NOTE: includes (,) comma for now too
         m = nil
         country = nil
@@ -82,7 +82,7 @@ module SportDb
         if m=TABLE_RE.match( line )
           puts "  matching table entry >#{line}<"
 
-          name = m[:club]
+          name = m[:team]
           rank = m[:rank] ? Integer(m[:rank]) : nil
 
           standing = {
@@ -99,21 +99,21 @@ module SportDb
 
 
           ## todo/fix: track double usage - why? why not? report/raise error/exception on duplicates?
-          club = clubs[ name ] ||= { }
-          club[ :country ]   = country     if country
+          team = teams[ name ] ||= { }
+          team[ :country ]   = country     if country
 
-          club[ :rank ]      = rank        if rank
-          club[ :standing ]  = standing    if standing
+          team[ :rank ]      = rank        if rank
+          team[ :standing ]  = standing    if standing
         else
-          ## assume club is full line
+          ## assume team is full line
           name = line.strip  # note: strip leading and trailing spaces
 
-          club = clubs[ name ] ||= { }
-          club[ :country ]  = country     if country
+          team = teams[ name ] ||= { }
+          team[ :country ]  = country     if country
         end
       end
 
-      clubs
+      teams
     end # method parse
 
   end # class ConfParser

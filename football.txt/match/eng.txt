@@ -1,23 +1,23 @@
-Arsenal FC | Arsenal
-Leicester City FC | Leicester | Leicester City
-Watford FC | Watford
-Liverpool FC | Liverpool
-Chelsea FC | Chelsea
-Burnley FC | Burnley
-Crystal Palace FC | Crystal Palace | C Palace | Palace | Crystal P
-Huddersfield Town AFC | Huddersfield | Huddersfield Town
-Everton FC | Everton
-Stoke City FC | Stoke | Stoke City
-Southampton FC | Southampton
-Swansea City FC | Swansea | Swansea City
-West Bromwich Albion FC | West Brom | West Bromwich Albion | West Bromwich | Albion
-AFC Bournemouth | Bournemouth
-Brighton & Hove Albion FC | Brighton | Brighton & Hove | Brighton & Hove Albion
-Manchester City FC | Man City | Manchester City | Manchester C
-Newcastle United FC | Newcastle | Newcastle Utd | Newcastle United
-Tottenham Hotspur FC | Tottenham | Tottenham Hotspur | Spurs
-Manchester United FC | Man Utd | Man United | Manchester U | Manchester Utd | Manchester United
-West Ham United FC | West Ham | West Ham United
+Arsenal FC
+Leicester City
+Watford FC
+Liverpool FC
+Chelsea FC
+Burnley FC
+Crystal Palace
+Huddersfield Town
+Everton FC
+Stoke City
+Southampton FC
+Swansea City
+West Bromwich Albion
+AFC Bournemouth
+Brighton & Hove Albion
+Manchester City
+Newcastle United
+Tottenham Hotspur
+Manchester United
+West Ham United
 
 <<<<<<<<<
 

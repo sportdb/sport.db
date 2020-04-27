@@ -20,7 +20,7 @@ class MapperV2      ## todo/check: rename to NameMapper/TitleMapper ? why? why n
   MappingStruct =  Struct.new( :key, :title, :length, :pattern)     ## todo/check: use (rename to) TitleStruct - why? why not??
 
   ######
-  ## convenience helper - (auto)build ActiveRecord-like club records/structs
+  ## convenience helper - (auto)build ActiveRecord-like team records/structs
   Record = Struct.new( :key, :title, :synonyms )
   def build_records( txt )
     recs = []

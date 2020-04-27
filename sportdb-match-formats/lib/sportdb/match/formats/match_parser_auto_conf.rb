@@ -26,7 +26,7 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
   end
 
   def parse
-    ## try to  find all clubs in match schedule
+    ## try to  find all teams in match schedule
     @last_round   = nil
     @last_group   = nil
 
@@ -35,9 +35,9 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
     @group_defs = Hash.new(0)
 
     ## usage/refs
-    @rounds       = {}           ## track usage counter and match (two clubs) counter
+    @rounds       = {}           ## track usage counter and match (two teams) counter
     @groups       = {}           ##  -"-
-    @clubs        = Hash.new(0)   ## keep track of usage counter
+    @teams        = Hash.new(0)   ## keep track of usage counter
 
     @warns        = []    ## track list of warnings (unmatched lines)  too - why? why not?
 
@@ -75,7 +75,7 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
       end
     end # lines.each
 
-    [@clubs, @rounds, @groups, @round_defs, @group_defs, @warns]
+    [@teams, @rounds, @groups, @round_defs, @group_defs, @warns]
   end
 
 
@@ -95,7 +95,7 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
     line = line.gsub( /\[
                         [^\]]+?
                        \]/x, '' ).strip
-    return true if line.empty?    ## note: return true (for valid line with no match/clubs)
+    return true if line.empty?    ## note: return true (for valid line with no match/teams)
 
 
     ## split by geo (@) - remove for now
@@ -121,7 +121,7 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
                           }x, '' ).strip
     end
 
-    return true if line.empty?    ## note: return true (for valid line with no match/clubs)
+    return true if line.empty?    ## note: return true (for valid line with no match/teams)
 
 
     scores = find_scores!( line )
@@ -154,10 +154,10 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
      values = values.map { |value| value.strip }        ## strip spaces
      values = values.select { |value| !value.empty? }   ## remove empty strings
 
-     return true    if values.size == 0  ## note: return true (for valid line with no match/clubs)
+     return true    if values.size == 0  ## note: return true (for valid line with no match/teams)
 
      if values.size == 1
-       puts "(auto config) try matching clubs separated by spaces (2+):"
+       puts "(auto config) try matching teams separated by spaces (2+):"
        pp values
 
        values = values[0].split( /[ ]{2,}/ )
@@ -166,11 +166,11 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
 
      return false   if values.size != 2
 
-     puts "(auto config) try matching clubs:"
+     puts "(auto config) try matching teams:"
      pp values
 
-     @clubs[ values[0] ] += 1    ## update usage counters
-     @clubs[ values[1] ] += 1
+     @teams[ values[0] ] += 1    ## update usage counters
+     @teams[ values[1] ] += 1
 
      @last_round[ :match_count ] += 1    if @last_round
      @last_group[ :match_count ] += 1    if @last_group

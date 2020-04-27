@@ -27,20 +27,20 @@ class TestConf < MiniTest::Test
 
     m=TABLE_RE.match( '1  Manchester City         38  32  4  2 106-27 100' )
     pp m
-    assert_equal 'Manchester City', m[:club]
+    assert_equal 'Manchester City', m[:team]
 
     m=TABLE_RE.match( '1.  Manchester City         38  32  4  2 106:27 100' )
     pp m
-    assert_equal 'Manchester City', m[:club]
+    assert_equal 'Manchester City', m[:team]
 
     m=TABLE_RE.match( '-  Manchester City         38  32  4  2 106 - 27 100' )
     pp m
-    assert_equal 'Manchester City', m[:club]
+    assert_equal 'Manchester City', m[:team]
 
 
     m=TABLE_RE.match( '1.  1. FC Mainz           38  32  4  2 106-27 100  [-7]' )
     pp m
-    assert_equal '1. FC Mainz', m[:club]
+    assert_equal '1. FC Mainz', m[:team]
   end
 
 

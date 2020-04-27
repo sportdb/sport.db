@@ -435,8 +435,10 @@ class MatchParserSimpleV2   ## simple match parser for club match schedules
     else
       ## find (first) matching round by date
       @rounds.values.each do |round_rec|
+        ## note: convert date to date only (no time) with to_date!!!
         if (round_rec.start_date && round_rec.end_date) &&
-           (date >= round_rec.start_date && date <= round_rec.end_date)
+           (date.to_date >= round_rec.start_date &&
+            date.to_date <= round_rec.end_date)
           round = round_rec
           break
         end

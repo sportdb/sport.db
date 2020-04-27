@@ -69,16 +69,24 @@ def read_blocks( path )
 end
 
 
+def parse_json( str )
+   ## note: allow empty string; fall back to empty hash
+  if str.strip.empty?
+    {}
+  else
+    JSON.parse( str )
+  end
+end
+
 def read_test( path )
   blocks = read_blocks( "../football.txt/#{path}" )
 
   if blocks.size == 2
-    [blocks[0], JSON.parse( blocks[1] )]
+    [blocks[0], parse_json( blocks[1] )]
   elsif blocks.size == 3
     ## note: returned in different order
     ##         optional option block that comes first returned last!
-    ## todo/fix: convert options from YAML!!!!! with symbolize keys!!!
-    [blocks[1], JSON.parse( blocks[2] ), blocks[0]]
+    [blocks[1], parse_json( blocks[2] ), blocks[0]]
   else
     puts "!! ERROR: expected two or three text blocks in >#{path}<; got #{blocks.size}"
     exit 1

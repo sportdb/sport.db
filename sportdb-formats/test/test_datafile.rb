@@ -13,6 +13,9 @@ class TestDatafile < MiniTest::Test
   def test_exclude
     assert Datafile.match_exclude( '.build/' )
     assert Datafile.match_exclude( '.git/' )
+    assert Datafile.exclude?( '.build/' )
+    assert Datafile.exclude?( '.git/' )
+
 
     assert Datafile.match_exclude( '/.build/' )
     assert Datafile.match_exclude( '/.git/' )

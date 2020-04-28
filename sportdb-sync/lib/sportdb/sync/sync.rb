@@ -25,7 +25,7 @@ module Sync
 
   class League
     def self.find( league )
-      SportDb::Model::League.find_by( key: league.key )
+      Model::League.find_by( key: league.key )
     end
     def self.find!( league )
       rec = find( league )
@@ -45,10 +45,10 @@ module Sync
          attribs = { key:   league.key,
                      title: league.name }
          if league.country
-           attribs[ :country_id ] = Country.find_or_create( league.country ).id
+           attribs[ :country_id ] = Sync::Country.find_or_create( league.country ).id
          end
 
-         rec = SportDb::Model::League.create!( attribs )
+         rec = Model::League.create!( attribs )
        end
        rec
     end
@@ -70,7 +70,7 @@ module Sync
 
     def self.find( key )
       key = normalize_key( key )
-      SportDb::Model::Season.find_by( key: key )
+      Model::Season.find_by( key: key )
     end
     def self.find!( key )
       rec = find( key )
@@ -88,7 +88,7 @@ module Sync
          key = normalize_key( key )  ## note: do NOT forget to normalize key e.g. always use slash (2019/20) etc.
          attribs = { key:   key,
                      title: key  }
-         rec = SportDb::Model::Season.create!( attribs )
+         rec = Model::Season.create!( attribs )
       end
       rec
     end
@@ -96,7 +96,7 @@ module Sync
 
   class Club
     def self.find_or_create( club )
-      rec = SportDb::Model::Team.find_by( title: club.name )
+      rec = Model::Team.find_by( title: club.name )
       if rec.nil?
         ## check if key is present otherwise generate e.g. remove all non-ascii a-z chars
         key  =  club.key || club.name.downcase.gsub( /[^a-z]/, '' )
@@ -105,7 +105,7 @@ module Sync
         attribs = {
           key:        key,
           title:      club.name,
-          country_id: Country.find_or_create( club.country ).id,
+          country_id: Sync::Country.find_or_create( club.country ).id,
           club:       true,
           national:   false  ## check -is default anyway - use - why? why not?
           ## todo/fix: add city if present - why? why not?
@@ -118,15 +118,46 @@ module Sync
           attribs[:synonyms] = club.alt_names.join('|')
         end
 
-        rec = SportDb::Model::Team.create!( attribs )
+        rec = Model::Team.create!( attribs )
       end
       rec
     end
   end # class Club
 
+
+
+  class NationalTeam
+    def self.find_or_create( team )
+      rec = Model::Team.find_by( title: team.name )
+      if rec.nil?
+        puts "add national team: #{team.key}, #{team.name}, #{team.country.name} (#{team.country.key})"
+
+        ### fix: change back key to team.key!!!!
+        ## ActiveRecord::RecordInvalid: Validation failed:
+        #    Key expected three or more lowercase letters a-z /\A[a-z]{3,}\z/
+        attribs = {
+          key:        team.code.downcase,
+          title:      team.name,
+          code:       team.code,
+          country_id: Sync::Country.find_or_create( team.country ).id,
+          club:       false,
+          national:   true  ## check -is default anyway - use - why? why not?
+        }
+
+        if team.alt_names.empty? == false
+          attribs[:synonyms] = team.alt_names.join('|')
+        end
+
+        rec = Model::Team.create!( attribs )
+      end
+      rec
+    end
+  end # class NationalTeam
+
+
   class Event
     def self.find( league:, season: )
-      SportDb::Model::Event.find_by( league_id: league.id, season_id: season.id  )
+      Model::Event.find_by( league_id: league.id, season_id: season.id  )
     end
     def self.find!( league:, season: )
       rec = find( league: league, season: season )
@@ -161,7 +192,7 @@ module Sync
           season_id: season.id,
           start_at:  start_at  }
 
-        rec = SportDb::Model::Event.create!( attribs )
+        rec = Model::Event.create!( attribs )
       end
       rec
     end
@@ -169,14 +200,14 @@ module Sync
 
   class Round
     def self.find_or_create( round, event: )
-       rec = SportDb::Model::Round.find_by( title: round.title, event_id: event.id )
+       rec = Model::Round.find_by( title: round.title, event_id: event.id )
        if rec.nil?
          attribs = { event_id: event.id,
                      title:    round.title,
                      pos:      round.pos,
                      start_at: event.start_at.to_date
                    }
-         rec = SportDb::Model::Round.create!( attribs )
+         rec = Model::Round.create!( attribs )
        end
        rec
     end
@@ -191,7 +222,7 @@ module Sync
                      title:    group.title,
                      pos:      group.pos
                    }
-         rec = SportDb::Model::Group.create!( attribs )
+         rec = Model::Group.create!( attribs )
        end
        ## todo/fix: add/update teams in group too!!!!!
        rec
@@ -201,7 +232,7 @@ module Sync
 
   class Stage
     def self.find( name, event: )
-      SportDb::Model::Stage.find_by( title: name, event_id: event.id  )
+      Model::Stage.find_by( title: name, event_id: event.id  )
     end
     def self.find!( name, event: )
       rec = find( name, event: event  )
@@ -222,7 +253,7 @@ module Sync
          attribs = { event_id: event.id,
                      title:    name,
                    }
-         rec = SportDb::Model::Stage.create!( attribs )
+         rec = Model::Stage.create!( attribs )
        end
        rec
     end

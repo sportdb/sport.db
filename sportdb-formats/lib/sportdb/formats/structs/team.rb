@@ -11,7 +11,8 @@ class Team
   ##  todo: use just names for alt_names - why? why not?
   attr_accessor :key, :name, :alt_names,
                 :code,    ## code == abbreviation e.g. ARS etc.
-                :year, :year_end   ## todo/fix: change year_end to end_year (like in season)!!!
+                :year, :year_end,   ## todo/fix: change year_end to end_year (like in season)!!!
+                :country
 
   alias_method :title, :name  ## add alias/compat - why? why not
 
@@ -117,7 +118,7 @@ class Club < Team
   def b?()  @a != nil; end  ## is b (2nd/reserve/jr) team / club (ii) if a is     set
 
   ## note: delegate/forward all geo attributes for team b for now (to team a) - keep - why? why not?
-  attr_writer  :city, :district, :country, :geos
+  attr_writer  :city, :district, :geos
   def city()      @a == nil ?  @city     : @a.city;     end
   def district()  @a == nil ?  @district : @a.district; end
   def country()   @a == nil ?  @country  : @a.country;  end

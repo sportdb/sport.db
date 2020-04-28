@@ -10,11 +10,10 @@ module SportDb
 
     ## note: if pattern includes directory add here (otherwise move to more "generic" datafile) - why? why not?
     MATCH_RE = %r{ /(?: \d{4}-\d{2}        ## season folder e.g. /2019-20
-                      | \d{4}              ## season year-only folder e.g. /2019
+                      | \d{4}(--[^/]+)?    ## season year-only folder e.g. /2019 or /2016--france
                     )
                    /[a-z0-9_-]+\.txt$  ## txt e.g /1-premierleague.txt
                 }x
-
 
     attr_reader :pack     ## allow access to embedded ("low-level") delegate package
 

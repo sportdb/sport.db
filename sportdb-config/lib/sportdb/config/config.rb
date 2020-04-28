@@ -145,6 +145,15 @@ class NationalTeamIndex
     team = find_by_code( q )  if team.nil?
     team
   end
+
+  def find!( q )
+    team = find( q )
+    if team.nil?
+      puts "** !!! ERROR - no match for national team >#{q}< found"
+      exit 1
+    end
+    team
+  end
 end   # class NationalTeamIndex
 
 
@@ -185,6 +194,8 @@ class Configuration
                                name:       country.name,
                                code:       country.fifa,    ## note: use fifa code
                                alt_names:  country.alt_names )
+      team.country = country
+
       teams << team
     end
 

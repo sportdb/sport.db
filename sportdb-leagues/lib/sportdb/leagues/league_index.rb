@@ -6,20 +6,7 @@ module SportDb
 class LeagueIndex
 
 
-  ##
-  ## todo/check: make countries a method arg and NOT a global setting - why? why not?
-  ##
-  def self.config=( value )  @config=value; end
-  def self.config
-    if @config
-      @config
-    else
-      puts "** !! ERROR !! - countries index required for league reader; sorry; use LeagueIndex.config to set/configure"
-      exit 1
-    end
-  end
-  def config() self.class.config; end
-
+  def catalog() Import.catalog; end
 
 
   def initialize
@@ -112,7 +99,7 @@ class LeagueIndex
                        country   ## (re)use country struct - no need to run lookup again
                     else
                        ## note:  use own "global" countries index setting for ClubIndex - why? why not?
-                       rec = config.countries[ country ]
+                       rec = catalog.countries.find( country )
                        if rec.nil?
                          puts "** !!! ERROR !!! - unknown country >#{country}< - no match found, sorry - add to world/countries.txt in config"
                          exit 1

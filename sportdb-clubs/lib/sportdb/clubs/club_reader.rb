@@ -7,19 +7,7 @@ module Import
 
 class ClubReader
 
-##
-## todo/check: make countries a method arg and NOT a global setting - why? why not?
-##
-def self.config=( value )  @config=value; end
-def self.config     ## todo/check: rename to find_country( ) or something - why? why not?
-  if @config
-    @config
-  else
-    puts "** !! ERROR !! - country index required for club reader; sorry; use ClubReader.config to set/configure"
-    exit 1
-  end
-end
-
+  def catalog() Import.catalog; end
 
 
 
@@ -28,6 +16,13 @@ def self.read( path )   ## use - rename to read_file or from_file etc. - why? wh
   parse( txt )
 end
 
+def self.parse( txt )
+  new( txt ).parse
+end
+
+def initialize( txt )
+  @txt = txt
+end
 
 ##  pattern for b (child) team / club marker e.g.
 ##    (ii) or ii) or ii.) or (ii.) or (II)
@@ -47,10 +42,10 @@ B_TEAM_MARKER_RE = %r{^  \(?     # optional opening bracket
 ADDR_MARKER_RE =  %r{ (?: ^|[ ] )                # space or beginning of line
                         (?: ~ | /{2,} | \+{2,} )
                       (?: [ ]|$)                 # space or end of line
-                       }x  
-  
+                       }x
 
-def self.add_alt_names( rec, names )   ## helper for adding alternat names
+
+def add_alt_names( rec, names )   ## helper for adding alternat names
 
   ## strip and  squish (white)spaces
   #   e.g. New York FC      (2011-)  => New York FC (2011-)
@@ -74,12 +69,12 @@ def self.add_alt_names( rec, names )   ## helper for adding alternat names
 end
 
 
-def self.parse( txt )
+def parse
   recs = []
   last_rec  = nil
   headings = []   ## headings stack
 
-  OutlineReader.parse( txt ).each do |node|
+  OutlineReader.parse( @txt ).each do |node|
     if [:h1,:h2,:h3,:h4,:h5,:h6].include?( node[0] )
       heading_level  = node[0][1].to_i
       heading        = node[1]
@@ -108,7 +103,7 @@ def self.parse( txt )
             ##   Österreich • Austria
             ##   Austria
             ##   Deutschland (de) • Germany
-            country = config.countries.parse( heading )
+            country = catalog.countries.parse( heading )
             ## check country code - MUST exist for now!!!!
             if country.nil?
               puts "!!! error [club reader] - unknown country >#{heading}< - sorry - add country to config to fix"
@@ -180,7 +175,7 @@ def self.parse( txt )
        ##  Fischhofgasse 12 ~ 1100 Wien or
        ##  Fischhofgasse 12 // 1100 Wien or Fischhofgasse 12 /// 1100 Wien
        ##  Fischhofgasse 12 ++ 1100 Wien or Fischhofgasse 12 +++ 1100 Wien
-       elsif line =~ ADDR_MARKER_RE 
+       elsif line =~ ADDR_MARKER_RE
          # note skip for now!!!
          # todo/fix: add support for address line!!!
          puts "  skipping address line for now >#{line}<"
@@ -278,7 +273,7 @@ def self.parse( txt )
 
         ## 1) add country if present
         if headings.size > 0 && headings[0]
-          country = config.countries[ headings[0] ]
+          country = catalog.countries.find( headings[0] )
           rec.country = country
         else
           ## make it an error - why? why not?
@@ -334,7 +329,7 @@ end  # method read
 
 #######################
 ###  helpers
-def self.split_geo( str )
+def split_geo( str )
   ## assume city / geo tree
   ##  strip and squish (white)spaces
   #   e.g. León     › Guanajuato     => León › Guanajuato

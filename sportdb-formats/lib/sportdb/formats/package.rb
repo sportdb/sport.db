@@ -59,6 +59,13 @@ module SportDb
    def self.match_clubs( path )       CLUBS_RE.match( path ); end
    def self.match_clubs_wiki( path )  CLUBS_WIKI_RE.match( path ); end
    def self.match_club_props( path, pattern: CLUB_PROPS_RE ) pattern.match( path ); end
+
+   def self.find_leagues( path, pattern: LEAGUES_RE )  find( path, pattern ); end
+   def self.match_leagues( path )  LEAGUES_RE.match( path ); end
+
+   def self.find_conf( path, pattern: CONF_RE )  find( path, pattern ); end
+   def self.match_conf( path )  CONF_RE.match( path ); end
+
    class << self
      alias_method :match_clubs?, :match_clubs
      alias_method :clubs?,       :match_clubs
@@ -68,27 +75,15 @@ module SportDb
 
      alias_method :match_club_props?, :match_club_props
      alias_method :club_props?,       :match_club_props
-   end
 
-
-   def self.find_leagues( path, pattern: LEAGUES_RE )  find( path, pattern ); end
-   def self.match_leagues( path )  LEAGUES_RE.match( path ); end
-   class << self
      alias_method :match_leagues?, :match_leagues
      alias_method :leagues?,       :match_leagues
-   end
 
-
-   def self.find_conf( path, pattern: CONF_RE )  find( path, pattern ); end
-   def self.match_conf( path )  CONF_RE.match( path ); end
-   class << self
      alias_method :match_conf?, :match_conf
      alias_method :conf?,       :match_conf
    end
 
-
-
-    attr_reader :pack     ## allow access to embedded ("low-level") delegate package (or hide!?) - why? why not?
+    ## attr_reader :pack     ## allow access to embedded ("low-level") delegate package (or hide!?) - why? why not?
 
     def initialize( path_or_pack )
       if path_or_pack.is_a?( Datafile::Package )
@@ -117,6 +112,7 @@ module SportDb
 
     def each_leagues( &blk )    @pack.each( pattern: LEAGUES_RE, &blk ); end
     def each_clubs( &blk )      @pack.each( pattern: CLUBS_RE, &blk ); end
+    def each_clubs_wiki( &blk ) @pack.each( pattern: CLUBS_WIKI_RE, &blk ); end
   end   # class Package
 
 

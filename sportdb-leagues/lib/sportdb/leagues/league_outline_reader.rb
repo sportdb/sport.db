@@ -8,7 +8,7 @@ module SportDb
 
 class LeagueOutlineReader
 
-  def self.config() Import.config; end    ## shortcut convenience helper
+  def self.catalog() Import.catalog; end    ## shortcut convenience helper
 
   ## split into league + season
   ##  e.g. Österr. Bundesliga 2015/16   ## or 2015-16
@@ -130,7 +130,7 @@ class LeagueOutlineReader
   ### fix/todo: move find_league  to sportdb-league index use find_by! and find_by !!!!
   def self.find_league( name )
     league = nil
-    m = config.leagues.match( name )
+    m = catalog.leagues.match( name )
     # pp m
 
     if m.nil?

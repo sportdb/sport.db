@@ -9,13 +9,13 @@ require 'helper'
 
 class TestNationalTeams < MiniTest::Test
 
-  NATIONAL_TEAMS = SportDb::Import.config.national_teams
+  NATIONAL_TEAMS = SportDb::Import.catalog.national_teams
 
 
   def test_find
     t = NATIONAL_TEAMS.find( 'AUT' )
     assert_equal 'Austria', t.name
-    assert_equal 'at',      t.key
+    assert_equal 'aut',     t.key
     assert_equal 'AUT',     t.code
 
 

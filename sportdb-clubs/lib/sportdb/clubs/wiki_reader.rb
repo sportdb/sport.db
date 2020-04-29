@@ -14,19 +14,8 @@ class WikiReader    ## todo/check: rename to WikiClubReader - why? why not?
     end
   end  # (nested) class WikiClub
 
-##
-## todo/check: make countries a method arg and NOT a global setting - why? why not?
-##
-def self.config=( value )  @config=value; end
-def self.config     ## todo/check: rename to find_country( ) or something - why? why not?
-  if @config
-    @config
-  else
-    puts "** !! ERROR !! - country index required for club reader; sorry; use ClubReader.config to set/configure"
-    exit 1
-  end
-end
 
+  def catalog() Import.catalog; end
 
 
 def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
@@ -34,12 +23,19 @@ def self.read( path )   ## use - rename to read_file or from_file etc. - why? wh
   parse( txt )
 end
 
-
 def self.parse( txt )
+  new( txt ).parse
+end
+
+def initialize( txt )
+  @txt = txt
+end
+
+def parse
   recs = []
   last_country = nil  ## note: supports only one level of headings for now (and that is a country)
 
-  txt.each_line do |line|
+  @txt.each_line do |line|
     line = line.strip
 
     next if line.empty?
@@ -76,7 +72,7 @@ def self.parse( txt )
       ##   Österreich • Austria
       ##   Austria
       ##   Deutschland (de) • Germany
-      country = config.countries.parse( heading )
+      country = catalog.countries.parse( heading )
       ## check country code - MUST exist for now!!!!
       if country.nil?
         puts "!!! error [wiki reader] - unknown country >#{heading}< - sorry - add country to config to fix"

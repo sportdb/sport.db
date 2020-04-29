@@ -15,8 +15,8 @@ require 'footballdb/clubs/version' # let version always go first
 module FootballDb
 module Import
 
-## add "fake" configuration for stand-alone usage
-class Configuration
+## add "fake" catalog for stand-alone usage
+class Catalog
   def initialize
     recs       = Fifa.countries
     @countries = SportDb::Import::CountryIndex.new( recs )
@@ -46,14 +46,14 @@ class Club    ## todo/check: use a module instead of class - why? why not?
 
 private
   def self.build_club_index
-    if defined?( SportDb::Import::Configuration )
+    if defined?( SportDb::Import::Catalog )
        # assume running "inside" sportdb - (re)use sportdb configuration
     else
        # assume running "stand-alone" - setup configuration for countries / country mapping
-       config = Configuration.new
-       SportDb::Import::ClubReader.config = config
-       SportDb::Import::ClubIndex.config  = config
-       SportDb::Import::WikiReader.config = config
+       catalog = Catalog.new
+       SportDb::Import::ClubReader.catalog = catalog
+       SportDb::Import::ClubIndex.catalog  = catalog
+       SportDb::Import::WikiReader.catalog = catalog
     end
 
     recs = SportDb::Import::ClubReader.read( "#{FootballDb::Clubs.data_dir}/clubs.txt" )

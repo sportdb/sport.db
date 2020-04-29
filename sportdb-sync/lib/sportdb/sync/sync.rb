@@ -132,11 +132,9 @@ module Sync
       if rec.nil?
         puts "add national team: #{team.key}, #{team.name}, #{team.country.name} (#{team.country.key})"
 
-        ### fix: change back key to team.key!!!!
-        ## ActiveRecord::RecordInvalid: Validation failed:
-        #    Key expected three or more lowercase letters a-z /\A[a-z]{3,}\z/
+        ### note: key expected three or more lowercase letters a-z /\A[a-z]{3,}\z/
         attribs = {
-          key:        team.code.downcase,
+          key:        team.key,   ## note: always use downcase fifa code for now!!!
           title:      team.name,
           code:       team.code,
           country_id: Sync::Country.find_or_create( team.country ).id,

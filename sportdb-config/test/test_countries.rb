@@ -9,7 +9,7 @@ require 'helper'
 
 class TestCountries < MiniTest::Test
 
-  COUNTRIES = SportDb::Import.config.countries
+  COUNTRIES = SportDb::Import.catalog.countries
 
 
   def test_countries

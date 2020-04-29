@@ -33,19 +33,18 @@ TXT
                   { key: 'arsenal', name: 'Arsenal FC', code: 'ARS' }], recs[0..1]
   end
 
+  CLUBS = SportDb::Import.catalog.clubs
 
   def test_parse
     SportDb::Import::ClubPropsReader.parse( ENG_CLUBS_PROPS_TXT )
 
-    clubs = SportDb::Import::ClubReader.config.clubs
-
-    m = clubs.match( 'Chelsea FC' )
+    m = CLUBS.match( 'Chelsea FC' )
     club = m[0]
     assert_equal 'chelsea',     club.key
     assert_equal 'Chelsea FC',  club.name
     assert_equal 'CHE',         club.code
 
-    m = clubs.match( 'Arsenal FC' )
+    m = CLUBS.match( 'Arsenal FC' )
     club = m[0]
     assert_equal 'arsenal',     club.key
     assert_equal 'Arsenal FC',  club.name

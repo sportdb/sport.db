@@ -11,7 +11,7 @@ class TestWikiIndex < MiniTest::Test
 
   Club      = SportDb::Import::Club
 
-  COUNTRIES = SportDb::Import.config.countries
+  COUNTRIES = SportDb::Import.catalog.countries
 
 
   def test_clubs

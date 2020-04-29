@@ -7,10 +7,7 @@ module Import
 
 class ClubPropsReader
 
-   ## shortcut convenience helper
-   ##  note: uses config via "central" ClubReader!!! allows "easy" reconfig
-   ## todo/fix:   move config to shared/central/all-in-one-place  SportDb::Import::Club.config - why? why not?
-  def self.config() ClubReader.config; end
+  def catalog() Import.catalog; end
 
 
   def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
@@ -19,7 +16,16 @@ class ClubPropsReader
   end
 
   def self.parse( txt )
-    recs = parse_csv( txt )
+    new( txt ).parse
+  end
+
+
+  def initialize( txt )
+    @txt = txt
+  end
+
+  def parse
+    recs = parse_csv( @txt )
     recs.each do |rec|
       name = rec[:name]
       if name.nil?
@@ -29,7 +35,7 @@ class ClubPropsReader
       end
 
       ## find / match club by (canocial) name
-      m = config.clubs.match( name )
+      m = catalog.clubs.match( name )
       if m && m.size > 1
         puts "** !!! WARN !!! ambigious (multiple) club matches (#{m.size}) for name >#{name}< in props row:"
         pp rec

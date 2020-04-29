@@ -13,16 +13,20 @@ require 'sportdb/leagues'
 
 
 
+module SportDb
+  module Import
 
-class Configuration
-  def initialize
-    recs      = SportDb::Import::CountryReader.read( "#{SportDb::Test.data_dir}/world/countries.txt" )
-    @countries = SportDb::Import::CountryIndex.new( recs )
+class TestCatalog
+  def build_country_index
+    recs = CountryReader.read( "#{Test.data_dir}/world/countries.txt" )
+    index = CountryIndex.new( recs )
+    index
   end
 
-  def countries() @countries; end
+  def countries() @countries ||= build_country_index; end
 end
 
-config = Configuration.new
-SportDb::Import::LeagueReader.config = config
-SportDb::Import::LeagueIndex.config  = config
+def self.catalog() @catalog ||= TestCatalog.new;  end
+
+end  # module Import
+end  # module SportDb

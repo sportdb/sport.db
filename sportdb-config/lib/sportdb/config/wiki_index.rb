@@ -7,14 +7,14 @@ module SportDb
 class WikiIndex
 
   def self.build( path )
+    pack = Package.new( path )
     recs = []
-    datafiles = Datafile.find_clubs_wiki( path )
-    datafiles.each do |datafile|
-        recs += WikiReader.read( datafile )
+    pack.each_clubs_wiki do |entry|
+      recs += WikiReader.parse( entry.read )
     end
     recs
 
-    self.new( recs )
+    new( recs )
   end
 
 

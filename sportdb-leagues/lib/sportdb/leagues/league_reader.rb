@@ -7,20 +7,7 @@ module Import
 
 class LeagueReader
 
-##
-## todo/check: make countries a method arg and NOT a global setting - why? why not?
-##
-def self.config=( value )  @config=value; end
-def self.config     ## todo/check: rename to find_country( ) or something - why? why not?
-  if @config
-    @config
-  else
-    puts "** !! ERROR !! - country index required for league reader; sorry; use LeagueReader.config to set/configure"
-    exit 1
-  end
-end
-def config() self.class.config; end
-
+  def catalog() Import.catalog; end
 
 
 def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
@@ -77,7 +64,7 @@ def parse
           ##   Österreich • Austria
           ##   Austria
           ##   Deutschland (de) • Germany
-          country = config.countries.parse( heading )
+          country = catalog.countries.parse( heading )
           intl    = false
           clubs   = true
 

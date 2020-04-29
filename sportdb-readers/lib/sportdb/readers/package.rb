@@ -55,11 +55,11 @@ module SportDb
         names.each do |name|
           entry = @pack.find( name )
           ## fix/todo: add read_leagues, read_clubs too!!!
-          if Datafile.match_conf( name )      ## check if datafile matches conf(iguration) naming (e.g. .conf.txt)
+          if match_conf?( name )      ## check if datafile matches conf(iguration) naming (e.g. .conf.txt)
             SportDb.parse_conf( entry.read, season: season )
-          elsif Datafile.match_club_props( name )
+          elsif match_club_props?( name )
             SportDb.parse_club_props( entry.read )
-          else   ## assume "regular" match datafile
+          else   ## assume "regular" match datafile or check pattern and report error on fail - why? why not?
             SportDb.parse_match( entry.read, season: season )
           end
         end

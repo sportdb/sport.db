@@ -2,17 +2,30 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_datafile_match.rb
+#     ruby -I ./lib -I ./test test/test_package_match.rb
 
 
 require 'helper'
 
-class TestDatafileMatch < MiniTest::Test
+class TestPackageMatch < MiniTest::Test
 
-  def match_clubs( txt )      Datafile.match_clubs( txt ); end
-  def match_clubs_wiki( txt ) Datafile.match_clubs_wiki( txt ); end
-  def match_leagues( txt )    Datafile.match_leagues( txt ); end
-  def match_conf( txt )       Datafile.match_conf( txt ); end
+  CLUBS_DIR   = '../../../openfootball/clubs'    ## source repo directory path
+  LEAGUES_DIR = '../../../openfootball/leagues'
+  AUSTRIA_DIR = '../../../openfootball/austria'
+
+  def test_find
+    datafiles = SportDb::Package.find_clubs( CLUBS_DIR )
+    pp datafiles
+
+    datafiles = SportDb::Package.find_clubs_wiki( CLUBS_DIR )
+    pp datafiles
+
+    datafiles = SportDb::Package.find_leagues( LEAGUES_DIR )
+    pp datafiles
+
+    datafiles = SportDb::Package.find_conf( AUSTRIA_DIR )
+    pp datafiles
+  end
 
 
   CLUBS_TXT = [ ## with country code
@@ -43,23 +56,23 @@ class TestDatafileMatch < MiniTest::Test
 
 
   def test_match_clubs
-    CLUBS_TXT.each { |txt| assert match_clubs( txt ) }
+    CLUBS_TXT.each { |path| assert SportDb::Package.match_clubs?( path ) }
 
-    CLUBS_WIKI_TXT.each { |txt| assert !match_clubs( txt ) }
+    CLUBS_WIKI_TXT.each { |path| assert !SportDb::Package.match_clubs?( path ) }
   end
 
   def test_match_clubs_wiki
-    CLUBS_WIKI_TXT.each { |txt| assert match_clubs_wiki( txt ) }
+    CLUBS_WIKI_TXT.each { |path| assert SportDb::Package.match_clubs_wiki?( path ) }
 
-    CLUBS_TXT.each { |txt| assert !match_clubs_wiki( txt ) }
+    CLUBS_TXT.each { |path| assert !SportDb::Package.match_clubs_wiki?( path ) }
   end
 
   def test_match_leagues
-    LEAGUES_TXT.each { |txt| assert match_leagues( txt ) }
+    LEAGUES_TXT.each { |path| assert SportDb::Package.match_leagues?( path ) }
   end
 
   def test_match_conf
-    CONF_TXT.each { |txt| assert match_conf( txt ) }
+    CONF_TXT.each { |path| assert SportDb::Package.match_conf?( path ) }
   end
 
-end # class TestFindDatafileMatch
+end # class TestPackageMatch

@@ -2,11 +2,29 @@
 module SportDb
   class Package
 
-    CONF_RE        = Datafile::CONF_RE
-    CLUB_PROPS_RE  = Datafile::CLUB_PROPS_RE
-    LEAGUES_RE     = Datafile::LEAGUES_RE
-    CLUBS_RE       = Datafile::CLUBS_RE
+    CONF_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+        \.conf\.txt$
+    }x
 
+    LEAGUES_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+       (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.wiki.txt
+        leagues\.txt$
+    }x
+
+    CLUBS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+       (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.txt
+        clubs\.txt$
+    }x
+
+    CLUBS_WIKI_RE = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
+        (?:[a-z]{1,4}\.)?   # optional country code/key e.g. eng.clubs.wiki.txt
+       clubs\.wiki\.txt$
+    }x
+
+    CLUB_PROPS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+      (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.props.txt
+        clubs\.props\.txt$
+    }x
 
     ## note: if pattern includes directory add here
     ##     (otherwise move to more "generic" datafile) - why? why not?
@@ -15,6 +33,60 @@ module SportDb
                     )
                    /[a-z0-9_-]+\.txt$  ## txt e.g /1-premierleague.txt
                 }x
+
+    ## move class-level "static" finders to DirPackage (do NOT work for now for zip packages) - why? why not?
+
+    def self.find( path, pattern )
+      datafiles = []
+
+      ## check all txt files
+      ## note: incl. files starting with dot (.)) as candidates (normally excluded with just *)
+      candidates = Dir.glob( "#{path}/**/{*,.*}.txt" )
+      pp candidates
+      candidates.each do |candidate|
+        datafiles << candidate    if pattern.match( candidate )
+      end
+
+      pp datafiles
+      datafiles
+   end
+
+
+
+   def self.find_clubs( path, pattern: CLUBS_RE )            find( path, pattern ); end
+   def self.find_clubs_wiki( path, pattern: CLUBS_WIKI_RE )  find( path, pattern ); end
+
+   def self.match_clubs( path )       CLUBS_RE.match( path ); end
+   def self.match_clubs_wiki( path )  CLUBS_WIKI_RE.match( path ); end
+   def self.match_club_props( path, pattern: CLUB_PROPS_RE ) pattern.match( path ); end
+   class << self
+     alias_method :match_clubs?, :match_clubs
+     alias_method :clubs?,       :match_clubs
+
+     alias_method :match_clubs_wiki?, :match_clubs_wiki
+     alias_method :clubs_wiki?,       :match_clubs_wiki
+
+     alias_method :match_club_props?, :match_club_props
+     alias_method :club_props?,       :match_club_props
+   end
+
+
+   def self.find_leagues( path, pattern: LEAGUES_RE )  find( path, pattern ); end
+   def self.match_leagues( path )  LEAGUES_RE.match( path ); end
+   class << self
+     alias_method :match_leagues?, :match_leagues
+     alias_method :leagues?,       :match_leagues
+   end
+
+
+   def self.find_conf( path, pattern: CONF_RE )  find( path, pattern ); end
+   def self.match_conf( path )  CONF_RE.match( path ); end
+   class << self
+     alias_method :match_conf?, :match_conf
+     alias_method :conf?,       :match_conf
+   end
+
+
 
     attr_reader :pack     ## allow access to embedded ("low-level") delegate package (or hide!?) - why? why not?
 

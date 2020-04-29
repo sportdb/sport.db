@@ -1,6 +1,8 @@
 
 module Datafile      # note: keep Datafile in its own top-level module/namespace for now - why? why not?
 
+
+class Package    ## use a shared base class for DirPackage, ZipPackage, etc.
   ## exclude pattern
   ##  for now exclude all files in directories starting with a dot (e.g. .git/ or .github/ or .build/ etc.)
   ##  todo/check: rename to EXCLUDE_DOT_DIRS_RE - why? why not?
@@ -14,17 +16,16 @@ module Datafile      # note: keep Datafile in its own top-level module/namespace
     alias_method :exclude?,       :match_exclude
   end
 
-  ZIP_RE = %r{ \.zip$
-              }x
-  def self.match_zip( path, pattern: ZIP_RE ) pattern.match( path ); end
-  class << self    ## check if module << self is possible? (like class << self) - check if there's a better / more idomatic way??
-    alias_method :match_zip?, :match_zip
-    alias_method :zip?,       :match_zip
-  end
+##  zip? not getting used? remove - why? why not?
+#  ZIP_RE = %r{ \.zip$
+#              }ix   ## note: allow .ZIP to (ignore case)
+#  def self.match_zip( path, pattern: ZIP_RE ) pattern.match( path ); end
+#  class << self    ## check if module << self is possible? (like class << self) - check if there's a better / more idomatic way??
+#    alias_method :match_zip?, :match_zip
+#    alias_method :zip?,       :match_zip
+#  end
+end  # class Package
 
-
-
-class Package; end    ## use a shared base class for DirPackage, ZipPackage, etc.
 
 class DirPackage < Package    ## todo/check: find a better name e.g. UnzippedPackage, FilesystemPackage, etc. - why? why not?
 class Entry

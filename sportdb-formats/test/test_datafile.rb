@@ -10,57 +10,45 @@ require 'helper'
 
 class TestDatafile < MiniTest::Test
 
+
   def test_exclude
-    assert Datafile.match_exclude( '.build/' )
-    assert Datafile.match_exclude( '.git/' )
-    assert Datafile.exclude?( '.build/' )
-    assert Datafile.exclude?( '.git/' )
+    assert Datafile::Package.match_exclude?( '.build/' )
+    assert Datafile::Package.match_exclude?( '.git/' )
+    assert Datafile::Package.exclude?( '.build/' )
+    assert Datafile::Package.exclude?( '.git/' )
 
 
-    assert Datafile.match_exclude( '/.build/' )
-    assert Datafile.match_exclude( '/.git/' )
+    assert Datafile::Package.match_exclude?( '/.build/' )
+    assert Datafile::Package.match_exclude?( '/.git/' )
 
-    assert Datafile.match_exclude( '.build/leagues.txt' )
-    assert Datafile.match_exclude( '.git/leagues.txt' )
+    assert Datafile::Package.match_exclude?( '.build/leagues.txt' )
+    assert Datafile::Package.match_exclude?( '.git/leagues.txt' )
 
-    assert Datafile.match_exclude( '/.build/leagues.txt' )
-    assert Datafile.match_exclude( '/.git/leagues.txt' )
+    assert Datafile::Package.match_exclude?( '/.build/leagues.txt' )
+    assert Datafile::Package.match_exclude?( '/.git/leagues.txt' )
   end
-
 
 
   CLUBS_DIR   = '../../../openfootball/clubs'    ## source repo directory path
   LEAGUES_DIR = '../../../openfootball/leagues'
-  AUSTRIA_DIR = '../../../openfootball/austria'
-
-  def test_find
-    datafiles = Datafile.find_clubs( CLUBS_DIR )
-    pp datafiles
-
-    datafiles = Datafile.find_clubs_wiki( CLUBS_DIR )
-    pp datafiles
-
-    datafiles = Datafile.find_leagues( LEAGUES_DIR )
-    pp datafiles
-
-    datafiles = Datafile.find_conf( AUSTRIA_DIR )
-    pp datafiles
-  end
-
 
   def test_bundle
-    datafiles = Datafile.find_clubs( CLUBS_DIR )
+    datafiles = SportDb::Package.find_clubs( CLUBS_DIR )
     pp datafiles
 
-    Datafile.write_bundle( './tmp/clubs.txt',
-                           datafiles: datafiles,
-                           header: <<TXT )
+    ## todo/fix: turn into Datafile::Bundle.new  and Bundle#write/save -why? why not?
+    bundle = Datafile::Bundle.new( './tmp/clubs.txt' )
+    bundle.write <<TXT
 ##########################################
 # auto-generated all-in-one single datafile clubs.txt bundle
 #    on #{Time.now} from #{datafiles.size} datafile(s)
 TXT
+    bundle.write datafiles
+    bundle.close
+  end
 
-    datafiles = Datafile.find_leagues( LEAGUES_DIR )
+  def test_bundle_old
+    datafiles = SportDb::Package.find_leagues( LEAGUES_DIR )
     pp datafiles
 
     Datafile.write_bundle( './tmp/leagues.txt',

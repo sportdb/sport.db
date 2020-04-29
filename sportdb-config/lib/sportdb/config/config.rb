@@ -15,6 +15,9 @@ class Configuration
 
   attr_accessor   :leagues_dir
   def leagues_dir()    @leagues_dir; end
+
+  attr_accessor   :catalog
+  def catalog()      @catalog ||= Catalog.new;  end
 end # class Configuration
 
 
@@ -27,8 +30,8 @@ def self.configure()  yield( config ); end
 
 def self.config()  @config ||= Configuration.new;  end
 
-
-def self.catalog() @catalog ||= Catalog.new;  end
+##  e.g. use config.catalog  -- keep Import.catalog as a shortcut (for "read-only" access)
+def self.catalog() config.catalog;  end
 
 end   # module Import
 end   # module SportDb

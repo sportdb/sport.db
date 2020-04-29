@@ -21,6 +21,7 @@ class ClubIndex
 
   def mappings() @clubs_by_name; end   ## todo/check: rename to index or something - why? why not?
   def clubs()    @clubs.values;  end
+  alias_method :all, :clubs      ## use ActiveRecord-like alias for clubs
 
 
   ## helpers from club - use a helper module for includes - why? why not?

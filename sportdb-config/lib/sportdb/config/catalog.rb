@@ -45,8 +45,7 @@ class Catalog
     clubs = if config.clubs_dir   ## check if clubs_dir is defined / set (otherwise it's nil)
               ClubIndex.build( config.clubs_dir )
             else   ## no clubs_dir set - try using builtin from footballdb-clubs
-              ## todo/fix:  use build_club_index make public (remove private)!!!!
-              FootballDb::Import::Club.club_index
+              FootballDb::Import::build_club_index
             end
 
     if clubs.errors?
@@ -60,12 +59,12 @@ class Catalog
     clubs
   end # method build_club_index
 
+
   def build_league_index
     leagues = if config.leagues_dir   ## check if clubs_dir is defined / set (otherwise it's nil)
                 LeagueIndex.build( config.leagues_dir )
               else   ## no leagues_dir set - try using builtin from footballdb-leagues
-                ## todo/fix:  use build_league_index make public (remove private)!!!!
-                FootballDb::Import::League.league_index
+                FootballDb::Import.build_league_index
               end
   end
 end  # class Catalog

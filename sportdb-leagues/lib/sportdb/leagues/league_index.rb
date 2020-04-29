@@ -20,6 +20,7 @@ class LeagueIndex
 
   def mappings()   @leagues_by_name; end   ## todo/check: rename to index or something - why? why not?
   def leagues()    @leagues.values;  end
+  alias_method :all, :leagues   ## use ActiveRecord-like alias for leagues
 
 
   ## helpers from club - use a helper module for includes - why? why not?

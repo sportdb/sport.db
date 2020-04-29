@@ -2,14 +2,14 @@
 
 ### our own sportdb libs / gems
 require 'sportdb/countries'
-require 'sportdb/clubs'
 require 'sportdb/leagues'
+require 'sportdb/clubs'
 
 
 ### "built-in" default dataset libs / gems
 require 'fifa'    ## get a list of all fifa countries with (three letter) codes
-require 'footballdb/clubs'
 require 'footballdb/leagues'
+require 'footballdb/clubs'
 
 
 ###

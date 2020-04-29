@@ -15,6 +15,8 @@ class TestWikiIndex < MiniTest::Test
 
 
   def test_clubs
+    return  if SportDb::Import.config.clubs_dir.nil?  ## note: can't run if no "custom" clubs_dir set
+
     wiki = SportDb::Import::WikiIndex.build( SportDb::Import.config.clubs_dir )
     ## pp wiki
 

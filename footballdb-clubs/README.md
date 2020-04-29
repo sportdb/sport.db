@@ -20,7 +20,7 @@ for easy zero-configuration "out-of-the-box" usage.
 Get and pretty print (pp) all clubs:
 
 ``` ruby
-require 'footballdb/clubs'
+require 'footballdb/clubs/auto'
 
 pp Club.all
 ```

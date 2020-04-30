@@ -16,8 +16,11 @@ module SportDb
     def leagues()   @leagues   ||= build_league_index; end
   end
 
-  def self.catalog() @catalog ||= Catalog.new;  end
-end # module Import
+  configure do |config|
+     config.catalog = Catalog.new
+  end
+
+  end # module Import
 end # module SportDb
 
 

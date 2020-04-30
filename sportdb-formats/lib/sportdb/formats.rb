@@ -33,6 +33,9 @@ end
 ###
 # our own code
 require 'sportdb/formats/version' # let version always go first
+
+require 'sportdb/formats/config'  # let "global" config "framework" go next - why? why not?
+
 require 'sportdb/formats/outline_reader'
 require 'sportdb/formats/datafile'
 require 'sportdb/formats/datafile_package'

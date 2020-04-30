@@ -9,7 +9,7 @@ require 'minitest/autorun'
 
 
 ## our own code
-require 'sportdb/clubs'
+require 'sportdb/teams'
 
 
 
@@ -45,8 +45,10 @@ TXT
   def clubs()     @clubs     ||= build_club_index; end
 end
 
-def self.catalog() @catalog ||= TestCatalog.new;  end
+configure do |config|
+  config.catalog = TestCatalog.new
+end
 
-end  # module Import
+  end  # module Import
 end  # module SportDb
 

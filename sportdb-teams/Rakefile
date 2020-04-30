@@ -1,11 +1,11 @@
 require 'hoe'
-require './lib/sportdb/clubs/version.rb'
+require './lib/sportdb/teams/version.rb'
 
-Hoe.spec 'sportdb-clubs' do
+Hoe.spec 'sportdb-teams' do
 
-  self.version = SportDb::Clubs::VERSION
+  self.version = SportDb::Teams::VERSION
 
-  self.summary = "sportdb-clubs - sport.db clubs reader and zero-config quick starter settings"
+  self.summary = "sportdb-teams - sport.db clubs and national teams reader and quick starter zero-config lookup index"
   self.description = summary
 
   self.urls = ['https://github.com/sportdb/sport.db']

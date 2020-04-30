@@ -5,9 +5,22 @@ module SportDb
 
 class LeagueIndex
 
+  def self.build( path )
+    pack = Package.new( path )   ## lets us use direcotry or zip archive
+
+    recs = []
+    pack.each_leagues do |entry|
+      recs += League.parse( entry.read )
+    end
+    recs
+
+    leagues = new
+    leagues.add( recs )
+    leagues
+  end
+
 
   def catalog() Import.catalog; end
-
 
   def initialize
     @leagues         = []   ## leagues by canonical name

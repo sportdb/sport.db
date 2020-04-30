@@ -1,7 +1,7 @@
 ###
 #  sport.db gems / libraries
 require 'fifa'
-require 'sportdb/clubs'
+require 'sportdb/teams'
 
 
 ###

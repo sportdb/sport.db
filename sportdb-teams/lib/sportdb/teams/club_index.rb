@@ -6,9 +6,31 @@ module SportDb
 
 class ClubIndex
 
+  def self.build( path )
+    pack = Package.new( path )   ## lets us use direcotry or zip archive
+
+    recs = []
+    pack.each_clubs do |entry|
+      recs += Club.parse( entry.read )
+    end
+    recs
+
+    clubs = new
+    clubs.add( recs )
+
+    ## add wiki(pedia) anchored links
+    recs = []
+    pack.each_clubs_wiki do |entry|
+       recs += WikiReader.parse( entry.read )
+    end
+
+    pp recs
+    clubs.add_wiki( recs )
+    clubs
+  end
+
 
   def catalog() Import.catalog; end
-
 
   def initialize
     @clubs          = {}   ## clubs (indexed) by canonical name
@@ -153,13 +175,15 @@ class ClubIndex
   end # method add
 
 
+  ## todo/fix/check: use rename to find_canon  or find_canonical() or something??
   def []( name )    ## lookup by canoncial name only;  todo/fix: add find alias why? why not?
     @clubs[ name ]
   end
 
 
+  ## todo/fix/check: return empty array if no match!!!
+  ##     and NOT nil (add || []) - why? why not?
   def match( name )
-    ## todo/check: return empty array if no match!!! and NOT nil (add || []) - why? why not?
     name = normalize( name )
     m = @clubs_by_name[ name ]
 
@@ -192,17 +216,20 @@ class ClubIndex
 
 
   ## match - always returns an array (with one or more matches) or nil
-  def match_by( name:, country: )
+  def match_by( name:, country: nil )
     ## note: allow passing in of country key too (auto-counvert)
     ##       and country struct too
     ##     - country assumes / allows the country key or fifa code for now
-    country = country( country )
-
-    ## note: match must for now always  include name
     m = match( name )
-    if m    ## filter by country
-      m = m.select { |club| club.country.key == country.key }
-      m = nil   if m.empty?     ## note: reset to nil if no more matches
+
+    if country
+      country = country( country )
+
+      ## note: match must for now always  include name
+      if m    ## filter by country
+        m = m.select { |club| club.country.key == country.key }
+        m = nil   if m.empty?     ## note: reset to nil if no more matches
+      end
     end
     m
   end
@@ -210,7 +237,7 @@ class ClubIndex
 
   ## find - always returns a single record / match or nil
   ##   if there is more than one match than find aborts / fails
-  def find_by!( name:, country: )    ## todo/fix: add international or league flag?
+  def find_by!( name:, country: nil )    ## todo/fix: add international or league flag?
     club = find_by( name: name, country: country )
 
     if club.nil?
@@ -222,24 +249,31 @@ class ClubIndex
   end
 
 
-  def find_by( name:, country: )    ## todo/fix: add international or league flag?
+  def find_by( name:, country: nil )    ## todo/fix: add international or league flag?
     ## note: allow passing in of country key too (auto-counvert)
     ##       and country struct too
     ##     - country assumes / allows the country key or fifa code for now
-    country = country( country )
+    m = nil
 
-    m = match_by( name: name, country: country )
+    if country
+      country = country( country )
 
-    if m.nil?
-      ## (re)try with second country - quick hacks for known leagues
-      ##  todo/fix: add league flag to activate!!!  - why? why not
-      m = match_by( name: name, country: 'wal' )  if country.key == 'eng'
-      m = match_by( name: name, country: 'eng' )  if country.key == 'sco'
-      m = match_by( name: name, country: 'nir' )  if country.key == 'ie'
-      m = match_by( name: name, country: 'mc' )   if country.key == 'fr'
-      m = match_by( name: name, country: 'li' )   if country.key == 'ch'
-      m = match_by( name: name, country: 'ca' )   if country.key == 'us'
+      m = match_by( name: name, country: country )
+
+      if m.nil?
+        ## (re)try with second country - quick hacks for known leagues
+        ##  todo/fix: add league flag to activate!!!  - why? why not
+        m = match_by( name: name, country: 'wal' )  if country.key == 'eng'
+        m = match_by( name: name, country: 'eng' )  if country.key == 'sco'
+        m = match_by( name: name, country: 'nir' )  if country.key == 'ie'
+        m = match_by( name: name, country: 'mc' )   if country.key == 'fr'
+        m = match_by( name: name, country: 'li' )   if country.key == 'ch'
+        m = match_by( name: name, country: 'ca' )   if country.key == 'us'
+      end
+    else  ## try "global" search - no country passed in
+      m = match( name )
     end
+
 
     club = nil
     if m.nil?

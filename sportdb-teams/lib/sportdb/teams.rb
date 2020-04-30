@@ -8,11 +8,12 @@ require 'sportdb/countries'
 
 ###
 # our own code
-require 'sportdb/clubs/version' # let version always go first
-require 'sportdb/clubs/club_reader'
-require 'sportdb/clubs/club_reader_props'
-require 'sportdb/clubs/club_index'
-require 'sportdb/clubs/wiki_reader'
+require 'sportdb/teams/version' # let version always go first
+require 'sportdb/teams/club_reader'
+require 'sportdb/teams/club_reader_props'
+require 'sportdb/teams/club_index'
+require 'sportdb/teams/wiki_reader'
+require 'sportdb/teams/national_team_index'
 
 
 ###
@@ -34,4 +35,4 @@ end   # module SportDb
 
 
 
-puts SportDb::Clubs.banner   # say hello
+puts SportDb::Teams.banner   # say hello

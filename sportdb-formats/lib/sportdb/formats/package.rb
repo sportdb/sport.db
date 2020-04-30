@@ -113,6 +113,9 @@ module SportDb
     def each_leagues( &blk )    @pack.each( pattern: LEAGUES_RE, &blk ); end
     def each_clubs( &blk )      @pack.each( pattern: CLUBS_RE, &blk ); end
     def each_clubs_wiki( &blk ) @pack.each( pattern: CLUBS_WIKI_RE, &blk ); end
+
+    def each_match_with_index( &blk ) i=0; each_match {|entry| blk.call( entry, i ); i+=1 }; end
+    def match_count()  i=0; each_match {|entry| i+=1 }; i; end
   end   # class Package
 
 

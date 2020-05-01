@@ -17,8 +17,9 @@ class TestSync < MiniTest::Test
     ## turn on logging to console
     ActiveRecord::Base.logger = Logger.new(STDOUT)
 
-    at_rec  = SportDb::Import::Country.new( 'at',  'Austria', fifa: 'AUT' )
-    eng_rec = SportDb::Import::Country.new( 'eng', 'England', fifa: 'ENG' )
+
+    at_rec  = SportDb::Import::Country.new( key: 'at',  name: 'Austria', fifa: 'AUT' )
+    eng_rec = SportDb::Import::Country.new( key: 'eng', name: 'England', fifa: 'ENG' )
 
     at    = SportDb::Sync::Country.find_or_create( at_rec )
     at2   = SportDb::Sync::Country.find_or_create( at_rec )

@@ -22,13 +22,25 @@ class MapperV2      ## todo/check: rename to NameMapper/TitleMapper ? why? why n
   ######
   ## convenience helper - (auto)build ActiveRecord-like team records/structs
   Record = Struct.new( :key, :title, :synonyms )
-  def build_records( txt )
+  def build_records( txt_or_lines )
     recs = []
-    txt.each_line do |line|
-      line = line.strip
 
-      next if line.empty? || line.start_with?( '#' )  ## note: skip empty and comment lines
+    if txt_or_lines.is_a?( String )
+        ## todo/fix: use ParserHelper read_lines !!! ????
+        txt = txt_or_lines
+        lines = []
 
+        txt.each_line do |line|
+          line = line.strip
+
+          next if line.empty? || line.start_with?( '#' )  ## note: skip empty and comment lines
+          lines << line
+        end
+    else
+        lines = txt_or_lines
+    end
+
+    lines.each do |line|
       values = line.split( '|' )
       values = values.map { |value| value.strip }
 
@@ -45,13 +57,16 @@ class MapperV2      ## todo/check: rename to NameMapper/TitleMapper ? why? why n
 
   def initialize( records_or_mapping, tag )
     ## for convenience allow easy (auto-)convert text (lines) to records
-    records_or_mapping = build_records( records_or_mapping )   if records_or_mapping.is_a?( String )
+    ##  as 1) text block/string  or
+    ##     2) array of lines/strings
+    records_or_mapping = build_records( records_or_mapping )   if records_or_mapping.is_a?( String ) ||
+                                                                  (records_or_mapping.is_a?( Array ) && records_or_mapping[0].is_a?( String ))
 
     ## build mapping lookup table
-    @known_titles =  if records_or_mapping.is_a?( Array )  ## assume array of records
-                        build_title_table_for_records( records_or_mapping )
-                     else  ## assume "custom" mapping hash table (title/name=>record)
+    @known_titles =  if records_or_mapping.is_a?( Hash )  ## assume "custom" mapping hash table (title/name=>record)
                         build_title_table_for_mapping( records_or_mapping )
+                     else  ## assume array of records
+                        build_title_table_for_records( records_or_mapping )
                      end
 
     ## build lookup hash by record (e.g. team/club/etc.) key

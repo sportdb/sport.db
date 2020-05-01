@@ -83,9 +83,43 @@ module SportDb
      alias_method :conf?,       :match_conf
    end
 
+
     ## attr_reader :pack     ## allow access to embedded ("low-level") delegate package (or hide!?) - why? why not?
+    attr_accessor :include, :exclude
+
+    ## private helpers - like select returns true for keeping and false for skipping entry
+    def filter_clause( filter, entry )
+      if filter.is_a?( String )
+        entry.name.index( filter ) ? true : false
+      elsif filter.is_a?( Regexp )
+        filter.match( entry.name )  ? true : false
+      else  ## assume
+        ## todo/check: pass in entry (and NOT entry.name) - why? why not?
+        filter.call( entry )
+      end
+    end
+
+    def filter( entry )
+      if @include
+        if filter_clause( @include, entry )   ## todo/check: is include a reserved keyword????
+          true  ## todo/check: check for exclude here too - why? why not?
+        else
+          false
+        end
+      else
+        if @exclude && filter_clause( @exclude, entry )
+          false
+        else
+          true
+        end
+      end
+    end
+
 
     def initialize( path_or_pack )
+      @include = nil
+      @exclude = nil
+
       if path_or_pack.is_a?( Datafile::Package )
         @pack = path_or_pack
       else   ## assume it's a (string) path
@@ -106,13 +140,21 @@ module SportDb
       end
     end
 
-    def each_conf( &blk )       @pack.each( pattern: CONF_RE, &blk ); end
-    def each_match( &blk )      @pack.each( pattern: MATCH_RE, &blk ); end
-    def each_club_props( &blk ) @pack.each( pattern: CLUB_PROPS_RE, &blk ); end
 
-    def each_leagues( &blk )    @pack.each( pattern: LEAGUES_RE, &blk ); end
-    def each_clubs( &blk )      @pack.each( pattern: CLUBS_RE, &blk ); end
-    def each_clubs_wiki( &blk ) @pack.each( pattern: CLUBS_WIKI_RE, &blk ); end
+    def each( pattern:, &blk )
+      @pack.each( pattern: pattern ) do |entry|
+        next unless filter( entry )   ## lets you use include/exclude filters
+        blk.call( entry )
+      end
+    end
+
+    def each_conf( &blk )       each( pattern: CONF_RE, &blk ); end
+    def each_match( &blk )      each( pattern: MATCH_RE, &blk ); end
+    def each_club_props( &blk ) each( pattern: CLUB_PROPS_RE, &blk ); end
+
+    def each_leagues( &blk )    each( pattern: LEAGUES_RE, &blk ); end
+    def each_clubs( &blk )      each( pattern: CLUBS_RE, &blk ); end
+    def each_clubs_wiki( &blk ) each( pattern: CLUBS_WIKI_RE, &blk ); end
 
     def each_match_with_index( &blk ) i=0; each_match {|entry| blk.call( entry, i ); i+=1 }; end
     def match_count()  i=0; each_match {|entry| i+=1 }; i; end

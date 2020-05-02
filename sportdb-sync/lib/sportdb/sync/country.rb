@@ -1,5 +1,5 @@
 module SportDb
-  module Importer
+  module Sync
     class Country
 
     ### todo/fix:
@@ -22,22 +22,21 @@ module SportDb
        country
     end
 
-    def self.find!( q )
+    ########################
+    #  searchers
+
+    def self.search!( q )
       country = country( q )
-      Sync::Country.find!( country )
+      find!( country )
     end
 
-    def self.find_or_create_builtin!( q )
+    def self.search_or_create!( q )
       country = country( q )
-      Sync::Country.find_or_create( country )
+      find_or_create( country )
     end
 
-    end  # class Country
-  end  # module Importer
-
-
-  module Sync
-    class Country
+    #############################
+    #  finders
 
       def self.find( country )
         WorldDb::Model::Country.find_by( key: country.key )

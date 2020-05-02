@@ -4,38 +4,6 @@ module SportDb
   module Sync
 
 
-  class Club
-    def self.find_or_create( club )
-      rec = Model::Team.find_by( title: club.name )
-      if rec.nil?
-        ## check if key is present otherwise generate e.g. remove all non-ascii a-z chars
-        key  =  club.key || club.name.downcase.gsub( /[^a-z]/, '' )
-        puts "add club: #{key}, #{club.name}, #{club.country.name} (#{club.country.key})"
-
-        attribs = {
-          key:        key,
-          title:      club.name,
-          country_id: Sync::Country.find_or_create( club.country ).id,
-          club:       true,
-          national:   false  ## check -is default anyway - use - why? why not?
-          ## todo/fix: add city if present - why? why not?
-        }
-
-        attribs[:code] = club.code   if club.code   ## add code (abbreviation) if present
-
-
-        if club.alt_names.empty? == false
-          attribs[:synonyms] = club.alt_names.join('|')
-        end
-
-        rec = Model::Team.create!( attribs )
-      end
-      rec
-    end
-  end # class Club
-
-
-
   class NationalTeam
     def self.find_or_create( team )
       rec = Model::Team.find_by( title: team.name )
@@ -62,49 +30,6 @@ module SportDb
     end
   end # class NationalTeam
 
-
-  class Event
-    def self.find( league:, season: )
-      Model::Event.find_by( league_id: league.id, season_id: season.id  )
-    end
-    def self.find!( league:, season: )
-      rec = find( league: league, season: season )
-      if rec.nil?
-        puts "** !!!ERROR!!! db sync - no event match found for:"
-        pp league
-        pp season
-        exit 1
-      end
-      rec
-    end
-
-    def self.find_or_create( league:, season: )
-      rec = find( league: league, season: season )
-      if rec.nil?
-        ## quick hack/change later !!
-        ##  todo/fix: check season  - if is length 4 (single year) use 2017, 1, 1
-        ##                               otherwise use 2017, 7, 1
-        ##  start_at use year and 7,1 e.g. Date.new( 2017, 7, 1 )
-        ## hack:  fix/todo1!!
-        ##   add "fake" start_at date for now
-        if season.key.size == '4'   ## e.g. assume 2018 etc.
-          year = season.key.to_i
-          start_at = Date.new( year, 1, 1 )
-        else  ## assume 2014/15 etc.
-          year = season.key[0..3].to_i
-          start_at = Date.new( year, 7, 1 )
-        end
-
-        attribs = {
-          league_id: league.id,
-          season_id: season.id,
-          start_at:  start_at  }
-
-        rec = Model::Event.create!( attribs )
-      end
-      rec
-    end
-  end  # class Event
 
   class Round
     def self.find_or_create( round, event: )

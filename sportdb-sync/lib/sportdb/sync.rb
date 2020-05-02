@@ -15,6 +15,8 @@ require 'sportdb/sync/version' # let version always go first
 require 'sportdb/sync/country'
 require 'sportdb/sync/league'
 require 'sportdb/sync/season'
+require 'sportdb/sync/event'
+require 'sportdb/sync/club'
 require 'sportdb/sync/sync'
 
 

@@ -1,10 +1,7 @@
-# encoding: utf-8
-
-
 
 
 def find_or_create_clubs!( names, league:, season: nil)
-  ## note: season is for now optinal (and unused) - add/use in the future!!!
+  ## note: season is for now optional (and unused) - add/use in the future!!!
 
   recs_uniq = []
   mappings = {}   ## name to db rec mapping  (note: more than one name might map to the same uniq rec)
@@ -105,24 +102,3 @@ def find_or_create_clubs!( names, league:, season: nil)
   [recs_uniq, mappings]    # return activerecord team objects and the mappings of names to db recs
 end
 
-
-
-def find_or_create_event( league:, season: )
-  ## add event
-  ##  key = 'en.2017/18'
-  event = SportDb::Model::Event.find_by( league_id: league.id, season_id: season.id  )
-  if event.nil?
-    ## quick hack/change later !!
-    ##  todo/fix: check season  - if is length 4 (single year) use 2017, 1, 1
-    ##                               otherwise use 2017, 7, 1
-    ##  start_at use year and 7,1 e.g. Date.new( 2017, 7, 1 )
-    year = season.key[0..3].to_i  ## eg. 2017-18 => 2017
-    event = SportDb::Model::Event.create!(
-       league_id: league.id,
-       season_id: season.id,
-       start_at:  Date.new( year, 7, 1 )
-     )
-  end
-  pp event
-  event
-end

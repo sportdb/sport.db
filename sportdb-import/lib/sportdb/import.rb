@@ -3,15 +3,16 @@
 
 ## 3rd party gemss
 require 'sportdb/text'
-require 'sportdb/models'   ## add sql database support
+
+require 'sportdb/models'    ## add sql database support
+require 'sportdb/config'
+# require 'sportdb/sync'
 
 
 ###
 # our own code
 require 'sportdb/import/version' # let version always go first
 
-require 'sportdb/import/finder_db_i'
-require 'sportdb/import/finder_db_ii'
 
 
 

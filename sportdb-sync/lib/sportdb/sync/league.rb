@@ -1,56 +1,37 @@
 module SportDb
-  module Importer
-    class League
-
-      def self.league( q )
-        league = Import.catalog.leagues.find( q )
-        if league.nil?
-          puts "** !!! ERROR !!! unknown league for key >#{q}<; sorry - add to LEAGUES table"
-          exit 1
-        end
-        league
-      end
-
-      def self.find!( q )
-        league = league( q )
-        Sync::League.find( league )
-      end
-
-      def self.find_or_create_builtin!( q )
-        league = league( q )
-        Sync::League.find_or_create( league )
-      end
-
-=begin
-  fix/todo: move to attic? still used/referenced anywhere ???
-      def self.find_or_create( key, name:, **more_attribs )
-         key = key.to_s
-         rec = SportDb::Model::League.find_by( key: key )
-         if rec.nil?
-
-           ## add convenience lookup for country  e.g. country: 'eng' or country: 'at', etc.
-           if more_attribs[:country].is_a?( String )
-             country_key = more_attribs.delete( :country )
-             more_attribs[ :country_id ] = SportDb::Importer::Country.find_or_create_builtin!( country_key ).id
-           end
-
-           ## use title and not name - why? why not?
-           ##  quick fix:  change name to title
-           attribs = { key:   key,
-                       title: name }.merge( more_attribs )
-           rec = SportDb::Model::League.create!( attribs )
-         end
-         rec
-      end
-=end
-
-    end  # class League
-  end  # module Importer
-
-
-
   module Sync
     class League
+
+      def self.league( q )   ## todo/check: find a better or "generic" alias name e.g. convert/builtin/etc. - why? why not?
+        leagues = Import.catalog.leagues.match( q )     ## todo/fix: change find to search!!!
+        if leagues.nil? || leagues.empty?
+          puts "** !!! ERROR !!! unknown league for key >#{q}<; sorry - add to LEAGUES table"
+          exit 1
+        elsif leagues.size > 1
+          puts "** !!! ERROR !!! too many (#{leagues.size}) league matches for key >#{q}< sorry - use a unique key"
+          exit 1
+        else
+          # pass/fall through
+        end
+        leagues[0]
+      end
+
+
+      ################################
+      #  searchers
+
+      def self.search!( q )   ## note: use search for passing in string queries (and find for records/structs only)
+        league = league( q )
+        find( league )
+      end
+
+      def self.search_or_create!( q )
+        league = league( q )
+        find_or_create( league )
+      end
+
+      ###################################
+      #   finders
 
     def self.find( league )
       Model::League.find_by( key: league.key )
@@ -74,7 +55,8 @@ module SportDb
 
          attribs = { key:   league.key,
                      title: league.name }
-         if league.country
+
+        if league.country
            attribs[ :country_id ] = Sync::Country.find_or_create( league.country ).id
          end
 

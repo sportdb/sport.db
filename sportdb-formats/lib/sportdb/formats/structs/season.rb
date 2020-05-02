@@ -87,6 +87,9 @@ class Season
   alias_method :to_key, :key
   alias_method :to_s,   :key
 
+  alias_method :name,   :key
+  alias_method :title,  :key
+
 
   def path( format: nil )
     ##  todo: find better names for formats - why? why not?:

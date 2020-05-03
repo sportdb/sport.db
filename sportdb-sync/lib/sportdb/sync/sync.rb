@@ -31,6 +31,17 @@ module SportDb
   end # class NationalTeam
 
 
+  class Team
+    def self.find_or_create( team )
+       if team.is_a?( Import::NationalTeam )
+         NationalTeam.find_or_create( team )
+       else ## assume Club
+         Club.find_or_create( team )
+       end
+    end
+  end # class Team
+
+
   class Round
     def self.find_or_create( round, event: )
        rec = Model::Round.find_by( title: round.title, event_id: event.id )

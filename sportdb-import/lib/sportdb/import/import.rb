@@ -1,6 +1,6 @@
 
-
-class CsvMatchImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMatchReader to CsvMatchParser - why? why not?
+## todo/fix: rename to CsvEventImporter or EventImporter  !!! returns Event!!
+class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMatchReader to CsvMatchParser - why? why not?
 
   def self.read( path, league:, season: )
     txt = File.open( path, 'r:utf-8' ).read
@@ -14,11 +14,11 @@ class CsvMatchImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
 
   def initialize( txt, league:, season: )
     @txt = txt
-    ## try mapping of league here - why? why not?
 
     raise ArgumentError("string expected for league; got #{league.class.name}")  unless league.is_a? String
     raise ArgumentError("string expected for season; got #{season.class.name}")  unless season.is_a? String
 
+    ## try mapping of league here - why? why not?
     @league  = search_league!( league )
     @season  = SportDb::Import::Season.new( season )
   end
@@ -39,15 +39,83 @@ class CsvMatchImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
     puts "#{team_names.size} teams:"
     pp team_names
 
-    ## note: allows duplicates - will return uniq db recs in teams
-    ##                            and mappings from names to uniq db recs
+    ## note: allows duplicates - will return uniq struct recs in teams
     team_mappings = map_teams!( team_names, league: @league,
                                             season: @season )
     pp team_mappings
+
+
+    #######
+    # start with database updates / sync here
+
+    event_rec = SportDb::Sync::Event.find_or_create_by( league: @league,
+                                                        season: @season )
+
+    ## todo/fix:
+    ##   add check if event has teams
+    ##   if yes - only double check and do NOT create / add teams
+    ##    number of teams must match (use teams only for lookup/alt name matches)
+
+    ## note: allows duplicates - will return uniq db recs in teams
+    ##                            and mappings from names to uniq db recs
+
+    ## todo/fix: rename to team_recs_cache or team_cache - why? why not?
+    team_recs = {}    # maps struct record "canonical" team name to active record db record!!
+
+    teams = team_mappings.values.uniq
+    teams.each do |team|
+      ## note: use "canonical" team name as hash key for now (and NOT the object itself) - why? why not?
+      team_recs[ team.name ] = SportDb::Sync::Team.find_or_create( team )
+    end
+
+    ## todo/fix/check:
+    ##   add check if event has teams
+    ##   if yes - only double check and do NOT create / add teams
+    ##    number of teams must match (use teams only for lookup/alt name matches)
+
+    ## add teams to event
+    ##   todo/fix: check if team is alreay included?
+    ##    or clear/destroy_all first!!!
+    team_recs.values.each do |team_rec|
+      event_rec.teams << team_rec
+    end
+
+    ## add catch-all/unclassified "dummy" round
+    round_rec = SportDb::Model::Round.create!(
+      event_id: event_rec.id,
+      title:    'Matchday ??? / Missing / Catch-All',   ## find a better name?
+      pos:      999,
+      start_at: event_rec.start_at.to_date
+    )
+
+    ## add matches
+    matches.each do |match|
+      team1_rec = team_recs[ team_mappings[match.team1].name ]
+      team2_rec = team_recs[ team_mappings[match.team2].name ]
+
+      if match.date.nil?
+        puts "!!! WARN: skipping match - play date missing!!!!!"
+        pp match
+      else
+        rec = SportDb::Model::Game.create!(
+                team1_id: team1_rec.id,
+                team2_id: team2_rec.id,
+                round_id: round_rec.id,
+                pos:      999,    ## make optional why? why not? - change to num?
+                play_at:  Date.strptime( match.date, '%Y-%m-%d' ),
+                score1:   match.score1,
+                score2:   match.score2,
+                score1i:  match.score1i,
+                score2i:  match.score2i,
+              )
+      end
+    end # each match
+
+    event_rec  # note: return event database record
   end # method parse
 
 
-  #####
+  #############################
   # helpers - make private - why? why not?
 
   def search_league!( q )
@@ -78,60 +146,5 @@ class CsvMatchImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
     end
     mapping
   end  # method map_teams!
-end # class CsvMatchImporter
+end # class CsvEventImporter
 
-
-
-
-  def update_matches_txt( matches_txt, league:, season: )   ## todo/check: rename to update_matches/insert_matches - why? why not?
-
-    event   = find_or_create_event( league: league, season: season )
-
-
-    ## todo/fix:
-    ##   add check if event has teams
-    ##   if yes - only double check and do NOT create / add teams
-    ##    number of teams must match (use teams only for lookup/alt name matches)
-
-    ## note: allows duplicates - will return uniq db recs in teams
-    ##                            and mappings from names to uniq db recs
-    teams, team_mappings = find_or_create_clubs!( teams_txt, league: league, season: season )
-
-    ## add teams to event
-    ##   todo/fix: check if team is alreay included?
-    ##    or clear/destroy_all first!!!
-    teams.each do |team|
-      event.teams << team
-    end
-
-    ## add catch-all/unclassified "dummy" round
-    round = SportDb::Model::Round.create!(
-      event_id: event.id,
-      title:    'Matchday ??? / Missing / Catch-All',   ## find a better name?
-      pos:      999,
-      start_at: event.start_at.to_date
-    )
-
-    ## add matches
-    matches_txt.each do |match_txt|
-      team1 = team_mappings[match_txt.team1]
-      team2 = team_mappings[match_txt.team2]
-
-      if match_txt.date.nil?
-        puts "!!! skipping match - play date missing!!!!!"
-        pp match_txt
-      else
-        match = SportDb::Model::Game.create!(
-          team1_id: team1.id,
-          team2_id: team2.id,
-          round_id: round.id,
-          pos:      999,    ## make optional why? why not? - change to num?
-          play_at:  Date.strptime( match_txt.date, '%Y-%m-%d' ),
-          score1:   match_txt.score1,
-          score2:   match_txt.score2,
-          score1i:  match_txt.score1i,
-          score2i:  match_txt.score2i,
-        )
-      end
-    end
-  end

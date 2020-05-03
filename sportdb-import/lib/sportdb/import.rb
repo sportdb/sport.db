@@ -50,8 +50,13 @@ def import( start: nil )
 
       pp [path, season_key, league_key]
 
-      CsvMatchImporter.read( path, league:  league_key,
-                                   season:  season_key )
+      event = CsvEventImporter.read( path, league:  league_key,
+                                           season:  season_key )
+
+      puts "added #{event.title}"
+      puts "  #{event.teams.size} teams"
+      puts "  #{event.rounds.size} rounds"
+      puts "  #{event.games.size} games"
     end  # each datafile
   end # each season
 end # method import

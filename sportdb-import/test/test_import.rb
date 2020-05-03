@@ -20,7 +20,12 @@ class TestImport < MiniTest::Test
       score2i: 'HTAG'
     }
 
-    matches = CsvMatchReader.read( "#{SportDb::Import.config.test_data_dir}/england/2017-18/E0.csv",
+    ## fix/todo: add headers option to CsvMatchImporter!!!!
+    ##
+    ##  use Event.read_csv   - why? why not?
+    ##      Event.parse_csv  - why? why not?
+
+    event = CsvEventImporter.read( "#{SportDb::Import.config.test_data_dir}/england/2017-18/E0.csv",
                                         headers: headers
                                  )
 

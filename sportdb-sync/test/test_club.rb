@@ -2,12 +2,12 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_finder_clubs.rb
+#     ruby -I ./lib -I ./test test/test_club.rb
 
 
 require 'helper'
 
-class TestFinderClubs < MiniTest::Test
+class TestClub < MiniTest::Test
 
   def test_eng_i
     ## todo/fix:
@@ -160,4 +160,4 @@ class TestFinderClubs < MiniTest::Test
     assert_equal 'Austria',    recs[1].country.name
   end
 
-end # class TestFinderClubs
+end # class TestClub

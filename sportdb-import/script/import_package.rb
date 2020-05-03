@@ -6,7 +6,11 @@
 require_relative 'boot'
 
 
-LEAGUES = SportDb::Import.catalog.leagues
+SportDb.connect( adapter:  'sqlite3', database: ':memory:' )
+SportDb.create_all   ## build schema
+
+puts "OK SportDb.create_all"
+puts
 
 
 FOOTBALLCSV_PATH  = '../../../footballcsv'

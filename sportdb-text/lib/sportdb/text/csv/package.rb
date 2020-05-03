@@ -6,6 +6,10 @@ class CsvPackage
 
   attr_reader :name, :path
 
+
+  ##
+  ## todo/fix: move filter out of c'tor and to an attribute accessor !!!!
+
   def initialize( path, filter: nil )
      @filter = filter   ## allow optional filter e.g. filter by country etc.
 
@@ -18,7 +22,7 @@ class CsvPackage
 
      dirname  = File.dirname( @path )   ## note: returns ./ if name is without dirs e.g. eng-england etc.
      path_exp = "#{dirname}/#{@name}"   # note: should be the same as name - use name itself!!! - why? why not
-     
+
      fail "assert failed - path #{path} do NOT match #{path_exp} =! #{@path}"  unless path_exp == @path
   end
 
@@ -45,7 +49,7 @@ class CsvPackage
     ##    ["1950s/1956-57/1-division1.csv",
     ##     "1950s/1956-57/2-division2.csv",
     ##     "1950s/1956-57/3a-division3n.csv",
-    ##     "1950s/1956-57/3b-division3s.csv"]], 
+    ##     "1950s/1956-57/3b-division3s.csv"]],
     ##   ...]
 
     entries = []

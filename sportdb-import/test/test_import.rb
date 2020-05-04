@@ -10,6 +10,10 @@ require 'helper'
 class TestImport < MiniTest::Test
 
   def test_eng
+    ## fix/todo:
+    ##  use Event.read_csv   - why? why not?
+    ##      Event.parse_csv  - why? why not?
+
     headers = {
       date:    'Date',
       team1:   'HomeTeam',
@@ -20,38 +24,22 @@ class TestImport < MiniTest::Test
       score2i: 'HTAG'
     }
 
-    ## fix/todo: add headers option to CsvMatchImporter!!!!
-    ##
-    ##  use Event.read_csv   - why? why not?
-    ##      Event.parse_csv  - why? why not?
+    event_rec = CsvEventImporter.read( "#{SportDb::Test.data_dir}/england/2017-18/E0.csv",
+                                        headers: headers,
+                                        league: 'ENG',  ## fetch English Premiere League
+                                        season: '2017/18'
+                                     )
 
-    event = CsvEventImporter.read( "#{SportDb::Import.config.test_data_dir}/england/2017-18/E0.csv",
-                                        headers: headers
-                                 )
+    assert_equal 20,   event_rec.teams.count
+    assert_equal 380,  event_rec.games.count
 
-    league = SportDb::Importer::League.find_or_create( 'eng',
-                                          name:        'English Premiere League',
-                                          country:     'eng',
-                                          ## club:       true
-                                       )
-    season = SportDb::Importer::Season.find_or_create_builtin( '2017-18' )
-
-    update_matches_txt( matches, league: league, season: season )
-
-
-    event = SportDb::Model::Event.find_by( league_id: league.id,
-                                           season_id: season.id  )
-
-    assert_equal 20,   event.teams.count
-    assert_equal 380,  event.games.count
-
-    game0 = event.games.first
-    assert_equal 'Arsenal FC',          game0.team1.name
-    assert_equal 'Leicester City FC',   game0.team2.name
-    assert_equal 4,   game0.score1
-    assert_equal 3,   game0.score2
-    assert_equal 2,   game0.score1i
-    assert_equal 2,   game0.score2i
+    rec = event_rec.games.first
+    assert_equal 'Arsenal FC',          rec.team1.name
+    assert_equal 'Leicester City FC',   rec.team2.name
+    assert_equal 4,   rec.score1
+    assert_equal 3,   rec.score2
+    assert_equal 2,   rec.score1i
+    assert_equal 2,   rec.score2i
   end
 
 end # class TestImport

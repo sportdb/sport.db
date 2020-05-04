@@ -1,8 +1,5 @@
 # encoding: utf-8
 
-
-require 'sportdb/config'
-require 'sportdb/models'   ## add sql database support
 require 'sportdb/sync'
 
 

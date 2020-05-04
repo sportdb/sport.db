@@ -9,29 +9,41 @@ require 'helper'
 
 class TestClub < MiniTest::Test
 
+  def map_teams!( names, league: )
+    ## fix/todo: (re)use map_teams from Index or CsvEventReader or ?????!!!
+    recs = []
+    names.each do |name|
+      recs << SportDb::Import.catalog.clubs.find_by!( name: name,
+                                                      country: league.country )
+    end
+    recs
+  end
+
+
   def test_eng_i
     ## todo/fix:
     ##    add guest1_country_id (optional) to league (e.g. wales for english premier leaguage)
     ##                                               (e.g. canada for mls)
     ##                                               (e.g. liechtenstein for swiss superleague) etc.
     ##                                               why? why not?
-    league = SportDb::Importer::League.find_or_create( 'eng',
-                                          name:        'English Premiere League',
-                                          country:     'eng',
-                                          ## club:       true
-                                       )
+
+    ## fetch English Premiere League
+    league = SportDb::Sync::League.league( 'ENG' )
+
     team_names = [
       'Manchester City',
       'Arsenal',
       'Liverpool',
       'Cardiff',
     ]
-    recs = find_or_create_clubs!( team_names, league: league )
+
+    recs = map_teams!( team_names, league: league )
+
     assert_equal 4, recs.size
 
     assert_equal 'Manchester City FC', recs[0].name
     ## assert_equal 'Manchester',    recs[0].city.name
-    assert_equal 'England',           recs[0].country.name
+    assert_equal 'England',            recs[0].country.name
 
     assert_equal 'Arsenal FC', recs[1].name
     ## assert_equal 'London',     recs[1].city.name
@@ -54,13 +66,13 @@ class TestClub < MiniTest::Test
       score2i: 'HTAG'
     }
 
-    matches = CsvMatchReader.read( "#{SportDb::Import.config.test_data_dir}/england/2017-18/E0.csv",
+    matches = CsvMatchReader.read( "#{SportDb::Test.data_dir}/england/2017-18/E0.csv",
                                         headers: headers
                                  )
 
     ## pp matches[0..2]
 
-    matchlist = SportDb::Struct::Matchlist.new( matches )
+    matchlist = SportDb::Import::Matchlist.new( matches )
     team_names = matchlist.teams
     puts "#{team_names.size} team names:"
     pp team_names
@@ -88,22 +100,19 @@ class TestClub < MiniTest::Test
  "West Ham"]
 =end
 
-    league = SportDb::Importer::League.find_or_create( 'eng',
-                                          name:        'English Premiere League',
-                                          country:     'eng',
-                                          ## club:       true
-                                       )
+    ## fetch English Premiere League
+    league = SportDb::Sync::League.league( 'ENG' )
 
-    recs = find_or_create_clubs!( team_names, league: league )
+    recs = map_teams!( team_names, league: league )
     assert_equal 20, recs.size
 
-    assert_equal 'Arsenal FC', recs[0].name
+    assert_equal 'Arsenal FC',      recs[0].name
     ## assert_equal '?',    recs[0].city.name
     assert_equal 'England',         recs[0].country.name
 
     assert_equal 'AFC Bournemouth', recs[1].name
     ## assert_equal '?',     recs[1].city.name
-    assert_equal 'England',    recs[1].country.name
+    assert_equal 'England',         recs[1].country.name
   end
 
 
@@ -117,14 +126,14 @@ class TestClub < MiniTest::Test
       score2: 'AG',
     }
 
-    matches = CsvMatchReader.read( "#{SportDb::Import.config.test_data_dir}/austria/AUT.csv",
+    matches = CsvMatchReader.read( "#{SportDb::Test.data_dir}/austria/AUT.csv",
                                         headers: headers,
                                         filters: { 'Season' => '2016/2017' }
                                   )
 
     ## pp matches[0..2]
 
-    matchlist = SportDb::Struct::Matchlist.new( matches )
+    matchlist = SportDb::Import::Matchlist.new( matches )
     team_names = matchlist.teams
     puts "#{team_names.size} team names:"
     pp team_names
@@ -142,22 +151,19 @@ class TestClub < MiniTest::Test
  "Sturm Graz"]
 =end
 
-    league = SportDb::Importer::League.find_or_create( 'at',
-                                          name:        'Österr. Bundesliga',
-                                          country:     'at',
-                                          ## club:       true
-                                       )
+    ## fetch Österr. Bundesliga
+    league = SportDb::Sync::League.league( 'AT' )
 
-    recs = find_or_create_clubs!( team_names, league: league )
+    recs = map_teams!( team_names, league: league )
     assert_equal 10, recs.size
 
-    assert_equal 'Wolfsberger AC', recs[0].name
+    assert_equal 'Wolfsberger AC',    recs[0].name
     ## assert_equal '?',    recs[0].city.name
     assert_equal 'Austria',           recs[0].country.name
 
     assert_equal 'FC Admira Wacker Mödling', recs[1].name
     ## assert_equal '?',     recs[1].city.name
-    assert_equal 'Austria',    recs[1].country.name
+    assert_equal 'Austria',                  recs[1].country.name
   end
 
 end # class TestClub

@@ -2,7 +2,7 @@ module SportDb
   module Sync
     class Club
 
-      def club( q, league: nil)   ## "internal" search helper using catalog
+      def self.club( q, league: nil)   ## "internal" search helper using catalog
         ## note: league.country might return nil (e.g. for intl leagues)
         country = league ? league.country : nil
         club = Import.catalog.clubs.find_by( name: q, country: country )
@@ -15,6 +15,8 @@ module SportDb
         club
       end
 
+      #############################
+      #  searchers
 
       ## todo/fix - move array support for now to attic!!!
 
@@ -39,6 +41,9 @@ module SportDb
         end
       end
 
+
+      ##################################
+      #  finders
 
       def self.find_or_create( club )
         ## note: assume "canonical uniquie" names/titles for now for clubs

@@ -18,17 +18,22 @@ require 'minitest/autorun'
 ## our own code
 require 'sportdb/sync'
 
+
 ## use (switch to) "external" datasets
 SportDb::Import.config.leagues_dir = "../../../openfootball/leagues"
 SportDb::Import.config.clubs_dir   = "../../../openfootball/clubs"
 
+
+COUNTRIES = SportDb::Import.catalog.countries
+LEAGUES   = SportDb::Import.catalog.leagues
+CLUBS     = SportDb::Import.catalog.clubs
 
 
 SportDb.connect( adapter: 'sqlite3', database: ':memory:' )
 SportDb.create_all   ## build schema
 
 ## turn on logging to console
-ActiveRecord::Base.logger = Logger.new(STDOUT)
+## ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 
 

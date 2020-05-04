@@ -2,18 +2,23 @@
 ## todo/fix: rename to CsvEventImporter or EventImporter  !!! returns Event!!
 class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMatchReader to CsvMatchParser - why? why not?
 
-  def self.read( path, league:, season: )
+  def self.read( path, league:, season:,
+                       headers: nil )
     txt = File.open( path, 'r:utf-8' ).read
-    parse( txt, league: league, season: season )
+    parse( txt, league: league, season: season,
+                headers: headers )
   end
 
-  def self.parse( txt, league:, season: )
-    new( txt, league: league, season: season).parse
+  def self.parse( txt, league:, season:,
+                       headers: nil  )
+    new( txt, league: league, season: season,
+              headers: headers ).parse
   end
 
 
-  def initialize( txt, league:, season: )
-    @txt = txt
+  def initialize( txt, league:, season:, headers: nil )
+    @txt     = txt
+    @headers = headers
 
     raise ArgumentError("string expected for league; got #{league.class.name}")  unless league.is_a? String
     raise ArgumentError("string expected for season; got #{season.class.name}")  unless season.is_a? String
@@ -31,7 +36,10 @@ class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
     ##  todo/fix:
     ##     add normalize: false/mapping: false  flag for NOT mapping club/team names
     ##       make normalize: false the default, anyways - why? why not?
-    matches = CsvMatchReader.parse( @txt )
+    opts = {}
+    opts[:headers] = @headers  if @headers
+
+    matches = CsvMatchReader.parse( @txt, **opts )
 
     matchlist = SportDb::Import::Matchlist.new( matches )
 
@@ -116,7 +124,7 @@ class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
 
 
   #############################
-  # helpers - make private - why? why not?
+  # helpers - make private (or better make shared and move for (re)use!!!!) - why? why not?
 
   def search_league!( q )
     leagues = SportDb::Import.catalog.leagues.match( q )

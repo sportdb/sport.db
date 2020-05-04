@@ -29,6 +29,8 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       season = Sync::Season.find_or_create( rec[:season] )
 
       ## hack for now: switch lang
+      ##
+      ##  todo/fix: use rec[:league] and rec[:season] here (hold off dependency on ActiveRecord!!! )
       if rec[:league].intl?   ## todo/fix: add intl? to ActiveRecord league!!!
         SportDb.lang.lang = 'en'
         DateFormats.lang  = 'en'
@@ -59,7 +61,8 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       ##   1) check for teams count on event/stage - only if count == 0 use autoconf!!!
       ##   2) add lang switch for date/lang too!!!!
 
-      event = Sync::Event.find_or_create( league: league, season: season )
+      event = Sync::Event.find_or_create_by( league: rec[:league],
+                                             season: Import::Season.new(rec[:season]) )
 
       stage = if rec[:stage]
         Sync::Stage.find_or_create( rec[:stage], event: event )
@@ -85,12 +88,12 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
         ### quick hack mods for popular/known ambigious club names
         ##    todo/fix: make more generic / reuseable!!!!
         mods = {
-         'uefa.cl' => { 'Liverpool'     => config.clubs.find_by!( name: 'Liverpool FC', country: 'ENG' ),
-                        'Liverpool FC'  => config.clubs.find_by!( name: 'Liverpool FC', country: 'ENG' ),
-                        'Arsenal'       => config.clubs.find_by!( name: 'Arsenal FC',   country: 'ENG' ),
-                        'Arsenal FC'    => config.clubs.find_by!( name: 'Arsenal FC',   country: 'ENG' ),
-                        'Barcelona'     => config.clubs.find_by!( name: 'FC Barcelona', country: 'ESP' ),
-                        'Valencia'      => config.clubs.find_by!( name: 'Valencia CF',  country: 'ESP' ),
+         'uefa.cl' => { 'Liverpool'     => catalog.clubs.find_by!( name: 'Liverpool FC', country: 'ENG' ),
+                        'Liverpool FC'  => catalog.clubs.find_by!( name: 'Liverpool FC', country: 'ENG' ),
+                        'Arsenal'       => catalog.clubs.find_by!( name: 'Arsenal FC',   country: 'ENG' ),
+                        'Arsenal FC'    => catalog.clubs.find_by!( name: 'Arsenal FC',   country: 'ENG' ),
+                        'Barcelona'     => catalog.clubs.find_by!( name: 'FC Barcelona', country: 'ESP' ),
+                        'Valencia'      => catalog.clubs.find_by!( name: 'Valencia CF',  country: 'ESP' ),
                       }
         }
         mods[ 'uefa.el' ] = mods[ 'uefa.cl' ]   ## europa league uses same mods as champions league
@@ -103,7 +106,7 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
 
         auto_conf_teams.keys.each do |name|
           club_rec = nil
-          m = config.clubs.match( name )
+          m = catalog.clubs.match( name )
           if m.nil?
             puts "no match found for club >#{name}<; sorry - add to clubs repo"
             exit 1
@@ -149,7 +152,7 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       else  ## assume clubs in domestic/national league tournament
         country = league.country
         auto_conf_teams.keys.each do |name|
-          club_rec = config.clubs.find_by!( name: name, country: country )
+          club_rec = catalog.clubs.find_by!( name: name, country: country )
 
           team = Sync::Club.find_or_create( club_rec )
           team_mapping[ name ] = team
@@ -157,7 +160,7 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       end
     else  ## assume national teams (not clubs)
       auto_conf_teams.keys.each do |name|
-        team_rec = config.national_teams.find!( name )
+        team_rec = catalog.national_teams.find!( name )
 
         team = Sync::NationalTeam.find_or_create( team_rec )
         team_mapping[ name ] = team
@@ -208,7 +211,7 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
     recs
   end # method read
 
-  def config() Import.config; end
+  def catalog() Import.catalog; end
 
 end # class MatchReaderV2
 end # module SportDb

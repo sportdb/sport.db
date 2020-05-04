@@ -37,20 +37,20 @@ class ConfReaderV2    ## todo/check: rename to EventsReaderV2 (use plural?) why?
         if league.intl?
           conf.each do |name, rec|
             country_key = rec[:country]
-            teams << config.clubs.find_by!( name: name,
+            teams << catalog.clubs.find_by!( name: name,
                                             country: country_key )
           end
         else
           conf.each do |name, _|
             ## note: rank and standing gets ignored (not used) for now
-            teams << config.clubs.find_by!( name: name,
+            teams << catalog.clubs.find_by!( name: name,
                                             country: league.country )
           end
         end
       else   ### assume national teams
         conf.each do |name, _|
           ## note: rank and standing gets ignored (not used) for now
-          teams << config.national_teams.find!( name )
+          teams << catalog.national_teams.find!( name )
         end
       end
 
@@ -63,10 +63,10 @@ class ConfReaderV2    ## todo/check: rename to EventsReaderV2 (use plural?) why?
 
     ## pass 2 - import (insert/update) into db
     recs.each do |rec|
-       league = Sync::League.find_or_create( rec[:league] )
-       season = Sync::Season.find_or_create( rec[:season] )
+       ## todo/fix: always return Season struct record in LeagueReader - why? why not?
+       event  = Sync::Event.find_or_create_by( league: rec[:league],
+                                               season: Import::Season.new(rec[:season]) )
 
-       event  = Sync::Event.find_or_create( league: league, season: season )
        stage  = if rec[:stage]
                   Sync::Stage.find_or_create( rec[:stage], event: event )
                 else
@@ -99,7 +99,7 @@ class ConfReaderV2    ## todo/check: rename to EventsReaderV2 (use plural?) why?
     recs   ## todo/fix: return true/false or something -  recs isn't really working/meaninful - why? why not?
   end # method read
 
-  def config() Import.config; end  ## shortcut convenience helper
+  def catalog() Import.catalog; end  ## shortcut convenience helper
 
 end # class ConfReaderV2
 end # module SportDb

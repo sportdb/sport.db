@@ -23,36 +23,28 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
   def parse( season: nil )
     recs = LeagueOutlineReader.parse( @txt, season: season )
     pp recs
+    ## todo/fix: rename recs to  secs (sections) or to outlines or ???
+    ##  do NOT use recs EVER!!!! use/reserve for ActiveRecord DB records
 
     recs.each do |rec|
-      league = Sync::League.find_or_create( rec[:league] )
-      season = Sync::Season.find_or_create( rec[:season] )
-
       ## hack for now: switch lang
       ##
       ##  todo/fix: use rec[:league] and rec[:season] here (hold off dependency on ActiveRecord!!! )
       if rec[:league].intl?   ## todo/fix: add intl? to ActiveRecord league!!!
-        SportDb.lang.lang = 'en'
-        DateFormats.lang  = 'en'
+        Import.config.lang = 'en'
       else  ## assume national/domestic
-        if ['de', 'at'].include?( league.country.key )
-          SportDb.lang.lang = 'de'
-          DateFormats.lang  = 'de'
-        elsif ['fr'].include?( league.country.key )
-          SportDb.lang.lang = 'fr'
-          DateFormats.lang  = 'fr'
-        elsif ['it'].include?( league.country.key )
-          SportDb.lang.lang = 'it'
-          DateFormats.lang  = 'it'
-        elsif ['es', 'mx'].include?( league.country.key )
-          SportDb.lang.lang = 'es'
-          DateFormats.lang  = 'es'
-        elsif ['pt', 'br'].include?( league.country.key )
-          SportDb.lang.lang = 'pt'
-          DateFormats.lang  = 'pt'
+        if ['de', 'at'].include?( rec[:league].country.key )
+          Import.config.lang = 'de'
+        elsif ['fr'].include?( rec[:league].country.key )
+          Import.config.lang = 'fr'
+        elsif ['it'].include?( rec[:league].country.key )
+          Import.config.lang = 'it'
+        elsif ['es', 'mx'].include?( rec[:league].country.key )
+          Import.config.lang = 'es'
+        elsif ['pt', 'br'].include?( rec[:league].country.key )
+          Import.config.lang = 'pt'
         else
-          SportDb.lang.lang = 'en'
-          DateFormats.lang  = 'en'
+          Import.config.lang = 'en'
         end
       end
 
@@ -61,25 +53,18 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       ##   1) check for teams count on event/stage - only if count == 0 use autoconf!!!
       ##   2) add lang switch for date/lang too!!!!
 
-      event = Sync::Event.find_or_create_by( league: rec[:league],
-                                             season: Import::Season.new(rec[:season]) )
-
-      stage = if rec[:stage]
-        Sync::Stage.find_or_create( rec[:stage], event: event )
-      else
-        nil
-      end
-
+      season_rec = Import::Season.new( rec[:season ])
+      start =      if season_rec.year?
+                     Date.new( season_rec.start_year, 1, 1 )
+                   else
+                     Date.new( season_rec.start_year, 7, 1 )
+                   end
 
       auto_conf_teams, _ = AutoConfParser.parse( rec[:lines],
-                                                 start: event.start_at )
+                                                 start: start )
 
       ## step 1: map/find teams
-      team_mapping = {}   ## name => database (ActiveRecord) record
-
-      teams     =  stage ? stage.teams    : event.teams
-      team_ids  =  stage ? stage.team_ids : event.team_ids
-
+      team_mapping = {}   ## name => team struct record
 
       ## note: loop over keys (holding the names); values hold the usage counter!! e.g. 'Arsenal' => 2, etc.
       if rec[:league].clubs?
@@ -87,67 +72,37 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
 
         ### quick hack mods for popular/known ambigious club names
         ##    todo/fix: make more generic / reuseable!!!!
-        mods = {
-         'uefa.cl' => { 'Liverpool'     => catalog.clubs.find_by!( name: 'Liverpool FC', country: 'ENG' ),
-                        'Liverpool FC'  => catalog.clubs.find_by!( name: 'Liverpool FC', country: 'ENG' ),
-                        'Arsenal'       => catalog.clubs.find_by!( name: 'Arsenal FC',   country: 'ENG' ),
-                        'Arsenal FC'    => catalog.clubs.find_by!( name: 'Arsenal FC',   country: 'ENG' ),
-                        'Barcelona'     => catalog.clubs.find_by!( name: 'FC Barcelona', country: 'ESP' ),
-                        'Valencia'      => catalog.clubs.find_by!( name: 'Valencia CF',  country: 'ESP' ),
-                      }
+        club_mods_by_league = {
+         'uefa.cl' => build_club_mapping({ 'Liverpool | Liverpool FC'  => 'Liverpool FC, ENG',
+                                            'Arsenal  | Arsenal FC'    => 'Arsenal FC, ENG',
+                                            'Barcelona'                => 'FC Barcelona, ESP',
+                                            'Valencia'                 => 'Valencia CF, ESP'  })
         }
-        mods[ 'uefa.el' ] = mods[ 'uefa.cl' ]   ## europa league uses same mods as champions league
+        club_mods_by_league[ 'uefa.el' ] = club_mods_by_league[ 'uefa.cl' ]   ## europa league uses same mods as champions league
 
-        known_club_mods  = mods[ rec[:league].key ]
-
-        ## build a quick lookup map (w/ canonical name) to check if club alreay in db
-        ##  todo/fix: to double check use club.title+club.country.key  for lookup (that is,add country.key) - why? why not?
-        known_clubs      = teams.reduce( {} ) {|h,club| h[club.title]=club; h }
+        club_mods = club_mods_by_league[ rec[:league].key ] || {}
 
         auto_conf_teams.keys.each do |name|
           club_rec = nil
-          m = catalog.clubs.match( name )
-          if m.nil?
-            puts "no match found for club >#{name}<; sorry - add to clubs repo"
-            exit 1
-          elsif m.size == 1
-            club_rec = m[0]
-          else  ## assume more than one match
-            ## 1) check for "hard-coded" club mod
-            if known_club_mods
-              m = m.select {|club_rec| club_rec == known_club_mods[name] }
-            end
-            ## 2) check for best match in db config next (if still ambigious)
-            if m.size > 1
-              m = m.select {|club_rec| known_clubs[ club_rec.name ] }
-            end
 
-            if m.empty?
-              puts "no db config match found for club >#{name}<; sorry - update db config >#{rec[:league].name}<:"
-              pp known_clubs
+          if club_mods[ name ]
+            club_rec = club_mods[ name ]
+          else
+            ## todo/fix:  just use clubs.find!() - why? why not?
+            m = catalog.clubs.match( name )
+            if m.nil?
+              puts "no match found for club >#{name}<; sorry - add to clubs repo"
               exit 1
             elsif m.size > 1
-              puts "too many db config matches found for club >#{name}<; sorry - update db config >#{rec[:league].name}<:"
+              puts "too many matches (#{m.size}) found for club >#{name}<; sorry - use unique key in >#{rec[:league].name}<:"
               pp m
-              pp known_clubs
               exit 1
-            else
+            else  ## assume more than one match
               club_rec = m[0]
             end
           end
 
-          ## todo/fix:  (double) check for matching country and/or club included in db config!!!
-          ##  note: only warn if known_clubs NOT empty
-          if known_clubs.size > 0
-            club = known_clubs[ club_rec.name ]
-            if club.nil?
-              puts "!! WARN: club >#{name}< => >#{club_rec.name}, #{club_rec.country.name} (#{club_rec.country.key})< not found in db config for intl competition:"
-              pp known_clubs
-            end
-          end
-
-          team = Sync::Club.find_or_create( club_rec )
-          team_mapping[ name ] = team
+          team_mapping[ name ] = club_rec
         end
       else  ## assume clubs in domestic/national league tournament
         country = league.country
@@ -167,30 +122,44 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       end
     end
 
-      ## todo/fix: check if all teams are unique
-      ##   check if uniq works for club record (struct) - yes,no ??
-      team_uniq = team_mapping.values.uniq
-
-      ## step 2: add to database
-      team_uniq.each do |team|
-        ## add teams to event
-        ##   for now check if team is alreay included
-        ##   todo/fix: clear/destroy_all first - why? why not!!!
-
-        teams << team    unless team_ids.include?( team.id )
-      end
-
 
 
       ## todo/fix: set lang for now depending on league country!!!
       parser = MatchParserSimpleV2.new( rec[:lines],
                                 team_mapping,
-                                event.start_at )   ## note: keep season start_at date for now (no need for more specific stage date need for now)
+                                start )   ## note: keep season start_at date for now (no need for more specific stage date need for now)
 
       match_recs, round_recs, group_recs = parser.parse
 
       pp round_recs
       pp group_recs
+
+     ######################################################
+     ## step 2: add to database
+
+     event = Sync::Event.find_or_create_by( league: rec[:league],
+                                            season: Import::Season.new(rec[:season]) )
+
+     stage = if rec[:stage]
+                Sync::Stage.find_or_create( rec[:stage], event: event )
+             else
+                 nil
+             end
+
+     teams     =  stage ? stage.teams    : event.teams
+     team_ids  =  stage ? stage.team_ids : event.team_ids
+
+      ## todo/fix: check if all teams are unique
+      ##   check if uniq works for club record (struct) - yes,no ??
+      new_teams = Sync::Team.find_or_create( team_mapping.values.uniq )
+
+     new_teams.each do |team|
+       ## add teams to event
+       ##   for now check if team is alreay included
+       ##   todo/fix: clear/destroy_all first - why? why not!!!
+       teams << team    unless team_ids.include?( team.id )
+     end
+
 
       round_recs.each do |round_rec|
         ## quick hack:  if pos missing fill with dummy 999 for now
@@ -208,10 +177,40 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       end
     end
 
-    recs
-  end # method read
+    true   ## success/ok
+  end # method parse
+
+
+  ######################
+  # (convenience) helpers
 
   def catalog() Import.catalog; end
+
+  def build_club_mapping( mapping )
+    ## e.g.
+    ##  { 'Arsenal   | Arsenal FC'    => 'Arsenal, ENG',
+    ##    'Liverpool | Liverpool FC'  => 'Liverpool, ENG',
+    ##    'Barcelona'                 => 'Barcelona, ESP',
+    ##    'Valencia'                  => 'Valencia, ESP' }
+
+    mapping.reduce({}) do |h,(club_names, club_line)|
+
+      values = club_line.split( ',' )
+      values = values.map { |value| value.strip }  ## strip all spaces
+
+      ## todo/fix: make sure country is present !!!!
+      club_name, country_name = values
+      club = catalog.clubs.find_by!( name: club_name, country: country_name )
+
+      values = club_names.split( '|' )
+      values = values.map { |value| value.strip }  ## strip all spaces
+
+      values.each do |club_name|
+        h[club_name] = club
+      end
+      h
+    end
+  end
 
 end # class MatchReaderV2
 end # module SportDb

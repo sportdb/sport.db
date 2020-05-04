@@ -32,14 +32,34 @@ module SportDb
 
 
   class Team
-    def self.find_or_create( team )
-       if team.is_a?( Import::NationalTeam )
-         NationalTeam.find_or_create( team )
-       else ## assume Club
-         Club.find_or_create( team )
-       end
+    ## auto-cache all clubs by find_or_create for later mapping / lookup
+    def self.cache() @cache ||= {}; end
+
+    def self.find_or_create( team_or_teams )
+      if team_or_teams.is_a?( Array )
+        recs = []
+        teams = team_or_teams
+        teams.each do |team|
+          recs << __find_or_create( team )
+        end
+        recs
+      else  # assome single rec
+        team = team_or_teams
+        __find_or_create( team )
+      end
+    end
+
+    def self.__find_or_create( team )  ## todo/check: use find_or_create_worker instead of _find - why? why not?
+       rec = if team.is_a?( Import::NationalTeam )
+               NationalTeam.find_or_create( team )
+             else ## assume Club
+               Club.find_or_create( team )
+             end
+       cache[ team.name ] = rec    ## note: assume "canonical" unique team name
+       rec
     end
   end # class Team
+
 
 
   class Round
@@ -116,18 +136,14 @@ module SportDb
        round_rec   = Model::Round.find_by!( event_id: event.id,
                                             title:    round_title )
 
-
-       team1_rec =  if match.team1.is_a?( String )
-                      Model::Team.find_by!( title: match.team1  )
-                    else
-                      match.team1  ### note: assumes ActiveRecord team record with id!!
-                    end
-       team2_rec =  if match.team2.is_a?( String )
-                      Model::Team.find_by!( title: match.team2 )
-                    else
-                      match.team2  ### note: assumes ActiveRecord team record with id!!
-                    end
-
+       ## todo/check: allow fallback with db lookup if NOT found in cache - why? why not?
+       ##  or better use Sync::Team.find_or_create( team )  !!!!!!! to auto-create on first hit!
+       ##    || Team.find_or_create( team1 )  -- note: does NOT work for string (only recs) - what to do?
+       ##    || Model::Team.find_by!( title: team1_name )
+       team1_name   = match.team1.is_a?( String ) ? match.team1 : match.team1.name
+       team1_rec    = Team.cache[ team1_name ]
+       team2_name   = match.team2.is_a?( String ) ? match.team2 : match.team2.name
+       team2_rec    = Team.cache[ team2_name ]
 
        ## check optional group (e.g. Group A, etc.)
        group_rec = if match.group

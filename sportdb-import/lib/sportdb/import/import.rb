@@ -68,13 +68,10 @@ class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
     ##                            and mappings from names to uniq db recs
 
     ## todo/fix: rename to team_recs_cache or team_cache - why? why not?
-    team_recs = {}    # maps struct record "canonical" team name to active record db record!!
 
-    teams = team_mappings.values.uniq
-    teams.each do |team|
-      ## note: use "canonical" team name as hash key for now (and NOT the object itself) - why? why not?
-      team_recs[ team.name ] = SportDb::Sync::Team.find_or_create( team )
-    end
+    # maps struct record "canonical" team name to active record db record!!
+    ## note: use "canonical" team name as hash key for now (and NOT the object itself) - why? why not?
+    team_recs = SportDb::Sync::Team.find_or_create( team_mappings.values.uniq )
 
     ## todo/fix/check:
     ##   add check if event has teams
@@ -84,9 +81,9 @@ class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
     ## add teams to event
     ##   todo/fix: check if team is alreay included?
     ##    or clear/destroy_all first!!!
-    team_recs.values.each do |team_rec|
-      event_rec.teams << team_rec
-    end
+    event_rec.teams = team_recs   ## todo/check/fix: use team_ids instead - why? why not?
+
+
 
     ## add catch-all/unclassified "dummy" round
     round_rec = SportDb::Model::Round.create!(
@@ -98,8 +95,8 @@ class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
 
     ## add matches
     matches.each do |match|
-      team1_rec = team_recs[ team_mappings[match.team1].name ]
-      team2_rec = team_recs[ team_mappings[match.team2].name ]
+      team1_rec = SportDb::Sync::Team.cache[ team_mappings[match.team1].name ]
+      team2_rec = SportDb::Sync::Team.cache[ team_mappings[match.team2].name ]
 
       if match.date.nil?
         puts "!!! WARN: skipping match - play date missing!!!!!"

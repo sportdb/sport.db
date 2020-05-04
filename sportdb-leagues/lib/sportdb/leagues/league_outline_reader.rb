@@ -28,8 +28,13 @@ class LeagueOutlineReader
   end
 
   def self.parse( txt, season: nil )
+    ## todo/fix: change recs to secs (sections) !!!
     recs=[]
     OutlineReader.parse( txt ).each do |node|
+      ## todo/fix: use proper node field names!!!!
+      node_type = node[0]   ## e.g. :h1, :h2, :l, etc.
+      node_text = node[1]
+
       if node[0] == :h1
         ## check for league (and stage) and season
         heading = node[1]
@@ -126,7 +131,7 @@ class LeagueOutlineReader
     end
   end
 
-
+  ## !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   ### fix/todo: move find_league  to sportdb-league index use find_by! and find_by !!!!
   def self.find_league( name )
     league = nil

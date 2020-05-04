@@ -82,13 +82,8 @@ class ConfReaderV2    ## todo/check: rename to EventsReaderV2 (use plural?) why?
        teams     =  stage ? stage.teams    : event.teams
        team_ids  =  stage ? stage.team_ids : event.team_ids
 
-       team_recs.each do |team_rec|
-         team = if team_rec.is_a?( Import::Club )  ## todo/fix: use team_rec.club? !!! - why? why not?
-                   Sync::Club.find_or_create( team_rec )
-                else  ### assume NationalTeam
-                   Sync::NationalTeam.find_or_create( team_rec )
-                end
-
+       new_teams = Sync::Team.find_or_create( team_recs )
+       new_teams.each do |team|
          ## add teams to event
          ##   for now check if team is alreay included
          ##   todo/fix: clear/destroy_all first - why? why not!!!

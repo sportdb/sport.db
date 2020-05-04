@@ -2,6 +2,10 @@ module SportDb
   module Sync
     class Club
 
+      ## auto-cache all clubs by find_or_create for later mapping / lookup
+      def self.cache() @cache ||= {}; end
+
+
       def self.club( q, league: nil)   ## "internal" search helper using catalog
         ## note: league.country might return nil (e.g. for intl leagues)
         country = league ? league.country : nil
@@ -72,6 +76,9 @@ module SportDb
 
           rec = Model::Team.create!( attribs )
         end
+        ## auto-add to cache
+        cache[club.name] = rec
+
         rec
       end
 

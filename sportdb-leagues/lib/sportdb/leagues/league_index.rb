@@ -130,6 +130,36 @@ class LeagueIndex
   end
 
 
+  def find!( name )
+    league = find( name )
+    if league.nil?
+      puts "** !!! ERROR - no league match found for >#{name}<, add to leagues table; sorry"
+      exit 1
+    end
+    league
+  end
+
+  def find( name )
+    league = nil
+    m = match( name )
+    # pp m
+
+    if m.nil?
+      ## fall through/do nothing
+    elsif m.size > 1
+      puts "** !!! ERROR - ambigious league name; too many leagues (#{m.size}) found:"
+      pp m
+      exit 1
+    else
+      league = m[0]
+    end
+
+    league
+  end
+
+
+
+
   def dump_duplicates # debug helper - report duplicate club name records
      @leagues_by_name.each do |name, leagues|
        if leagues.size > 1

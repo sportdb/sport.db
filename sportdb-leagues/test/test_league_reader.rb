@@ -7,7 +7,7 @@
 
 require 'helper'
 
-class TestClubReader < MiniTest::Test
+class TestLeagueReader < MiniTest::Test
 
   def test_parse_at
     recs = SportDb::Import::LeagueReader.parse( <<TXT )

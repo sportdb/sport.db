@@ -5,14 +5,22 @@ module SportDb
 class OutlineReader
 
   def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
-    txt = File.open( path, 'r:utf-8' ).read
+    txt = File.open( path, 'r:utf-8' ) {|f| f.read }
     parse( txt )
   end
 
   def self.parse( txt )
+    new( txt ).parse
+  end
+
+  def initialize( txt )
+    @txt = txt
+  end
+
+  def parse
     outline=[]   ## outline structure
 
-    txt.each_line do |line|
+    @txt.each_line do |line|
         line = line.strip      ## todo/fix: keep leading and trailing spaces - why? why not?
 
         next if line.empty?    ## todo/fix: keep blank line nodes e.g. just remove comments and process headings?! - why? why not?

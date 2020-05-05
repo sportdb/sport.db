@@ -17,6 +17,21 @@ class OutlineReader
     @txt = txt
   end
 
+  ## note: skip "decorative" only heading e.g. ========
+  ##  todo/check:  find a better name e.g. HEADING_EMPTY_RE or HEADING_LINE_RE or ???
+  HEADING_BLANK_RE = %r{\A
+                        ={1,}
+                        \z}x
+
+  ## note: like in wikimedia markup (and markdown) all optional trailing ==== too
+  HEADING_RE = %r{\A
+                  (?<marker>={1,})       ## 1. leading ======
+                    [ ]*
+                  (?<text>[^=]+)         ## 2. text   (note: for now no "inline" = allowed)
+                    [ ]*
+                    =*                   ## 3. (optional) trailing ====
+                  \z}x
+
   def parse
     outline=[]   ## outline structure
 
@@ -35,17 +50,13 @@ class OutlineReader
         line = line.sub( /#.*/, '' ).strip
         pp line
 
-        next if line =~ /^={1,}$/          ## skip "decorative" only heading e.g. ========
+        next if HEADING_BLANK_RE.match( line )  # skip "decorative" only heading e.g. ========
 
          ## note: like in wikimedia markup (and markdown) all optional trailing ==== too
-         ##  todo/check:  allow ===  Text  =-=-=-=-=-=   too - why? why not?
-        if line =~ /^(={1,})       ## leading ======
-                     ([^=]+?)      ##  text   (note: for now no "inline" = allowed)
-                     =*            ## (optional) trailing ====
-                     $/x
-           heading_marker = $1
-           heading_level  = $1.length   ## count number of = for heading level
-           heading        = $2.strip
+        if m=HEADING_RE.match( line )
+           heading_marker = m[:marker]
+           heading_level  = m[:marker].length   ## count number of = for heading level
+           heading        = m[:text].strip
 
            puts "heading #{heading_level} >#{heading}<"
            outline << [:"h#{heading_level}", heading]

@@ -12,9 +12,11 @@ class Catalog
   def countries()      @countries      ||= build_country_index; end
   def national_teams() @national_teams ||= build_national_team_index; end
   def clubs()          @clubs          ||= build_club_index; end
+  def teams()          @teams          ||= build_team_index; end
   def leagues()        @leagues        ||= build_league_index; end
 
 
+  def build_team_index() TeamIndex.new;  end
 
   def build_country_index    ## todo/check: rename to setup_country_index or read_country_index - why? why not?
     CountryIndex.new( Fifa.countries )

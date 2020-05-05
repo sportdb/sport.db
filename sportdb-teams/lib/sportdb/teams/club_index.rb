@@ -176,6 +176,7 @@ class ClubIndex
 
 
   ## todo/fix/check: use rename to find_canon  or find_canonical() or something??
+  ##  remove (getting used?) - why? why not?
   def []( name )    ## lookup by canoncial name only;  todo/fix: add find alias why? why not?
     @clubs[ name ]
   end
@@ -234,6 +235,8 @@ class ClubIndex
     m
   end
 
+  def find( name )   find_by( name: name, country: nil ); end
+  def find!( name )  find_by!( name: name, country: nil ); end
 
   ## find - always returns a single record / match or nil
   ##   if there is more than one match than find aborts / fails
@@ -241,7 +244,7 @@ class ClubIndex
     club = find_by( name: name, country: country )
 
     if club.nil?
-      puts "** !!! ERROR !!! no match for club >#{name}<"
+      puts "** !!! ERROR - no match for club >#{name}<"
       exit 1
     end
 
@@ -279,7 +282,7 @@ class ClubIndex
     if m.nil?
       ## puts "** !!! WARN !!! no match for club >#{name}<"
     elsif m.size > 1
-      puts "** !!! ERROR !!! too many matches (#{m.size}) for club >#{name}<:"
+      puts "** !!! ERROR - too many matches (#{m.size}) for club >#{name}<:"
       pp m
       exit 1
     else   # bingo; match - assume size == 1
@@ -287,6 +290,34 @@ class ClubIndex
     end
 
     club
+  end
+
+
+
+  def build_mods( mods )
+    ## e.g.
+    ##  { 'Arsenal   | Arsenal FC'    => 'Arsenal, ENG',
+    ##    'Liverpool | Liverpool FC'  => 'Liverpool, ENG',
+    ##    'Barcelona'                 => 'Barcelona, ESP',
+    ##    'Valencia'                  => 'Valencia, ESP' }
+
+    mods.reduce({}) do |h,(club_names, club_line)|
+
+      values = club_line.split( ',' )
+      values = values.map { |value| value.strip }  ## strip all spaces
+
+      ## todo/fix: make sure country is present !!!!
+      club_name, country_name = values
+      club = find_by!( name: club_name, country: country_name )
+
+      values = club_names.split( '|' )
+      values = values.map { |value| value.strip }  ## strip all spaces
+
+      values.each do |club_name|
+        h[club_name] = club
+      end
+      h
+    end
   end
 
 

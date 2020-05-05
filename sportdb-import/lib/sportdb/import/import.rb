@@ -24,7 +24,7 @@ class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
     raise ArgumentError("string expected for season; got #{season.class.name}")  unless season.is_a? String
 
     ## try mapping of league here - why? why not?
-    @league  = search_league!( league )
+    @league  = SportDb::Import.catalog.leagues.find!( league )
     @season  = SportDb::Import::Season.new( season )
   end
 
@@ -122,20 +122,6 @@ class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
 
   #############################
   # helpers - make private (or better make shared and move for (re)use!!!!) - why? why not?
-
-  def search_league!( q )
-    leagues = SportDb::Import.catalog.leagues.match( q )
-    if leagues.nil? || leagues.empty?
-      puts "!! ERROR: no league match found for >#{q}<; sorry - add to leagues"
-      exit 1
-    elsif leagues.size > 1
-      puts "!! ERROR: too many league (#{leagues.size}) matches found for >#{q}<; sorry - use a unique key"
-      exit 1
-    else
-      ## bingo! match - fall/pass through
-    end
-    leagues[0]
-  end
 
   def map_teams!( team_names, league:, season: )
     mapping = {}

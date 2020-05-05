@@ -3,17 +3,7 @@ module SportDb
     class League
 
       def self.league( q )   ## todo/check: find a better or "generic" alias name e.g. convert/builtin/etc. - why? why not?
-        leagues = Import.catalog.leagues.match( q )     ## todo/fix: change find to search!!!
-        if leagues.nil? || leagues.empty?
-          puts "** !!! ERROR !!! unknown league for key >#{q}<; sorry - add to LEAGUES table"
-          exit 1
-        elsif leagues.size > 1
-          puts "** !!! ERROR !!! too many (#{leagues.size}) league matches for key >#{q}< sorry - use a unique key"
-          exit 1
-        else
-          # pass/fall through
-        end
-        leagues[0]
+        Import.catalog.leagues.find!( q )     ## todo/fix: change find to search!!!
       end
 
 

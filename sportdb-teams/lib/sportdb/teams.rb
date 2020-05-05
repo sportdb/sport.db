@@ -14,6 +14,7 @@ require 'sportdb/teams/club_reader_props'
 require 'sportdb/teams/club_index'
 require 'sportdb/teams/wiki_reader'
 require 'sportdb/teams/national_team_index'
+require 'sportdb/teams/team_index'
 
 
 ###

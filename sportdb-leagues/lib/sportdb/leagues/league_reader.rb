@@ -75,8 +75,9 @@ def parse
           end
         end
       end
-    elsif node[0] == :l   ## regular (text) line
-      line = node[1]
+    elsif node[0] == :p   ## paragraph with (text) lines
+      lines = node[1]
+      lines.each do |line|
 
       if line.start_with?( '|' )
           ## assume continuation with line of alternative names
@@ -144,6 +145,7 @@ def parse
           exit 1
         end
       end
+      end  # each line
     else
       puts "** !!! ERROR !!! [league reader] - unknown line type:"
       pp node

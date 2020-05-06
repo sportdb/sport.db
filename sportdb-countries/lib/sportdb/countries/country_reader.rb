@@ -23,9 +23,9 @@ def self.parse( txt )
 
      if [:h1, :h2].include?( node_type )
        ## skip headings (and headings) for now too
-     elsif node_type == :l    ## l/line
-      line = node[1]
-
+     elsif node_type == :p    ## paragraph
+      lines = node[1]
+      lines.each do |line|
       if line.start_with?( '|' )
         ## assume continuation with line of alternative names
         ##  note: skip leading pipe
@@ -79,15 +79,17 @@ def self.parse( txt )
           exit 1
         end
       end
+      end  # each line
     else
       puts "** !! ERROR !! unknown node type / (input) source line:"
       pp node
       exit 1
     end
-  end    # each_node
+  end    # each node
 
   countries
 end  # method parse
+
 
 
 #######################################

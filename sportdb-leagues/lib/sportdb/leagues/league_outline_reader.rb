@@ -25,13 +25,9 @@ class LeagueOutlineReader   ## todo/check - rename to LeaguePageReader / LeagueP
   def parse( season: nil )
     secs=[]     # sec(tion)s
     OutlineReader.parse( @txt ).each do |node|
-      ## todo/fix: use proper node field names!!!!
-      node_type = node[0]   ## e.g. :h1, :h2, :l, etc.
-      node_text = node[1]
-
-      if node_type == :h1
+      if node[0] == :h1
         ## check for league (and stage) and season
-        heading = node_text
+        heading = node[1]
         values = split_league( heading )
         if m=values[0].match( LEAGUE_SEASON_HEADING_RE )
           puts "league >#{m[:league]}<, season >#{m[:season]}<"
@@ -46,13 +42,15 @@ class LeagueOutlineReader   ## todo/check - rename to LeaguePageReader / LeagueP
           pp heading
           exit 1
         end
-      elsif node_type == :l   ## regular (text) line
-        line = node_text
+      elsif node[0] == :p   ## paragraph with (text) lines
+        lines = node[1]
         ## note: skip lines if no heading seen
         if secs.empty?
-          puts "** !!! WARN - skipping line (no heading) >#{line}<"
+          puts "** !!! WARN - skipping lines (no heading):"
+          pp lines
         else
-          secs[-1][:lines] << line
+          ## todo/check: unroll paragraphs into lines or pass along paragraphs - why? why not?
+          secs[-1][:lines] += lines
         end
       else
         puts "** !!! ERROR - unknown line type; for now only heading 1 for leagues supported; sorry:"

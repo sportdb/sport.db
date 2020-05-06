@@ -6,7 +6,7 @@ require 'worlddb/models'     # NOTE: include worlddb-models gem (not cli tools g
 require 'persondb/models'
 
 
-require 'sportdb/match/formats'  ## todo/fix: move all readers out-of-models AND than (finally) remove sportdb/formats dependency
+require 'sportdb/formats'  ## todo/fix: move all readers out-of-models AND than (finally) remove sportdb/formats dependency
 
 
 # our own code

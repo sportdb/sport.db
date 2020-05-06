@@ -47,19 +47,19 @@ Savanne SC | Savanne Sporting Club
 TXT
 
     recs = SportDb::Import::LeagueReader.parse( leagues_txt )
-    SportDb::Import::config.leagues.add( recs )
+    SportDb::Import.catalog.leagues.add( recs )
 
     recs = SportDb::Import::ClubReader.parse( clubs_txt )
-    SportDb::Import::config.clubs.add( recs )
+    SportDb::Import.catalog.clubs.add( recs )
 
     pp recs
 
-    country = SportDb::Import::config.countries[ 'Mauritius']
+    country = SportDb::Import.catalog.countries.find( 'Mauritius' )
     pp country
 
-    clubs = SportDb::Import::config.clubs.match( 'Chamarel SC' )
+    clubs = SportDb::Import.catalog.clubs.match( 'Chamarel SC' )
     pp clubs
-    club = SportDb::Import::config.clubs.find_by( name: 'Chamarel SC',
+    club = SportDb::Import.catalog.clubs.find_by( name: 'Chamarel SC',
                                                   country: country )
     pp club
 

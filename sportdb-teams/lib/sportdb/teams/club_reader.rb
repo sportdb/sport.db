@@ -133,8 +133,9 @@ def parse
 
       pp headings
 
-    elsif node[0] == :l   ## regular (text) line
-      line = node[1]
+    elsif node[0] == :p   ## paragraph with (text) lines
+      lines = node[1]
+      lines.each do |line|
       if line.start_with?( '|' )
         ## assume continuation with line of alternative names
         ##  note: skip leading pipe
@@ -317,6 +318,7 @@ def parse
 
         recs << rec
       end
+      end  # each line (in paragraph)
     else
       puts "** !!! ERROR !!! [club reader] - unknown line type:"
       pp node

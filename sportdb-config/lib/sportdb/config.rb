@@ -11,9 +11,6 @@ require 'fifa'    ## get a list of all fifa countries with (three letter) codes
 require 'footballdb/leagues'
 require 'footballdb/clubs'
 
-## more sportdb libs / gems for match format schedules etc.
-require 'sportdb/match/formats'
-
 
 ###
 # our own code

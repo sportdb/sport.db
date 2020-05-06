@@ -20,7 +20,7 @@ class TestMatchReaderEng < MiniTest::Test
   end
 
 
-  def xxx_test_read_eng
+  def test_read_eng
 txt =<<TXT
 = English Premier League 2017/18
 

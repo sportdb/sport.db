@@ -33,7 +33,7 @@ module SportDb
   def self.read( path, season: nil )
     pack = if File.directory?( path )          ## if directory assume "unzipped" package
               DirPackage.new( path )
-           elsif File.file?( path ) && Datafile.match_zip( path )  ## check if file is a .zip (archive) file
+           elsif File.file?( path ) && File.extname( path ) == '.zip'   ## check if file is a .zip (archive) file
               ZipPackage.new( path )
            else                                ## no package; assume single (standalone) datafile
              nil
@@ -42,9 +42,9 @@ module SportDb
     if pack
        pack.read( season: season )
     else
-      if Datafile.match_conf( path )      ## check if datafile matches conf(iguration) naming (e.g. .conf.txt)
+      if Package.conf?( path )      ## check if datafile matches conf(iguration) naming (e.g. .conf.txt)
         read_conf( path, season: season )
-      elsif Datafile.match_club_props( path )
+      elsif Package.club_props?( path )
         read_club_props( path )
       else                                ## assume "regular" match datafile
         read_match( path, season: season )

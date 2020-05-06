@@ -34,11 +34,16 @@ class OutlineReader
 
   def parse
     outline=[]   ## outline structure
+    start_para = true      ## start new para(graph) on new text line?
 
     @txt.each_line do |line|
         line = line.strip      ## todo/fix: keep leading and trailing spaces - why? why not?
 
-        next if line.empty?    ## todo/fix: keep blank line nodes e.g. just remove comments and process headings?! - why? why not?
+        if line.empty?    ## todo/fix: keep blank line nodes?? and just remove comments and process headings?! - why? why not?
+          start_para = true
+          next
+        end
+
         break if line == '__END__'
 
         next if line.start_with?( '#' )   ## skip comments too
@@ -50,19 +55,33 @@ class OutlineReader
         line = line.sub( /#.*/, '' ).strip
         pp line
 
+        ## todo/check: also use heading blank as paragraph "breaker" or treat it like a comment ?? - why? why not?
         next if HEADING_BLANK_RE.match( line )  # skip "decorative" only heading e.g. ========
 
          ## note: like in wikimedia markup (and markdown) all optional trailing ==== too
         if m=HEADING_RE.match( line )
+           start_para = true
+
            heading_marker = m[:marker]
            heading_level  = m[:marker].length   ## count number of = for heading level
            heading        = m[:text].strip
 
            puts "heading #{heading_level} >#{heading}<"
            outline << [:"h#{heading_level}", heading]
-        else
-           ## assume it's a (plain/regular) text line
-           outline << [:l, line]
+        else    ## assume it's a (plain/regular) text line
+           if start_para
+             outline << [:p, [line]]
+             start_para = false
+           else
+             node = outline[-1]    ## get last entry
+             if node[0] == :p      ##  assert it's a p(aragraph) node!!!
+                node[1] << line    ## add line to p(aragraph)
+             else
+               puts "!! ERROR - invalid outline state / format - expected p(aragraph) node; got:"
+               pp node
+               exit 1
+             end
+           end
         end
     end
     outline

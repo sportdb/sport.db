@@ -9,7 +9,7 @@ module SportDb
 
 class MapperV2      ## todo/check: rename to NameMapper/TitleMapper ? why? why not??
 
-  include LogUtils::Logging
+  include Logging
 
   attr_reader :known_titles   ## rename to mapping or mappings or just titles - why? why not?
 

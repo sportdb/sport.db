@@ -21,11 +21,11 @@ TXT
 
     pp outline
 
-    assert_equal 3, outline.size
+    assert_equal 2, outline.size
 
     assert_equal [:h1, 'ÖFB Cup 2011/12'],       outline[0]
-    assert_equal [:l,  'FC Red Bull Salzburg'],  outline[1]
-    assert_equal [:l,  'FK Austria Wien'],       outline[2]
+    assert_equal [:p,  ['FC Red Bull Salzburg',
+                        'FK Austria Wien']],     outline[1]
   end
 
 end # class TestOutlineReader

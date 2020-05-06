@@ -1,11 +1,11 @@
 require 'hoe'
-require './lib/sportdb/import/version.rb'
+require './lib/sportdb/importers/version.rb'
 
-Hoe.spec 'sportdb-import' do
+Hoe.spec 'sportdb-importers' do
 
-  self.version = SportDb::Import::VERSION
+  self.version = SportDb::Importers::VERSION
 
-  self.summary = "sportdb-import - tools 'n' scripts for importing sports (football) data in alternate (text) formats incl. comma-separated values (csv) format"
+  self.summary = "sportdb-importers - tools 'n' scripts for importing sports (football) data in alternate (text) formats incl. comma-separated values (csv) format"
   self.description = summary
 
   self.urls = ['https://github.com/sportdb/sport.db']
@@ -21,11 +21,11 @@ Hoe.spec 'sportdb-import' do
 
   self.extra_deps = [
     ['sportdb-text',   '>= 0.3.0'],
-    ['sportdb-models', '>= 1.18.0'],
+    ['sportdb-sync',   '>= 0.1.0'],
   ]
 
   self.spec_extras = {
-   :required_ruby_version => '>= 2.2.2'
+    required_ruby_version: '>= 2.2.2'
   }
 
 end

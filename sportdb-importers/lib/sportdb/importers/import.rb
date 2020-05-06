@@ -4,7 +4,7 @@ class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
 
   def self.read( path, league:, season:,
                        headers: nil )
-    txt = File.open( path, 'r:utf-8' ).read
+    txt = File.open( path, 'r:utf-8' ) {|f| f.read }
     parse( txt, league: league, season: season,
                 headers: headers )
   end
@@ -48,8 +48,11 @@ class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
     pp team_names
 
     ## note: allows duplicates - will return uniq struct recs in teams
-    team_mappings = map_teams!( team_names, league: @league,
-                                            season: @season )
+    teams = SportDb::Import.catalog.teams.find_by!( name: team_names,
+                                                    league: @league )
+    ## build mapping - name => team struct record
+    team_mappings =  team_names.zip( teams ).to_h
+
     pp team_mappings
 
 
@@ -119,23 +122,5 @@ class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMat
     event_rec  # note: return event database record
   end # method parse
 
-
-  #############################
-  # helpers - make private (or better make shared and move for (re)use!!!!) - why? why not?
-
-  def map_teams!( team_names, league:, season: )
-    mapping = {}
-    if league.clubs?
-      team_names.each do |name|
-         club = SportDb::Import.catalog.clubs.find_by!( name: name, country: league.country )
-         mapping[ name ] = club
-      end
-    else
-      team_names.each do |name|
-        ## todo/fix: search national teams !!!
-      end
-    end
-    mapping
-  end  # method map_teams!
 end # class CsvEventImporter
 

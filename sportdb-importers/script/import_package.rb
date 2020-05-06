@@ -6,7 +6,8 @@
 require_relative 'boot'
 
 
-SportDb.connect( adapter:  'sqlite3', database: ':memory:' )
+SportDb.connect( adapter:  'sqlite3',
+                 database: ':memory:' )
 SportDb.create_all   ## build schema
 
 puts "OK SportDb.create_all"

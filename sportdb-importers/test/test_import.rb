@@ -9,6 +9,16 @@ require 'helper'
 
 class TestImport < MiniTest::Test
 
+  def setup
+    SportDb.connect( adapter:  'sqlite3',
+                     database: ':memory:' )
+    SportDb.create_all   ## build schema
+
+    ## turn on logging to console
+    ## ActiveRecord::Base.logger = Logger.new(STDOUT)
+  end
+
+
   def test_eng
     ## fix/todo:
     ##  use Event.read_csv   - why? why not?

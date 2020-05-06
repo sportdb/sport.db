@@ -3,7 +3,7 @@
 
 
 module SportDb
-module Import
+module Importers
 
   MAJOR = 0    ## todo: namespace inside version or something - why? why not??
   MINOR = 2
@@ -15,12 +15,12 @@ module Import
   end
 
   def self.banner
-    "sportdb-import/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+    "sportdb-importers/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
   end
 
   def self.root
     File.expand_path( File.dirname(File.dirname(File.dirname(File.dirname(__FILE__)))) )
   end
 
-end # module Import
+end # module Importers
 end # module SportDb

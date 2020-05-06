@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_club.rb
@@ -9,17 +7,6 @@ require 'helper'
 
 class TestClub < MiniTest::Test
 
-  def map_teams!( names, league: )
-    ## fix/todo: (re)use map_teams from Index or CsvEventReader or ?????!!!
-    recs = []
-    names.each do |name|
-      recs << SportDb::Import.catalog.clubs.find_by!( name: name,
-                                                      country: league.country )
-    end
-    recs
-  end
-
-
   def test_eng_i
     ## todo/fix:
     ##    add guest1_country_id (optional) to league (e.g. wales for english premier leaguage)
@@ -28,7 +15,7 @@ class TestClub < MiniTest::Test
     ##                                               why? why not?
 
     ## fetch English Premiere League
-    league = SportDb::Sync::League.league( 'ENG' )
+    league = LEAGUES.find!( 'ENG' )
 
     team_names = [
       'Manchester City',
@@ -37,7 +24,8 @@ class TestClub < MiniTest::Test
       'Cardiff',
     ]
 
-    recs = map_teams!( team_names, league: league )
+    recs = TEAMS.find_by!( name:   team_names,
+                           league: league )
 
     assert_equal 4, recs.size
 
@@ -100,10 +88,13 @@ class TestClub < MiniTest::Test
  "West Ham"]
 =end
 
-    ## fetch English Premiere League
-    league = SportDb::Sync::League.league( 'ENG' )
 
-    recs = map_teams!( team_names, league: league )
+    ## fetch English Premiere League
+    league = LEAGUES.find!( 'ENG' )
+
+    recs   = TEAMS.find_by!( name:   team_names,
+                             league: league )
+
     assert_equal 20, recs.size
 
     assert_equal 'Arsenal FC',      recs[0].name
@@ -152,9 +143,11 @@ class TestClub < MiniTest::Test
 =end
 
     ## fetch Österr. Bundesliga
-    league = SportDb::Sync::League.league( 'AT' )
+    league = LEAGUES.find!( 'AT' )
 
-    recs = map_teams!( team_names, league: league )
+    recs   = TEAMS.find_by!( name:   team_names,
+                             league: league )
+
     assert_equal 10, recs.size
 
     assert_equal 'Wolfsberger AC',    recs[0].name

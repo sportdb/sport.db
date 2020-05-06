@@ -4,21 +4,31 @@ $LOAD_PATH.unshift( File.expand_path( '../sportdb-countries/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-leagues/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-teams/lib' ))
 
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-match-formats/lib' ))
-
 $LOAD_PATH.unshift( File.expand_path( '../footballdb-leagues/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../footballdb-clubs/lib' ))
 
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-config/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-text/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-models/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-sync/lib' ))
 
 
+## minitest setup
+
+require 'minitest/autorun'
+
+
 ## our own code
-require 'sportdb/import'
+require 'sportdb/importers'
 
-
-OPENFOOTBALL_PATH = '../../../openfootball'
 
 ## use (switch to) "external" datasets
-SportDb::Import.config.leagues_dir = "#{OPENFOOTBALL_PATH}/leagues"
-SportDb::Import.config.clubs_dir   = "#{OPENFOOTBALL_PATH}/clubs"
+SportDb::Import.config.leagues_dir = "../../../openfootball/leagues"
+SportDb::Import.config.clubs_dir   = "../../../openfootball/clubs"
+
+
+COUNTRIES = SportDb::Import.catalog.countries
+LEAGUES   = SportDb::Import.catalog.leagues
+CLUBS     = SportDb::Import.catalog.clubs
+TEAMS     = SportDb::Import.catalog.teams
+

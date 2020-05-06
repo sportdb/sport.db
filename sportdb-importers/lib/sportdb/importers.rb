@@ -7,9 +7,9 @@ require 'sportdb/sync'
 
 
 ###
-# our own code    - todo/fix/check: rename to sportdb-importer - why? why not?
-require 'sportdb/import/version' # let version always go first
-require 'sportdb/import/import'
+# our own code
+require 'sportdb/importers/version' # let version always go first
+require 'sportdb/importers/import'
 
 
 class CsvPackage
@@ -65,4 +65,4 @@ end  # class CsvPackage
 
 
 
-puts SportDb::Import.banner   # say hello
+puts SportDb::Importers.banner   # say hello

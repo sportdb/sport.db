@@ -10,9 +10,9 @@ require 'helper'
 class TestVersion < MiniTest::Test
 
   def test_version
-    pp SportDb::Import::VERSION
-    pp SportDb::Import.banner
-    pp SportDb::Import.root
+    pp SportDb::Importers::VERSION
+    pp SportDb::Importers.banner
+    pp SportDb::Importers.root
 
     assert true
   end

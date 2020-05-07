@@ -120,6 +120,24 @@ EN__DAY_MONTH_DD__DATE_RE = /\b
      (?<day>\d{1,2})
         \b/x
 
+
+# e.g. Fri Aug/9 18:00 or Fri Aug 9 18:00
+#      Fri, Aug/9 18:00 or Fri, Aug 9 18:00
+EN__DAY_MONTH_DD__DATE_TIME_RE = /\b
+     (?<day_name>#{DAY_EN})
+        ,?   # note: allow optional comma
+        \s
+     (?<month_name>#{MONTH_EN})
+        (?: \/|\s )
+     (?<day>\d{1,2})
+         \s+
+     (?<hours>\d{1,2})
+        [:hH]
+     (?<minutes>\d{2})
+         \b/x
+
+
+
 # e.g.  Jun/12 2011 14:00  or
 #       Jun 12, 2011 14:00 or
 #       Jun 12, 2011 14h00
@@ -316,11 +334,12 @@ FORMATS_BASE = [    ### all numbers (no month names or weekday) - find a better 
 ]
 
 FORMATS_EN = [
+  [ EN__DAY_MONTH_DD__DATE_TIME_RE,  '[EN_DAY_MONTH_DD_hh_mm]'  ],
   [ EN__DD_MONTH_YYYY__DATE_TIME_RE, '[EN_DD_MONTH_YYYY_hh_mm]' ],
   [ EN__MONTH_DD_YYYY__DATE_TIME_RE, '[EN_MONTH_DD_YYYY_hh_mm]' ],
   [ EN__MONTH_DD__DATE_TIME_RE,      '[EN_MONTH_DD_hh_mm]'      ],
   [ EN__MONTH_DD_YYYY__DATE_RE,      '[EN_MONTH_DD_YYYY]'       ],
-  [ EN__DAY_MONTH_DD__DATE_RE,       '[EN_DAY_MONTH_DD]',       ],
+  [ EN__DAY_MONTH_DD__DATE_RE,       '[EN_DAY_MONTH_DD]'        ],
   [ EN__MONTH_DD__DATE_RE,           '[EN_MONTH_DD]'            ],
   [ EN__DD_MONTH__DATE_RE,           '[EN_DD_MONTH]'            ],
 ]

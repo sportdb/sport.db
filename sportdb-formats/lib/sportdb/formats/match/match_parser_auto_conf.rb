@@ -43,25 +43,27 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
 
 
     @lines.each do |line|
-      if is_round_def?( line )
+      if is_goals?( line )
+        logger.debug "skipping matched goals line: >#{line}<"
+      elsif is_round_def?( line )
         ## todo/fix:  add round definition (w begin n end date)
         ## todo: do not patch rounds with definition (already assume begin/end date is good)
         ##  -- how to deal with matches that get rescheduled/postponed?
-        logger.info "skipping matched round def line: >#{line}<"
+        logger.debug "skipping matched round def line: >#{line}<"
         @round_defs[ line ] += 1
       elsif is_round?( line )
-        logger.info "skipping matched round line: >#{line}<"
+        logger.debug "skipping matched round line: >#{line}<"
 
         round = @rounds[ line ] ||= {count: 0, match_count: 0}   ## usage counter, match counter
         round[:count] +=1
         @last_round = round
       elsif is_group_def?( line ) ## NB: group goes after round (round may contain group marker too)
         ### todo: add pipe (|) marker (required)
-        logger.info "skipping matched group def line: >#{line}<"
+        logger.debug "skipping matched group def line: >#{line}<"
         @group_defs[ line ] += 1
       elsif is_group?( line )
         ##  -- lets you set group  e.g. Group A etc.
-        logger.info "skipping matched group line: >#{line}<"
+        logger.debug "skipping matched group line: >#{line}<"
 
         group = @groups[ line ] ||= {count: 0, match_count: 0}
         group[:count] +=1

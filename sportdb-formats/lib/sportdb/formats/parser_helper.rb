@@ -51,17 +51,30 @@ module SportDb
 
 
   def is_group?( line )
-    # NB: check after is_round? (round may contain group reference!)
+    # note: check after is_round? (round may contain group reference!)
     ## note: =~ return nil if not match found, and 0,1, etc for match
     (line =~ SportDb.lang.regex_group) != nil
   end
 
   def is_group_def?( line )
-    # NB: check after is_round? (round may contain group reference!)
+    # note: check after is_round? (round may contain group reference!)
     ## must include bar (|) marker (make required)
     ## todo/fix:  use split('|') and check is_round? only on left hand side!!!! not whole line
     line =~ /\|/ && is_group?( line )
   end
+
+
+  def is_goals?( line )
+    # check if is goals line
+    #  e.g. looks like
+    #   Neymar 29', 71' (pen.) Oscar 90+1';  Marcelo 11' (o.g.)
+    #  check for
+    #    <space>90'  or
+    #    <space>90+1'
+
+    line =~ /[ ](\d{1,3}\+)?\d{1,3}'/
+  end
+
 
   end  # module ParserHelper
 end   # module SportDb

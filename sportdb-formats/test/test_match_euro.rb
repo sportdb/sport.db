@@ -13,10 +13,9 @@ class TestMatchEuro < MiniTest::Test
   def test_parse
     txt, exp, teams = read_test( 'match/euro_2016.txt' )
 
-    start = Date.new( 2016, 6, 1 )
+    start = Date.new( 2016, 1, 1 )
 
-    DateFormats.lang = 'en'
-    SportDb.lang.lang = 'en'
+    SportDb::Import.config.lang = 'en'
 
     parser = SportDb::MatchParserSimpleV2.new( txt, teams, start )
     matches, rounds, groups  = parser.parse

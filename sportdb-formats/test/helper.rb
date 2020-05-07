@@ -1,4 +1,6 @@
-## $:.unshift(File.dirname(__FILE__))
+## note: use the local version of gems
+$LOAD_PATH.unshift( File.expand_path( '../date-formats/lib' ))
+
 
 ## minitest setup
 require 'minitest/autorun'
@@ -11,8 +13,8 @@ require 'sportdb/formats'
 ################
 ## helper
 
-def parse_auto_conf( txt, lang: 'en' )
-  start = Date.new( 2017, 7, 1 )
+def parse_auto_conf( txt, lang: 'en', start: nil )
+  start = start ? start : Date.new( 2017, 7, 1 )
 
   DateFormats.lang  = lang  # e.g. 'en'
   SportDb.lang.lang = lang

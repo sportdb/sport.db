@@ -41,7 +41,9 @@ class MatchParserSimpleV2   ## simple match parser for team match schedules
 
 
     @lines.each do |line|
-      if is_round_def?( line )
+      if is_goals?( line )
+        logger.debug "skipping matched goals line: >#{line}<"
+      elsif is_round_def?( line )
         ## todo/fix:  add round definition (w begin n end date)
         ## todo: do not patch rounds with definition (already assume begin/end date is good)
         ##  -- how to deal with matches that get rescheduled/postponed?
@@ -59,7 +61,7 @@ class MatchParserSimpleV2   ## simple match parser for team match schedules
       elsif try_parse_date_header( line )
         # do nothing here
       else
-        logger.info "skipping line (no match found): >#{line}<"
+        logger.warn "skipping line (no match found): >#{line}<"
         @warns << line
       end
     end # lines.each

@@ -156,8 +156,9 @@ module SportDb
     def each_clubs( &blk )      each( pattern: CLUBS_RE, &blk ); end
     def each_clubs_wiki( &blk ) each( pattern: CLUBS_WIKI_RE, &blk ); end
 
-    def each_match_with_index( &blk ) i=0; each_match {|entry| blk.call( entry, i ); i+=1 }; end
-    def match_count()  i=0; each_match {|entry| i+=1 }; i; end
+    ## return all match datafile entries
+    def match()  ary=[]; each_match {|entry| ary << entry  }; ary; end
+    alias_method :matches, :match
   end   # class Package
 
 

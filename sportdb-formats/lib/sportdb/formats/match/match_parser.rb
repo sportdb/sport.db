@@ -375,13 +375,12 @@ class MatchParserSimpleV2   ## simple match parser for team match schedules
   end
 
 
-  def find_scores!( line, opts={} )
+  def find_score!( line )
     # note: always call after find_dates !!!
     #  scores match date-like patterns!!  e.g. 10-11  or 10:00 etc.
     #   -- note: score might have two digits too
 
-    finder = ScoresFinder.new
-    finder.find!( line, opts )
+    ScoreFormats.find!( line )
   end
 
   def try_parse_game( line )
@@ -426,7 +425,7 @@ class MatchParserSimpleV2   ## simple match parser for team match schedules
     end
 
 
-    scores = find_scores!( line )
+    score = find_score!( line )
 
     logger.debug "  line: >#{line}<"
 
@@ -460,10 +459,7 @@ class MatchParserSimpleV2   ## simple match parser for team match schedules
     @matches << Import::Match.new( date:    date,
                                    team1:   team1,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team1.title)
                                    team2:   team2,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team2.title)
-                                   score1i: scores[0],  ## score1i - half time (first (i) part)
-                                   score2i: scores[1],  ## score2i
-                                   score1:  scores[2],  ## score1  - full time
-                                   score2:  scores[3],  ## score2
+                                   score:   score,
                                    round:   round       ? round.title       : nil,   ## note: for now always use string (assume unique canonical name for event)
                                    group:   @last_group ? @last_group.title : nil )  ## note: for now always use string (assume unique canonical name for event)
 

@@ -126,7 +126,7 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
     return true if line.empty?    ## note: return true (for valid line with no match/teams)
 
 
-    scores = find_scores!( line )
+    score = find_score!( line )
 
     logger.debug "  line: >#{line}<"
 
@@ -182,13 +182,11 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
 
 
 
-  def find_scores!( line, opts={} )
+  def find_score!( line )
     # note: always call after find_dates !!!
     #  scores match date-like patterns!!  e.g. 10-11  or 10:00 etc.
     #   -- note: score might have two digits too
-
-    finder = ScoresFinder.new
-    finder.find!( line, opts )
+    ScoreFormats.find!( line )
   end
 
   def find_date!( line, start: )

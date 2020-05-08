@@ -10,7 +10,7 @@ require 'helper'
 class TestScores < MiniTest::Test
 
 
-  def test_scores
+  def test_score
     data = [
      [ '10:0',  [nil,nil,10,0]],
      [ '1:22',  [nil,nil,1,22]],
@@ -19,7 +19,7 @@ class TestScores < MiniTest::Test
      [ '1X22',  [nil,nil,1,22]],
 
 
-     ## do not support three digits
+     ## do not support three digits for now - why? why not?
      [ '1-222', []],
      [ '111-0', []],
      [ '1:222', []],
@@ -58,6 +58,7 @@ class TestScores < MiniTest::Test
      [ '3-4p 2-2aet 1-1',       [nil,nil,1,1,2,2,3,4]],
      [ '3-4 pen 2-2 aet 1-1',   [nil,nil,1,1,2,2,3,4]],
 
+
      #####################################################
      ## check new all-in-one english (en) formats / patterns
      [ '2-1 (1-1)', [1,1,2,1]],
@@ -76,22 +77,16 @@ class TestScores < MiniTest::Test
      [ '4-1 a.e.t. (3-1, )',          [nil,nil,3,1,4,1]],
     ]
 
-    assert_scores( data )
+    assert_score( data )
   end
 
 private
-  def assert_scores( data )
+  def assert_score( data )
     data.each do |rec|
       line = rec[0]
       exp  = rec[1]
 
-      assert_equal exp, parse_scores( line )
+      assert_equal exp, ScoreFormats.find!( line ).to_a
     end
   end
-
-  def parse_scores( line )
-     finder = SportDb::ScoresFinder.new
-     finder.find!( line )
-  end
-
 end # class TestScores

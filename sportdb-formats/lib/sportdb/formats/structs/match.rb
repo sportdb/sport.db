@@ -47,32 +47,59 @@ class Match
     @group    = kwargs[:group]    if kwargs.has_key? :group
     @comments = kwargs[:comments] if kwargs.has_key? :comments
 
+    if kwargs.has_key?( :score )   ## check all-in-one score struct for convenience!!!
+      score = kwargs[:score]
+      if score.nil?   ## reset all score attribs to nil!!
+        @score1     = nil
+        @score1i    = nil
+        @score1et   = nil
+        @score1p    = nil
+        ## @score1agg  = nil
 
-    @score1     = kwargs[:score1]      if kwargs.has_key? :score1
-    @score1i    = kwargs[:score1i]     if kwargs.has_key? :score1i
-    @score1et   = kwargs[:score1et]    if kwargs.has_key? :score1et
-    @score1p    = kwargs[:score1p]     if kwargs.has_key? :score1p
-    @score1agg  = kwargs[:score1agg]   if kwargs.has_key? :score1agg
+        @score2     = nil
+        @score2i    = nil
+        @score2et   = nil
+        @score2p    = nil
+        ## @score2agg  = nil
+      else
+        @score1     = score.score1
+        @score1i    = score.score1i
+        @score1et   = score.score1et
+        @score1p    = score.score1p
+        ## @score1agg  = score.score1agg
 
-    @score2     = kwargs[:score2]      if kwargs.has_key? :score2
-    @score2i    = kwargs[:score2i]     if kwargs.has_key? :score2i
-    @score2et   = kwargs[:score2et]    if kwargs.has_key? :score2et
-    @score2p    = kwargs[:score2p]     if kwargs.has_key? :score2p
-    @score2agg  = kwargs[:score2agg]   if kwargs.has_key? :score2agg
+        @score2     = score.score2
+        @score2i    = score.score2i
+        @score2et   = score.score2et
+        @score2p    = score.score2p
+        ## @score2agg  = score.score2agg
+      end
+    else
+      @score1     = kwargs[:score1]      if kwargs.has_key? :score1
+      @score1i    = kwargs[:score1i]     if kwargs.has_key? :score1i
+      @score1et   = kwargs[:score1et]    if kwargs.has_key? :score1et
+      @score1p    = kwargs[:score1p]     if kwargs.has_key? :score1p
+      @score1agg  = kwargs[:score1agg]   if kwargs.has_key? :score1agg
 
-    ## note: (always) (auto-)convert scores to integers
-    @score1     = @score1.to_i      if @score1
-    @score1i    = @score1i.to_i     if @score1i
-    @score1et   = @score1et.to_i    if @score1et
-    @score1p    = @score1p.to_i     if @score1p
-    @score1agg  = @score1agg.to_i   if @score1agg
+      @score2     = kwargs[:score2]      if kwargs.has_key? :score2
+      @score2i    = kwargs[:score2i]     if kwargs.has_key? :score2i
+      @score2et   = kwargs[:score2et]    if kwargs.has_key? :score2et
+      @score2p    = kwargs[:score2p]     if kwargs.has_key? :score2p
+      @score2agg  = kwargs[:score2agg]   if kwargs.has_key? :score2agg
 
-    @score2     = @score2.to_i      if @score2
-    @score2i    = @score2i.to_i     if @score2i
-    @score2et   = @score2et.to_i    if @score2et
-    @score2p    = @score2p.to_i     if @score2p
-    @score2agg  = @score2agg.to_i   if @score2agg
+      ## note: (always) (auto-)convert scores to integers
+      @score1     = @score1.to_i      if @score1
+      @score1i    = @score1i.to_i     if @score1i
+      @score1et   = @score1et.to_i    if @score1et
+      @score1p    = @score1p.to_i     if @score1p
+      @score1agg  = @score1agg.to_i   if @score1agg
 
+      @score2     = @score2.to_i      if @score2
+      @score2i    = @score2i.to_i     if @score2i
+      @score2et   = @score2et.to_i    if @score2et
+      @score2p    = @score2p.to_i     if @score2p
+      @score2agg  = @score2agg.to_i   if @score2agg
+    end
 
     ## todo/fix:
     ##  gr-greece/2014-15/G1.csv:
@@ -81,7 +108,7 @@ class Match
 
     ##  for now score1 and score2 must be present
     if @score1.nil? || @score2.nil?
-      puts "*** missing scores for match:"
+      puts "** WARN: missing scores for match:"
       pp kwargs
       ## exit 1
     end

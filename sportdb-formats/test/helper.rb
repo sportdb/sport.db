@@ -16,8 +16,7 @@ require 'sportdb/formats'
 def parse_auto_conf( txt, lang: 'en', start: nil )
   start = start ? start : Date.new( 2017, 7, 1 )
 
-  DateFormats.lang  = lang  # e.g. 'en'
-  SportDb.lang.lang = lang
+  SportDb::Import.config.lang = lang
 
   parser = SportDb::AutoConfParser.new( txt, start )
   parser.parse

@@ -14,6 +14,7 @@ class Configuration
   def lang=(value)
     ## check/todo: always use to_sym - why? needed?
     DateFormats.lang  = value
+    ScoreFormats.lang = value
     SportDb.lang.lang = value
 
     ## todo/fix:  change SportDb.lang to SportDb.parser.lang or lang_parser or utils or someting !!!!

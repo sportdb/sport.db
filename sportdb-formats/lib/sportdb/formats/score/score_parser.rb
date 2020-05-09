@@ -50,17 +50,44 @@ end  # class Score
 
 module ScoreFormats
 
-  def self.parse( line ) ScoreParser.new.parse( line ); end
-  def self.find!( line ) ScoreParser.new.find!( line ); end
+  def self.lang
+    @@lang ||= :en            ## defaults to english (:en)
+  end
+  def self.lang=( value )
+    @@lang = value.to_sym    ## note: make sure lang is always a symbol for now (NOT a string)
+    @@lang      ## todo/check: remove  =() method always returns passed in value? double check
+  end
+
+
+  def self.parser( lang: )  ## find parser
+    lang = lang.to_sym  ## note: make sure lang is always a symbol for now (NOT a string)
+
+    ## note: cache all "built-in" lang versions (e.g. formats == nil)
+    @@parser ||= {}
+    parser = @@parser[ lang ] ||= ScoreParser.new( lang: lang )
+  end
+
+  def self.parse( line, lang: ScoreFormats.lang )
+    parser( lang: lang ).parse( line )
+  end
+
+  def self.find!( line, lang: ScoreFormats.lang )
+    parser( lang: lang ).find!( line )
+  end
+
 
 class ScoreParser
 
   include LogUtils::Logging
 
-  def initialize
-    ## note: for now always use english (en) - make multi-lingual later!!!!
-    @formats = FORMATS[ :en ]
+  def initialize( lang: )
+    @lang    = lang.to_sym   ## note: make sure lang is always a symbol for now (NOT a string)
+
+    ## fallback to english if lang not available
+    ##  todo/fix: add/issue warning - why? why not?
+    @formats = FORMATS[ @lang ] || FORMATS[ :en ]
   end
+
 
   def parse( line )
     score = nil
@@ -78,29 +105,8 @@ class ScoreParser
     score  # note: nil if no match found
   end # method parse
 
+
   def find!( line )
-    score = nil
-    @formats.each do |format|
-      re  = format[0]
-      tag = format[1]
-      m = re.match( line )
-      if m
-        score = parse_matchdata( m )
-        line.sub!( m[0], tag )
-        break
-      end
-      # no match; continue; try next regex pattern
-    end
-
-    ##  todo/fix: make fallback fit into format "pipeline" - allow procs not just regexes or such !!!
-    score = find_fallback!( line )   if score.nil?
-    score  # note: nil if no match found
-  end # method find!
-
-
-
-  def find_fallback!( line )
-
     ### fix: add and match all-in-one literal first, followed by
 
     # note: always call after find_dates !!!
@@ -117,63 +123,21 @@ class ScoreParser
     # and return it
     # note: side effect - removes date from line string
 
-    score1i  = nil    # half time (ht) scores
-    score2i  = nil
-
-    score1   = nil    # full time (ft) scores
-    score2   = nil
-
-    score1et = nil    # extra time (et) scores
-    score2et = nil
-
-    score1p  = nil   # penalty (p) scores
-    score2p  = nil
-
-
-      #######################################################
-      ## try "standard" generic patterns for fallbacks
-
-      if m = ET_RE.match( line )
-        score1et = m[:score1].to_i
-        score2et = m[:score2].to_i
-
-        logger.debug "   score.et: >#{score1et}-#{score2et}<"
-
-        line.sub!( m[0], '[SCORE.ET]' )
+    score = nil
+    @formats.each do |format|
+      re  = format[0]
+      tag = format[1]
+      m = re.match( line )
+      if m
+        score = parse_matchdata( m )
+        line.sub!( m[0], tag )
+        break
       end
+      # no match; continue; try next regex pattern
+    end
 
-      if m = P_RE.match( line )
-        score1p = m[:score1].to_i
-        score2p = m[:score2].to_i
-
-        logger.debug "   score.p: >#{score1p}-#{score2p}<"
-
-        line.sub!( m[0], '[SCORE.P]' )
-      end
-
-      ## let full time (ft) standard regex go last - has no marker
-
-      if m = FT_RE.match( line )
-        score1 = m[:score1].to_i
-        score2 = m[:score2].to_i
-
-        logger.debug "   score: >#{score1}-#{score2}<"
-
-        line.sub!( m[0], '[SCORE]' )
-      end
-
-      # note: no match; return nil (and NOT score obj)!!!!
-      score = if score1i  || score2i  || score1  || score2  ||
-                 score1et || score2et || score1p || score2p
-                Score.new( score1i,  score2i,
-                           score1,   score2,
-                           score1et, score2et,
-                           score1p,  score2p   )
-              else
-                nil
-              end
-      score
-  end  # method find_fallback!
+    score  # note: nil if no match found
+  end # method find!
 
 private
   def parse_matchdata( m )

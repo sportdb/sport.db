@@ -84,6 +84,25 @@ end   # module Import
 end   # module SportDb
 
 
+require 'sportdb/formats/league/league_reader'
+require 'sportdb/formats/league/league_index'
+require 'sportdb/formats/league/league_outline_reader'
+
+##
+## add convenience helper / short-cuts
+module SportDb
+module Import
+class League
+  def self.read( path ) LeagueReader.read( path ); end
+  def self.parse( txt ) LeagueReader.parse( txt ); end
+end   # class League
+end   # module Import
+end   # module SportDb
+
+
+
+
+
 
 ## let's put test configuration in its own namespace / module
 module SportDb

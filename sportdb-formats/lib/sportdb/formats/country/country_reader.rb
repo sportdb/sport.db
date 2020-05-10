@@ -84,13 +84,13 @@ def parse
                                                 tags: tags )
           countries << country
         else
-          puts "** !! ERROR !! missing key for (canonical) country name"
+          puts "** !! ERROR - missing key for (canonical) country name"
           exit 1
         end
       end
       end  # each line
     else
-      puts "** !! ERROR - [CountryReader] unknown node type / (input) source line:"
+      puts "** !! ERROR - unknown node type / (input) source line:"
       pp node
       exit 1
     end

@@ -9,15 +9,24 @@ class CountryReader
 
 
 def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
-  txt = File.open( path, 'r:utf-8' ).read
+  txt = File.open( path, 'r:utf-8' ) { |f| f.read }
   parse( txt )
 end
 
 def self.parse( txt )
+  new( txt ).parse
+end
+
+
+def initialize( txt )
+  @txt = txt
+end
+
+def parse
   countries    = []
   last_country = nil    ## note/check/fix: use countries[-1] - why? why not?
 
-  OutlineReader.parse( txt ).each do |node|
+  OutlineReader.parse( @txt ).each do |node|
 
      node_type = node[0]
 
@@ -81,7 +90,7 @@ def self.parse( txt )
       end
       end  # each line
     else
-      puts "** !! ERROR !! unknown node type / (input) source line:"
+      puts "** !! ERROR - [CountryReader] unknown node type / (input) source line:"
       pp node
       exit 1
     end
@@ -94,13 +103,13 @@ end  # method parse
 
 #######################################
 ##  helpers
-def self.split_tags( str )
+def split_tags( str )
   tags = str.split( /[|<>‹›]/ )   ## allow pipe (|) and (<>‹›) as divider for now - add more? why? why not?
   tags = tags.map { |tag| tag.strip }
   tags
 end
 
-def self.split_geo( str )   ## todo/check: rename to parse_geo(s) - why? why not?
+def split_geo( str )   ## todo/check: rename to parse_geo(s) - why? why not?
   ## split into geo tree
   geos = str.split( /[<>‹›]/ )          ## note: allow > < or › ‹ for now
   geos = geos.map { |geo| geo.strip }   ## remove all whitespaces

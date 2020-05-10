@@ -1,4 +1,4 @@
-# alphabets -
+# alphabets - alphabet (a-z) helpers incl. unaccent, downcase, variants, and more
 
 
 * home  :: [github.com/sportdb/sport.db](https://github.com/sportdb/sport.db)

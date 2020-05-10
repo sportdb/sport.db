@@ -4,9 +4,9 @@
 ## todo/check: use a module Alphabets with s to keep version and banner separate - why? why not?
 
 class Alphabet
-  MAJOR = 0    ## todo: namespace inside version or something - why? why not??
-  MINOR = 1
-  PATCH = 3
+  MAJOR = 1    ## todo: namespace inside version or something - why? why not??
+  MINOR = 0
+  PATCH = 0
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 
   def self.version

@@ -69,6 +69,22 @@ require 'sportdb/formats/match/match_parser_auto_conf'
 require 'sportdb/formats/match/conf_parser'
 
 
+require 'sportdb/formats/country/country_reader'
+require 'sportdb/formats/country/country_index'
+
+
+## add convenience helper
+module SportDb
+module Import
+class Country
+  def self.read( path )  CountryReader.read( path ); end
+  def self.parse( txt )  CountryReader.parse( txt ); end
+end   # class Country
+end   # module Import
+end   # module SportDb
+
+
+
 ## let's put test configuration in its own namespace / module
 module SportDb
 class Test    ## todo/check: works with module too? use a module - why? why not?

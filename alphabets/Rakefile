@@ -5,7 +5,7 @@ Hoe.spec 'alphabets' do
 
   self.version = Alphabet::VERSION
 
-  self.summary = "alphabets - "
+  self.summary = "alphabets - alphabet (a-z) helpers incl. unaccent, downcase, variants, and more"
   self.description = summary
 
   self.urls = ['https://github.com/sportdb/sport.db']

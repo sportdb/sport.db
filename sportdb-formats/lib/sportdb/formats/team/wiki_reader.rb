@@ -19,7 +19,7 @@ class WikiReader    ## todo/check: rename to WikiClubReader - why? why not?
 
 
 def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
-  txt = File.open( path, 'r:utf-8' ).read
+  txt = File.open( path, 'r:utf-8' ) { |f| f.read }
   parse( txt )
 end
 

@@ -100,6 +100,34 @@ end   # module Import
 end   # module SportDb
 
 
+require 'sportdb/formats/team/club_reader'
+require 'sportdb/formats/team/club_reader_props'
+require 'sportdb/formats/team/club_index'
+require 'sportdb/formats/team/wiki_reader'
+require 'sportdb/formats/team/national_team_index'
+require 'sportdb/formats/team/team_index'
+
+
+###
+# add convenience helpers / shortcuts
+module SportDb
+module Import
+class Club
+  def self.read( path )  ClubReader.read( path ); end
+  def self.parse( txt )  ClubReader.parse( txt ); end
+
+  def self.read_props( path )  ClubPropsReader.read( path ); end
+  def self.parse_props( txt )  ClubPropsReader.parse( txt ); end
+  ##  todo/check: use ClubProps.read and ClubProps.parse convenience alternate shortcuts - why? why not?
+end # class Club
+end   # module Import
+end   # module SportDb
+
+
+
+
+
+
 
 
 

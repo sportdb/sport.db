@@ -49,9 +49,28 @@ TXT
     leagues
   end
 
+  def build_club_index
+    recs = ClubReader.parse( <<TXT )
+= England
+
+Chelsea FC
+Arsenal FC
+Tottenham Hotspur
+West Ham United
+Crystal Palace
+Manchester United
+Manchester City
+TXT
+
+    index = ClubIndex.new
+    index.add( recs )
+    index
+  end
+
 
   def countries() @countries ||= build_country_index; end
   def leagues()   @leagues   ||= build_league_index; end
+  def clubs()     @clubs     ||= build_club_index; end
 end
 
 configure do |config|

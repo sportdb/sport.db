@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-
-require 'sportdb/models'
 require 'sportdb/readers'
 
 require 'logutils/activerecord'   ## NOTE: check - add to/include in/move to sportdb/models

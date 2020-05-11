@@ -26,8 +26,8 @@ module SportDb
   def self.read_club_props( path )  Import::ClubPropsReader.read( path ); end
   def self.parse_club_props( txt )  Import::ClubPropsReader.parse( txt ); end
 
-  def self.parse_leagues( txt ) recs = Import::LeagueReader.parse( txt ); Import::config.leagues.add( recs ); end
-  def self.parse_clubs( txt )   recs = Import::ClubReader.parse( txt ); Import::config.clubs.add( recs ); end
+  def self.parse_leagues( txt ) recs = Import::LeagueReader.parse( txt ); Import.catalog.leagues.add( recs ); end
+  def self.parse_clubs( txt )   recs = Import::ClubReader.parse( txt );   Import.catalog.clubs.add( recs ); end
 
 
   def self.read( path, season: nil )

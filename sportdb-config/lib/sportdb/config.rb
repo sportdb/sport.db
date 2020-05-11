@@ -1,10 +1,7 @@
 # encoding: utf-8
 
 ### our own sportdb libs / gems
-require 'sportdb/countries'
-require 'sportdb/leagues'
-require 'sportdb/teams'
-
+require 'sportdb/formats'
 
 ### "built-in" default dataset libs / gems
 require 'fifa'    ## get a list of all fifa countries with (three letter) codes

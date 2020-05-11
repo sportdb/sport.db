@@ -3,7 +3,14 @@ Manifest.txt
 README.md
 Rakefile
 lib/sportdb/sync.rb
+lib/sportdb/sync/club.rb
+lib/sportdb/sync/country.rb
+lib/sportdb/sync/event.rb
+lib/sportdb/sync/league.rb
+lib/sportdb/sync/season.rb
 lib/sportdb/sync/sync.rb
 lib/sportdb/sync/version.rb
 test/helper.rb
-test/test_sync.rb
+test/test_country.rb
+test/test_league.rb
+test/test_misc.rb

@@ -6,9 +6,6 @@ require 'worlddb/models'     # NOTE: include worlddb-models gem (not cli tools g
 require 'persondb/models'
 
 
-require 'sportdb/formats'  ## todo/fix: move all readers out-of-models AND than (finally) remove sportdb/formats dependency
-
-
 # our own code
 
 require 'sportdb/version'    # let version always go first
@@ -54,53 +51,14 @@ require 'sportdb/models/utils'   # e.g. GameCursor
 require 'sportdb/schema'       # NB: requires sportdb/models (include SportDB::Models)
 
 
-require 'sportdb/utils'
-require 'sportdb/utils_date'
-require 'sportdb/utils_group'
-require 'sportdb/utils_map'
-require 'sportdb/utils_round'
-require 'sportdb/utils_scores'
-require 'sportdb/utils_teams'
-require 'sportdb/utils_goals'
-require 'sportdb/matcher'
 require 'sportdb/calc'       # fix/todo: obsolete - replace w/ standings
 require 'sportdb/standings'
-
-
-require 'sportdb/readers/assoc'
-require 'sportdb/readers/event'           ## old event reader (remove later??)
-require 'sportdb/readers/event_table'     ## new "standard" event reader
-require 'sportdb/readers/event_meta'      ## new "standard" event reader for meta data
-require 'sportdb/readers/game'
-require 'sportdb/readers/ground'
-require 'sportdb/readers/league'
-require 'sportdb/readers/season'
-require 'sportdb/readers/squad_club'    # roster
-require 'sportdb/readers/squad_national_team'
-require 'sportdb/readers/team'
-require 'sportdb/reader'
-require 'sportdb/reader_file'
-require 'sportdb/reader_zip'
-
-require 'sportdb/indexers/team'
-
 
 require 'sportdb/deleter'
 require 'sportdb/stats'
 
-require 'sportdb/pretty_printer'
-
-## "simplified" match reader for rsssf-formated/style leagues
-require 'sportdb/rsssf_reader'
-
 
 module SportDb
-
-  def self.test_data_path
-    "#{root}/test/data"
-  end
-
-
 
   def self.create
     CreateDb.new.up
@@ -117,51 +75,11 @@ module SportDb
     SportDb.create
   end
 
-
-  def self.read_setup( setup, include_path )
-    reader = Reader.new( include_path )
-    reader.load_setup( setup )
-  end
-
-  def self.read_setup_from_zip( zip_name, setup, include_path, opts={} ) ## todo/check - use a better (shorter) name ??
-    reader = ZipReader.new( zip_name, include_path, opts )
-    reader.load_setup( setup )
-    reader.close
-  end
-
-  def self.read_all( include_path )   # convenience helper
-    read_setup( 'setups/all', include_path )
-  end
-
-  def self.read_builtin
-    puts "!! WARN - deprecated SportDb.read_builtin call - remove!! no longer in use; will get removed soon"
-  end
-
-
-  # load built-in (that is, bundled within the gem) named plain text seeds
-  # - pass in an array of pairs of event/seed names e.g.
-  #   [['at.2012/13', 'at/2012_13/bl'],
-  #    ['cl.2012/13', 'cl/2012_13/cl']] etc.
-
-  def self.read( ary, include_path )
-    reader = Reader.new( include_path )
-    ## todo: check kind_of?( Array ) or kind_of?(String) to support array or string
-    ary.each do |name|
-      reader.load( name )
-    end
-  end
-
-
   # delete ALL records (use with care!)
   def self.delete!
     puts '*** deleting sport table records/data...'
     Deleter.new.run
   end # method delete!
-
-  def self.update!
-    puts '*** update event fixtures...'
-    Updater.new.run
-  end
 
 
   def self.tables
@@ -226,14 +144,11 @@ module SportDb
     ActiveRecord::Base.logger = Logger.new( STDOUT )
     ## ActiveRecord::Base.colorize_logging = false  - no longer exists - check new api/config setting?
 
-    self.connect( adapter:  'sqlite3',
-                  database: ':memory:' )
+    connect( adapter:  'sqlite3',
+             database: ':memory:' )
 
     ## build schema
-    SportDb.create_all
-
-    ## read builtins - why? why not?
-    SportDb.read_builtin
+    create_all
   end # setup_in_memory_db (using SQLite :memory:)
 
 

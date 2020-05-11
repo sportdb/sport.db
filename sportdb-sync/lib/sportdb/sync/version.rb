@@ -4,8 +4,8 @@
 module SportDb
 module Sync
 
-  MAJOR = 0    ## todo: namespace inside version or something - why? why not??
-  MINOR = 1
+  MAJOR = 1    ## todo: namespace inside version or something - why? why not??
+  MINOR = 0
   PATCH = 0
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 

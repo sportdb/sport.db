@@ -3,7 +3,7 @@ module SportDb
 
   class Deleter
     ######
-    # NB: make models available in sportdb module by default with namespace
+    # note: make models available in sportdb module by default with namespace
     #  e.g. lets you use Team instead of Model::Team
     include SportDb::Models
 

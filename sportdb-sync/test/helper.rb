@@ -1,14 +1,7 @@
 ## note: use the local version of sportdb gems
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-countries/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-leagues/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-teams/lib' ))
-
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-match-formats/lib' ))
-
-$LOAD_PATH.unshift( File.expand_path( '../footballdb-leagues/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../footballdb-clubs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-config/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-models/lib' ))
 
 
 ## minitest setup

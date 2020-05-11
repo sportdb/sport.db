@@ -20,9 +20,7 @@ Hoe.spec 'sportdb-readers' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-config',  '>= 0.9.0'],
-    ['sportdb-models',  '>= 1.18.6'],
-    ['sportdb-sync',    '>= 0.1.0'],
+    ['sportdb-sync',    '>= 1.0.0'],
   ]
 
   self.spec_extras = {

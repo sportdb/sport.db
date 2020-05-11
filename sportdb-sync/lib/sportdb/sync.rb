@@ -1,10 +1,6 @@
 # encoding: utf-8
 
-
-## require 'sportdb/leagues'
-## require 'sportdb/teams'
 require 'sportdb/config'
-
 require 'sportdb/models'   ## add sql database support
 
 

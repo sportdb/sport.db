@@ -32,20 +32,20 @@ m[2].name; m[2].city; m[2].country
 #=> "Arsenal de Sarandí", "Sarandí", "Argentina"
 
 
-m = SportDb::Import.config.clubs.match_by( name: 'Arsenal', country: 'eng' )
+m = SportDb::Import.catalog.clubs.match_by( name: 'Arsenal', country: 'eng' )
 # -or- try alternative names (and auto-generated spelling variants)
-m = SportDb::Import.config.clubs.match_by( name: 'Arsenal FC', country: 'eng' )
-m = SportDb::Import.config.clubs.match_by( name: 'Arsenal F.C.', country: 'eng' )
-m = SportDb::Import.config.clubs.match_by( name: '...A.r.s.e.n.a.l... F.C...', country: 'eng' )
+m = SportDb::Import.catalog.clubs.match_by( name: 'Arsenal FC', country: 'eng' )
+m = SportDb::Import.catalog.clubs.match_by( name: 'Arsenal F.C.', country: 'eng' )
+m = SportDb::Import.catalog.clubs.match_by( name: '...A.r.s.e.n.a.l... F.C...', country: 'eng' )
 m.size     # 1 club match found
 #=> 1
 m[0].name; m[0].city; m[0].country
 #=> "Arsenal FC", "London", "England"
 
-m = SportDb::Import.config.clubs.match_by( name: 'Arsenal', country: 'ar' )
+m = SportDb::Import.catalog.clubs.match_by( name: 'Arsenal', country: 'ar' )
 # -or- try alternative names (and auto-generated spelling variants)
-m = SportDb::Import.config.clubs.match_by( name: 'Arsenal Sarandí', country: 'ar' )
-m = SportDb::Import.config.clubs.match_by( name: 'Arsenal Sarandi', country: 'ar' )
+m = SportDb::Import.catalog.clubs.match_by( name: 'Arsenal Sarandí', country: 'ar' )
+m = SportDb::Import.catalog.clubs.match_by( name: 'Arsenal Sarandi', country: 'ar' )
 m.size     # 1 club match found
 #=> 1
 m[0].name; m[0].city; m[0].country
@@ -53,15 +53,15 @@ m[0].name; m[0].city; m[0].country
 
 
 # try some more
-m = SportDb::Import.config.clubs.match( 'AZ' )
+m = SportDb::Import.catalog.clubs.match( 'AZ' )
 m[0].name; m[0].city; m[0].country
 #=> "AZ Alkmaar", "Alkmaar", "Netherlands"
 
-m = SportDb::Import.config.clubs.match( 'Bayern' )
+m = SportDb::Import.catalog.clubs.match( 'Bayern' )
 # -or- try alternative names (and auto-generated spelling variants)
-m = SportDb::Import.config.clubs.match( 'Bayern München' )
-m = SportDb::Import.config.clubs.match( 'Bayern Munchen' )
-m = SportDb::Import.config.clubs.match( 'Bayern Muenchen' )
+m = SportDb::Import.catalog.clubs.match( 'Bayern München' )
+m = SportDb::Import.catalog.clubs.match( 'Bayern Munchen' )
+m = SportDb::Import.catalog.clubs.match( 'Bayern Muenchen' )
 m[0].name; m[0].city; m[0].country
 #=> "Bayern München", "München", "Germany"
 
@@ -72,7 +72,7 @@ m[0].name; m[0].city; m[0].country
 Let's print all names that have duplicate (more than one) matching club:
 
 ``` ruby
-SportDb::Import.config.clubs.mappings.each do |name, clubs|
+SportDb::Import.catalog.clubs.mappings.each do |name, clubs|
   if clubs.size > 1
     puts "#{clubs.size} matching clubs for `#{name}`:"
     clubs.each do |club|

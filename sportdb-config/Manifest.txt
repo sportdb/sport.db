@@ -4,6 +4,7 @@ NOTES.md
 README.md
 Rakefile
 lib/sportdb/config.rb
+lib/sportdb/config/catalog.rb
 lib/sportdb/config/config.rb
 lib/sportdb/config/version.rb
 lib/sportdb/config/wiki_index.rb
@@ -11,4 +12,5 @@ test/helper.rb
 test/test_clubs.rb
 test/test_countries.rb
 test/test_leagues.rb
+test/test_national_teams.rb
 test/test_wiki_index.rb

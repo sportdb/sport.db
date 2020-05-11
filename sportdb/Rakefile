@@ -20,10 +20,7 @@ Hoe.spec 'sportdb' do
   self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
-    ['sportdb-models',     '>= 1.18.2'],
-    ['sportdb-readers',    '>= 0.3.7'],
-    ['footballdb-leagues', '>= 2019.11.22' ],     ## add minimum for datasets
-    ['footballdb-clubs',   '>= 2019.11.22' ],
+    ['sportdb-readers', '>= 1.0.0'],
 
     ['fetcher',  '>= 0.4.5'],    ## check if included already in datafil ??
     ['datafile', '>= 0.3.1'],

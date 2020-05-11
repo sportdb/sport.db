@@ -20,9 +20,8 @@ Hoe.spec 'sportdb-sync' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-clubs',   '>= 0.2.3'],
-    ['sportdb-leagues', '>= 0.2.1'],
-    ['sportdb-models',  '>= 1.18.2'],
+    ['sportdb-config',  '>= 1.0.1'],
+    ['sportdb-models',  '>= 1.19.0'],
   ]
 
   self.spec_extras = {

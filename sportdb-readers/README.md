@@ -151,7 +151,7 @@ Round, Date,              Team 1,               FT,  HT,  Team 2
 1,     (Sun) 11 Aug 2019, Manchester United FC, 4-0, 1-0, Chelsea FC
 ...
 ```
-(Source: [footballcsv/england/2019-20/eng.1.csv](https://github.com/footballcsv/england/blob/master/2010s/2019-20/eng.1.csv))
+(Source: [england/2019-20/eng.1.csv](https://github.com/footballcsv/england/blob/master/2010s/2019-20/eng.1.csv))
 
 Yes, you can. See the [sportdb-importers library / gem »](https://github.com/sportdb/sport.db/tree/master/sportdb-importers) 
 

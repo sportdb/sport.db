@@ -53,6 +53,8 @@ Matchday 1
 ...
 ```
 
+(Source: [england/2015-16/1-premierleague-i.txt](https://github.com/openfootball/england/blob/master/2015-16/1-premierleague-i.txt))
+
 and let's try:
 
 ``` ruby
@@ -151,7 +153,7 @@ Round, Date,              Team 1,               FT,  HT,  Team 2
 ```
 (Source: [footballcsv/england/2019-20/eng.1.csv](https://github.com/footballcsv/england/blob/master/2010s/2019-20/eng.1.csv))
 
-Yes, you can. See the [sportdb-importers library / gem »]](https://github.com/sportdb/sport.db/tree/master/sportdb-importers) 
+Yes, you can. See the [sportdb-importers library / gem »](https://github.com/sportdb/sport.db/tree/master/sportdb-importers) 
 
 
 

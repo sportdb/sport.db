@@ -25,7 +25,7 @@ class TestConfReader < MiniTest::Test
     # path = "../../../openfootball/england/2017-18/.conf.txt"
     # path = "../../../openfootball/england/2018-19/.conf.txt"
     # path = "../../../openfootball/england/2019-20/.conf.txt"
-    SportDb::ConfReaderV2.read( path )
+    SportDb::ConfReader.read( path )
   end  # method test_read
 
 
@@ -73,6 +73,6 @@ Monaco › MCO
 APOEL › CYP
 TXT
 
-    SportDb::ConfReaderV2.parse( txt )
+    SportDb::ConfReader.parse( txt )
   end
 end  # class TestConfReader

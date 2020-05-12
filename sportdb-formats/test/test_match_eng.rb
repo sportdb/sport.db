@@ -17,7 +17,7 @@ class TestMatchEng < MiniTest::Test
 
     start = Date.new( 2017, 7, 1 )
 
-    parser = SportDb::MatchParserSimpleV2.new( txt, teams, start )
+    parser = SportDb::MatchParser.new( txt, teams, start )
     matches, rounds  = parser.parse
 
     pp rounds

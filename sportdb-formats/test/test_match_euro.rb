@@ -17,7 +17,7 @@ class TestMatchEuro < MiniTest::Test
 
     SportDb::Import.config.lang = 'en'
 
-    parser = SportDb::MatchParserSimpleV2.new( txt, teams, start )
+    parser = SportDb::MatchParser.new( txt, teams, start )
     matches, rounds, groups  = parser.parse
 
     pp rounds

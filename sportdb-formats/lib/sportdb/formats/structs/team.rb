@@ -21,6 +21,13 @@ class Team
     [@name] + @alt_names
   end   ## all names
 
+  def key
+    ## note: auto-generate key "on-the-fly" if missing for now - why? why not?
+    ## note: quick hack - auto-generate key, that is, remove all non-ascii chars and downcase
+    @key || @name.downcase.gsub( /[^a-z]/, '' )
+  end
+
+
   ## special import only attribs
   attr_accessor :alt_names_auto    ## auto-generated alt names
   attr_accessor :wikipedia   # wikipedia page name (for english (en))

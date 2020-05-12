@@ -3,7 +3,7 @@
 module SportDb
 
 
-class ConfReaderV2    ## todo/check: rename to EventsReaderV2 (use plural?) why? why not?
+class ConfReader    ## todo/check: rename to EventsReaderV2 (use plural?) why? why not?
 
   def self.read( path, season: nil )   ## use - rename to read_file or from_file etc. - why? why not?
     txt = File.open( path, 'r:utf-8' ) {|f| f.read }
@@ -96,5 +96,5 @@ class ConfReaderV2    ## todo/check: rename to EventsReaderV2 (use plural?) why?
 
   def catalog() Import.catalog; end  ## shortcut convenience helper
 
-end # class ConfReaderV2
+end # class ConfReader
 end # module SportDb

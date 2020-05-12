@@ -49,7 +49,8 @@ module SportDb
         read_leagues()
         read_clubs()
         read_club_props()
-        read_conf( season: season )
+        ## note:  skip conf(iguration)s for now!!!!!!!
+        ## read_conf( season: season )
         read_match( season: season )
       else
         names.each do |name|

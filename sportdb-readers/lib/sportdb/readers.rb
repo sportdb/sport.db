@@ -16,12 +16,12 @@ require 'sportdb/readers/package'
 ##
 ##  add convenience shortcut helpers
 module SportDb
-  def self.read_conf( path, season: nil )  ConfReaderV2.read( path, season: season ); end
-  def self.parse_conf( txt, season: nil )  ConfReaderV2.parse( txt, season: season ); end
+  def self.read_conf( path, season: nil )  ConfReader.read( path, season: season ); end
+  def self.parse_conf( txt, season: nil )  ConfReader.parse( txt, season: season ); end
 
   ### todo/check: add alias read_matches - why? why not?
-  def self.read_match( path, season: nil )  MatchReaderV2.read( path, season: season ); end
-  def self.parse_match( txt, season: nil )  MatchReaderV2.parse( txt, season: season ); end
+  def self.read_match( path, season: nil )  MatchReader.read( path, season: season ); end
+  def self.parse_match( txt, season: nil )  MatchReader.parse( txt, season: season ); end
 
   def self.read_club_props( path )  Import::ClubPropsReader.read( path ); end
   def self.parse_club_props( txt )  Import::ClubPropsReader.parse( txt ); end

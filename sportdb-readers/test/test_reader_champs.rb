@@ -64,7 +64,7 @@ Monaco › MCO
 APOEL › CYP
 TXT
 
-    SportDb::ConfReaderV2.parse( txt )
+    SportDb::ConfReader.parse( txt )
 
 
 txt =<<TXT
@@ -180,7 +180,7 @@ Final
            [Benzema 51' Bale 64', 83'; Mané 55']
 TXT
 
-    SportDb::MatchReaderV2.parse( txt )
+    SportDb::MatchReader.parse( txt )
   end
 
 

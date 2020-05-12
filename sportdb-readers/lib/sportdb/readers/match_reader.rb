@@ -2,7 +2,7 @@
 
 module SportDb
 
-class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why? why not?
+class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? why not?
 
   def self.read( path, season: nil )   ## use - rename to read_file or from_file etc. - why? why not?
     txt = File.open( path, 'r:utf-8' ) {|f| f.read }
@@ -87,7 +87,7 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
        team_mapping =  auto_conf_teams.keys.zip( teams ).to_h
 
 
-      parser = MatchParserSimpleV2.new( lines,
+      parser = MatchParser.new( lines,
                                 team_mapping,
                                 start )   ## note: keep season start_at date for now (no need for more specific stage date need for now)
 
@@ -149,5 +149,5 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
 
   def catalog() Import.catalog; end
 
-end # class MatchReaderV2
+end # class MatchReader
 end # module SportDb

@@ -6,6 +6,9 @@
 require_relative 'boot'
 
 
+File.delete( './euro.db' )   if File.exist?( './euro.db' )
+
+
 SportDb.connect( adapter:  'sqlite3',
                  database: './euro.db' )
 SportDb.create_all   ## build schema

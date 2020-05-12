@@ -5,6 +5,7 @@
 
 require_relative 'boot'
 
+File.delete( './eng.db' )   if File.exist?( './eng.db' )
 
 SportDb.connect( adapter:  'sqlite3',
                  database: './eng.db' )

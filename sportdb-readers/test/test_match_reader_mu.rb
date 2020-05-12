@@ -91,7 +91,7 @@ Matchday 3
   AS Port-Louis 2000    1-0  La Cure Sylvester
 TXT
 
-    SportDb::MatchReaderV2.parse( txt )
+    SportDb::MatchReader.parse( txt )
   end  # method test_read_mauritius
 
 end  # class TestMatchReaderMu

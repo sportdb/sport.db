@@ -149,7 +149,7 @@ Final
 (51) Jul/10 21:00   Portugal     0:0 1:0nV        France            @ Stade de France, Saint-Denis
 TXT
 
-    SportDb::MatchReaderV2.parse( txt )
+    SportDb::MatchReader.parse( txt )
   end
 end  # class TestMatchReaderEuro
 

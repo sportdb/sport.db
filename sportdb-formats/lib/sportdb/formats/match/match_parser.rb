@@ -2,7 +2,7 @@
 
 module SportDb
 
-class MatchParserSimpleV2   ## simple match parser for team match schedules
+class MatchParser   ## simple match parser for team match schedules
 
   def self.parse( lines, teams, start: )
     ##  todo/fix: add support for txt and lines
@@ -655,5 +655,5 @@ class MatchParserSimpleV2   ## simple match parser for team match schedules
 
 
 
-end # class MatchParserSimpleV2
+end # class MatchParser
 end # module SportDb

@@ -2,13 +2,10 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
-lib/sportdb/import.rb
-lib/sportdb/import/finder_db_i.rb
-lib/sportdb/import/finder_db_ii.rb
-lib/sportdb/import/version.rb
+lib/sportdb/importers.rb
+lib/sportdb/importers/import.rb
+lib/sportdb/importers/version.rb
 test/helper.rb
-test/test_finder.rb
-test/test_finder_clubs.rb
-test/test_finder_countries.rb
+test/test_club.rb
 test/test_import.rb
 test/test_version.rb

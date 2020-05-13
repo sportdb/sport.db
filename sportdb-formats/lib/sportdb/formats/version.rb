@@ -2,6 +2,7 @@
 
 
 module SportDb
+  module Module
 module Formats
 
   MAJOR = 1    ## todo: namespace inside version or something - why? why not??
@@ -22,4 +23,5 @@ module Formats
   end
 
 end # module Formats
+end # module Module
 end # module SportDb

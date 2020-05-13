@@ -3,7 +3,7 @@ require './lib/sportdb/formats/version.rb'
 
 Hoe.spec 'sportdb-formats' do
 
-  self.version = SportDb::Formats::VERSION
+  self.version = SportDb::Module::Formats::VERSION
 
   self.summary = "sportdb-formats - sport.db format and text utilities"
   self.description = summary

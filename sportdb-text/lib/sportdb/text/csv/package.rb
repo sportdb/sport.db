@@ -2,10 +2,14 @@
 
 
 
+## todo/fix:
+##   merge CsvPackage into "regular" package - reuse (and don't duplicate)!!!!!!
+
+
+module SportDb
 class CsvPackage
 
   attr_reader :name, :path
-
 
   ##
   ## todo/fix: move filter out of c'tor and to an attribute accessor !!!!
@@ -258,3 +262,5 @@ class CsvPackage
   end # method find_entries_by_code_n_season_n_division
 
 end # class CsvPackage
+end # module SportDb
+

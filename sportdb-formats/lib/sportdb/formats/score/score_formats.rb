@@ -93,11 +93,50 @@ module ScoreFormats
              (?=[ \]]|$)/xi    ## todo/check:  remove loakahead assertion here - why require space?
                                ## note: \b works only after non-alphanum e.g. )
 
+
     #####
     #  deutsch / german helpers (penalty, extra time, ...)
     ## todo add more marker e.g. im Elf. or such!!!
     P_DE  =  '(?: ie | i\.e\.? )'     # e.g. iE, i.E., i.E etc.
     ET_DE =  '(?: nv | n\.v\.? )'     # e.g. nV, n.V., n.V etc.
+
+
+    ## support alternate all-in-one score e.g.
+    ##     i.E. 2:4, n.V. 3:3 (1:1, 1:1)  or
+    ##               n.V. 3:2 (2:2, 1:2)
+    DE__P_ET_FT_HT__RE = /\b
+                     (?:
+                     #{P_DE}
+                      [ ]*
+                     (?<score1p>\d{1,2})
+                      [ ]* : [ ]*
+                     (?<score2p>\d{1,2})
+                      [ ]* (?:, [ ]*)?
+                     )?   # note: make penalty (P) score optional for now
+                      #{ET_DE}
+                      [ ]*
+                     (?<score1et>\d{1,2})
+                      [ ]* : [ ]*
+                     (?<score2et>\d{1,2})
+                      [ ]*
+                    \(
+                 [ ]*
+             (?<score1>\d{1,2})
+                  [ ]* : [ ]*
+             (?<score2>\d{1,2})
+                  [ ]*
+               (?:
+                   , [ ]*
+                   (?:
+                    (?<score1i>\d{1,2})
+                      [ ]* : [ ]*
+                    (?<score2i>\d{1,2})
+                      [ ]*
+                   )?
+               )?    # note: make half time (HT) score optional for now
+             \)
+            (?=[ \]]|$)
+              /xi
 
     ## support all-in-one "literal form e.g.
     #  2:2 (1:1, 1:0) n.V. 5:1 i.E.   or
@@ -168,7 +207,8 @@ FORMATS_EN = [
 ]
 
 FORMATS_DE = [
-  [ DE__ET_FT_HT_P__RE, '[SCORE.DE__ET_(FT_HT?)_P?]' ], # e.g.  2:2 (1:1, 1:0) n.V. 5:1 i.E.
+  [ DE__ET_FT_HT_P__RE, '[SCORE.DE__ET_(FT_HT?)_P?]' ], # e.g. 2:2 (1:1, 1:0) n.V. 5:1 i.E.
+  [ DE__P_ET_FT_HT__RE, '[SCORE.DE__P?_ET_(FT_HT?)]' ], # e.g. i.E. 2:4, n.V. 3:3 (1:1, 1:1)
   [ DE__FT_HT__RE,      '[SCORE.DE__FT_(HT)?]'       ], # e.g. 1:1 (1:0)
 ]
 

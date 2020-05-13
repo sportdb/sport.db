@@ -40,4 +40,4 @@ require 'sportdb/text/txt/writer.rb'
 
 
 
-puts SportDb::Text.banner   # say hello
+puts SportDb::Module::Text.banner   # say hello

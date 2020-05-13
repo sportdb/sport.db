@@ -15,7 +15,7 @@ FOOTBALLCSV_PATH  = '../../../footballcsv'
 path = "#{FOOTBALLCSV_PATH}/england"
 # path = "#{FOOTBALLCSV_PATH}/austria"
 
-pack = CsvPackage.new( path )
+pack = SportDb::CsvPackage.new( path )
 entries = pack.find_entries_by_code_n_season_n_division
 
 puts "entries_by_code_n_season_n_division:"

@@ -20,8 +20,8 @@ FOOTBALLCSV_PATH  = '../../../footballcsv'
 # path = "#{FOOTBALLCSV_PATH}/england"
 path = "#{FOOTBALLCSV_PATH}/austria"
 
-pack = CsvPackage.new( path )
-pack.import
+pack = SportDb::CsvPackage.new( path )
+pack.read
 
 
 puts "bye"

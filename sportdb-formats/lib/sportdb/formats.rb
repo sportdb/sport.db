@@ -147,4 +147,4 @@ end   # module SportDb
 
 
 
-puts SportDb::Formats.banner   # say hello
+puts SportDb::Module::Formats.banner   # say hello

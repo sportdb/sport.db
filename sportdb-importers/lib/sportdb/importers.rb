@@ -12,10 +12,11 @@ require 'sportdb/importers/version' # let version always go first
 require 'sportdb/importers/import'
 
 
+module SportDb
 class CsvPackage
   ## (re)open class - note: adds more machinery; see sportdb-text for first/original/base definition
 
-def import( start: nil )
+def read( start: nil )    ### todo/fix - rename to read_csv !!!!!!
   ## start - season e.g. 1993/94 to start (skip older seasons)
   ## note: assume package holds country/national (club) league
   #  use for importing german bundesliga, english premier league, etc.
@@ -64,5 +65,16 @@ end # method import
 end  # class CsvPackage
 
 
+############
+#  add convenience shortcut helper
+def self.read_csv( path )
+  CsvPackage.new( path ).read
+end
 
-puts SportDb::Importers.banner   # say hello
+end  # module SportDb
+
+
+
+
+
+puts SportDb::Module::Importers.banner   # say hello

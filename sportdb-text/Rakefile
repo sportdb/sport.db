@@ -3,7 +3,7 @@ require './lib/sportdb/text/version.rb'
 
 Hoe.spec 'sportdb-text' do
 
-  self.version = SportDb::Text::VERSION
+  self.version = SportDb::Module::Text::VERSION
 
   self.summary = "sportdb-text - tools 'n' scripts for sports (football) data in text incl. comma-separated values (csv) format"
   self.description = summary
@@ -20,7 +20,7 @@ Hoe.spec 'sportdb-text' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-config', '>= 0.8.0'],
+    ['sportdb-config', '>= 1.0.2'],
   ]
 
   self.spec_extras = {

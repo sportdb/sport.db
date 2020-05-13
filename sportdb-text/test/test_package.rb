@@ -14,7 +14,7 @@ class TestPackage < MiniTest::Test
     root_path = "#{SportDb::Test.data_dir}/packages/test-levels"
 
     ## check should NOT include /1980s  (with s)  only /1980 /1981 etc.
-    season_patterns = CsvPackage::SEASON_PATTERNS
+    season_patterns = SportDb::CsvPackage::SEASON_PATTERNS
 
     season_paths = Dir.glob( "#{root_path}/**/{#{season_patterns.join(',')}}" )
 
@@ -26,7 +26,7 @@ class TestPackage < MiniTest::Test
   def test_package
     path = "#{SportDb::Test.data_dir}/packages/test-levels"
 
-    pack = CsvPackage.new( path )
+    pack = SportDb::CsvPackage.new( path )
 
     pp pack.find_entries_by_season_dir
 

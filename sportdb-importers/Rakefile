@@ -3,7 +3,7 @@ require './lib/sportdb/importers/version.rb'
 
 Hoe.spec 'sportdb-importers' do
 
-  self.version = SportDb::Importers::VERSION
+  self.version = SportDb::Module::Importers::VERSION
 
   self.summary = "sportdb-importers - tools 'n' scripts for importing sports (football) data in alternate (text) formats incl. comma-separated values (csv) format"
   self.description = summary

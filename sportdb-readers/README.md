@@ -106,7 +106,7 @@ pl.seasons.count   #=> 2
 ```
 
 Bonus: As an alternative pass in the "package" directory or a zip archive and let `read` figure
-out to read in all datafiles:
+out what datafiles to read in:
 
 ``` ruby
 ## assumes football.db datasets for England in ./england directory

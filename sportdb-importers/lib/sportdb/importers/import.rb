@@ -1,6 +1,8 @@
 
 ## todo/fix: rename to CsvEventImporter or EventImporter  !!! returns Event!!
-class CsvEventImporter    ## todo/fix/check: rename to CsvMatchReader and CsvMatchReader to CsvMatchParser - why? why not?
+## todo/fix/check: rename to CsvMatchReader and CsvMatchReader to CsvMatchParser - why? why not?
+
+class CsvEventImporter
 
   def self.read( path, league:, season:,
                        headers: nil )

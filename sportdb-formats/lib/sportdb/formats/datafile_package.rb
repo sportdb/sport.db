@@ -30,7 +30,7 @@ class Entry
     @name = path[ pack.path.length+1..-1 ]
   end
   def name()  @name; end
-  def read()  File.open( @path, 'r:utf-8' ).read; end
+  def read()  File.open( @path, 'r:utf-8' ) {|f| f.read }; end
 end  # class DirPackage::Entry
 
 
@@ -44,17 +44,20 @@ end  # class DirPackage::Entry
     @name = basename
   end
 
-  def each( pattern:,  extension: 'txt' )    ## todo/check: rename to glob or something - why? why not?
+  ## todo/check:  change pattern: to re:  - why? why not?
+  def each( pattern: )    ## todo/check: rename to glob or something - why? why not?
     ##   use just .* for extension or remove and check if File.file? and skip File.directory? - why? why not?
     ## note: incl. files starting with dot (.)) as candidates (normally excluded with just *)
-    Dir.glob( "#{@path}/**/{*,.*}.#{extension}" ).each do |path|
-      ## todo/fix: (auto) skip and check for directories
-      if EXCLUDE_RE.match( path )
-        ## note: skip dot dirs (e.g. .build/, .git/, etc.)
+    ##   todo/check/fix:   is there a better (simpler) glob pattern?  yes? no?
+    Dir.glob( "#{@path}/**/{*,.*}.*" ).each do |path|
+      if File.directory?( path )
+         ## always skip directories / folders
+      elsif EXCLUDE_RE.match( path )
+         ## note: skip dot dirs (e.g. .build/, .git/, etc.)
       elsif pattern.match( path )
         yield( Entry.new( self, path ))
       else
-        ## puts "  skipping >#{path}<"
+         ## puts "  skipping >#{path}<"
       end
     end
   end

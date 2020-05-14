@@ -1,6 +1,6 @@
 ##
-#  use
-#   $ ruby -I ./lib script/import_package.rb
+#  to run use:
+#    ruby -I ./lib script/import_package.rb
 
 
 require_relative 'boot'
@@ -20,8 +20,8 @@ FOOTBALLCSV_PATH  = '../../../footballcsv'
 # path = "#{FOOTBALLCSV_PATH}/england"
 path = "#{FOOTBALLCSV_PATH}/austria"
 
-pack = SportDb::CsvPackage.new( path )
-pack.read
+pack = SportDb::Package.new( path )
+pack.read_csv
 
 
 puts "bye"

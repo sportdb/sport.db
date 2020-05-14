@@ -13,48 +13,28 @@ require 'sportdb/importers/import'
 
 
 module SportDb
-class CsvPackage
+class Package
   ## (re)open class - note: adds more machinery; see sportdb-text for first/original/base definition
 
-def read( start: nil )    ### todo/fix - rename to read_csv !!!!!!
+def read_csv( start: nil )    ### todo/fix - rename to read_csv !!!!!!
   ## start - season e.g. 1993/94 to start (skip older seasons)
   ## note: assume package holds country/national (club) league
   #  use for importing german bundesliga, english premier league, etc.
 
-  entries = find_entries_by_season
-  pp entries
-
-  entries.each_with_index do |(season_key, datafiles),i|
-
+  match_by_season( format: 'csv', start: start ).each_with_index do |(season_key, entries),i|
     puts "season [#{i+1}] >#{season_key}<:"
 
-    ##  todo/fix: use a "generic" filter_season helper for easy reuse
-    ##     filter_season( clause, season_key )
-    ##   or better filter = SeasonFilter.new( clause )
-    ##             filter.skip? filter.include? ( season_sason_key )?
-    ##             fiteer.before?( season_key )  etc.
-    ##              find some good method names!!!!
-    if start
-      start_year        = start[0..3].to_i
-      season_start_year = season_key[0..3].to_i
-      if season_start_year < start_year
-        puts "skip #{season_start_year} before #{start_year}"
-        next
-      end
-    end
-
-    datafiles.each do |datafile,j|
-      path = expand_path( datafile )
+    entries.each do |entry,j|
       ## note: assume datafile basename (without extension) is the league key
       ##  e.g. eng.1, eng.3a, eng.3b, at.1, champs, world, etc.
-      league_key = File.basename( datafile, File.extname( datafile ) )  ## get basename WITHOUT extension
+      league_key = File.basename( entry.name, File.extname( entry.name ) )  ## get basename WITHOUT extension
 
-      pp [path, season_key, league_key]
+      pp [entry.name, season_key, league_key]
 
-      event = CsvEventImporter.read( path, league:  league_key,
-                                           season:  season_key )
+      event = CsvEventImporter.parse( entry.read, league:  league_key,
+                                                  season:  season_key )
 
-      puts "added #{event.title}"
+      puts "added #{event.title} - from source >#{entry.name}<"
       puts "  #{event.teams.size} teams"
       puts "  #{event.rounds.size} rounds"
       puts "  #{event.games.size} games"
@@ -62,13 +42,13 @@ def read( start: nil )    ### todo/fix - rename to read_csv !!!!!!
   end # each season
 end # method import
 
-end  # class CsvPackage
+end  # class ackage
 
 
 ############
 #  add convenience shortcut helper
 def self.read_csv( path )
-  CsvPackage.new( path ).read
+  Package.new( path ).read_csv
 end
 
 end  # module SportDb

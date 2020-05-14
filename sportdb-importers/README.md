@@ -52,12 +52,9 @@ for England, use:
 ``` ruby
 ## note: requires a local copy of the football.csv england datasets
 ##          see https://github.com/footballcsv/england
-pack = SportDb::CsvPackage.new( './england' )
-pack.read
-
-# -or-
-
 SportDb.read_csv( './england' )
+# or use a zip archive
+SportDb.read_csv( './england.zip' )
 ```
 
 That's it.

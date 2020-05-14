@@ -2,6 +2,9 @@
 module SportDb
   class Package
 
+    ## todo/fix:   make all regexes case-insensitive with /i option - why? why not?
+    ##                e.g. .TXT and .txt
+
     CONF_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
         \.conf\.txt$
     }x
@@ -26,13 +29,32 @@ module SportDb
         clubs\.props\.txt$
     }x
 
+
+    ### season folder:
+    ##            e.g. /2019-20   or
+    ##  year-only e.g. /2019      or
+    ##                 /2016--france
+    SEASON_RE = %r{ (?:
+                       \d{4}-\d{2}
+                     | \d{4}(--[^/]+)?
+                    )
+                  }x
+    SEASON = SEASON_RE.source    ## "inline" helper for embedding in other regexes - keep? why? why not?
+
+
     ## note: if pattern includes directory add here
     ##     (otherwise move to more "generic" datafile) - why? why not?
-    MATCH_RE = %r{ /(?: \d{4}-\d{2}        ## season folder e.g. /2019-20
-                      | \d{4}(--[^/]+)?    ## season year-only folder e.g. /2019 or /2016--france
-                    )
-                   /[a-z0-9_-]+\.txt$  ## txt e.g /1-premierleague.txt
+    MATCH_RE = %r{ (?: ^|/ )      # beginning (^) or beginning of path (/)
+                       #{SEASON}
+                     /[a-z0-9_-]+\.txt$  ## txt e.g /1-premierleague.txt
                 }x
+
+    MATCH_CSV_RE = %r{ (?: ^|/ )      # beginning (^) or beginning of path (/)
+                         #{SEASON}
+                       /[a-z0-9_.-]+\.csv$  ## note: allow dot (.) too e.g /eng.1.csv
+                    }x
+
+
 
     ## move class-level "static" finders to DirPackage (do NOT work for now for zip packages) - why? why not?
 
@@ -41,7 +63,7 @@ module SportDb
 
       ## check all txt files
       ## note: incl. files starting with dot (.)) as candidates (normally excluded with just *)
-      candidates = Dir.glob( "#{path}/**/{*,.*}.txt" )
+      candidates = Dir.glob( "#{path}/**/{*,.*}.*" )
       pp candidates
       candidates.each do |candidate|
         datafiles << candidate    if pattern.match( candidate )
@@ -65,6 +87,15 @@ module SportDb
 
    def self.find_conf( path, pattern: CONF_RE )  find( path, pattern ); end
    def self.match_conf( path )  CONF_RE.match( path ); end
+
+   def self.find_match( path, format: 'txt' )
+      if format == 'csv'
+        find( path, MATCH_CSV_RE )
+      else  ## otherwise always assume txt for now
+        find( path, MATCH_RE )
+      end
+   end
+   ## add match_match and match_match_csv  - why? why not?
 
    class << self
      alias_method :match_clubs?, :match_clubs
@@ -149,7 +180,14 @@ module SportDb
     end
 
     def each_conf( &blk )       each( pattern: CONF_RE, &blk ); end
-    def each_match( &blk )      each( pattern: MATCH_RE, &blk ); end
+    def each_match( format: 'txt', &blk )
+      if format == 'csv'
+         each( pattern: MATCH_CSV_RE, &blk );
+      else
+         each( pattern: MATCH_RE, &blk );
+      end
+    end
+    def each_match_csv( &blk )  each( pattern: MATCH_CSV_RE, &blk ); end
     def each_club_props( &blk ) each( pattern: CLUB_PROPS_RE, &blk ); end
 
     def each_leagues( &blk )    each( pattern: LEAGUES_RE, &blk ); end
@@ -157,8 +195,117 @@ module SportDb
     def each_clubs_wiki( &blk ) each( pattern: CLUBS_WIKI_RE, &blk ); end
 
     ## return all match datafile entries
-    def match()  ary=[]; each_match {|entry| ary << entry  }; ary; end
+    def match( format: 'txt' )
+      ary=[]; each_match( format: format ) {|entry| ary << entry  }; ary;
+    end
     alias_method :matches, :match
+
+
+    SEASON_DIR_RE = %r{^
+                      (?: .+
+                        /
+                      )?    ## optional leading dirs
+                     (?<season>#{SEASON})
+                     (?=/)    ## note: MUST be follow by slash (/)
+                    }x
+
+    ## todo/check:  rename/change to match_by_dir - why? why not?
+    ##  still in use somewhere? move to attic? use match_by_season and delete by_season_dir? - why? why not?
+    def match_by_season_dir( format: 'txt' )
+      ##
+      ## [["1950s/1956-57",
+      ##    ["1950s/1956-57/1-division1.csv",
+      ##     "1950s/1956-57/2-division2.csv",
+      ##     "1950s/1956-57/3a-division3n.csv",
+      ##     "1950s/1956-57/3b-division3s.csv"]],
+      ##   ...]
+
+      h = {}
+      match( format: format ).each do |entry|
+        if m=SEASON_DIR_RE.match( entry.name )
+          h[ m[0] ] ||= []
+          h[ m[0] ] << entry
+        else
+          puts "!! ERROR: season match expected in entry name:"
+          pp entry
+          exit 1
+        end
+      end
+
+      ##  todo/fix:  - add sort entries by name - why? why not?
+      ## note: assume 1-,2- etc. gets us back sorted leagues
+      ##  - use sort. (will not sort by default?)
+
+      h.to_a    ## return as array (or keep hash) - why? why not?
+    end # method match_by_season_dir
+
+    def match_by_season( format: 'txt', start: nil )   ## change entries to datafile - why? why not?
+
+      ## todo/note: in the future - season might be anything (e.g. part of a filename and NOT a directory) - why? why not?
+
+      ##  note: fold all sames seasons (even if in different directories)
+      ##     into same datafile list e.g.
+      ##   ["1957/58",
+      ##     ["1950s/1957-58/1-division1.csv",
+      ##      "1950s/1957-58/2-division2.csv",
+      ##      "1950s/1957-58/3a-division3n.csv",
+      ##      "1950s/1957-58/3b-division3s.csv"]],
+      ## and
+      ##   ["1957/58",
+      ##      ["archives/1950s/1957-58/1-division1.csv",
+      ##       "archives/1950s/1957-58/2-division2.csv",
+      ##       "archives/1950s/1957-58/3a-division3n.csv",
+      ##       "archives/1950s/1957-58/3b-division3s.csv"]],
+      ##  should be together - why? why not?
+
+      ####
+      # Example package:
+      # [["2012/13", ["2012-13/1-proleague.csv"]],
+      #  ["2013/14", ["2013-14/1-proleague.csv"]],
+      #  ["2014/15", ["2014-15/1-proleague.csv"]],
+      #  ["2015/16", ["2015-16/1-proleague.csv"]],
+      #  ["2016/17", ["2016-17/1-proleague.csv"]],
+      #  ["2017/18", ["2017-18/1-proleague.csv"]]]
+
+      ## todo/fix:  (re)use a more generic filter instead of start for start of season only
+
+      ##  todo/fix: use a "generic" filter_season helper for easy reuse
+      ##     filter_season( clause, season_key )
+      ##   or better filter = SeasonFilter.new( clause )
+      ##             filter.skip? filter.include? ( season_sason_key )?
+      ##             fiteer.before?( season_key )  etc.
+      ##              find some good method names!!!!
+      season_start = start ? Import::Season.new( start ) : nil
+
+      h = {}
+      match( format: format ).each do |entry|
+        if m=SEASON_DIR_RE.match( entry.name )
+          ## note: do NOT use complete path/match only captured season e.g. m[:season]
+          season = Import::Season.new( m[:season] )  ## normalize season
+
+          ## skip if start season before this season
+          next if season_start && season_start.start_year > season.start_year
+
+          h[ season.key ] ||= []
+          h[ season.key ] << entry
+        else
+          puts "!! ERROR: season match expected in entry name:"
+          pp entry
+          exit 1
+        end
+      end
+
+      ##  todo/fix:  - add sort entries by name - why? why not?
+      ## note: assume 1-,2- etc. gets us back sorted leagues
+      ##  - use sort. (will not sort by default?)
+
+      ## sort by season
+      ##   latest / newest first (and oldest last)
+
+      h.to_a.sort do |l,r|    ## return as array (or keep hash) - why? why not?
+        r[0] <=> l[0]
+      end
+    end # method match_by_season
   end   # class Package
 
 

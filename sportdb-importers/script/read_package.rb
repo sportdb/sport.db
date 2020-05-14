@@ -1,6 +1,6 @@
 ##
-#  use
-#   $ ruby -I ./lib script/read_package.rb
+#  to run use:
+#    ruby -I ./lib script/read_package.rb
 
 
 require_relative 'boot'
@@ -15,20 +15,12 @@ FOOTBALLCSV_PATH  = '../../../footballcsv'
 path = "#{FOOTBALLCSV_PATH}/england"
 # path = "#{FOOTBALLCSV_PATH}/austria"
 
-pack = SportDb::CsvPackage.new( path )
-entries = pack.find_entries_by_code_n_season_n_division
+pack = SportDb::Package.new( path )
 
-puts "entries_by_code_n_season_n_division:"
-pp entries
-
-entries = pack.find_entries_by_season
-puts "entries_by_season:"
-pp entries
-
-entries.each do |season, datafiles|
-  puts "season #{season} - #{datafiles.size} datafiles:"
-  datafiles.each do |datafile|
-    basename = File.basename( datafile, File.extname( datafile ) )  ## get basename WITHOUT extension
+pack.match_by_season( format: 'csv' ).each do |season, entries|
+  puts "season #{season} - #{entries.size} entries:"
+  entries.each do |entry|
+    basename = File.basename( entry.name, File.extname( entry.name ) )  ## get basename WITHOUT extension
     leagues = LEAGUES.match( basename )
     if leagues.nil? || leagues.empty?
       puts "!!  #{basename}"

@@ -7,40 +7,72 @@
 
 require 'helper'
 
-
 class TestPackage < MiniTest::Test
 
-  def test_read
-    [Datafile::DirPackage.new( '../../../openfootball/england' ),
-     Datafile::ZipPackage.new( 'tmp/england-master.zip' )
-    ].each do |eng|
-       assert eng.find( '2015-16/.conf.txt' ).read.start_with?( '= English Premier League 2015/16' )
-       assert eng.find( '2017-18/.conf.txt' ).read.start_with?( '= English Premier League 2017/18' )
-       assert eng.find( '2015-16/1-premierleague-i.txt' ).read.start_with?( '= English Premier League 2015/16' )
+  AUSTRIA_DIR     = '../../../openfootball/austria'
+  AUSTRIA_CSV_DIR = '../../../footballcsv/austria'
+
+  ENGLAND_DIR     = '../../../openfootball/england'
+  ENGLAND_CSV_DIR = '../../../footballcsv/england'
+
+
+  def test_match_by
+
+    [ AUSTRIA_CSV_DIR,
+      ENGLAND_CSV_DIR,
+      "#{SportDb::Test.data_dir}/packages/test-levels",
+    ].each do |path|
+      puts
+      puts "match (csv) in #{path}:"
+      pack = SportDb::Package.new( path )
+      pp pack.match_by_season_dir( format: 'csv' )
+      puts "---"
+      pp pack.match_by_season( format: 'csv' )
     end
 
-    [Datafile::DirPackage.new( '../../../openfootball/austria' ),
-     Datafile::ZipPackage.new( 'tmp/austria-master.zip' )
-    ].each do |at|
-       assert at.find( '2018-19/.conf.txt' ).read.start_with?( '= Österr. Bundesliga 2018/19' )
+    [ AUSTRIA_DIR,
+      ENGLAND_DIR,
+      "#{SportDb::Test.data_dir}/packages/test-levels",
+    ].each do |path|
+      puts
+      puts "match (txt) in #{path}:"
+      pack = SportDb::Package.new( path )
+      pp pack.match_by_season_dir
+      puts "---"
+      pp pack.match_by_season( start: '2000' )   ## note: try with start season filter!!
     end
+  end
 
-    puts "DirPackage:"
-    pack = Datafile::DirPackage.new( '../../../openfootball/austria' )
-    puts pack.name
-    puts "  entries:"
-    pack.each( pattern: /\.txt$/ ) do |entry|
-      puts entry.name
-    end
 
-    puts "ZipPackage:"
-    pack = Datafile::ZipPackage.new( 'tmp/austria-master.zip' )
-    puts pack.name
-    puts "  entries:"
-    pack.each( pattern: /\.txt$/ ) do |entry|
-      puts entry.name
-    end
+  CLUBS_DIR   = '../../../openfootball/clubs'    ## source repo directory path
+  LEAGUES_DIR = '../../../openfootball/leagues'
 
-  end  # method test_read
+  def test_bundle
+    datafiles = SportDb::Package.find_clubs( CLUBS_DIR )
+    pp datafiles
 
-end  # class TestPackage
+    ## todo/fix: turn into Datafile::Bundle.new  and Bundle#write/save -why? why not?
+    bundle = Datafile::Bundle.new( './tmp/clubs.txt' )
+    bundle.write <<TXT
+##########################################
+# auto-generated all-in-one single datafile clubs.txt bundle
+#    on #{Time.now} from #{datafiles.size} datafile(s)
+TXT
+    bundle.write datafiles
+    bundle.close
+  end
+
+  def test_bundle_old
+    datafiles = SportDb::Package.find_leagues( LEAGUES_DIR )
+    pp datafiles
+
+    Datafile.write_bundle( './tmp/leagues.txt',
+                           datafiles: datafiles,
+                           header: <<TXT )
+##########################################
+# auto-generated all-in-one single datafile leagues.txt bundle
+#    on #{Time.now} from #{datafiles.size} datafile(s)
+TXT
+  end
+
+end # class TestPackage

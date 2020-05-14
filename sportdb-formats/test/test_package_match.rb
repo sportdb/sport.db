@@ -9,9 +9,12 @@ require 'helper'
 
 class TestPackageMatch < MiniTest::Test
 
-  CLUBS_DIR   = '../../../openfootball/clubs'    ## source repo directory path
-  LEAGUES_DIR = '../../../openfootball/leagues'
-  AUSTRIA_DIR = '../../../openfootball/austria'
+  CLUBS_DIR       = '../../../openfootball/clubs'    ## source repo directory path
+  LEAGUES_DIR     = '../../../openfootball/leagues'
+  AUSTRIA_DIR     = '../../../openfootball/austria'
+
+  AUSTRIA_CSV_DIR = '../../../footballcsv/austria'
+
 
   def test_find
     datafiles = SportDb::Package.find_clubs( CLUBS_DIR )
@@ -24,6 +27,27 @@ class TestPackageMatch < MiniTest::Test
     pp datafiles
 
     datafiles = SportDb::Package.find_conf( AUSTRIA_DIR )
+    pp datafiles
+
+    datafiles = SportDb::Package.find_match( AUSTRIA_DIR )
+    puts
+    puts "== find_match (in #{AUSTRIA_DIR}) - found #{datafiles.size}:"
+    pp datafiles
+
+    datafiles = SportDb::Package.find_match( AUSTRIA_CSV_DIR )
+    puts
+    puts "== find_match (in #{AUSTRIA_CSV_DIR}) - found #{datafiles.size}:"
+    pp datafiles
+
+
+    datafiles = SportDb::Package.find_match( AUSTRIA_DIR, format: 'csv' )
+    puts
+    puts "== find_match+csv (in #{AUSTRIA_DIR}) - found #{datafiles.size}:"
+    pp datafiles
+
+    datafiles = SportDb::Package.find_match( AUSTRIA_CSV_DIR, format: 'csv' )
+    puts
+    puts "== find_match+csv (in #{AUSTRIA_CSV_DIR}) - found #{datafiles.size}:"
     pp datafiles
   end
 

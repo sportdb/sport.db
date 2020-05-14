@@ -53,7 +53,7 @@ for England, use:
 ## note: requires a local copy of the football.csv england datasets
 ##          see https://github.com/footballcsv/england
 SportDb.read_csv( './england' )
-# or use a zip archive
+# -or-    use a zip archive
 SportDb.read_csv( './england.zip' )
 ```
 

@@ -60,11 +60,11 @@ and let's try:
 ``` ruby
 ## assumes football.db datasets for England in ./england directory
 ##   see github.com/openfootball/england
-SportDb::MatchReader.read( './england/2015-16/1-premierleague-i.txt' )
-SportDb::MatchReader.read( './england/2015-16/1-premierleague-ii.txt' )
+SportDb.read( './england/2015-16/1-premierleague-i.txt' )
+SportDb.read( './england/2015-16/1-premierleague-ii.txt' )
 
 ## let's try another season
-SportDb::MatchReader.read( './england/2019-20/1-premierleague.txt' )
+SportDb.read( './england/2019-20/1-premierleague.txt' )
 ```
 
 All leagues, seasons, clubs, match days and rounds, match fixtures and results,
@@ -105,22 +105,8 @@ pl.seasons.count   #=> 2
 # and so on and so forth.
 ```
 
-
-
-Or as an alternative use the `read` convenience all-in-one shortcut helper:
-
-``` ruby
-## assumes football.db datasets for England in ./england directory
-##   see github.com/openfootball/england
-SportDb.read( './england/2015-16/1-premierleague-i.txt' )
-SportDb.read( './england/2015-16/1-premierleague-ii.txt' )
-
-## let's try another season
-SportDb.read( './england/2019-20/1-premierleague.txt' )
-```
-
-Bonus: Or as an alternative pass in the "package" directory or a zip archive and let `read` figure
-out what datafiles to read:
+Bonus: As an alternative pass in the "package" directory or a zip archive and let `read` figure
+out to read in all datafiles:
 
 ``` ruby
 ## assumes football.db datasets for England in ./england directory

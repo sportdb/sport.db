@@ -1,4 +1,4 @@
-# sportdb-importers - tools 'n' scripts for importing sports (football) data in alternate (text) formats incl. comma-separated values (csv) format"
+# sportdb-importers - tools 'n' scripts for importing sports (football) data in alternate (text) formats incl. comma-separated values (csv) format
 
 
 * home  :: [github.com/sportdb/sport.db](https://github.com/sportdb/sport.db)

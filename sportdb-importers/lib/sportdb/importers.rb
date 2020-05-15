@@ -42,18 +42,35 @@ def read_csv( start: nil )    ### todo/fix - rename to read_csv !!!!!!
   end # each season
 end # method import
 
-end  # class ackage
+end  # class Package
+
 
 
 ############
 #  add convenience shortcut helper
 def self.read_csv( path )
-  Package.new( path ).read_csv
+  if File.directory?( path )          ## if directory assume "unzipped" package
+    DirPackage.new( path ).read_csv
+  elsif File.file?( path ) && File.extname( path ) == '.zip'   ## check if file is a .zip (archive) file
+    ZipPackage.new( path ).read_csv
+  else                                ## no package; assume single (standalone) datafile
+    ## assume single (free-standing) file
+    full_path = File.expand_path( path )   ## resolve/make path absolute
+    ## 1) assume basename is the league key
+    ## 2) assume last directory is the season key
+    league_key = File.basename( full_path, File.extname( full_path ) )  ## get basename WITHOUT extension
+    season_key = File.basename( File.dirname( full_path ) )
+
+    event = CsvEventImporter.read( full_path, league: league_key,
+                                              season: season_key )
+
+    puts "added #{event.title} - from source >#{path}<"
+    puts "  #{event.teams.size} teams"
+    puts "  #{event.rounds.size} rounds"
+    puts "  #{event.games.size} games"
+  end
 end
-
 end  # module SportDb
-
-
 
 
 

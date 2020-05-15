@@ -16,12 +16,14 @@ puts
 
 FOOTBALLCSV_PATH  = '../../../footballcsv'
 
-# path = "#{FOOTBALLCSV_PATH}/europe-champions-league"
-# path = "#{FOOTBALLCSV_PATH}/england"
-path = "#{FOOTBALLCSV_PATH}/austria"
+CHAMPS_PATH  = "#{FOOTBALLCSV_PATH}/europe-champions-league"
+ENGLAND_PATH = "#{FOOTBALLCSV_PATH}/england"
+AUSTRIA_PATH = "#{FOOTBALLCSV_PATH}/austria"
 
-pack = SportDb::Package.new( path )
-pack.read_csv
+# path = AUSTRIA_PATH
+# SportDb.read_csv( path )
 
+SportDb.read_csv( "#{AUSTRIA_PATH}/2012-13/at.1.csv" )
+SportDb.read_csv( "#{AUSTRIA_PATH}/2013-14/at.1.csv" )
 
 puts "bye"

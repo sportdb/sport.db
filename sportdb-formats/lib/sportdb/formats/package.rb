@@ -201,14 +201,6 @@ module SportDb
     alias_method :matches, :match
 
 
-    SEASON_DIR_RE = %r{^
-                      (?: .+
-                        /
-                      )?    ## optional leading dirs
-                     (?<season>#{SEASON})
-                     (?=/)    ## note: MUST be follow by slash (/)
-                    }x
-
     ## todo/check:  rename/change to match_by_dir - why? why not?
     ##  still in use somewhere? move to attic? use match_by_season and delete by_season_dir? - why? why not?
     def match_by_season_dir( format: 'txt' )
@@ -222,14 +214,10 @@ module SportDb
 
       h = {}
       match( format: format ).each do |entry|
-        if m=SEASON_DIR_RE.match( entry.name )
-          h[ m[0] ] ||= []
-          h[ m[0] ] << entry
-        else
-          puts "!! ERROR: season match expected in entry name:"
-          pp entry
-          exit 1
-        end
+        season_path = File.dirname( entry.name )
+
+        h[ season_path ] ||= []
+        h[ season_path ] << entry
       end
 
       ##  todo/fix:  - add sort entries by name - why? why not?
@@ -239,7 +227,7 @@ module SportDb
       h.to_a    ## return as array (or keep hash) - why? why not?
     end # method match_by_season_dir
 
-    def match_by_season( format: 'txt', start: nil )   ## change entries to datafile - why? why not?
+    def match_by_season( format: 'txt', start: nil )   ## change/rename to by_season_key - why? why not?
 
       ## todo/note: in the future - season might be anything (e.g. part of a filename and NOT a directory) - why? why not?
 
@@ -279,20 +267,15 @@ module SportDb
 
       h = {}
       match( format: format ).each do |entry|
-        if m=SEASON_DIR_RE.match( entry.name )
-          ## note: do NOT use complete path/match only captured season e.g. m[:season]
-          season = Import::Season.new( m[:season] )  ## normalize season
+        ## note: assume last directory in datafile path is the season part/key
+        season_q = File.basename( File.dirname( entry.name ))
+        season   = Import::Season.new( season_q )  ## normalize season
 
-          ## skip if start season before this season
-          next if season_start && season_start.start_year > season.start_year
+        ## skip if start season before this season
+        next if season_start && season_start.start_year > season.start_year
 
-          h[ season.key ] ||= []
-          h[ season.key ] << entry
-        else
-          puts "!! ERROR: season match expected in entry name:"
-          pp entry
-          exit 1
-        end
+        h[ season.key ] ||= []
+        h[ season.key ] << entry
       end
 
       ##  todo/fix:  - add sort entries by name - why? why not?

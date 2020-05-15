@@ -46,7 +46,23 @@ Round, Date,              Team 1,               FT,  HT,  Team 2
 (Source: [england/2019-20/eng.1.csv](https://github.com/footballcsv/england/blob/master/2010s/2019-20/eng.1.csv))
 
 
-And let's import all datafiles for all seasons (from 1888-89 to today)
+and let's try:
+
+``` ruby
+## assumes football.csv datasets for England in ./england directory
+##   see github.com/footballcsv/england
+SportDb.read_csv( './england/2019-20/eng.1.csv' )
+
+## let's try another season
+SportDb.read_csv( './england/2018-19/eng.1.csv' )
+SportDb.read_csv( './england/2018-19/eng.2.csv' )
+```
+
+All leagues, seasons, clubs, match days and rounds, match fixtures and results,
+and more are now in your (SQL) database of choice.
+
+
+Bonus: Let's import all datafiles for all seasons (from 1888-89 to today)
 for England, use:
 
 ``` ruby

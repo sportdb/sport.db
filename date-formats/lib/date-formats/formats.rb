@@ -304,6 +304,26 @@ PT__DAY_DD_MM__DATE_RE = /\b
 
 
 
+# e.g. Sa., 16.5., 18.00 Uhr  or  Mo., 18.5., 20.30 Uhr
+#      Sa 16.5. 18.00         or  Mo 18.5. 20.30
+DE__DAY_MM_DD__DATE_TIME_RE = /\b
+        (?<day_name>#{DAY_DE})
+           \.?        # note: make dot optional
+           ,?         # note: allow optional comma too
+           [ ]*
+        (?<day>\d{1,2})
+           \.
+        (?<month>\d{1,2})
+           \.
+           ,?         # note: allow optional comma too
+           [ ]*
+         (?<hours>\d{1,2})
+           \.
+         (?<minutes>\d{2})
+            (?:[ ]*
+               uhr
+            )?   ## note: allow optional Uhr
+          (?=[ \]]|$)/ix  ## note: allow end-of-string/line too/x
 
 # e.g. Fr. 26.7. or  Sa. 27.7.
 #  or  Fr 26.7.  or  Sa 27.7.
@@ -317,8 +337,7 @@ DE__DAY_MM_DD__DATE_RE = /\b
            \.
         (?<month>\d{1,2})
            \.
-          (?=\s+|$|[\]])/x  ## note: allow end-of-string/line too/x
-
+          (?=[ \]]|$)/x  ## note: allow end-of-string/line too/x
 
 
 #############################################
@@ -363,6 +382,7 @@ FORMATS_PT = [
 ]
 
 FORMATS_DE = [
+   [ DE__DAY_MM_DD__DATE_TIME_RE,    '[DE_DAY_MM_DD_hh_mm]' ],
    [ DE__DAY_MM_DD__DATE_RE,         '[DE_DAY_MM_DD]' ],
 ]
 

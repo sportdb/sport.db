@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 
+##
+#  todo/fix: rename/change to CsvTableWriter  - why? why not?
 class CsvStandingsWriter   ## change/rename to CsvStandingsTableWriter/Updater - why? why not?
 
 def initialize( pack )

@@ -1,8 +1,6 @@
 # encoding: utf-8
 
 
-require 'csv'     ## fix:  always use read_csv from sportdb/formats  - why? why not?
-
 ## 3rd party gemss
 require 'sportdb/config'
 
@@ -18,6 +16,7 @@ require 'sportdb/text/level_utils'
 
 
 require 'sportdb/text/csv/reader'
+require 'sportdb/text/csv/reader_utils'
 require 'sportdb/text/csv/writer'
 require 'sportdb/text/csv/converter'
 require 'sportdb/text/csv/standings'
@@ -36,6 +35,10 @@ require 'sportdb/text/csv/reports/part_datafiles_by_season.rb'
 
 require 'sportdb/text/txt/writer.rb'
 
+
+########################
+#  add a "top-level" convience short-cut  - why? why not?
+CsvMatchReader = SportDb::CsvMatchReader
 
 
 

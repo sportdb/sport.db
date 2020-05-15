@@ -10,12 +10,12 @@ require 'zip'     ## todo/check: if zip is alreay included in a required module
 
 
 
-def read_csv( path )
-  CsvHash.read( path, :header_converters => :symbol )
+def read_csv( path, sep: ',' )
+  CsvHash.read( path, :header_converters => :symbol, sep: sep )
 end
 
-def parse_csv( txt )
-  CsvHash.parse( txt, :header_converters => :symbol )
+def parse_csv( txt, sep: ',' )
+  CsvHash.parse( txt, :header_converters => :symbol, sep: sep )
 end
 
 

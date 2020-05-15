@@ -27,7 +27,7 @@ class ClubPropsReader
   def parse
     recs = parse_csv( @txt )
     recs.each do |rec|
-      name = rec[:name]
+      name = rec['Name']
       if name.nil?
         puts "** !!! ERROR !!! Name column required / missing / NOT found in row:"
         pp rec
@@ -62,8 +62,8 @@ class ClubPropsReader
         ## todo/fix:   only updated "on-demand" from in-memory struct/records!!!!
 
         ##  update attributes
-        club_rec.key  = rec[:key]      if rec[:key]
-        club_rec.code = rec[:code]     if rec[:code]
+        club_rec.key  = rec['Key']      if rec['Key']
+        club_rec.code = rec['Code']     if rec['Code']
         ## todo/fix: add (some) more props e.g. address, web, etc.
       end
     end

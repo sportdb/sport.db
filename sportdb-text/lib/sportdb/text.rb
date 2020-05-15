@@ -15,8 +15,7 @@ require 'sportdb/text/season_utils'
 require 'sportdb/text/level_utils'
 
 
-require 'sportdb/text/csv/reader'
-require 'sportdb/text/csv/reader_utils'
+require 'sportdb/text/csv/parser_utils'
 require 'sportdb/text/csv/writer'
 require 'sportdb/text/csv/converter'
 require 'sportdb/text/csv/standings'
@@ -38,7 +37,7 @@ require 'sportdb/text/txt/writer.rb'
 
 ########################
 #  add a "top-level" convience short-cut  - why? why not?
-CsvMatchReader = SportDb::CsvMatchReader
+CsvMatchParser = SportDb::CsvMatchParser
 
 
 

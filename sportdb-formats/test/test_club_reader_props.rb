@@ -29,8 +29,8 @@ TXT
     recs = parse_csv( ENG_CLUBS_PROPS_TXT )
     pp recs
 
-    assert_equal [{ key: 'chelsea', name: 'Chelsea FC', code: 'CHE' },
-                  { key: 'arsenal', name: 'Arsenal FC', code: 'ARS' }], recs[0..1]
+    assert_equal [{ 'Key' => 'chelsea', 'Name' => 'Chelsea FC', 'Code' => 'CHE' },
+                  { 'Key' => 'arsenal', 'Name' => 'Arsenal FC', 'Code' => 'ARS' }], recs[0..1]
   end
 
   CLUBS = SportDb::Import.catalog.clubs

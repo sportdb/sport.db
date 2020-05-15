@@ -13,7 +13,7 @@ class TestCsvReader < MiniTest::Test
     recs = parse_csv( <<TXT )
 ### World Countries
 
-key, fifa, name
+Key, Code, Name
 af,  AFG,  Afghanistan
 al,  ALB,  Albania
 dz,  ALG,  Algeria
@@ -21,10 +21,10 @@ as,  ASA,  American Samoa (US)
 TXT
 
    pp recs
-   assert_equal  [{ key:'af', fifa:'AFG', name:'Afghanistan'},
-                  { key:'al', fifa:'ALB', name:'Albania'},
-                  { key:'dz', fifa:'ALG', name:'Algeria'},
-                  { key:'as', fifa:'ASA', name:'American Samoa (US)'},
+   assert_equal  [{ 'Key' => 'af', 'Code' => 'AFG', 'Name' => 'Afghanistan'},
+                  { 'Key' => 'al', 'Code' => 'ALB', 'Name' => 'Albania'},
+                  { 'Key' => 'dz', 'Code' => 'ALG', 'Name' => 'Algeria'},
+                  { 'Key' => 'as', 'Code' => 'ASA', 'Name' => 'American Samoa (US)'},
                  ], recs[0..3]
   end
 

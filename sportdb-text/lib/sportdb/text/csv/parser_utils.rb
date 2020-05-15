@@ -2,32 +2,7 @@
 
 
 module SportDb
-  class CsvMatchReader
-
-def self.find_seasons( path, sep: ',', col: 'Season', headers: nil )
-
-  ## check if headers incl. season if yes,has priority over col mapping
-  ##  e.g. no need to specify twice (if using headers)
-  col = headers[:season]    if headers && headers[:season]
-
-  seasons = Hash.new( 0 )   ## default value is 0
-
-  ## todo: yes, use CsvHash.foreach  - why? why not?
-  rows = CsvHash.read( path, sep: sep )
-
-  rows.each_with_index do |row,i|
-    puts "[#{i}] " + row.inspect  if i < 2
-
-    season = row[ col ]   ## column name defaults to 'Season'
-    seasons[ season ] += 1
-  end
-
-  pp seasons
-
-  ## note: only return season keys/names (not hash with usage counter)
-  seasons.keys
-end
-
+  class CsvMatchParser
 
 def self.dump( path, headers: nil, sep: ',' )
   ## for debugging add a quick test reader for stats
@@ -178,5 +153,5 @@ def self.dump( path, headers: nil, sep: ',' )
 end # method dump
 
 
-end # class CsvReader
+end # class CsvMatchParser
 end # module SportDb

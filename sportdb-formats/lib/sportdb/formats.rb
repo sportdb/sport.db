@@ -10,13 +10,24 @@ require 'zip'     ## todo/check: if zip is alreay included in a required module
 
 
 
-def read_csv( path, sep: ',' )
-  CsvHash.read( path, :header_converters => :symbol, sep: sep )
+def read_csv( path, sep:             nil,
+                    symbolize_names: nil )
+  opts = {}
+  opts[:sep]               = sep         if sep
+  opts[:header_converters] = :symbol     if symbolize_names
+
+  CsvHash.read( path, **opts )
 end
 
-def parse_csv( txt, sep: ',' )
-  CsvHash.parse( txt, :header_converters => :symbol, sep: sep )
+def parse_csv( txt, sep:             nil,
+                    symbolize_names: nil )
+  opts = {}
+  opts[:sep]               = sep         if sep
+  opts[:header_converters] = :symbol     if symbolize_names
+
+  CsvHash.parse( txt, **opts )
 end
+
 
 
 ## more sportdb libs/gems
@@ -68,6 +79,7 @@ require 'sportdb/formats/match/match_parser'
 require 'sportdb/formats/match/match_parser_auto_conf'
 require 'sportdb/formats/match/conf_parser'
 
+require 'sportdb/formats/match/match_parser_csv'
 
 require 'sportdb/formats/country/country_reader'
 require 'sportdb/formats/country/country_index'

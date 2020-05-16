@@ -8,7 +8,7 @@ Hoe.spec 'footballdb' do
   self.summary = 'footballdb - sport.db addon for football stats n more'
   self.description = summary
 
-  self.urls = ['https://github.com/sportdb/football.db.ruby']
+  self.urls = ['https://github.com/sportdb/sport.db']
 
   ## note: does not work - no authors defined? only author
   ## self.authors = [ 'Carl Svensson', 'Gerald Bauer' ]

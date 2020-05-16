@@ -20,7 +20,7 @@ Hoe.spec 'sportdb' do
   self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
-    ['sportdb-readers', '>= 1.0.0'],
+    ['sportdb-readers', '>= 1.0.2'],
 
     ['fetcher',  '>= 0.4.5'],    ## check if included already in datafil ??
     ['datafile', '>= 0.3.1'],
@@ -28,7 +28,7 @@ Hoe.spec 'sportdb' do
     ### sportdb addons
     ## ['sportdb-keys'],
     ## ['sportdb-update'],
-    ['sportdb-service'],
+    ['sportdb-service', '>= 0.4.1'],
 
     ## 3rd party
     ['gli', '>= 2.19.0'],

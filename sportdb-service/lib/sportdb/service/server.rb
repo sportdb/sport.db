@@ -14,16 +14,16 @@ class Server < Sinatra::Base
   #  see
   #   http://www.sinatrarb.com/intro.html#Configuring attack protection
   #  todo: only switch off jsoncrfl ???  do NOT disable all
-  
+
   disable :protection
 
-  PUBLIC_FOLDER = "#{SportDb.root}/lib/sportdb/service/public"
-  VIEWS_FOLDER  = "#{SportDb.root}/lib/sportdb/service/views"
+  PUBLIC_FOLDER = "#{SportDb::Service.root}/lib/sportdb/service/public"
+  VIEWS_FOLDER  = "#{SportDb::Service.root}/lib/sportdb/service/views"
 
   puts "[boot] setting sportdb api public folder to: #{PUBLIC_FOLDER}"
-  puts "[boot] setting sportdb api views folder to: #{VIEWS_FOLDER}" 
+  puts "[boot] setting sportdb api views folder to: #{VIEWS_FOLDER}"
 
-  set :public_folder, PUBLIC_FOLDER   # set up the static dir (with images/js/css inside)   
+  set :public_folder, PUBLIC_FOLDER   # set up the static dir (with images/js/css inside)
   set :views,         VIEWS_FOLDER    # set up the views dir
 
   set :static, true   # set up static file routing
@@ -35,7 +35,7 @@ class Server < Sinatra::Base
 
   ##################
   # Helpers
-  
+
 
   def path_prefix
     request.env['SCRIPT_NAME']
@@ -54,7 +54,7 @@ get '/d*' do
 end
 
 get '/rounds/:q' do |q|
-  
+
   #################
   # todo/check:
   #   what to do for special case with postponed games/matches??
@@ -89,7 +89,7 @@ get '/rounds/:q' do |q|
   end
 
   data = { rounds: rounds }
-  
+
   json_or_jsonp( data )
 end
 
@@ -176,7 +176,7 @@ def json_or_jsonp( data )
     content_type :json
     response = data.to_json
   end
-  
+
   response
 end
 

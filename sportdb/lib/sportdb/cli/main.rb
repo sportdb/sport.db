@@ -205,9 +205,11 @@ command [:serve,:server] do |c|
 #  end
 #
 
-    puts 'before add middleware ConnectionManagement'
-    SportDb::Service::Server.use ActiveRecord::ConnectionAdapters::ConnectionManagement
-    puts 'after add middleware ConnectionManagement'
+    ## note:  ConnectionManagement removed from ActiveRecord 4+
+    ##   see github.com/rails/rails/issues/26947
+    ## puts 'before add middleware ConnectionManagement'
+    ## SportDb::Service::Server.use ActiveRecord::ConnectionAdapters::ConnectionManagement
+    ## puts 'after add middleware ConnectionManagement'
     ## todo: check if we can check on/dump middleware stack
 
     ## rack middleware might not work with multi-threaded thin web server; close it ourselfs

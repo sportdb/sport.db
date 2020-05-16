@@ -17,6 +17,7 @@ lib/sportdb/formats/match/mapper.rb
 lib/sportdb/formats/match/mapper_teams.rb
 lib/sportdb/formats/match/match_parser.rb
 lib/sportdb/formats/match/match_parser_auto_conf.rb
+lib/sportdb/formats/match/match_parser_csv.rb
 lib/sportdb/formats/name_helper.rb
 lib/sportdb/formats/outline_reader.rb
 lib/sportdb/formats/package.rb
@@ -49,8 +50,11 @@ test/test_clubs.rb
 test/test_conf.rb
 test/test_country_index.rb
 test/test_country_reader.rb
+test/test_csv_match_parser.rb
+test/test_csv_match_parser_utils.rb
 test/test_csv_reader.rb
 test/test_datafile.rb
+test/test_datafile_package.rb
 test/test_goals.rb
 test/test_league_index.rb
 test/test_league_outline_reader.rb

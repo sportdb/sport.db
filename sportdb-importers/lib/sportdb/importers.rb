@@ -2,7 +2,6 @@
 
 
 ## 3rd party gemss
-require 'sportdb/text'
 require 'sportdb/sync'
 
 
@@ -71,6 +70,7 @@ def self.read_csv( path )
   end
 end
 end  # module SportDb
+
 
 
 

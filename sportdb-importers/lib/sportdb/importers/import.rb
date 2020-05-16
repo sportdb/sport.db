@@ -2,6 +2,7 @@
 ## todo/fix: rename to CsvEventImporter or EventImporter  !!! returns Event!!
 ## todo/fix/check: rename to CsvMatchReader and CsvMatchReader to CsvMatchParser - why? why not?
 
+module SportDb
 class CsvEventImporter
 
   def self.read( path, league:, season:,
@@ -26,8 +27,8 @@ class CsvEventImporter
     raise ArgumentError("string expected for season; got #{season.class.name}")  unless season.is_a? String
 
     ## try mapping of league here - why? why not?
-    @league  = SportDb::Import.catalog.leagues.find!( league )
-    @season  = SportDb::Import::Season.new( season )
+    @league  = Import.catalog.leagues.find!( league )
+    @season  = Import::Season.new( season )
   end
 
 
@@ -41,17 +42,17 @@ class CsvEventImporter
     opts = {}
     opts[:headers] = @headers  if @headers
 
-    matches = CsvMatchReader.parse( @txt, **opts )
+    matches = CsvMatchParser.parse( @txt, **opts )
 
-    matchlist = SportDb::Import::Matchlist.new( matches )
+    matchlist = Import::Matchlist.new( matches )
 
     team_names = matchlist.teams           ## was: find_teams_in_matches_txt( matches_txt )
     puts "#{team_names.size} teams:"
     pp team_names
 
     ## note: allows duplicates - will return uniq struct recs in teams
-    teams = SportDb::Import.catalog.teams.find_by!( name: team_names,
-                                                    league: @league )
+    teams = Import.catalog.teams.find_by!( name: team_names,
+                                           league: @league )
     ## build mapping - name => team struct record
     team_mappings =  team_names.zip( teams ).to_h
 
@@ -61,8 +62,8 @@ class CsvEventImporter
     #######
     # start with database updates / sync here
 
-    event_rec = SportDb::Sync::Event.find_or_create_by( league: @league,
-                                                        season: @season )
+    event_rec = Sync::Event.find_or_create_by( league: @league,
+                                               season: @season )
 
     ## todo/fix:
     ##   add check if event has teams
@@ -76,7 +77,7 @@ class CsvEventImporter
 
     # maps struct record "canonical" team name to active record db record!!
     ## note: use "canonical" team name as hash key for now (and NOT the object itself) - why? why not?
-    team_recs = SportDb::Sync::Team.find_or_create( team_mappings.values.uniq )
+    team_recs = Sync::Team.find_or_create( team_mappings.values.uniq )
 
     ## todo/fix/check:
     ##   add check if event has teams
@@ -91,7 +92,7 @@ class CsvEventImporter
 
 
     ## add catch-all/unclassified "dummy" round
-    round_rec = SportDb::Model::Round.create!(
+    round_rec = Model::Round.create!(
       event_id: event_rec.id,
       title:    'Matchday ??? / Missing / Catch-All',   ## find a better name?
       pos:      999,
@@ -100,14 +101,14 @@ class CsvEventImporter
 
     ## add matches
     matches.each do |match|
-      team1_rec = SportDb::Sync::Team.cache[ team_mappings[match.team1].name ]
-      team2_rec = SportDb::Sync::Team.cache[ team_mappings[match.team2].name ]
+      team1_rec = Sync::Team.cache[ team_mappings[match.team1].name ]
+      team2_rec = Sync::Team.cache[ team_mappings[match.team2].name ]
 
       if match.date.nil?
         puts "!!! WARN: skipping match - play date missing!!!!!"
         pp match
       else
-        rec = SportDb::Model::Game.create!(
+        rec = Model::Game.create!(
                 team1_id: team1_rec.id,
                 team2_id: team2_rec.id,
                 round_id: round_rec.id,
@@ -125,4 +126,4 @@ class CsvEventImporter
   end # method parse
 
 end # class CsvEventImporter
-
+end # module SportDb

@@ -147,7 +147,7 @@ def parse_json( str )
 end
 
 def read_test( path )
-  blocks = read_blocks( "../football.txt/#{path}" )
+  blocks = read_blocks( "#{SportDb::Test.data_dir}/football.txt/#{path}" )
 
   if blocks.size == 2
     [blocks[0], parse_json( blocks[1] )]

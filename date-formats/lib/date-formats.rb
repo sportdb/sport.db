@@ -4,15 +4,26 @@ require 'pp'
 require 'time'
 require 'date'
 
-## 3rd party libs/gems
-require 'logutils'
-
 
 ###
 # our own code
 require 'date-formats/version' # let version always go first
+
+## todo/fix: make logging class configurable - lets you use logutils etc.
+module DateFormats
+  module Logging
+    def logger() @logger ||= Logger.new; end
+
+    class Logger   ## for now use quick "dummy" logger to
+      def debug( msg ) puts "[debug] #{msg}"; end
+    end # class Logger
+  end  # module Logging
+end # module DateFormats
+
+
 require 'date-formats/reader'
 require 'date-formats/names'   ## month and day names (e.g. January,.. Monday,...)
+
 
 
 module DateFormats

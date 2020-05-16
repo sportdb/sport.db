@@ -37,9 +37,11 @@ module DateFormats
 
 
 
+
   class DateParser
 
-    include LogUtils::Logging
+    include Logging
+
 
     def initialize( lang:,
                     formats: nil, month_names: nil, day_names: nil

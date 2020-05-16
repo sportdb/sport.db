@@ -2,6 +2,7 @@
 
 
 module SportDb
+module Module
 module Linters
 
   MAJOR = 0    ## todo: namespace inside version or something - why? why not??
@@ -22,4 +23,5 @@ module Linters
   end
 
 end # module Linters
+end # module Module
 end # module SportDb

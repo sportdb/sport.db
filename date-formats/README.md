@@ -103,7 +103,7 @@ For example, the Spanish date `1 Ene` gets matched by:
 ```ruby
 /\b
  (?<day>\d{1,2})
-   \s
+   [ ]
  (?<month_name>#{MONTH_ES})
  \b/x
 ```
@@ -130,10 +130,10 @@ And the French date `Lundi 1 Janvier` gets matched by:
 ```ruby
 /\b
  (?<day_name>#{DAY_FR})
-   \s+
+   [ ]+
  (?<day>\d{1,2})
    \.?        # note: make dot optional
-   \s+
+   [ ]+
  (?<month_name>#{MONTH_FR})
  \b/x
 ```

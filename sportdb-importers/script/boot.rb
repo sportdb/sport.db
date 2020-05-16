@@ -1,7 +1,6 @@
 ## note: use the local version of sportdb gems
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-config/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-text/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-models/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-sync/lib' ))
 

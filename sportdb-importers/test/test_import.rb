@@ -34,7 +34,7 @@ class TestImport < MiniTest::Test
       score2i: 'HTAG'
     }
 
-    event_rec = CsvEventImporter.read( "#{SportDb::Test.data_dir}/england/2017-18/E0.csv",
+    event_rec = SportDb::CsvEventImporter.read( "#{SportDb::Test.data_dir}/england/2017-18/E0.csv",
                                         headers: headers,
                                         league: 'ENG',  ## fetch English Premiere League
                                         season: '2017/18'

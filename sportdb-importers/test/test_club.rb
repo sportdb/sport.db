@@ -54,7 +54,7 @@ class TestClub < MiniTest::Test
       score2i: 'HTAG'
     }
 
-    matches = CsvMatchReader.read( "#{SportDb::Test.data_dir}/england/2017-18/E0.csv",
+    matches = SportDb::CsvMatchParser.read( "#{SportDb::Test.data_dir}/england/2017-18/E0.csv",
                                         headers: headers
                                  )
 
@@ -117,7 +117,7 @@ class TestClub < MiniTest::Test
       score2: 'AG',
     }
 
-    matches = CsvMatchReader.read( "#{SportDb::Test.data_dir}/austria/AUT.csv",
+    matches = SportDb::CsvMatchParser.read( "#{SportDb::Test.data_dir}/austria/AUT.csv",
                                         headers: headers,
                                         filters: { 'Season' => '2016/2017' }
                                   )

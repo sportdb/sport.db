@@ -186,44 +186,45 @@ command [:new,:n] do |c|
 end  # command setup
 
 
-
 desc 'Start web service (HTTP JSON API)'
-command [:serve,:server] do |c|
+arg_name 'NAME'   # optional setup profile name
+command [:serve,:server,:s] do |c|
 
   c.action do |g,o,args|
 
-    connect_to_db( opts )
+    ## todo: document optional script arg (defaults to service)
+    script = args[0] || 'service'
 
-    # note: server (HTTP service) not included in standard default require
-    ##   -- note - now included!!!
-    ## require 'sportdb/service'
+    ## todo/fix: add support for (default) Service (with no extension)
 
-# make sure connections get closed after every request e.g.
-#
-#  after do
-#   ActiveRecord::Base.connection.close
-#  end
-#
+    script_path = "#{script}.rb"     ## auto-add .rb extension
 
-    ## note:  ConnectionManagement removed from ActiveRecord 4+
-    ##   see github.com/rails/rails/issues/26947
-    ## puts 'before add middleware ConnectionManagement'
-    ## SportDb::Service::Server.use ActiveRecord::ConnectionAdapters::ConnectionManagement
-    ## puts 'after add middleware ConnectionManagement'
-    ## todo: check if we can check on/dump middleware stack
-
-    ## rack middleware might not work with multi-threaded thin web server; close it ourselfs
-    SportDb::Service::Server.after do
-      puts "  #{Thread.current.object_id} -- make sure db connections gets closed after request"
-      # todo: check if connection is open - how?
-      ActiveRecord::Base.connection.close
+    unless File.exist?( script_path ) ## if file doesn't exist try to fetch service script
+      script_path = "./#{script}.rb"   ## use / save script in local (current) working dir/folder
+      worker = Fetcher::Worker.new
+      ## note: lets use http:// instead of https:// for now - lets us use person proxy (NOT working w/ https for now)
+      worker.copy( "http://github.com/sportdb/sport.db.service/raw/master/#{script}.rb", script_path )
     end
 
-    SportDb::Service::Server.run!
+
+    code = File.open( script_path, 'r:utf-8' ) { |f| f.read }
+
+    connect_to_db( opts )
+
+    SportDb.tables   ## print table stats
+
+    SportDbService.class_eval( code )  ## note: MUST use class_eval (do NOT use instance_eval)  !!!
+
+    puts "dump routes:"
+    pp SportDbService.routes
+
+    puts "starting server..."
+    SportDbService.run!
 
     puts 'Done.'
   end
 end # command serve
+
 
 
 

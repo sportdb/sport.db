@@ -22,13 +22,13 @@ Hoe.spec 'sportdb' do
   self.extra_deps = [
     ['sportdb-readers', '>= 1.0.2'],
 
-    ['fetcher',  '>= 0.4.5'],    ## check if included already in datafil ??
-    ['datafile', '>= 0.3.1'],
+    ['fetcher',    '>= 0.4.5'],    ## check if included already in datafil ??
+    ['datafile',   '>= 0.3.1'],
+    ['webservice', '>= 0.7.0'],
 
-    ### sportdb addons
+    ### incl. sportdb addons - why? why not?
     ## ['sportdb-keys'],
     ## ['sportdb-update'],
-    ['sportdb-service', '>= 0.4.1'],
 
     ## 3rd party
     ['gli', '>= 2.19.0'],

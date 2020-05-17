@@ -38,14 +38,6 @@ end # module SportDb
 
 require 'sportdb/service/server'
 
-### for legacy old code e.g. SportDb::Service::Server - remove later - do NOT use
-##   use just SportDb::Server
-module SportDb
-  module Service
-    Server = SportDb::Server
-  end # module Service
-end #  module SportDb
-
 
 
 

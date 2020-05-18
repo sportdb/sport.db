@@ -43,11 +43,31 @@ def parse
         #   e.g. East Germany        (-1989)  => East Germany (-1989)
         values = values.map { |value| value.strip.gsub( /[ \t]+/, ' ' ) }
         last_country.alt_names += values
+      elsif line =~ /^-[ ]*(\d{4})
+                        [ ]+
+                       (.+)$
+                    /x     ## check for historic lines e.g. -1989
+         year   = $1.to_i
+         parts  = $2.split( /=>|⇒/ )
+         values = parts[0].split( ',' )
+         values = values.map { |value| value.strip.gsub( /[ \t]+/, ' ' ) }
+
+         name = values[0]
+         code = values[1]
+
+         last_country = country = Country.new( name: "#{name} (-#{year})",
+                                               code: code )
+         ## country.alt_names << name    ## note: for now do NOT add name without year to alt_names - gets auto-add by index!!!
+
+         countries << country
+         ## todo/fix: add reference to country today (in parts[1] !!!!)
       else
         ## assume "regular" line
         ##  check if starts with id  (todo/check: use a more "strict"/better regex capture pattern!!!)
         ##   note: allow country codes upto 4 (!!) e.g. Northern Cyprus
-        if line =~ /^([a-z]{2,4})[ ]+(.+)$/
+        if line =~ /^([a-z]{2,4})
+                        [ ]+
+                       (.+)$/x
           key    = $1
           values = $2.split( ',' )
           ## strip and squish (white)spaces
@@ -60,14 +80,14 @@ def parse
           geos = split_geo( values[0] )
           name = geos[0]    ## note: ignore all other geos for now
 
-          ##   note: allow fifa country codes upto 4 (!!) e.g. Northern Cyprus
-          fifa = if values[1] && values[1] =~ /^[A-Z]{3,4}$/   ## note: also check format
+          ##   note: allow country codes up to 4 (!!) e.g. Northern Cyprus
+          code = if values[1] && values[1] =~ /^[A-Z]{3,4}$/   ## note: also check format
                    values[1]
                  else
                    if values[1]
-                     puts "** !!! ERROR !!! wrong fifa code format >#{values[1]}<; expected three (or four)-letter all up-case"
+                     puts "** !!! ERROR !!! wrong code format >#{values[1]}<; expected three (or four)-letter all up-case"
                    else
-                     puts "** !!! ERROR !!! missing fifa code for (canonical) country name"
+                     puts "** !!! ERROR !!! missing code for (canonical) country name"
                    end
                    exit 1
                  end
@@ -80,7 +100,7 @@ def parse
 
           last_country = country = Country.new( key: key,
                                                 name: name,
-                                                fifa: fifa,
+                                                code: code,
                                                 tags: tags )
           countries << country
         else

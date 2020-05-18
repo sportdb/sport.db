@@ -113,9 +113,9 @@ def parse
             ##             add a list of (auto-)excluded country codes with conflicts? why? why not?
             ##                 cl - a) Chile  b) Champions League
             alt_names_auto << "#{country.key.upcase}"   if league_key == '1'   ## add shortcut for top level 1 (just country key)
-            if country.key.upcase != country.fifa
-              alt_names_auto << "#{country.fifa} #{league_key.upcase.gsub('.', ' ')}"
-              alt_names_auto << "#{country.fifa}"    if league_key == '1'   ## add shortcut for top level 1 (just country key)
+            if country.key.upcase != country.code
+              alt_names_auto << "#{country.code} #{league_key.upcase.gsub('.', ' ')}"
+              alt_names_auto << "#{country.code}"    if league_key == '1'   ## add shortcut for top level 1 (just country key)
             end
             alt_names_auto << "#{country.name} #{league_key}"  if league_key =~ /^[0-9]+$/   ## if all numeric e.g. add Austria 1 etc.
           else   ## assume int'l (no country) e.g. champions league, etc.

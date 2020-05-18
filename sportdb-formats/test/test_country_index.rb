@@ -16,12 +16,12 @@ class TestCountryIndex < MiniTest::Test
     eng = countries[:eng]
     assert_equal 'eng',      eng.key
     assert_equal 'England',  eng.name
-    assert_equal 'ENG',      eng.fifa
+    assert_equal 'ENG',      eng.code
 
     at  = countries[:at]
     assert_equal 'at',                at.key
     assert_equal 'Austria',           at.name
-    assert_equal 'AUT',               at.fifa
+    assert_equal 'AUT',               at.code
     assert_equal ['Österreich [de]'], at.alt_names
 
     assert at == countries['AT']
@@ -48,13 +48,13 @@ class TestCountryIndex < MiniTest::Test
     assert at == countries.parse( 'Österreich • Austria' )
     assert at == countries.parse( 'Austria' )
     assert at == countries.parse( 'at' )    ## (iso alpha2) country code
-    assert at == countries.parse( 'AUT' )   ## fifa code
+    assert at == countries.parse( 'AUT' )   ## (fifa) country code
 
 
     de  = countries[:de]
     assert_equal 'de',                 de.key
     assert_equal 'Germany',            de.name
-    assert_equal 'GER',                de.fifa
+    assert_equal 'GER',                de.code
     assert_equal ['Deutschland [de]'], de.alt_names
 
     assert de == countries.parse( 'Deutschland (de) • Germany' )

@@ -26,9 +26,9 @@ class Catalog
     ## auto-build national teams from Fifa.countries for now
     teams = []
     Fifa.countries.each do |country|
-      team = NationalTeam.new( key:        country.fifa.downcase,  ## note: use fifa code
+      team = NationalTeam.new( key:        country.code.downcase,  ## note: use country code (fifa)
                                name:       country.name,
-                               code:       country.fifa,           ## note: use fifa code
+                               code:       country.code,           ## note: use country code (fifa)
                                alt_names:  country.alt_names )
       team.country = country
 

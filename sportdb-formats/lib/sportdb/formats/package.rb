@@ -4,31 +4,50 @@ module SportDb
 
     ## todo/fix:   make all regexes case-insensitive with /i option - why? why not?
     ##                e.g. .TXT and .txt
+    ##   yes!! use /i option!!!!!
 
     CONF_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
         \.conf\.txt$
     }x
 
+    ## leagues.txt or leagues_en.txt
+    ##   remove support for en.leagues.txt - why? why not?
     LEAGUES_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
        (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.wiki.txt
-        leagues\.txt$
+        leagues
+          (?:_[a-z0-9_-]+)?
+        \.txt$
     }x
 
+    ## clubs.txt or clubs_en.txt
+    ##   remove support for en.clubs.txt - why? why not?
     CLUBS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
        (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.txt
-        clubs\.txt$
+        clubs
+          (?:_[a-z0-9_-]+)?
+        \.txt$
     }x
 
     CLUBS_WIKI_RE = %r{  (?:^|/)               # beginning (^) or beginning of path (/)
         (?:[a-z]{1,4}\.)?   # optional country code/key e.g. eng.clubs.wiki.txt
-       clubs\.wiki\.txt$
+       clubs
+         (?:_[a-z0-9_-]+)?
+       \.wiki\.txt$
     }x
 
     CLUB_PROPS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
       (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.props.txt
-        clubs\.props\.txt$
+        clubs
+          (?:_[a-z0-9_-]+)?
+        \.props\.txt$
     }x
 
+    ##  teams.txt or teams_history.txt
+    TEAMS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+                      teams
+                        (?:_[a-z0-9_-]+)?
+                      \.txt$
+    }x
 
     ### season folder:
     ##            e.g. /2019-20   or
@@ -36,7 +55,7 @@ module SportDb
     ##                 /2016--france
     SEASON_RE = %r{ (?:
                        \d{4}-\d{2}
-                     | \d{4}(--[^/]+)?
+                     | \d{4}(--[a-z0-9_-]+)?
                     )
                   }x
     SEASON = SEASON_RE.source    ## "inline" helper for embedding in other regexes - keep? why? why not?
@@ -74,6 +93,8 @@ module SportDb
    end
 
 
+   def self.find_teams( path, pattern: TEAMS_RE )  find( path, pattern ); end
+   def self.match_teams( path )  TEAMS_RE.match( path ); end
 
    def self.find_clubs( path, pattern: CLUBS_RE )            find( path, pattern ); end
    def self.find_clubs_wiki( path, pattern: CLUBS_WIKI_RE )  find( path, pattern ); end
@@ -98,6 +119,9 @@ module SportDb
    ## add match_match and match_match_csv  - why? why not?
 
    class << self
+     alias_method :match_teams?, :match_teams
+     alias_method :teams?,       :match_teams
+
      alias_method :match_clubs?, :match_clubs
      alias_method :clubs?,       :match_clubs
 

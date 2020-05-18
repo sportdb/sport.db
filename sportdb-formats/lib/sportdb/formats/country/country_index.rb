@@ -30,11 +30,11 @@ class CountryIndex
     ## auto-fill countries
     ## pp recs
     recs.each do |rec|
-      ## rec e.g. { key:'af', fifa:'AFG', name:'Afghanistan'}
+      ## rec e.g. { key:'af', code:'AFG', name:'Afghanistan'}
 
       @countries << rec
 
-      ## add codes lookups - key, fifa, ...
+      ## add codes lookups - key, code, ...
       if @countries_by_code[ rec.key ]
         puts "** !! ERROR !! country code (key) >#{rec.key}< already exits!!"
         exit 1
@@ -42,13 +42,13 @@ class CountryIndex
         @countries_by_code[ rec.key ] = rec
       end
 
-      ## add fifa code (only) if different from key
-      if rec.key != rec.fifa.downcase
-        if @countries_by_code[ rec.fifa.downcase ]
-          puts "** !! ERROR !! country code (fifa) >#{rec.fifa.downcase}< already exits!!"
+      ## add  code (only) if different from key
+      if rec.key != rec.code.downcase
+        if @countries_by_code[ rec.code.downcase ]
+          puts "** !! ERROR !! country code  >#{rec.code.downcase}< already exits!!"
           exit 1
         else
-          @countries_by_code[ rec.fifa.downcase ] = rec
+          @countries_by_code[ rec.code.downcase ] = rec
         end
       end
 

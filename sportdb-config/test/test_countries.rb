@@ -18,12 +18,12 @@ class TestCountries < MiniTest::Test
     eng = COUNTRIES[:eng]
     assert_equal 'eng',      eng.key
     assert_equal 'England',  eng.name
-    assert_equal 'ENG',      eng.fifa
+    assert_equal 'ENG',      eng.code
 
     at  = COUNTRIES[:at]
     assert_equal 'at',       at.key
     assert_equal 'Austria',  at.name
-    assert_equal 'AUT',      at.fifa
+    assert_equal 'AUT',      at.code
 
     assert at == COUNTRIES['AT']
     assert at == COUNTRIES['at']

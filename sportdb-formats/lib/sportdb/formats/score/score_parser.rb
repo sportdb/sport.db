@@ -90,6 +90,12 @@ class ScoreParser
 
 
   def parse( line )
+
+     ##########
+     ## todo/fix/check: add unicode to regular dash conversion - why? why not?
+     ##  e.g. – becomes -  (yes, the letters a different!!!)
+     #############
+
     score = nil
     @formats.each do |format|
       re = format[0]

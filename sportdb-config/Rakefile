@@ -3,7 +3,7 @@ require './lib/sportdb/config/version.rb'
 
 Hoe.spec 'sportdb-config' do
 
-  self.version = SportDb::Boot::VERSION
+  self.version = SportDb::Module::Catalogs::VERSION
 
   self.summary = "sportdb-config - sport.db configuration settings and built-in defaults"
   self.description = summary

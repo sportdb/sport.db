@@ -27,4 +27,4 @@ require 'sportdb/sync/club'
 require 'sportdb/sync/sync'
 
 
-puts SportDb::Sync.banner   # say hello
+puts SportDb::Module::Sync.banner   # say hello

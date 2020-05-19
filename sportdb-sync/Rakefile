@@ -3,7 +3,7 @@ require './lib/sportdb/sync/version.rb'
 
 Hoe.spec 'sportdb-sync' do
 
-  self.version = SportDb::Sync::VERSION
+  self.version = SportDb::Module::Sync::VERSION
 
   self.summary = "sportdb-sync - sport.db sync helpers for leagues, seasons, clubs, match schedules and results, and more"
   self.description = summary
@@ -20,7 +20,7 @@ Hoe.spec 'sportdb-sync' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-config',  '>= 1.0.1'],
+    ['sportdb-config',  '>= 1.0.4'],
     ['sportdb-models',  '>= 1.19.0'],
   ]
 

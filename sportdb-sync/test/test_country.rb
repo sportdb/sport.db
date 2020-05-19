@@ -13,8 +13,8 @@ class TestCountry < MiniTest::Test
   Country = SportDb::Sync::Country
 
   def test_find  # note: find uses "data" structs
-    at  = SportDb::Import::Country.new( key: 'at',  name: 'Austria', fifa: 'AUT' )
-    eng = SportDb::Import::Country.new( key: 'eng', name: 'England', fifa: 'ENG' )
+    at  = SportDb::Import::Country.new( key: 'at',  name: 'Austria', code: 'AUT' )
+    eng = SportDb::Import::Country.new( key: 'eng', name: 'England', code: 'ENG' )
 
     rec  = Country.find_or_create( at )
     rec2 = Country.find_or_create( at )
@@ -28,23 +28,23 @@ class TestCountry < MiniTest::Test
     rec = Country.search_or_create!( 'at' )  ## try (iso-alpha2) key
     assert_equal 'Austria', rec.name
     assert_equal 'at',      rec.key
-    assert_equal 'AUT',     rec.fifa
+    assert_equal 'AUT',     rec.code
 
     rec = Country.search_or_create!( 'aut' )  ## try fifa code
     assert_equal 'Austria', rec.name
     assert_equal 'at',      rec.key
-    assert_equal 'AUT',     rec.fifa
+    assert_equal 'AUT',     rec.code
 
 
     rec = Country.search_or_create!( 'eng' )
     assert_equal 'England', rec.name
     assert_equal 'eng',     rec.key
-    assert_equal 'ENG',     rec.fifa
+    assert_equal 'ENG',     rec.code
 
     rec = Country.search_or_create!( 'eng' )
     assert_equal 'England', rec.name
     assert_equal 'eng',     rec.key
-    assert_equal 'ENG',     rec.fifa
+    assert_equal 'ENG',     rec.code
   end
 
 end  # class TestCountry

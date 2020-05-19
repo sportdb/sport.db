@@ -17,4 +17,4 @@ require 'sportdb/config/catalog'
 require 'sportdb/config/config'
 
 
-puts SportDb::Boot.banner   # say hello
+puts SportDb::Module::Catalogs.banner   # say hello

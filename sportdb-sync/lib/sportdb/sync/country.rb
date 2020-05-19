@@ -57,8 +57,8 @@ module SportDb
         attribs = {
           key:  country.key,
           name: country.name,
-          code: country.fifa,  ## fix:  uses fifa code now (should be iso-alpha3 if available)
-          fifa: country.fifa,
+          code: country.code,  ## fix:  uses fifa code now (should be iso-alpha3 if available)
+          ## fifa: country.fifa,
           area: 1,
           pop:  1
         }

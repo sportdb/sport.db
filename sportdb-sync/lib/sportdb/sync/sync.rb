@@ -66,11 +66,18 @@ module SportDb
     def self.find_or_create( round, event: )
        rec = Model::Round.find_by( title: round.title, event_id: event.id )
        if rec.nil?
+         ## find last pos - check if it can be nil?
+         max_pos = Model::Round.where( event_id: event.id ).maximum( 'pos' )
+         max_pos = max_pos ? max_pos+1 : 1
+
          attribs = { event_id: event.id,
                      title:    round.title,
-                     pos:      round.pos,
-                     start_at: event.start_at.to_date
+                     pos:      max_pos
                    }
+
+         ## todo/fix:  check if round has (optional) start or end date and add!!!
+         ## attribs[ :start_at] = round.start_at.to_date
+
          rec = Model::Round.create!( attribs )
        end
        rec
@@ -82,10 +89,16 @@ module SportDb
     def self.find_or_create( group, event: )
        rec = Model::Group.find_by( title: group.title, event_id: event.id )
        if rec.nil?
+         ## find last pos - check if it can be nil?
+         max_pos = Model::Group.where( event_id: event.id ).maximum( 'pos' )
+         max_pos = max_pos ? max_pos+1 : 1
+
          attribs = { event_id: event.id,
                      title:    group.title,
-                     pos:      group.pos
+                     pos:      max_pos
                    }
+
+         ## todo/fix: check/add optional group key (was: pos before)!!!!
          rec = Model::Group.create!( attribs )
        end
        ## todo/fix: add/update teams in group too!!!!!
@@ -159,10 +172,15 @@ module SportDb
                                   team1_id: team1_rec.id,
                                   team2_id: team2_rec.id )
        if rec.nil?
-         attribs = { round_id: round_rec.id,
+        ## find last pos - check if it can be nil?
+         max_pos = Model::Game.where( event_id: event.id ).maximum( 'pos' )
+         max_pos = max_pos ? max_pos+1 : 1
+
+         attribs = { event_id: event.id,          ## todo/fix: change to data struct too?
+                     round_id: round_rec.id,
                      team1_id: team1_rec.id,
                      team2_id: team2_rec.id,
-                     pos:      999,    ## make optional why? why not? - change to num?
+                     pos:      max_pos,
                      play_at:  match.date.to_date,
                      score1:   match.score1,
                      score2:   match.score2,

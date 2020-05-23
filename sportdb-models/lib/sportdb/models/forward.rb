@@ -19,10 +19,10 @@ module SportDb
   #   e.g. with belongs_to assoc (country,region)
 
   class Assoc  < ActiveRecord::Base ; end
-  class Team < ActiveRecord::Base ; end
+  class Team   < ActiveRecord::Base ; end
   class League < ActiveRecord::Base ; end
   class Ground < ActiveRecord::Base ; end
-  class Goal  < ActiveRecord::Base ; end
+  class Goal   < ActiveRecord::Base ; end
 
   end
 

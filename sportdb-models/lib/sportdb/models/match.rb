@@ -3,14 +3,18 @@ module SportDb
   module Model
 
 
-class Game < ActiveRecord::Base
+class Match < ActiveRecord::Base
+
+  self.table_name = 'matches'
 
   belongs_to :team1, class_name: 'Team', foreign_key: 'team1_id'
   belongs_to :team2, class_name: 'Team', foreign_key: 'team2_id'
-  
-  belongs_to :round
+
+  belongs_to :event
+  belongs_to :round   # round is optional
   belongs_to :group   # group is optional
-  
+  belongs_to :stage   # stage is optional
+
   belongs_to :ground  # ground is optional
   belongs_to :city,  class_name: 'WorldDb::Model::City', foreign_key: 'city_id'   # city   is optioanl (remove?? redundant?? use ground ??)
 
@@ -27,7 +31,7 @@ class Game < ActiveRecord::Base
   def toto12x() toto1x2; end # alias for toto12x - todo/fix: use ruby alias helper
   def toto1x2
     ## note: will return string e.g. 1-X-2 (winner will return int e.g. 1-0-2)
-    
+
     ## fix: use switch/when expr/stmt instead of ifs
     value = winner90   # 1 0 2  1 => team 1 0 => draw 2 => team
     if value == 0
@@ -82,11 +86,11 @@ class Game < ActiveRecord::Base
       end
 
       ## todo/fix:
-      #  check for next-game/pre-game !!!
+      #  check for next-match/pre-match !!!
       #    use 1st leg and 2nd leg - use for winner too
       #  or add new winner_total or winner_aggregated method ???
 
-      ## check for penalty  - note: some games might only have penalty and no extra time (e.g. copa liberatadores)
+      ## check for penalty  - note: some matches might only have penalty and no extra time (e.g. copa liberatadores)
       if score1p.present? && score2p.present?
         if score1p > score2p
           self.winner = 1
@@ -114,7 +118,7 @@ class Game < ActiveRecord::Base
 
 
   ### getter/setters for deprecated attribs (score3,4,5,6) n national
-  
+
   def score1ot() score1et  end
   def score2ot() score2et  end
 
@@ -122,60 +126,13 @@ class Game < ActiveRecord::Base
   def score2ot=(value) self.score2et = value  end
 
 
-  # game over?
+  # match over?
   def over?()     play_at <= Time.now;  end
 
   ## fix/todo: already added by ar magic ??? remove code
   def knockout?() knockout == true;  end
   def complete?() score1.present? && score2.present?;  end
 
-
-############# convenience helpers for styling
-##
-
-  def team1_style_class
-    buf = ''
-    ## NB: remove if calc?
-
-    ### fix: loser
-    ## - add method for checking winner/loser on ko pairs using (1st leg/2nd leg totals) ??
-    ## use new winner_total method ??
- 
-    if complete?
-      if winner1?
-        buf << 'game-team-winner '
-      elsif winner2?
-        buf << 'game-team-loser '
-      else # assume draw
-        buf << 'game-team-draw '
-      end
-    end
-    
-    buf << 'game-knockout '     if knockout?
-    buf
-  end
-
-  def team2_style_class
-    buf = ''
-    ## NB: remove if calc?
-
-    ### fix: loser
-    ## - add method for checking winner/loser on ko pairs using (1st leg/2nd leg totals) ??
-    ## use new winner_total method ??
-
-    if complete?
-      if winner1?
-        buf << 'game-team-loser '
-      elsif winner2?
-        buf << 'game-team-winner '
-      else # assume draw
-        buf << 'game-team-draw '
-      end
-    end
-
-    buf << 'game-knockout '     if knockout?
-    buf
-  end
 
 
   def play_at_str( format = nil )
@@ -218,7 +175,7 @@ class Game < ActiveRecord::Base
 
   ## todo/fix: find a better name?
   ##  todo: move to utils for reuse?
-  
+
   def check_for_changes( new_attributes )
     changes_counter = 0
     new_attributes.each do |key,new_value|
@@ -231,14 +188,13 @@ class Game < ActiveRecord::Base
         puts "change #{changes_counter} for #{key} old:>#{old_value}< : #{old_value.class.name} new:>#{new_value}< : #{new_value.class.name}"
       end
     end
-    
+
     # no changes found for counter==0;
     # -- otherwise x changes found; return true
     changes_counter == 0 ? false : true
   end
 
-end # class Game
-
+end # class Match
 
   end # module Model
 end # module SportDb

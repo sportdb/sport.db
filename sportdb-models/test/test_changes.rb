@@ -8,18 +8,18 @@ require 'helper'
 
 class TestChanges < MiniTest::Test
 
-  def test_scores
-    game1 = Game.new
-    game1.score1 = 1
-    game1.score2 = 2
+  def test_score
+    match1 = Match.new
+    match1.score1 = 1
+    match1.score2 = 2
 
-    game2 = Game.new
-    game2.score1   = 1
-    game2.score2   = 1
-    game2.score1p  = 5
-    game2.score2p  = 3
+    match2 = Match.new
+    match2.score1   = 1
+    match2.score2   = 1
+    match2.score1p  = 5
+    match2.score2p  = 3
 
-    game_attribs = {
+    match_attribs = {
       score1: 1,
       score2: 2,
       score1et: nil,
@@ -28,50 +28,50 @@ class TestChanges < MiniTest::Test
       score2p:  nil
     }
 
-    assert_equal  false, game1.check_for_changes( game_attribs )
-    assert_equal  true,  game2.check_for_changes( game_attribs )
+    assert_equal  false, match1.check_for_changes( match_attribs )
+    assert_equal  true,  match2.check_for_changes( match_attribs )
   end
 
-  def test_play_at
-    game1 = Game.new
-    game1.score1 = 1
-    game1.score2 = 2
-    game1.play_at = DateTime.new( 2012, 11, 5 )
+  def test_date
+    match1 = Match.new
+    match1.score1 = 1
+    match1.score2 = 2
+    match1.date   = Date.new( 2012, 11, 5 )
 
-    game2 = Game.new
-    game2.score1   = 1
-    game2.score2   = 2
-    game2.play_at = DateTime.new( 2012, 12, 24 )
+    match2 = Match.new
+    match2.score1   = 1
+    match2.score2   = 2
+    match2.date     = DateTime.new( 2012, 12, 24 )
 
-    game_attribs = {
+    match_attribs = {
       score1:  1,
       score2:  2,
-      play_at: DateTime.new( 2012, 11, 5 )
+      date: DateTime.new( 2012, 11, 5 )
     }
 
-    assert_equal  false, game1.check_for_changes( game_attribs )
-    assert_equal  true,  game2.check_for_changes( game_attribs )
+    assert_equal  false, match1.check_for_changes( match_attribs )
+    assert_equal  true,  match2.check_for_changes( match_attribs )
   end
 
   def test_group_id
-    game1 = Game.new
-    game1.score1 = 1
-    game1.score2 = 2
-    game1.group_id = 1
+    match1 = Match.new
+    match1.score1 = 1
+    match1.score2 = 2
+    match1.group_id = 1
 
-    game2 = Game.new
-    game2.score1   = 1
-    game2.score2   = 2
-    game2.group_id = 2
+    match2 = Match.new
+    match2.score1   = 1
+    match2.score2   = 2
+    match2.group_id = 2
 
-    game_attribs = {
+    match_attribs = {
       score1:  1,
       score2:  2,
       group_id: 1
     }
 
-    assert_equal  false, game1.check_for_changes( game_attribs )
-    assert_equal  true,  game2.check_for_changes( game_attribs )
+    assert_equal  false, match1.check_for_changes( match_attribs )
+    assert_equal  true,  match2.check_for_changes( match_attribs )
   end
 
 

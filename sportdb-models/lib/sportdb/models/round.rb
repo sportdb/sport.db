@@ -5,11 +5,7 @@ module SportDb
 
 class Round < ActiveRecord::Base
 
-if ActiveRecord::VERSION::MAJOR == 3
-  has_many :games, :order => 'pos'
-else
-  has_many :games, -> { order('pos') }
-end
+  has_many :matches, -> { order('pos') }, class_name: 'Match'
 
   belongs_to :event
 
@@ -18,5 +14,4 @@ end # class Round
 
   end # module Model
 end # module SportDb
-
 

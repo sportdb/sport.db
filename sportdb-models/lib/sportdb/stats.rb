@@ -6,13 +6,13 @@ module SportDb
 
     def tables
       puts "  #{League.count} leagues  /  #{Season.count} seasons"
-      puts "  #{Event.count} events (league+season recs)  /  #{Round.count} rounds  /  #{Group.count} groups"
+      puts "  #{Event.count} events (league+season recs)  /  #{Round.count} rounds  /  #{Group.count} groups  /  #{Stage.count} stages"
       puts "  #{Team.count} teams"
-      puts "  #{Game.count} games"
+      puts "  #{Match.count} matches"
       puts "  #{Badge.count} badges"
 
-      puts "  #{Roster.count} rosters (person+team+event recs)"
-      puts "  #{Goal.count} goals (person+game recs)"
+      puts "  #{Lineup.count} lineups (person+team+event recs)"
+      puts "  #{Goal.count} goals (person+match recs)"
 
       puts "  #{Assoc.count}  assocs|orgs"
       puts "  #{Ground.count}  grounds|stadiums"

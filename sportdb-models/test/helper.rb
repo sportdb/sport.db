@@ -17,15 +17,15 @@ League      = SportDb::Model::League
 Season      = SportDb::Model::Season
 Event       = SportDb::Model::Event
 Team        = SportDb::Model::Team
-Roster      = SportDb::Model::Roster
+Lineup      = SportDb::Model::Lineup
 Assoc       = SportDb::Model::Assoc
 AssocAssoc  = SportDb::Model::AssocAssoc
 
-Round      = SportDb::Model::Round
-Group      = SportDb::Model::Group
-Stage      = SportDb::Model::Stage
-Game       = SportDb::Model::Game
-GameCursor = SportDb::Model::GameCursor
+Round       = SportDb::Model::Round
+Group       = SportDb::Model::Group
+Stage       = SportDb::Model::Stage
+Match       = SportDb::Model::Match
+MatchCursor = SportDb::Model::MatchCursor
 
 
 EventStanding        = SportDb::Model::EventStanding
@@ -40,3 +40,7 @@ AlltimeStandingEntry = SportDb::Model::AlltimeStandingEntry
 # setup db -> schema / tables
 
 SportDb.setup_in_memory_db
+
+## test helpers here
+SportDb.delete!
+SportDb.tables

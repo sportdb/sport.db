@@ -22,20 +22,19 @@ require 'sportdb/models/badge'
 require 'sportdb/models/event'
 require 'sportdb/models/event_ground'
 require 'sportdb/models/event_team'
-require 'sportdb/models/game'
 require 'sportdb/models/goal'
 require 'sportdb/models/ground'
 require 'sportdb/models/group'
 require 'sportdb/models/group_team'
 require 'sportdb/models/league'
+require 'sportdb/models/lineup'
+require 'sportdb/models/match'
 require 'sportdb/models/person'
-require 'sportdb/models/roster'
 require 'sportdb/models/round'
 require 'sportdb/models/season'
 require 'sportdb/models/stage'
 require 'sportdb/models/stage_team'
 require 'sportdb/models/team'
-require 'sportdb/models/team_compat'   ### fix/todo: move to compat gem !!!!!
 
 
 require 'sportdb/models/stats/alltime_standing'
@@ -45,10 +44,10 @@ require 'sportdb/models/stats/event_standing_entry'
 require 'sportdb/models/stats/group_standing'
 require 'sportdb/models/stats/group_standing_entry'
 
-require 'sportdb/models/utils'   # e.g. GameCursor
+require 'sportdb/models/utils'   # e.g. MatchCursor
 
 
-require 'sportdb/schema'       # NB: requires sportdb/models (include SportDB::Models)
+require 'sportdb/schema'       # note: requires sportdb/models (include SportDB::Models)
 
 
 require 'sportdb/calc'       # fix/todo: obsolete - replace w/ standings
@@ -153,6 +152,23 @@ module SportDb
 
 
 end  # module SportDb
+
+
+
+module SportDb
+  module Models
+##################
+#  add alias why? why not?
+Competition = Event
+Comp        = Event
+
+LineUp = Lineup
+Squad  = Lineup
+
+Game = Match  ## add (old) alias - why? why not?
+  end # module Models
+end # module SportDb
+
 
 
 ## say hello

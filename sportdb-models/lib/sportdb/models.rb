@@ -156,4 +156,4 @@ end  # module SportDb
 
 
 ## say hello
-puts SportDb.banner   if defined?($RUBYLIBS_DEBUG) && $RUBYLIBS_DEBUG
+puts SportDb::Module::Models.banner   if defined?($RUBYLIBS_DEBUG) && $RUBYLIBS_DEBUG

@@ -4,7 +4,7 @@ require './lib/sportdb/version.rb'
 
 Hoe.spec 'sportdb-models' do
 
-  self.version = SportDb::VERSION
+  self.version = SportDb::Module::Models::VERSION
 
   self.summary = "sportdb-models - sport.db schema 'n' models for easy (re)use"
   self.description = summary

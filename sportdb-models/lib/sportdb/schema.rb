@@ -9,18 +9,19 @@ def up
 create_table :teams do |t|
   t.string  :key,   null: false   # import/export key
   t.string  :title, null: false
-  t.string  :title2
+  t.string  :title2    ## find a better name -why? why not? or remove?
   t.string  :code     # make it not null?  - three letter code (short title)
-  t.string  :synonyms  # comma separated list of synonyms
-  t.references :country,   null: false
-  t.references :city     # NB: city is optional (should be required for clubs e.g. non-national teams)
+  t.string  :synonyms  # comma separated list of synonyms - todo/fix: change to alt_names!!!
+  t.references :country,   null: false, index: false
+  t.references :city                  , index: false # NB: city is optional (should be required for clubs e.g. non-national teams)
+  ## todo/fix: add optional district (in city)
   t.boolean  :club,     null: false, default: false  # is it a club (not a national team)?
 
-  t.integer :since     # founding year
+  t.integer :since     # founding year  -fix change to start_year / founded - why? why not?
   t.string  :address
   t.string  :web
 
-  t.references :assoc   # optional: national football assoc(iation), for example - used for national teams
+  t.references :assoc,   index: false   # optional: national football assoc(iation), for example - used for national teams
 
   ### fix: remove and add virtual attribute in model instead
   t.boolean  :national, null: false, default: false  # is it a national selection team (not a club)?
@@ -36,8 +37,8 @@ create_table :grounds do |t|
   t.string     :title,    null: false
   t.string     :synonyms   # comma separated list of synonyms
 
-  t.references :country,  null: false
-  t.references :city     # todo: make city required ???
+  t.references :country,  null: false,    index: false
+  t.references :city,                     index: false # todo: make city required ???
 
   t.integer :since     # founding year
   t.integer :capacity  # attentence capacity e.g. 10_000 or 50_000 etc.
@@ -58,9 +59,9 @@ add_index :grounds, :key, unique: true
 
 # join table: person+game(team1+team2+event(season+league))
 create_table :goals do |t|
-  t.references  :person,   null: false
-  t.references  :game,     null: false
-  t.references  :team,     null: false     ##  use integer instead w/ values 1 or 2  for team1 or team2 ?? why? why not?
+  t.references  :person,   null: false,  index: false
+  t.references  :game,     null: false,  index: false
+  t.references  :team,     null: false,  index: false     ##  use integer instead w/ values 1 or 2  for team1 or team2 ?? why? why not?
 
   t.integer   :minute
   t.integer   :offset,  null: false, default: 0    # e.g. 45' +3 or 90' +2
@@ -81,9 +82,9 @@ end
 
 # join table -> person+team+event(season+league)
 create_table :rosters do |t|   # use squads as an alternative name? why? why not??
-  t.references :person,  null: false
-  t.references :team,    null: false
-  t.references :event      # make required?
+  t.references :person,  null: false,   index: false
+  t.references :team,    null: false,   index: false
+  t.references :event               ,   index: false # make required?
   t.integer    :pos,      null: false
 
   t.timestamps
@@ -92,11 +93,21 @@ end
 
 create_table :events do |t|
   t.string      :key,      null: false   # import/export key
-  t.references  :league,   null: false
-  t.references  :season,   null: false
-  t.date        :start_at, null: false    # NB: only use date (w/o time)
-  t.date        :end_at   # make it required???  # NB: only use date (w/o time)
+  t.references  :league,   null: false, index: false
+  t.references  :season,   null: false, index: false
+  t.date        :start_at, null: false    # NB: only use date (w/o time) - yes!!! split into two!!!!
+  t.date        :end_at    # make it required???  # NB: only use date (w/o time)
+
   t.boolean     :team3,    null: false, default: true   ## e.g. Champions League has no 3rd place (only 1st and 2nd/final)
+  ## todo: add league/cup flag/flags  or to league itself?
+  ##   or add add a tournament type field  - why? why not?
+
+  t.integer     :num       ## optional series counter e.g. World Cup No. 2, Bundesliga No. 43 etc. etc.
+
+  ## auto-added flag (e.g. start_at n end_at dates got calculated)
+  ##  if auto-added flag is false - do NOT auto-update start_at, end_at etc.
+  t.boolean    :auto, null: false, default: true
+
 
   #### track 1-n sources (from repos)  - # todo move to its own table later
   ## NB: relative to event.yml - use mapper to "resolve" to full path w/ repo; use league+season keys
@@ -114,12 +125,17 @@ create_table :rounds do |t|
   t.references :event,    null: false, index: false  ## Note: do NOT auto-add index
   t.string     :title,    null: false
   t.string     :title2
-  t.integer    :pos,      null: false
+  t.integer    :pos,      null: false   ## use only for "internal" sort order (defaults to insertion order)
+
+  t.integer    :num       ## optional match day/week number
+  t.string     :key       ## optional match day/week number key (as string)
+
   ## add new table stage/stages for grouping rounds in group rounds and playoff rounds, for example???
   ## # "regular" season (group) games or post-season (playoff) knockouts (k.o's)
   t.boolean    :knockout, null: false, default: false
-  t.date   :start_at, null: false     # NB: only use date (w/o time)
-  t.date   :end_at    # todo: make it required e.g. :null => false    # NB: only use date (w/o time)
+  ## todo: add leg  (e.g. leg1, leg2, etc. why? why not?)
+  t.date   :start_at  # note: only use date (w/o time)  - fix: change to start_date!!!
+  t.date   :end_at    # note: only use date (w/o time)  - fix: change to end_date!!!
 
   ## auto-added flag (e.g. start_at n end_at dates got calculated)
   ##  if auto-added flag is false - do NOT auto-update start_at, end_at etc.
@@ -134,7 +150,9 @@ add_index :rounds, :event_id  # fk event_id index
 create_table :groups do |t|     # Teamgruppe (zB Gruppe A, Gruppe B, etc.)
   t.references :event,    null: false, index: false    ## Note: do NOT auto-add index
   t.string     :title,    null: false
-  t.integer    :pos,      null: false
+  t.integer    :pos,      null: false       ## use only for "internal" sort order (defaults to insertion order)
+
+  t.string     :key       ## optional group key e.g. A, B, C or 1, 2, etc. - use why? why not?
   t.timestamps
 end
 
@@ -144,6 +162,7 @@ add_index :groups, :event_id  # fk event_id index
 create_table :stages do |t|     # e.g. regular season, champions round, etc.
   t.references :event,    null: false, index: false    ## Note: do NOT auto-add index
   t.string     :title,    null: false
+  ## todo/check: add pos for use only for "internal" sort order (defaults to insertion order)??
   t.timestamps
 end
 
@@ -152,27 +171,40 @@ add_index :stages, :event_id  # fk event_id index
 
 
 ###########################
-# fix: rename table to matches
+# fix: rename table to matches - why? why not?
 create_table :games do |t|
   t.string     :key          # import/export key
-  t.references :round,    null: false, index: false   ## Note: do NOT auto-add index
-  t.integer    :pos,      null: false
-  t.references :group,                 index: false   ## Note: do NOT auto-add index  -- group is optional
-  t.references :stage,                 index: false     # optional - regular seasion / champions round etc.
+  t.references :event,    null: false, index: false
+  t.integer    :pos,      null: false       ## note: use only for "internal" sort order (defaults to insertion order)
+  t.integer    :num       ## optional - "event global" match number e.g. World Cup - Match 1, Match 2, etc.
   t.references :team1,    null: false, index: false   ## Note: do NOT auto-add index
   t.references :team2,    null: false, index: false   ## Note: do NOT auto-add index
 
-  t.datetime   :play_at,   null: false
+  t.references :round,                 index: false   ## Note: do NOT auto-add index
+  t.references :group,                 index: false   ## Note: do NOT auto-add index  -- group is optional
+  t.references :stage,                 index: false     # optional - regular seasion / champions round etc.
+
+  ## "inline" helper keys auto-populate for easier "no-join/single-table" queries
+  t.string    :team1_key
+  t.string    :team2_key
+  t.string    :event_key
+  t.string    :round_key
+  t.integer   :round_num   ## e.g. 1,2,3 for match day/match week
+  t.string    :group_key
+  t.string    :stage_key
+
+
+  t.datetime   :play_at      # optioanl play date  - todo/fix: split into play_date AND play_time!!!
   t.boolean    :postponed, null: false, default: false
   t.datetime   :play_at_v2   # optional old date (when postponed)
   t.datetime   :play_at_v3   # optional odl date (when postponed twice)
 
-  t.references :ground    # optional - stadium (lets you get city,region,country,etc)
-  t.references :city      # optional - convenience for ground.city_id ???
+  t.references :ground, index: false    # optional - stadium (lets you get city,region,country,etc)
+  t.references :city,   index: false    # optional - convenience for ground.city_id ???
 
 
   t.boolean    :knockout, null: false, default: false
-  t.boolean    :home,     null: false, default: true    # is team1 play at home (that is, at its home stadium)
+  t.boolean    :home,     null: false, default: true    # is team1 play at home or neutral (that is, at its home stadium)
   t.integer    :score1
   t.integer    :score2
   t.integer    :score1et  # extratime - team 1 (opt)
@@ -193,6 +225,7 @@ create_table :games do |t|
 end
 
 add_index :games, :key,  unique: true
+add_index :games, :event_id      # fk event_id index
 add_index :games, :round_id      # fk round_id index
 add_index :games, :group_id      # fk group_id index
 add_index :games, :next_game_id  # fk next_game_id index
@@ -248,31 +281,39 @@ add_index :groups_teams, :group_id
 
 ### todo: add models and some seed data
 
-create_table :seasons do |t|  ## also used for years
+create_table :seasons do |t|  ## also used for years - add a boolean year true/false flag too - why? why not?
   t.string :key,   null: false
   t.string :title, null: false   # e.g. 2011/12, 2012/13 ### what to do w/ 2012? for world cup etc?
   t.timestamps
 end
 
+
 create_table :leagues do |t|  ## also for cups/conferences/tournaments/world series/etc.
   t.string     :key,   null: false
   t.string     :title, null: false     # e.g. Premier League, Deutsche Bundesliga, World Cup, Champions League, etc.
-  t.references :country   ##  optional for now ,   :null => false   ### todo: create "virtual" country for international leagues e.g. use int? or world (ww?)/europe (eu)/etc. similar? already taken??
+  t.references :country,           index: false   ##  optional for now ,   :null => false   ### todo: create "virtual" country for international leagues e.g. use int? or world (ww?)/europe (eu)/etc. similar? already taken??
 
-  ## fix: rename to :clubs from :club
+  ## fix: rename to :clubs from :club - why? why not?
+  ## fix: rename to :intl  from :international - why? why not? shorter? better?
+  ## todo/check:  flip clup to league flag? why? why not?
   t.boolean    :club,          null: false, default: false  # club teams or national teams?
+  t.boolean    :intl,          null: false, default: false  # national league or international?
+  t.boolean    :cup,           null: false, default: false  ## or regular season league?? use a tournament type field with enums - why? why not?
+  t.integer    :level       ## use tier?  e.g. level 1, level 2, etc.
+
+  ## todo/fix: add start_year / end_year ???
+
   ## todo: add t.boolean  :national flag? for national teams?
-  ## t.boolean  :international, :null => false, :default => false  # national league or international?
-  ## t.boolean  :cup     ## or regular season league??
   t.timestamps
 end
 
+
 create_table :badges do |t|
-  t.references  :team,  null: false
+  t.references  :team,  null: false,    index: false
   ## todo/fix: use event insead of league+season ??
   ## t.references  :event, :null => false   # event => league+season
-  t.references  :league, null: false
-  t.references  :season, null: false
+  t.references  :league, null: false,   index: false
+  t.references  :season, null: false,   index: false
   t.string      :title,  null: false   # Meister, Weltmeister, Europameister, Cupsieger, Vize-Meister, Aufsteiger, Absteiger, etc.
   t.timestamps
 end
@@ -286,7 +327,7 @@ create_table :assocs do |t|
   t.string     :web
 
   ### if national assoc - has (optional) country ref
-  t.references :country   # note: optional - only used/set (required) for national assocs (or subnational too?)
+  t.references :country,       index: false   # note: optional - only used/set (required) for national assocs (or subnational too?)
   t.boolean    :national,    null: false, default: false
 
   ## add :world flag for FIFA? - just check if parent is null? for root assoc(s)? why? why not?
@@ -320,16 +361,16 @@ add_index :assocs_assocs, :assoc2_id
 # todo: add group_standings per round with pos diffs e.g +1,+2, -3 etc.
 
 create_table :group_standings do |t|
-  t.references  :group,    null: false
+  t.references  :group,    null: false,  index: false
   t.timestamps
 end
 
 ### use items instead of entries - why (shorter! simple plural e.g. just add s)
 
 create_table :group_standing_entries do |t|
-  t.references  :group_standing,  null: false
-  t.references  :team,            null: false
-  t.integer     :pos
+  t.references  :group_standing,  null: false, index: false
+  t.references  :team,            null: false, index: false
+  t.integer     :pos   ## todo/fix: add rank  and use pos only for "internal" insertation order
   t.integer     :played
   t.integer     :won
   t.integer     :lost
@@ -343,13 +384,13 @@ end
 
 
 create_table :event_standings do |t|
-  t.references  :event,   null: false
+  t.references  :event,   null: false, index: false
   t.timestamps
 end
 
 create_table :event_standing_entries do |t|
-  t.references  :event_standing,  null: false
-  t.references  :team,            null: false
+  t.references  :event_standing,  null: false, index: false
+  t.references  :team,            null: false, index: false
   t.integer     :pos
   t.integer     :played
   t.integer     :won
@@ -372,8 +413,8 @@ create_table :alltime_standings do |t|
 end
 
 create_table :alltime_standing_entries do |t|
-  t.references  :alltime_standing,  null: false
-  t.references  :team,              null: false
+  t.references  :alltime_standing,  null: false, index: false
+  t.references  :team,              null: false, index: false
   t.integer     :pos
   t.integer     :played    # todo: use a different name - why? why not?
   t.integer     :won

@@ -1,6 +1,6 @@
 
 module SportDb
-  
+
   class Stats
     include Models
 
@@ -16,10 +16,6 @@ module SportDb
 
       puts "  #{Assoc.count}  assocs|orgs"
       puts "  #{Ground.count}  grounds|stadiums"
-
-## note: moved to racing.db  -- remove/delete!!
-##      puts "  #{Track.count} tracks / #{Race.count} races (track+event recs) / #{Run.count} runs"
-##      puts "  #{Record.count} records (race|run+person recs)"
     end
 
   end  # class Stats

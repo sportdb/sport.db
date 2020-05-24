@@ -12,20 +12,18 @@ require 'sportdb/version'    # let version always go first
 
 require 'sportdb/patterns'
 require 'sportdb/models/forward'
+
 require 'sportdb/models/world/city'
 require 'sportdb/models/world/country'
 require 'sportdb/models/world/continent'
 require 'sportdb/models/world/state'
+
 require 'sportdb/models/assoc'
-require 'sportdb/models/assoc_assoc'
 require 'sportdb/models/badge'
 require 'sportdb/models/event'
-require 'sportdb/models/event_ground'
-require 'sportdb/models/event_team'
 require 'sportdb/models/goal'
 require 'sportdb/models/ground'
 require 'sportdb/models/group'
-require 'sportdb/models/group_team'
 require 'sportdb/models/league'
 require 'sportdb/models/lineup'
 require 'sportdb/models/match'
@@ -33,16 +31,11 @@ require 'sportdb/models/person'
 require 'sportdb/models/round'
 require 'sportdb/models/season'
 require 'sportdb/models/stage'
-require 'sportdb/models/stage_team'
 require 'sportdb/models/team'
 
-
 require 'sportdb/models/stats/alltime_standing'
-require 'sportdb/models/stats/alltime_standing_entry'
 require 'sportdb/models/stats/event_standing'
-require 'sportdb/models/stats/event_standing_entry'
 require 'sportdb/models/stats/group_standing'
-require 'sportdb/models/stats/group_standing_entry'
 
 require 'sportdb/models/utils'   # e.g. MatchCursor
 
@@ -50,8 +43,6 @@ require 'sportdb/models/utils'   # e.g. MatchCursor
 require 'sportdb/schema'       # note: requires sportdb/models (include SportDB::Models)
 
 
-require 'sportdb/calc'       # fix/todo: obsolete - replace w/ standings
-require 'sportdb/standings'
 
 require 'sportdb/deleter'
 require 'sportdb/stats'

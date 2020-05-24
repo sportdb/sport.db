@@ -15,7 +15,7 @@ module SportDb
 
   Person    = PersonDb::Model::Person
 
-  ## nb: for now only team and league use worlddb tables
+  ## note: for now only team and league use worlddb tables
   #   e.g. with belongs_to assoc (country,region)
 
   class Assoc  < ActiveRecord::Base ; end

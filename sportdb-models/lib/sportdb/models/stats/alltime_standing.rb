@@ -10,34 +10,21 @@ class AlltimeStanding < ActiveRecord::Base
 
   has_many :entries,  class_name: 'SportDb::Model::AlltimeStandingEntry', foreign_key: 'alltime_standing_id', :dependent => :delete_all
 
-
-  def recalc_for_league!( league, opts={} )
-
-    recs = StandingsHelper.calc_for_events( league.events, opts )
-
-    ## - remove (if exit) old entries and add new entries
-    entries.delete_all    # note: assoc dependent set to :delete_all (defaults to :nullify)
-
-    recs.each do |team_key,rec|
-     
-      team = Team.find_by_key!( team_key )
-      ### note: we also add rec.recs (appearance counter) - not included w/ group or event standings, for example
-      entries.create!(
-                team_id: team.id,
-                pos:     rec.pos,
-                played:  rec.played,
-                won:     rec.won,
-                drawn:   rec.drawn,
-                lost:    rec.lost,
-                goals_for: rec.goals_for,
-                goals_against: rec.goals_against,
-                pts:     rec.pts,
-                recs:    rec.recs )
-    end
-  end  # method recalc_for_league!
-
-
 end # class AlltimeStanding
+
+
+class AlltimeStandingEntry < ActiveRecord::Base
+
+  self.table_name = 'alltime_standing_entries'
+
+  belongs_to :standing, class_name: 'SportDb::Model::AlltimeStanding', foreign_key: 'alltime_standing_id'
+  belongs_to :team
+
+  ## note:
+  ##  map standing_id to alltime_standing_id - convenience alias
+  def standing_id=(value)  write_attribute(:alltime_standing_id, value);  end
+
+end # class AlltimeStandingEntry
 
 
   end # module Model

@@ -35,5 +35,24 @@ class Event < ActiveRecord::Base
 end # class Event
 
 
+class EventTeam < ActiveRecord::Base
+  self.table_name = 'events_teams'
+
+  belongs_to :event
+  belongs_to :team
+end # class EventTeam
+
+
+class EventGround < ActiveRecord::Base
+  self.table_name = 'events_grounds'
+
+  belongs_to :event
+  belongs_to :ground
+end # class EventGround
+
+
+
+
+
   end # module Model
 end # module SportDb

@@ -3,8 +3,8 @@
 
 ##############
 ##
-##  fix/todo:
-##   - reuse in footballcsv/build  e.g. require sportdb and remove "old" code!!!!
+##  fix/todo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+##   - reuse from sportdb/formats!!!!  e.g. require sportdb and remove "old" code!!!!
 
 module SportDb
 
@@ -28,7 +28,7 @@ class StandingsLine
     @goals_for     = @home_goals_for     = @away_goals_for     = 0
     @goals_against = @home_goals_against = @away_goals_against = 0
     @pts    = @home_pts    = @away_pts    = 0
-    
+
     ### fix: add @recs too - to count number of records (e.g. appearances/seasons etc.)
   end
 end # class StandingsLine
@@ -95,7 +95,7 @@ class Standings
     ary.each_with_index do |line,i|
       line.rank = i+1 ## add ranking (e.g. 1,2,3 etc.) - note: i starts w/ zero (0)
     end
-    
+
     ary
   end  # to_a
 

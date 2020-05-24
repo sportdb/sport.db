@@ -11,45 +11,21 @@ class EventStanding < ActiveRecord::Base
   has_many   :entries, class_name: 'SportDb::Model::EventStandingEntry', foreign_key: 'event_standing_id', :dependent => :delete_all
   belongs_to :event
 
-  ## convenience helper; recalcs all records
-  def self.recalc!( opts={} )  self.order(:id).each { |rec| rec.recalc!(opts) };  end
-
-
-  def recalc!( opts={} )
-    ##  will calculate event standing e.g.
-
-    ## calc points (pts) - loop over all group games/matches
-    # group.games.each do |game|
-    # end
-
-    #  todo/fix!!!!!!!!!!:
-    # skip knockout rounds  - why? why not?
-    #   make it configure-able?
-
-    recs = StandingsHelper.calc( event.games, opts )
-
-    ## - remove (if exit) old entries and add new entries
-    entries.delete_all    # note: assoc dependent set to :delete_all (defaults to :nullify)
-
-    ## add empty entries
-    event.teams.each do |team|
-      puts "   adding entry for team #{team.title} (#{team.code})"
-      rec = recs[ team.key ]  # find  (in-memory) stats records
-      entries.create!(
-                team_id: team.id,
-                pos:     rec.pos,
-                played:  rec.played,
-                won:     rec.won,
-                drawn:   rec.drawn,
-                lost:    rec.lost,
-                goals_for: rec.goals_for,
-                goals_against: rec.goals_against,
-                pts:     rec.pts  )
-    end
-  end  # method recalc!
-
-
 end # class EventStanding
-  end # module Model
 
+
+class EventStandingEntry < ActiveRecord::Base
+
+  self.table_name = 'event_standing_entries'
+
+  belongs_to :standing, class_name: 'SportDb::Model::EventStanding', foreign_key: 'event_standing_id'
+  belongs_to :team
+
+  ## note:
+  ##  map standing_id to group_standing_id - convenience alias
+  def standing_id=(value)  write_attribute(:event_standing_id, value);  end
+
+end # class EventStandingEntry
+
+  end # module Model
 end # module SportDb

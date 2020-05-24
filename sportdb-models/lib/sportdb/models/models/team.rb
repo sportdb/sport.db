@@ -16,9 +16,8 @@ class Team < ActiveRecord::Base
   has_many :home_matches, class_name: 'Match', foreign_key: 'team1_id'
   has_many :away_matches, class_name: 'Match', foreign_key: 'team2_id'
 
-  ## todo/fix: must be 3 or more letters (plus allow digits e.g. salzburgii, muenchen1980, etc.) - why? why not??
-  validates :key,  format: { with: /#{TEAM_KEY_PATTERN}/,  message: TEAM_KEY_PATTERN_MESSAGE }
-  validates :code, format: { with: /#{TEAM_CODE_PATTERN}/, message: TEAM_CODE_PATTERN_MESSAGE }, allow_nil: true
+  validates :key,  format: { with: TEAM_KEY_RE,  message: TEAM_KEY_MESSAGE }
+  validates :code, format: { with: TEAM_CODE_RE, message: TEAM_CODE_MESSAGE }, allow_nil: true
 
   has_many :event_teams, class_name: 'EventTeam'  # join table (events+teams)
   has_many :events, :through => :event_teams
@@ -38,11 +37,11 @@ class Team < ActiveRecord::Base
   end
 
   def upcoming_matches
-    Match.where( 'team1_id = ? or team2_id = ?', id, id ).where( 'date > ?', Time.now ).order( 'date' )
+    Match.where( 'team1_id = ? or team2_id = ?', id, id ).where( 'date > ?', Date.today ).order( 'date' )
   end
 
   def past_matches
-    Match.where( 'team1_id = ? or team2_id = ?', id, id ).where( 'date < ?', Time.now ).order( 'date desc' )
+    Match.where( 'team1_id = ? or team2_id = ?', id, id ).where( 'date < ?', Date.today ).order( 'date desc' )
   end
 
 

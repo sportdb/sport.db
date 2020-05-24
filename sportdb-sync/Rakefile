@@ -21,7 +21,7 @@ Hoe.spec 'sportdb-sync' do
 
   self.extra_deps = [
     ['sportdb-config',  '>= 1.0.4'],
-    ['sportdb-models',  '>= 1.19.0'],
+    ['sportdb-models',  '>= 2.0.0'],
   ]
 
   self.spec_extras = {

@@ -388,16 +388,17 @@ create_table :group_standings do |t|
   t.timestamps
 end
 
-### use items instead of entries - why (shorter! simple plural e.g. just add s)
+### use items or lines instead of entries - why (shorter! simple plural e.g. just add s)
+##  use group_table_lines/stats  - why? why not?
 
 create_table :group_standing_entries do |t|
   t.references  :group_standing,  null: false, index: false
   t.references  :team,            null: false, index: false
-  t.integer     :rank     # note: use rank -- keep/use pos only for "internal" insertation order only - why? why not?
+  t.integer     :pos       # check/todo: use rank? -- keep/use pos only for "internal" insertation order only - why? why not?
   t.integer     :played   ## p/pld
   t.integer     :won      ## w
   t.integer     :lost     ## l
-  t.integer     :drawn    ## d
+  t.integer     :drawn    ## d  or t/tied ??
   t.integer     :goals_for             # todo: find a short name - gf? why? why not?
   t.integer     :goals_against         # todo: find a shorter name - ga? why? why not?
   t.integer     :pts
@@ -414,7 +415,7 @@ end
 create_table :event_standing_entries do |t|
   t.references  :event_standing,  null: false, index: false
   t.references  :team,            null: false, index: false
-  t.integer     :rank
+  t.integer     :pos
   t.integer     :played
   t.integer     :won
   t.integer     :lost
@@ -438,7 +439,7 @@ end
 create_table :alltime_standing_entries do |t|
   t.references  :alltime_standing,  null: false, index: false
   t.references  :team,              null: false, index: false
-  t.integer     :rank
+  t.integer     :pos
   t.integer     :played    # todo: use a different name - why? why not?
   t.integer     :won
   t.integer     :lost
@@ -446,7 +447,7 @@ create_table :alltime_standing_entries do |t|
   t.integer     :goals_for             # todo: find a short name - gf? why? why not?
   t.integer     :goals_against         # todo: find a shorter name - ga? why? why not?
   t.integer     :pts
-  t.integer     :recs               # note: specific to alltime - stats records counter (e.g. appearance counter)
+  t.integer     :recs               # note: specific to alltime - stats records counter (e.g. appearance counter) - find a better name - why? why not?
   t.string      :comments
   t.timestamps
 end

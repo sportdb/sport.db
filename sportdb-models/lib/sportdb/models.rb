@@ -8,44 +8,41 @@ require 'persondb/models'
 
 # our own code
 
-require 'sportdb/version'    # let version always go first
+require 'sportdb/models/version'    # let version always go first
 
-require 'sportdb/patterns'
-require 'sportdb/models/forward'
+require 'sportdb/models/formats'
+require 'sportdb/models/models/forward'
 
-require 'sportdb/models/world/city'
-require 'sportdb/models/world/country'
-require 'sportdb/models/world/continent'
-require 'sportdb/models/world/state'
+require 'sportdb/models/models/world/city'
+require 'sportdb/models/models/world/country'
+require 'sportdb/models/models/world/continent'
+require 'sportdb/models/models/world/state'
 
-require 'sportdb/models/assoc'
-require 'sportdb/models/badge'
-require 'sportdb/models/event'
-require 'sportdb/models/goal'
-require 'sportdb/models/ground'
-require 'sportdb/models/group'
-require 'sportdb/models/league'
-require 'sportdb/models/lineup'
-require 'sportdb/models/match'
-require 'sportdb/models/person'
-require 'sportdb/models/round'
-require 'sportdb/models/season'
-require 'sportdb/models/stage'
-require 'sportdb/models/team'
+require 'sportdb/models/models/assoc'
+require 'sportdb/models/models/badge'
+require 'sportdb/models/models/event'
+require 'sportdb/models/models/goal'
+require 'sportdb/models/models/ground'
+require 'sportdb/models/models/group'
+require 'sportdb/models/models/league'
+require 'sportdb/models/models/lineup'
+require 'sportdb/models/models/match'
+require 'sportdb/models/models/person'
+require 'sportdb/models/models/round'
+require 'sportdb/models/models/season'
+require 'sportdb/models/models/stage'
+require 'sportdb/models/models/team'
 
-require 'sportdb/models/stats/alltime_standing'
-require 'sportdb/models/stats/event_standing'
-require 'sportdb/models/stats/group_standing'
+require 'sportdb/models/models/stats/alltime_standing'
+require 'sportdb/models/models/stats/event_standing'
+require 'sportdb/models/models/stats/group_standing'
+
+require 'sportdb/models/schema'       # note: requires sportdb/models (include SportDB::Models)
 
 require 'sportdb/models/utils'   # e.g. MatchCursor
 
-
-require 'sportdb/schema'       # note: requires sportdb/models (include SportDB::Models)
-
-
-
-require 'sportdb/deleter'
-require 'sportdb/stats'
+require 'sportdb/models/deleter'
+require 'sportdb/models/stats'
 
 
 module SportDb
@@ -163,4 +160,6 @@ end # module SportDb
 
 
 ## say hello
-puts SportDb::Module::Models.banner   if defined?($RUBYLIBS_DEBUG) && $RUBYLIBS_DEBUG
+puts SportDb::Module::Models.banner
+
+

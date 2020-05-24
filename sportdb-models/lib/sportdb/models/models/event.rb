@@ -8,11 +8,11 @@ class Event < ActiveRecord::Base
   belongs_to :league
   belongs_to :season
 
-  has_many :rounds, -> { order('pos') }  # all (fix and flex) rounds
-  has_many :groups, -> { order('pos') }
-  has_many :stages
+  has_many :matches, -> { order('pos') }, class_name: 'Match'
 
-  has_many :matches, :through => :rounds
+  has_many :rounds,  -> { order('pos') }
+  has_many :groups,  -> { order('pos') }
+  has_many :stages
 
   has_many :event_teams,  class_name: 'EventTeam'
   has_many :teams, :through => :event_teams
@@ -29,6 +29,7 @@ class Event < ActiveRecord::Base
   end
 
   def name
+    ## todo/fix: check attr_reader(:name) or such first if NOT nil !!
     "#{league.name} #{season.name}"
   end
 
@@ -49,10 +50,6 @@ class EventGround < ActiveRecord::Base
   belongs_to :event
   belongs_to :ground
 end # class EventGround
-
-
-
-
 
   end # module Model
 end # module SportDb

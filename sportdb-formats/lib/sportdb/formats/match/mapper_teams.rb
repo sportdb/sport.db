@@ -16,7 +16,7 @@ class TeamMapper
   end
 
   def map_teams!( line )
-    @mapper.map_titles!( line )
+    @mapper.map_names!( line )
   end
 end # class TeamMapper
 

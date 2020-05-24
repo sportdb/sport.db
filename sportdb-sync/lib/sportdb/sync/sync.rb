@@ -6,14 +6,14 @@ module SportDb
 
   class NationalTeam
     def self.find_or_create( team )
-      rec = Model::Team.find_by( title: team.name )
+      rec = Model::Team.find_by( name: team.name )
       if rec.nil?
         puts "add national team: #{team.key}, #{team.name}, #{team.country.name} (#{team.country.key})"
 
         ### note: key expected three or more lowercase letters a-z /\A[a-z]{3,}\z/
         attribs = {
           key:        team.key,   ## note: always use downcase fifa code for now!!!
-          title:      team.name,
+          name:       team.name,
           code:       team.code,
           country_id: Sync::Country.find_or_create( team.country ).id,
           club:       false,
@@ -21,7 +21,7 @@ module SportDb
         }
 
         if team.alt_names.empty? == false
-          attribs[:synonyms] = team.alt_names.join('|')
+          attribs[:alt_names] = team.alt_names.join('|')
         end
 
         rec = Model::Team.create!( attribs )
@@ -64,19 +64,19 @@ module SportDb
 
   class Round
     def self.find_or_create( round, event: )
-       rec = Model::Round.find_by( title: round.title, event_id: event.id )
+       rec = Model::Round.find_by( name: round.name, event_id: event.id )
        if rec.nil?
          ## find last pos - check if it can be nil?
          max_pos = Model::Round.where( event_id: event.id ).maximum( 'pos' )
          max_pos = max_pos ? max_pos+1 : 1
 
          attribs = { event_id: event.id,
-                     title:    round.title,
+                     name:     round.name,
                      pos:      max_pos
                    }
 
          ## todo/fix:  check if round has (optional) start or end date and add!!!
-         ## attribs[ :start_at] = round.start_at.to_date
+         ## attribs[ :start_date] = round.start_date.to_date
 
          rec = Model::Round.create!( attribs )
        end
@@ -87,14 +87,14 @@ module SportDb
 
   class Group
     def self.find_or_create( group, event: )
-       rec = Model::Group.find_by( title: group.title, event_id: event.id )
+       rec = Model::Group.find_by( name: group.name, event_id: event.id )
        if rec.nil?
          ## find last pos - check if it can be nil?
          max_pos = Model::Group.where( event_id: event.id ).maximum( 'pos' )
          max_pos = max_pos ? max_pos+1 : 1
 
          attribs = { event_id: event.id,
-                     title:    group.title,
+                     name:     group.name,
                      pos:      max_pos
                    }
 
@@ -109,7 +109,7 @@ module SportDb
 
   class Stage
     def self.find( name, event: )
-      Model::Stage.find_by( title: name, event_id: event.id  )
+      Model::Stage.find_by( name: name, event_id: event.id  )
     end
     def self.find!( name, event: )
       rec = find( name, event: event  )
@@ -125,10 +125,8 @@ module SportDb
     def self.find_or_create( name, event: )
        rec = find( name, event: event )
        if rec.nil?
-         ## use title and not name - why? why not?
-         ##  quick fix:  change name to title
          attribs = { event_id: event.id,
-                     title:    name,
+                     name:     name,
                    }
          rec = Model::Stage.create!( attribs )
        end
@@ -138,21 +136,21 @@ module SportDb
 
 
 
-  class Match   ## todo/check:  add alias for Game class - why? why not?
+  class Match
     def self.create_or_update( match, event: )
        ## note: MUST find round, thus, use bang (!)
 
        ## todo/check: allow strings too - why? why not?
 
        ## query for round - allow string or round rec
-       round_title = match.round.is_a?( String ) ? match.round : match.round.title
+       round_name  = match.round.is_a?( String ) ? match.round : match.round.name
        round_rec   = Model::Round.find_by!( event_id: event.id,
-                                            title:    round_title )
+                                            name:     round_name )
 
        ## todo/check: allow fallback with db lookup if NOT found in cache - why? why not?
        ##  or better use Sync::Team.find_or_create( team )  !!!!!!! to auto-create on first hit!
        ##    || Team.find_or_create( team1 )  -- note: does NOT work for string (only recs) - what to do?
-       ##    || Model::Team.find_by!( title: team1_name )
+       ##    || Model::Team.find_by!( name: team1_name )
        team1_name   = match.team1.is_a?( String ) ? match.team1 : match.team1.name
        team1_rec    = Team.cache[ team1_name ]
        team2_name   = match.team2.is_a?( String ) ? match.team2 : match.team2.name
@@ -160,20 +158,20 @@ module SportDb
 
        ## check optional group (e.g. Group A, etc.)
        group_rec = if match.group
-                     group_title = match.group.is_a?( String ) ? match.group : match.group.title
+                     group_name = match.group.is_a?( String ) ? match.group : match.group.name
                      Model::Group.find_by!( event_id: event.id,
-                                            title:    group_title )
+                                            name:     group_name )
                    else
                      nil
                    end
 
 
-       rec = Model::Game.find_by( round_id: round_rec.id,
+       rec = Model::Match.find_by( round_id: round_rec.id,
                                   team1_id: team1_rec.id,
                                   team2_id: team2_rec.id )
        if rec.nil?
         ## find last pos - check if it can be nil?
-         max_pos = Model::Game.where( event_id: event.id ).maximum( 'pos' )
+         max_pos = Model::Match.where( event_id: event.id ).maximum( 'pos' )
          max_pos = max_pos ? max_pos+1 : 1
 
          attribs = { event_id: event.id,          ## todo/fix: change to data struct too?
@@ -181,14 +179,14 @@ module SportDb
                      team1_id: team1_rec.id,
                      team2_id: team2_rec.id,
                      pos:      max_pos,
-                     play_at:  match.date.to_date,
+                     date:     match.date.to_date,  ## todo/fix: split and add date & time!!!!
                      score1:   match.score1,
                      score2:   match.score2,
                      score1i:  match.score1i,
                      score2i:  match.score2i }
          attribs[ :group_id ] = group_rec.id   if group_rec
 
-         rec = Model::Game.create!( attribs )
+         rec = Model::Match.create!( attribs )
        else
          # update - todo
        end

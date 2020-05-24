@@ -40,11 +40,8 @@ module SportDb
     def self.find_or_create( league )
       rec = find( league )
       if rec.nil?
-         ## use title and not name - why? why not?
-         ##  quick fix:  change name to title
-
          attribs = { key:   league.key,
-                     title: league.name }
+                     name:  league.name }
 
         if league.country
            attribs[ :country_id ] = Sync::Country.find_or_create( league.country ).id

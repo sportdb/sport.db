@@ -11,10 +11,9 @@ class Team
   ##  todo: use just names for alt_names - why? why not?
   attr_accessor :key, :name, :alt_names,
                 :code,    ## code == abbreviation e.g. ARS etc.
-                :year, :year_end,   ## todo/fix: change year_end to end_year (like in season)!!!
+                :year, :year_end,   ## todo/fix: change year to start_year and year_end to end_year (like in season)!!!
                 :country
 
-  alias_method :title, :name  ## add alias/compat - why? why not
 
   def names
     ## todo/check: add alt_names_auto too? - why? why not?

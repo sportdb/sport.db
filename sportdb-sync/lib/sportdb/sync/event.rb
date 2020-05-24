@@ -79,8 +79,8 @@ module SportDb
           ##                               otherwise use 2017, 7, 1
           ##  start_at use year and 7,1 e.g. Date.new( 2017, 7, 1 )
           ## hack:  fix/todo1!!
-          ##   add "fake" start_at date for now
-          attribs[:start_at]  = if season.year?  ## e.g. assume 2018 etc.
+          ##   add "fake" start_date for now
+          attribs[:start_date]  = if season.year?  ## e.g. assume 2018 etc.
                                    Date.new( season.start_year, 1, 1 )
                                 else  ## assume 2014/15 etc.
                                    Date.new( season.start_year, 7, 1 )

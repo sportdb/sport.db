@@ -50,8 +50,8 @@ module SportDb
       #  finders
 
       def self.find_or_create( club )
-        ## note: assume "canonical uniquie" names/titles for now for clubs
-        rec = Model::Team.find_by( title: club.name )
+        ## note: assume "canonical uniquie" names for now for clubs
+        rec = Model::Team.find_by( name: club.name )
         if rec.nil?
 
           ## todo/fix:  move auto-key gen to structs for re(use)!!!!!!
@@ -61,7 +61,7 @@ module SportDb
 
           attribs = {
               key:        key,
-              title:      club.name,
+              name:       club.name,
               country_id: Sync::Country.find_or_create( club.country ).id,
               club:       true,
               national:   false  ## check -is default anyway - use - why? why not?
@@ -71,7 +71,7 @@ module SportDb
           attribs[:code] = club.code   if club.code   ## add code (abbreviation) if present
 
           if club.alt_names.empty? == false
-            attribs[:synonyms] = club.alt_names.join('|')
+            attribs[:alt_names] = club.alt_names.join('|')
           end
 
           rec = Model::Team.create!( attribs )

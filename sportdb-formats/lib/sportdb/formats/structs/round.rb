@@ -2,24 +2,17 @@ module SportDb
   module Import
 
     class Round
-      attr_reader   :title, :start_date, :end_date, :knockout
-      attr_accessor :pos   # note: make read & writable
+      attr_reader   :name, :start_date, :end_date, :knockout
+      attr_accessor :num   # note: make read & writable - why? why not?
 
-      ##
-      ##  todo:  change db schema
-      ##    make start and end date optional
-      ##    change pos to num - why? why not?
-      ##    make pos/num optional too
-      ##
-      ##    sort round by scheduled/planed start date
-      def initialize( title:,
-                      pos: nil,
+      def initialize( name:,
+                      num: nil,
                       start_date: nil,
                       end_date: nil,
                       knockout: false,
                       auto: true )
-        @title      = title
-        @pos        = pos
+        @name       = name
+        @num        = num
         @start_date = start_date
         @end_date   = end_date
         @knockout   = knockout

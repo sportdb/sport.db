@@ -7,21 +7,21 @@ module SportDb
 ##   see https://github.com/textkit/textutils/blob/master/textutils/lib/textutils/title_mapper2.rb
 
 
-class MapperV2      ## todo/check: rename to NameMapper/TitleMapper ? why? why not??
+class MapperV2      ## todo/check: rename to NameMapper ? why? why not??
 
   include Logging
 
-  attr_reader :known_titles   ## rename to mapping or mappings or just titles - why? why not?
+  attr_reader :known_names   ## rename to mapping or mappings or just names - why? why not?
 
   ########
   ##  key:      e.g. augsburg
-  ##  title:    e.g. FC Augsburg
-  ##  length (of title(!!) - not regex pattern):   e.g. 11   -- do not count dots (e.g. U.S.A. => 3 or 6) why? why not?
-  MappingStruct =  Struct.new( :key, :title, :length, :pattern)     ## todo/check: use (rename to) TitleStruct - why? why not??
+  ##  name:     e.g. FC Augsburg
+  ##  length (of name(!!) - not regex pattern):   e.g. 11   -- do not count dots (e.g. U.S.A. => 3 or 6) why? why not?
+  MappingStruct =  Struct.new( :key, :name, :length, :pattern)     ## todo/check: use (rename to) NameStruct - why? why not??
 
   ######
   ## convenience helper - (auto)build ActiveRecord-like team records/structs
-  Record = Struct.new( :key, :title, :synonyms )
+  Record = Struct.new( :key, :name, :alt_names )
   def build_records( txt_or_lines )
     recs = []
 
@@ -44,12 +44,12 @@ class MapperV2      ## todo/check: rename to NameMapper/TitleMapper ? why? why n
       values = line.split( '|' )
       values = values.map { |value| value.strip }
 
-      title    = values[0]
+      name      = values[0]
       ## note: quick hack - auto-generate key, that is, remove all non-ascii chars and downcase
-      key      = title.downcase.gsub( /[^a-z]/, '' )
-      synonyms = values.size > 1 ? values[1..-1].join( '|' ) : nil
+      key       = name.downcase.gsub( /[^a-z]/, '' )
+      alt_names = values.size > 1 ? values[1..-1].join( '|' ) : nil
 
-      recs << Record.new( key, title, synonyms )
+      recs << Record.new( key, name, alt_names )
     end
     recs
   end
@@ -63,10 +63,10 @@ class MapperV2      ## todo/check: rename to NameMapper/TitleMapper ? why? why n
                                                                   (records_or_mapping.is_a?( Array ) && records_or_mapping[0].is_a?( String ))
 
     ## build mapping lookup table
-    @known_titles =  if records_or_mapping.is_a?( Hash )  ## assume "custom" mapping hash table (title/name=>record)
-                        build_title_table_for_mapping( records_or_mapping )
+    @known_names =  if records_or_mapping.is_a?( Hash )  ## assume "custom" mapping hash table (name=>record)
+                        build_name_table_for_mapping( records_or_mapping )
                      else  ## assume array of records
-                        build_title_table_for_records( records_or_mapping )
+                        build_name_table_for_records( records_or_mapping )
                      end
 
     ## build lookup hash by record (e.g. team/club/etc.) key
@@ -85,9 +85,9 @@ class MapperV2      ## todo/check: rename to NameMapper/TitleMapper ? why? why n
 
 
 
-  def map_titles!( line )   ## rename to just map! - why?? why not???
+  def map_names!( line )   ## rename to just map! - why?? why not???
     begin
-      found = map_title_for!( @tag, line, @known_titles )
+      found = map_name_for!( @tag, line, @known_names )
     end while found
   end
 
@@ -110,27 +110,27 @@ class MapperV2      ## todo/check: rename to NameMapper/TitleMapper ? why? why n
 
 
 private
-  def build_title_table_for_mapping( mapping )
-    known_titles = []
+  def build_name_table_for_mapping( mapping )
+    known_names = []
 
-    mapping.each do |title, rec|
+    mapping.each do |name, rec|
       m = MappingStruct.new
       m.key     = rec.key
-      m.title   = title
-      m.length  = title.length
-      m.pattern = Regexp.escape( title )   ## note: just use "standard" regex escape (e.g. no extras for umlauts,accents,etc.)
+      m.name    = name
+      m.length  = name.length
+      m.pattern = Regexp.escape( name )   ## note: just use "standard" regex escape (e.g. no extras for umlauts,accents,etc.)
 
-      known_titles << m
+      known_names << m
     end
 
     ## note: sort here by length (largest goes first - best match)
-    known_titles = known_titles.sort { |l,r| r.length <=> l.length }
-    known_titles
+    known_names = known_names.sort { |l,r| r.length <=> l.length }
+    known_names
   end
 
-  def build_title_table_for_records( records )
+  def build_name_table_for_records( records )
 
-    ## build known tracks table w/ synonyms e.g.
+    ## build known tracks table w/ alt names e.g.
     #
     # [[ 'wolfsbrug', 'VfL Wolfsburg'],
     #  [ 'augsburg',  'FC Augsburg'],
@@ -138,65 +138,65 @@ private
     #  [ 'augsburg',  'Augi3' ],
     #  [ 'stuttgart', 'VfB Stuttgart']]
 
-    known_titles = []
+    known_names = []
 
     records.each_with_index do |rec,index|
 
-      title_candidates = []
-      title_candidates << rec.title
+      name_candidates = []
+      name_candidates << rec.name
 
-      title_candidates += rec.synonyms.split('|') if rec.synonyms && !rec.synonyms.empty?
+      name_candidates += rec.alt_names.split('|') if rec.alt_names && !rec.alt_names.empty?
 
 
-      ## check if title includes subtitle e.g. Grand Prix Japan (Suzuka Circuit)
-      #  make subtitle optional by adding title w/o subtitle e.g. Grand Prix Japan
+      ## check if name includes subname e.g. Grand Prix Japan (Suzuka Circuit)
+      #  make subname optional by adding name w/o subname e.g. Grand Prix Japan
 
-      titles = []
-      title_candidates.each do |t|
-        titles << t
+      names = []
+      name_candidates.each do |t|
+        names << t
         if t =~ /\(.+\)/
-          extra_title = t.gsub( /\(.+\)/, '' ) # remove/delete subtitles
+          extra_name = t.gsub( /\(.+\)/, '' ) # remove/delete subnames
           # note: strip leading n trailing withspaces too!
           #  -- todo: add squish or something if () is inline e.g. leaves two spaces?
-          extra_title.strip!
-          titles << extra_title
+          extra_name.strip!
+          names << extra_name
         end
       end
 
-      titles.each do |t|
+      names.each do |name|
         m = MappingStruct.new
         m.key     = rec.key
-        m.title   = t
-        m.length  = t.length
+        m.name    = name
+        m.length  = name.length
         ## note: escape for regex plus allow subs for special chars/accents
-        m.pattern = title_esc_regex( t )
+        m.pattern = name_esc_regex( name )
 
-        known_titles << m
+        known_names << m
       end
 
-      logger.debug "  #{rec.class.name}[#{index+1}] #{rec.key} >#{titles.join('|')}<"
+      logger.debug "  #{rec.class.name}[#{index+1}] #{rec.key} >#{names.join('|')}<"
 
       ## note: only include code field - if defined
       if rec.respond_to?(:code) && rec.code && !rec.code.empty?
         m = MappingStruct.new
         m.key     = rec.key
-        m.title   = rec.code
+        m.name    = rec.code
         m.length  = rec.code.length
         m.pattern = rec.code   ## note: use code for now as is (no variants allowed fow now)
 
-        known_titles << m
+        known_names << m
       end
     end
 
     ## note: sort here by length (largest goes first - best match)
       #  exclude code and key (key should always go last)
-    known_titles = known_titles.sort { |l,r| r.length <=> l.length }
-    known_titles
+    known_names = known_names.sort { |l,r| r.length <=> l.length }
+    known_names
   end
 
 
 
-  def map_title_for!( tag, line, mappings )
+  def map_name_for!( tag, line, mappings )
     mappings.each do |mapping|
       key     = mapping.key
       pattern = mapping.pattern
@@ -234,9 +234,9 @@ private
 
 
 ####
-# title helper cut-n-paste copy from TextUtils
+# name helper cut-n-paste copy from TextUtils
 ##  see https://github.com/textkit/textutils/blob/master/textutils/lib/textutils/helper/title_helper.rb
-def title_esc_regex( title_unescaped )
+def name_esc_regex( name_unescaped )
 
       ##  escape regex special chars e.g.
       #    . to \. and
@@ -257,16 +257,16 @@ def title_esc_regex( title_unescaped )
       # e.g. Club Atlético Colón (Santa Fe)
       # e.g. Bauer Anton (????)
 
-      ## NB: cannot use Regexp.escape! will escape space '' to '\ '
-      ## title = Regexp.escape( title_unescaped )
-      title = title_unescaped.gsub( '.', '\.' )
-      title = title.gsub( '(', '\(' )
-      title = title.gsub( ')', '\)' )
-      title = title.gsub( '?', '\?' )
-      title = title.gsub( '*', '\*' )
-      title = title.gsub( '+', '\+' )
-      title = title.gsub( '$', '\$' )
-      title = title.gsub( '^', '\^' )
+      ## note: cannot use Regexp.escape! will escape space '' to '\ '
+      ## name = Regexp.escape( name_unescaped )
+      name = name_unescaped.gsub( '.', '\.' )
+      name = name.gsub( '(', '\(' )
+      name = name.gsub( ')', '\)' )
+      name = name.gsub( '?', '\?' )
+      name = name.gsub( '*', '\*' )
+      name = name.gsub( '+', '\+' )
+      name = name.gsub( '$', '\$' )
+      name = name.gsub( '^', '\^' )
 
       ##  match accented char with or without accents
       ##  add (ü|ue) etc.
@@ -309,10 +309,10 @@ def title_esc_regex( title_unescaped )
       ##   collect some more (real-world) examples first!!!!!
 
       alternatives.each do |alt|
-        title = title.gsub( alt[0], alt[1] )
+        name = name.gsub( alt[0], alt[1] )
       end
 
-      title
+      name
   end
 
 end # class MapperV2

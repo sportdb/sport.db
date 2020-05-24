@@ -82,15 +82,15 @@ class MatchParser   ## simple match parser for team match schedules
     #    team1 team2 - match  (will get new auto-matchday! not last round)
     @last_round     = nil
 
-    title, pos = find_group_title_and_pos!( line )
+    name, pos = find_group_name_and_pos!( line )
 
-    logger.debug "    title: >#{title}<"
+    logger.debug "    name: >#{name}<"
     logger.debug "    pos: >#{pos}<"
     logger.debug "  line: >#{line}<"
 
-    group = @groups[ title ]
+    group = @groups[ name ]
     if group.nil?
-      puts "!! ERROR - no group def found for >#{title}<"
+      puts "!! ERROR - no group def found for >#{name}<"
       exit 1
     end
 
@@ -104,19 +104,19 @@ class MatchParser   ## simple match parser for team match schedules
     @mapper_teams.map_teams!( line )
     teams = @mapper_teams.find_teams!( line )
 
-    title, pos = find_group_title_and_pos!( line )
+    name, pos = find_group_name_and_pos!( line )
 
     logger.debug "  line: >#{line}<"
 
-    group = Import::Group.new( pos: pos,
-                               title: title,
-                               teams: teams.map {|team| team.title } )
+    ## todo/check/fix: add back group key - why? why not?
+    group = Import::Group.new( name:  name,
+                               teams: teams.map {|team| team.name } )
 
-    @groups[ title ] = group
+    @groups[ name ] = group
   end
 
 
-  def find_group_title_and_pos!( line )
+  def find_group_name_and_pos!( line )
     ## group pos - for now support single digit e.g 1,2,3 or letter e.g. A,B,C or HEX
     ## nb:  (?:)  = is for non-capturing group(ing)
 
@@ -148,14 +148,14 @@ class MatchParser   ## simple match parser for team match schedules
           else  m[1].to_i
           end
 
-    title = m[0]
+    name = m[0]
 
-    logger.debug "   title: >#{title}<"
+    logger.debug "   name: >#{name}<"
     logger.debug "   pos: >#{pos}<"
 
-    line.sub!( regex, '[GROUP.TITLE+POS]' )
+    line.sub!( regex, '[GROUP.NAME+POS]' )
 
-    [title,pos]
+    [name,pos]
   end
 
 
@@ -181,29 +181,29 @@ class MatchParser   ## simple match parser for team match schedules
 
 
     pos   = find_round_pos!( line )
-    title = find_round_def_title!( line )
-    # NB: use extracted round title for knockout check
-    knockout_flag = is_knockout_round?( title )
+    name  = find_round_def_name!( line )
+    # NB: use extracted round name for knockout check
+    knockout_flag = is_knockout_round?( name )
 
 
     logger.debug "    start_date: #{start_date}"
     logger.debug "    end_date:   #{end_date}"
     logger.debug "    pos:      #{pos}"
-    logger.debug "    title:    >#{title}<"
+    logger.debug "    name:    >#{name}<"
     logger.debug "    knockout_flag:   #{knockout_flag}"
 
     logger.debug "  line: >#{line}<"
 
     #######################################
     # todo/fix: add auto flag is false !!!! - why? why not?
-    round = Import::Round.new( pos:        pos,
-                               title:      title,
+    #   todo/fix/check: add num if present!!!!
+    round = Import::Round.new( name:       name,
                                start_date: start_date,
                                end_date:   end_date,
                                knockout:   knockout_flag,
                                auto:       false )
 
-    @rounds[ title ] = round
+    @rounds[ name ] = round
   end
 
 
@@ -227,8 +227,8 @@ class MatchParser   ## simple match parser for team match schedules
       line.sub!( regex_pos, '[ROUND.POS] ' )  ## NB: add back trailing space that got swallowed w/ regex -> [ \t]+
       return $1.to_i
     elsif line =~ regex_num
-      ## assume number in title is pos (e.g. Jornada 3, 3 Runde etc.)
-      ## NB: do NOT remove pos from string (will get removed by round title)
+      ## assume number in name is pos (e.g. Jornada 3, 3 Runde etc.)
+      ## NB: do NOT remove pos from string (will get removed by round name)
 
       num = $1.to_i  # note: clone capture; keep a copy (another regex follows; will redefine $1)
 
@@ -254,54 +254,54 @@ class MatchParser   ## simple match parser for team match schedules
     end
   end # method find_round_pos!
 
-  def find_round_def_title!( line )
-    # assume everything before pipe (\) is the round title
-    #  strip [ROUND.POS],  todo:?? [ROUND.TITLE2]
+  def find_round_def_name!( line )
+    # assume everything before pipe (\) is the round name
+    #  strip [ROUND.POS],  todo:?? [ROUND.NAME2]
 
-    # todo/fix: add title2 w/  // or /  why? why not?
+    # todo/fix: add name2 w/  // or /  why? why not?
     #  -- strip / or / chars
 
     buf = line.dup
-    logger.debug "  find_round_def_title! line-before: >>#{buf}<<"
+    logger.debug "  find_round_def_name! line-before: >>#{buf}<<"
 
     ## cut-off everything after (including) pipe (|)
     buf = buf[ 0...buf.index('|') ]
 
-    # e.g. remove [ROUND.POS], [ROUND.TITLE2], [GROUP.TITLE+POS] etc.
+    # e.g. remove [ROUND.POS], [ROUND.NAME2], [GROUP.NAME+POS] etc.
     buf.gsub!( /\[[^\]]+\]/, '' )    ## fix: use helper for (re)use e.g. remove_match_placeholder/marker or similar?
     # remove leading and trailing whitespace
     buf.strip!
 
-    logger.debug "  find_round_def_title! line-after: >>#{buf}<<"
+    logger.debug "  find_round_def_name! line-after: >>#{buf}<<"
 
-    logger.debug "   title: >>#{buf}<<"
-    line.sub!( buf, '[ROUND.TITLE]' )
+    logger.debug "   name: >>#{buf}<<"
+    line.sub!( buf, '[ROUND.NAME]' )
 
     buf
   end
 
-  def find_round_header_title!( line )
-    # assume everything left is the round title
-    #  extract all other items first (round title2, round pos, group title n pos, etc.)
+  def find_round_header_name!( line )
+    # assume everything left is the round name
+    #  extract all other items first (round name2, round pos, group name n pos, etc.)
 
     ## todo/fix:
     ##  cleanup method
     ##   use  buf.index( '//' ) to split string (see found_round_def)
     ##     why? simpler why not?
-    ##  - do we currently allow groups if title2 present? add example if it works?
+    ##  - do we currently allow groups if name2 present? add example if it works?
 
     buf = line.dup
-    logger.debug "  find_round_header_title! line-before: >>#{buf}<<"
+    logger.debug "  find_round_header_name! line-before: >>#{buf}<<"
 
-    buf.gsub!( /\[[^\]]+\]/, '' )   # e.g. remove [ROUND.POS], [ROUND.TITLE2], [GROUP.TITLE+POS] etc.
+    buf.gsub!( /\[[^\]]+\]/, '' )   # e.g. remove [ROUND.POS], [ROUND.NAME2], [GROUP.NAME+POS] etc.
     buf.strip!    # remove leading and trailing whitespace
 
-    logger.debug "  find_round_title! line-after: >>#{buf}<<"
+    logger.debug "  find_round_name! line-after: >>#{buf}<<"
 
-    ### bingo - assume what's left is the round title
+    ### bingo - assume what's left is the round name
 
-    logger.debug "   title: >>#{buf}<<"
-    line.sub!( buf, '[ROUND.TITLE]' )
+    logger.debug "   name: >>#{buf}<<"
+    line.sub!( buf, '[ROUND.NAME]' )
 
     buf
   end
@@ -315,63 +315,21 @@ class MatchParser   ## simple match parser for team match schedules
     #   add unit test too to verify
     pos = find_round_pos!( line )
 
-    title = find_round_header_title!( line )
+    name = find_round_header_name!( line )
 
     logger.debug "  line: >#{line}<"
 
 
-    round = @rounds[ title ]
+    round = @rounds[ name ]
     if round.nil?    ## auto-add / create if missing
-      round = Import::Round.new( pos:   pos,
-                                 title: title )
-      @rounds[ title ] = round
+      ## todo/check: add num (was pos) if present - why? why not?
+      round = Import::Round.new( name: name )
+      @rounds[ name ] = round
     end
 
     ## todo/check: if pos match (MUST always match for now)
     @last_round = round
     @last_group = nil   # note: reset group to no group - why? why not?
-
-
-    ## NB: dummy/placeholder start_at, end_at date
-    ##  replace/patch after adding all games for round
-
-=begin
-    round_attribs = {
-      title:  title,
-      title2: title2,
-      knockout: knockout_flag
-    }
-
-    if pos > 999000
-      # no pos (e.g. will get autonumbered later) - try match by title for now
-      #  e.g. lets us use title 'Group Replays', for example, multiple times
-      @round = Round.find_by_event_id_and_title( @event.id, title )
-    else
-      @round = Round.find_by_event_id_and_pos( @event.id, pos )
-    end
-
-    if @round.present?
-      logger.debug "update round #{@round.id}:"
-    else
-      logger.debug "create round:"
-      @round = Round.new
-
-      round_attribs = round_attribs.merge( {
-        event_id: @event.id,
-        pos:   pos,
-        start_at: Date.parse('1911-11-11'),
-        end_at:   Date.parse('1911-11-11')
-      })
-    end
-
-    logger.debug round_attribs.to_json
-
-    @round.update_attributes!( round_attribs )
-
-    @patch_round_ids_pos   << @round.id    if pos > 999000
-    ### store list of round ids for patching start_at/end_at at the end
-    @patch_round_ids_dates << @round.id   # todo/fix/check: check if round has definition (do NOT patch if definition (not auto-added) present)
-=end
   end
 
 
@@ -457,11 +415,11 @@ class MatchParser   ## simple match parser for team match schedules
     ## todo/check: pass along round and group refs or just string (canonical names) - why? why not?
 
     @matches << Import::Match.new( date:    date,
-                                   team1:   team1,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team1.title)
-                                   team2:   team2,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team2.title)
+                                   team1:   team1,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team1.name)
+                                   team2:   team2,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team2.name)
                                    score:   score,
-                                   round:   round       ? round.title       : nil,   ## note: for now always use string (assume unique canonical name for event)
-                                   group:   @last_group ? @last_group.title : nil )  ## note: for now always use string (assume unique canonical name for event)
+                                   round:   round       ? round.name       : nil,   ## note: for now always use string (assume unique canonical name for event)
+                                   group:   @last_group ? @last_group.name : nil )  ## note: for now always use string (assume unique canonical name for event)
 
     ### todo: cache team lookups in hash?
 
@@ -517,7 +475,7 @@ class MatchParser   ## simple match parser for team match schedules
 
         round_attribs = {
           event_id: @event.id,
-          title: "Matchday #{date.to_date}",
+          name: "Matchday #{date.to_date}",
           pos: 999001+@patch_round_ids_pos.length,   # e.g. 999<count> - 999001,999002,etc.
           start_at:  date.to_date,
           end_at:    date.to_date
@@ -541,7 +499,7 @@ class MatchParser   ## simple match parser for team match schedules
       end
 
       ## note: will crash (round.pos) if round is nil
-      logger.debug( "  using round #{round.pos} >#{round.title}< start_at: #{round.start_at}, end_at: #{round.end_at}" )
+      logger.debug( "  using round #{round.pos} >#{round.name}< start_at: #{round.start_at}, end_at: #{round.end_at}" )
     else
       ## use round from last round header
       round = @round

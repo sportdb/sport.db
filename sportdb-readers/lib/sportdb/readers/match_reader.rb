@@ -125,8 +125,6 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
 
 
       rounds.each do |round|
-        ## quick hack:  if pos missing fill with dummy 999 for now
-        round.pos = 999    if round.pos.nil?
         round_rec = Sync::Round.find_or_create( round, event: event_rec )  ## check: use/rename to EventRound why? why not?
       end
 

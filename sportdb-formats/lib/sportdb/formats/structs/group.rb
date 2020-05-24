@@ -2,20 +2,13 @@ module SportDb
   module Import
 
     class Group
-      attr_reader   :title, :pos, :teams
+      attr_reader :key, :name, :teams
 
-      ##
-      ##  todo:  change db schema
-      ##    make start and end date optional
-      ##    change pos to num - why? why not?
-      ##    make pos/num optional too
-      ##
-      ##    sort round by scheduled/planed start date
-      def initialize( title:,
-                      pos:,
+      def initialize( key: nil,
+                      name:,
                       teams: )
-        @title  = title
-        @pos    = pos
+        @key    = key    ## e.g. A,B,C  or 1,2,3, - note: always a string or nil
+        @name   = name
         @teams  = teams
       end
     end  # class Group

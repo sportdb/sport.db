@@ -43,7 +43,7 @@ module SportDb
         rec = find( season )
         if rec.nil?
            attribs = { key:   season.key,
-                       title: season.name  }
+                       name:  season.name  }
            rec = Model::Season.create!( attribs )
         end
         rec

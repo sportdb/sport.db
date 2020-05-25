@@ -82,32 +82,36 @@ module SportDb
       ### change default to ./sport.db ?? why? why not?
       db = URI.parse( ENV['DATABASE_URL'] || 'sqlite3:///sport.db' )
 
-      if db.scheme == 'postgres'
-        config = {
-          adapter: 'postgresql',
-          host: db.host,
-          port: db.port,
-          username: db.user,
-          password: db.password,
-          database: db.path[1..-1],
-          encoding: 'utf8'
-        }
-      else # assume sqlite3
-       config = {
-         adapter: db.scheme, # sqlite3
-         database: db.path[1..-1] # sport.db (NB: cut off leading /, thus 1..-1)
-      }
-      end
+      config =  if db.scheme == 'postgres'
+                    { adapter: 'postgresql',
+                      host:     db.host,
+                      port:     db.port,
+                      username: db.user,
+                      password: db.password,
+                      database: db.path[1..-1],
+                      encoding: 'utf8'
+                    }
+                  else # assume sqlite3
+                    { adapter:  db.scheme,       # sqlite3
+                      database: db.path[1..-1]   # sport.db (NB: cut off leading /, thus 1..-1)
+                    }
+                  end
+    else
+      ## note: for compatibility lets you also pass-in/use string keys
+      ##   e.g. YAML.load uses/returns always string keys - always auto-convert to symbols
+      config = config.symbolize_keys
     end
 
+
+    ## todo/check/fix: move jruby "hack" to attic - why? why not?
     ## todo/check: use if defined?( JRUBY_VERSION ) instead ??
-    if RUBY_PLATFORM =~ /java/ && config[:adapter] == 'sqlite3'
+    ## if RUBY_PLATFORM =~ /java/ && config[:adapter] == 'sqlite3'
       # quick hack for JRuby sqlite3 support via jdbc
-      puts "jruby quick hack - adding jdbc libs for jruby sqlite3 database support"
-      require 'jdbc/sqlite3'
-      require 'active_record/connection_adapters/jdbc_adapter'
-      require 'active_record/connection_adapters/jdbcsqlite3_adapter'
-    end
+    ##  puts "jruby quick hack - adding jdbc libs for jruby sqlite3 database support"
+    ##  require 'jdbc/sqlite3'
+    ##  require 'active_record/connection_adapters/jdbc_adapter'
+    ##  require 'active_record/connection_adapters/jdbcsqlite3_adapter'
+    ## end
 
     puts "Connecting to db using settings: "
     pp config
@@ -115,8 +119,11 @@ module SportDb
     # ActiveRecord::Base.logger = Logger.new( STDOUT )
 
     ## if sqlite3 add (use) some pragmas for speedups
-    if config[:adapter] == 'sqlite3'
-      ## check/todo: if in memory e.g. ':memory:' no pragma needed!!
+    if config[:adapter]  == 'sqlite3'  &&
+       config[:database] != ':memory:'
+      ## note: if in memory database e.g. ':memory:' no pragma needed!!
+      ## try to speed up sqlite
+      ##   see http://www.sqlite.org/pragma.html
       con = ActiveRecord::Base.connection
       con.execute( 'PRAGMA synchronous=OFF;' )
       con.execute( 'PRAGMA journal_mode=OFF;' )
@@ -126,7 +133,6 @@ module SportDb
 
 
   def self.setup_in_memory_db
-
     # Database Setup & Config
     ActiveRecord::Base.logger = Logger.new( STDOUT )
     ## ActiveRecord::Base.colorize_logging = false  - no longer exists - check new api/config setting?
@@ -144,9 +150,17 @@ end  # module SportDb
 
 
 module SportDb
-  module Models
+  module Model
 ##################
 #  add alias why? why not?
+#
+#  more aliases to consider:
+#   - Tournament for Event?
+#   - Cup for League?
+#   - Roster for Lineup?
+#   - Stadium for Ground?  - why? why not?
+
+
 Competition = Event
 Comp        = Event
 
@@ -154,7 +168,7 @@ LineUp = Lineup
 Squad  = Lineup
 
 Game = Match  ## add (old) alias - why? why not?
-  end # module Models
+  end # module Model
 end # module SportDb
 
 

@@ -12,7 +12,7 @@ module SportDb
 
 class Standings
 
-  class StandingsLine     ## nested class StandinsLine
+  class StandingsLine     ## nested class StandinsLine - todo/fix: change to Line - why? why not?
     attr_accessor  :rank, :team,
                    :played, :won, :lost, :drawn,                      ## -- total
                    :goals_for, :goals_against, :pts,
@@ -21,8 +21,13 @@ class Standings
                    :away_played, :away_won, :away_lost, :away_drawn,  ## -- away
                    :away_goals_for, :away_goals_against, :away_pts
 
+     alias_method :team_name, :team     ## note: team for now always a string
+     alias_method :pos,       :rank     ##  rename back to use pos instead of rank - why? why not?
+
+
     def initialize( team )
       @rank = nil # use 0? why? why not?
+      ## change rank back to pos - why? why not?
       @team = team
       @played = @home_played = @away_played = 0
       @won    = @home_won    = @away_won    = 0
@@ -49,7 +54,12 @@ class Standings
 
   def update( match_or_matches )
     ## convenience - update all matches at once
-    matches = match_or_matches.is_a?(Array) ? match_or_matches : [match_or_matches]
+    ## todo/check:  check for ActiveRecord_Associations_CollectionProxy and than use to_a (to "force" array) - why? why not?
+    matches = if match_or_matches.is_a?(Array)
+                match_or_matches
+              else
+                [match_or_matches]
+              end
 
     matches.each_with_index do |match,i| # note: index(i) starts w/ zero (0)
       update_match( match )
@@ -171,19 +181,30 @@ class Standings
 private
   def update_match( m )   ## add a match
 
-    ##  puts "   #{m.team1} - #{m.team2} #{m.score_str}"
+    ## note: always use team as string for now
+    ##   for now allow passing in of string OR struct - why? why not?
+    ##   todo/fix:  change to m.team1_name and m.team2_name - why? why not?
+    team1 = m.team1.is_a?( String ) ? m.team1 : m.team1.name
+    team2 = m.team2.is_a?( String ) ? m.team2 : m.team2.name
+
+    score = m.score_str
+
+    ##  puts "   #{team1} - #{team2} #{score}"
+
     unless m.over?
-      puts " !!!! skipping match - not yet over (play_at date in the future)"
+      puts " !!!! skipping match - not yet over (date in the future) => #{m.date}"
       return
     end
 
     unless m.complete?
-      puts "!!! [calc_standings] skipping match #{m.team1} - #{m.team2} - scores incomplete #{m.score_str}"
+      puts "!!! [calc_standings] skipping match #{team1} - #{team2} w/ past date #{m.date} - scores incomplete => #{score}"
       return
     end
 
-    line1 = @lines[ m.team1 ] || StandingsLine.new( m.team1 )
-    line2 = @lines[ m.team2 ] || StandingsLine.new( m.team2 )
+
+
+    line1 = @lines[ team1 ] || StandingsLine.new( team1 )
+    line2 = @lines[ team2 ] || StandingsLine.new( team2 )
 
     line1.played      += 1
     line1.home_played += 1
@@ -236,8 +257,8 @@ private
       puts "*** warn: [standings] skipping match with missing scores: #{m.inspect}"
     end
 
-    @lines[ m.team1 ] = line1
-    @lines[ m.team2 ] = line2
+    @lines[ team1 ] = line1
+    @lines[ team2 ] = line2
   end  # method update_match
 
 end  # class Standings

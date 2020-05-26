@@ -127,7 +127,8 @@ class Match < ActiveRecord::Base
 
 
   # match over?
-  def over?()     play_at <= Time.now;  end
+  ##  todo/fix: add back time (hours/minutes) to date if present!!!!
+  def over?()     date <= Date.today;  end
 
   ## fix/todo: already added by ar magic ??? remove code
   def knockout?() knockout == true;  end

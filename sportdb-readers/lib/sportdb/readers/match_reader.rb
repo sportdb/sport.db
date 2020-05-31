@@ -133,7 +133,8 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
       end
 
       matches.each do |match|
-        ## todo/fix: pass along stage (if present): stage  - optional!!!!
+        ## note: pass along stage (if present): stage  - optional from heading!!!!
+        match = match.update( stage: stage )   if stage
         match_rec = Sync::Match.create_or_update( match, event: event_rec )
       end
     end

@@ -165,12 +165,21 @@ module SportDb
                      nil
                    end
 
+       ## check optional stage (e.g. Regular, Play Off, Relegation, etc. )
+       stage_rec = if match.stage
+                     stage_name = match.stage.is_a?( String ) ? match.stage : match.stage.name
+                     Model::Stage.find_by!( event_id: event.id,
+                                            name:     stage_name )
+                   else
+                     nil
+                   end
 
+       ### todo/check: what happens if there's more than once match? exception raised??
        rec = Model::Match.find_by( round_id: round_rec.id,
                                   team1_id: team1_rec.id,
                                   team2_id: team2_rec.id )
        if rec.nil?
-        ## find last pos - check if it can be nil?
+        ## find last pos - check if it can be nil?  yes, is nil if no records found
          max_pos = Model::Match.where( event_id: event.id ).maximum( 'pos' )
          max_pos = max_pos ? max_pos+1 : 1
 
@@ -184,7 +193,9 @@ module SportDb
                      score2:   match.score2,
                      score1i:  match.score1i,
                      score2i:  match.score2i }
+
          attribs[ :group_id ] = group_rec.id   if group_rec
+         attribs[ :stage_id ] = stage_rec.id   if stage_rec
 
          rec = Model::Match.create!( attribs )
        else

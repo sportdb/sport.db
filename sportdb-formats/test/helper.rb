@@ -1,5 +1,6 @@
 ## note: use the local version of gems
 $LOAD_PATH.unshift( File.expand_path( '../date-formats/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-langs/lib' ))
 
 
 ## minitest setup

@@ -18,8 +18,13 @@ module SportDb
 
 
   def is_round?( line )
-    ## note: =~ return nil if not match found, and 0,1, etc for match
-    (line =~ SportDb.lang.regex_round) != nil
+    ## note: =~ returns nil if not match found, and 0,1, etc for match
+
+    ##  note: allow "free standing" leg 1 and leg 2 too
+    ##         (e.g. Hinspiel, Rückspiel etc. used for now in Relegation, for example)
+    line =~ SportDb.lang.regex_round ||
+    line =~ SportDb.lang.regex_leg1  ||
+    line =~ SportDb.lang.regex_leg2
   end
 
   def is_knockout_round?( line )

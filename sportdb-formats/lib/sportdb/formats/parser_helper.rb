@@ -22,10 +22,14 @@ module SportDb
 
     ##  note: allow "free standing" leg 1 and leg 2 too
     ##         (e.g. Hinspiel, Rückspiel etc. used for now in Relegation, for example)
-    line =~ SportDb.lang.regex_round ||
-    line =~ SportDb.lang.regex_leg1  ||
-    line =~ SportDb.lang.regex_leg2
+    ##    note ONLY allowed if "free standing", that is, full line with nothing else
+    ##          use "custom" regex for special case for now
+    ##               avoids match HIN in PascHINg, for example (hin in german for leg 1)
+    line =~ SportDb.lang.regex_round    ||
+    line =~ /^(#{SportDb.lang.leg1})$/i ||
+    line =~ /^(#{SportDb.lang.leg2})$/i
   end
+
 
   def is_knockout_round?( line )
 

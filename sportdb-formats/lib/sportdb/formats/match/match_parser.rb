@@ -82,10 +82,9 @@ class MatchParser   ## simple match parser for team match schedules
     #    team1 team2 - match  (will get new auto-matchday! not last round)
     @last_round     = nil
 
-    name, pos = find_group_name_and_pos!( line )
+    name = find_group_name!( line )
 
     logger.debug "    name: >#{name}<"
-    logger.debug "    pos: >#{pos}<"
     logger.debug "  line: >#{line}<"
 
     group = @groups[ name ]
@@ -104,7 +103,7 @@ class MatchParser   ## simple match parser for team match schedules
     @mapper_teams.map_teams!( line )
     teams = @mapper_teams.find_teams!( line )
 
-    name, pos = find_group_name_and_pos!( line )
+    name = find_group_name!( line )
 
     logger.debug "  line: >#{line}<"
 
@@ -116,7 +115,7 @@ class MatchParser   ## simple match parser for team match schedules
   end
 
 
-  def find_group_name_and_pos!( line )
+  def find_group_name!( line )
     ## group pos - for now support single digit e.g 1,2,3 or letter e.g. A,B,C or HEX
     ## nb:  (?:)  = is for non-capturing group(ing)
 
@@ -125,37 +124,25 @@ class MatchParser   ## simple match parser for team match schedules
 
     ## todo:
     ##   check if Group A:  or [Group A]  works e.g. : or ] get matched by \b ???
-    regex = /(?:Group|Gruppe|Grupo)\s+((?:\d{1}|[A-Z]{1,3}))\b/
+    regex = /\b
+              (?:
+                (Group | Gruppe | Grupo)
+                   [ ]+
+                (\d+ | [A-Z]+)
+              )
+            \b/x
 
     m = regex.match( line )
 
-    return [nil,nil] if m.nil?
-
-    pos = case m[1]
-          when 'A' then 1
-          when 'B' then 2
-          when 'C' then 3
-          when 'D' then 4
-          when 'E' then 5
-          when 'F' then 6
-          when 'G' then 7
-          when 'H' then 8
-          when 'I' then 9
-          when 'J' then 10
-          when 'K' then 11
-          when 'L' then 12
-          when 'HEX' then 666    # HEX for Hexagonal - todo/check: map to something else ??
-          else  m[1].to_i
-          end
+    return nil    if m.nil?
 
     name = m[0]
 
     logger.debug "   name: >#{name}<"
-    logger.debug "   pos: >#{pos}<"
 
-    line.sub!( regex, '[GROUP.NAME+POS]' )
+    line.sub!( name, '[GROUP.NAME]' )
 
-    [name,pos]
+    name
   end
 
 
@@ -180,7 +167,6 @@ class MatchParser   ## simple match parser for team match schedules
     end_date   = end_date.to_date
 
 
-    pos   = find_round_pos!( line )
     name  = find_round_def_name!( line )
     # NB: use extracted round name for knockout check
     knockout_flag = is_knockout_round?( name )
@@ -188,15 +174,11 @@ class MatchParser   ## simple match parser for team match schedules
 
     logger.debug "    start_date: #{start_date}"
     logger.debug "    end_date:   #{end_date}"
-    logger.debug "    pos:      #{pos}"
     logger.debug "    name:    >#{name}<"
     logger.debug "    knockout_flag:   #{knockout_flag}"
 
     logger.debug "  line: >#{line}<"
 
-    #######################################
-    # todo/fix: add auto flag is false !!!! - why? why not?
-    #   todo/fix/check: add num if present!!!!
     round = Import::Round.new( name:       name,
                                start_date: start_date,
                                end_date:   end_date,
@@ -207,52 +189,6 @@ class MatchParser   ## simple match parser for team match schedules
   end
 
 
-
-  def find_round_pos!( line )
-    # pass #1) extract optional round pos from line
-    # e.g.  (1)   - must start line
-    regex_pos = /^[ \t]*\((\d{1,3})\)[ \t]+/
-
-    # pass #2) find free standing number  e.g. Matchday 3 or Round 5 or 3. Spieltag etc.
-    # note: /\b(\d{1,3})\b/
-    #   will match -12
-    #  thus, use space required - will NOT match  -2 e.g. Group-2 Play-off
-    #  note:  allow  1. Runde  n
-    #                1^ Giornata
-    regex_num = /(?:^|\s)(\d{1,3})(?:[.\^\s]|$)/
-
-    if line =~ regex_pos
-      logger.debug "   pos: >#{$1}<"
-
-      line.sub!( regex_pos, '[ROUND.POS] ' )  ## NB: add back trailing space that got swallowed w/ regex -> [ \t]+
-      return $1.to_i
-    elsif line =~ regex_num
-      ## assume number in name is pos (e.g. Jornada 3, 3 Runde etc.)
-      ## NB: do NOT remove pos from string (will get removed by round name)
-
-      num = $1.to_i  # note: clone capture; keep a copy (another regex follows; will redefine $1)
-
-      #### fix:
-      #  use/make keywords required
-      #  e.g. Round of 16  -> should NOT match 16!
-      #    Spiel um Platz 3  (or 5) etc -> should NOT match 3!
-      #  Round 16 - ok
-      #  thus, check for required keywords
-
-      ## quick hack for round of 16
-      # todo: mask match e.g. Round of xxx ... and try again - might include something
-      #  reuse pattern for Group XX Replays for example
-      if line =~ /^\s*Round of \d{1,3}\b/
-         return nil
-      end
-
-      logger.debug "   pos: >#{num}<"
-      return num
-    else
-      ## fix: add logger.warn no round pos found in line
-      return nil
-    end
-  end # method find_round_pos!
 
   def find_round_def_name!( line )
     # assume everything before pipe (\) is the round name
@@ -266,10 +202,6 @@ class MatchParser   ## simple match parser for team match schedules
 
     ## cut-off everything after (including) pipe (|)
     buf = buf[ 0...buf.index('|') ]
-
-    # e.g. remove [ROUND.POS], [ROUND.NAME2], [GROUP.NAME+POS] etc.
-    buf.gsub!( /\[[^\]]+\]/, '' )    ## fix: use helper for (re)use e.g. remove_match_placeholder/marker or similar?
-    # remove leading and trailing whitespace
     buf.strip!
 
     logger.debug "  find_round_def_name! line-after: >>#{buf}<<"
@@ -280,20 +212,38 @@ class MatchParser   ## simple match parser for team match schedules
     buf
   end
 
+
+    ##  split by or || or |||
+    ##           or ++ or +++
+    ##           or -- or ---
+    ##           or // or ///
+    ##  note: allow Final | First Leg  as ONE name same as
+    ##              Final - First Leg or
+    ##              Final, First Leg
+    ##   for cut-off always MUST be more than two chars
+    ##
+    ##  todo/check: find a better name than HEADER_SEP(ARATOR) - why? why not?
+    ##   todo/fix: move to parser utils and add a method split_name or such?
+    HEADER_SEP_RE = /  [ ]*      ## allow (strip) leading spaces
+                      (?:\|{2,} |
+                          \+{2,} |
+                           -{2,} |
+                          \/{2,}
+                      )
+                      [ ]*       ## allow (strip) trailing spaces
+                  /x
+
   def find_round_header_name!( line )
     # assume everything left is the round name
     #  extract all other items first (round name2, round pos, group name n pos, etc.)
 
-    ## todo/fix:
-    ##  cleanup method
-    ##   use  buf.index( '//' ) to split string (see found_round_def)
-    ##     why? simpler why not?
-    ##  - do we currently allow groups if name2 present? add example if it works?
-
     buf = line.dup
     logger.debug "  find_round_header_name! line-before: >>#{buf}<<"
 
-    buf.gsub!( /\[[^\]]+\]/, '' )   # e.g. remove [ROUND.POS], [ROUND.NAME2], [GROUP.NAME+POS] etc.
+
+    parts = buf.split( HEADER_SEP_RE )
+    buf = parts[0]
+
     buf.strip!    # remove leading and trailing whitespace
 
     logger.debug "  find_round_name! line-after: >>#{buf}<<"
@@ -306,19 +256,30 @@ class MatchParser   ## simple match parser for team match schedules
     buf
   end
 
+    ## quick hack- collect all "fillwords" by language!!!!
+    ##    change later  and add to sportdb-langs!!!!
+    ##
+    ##    strip all "fillwords" e.g.:
+    ##      Nachtrag/Postponed/Addition/Supplemento names
+    ##
+    ##  todo/change: find a better name for ROUND_EXTRA_WORDS - why? why not?
+    ROUND_EXTRA_WORDS_RE = /\b(?:
+                               Nachtrag |     ## de
+                               Postponed |    ## en
+                               Addition  |    ## en
+                               Supplemento    ## es
+                              )
+                             \b/ix
 
   def parse_round_header( line )
     logger.debug "parsing round header line: >#{line}<"
-
-    ## todo/check/fix:
-    #   make sure  Round of 16  will not return pos 16 -- how? possible?
-    #   add unit test too to verify
-    pos = find_round_pos!( line )
 
     name = find_round_header_name!( line )
 
     logger.debug "  line: >#{line}<"
 
+    name = name.sub( ROUND_EXTRA_WORDS_RE, '' )
+    name = name.strip
 
     round = @rounds[ name ]
     if round.nil?    ## auto-add / create if missing

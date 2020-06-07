@@ -41,9 +41,9 @@ class TestImport < MiniTest::Test
                                      )
 
     assert_equal 20,   event_rec.teams.count
-    assert_equal 380,  event_rec.games.count
+    assert_equal 380,  event_rec.matches.count
 
-    rec = event_rec.games.first
+    rec = event_rec.matches.first
     assert_equal 'Arsenal FC',          rec.team1.name
     assert_equal 'Leicester City FC',   rec.team2.name
     assert_equal 4,   rec.score1

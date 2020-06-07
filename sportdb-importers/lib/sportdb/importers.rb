@@ -33,10 +33,10 @@ def read_csv( start: nil )    ### todo/fix - rename to read_csv !!!!!!
       event = CsvEventImporter.parse( entry.read, league:  league_key,
                                                   season:  season_key )
 
-      puts "added #{event.title} - from source >#{entry.name}<"
+      puts "added #{event.name} - from source >#{entry.name}<"
       puts "  #{event.teams.size} teams"
+      puts "  #{event.matches.size} matches"
       puts "  #{event.rounds.size} rounds"
-      puts "  #{event.games.size} games"
     end  # each datafile
   end # each season
 end # method import
@@ -63,10 +63,10 @@ def self.read_csv( path )
     event = CsvEventImporter.read( full_path, league: league_key,
                                               season: season_key )
 
-    puts "added #{event.title} - from source >#{path}<"
+    puts "added #{event.name} - from source >#{path}<"
     puts "  #{event.teams.size} teams"
+    puts "  #{event.matches.size} matches"
     puts "  #{event.rounds.size} rounds"
-    puts "  #{event.games.size} games"
   end
 end
 end  # module SportDb

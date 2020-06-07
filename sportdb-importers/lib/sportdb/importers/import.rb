@@ -92,12 +92,12 @@ class CsvEventImporter
 
 
     ## add catch-all/unclassified "dummy" round
-    round_rec = Model::Round.create!(
-      event_id: event_rec.id,
-      title:    'Matchday ??? / Missing / Catch-All',   ## find a better name?
-      pos:      999,
-      start_at: event_rec.start_at.to_date
-    )
+    # round_rec = Model::Round.create!(
+    #  event_id: event_rec.id,
+    #  title:    'Matchday ??? / Missing / Catch-All',   ## find a better name?
+    #  pos:      999,
+    #  start_at: event_rec.start_at.to_date
+    # )
 
     ## add matches
     matches.each do |match|
@@ -108,12 +108,17 @@ class CsvEventImporter
         puts "!!! WARN: skipping match - play date missing!!!!!"
         pp match
       else
-        rec = Model::Game.create!(
+        ## find last pos - check if it can be nil?  yes, is nil if no records found
+        max_pos = Model::Match.where( event_id: event_rec.id ).maximum( 'pos' )
+        max_pos = max_pos ? max_pos+1 : 1
+
+        rec = Model::Match.create!(
+                event_id: event_rec.id,
                 team1_id: team1_rec.id,
                 team2_id: team2_rec.id,
-                round_id: round_rec.id,
-                pos:      999,    ## make optional why? why not? - change to num?
-                play_at:  Date.strptime( match.date, '%Y-%m-%d' ),
+                ## round_id: round_rec.id,  -- note: now optional
+                pos:      max_pos,
+                date:     Date.strptime( match.date, '%Y-%m-%d' ),
                 score1:   match.score1,
                 score2:   match.score2,
                 score1i:  match.score1i,

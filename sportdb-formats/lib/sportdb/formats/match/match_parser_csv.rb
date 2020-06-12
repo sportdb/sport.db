@@ -167,7 +167,10 @@ module SportDb
 
 
       ## check if data present - if not skip (might be empty row)
-      if team1.nil? && team2.nil?
+      ##  note:  (old classic) csv reader returns nil for empty fields
+      ##         new modern csv reader ALWAYS returns strings (and empty strings for data not available (n/a))
+      if (team1.nil? || team1.empty?) &&
+         (team2.nil? || team2.empty?)
         puts "*** WARN: skipping empty? row[#{i}] - no teams found:"
         pp row
         next
@@ -182,9 +185,11 @@ module SportDb
       col = row[ headers_mapping[ :date ]]
       col = col.strip   # make sure not leading or trailing spaces left over
 
-      if col.empty? || col == '-' || col == '?'
-         ## note: allow missing / unknown date for match
-         date = nil
+      if col.empty? ||
+         col =~ /^-{1,}$/ ||      # e.g.  - or ---
+         col =~ /^\?{1,}$/        # e.g. ? or ???
+          ## note: allow missing / unknown date for match
+          date = nil
       else
         ## remove possible weekday or weeknumber  e.g. (Fri) (4) etc.
         col = col.sub( /\(W?\d{1,2}\)/, '' )  ## e.g. (W11), (4), (21) etc.
@@ -199,6 +204,8 @@ module SportDb
           date_fmt = '%Y-%m-%d'   # e.g. 1995-08-04
         elsif col =~ /^\d{1,2} \w{3} \d{4}$/
           date_fmt = '%d %b %Y'   # e.g. 8 Jul 2017
+        elsif col =~ /^\w{3} \w{3} \d{1,2} \d{4}$/
+          date_fmt = '%a %b %d %Y'   # e.g. Sat Aug 7 1993
         else
           puts "*** !!! wrong (unknown) date format >>#{col}<<; cannot continue; fix it; sorry"
           ## todo/fix: add to errors/warns list - why? why not?

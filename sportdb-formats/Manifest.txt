@@ -63,6 +63,7 @@ test/test_match.rb
 test/test_match_auto.rb
 test/test_match_auto_champs.rb
 test/test_match_auto_euro.rb
+test/test_match_auto_relegation.rb
 test/test_match_auto_worldcup.rb
 test/test_match_champs.rb
 test/test_match_eng.rb

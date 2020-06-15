@@ -100,6 +100,9 @@ module SportDb
          ## optional headers - note: find_header returns nil if header NOT found
          header_stage = find_header( headers, ['Stage'] )
          headers_mapping[:stage]  =  header_stage   if header_stage
+
+         header_league = find_header( headers, ['League'] )
+         headers_mapping[:league] = header_league   if header_league
       else
          ## else try footballdata.uk and others
          headers_mapping[:team1]  = find_header( headers, ['HomeTeam', 'HT', 'Home'] )
@@ -290,13 +293,17 @@ module SportDb
                  end
       end
 
+      league = nil
+      league = row[ headers_mapping[ :league ]]   if headers_mapping[ :league ]
+
 
       match = Import::Match.new( date:    date,
                                  team1:   team1,   team2:   team2,
                                  score1:  score1,  score2:  score2,
                                  score1i: score1i, score2i: score2i,
                                  round:   round,
-                                 stage:   stage )
+                                 stage:   stage,
+                                 league:  league )
       matches << match
     end
 

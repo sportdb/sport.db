@@ -1,6 +1,4 @@
 
-## todo/fix: rename to CsvEventImporter or EventImporter  !!! returns Event!!
-## todo/fix/check: rename to CsvMatchReader and CsvMatchReader to CsvMatchParser - why? why not?
 
 module SportDb
 class CsvEventImporter

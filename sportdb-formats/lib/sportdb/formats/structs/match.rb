@@ -20,7 +20,8 @@ class Match
               :group,
               :conf1,    :conf2,      ## special case for mls e.g. conference1, conference2 (e.g. west, east, central)
               :country1, :country2,    ## special case for champions league etc. - uses FIFA country code
-              :comments
+              :comments,
+              :league      ## (optinal) added as text for now (use struct?)
 
   def initialize( **kwargs )
     update( kwargs )  unless kwargs.empty?
@@ -46,6 +47,9 @@ class Match
     @leg      = kwargs[:leg]      if kwargs.has_key? :leg
     @group    = kwargs[:group]    if kwargs.has_key? :group
     @comments = kwargs[:comments] if kwargs.has_key? :comments
+
+    @league   = kwargs[:league]   if kwargs.has_key? :league
+
 
     if kwargs.has_key?( :score )   ## check all-in-one score struct for convenience!!!
       score = kwargs[:score]

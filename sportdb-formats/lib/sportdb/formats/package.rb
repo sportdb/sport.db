@@ -73,6 +73,10 @@ module SportDb
                        /[a-z0-9_.-]+\.csv$  ## note: allow dot (.) too e.g /eng.1.csv
                     }x
 
+    ### add "generic" pattern to find all csv datafiles
+    CSV_RE = %r{ (?: ^|/ )
+                   [a-z0-9_.-]+\.csv$  ## note: allow dot (.) too e.g /eng.1.csv
+               }x
 
 
     ## move class-level "static" finders to DirPackage (do NOT work for now for zip packages) - why? why not?
@@ -117,6 +121,7 @@ module SportDb
       end
    end
    ## add match_match and match_match_csv  - why? why not?
+
 
    class << self
      alias_method :match_teams?, :match_teams
@@ -212,6 +217,8 @@ module SportDb
       end
     end
     def each_match_csv( &blk )  each( pattern: MATCH_CSV_RE, &blk ); end
+    def each_csv( &blk )        each( pattern: CSV_RE, &blk );       end
+
     def each_club_props( &blk ) each( pattern: CLUB_PROPS_RE, &blk ); end
 
     def each_leagues( &blk )    each( pattern: LEAGUES_RE, &blk ); end

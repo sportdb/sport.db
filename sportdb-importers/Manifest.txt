@@ -3,7 +3,8 @@ Manifest.txt
 README.md
 Rakefile
 lib/sportdb/importers.rb
-lib/sportdb/importers/import.rb
+lib/sportdb/importers/event.rb
+lib/sportdb/importers/match.rb
 lib/sportdb/importers/version.rb
 test/helper.rb
 test/test_club.rb

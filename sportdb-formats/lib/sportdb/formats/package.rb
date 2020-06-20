@@ -13,11 +13,21 @@ module SportDb
     ## leagues.txt or leagues_en.txt
     ##   remove support for en.leagues.txt - why? why not?
     LEAGUES_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
-       (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.wiki.txt
+       (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.leagues.txt
         leagues
           (?:_[a-z0-9_-]+)?
         \.txt$
     }x
+
+    ## seasons.txt or seasons_en.txt
+    ##   remove support for br.seasons.txt - why? why not?
+    SEASONS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+       (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.seasons.txt
+        seasons
+          (?:_[a-z0-9_-]+)?
+        \.txt$
+    }x
+
 
     ## clubs.txt or clubs_en.txt
     ##   remove support for en.clubs.txt - why? why not?
@@ -49,6 +59,8 @@ module SportDb
                       \.txt$
     }x
 
+
+    ###  todo/fix: change SEASON_RE to SEASON_KEY_RE (avoid confusion w/ SEASONS_RE for datafile?) - why? why not? !!!!!!!
     ### season folder:
     ##            e.g. /2019-20   or
     ##  year-only e.g. /2019      or
@@ -110,6 +122,10 @@ module SportDb
    def self.find_leagues( path, pattern: LEAGUES_RE )  find( path, pattern ); end
    def self.match_leagues( path )  LEAGUES_RE.match( path ); end
 
+   def self.find_seasons( path, pattern: SEASONS_RE )  find( path, pattern ); end
+   def self.match_seasons( path )  SEASONS_RE.match( path ); end
+
+
    def self.find_conf( path, pattern: CONF_RE )  find( path, pattern ); end
    def self.match_conf( path )  CONF_RE.match( path ); end
 
@@ -138,6 +154,9 @@ module SportDb
 
      alias_method :match_leagues?, :match_leagues
      alias_method :leagues?,       :match_leagues
+
+     alias_method :match_seasons?, :match_seasons
+     alias_method :seasons?,       :match_seasons
 
      alias_method :match_conf?, :match_conf
      alias_method :conf?,       :match_conf

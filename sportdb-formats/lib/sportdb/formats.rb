@@ -136,6 +136,20 @@ end   # module Import
 end   # module SportDb
 
 
+require 'sportdb/formats/event/event_reader'
+require 'sportdb/formats/event/event_index'
+
+## add convenience helper
+module SportDb
+module Import
+class EventInfo
+  def self.read( path )  EventInfoReader.read( path ); end
+  def self.parse( txt )  EventInfoReader.parse( txt ); end
+end   # class EventInfo
+end   # module Import
+end   # module SportDb
+
+
 
 
 

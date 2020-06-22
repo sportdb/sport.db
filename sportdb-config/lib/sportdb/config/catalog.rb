@@ -15,6 +15,9 @@ class Catalog
   def teams()          @teams          ||= build_team_index; end
   def leagues()        @leagues        ||= build_league_index; end
 
+  def events()         @events         ||= build_event_index; end
+  def seasons()        @seasons        ||= build_season_index; end
+
 
   def build_team_index() TeamIndex.new;  end
 
@@ -69,6 +72,22 @@ class Catalog
                 FootballDb::Import.build_league_index
               end
   end
+
+
+  def build_event_index
+    if config.leagues_dir    ## (re)use leagues dir for now - add separate seasons_dir - why? why not?
+       EventIndex.build( config.leagues_dir )
+    else
+      puts "!! ERROR - no leagues_dir set; for now required for events catalog - sorry"
+      exit 1
+    end
+  end
+
+  def build_season_index
+    # note: for now always (re)use the events from the event (info) index
+    SeasonIndex.new( events )
+  end
+
 end  # class Catalog
 
   end   # module Import

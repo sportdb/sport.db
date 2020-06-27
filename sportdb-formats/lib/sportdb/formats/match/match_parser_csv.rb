@@ -95,7 +95,7 @@ module SportDb
          headers_mapping[:score]  = find_header( headers, ['FT'] )
          headers_mapping[:scorei] = find_header( headers, ['HT'] )
 
-         headers_mapping[:round]  = find_header( headers, ['Round'] )
+         headers_mapping[:round]  = find_header( headers, ['Round', 'Matchday'] )
 
          ## optional headers - note: find_header returns nil if header NOT found
          header_stage = find_header( headers, ['Stage'] )
@@ -221,6 +221,9 @@ module SportDb
       end
 
 
+      ##
+      ## todo/fix:  round might not always be just a simple integer number!!!
+      ##             might be text such as Final | Leg 1 or such!!!!
       round   = nil
       ## check for (optional) round / matchday
       if headers_mapping[ :round ]

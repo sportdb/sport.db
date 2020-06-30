@@ -103,13 +103,17 @@ class EventInfo
 
           puts "#{league.name} (#{league.key}) | #{season.key} | #{dates_col}"
 
+          ### todo/check:  check what parts "Aug 15" return ???
+          ###                       short form for "Aug 15 -" - works?
+
+          ## todo/fix!!! - check EventInfo.include?
+          ##    now allow dates with only start_date too!! (WITHOUT end_date)
           parts = dates_col.split( /[ ]*[–-][ ]*/ )
-          if parts.size != 2
-            puts "!! ERRROR - expected data range / period - two dates; got #{parts.size}:"
-            pp dates_col
+          if parts.size == 1
             pp parts
-            exit 1
-          else
+            dates << DateFormats.parse( parts[0], start: Date.new( season.start_year, 1, 1 ), lang: 'en' )
+            pp dates
+          elsif parts.size == 2
             pp parts
             dates << DateFormats.parse( parts[0], start: Date.new( season.start_year, 1, 1 ), lang: 'en' )
             dates << DateFormats.parse( parts[1], start: Date.new( season.end_year ? season.end_year : season.start_year, 1, 1 ), lang: 'en' )
@@ -122,6 +126,11 @@ class EventInfo
               puts "!! ERROR - date range / period assertion failed; expected diff < 365 days"
               exit 1
             end
+          else
+            puts "!! ERRROR - expected data range / period - one or two dates; got #{parts.size}:"
+            pp dates_col
+            pp parts
+            exit 1
           end
         end
 

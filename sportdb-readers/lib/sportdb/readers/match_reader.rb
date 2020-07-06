@@ -53,11 +53,19 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
         Import.config.lang = langs[ league.country.key ] || 'en'
       end
 
+      ### check if event info availabe - use start_date;
+      ##    otherwise we have to guess (use a "synthetic" start_date)
+      event_info = catalog.events.find_by( season: season,
+                                           league: league )
 
-      start = if season.year?
-                Date.new( season.start_year, 1, 1 )
+      start = if event_info && event_info.start_date
+                  event_info.start_date
               else
-                Date.new( season.start_year, 7, 1 )
+                if season.year?
+                  Date.new( season.start_year, 1, 1 )
+                else
+                  Date.new( season.start_year, 7, 1 )
+                end
               end
 
       auto_conf_teams, _ = AutoConfParser.parse( lines,

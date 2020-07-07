@@ -566,9 +566,23 @@ class MatchParser   ## simple match parser for team match schedules
       logger.debug( "    date: #{date}")
 
       @last_date = date   # keep a reference for later use
-      return true
+
+      ###  quick "corona" hack - support seasons going beyond 12 month (see swiss league 2019/20 and others!!)
+      ##    find a better way??
+      ##  set @start date to full year (e.g. 1.1.) if date.year  is @start.year+1
+      ##   todo/fix: add to linter to check for chronological dates!! - warn if NOT chronological
+      ###  todo/check: just turn on for 2019/20 season or always? why? why not?
+      if @start.day != 1 && @start.month != 1
+         if date.year == @start.year+1
+           logger.debug( "!! extending start date to full (next/end) year; assumes all dates are chronologigal - always moving forward" )
+           @start_org = @start   ## keep a copy of the original (old) start date - why? why not? - not used for now
+           @start = Date.new( @start.year+1, 1, 1 )
+         end
+      end
+
+      true
     else
-      return false
+      false
     end
   end
 

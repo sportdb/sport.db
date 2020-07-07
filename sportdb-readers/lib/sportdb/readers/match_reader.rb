@@ -31,12 +31,13 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
     langs = {    ## map country keys to lang codes
       'de' => 'de', ## de - Deutsch (German)
       'at' => 'de',
+      'ch' => 'de',
       'fr' => 'fr', ## fr - French
       'it' => 'it', ## it - Italian
       'es' => 'es', ## es - Español (Spanish)
       'mx' => 'es',
       'pt' => 'pt', ## pt -  Português (Portuguese)
-      'br' => 'br'
+      'br' => 'br'    ## !!! todo/check - br exists?? use pt portuges??
     }
 
     secs.each do |sec|   ## sec(tion)s

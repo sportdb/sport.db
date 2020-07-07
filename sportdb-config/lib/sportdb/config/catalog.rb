@@ -76,10 +76,10 @@ class Catalog
 
   def build_event_index
     if config.leagues_dir    ## (re)use leagues dir for now - add separate seasons_dir - why? why not?
-       EventIndex.build( config.leagues_dir )
+      EventIndex.build( config.leagues_dir )
     else
-      puts "!! ERROR - no leagues_dir set; for now required for events catalog - sorry"
-      exit 1
+      puts "!! WARN - no leagues_dir set; for now buit-in events in catalog - fix!!!!"
+      EventIndex.new   ## return empty event index
     end
   end
 

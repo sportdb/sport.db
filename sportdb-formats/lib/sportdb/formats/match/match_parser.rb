@@ -563,7 +563,7 @@ class MatchParser   ## simple match parser for team match schedules
 
     if date && team1.nil? && team2.nil?
       logger.debug( "date header line found: >#{line}<")
-      logger.debug( "    date: #{date}")
+      logger.debug( "    date: #{date} with start: #{@start}")
 
       @last_date = date   # keep a reference for later use
 
@@ -572,9 +572,12 @@ class MatchParser   ## simple match parser for team match schedules
       ##  set @start date to full year (e.g. 1.1.) if date.year  is @start.year+1
       ##   todo/fix: add to linter to check for chronological dates!! - warn if NOT chronological
       ###  todo/check: just turn on for 2019/20 season or always? why? why not?
-      if @start.day != 1 && @start.month != 1
+
+      ## todo/fix: add switch back to old @start_org
+      ##   if year is date.year == @start.year-1    -- possible when full date with year set!!!
+      if @start.month != 1
          if date.year == @start.year+1
-           logger.debug( "!! extending start date to full (next/end) year; assumes all dates are chronologigal - always moving forward" )
+           logger.debug( "!! hack - extending start date to full (next/end) year; assumes all dates are chronologigal - always moving forward" )
            @start_org = @start   ## keep a copy of the original (old) start date - why? why not? - not used for now
            @start = Date.new( @start.year+1, 1, 1 )
          end

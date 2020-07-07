@@ -8,6 +8,8 @@ lib/sportdb/formats/country/country_index.rb
 lib/sportdb/formats/country/country_reader.rb
 lib/sportdb/formats/datafile.rb
 lib/sportdb/formats/datafile_package.rb
+lib/sportdb/formats/event/event_index.rb
+lib/sportdb/formats/event/event_reader.rb
 lib/sportdb/formats/goals.rb
 lib/sportdb/formats/league/league_index.rb
 lib/sportdb/formats/league/league_outline_reader.rb
@@ -68,6 +70,7 @@ test/test_match_auto_worldcup.rb
 test/test_match_champs.rb
 test/test_match_eng.rb
 test/test_match_euro.rb
+test/test_match_start_date.rb
 test/test_match_worldcup.rb
 test/test_name_helper.rb
 test/test_outline_reader.rb

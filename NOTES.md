@@ -1,6 +1,16 @@
-# Dev Tips
+# Notes
 
-## Countries
+## gems / libs to push publish
+
+- [ ] sportdb-langs
+  - up pt.yml
+
+
+
+
+## Dev Tips
+
+### Countries
 
 To synch countries list use (in fifa and test). Use:
 
@@ -10,7 +20,7 @@ cp fifa\config\countries.txt test\world
 
 
 
-## Hoe
+### Hoe
 
 ### Configure Manifest Excludes
 
@@ -103,6 +113,6 @@ Docu for default command says:
 
 ### Todos
 
-- [ ] check gem - what is it using? hand rolled? w/ optparser?    
+- [ ] check gem - what is it using? hand rolled? w/ optparser?
 - [ ] add link to cli rubytoolbox category
 - [ ] move notes to rubybook (single-source, all in one place)

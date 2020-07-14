@@ -1,11 +1,5 @@
 # Notes
 
-## gems / libs to push publish
-
-- [ ] sportdb-langs
-  - up pt.yml
-
-
 
 
 ## Dev Tips

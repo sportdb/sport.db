@@ -101,9 +101,23 @@ module SportDb
          header_stage = find_header( headers, ['Stage'] )
          headers_mapping[:stage]  =  header_stage   if header_stage
 
+         header_group = find_header( headers, ['Group'] )
+         headers_mapping[:group]  =  header_group   if header_group
+
+
+         header_et = find_header( headers, ['ET', 'AET'] )   ## (after) extra time
+         headers_mapping[:score_et] = header_et   if header_et
+
+         header_p  = find_header( headers, ['P', 'PEN'] )    ## penalties
+         headers_mapping[:score_p] = header_p   if header_p
+
+         header_notes = find_header( headers, ['Notes', 'Comments'] )
+         headers_mapping[:notes]  =  header_notes   if header_notes
+
+
          header_league = find_header( headers, ['League'] )
          headers_mapping[:league] = header_league   if header_league
-      else
+        else
          ## else try footballdata.uk and others
          headers_mapping[:team1]  = find_header( headers, ['HomeTeam', 'HT', 'Home'] )
          headers_mapping[:team2]  = find_header( headers, ['AwayTeam', 'AT', 'Away'] )
@@ -229,7 +243,15 @@ module SportDb
       if headers_mapping[ :round ]
         col = row[ headers_mapping[ :round ]]
         ## todo: issue warning if not ? or - (and just empty string) why? why not
-        round = col.to_i  if col =~ /^\d{1,2}$/     # check format - e.g. ignore ? or - or such non-numbers for now
+        ## (old attic) was: round = col.to_i  if col =~ /^\d{1,2}$/     # check format - e.g. ignore ? or - or such non-numbers for now
+
+        ## note: make round always a string for now!!!! e.g. "1", "2" too!!
+        round = if col.nil? || col.empty? || col == '-' || col == 'n/a'
+                 ## note: allow missing round for match / defaults to nil
+                 nil
+                else
+                  col
+                end
       end
 
 
@@ -261,8 +283,8 @@ module SportDb
       ## check for all-in-one full time scores?
       if headers_mapping[ :score ]
         ft = row[ headers_mapping[ :score ] ]
-        if ft =~ /^\d{1,2}[\-:]\d{1,2}$/   ## sanity check scores format
-          scores = ft.split( /[\-:]/ )
+        if ft =~ /^\d{1,2}[:-]\d{1,2}$/   ## sanity check scores format
+          scores = ft.split( /[:-]/ )
           score1 = scores[0].to_i
           score2 = scores[1].to_i
         end
@@ -271,12 +293,52 @@ module SportDb
 
       if headers_mapping[ :scorei ]
         ht = row[ headers_mapping[ :scorei ] ]
-        if ht =~ /^\d{1,2}[\-:]\d{1,2}$/   ## sanity check scores format
-          scores = ht.split( /[\-:]/)   ## allow 1-1 and 1:1
+        if ht =~ /^\d{1,2}[:-]\d{1,2}$/   ## sanity check scores format
+          scores = ht.split( /[:-]/)   ## allow 1-1 and 1:1
           score1i = scores[0].to_i
           score2i = scores[1].to_i
         end
         ## todo/fix: issue warning if non-empty!!! and not matching format!!!!
+      end
+
+
+      ####
+      ## try optional score - extra time (et) and penalities (p/pen)
+      score1et  = nil
+      score2et  = nil
+      score1p   = nil
+      score2p   = nil
+
+      if headers_mapping[ :score_et ]
+        col = row[ headers_mapping[ :score_et ] ]
+        if col.nil? || col.empty? || col == '-' || col == 'n/a'
+          score1et  = nil
+          score2et  = nil
+        elsif  col =~ /^\d{1,2}[:-]\d{1,2}$/   ## sanity check scores format
+          scores   = col.split( /[:-]/ )
+          score1et = scores[0].to_i
+          score2et = scores[1].to_i
+        else
+          puts "!! ERROR - invalid score (et) format >#{col}<:"
+          pp row
+          exit 1
+        end
+      end
+
+      if headers_mapping[ :score_p ]
+        col = row[ headers_mapping[ :score_p ] ]
+        if col.nil? || col.empty? || col == '-' || col == 'n/a'
+          score1p  = nil
+          score2p  = nil
+        elsif  col =~ /^\d{1,2}[:-]\d{1,2}$/   ## sanity check scores format
+          scores  = col.split( /[:-]/ )
+          score1p = scores[0].to_i
+          score2p = scores[1].to_i
+        else
+          puts "!! ERROR - invalid score (p) format >#{col}<:"
+          pp row
+          exit 1
+        end
       end
 
 
@@ -296,17 +358,39 @@ module SportDb
                  end
       end
 
+      group = nil
+      if headers_mapping[ :group ]
+        col = row[ headers_mapping[ :group ]]
+        ## todo/fix: check can col be nil e.g. col.nil? possible?
+        group =  if col.nil? || col.empty? || col == '-' || col == 'n/a'
+                    ## note: allow missing stage for match / defaults to "regular"
+                    nil
+                 else
+                    col
+                 end
+      end
+
+
       league = nil
       league = row[ headers_mapping[ :league ]]   if headers_mapping[ :league ]
 
 
-      match = Import::Match.new( date:    date,
-                                 team1:   team1,   team2:   team2,
-                                 score1:  score1,  score2:  score2,
-                                 score1i: score1i, score2i: score2i,
-                                 round:   round,
-                                 stage:   stage,
-                                 league:  league )
+      puts 'match attributes:'
+      attributes = {
+        date:     date,
+        team1:    team1,    team2:    team2,
+        score1:   score1,   score2:   score2,
+        score1i:  score1i,  score2i:  score2i,
+        score1et: score1et, score2et: score2et,
+        score1p:  score1p,  score2p:  score2p,
+        round:    round,
+        stage:    stage,
+        group:    group,
+        league:   league
+      }
+      pp attributes
+
+      match = Import::Match.new( **attributes )
       matches << match
     end
 

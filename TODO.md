@@ -1,5 +1,17 @@
 # TODOs
 
+
+## Gems / libs to push publish
+
+- [ ] sportdb-langs
+  - up pt.yml
+- [ ] sportdb-formats
+  - us csv match parser
+
+
+
+## More
+
 [ ] remove warning for event w/o defined fixtures
 
     [info] parsing data 'world-cup!/2010/cup' (../openfootball/world-cup/2010/cup.yml)...

@@ -6,8 +6,9 @@
 - [ ] sportdb-langs
   - up pt.yml
 - [ ] sportdb-formats
-  - us csv match parser
-
+  - up csv match parser
+- [ ] sportdb-readers
+  - fix br - is pt!
 
 
 ## More

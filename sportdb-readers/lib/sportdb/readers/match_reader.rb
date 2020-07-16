@@ -37,7 +37,7 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
       'es' => 'es', ## es - Español (Spanish)
       'mx' => 'es',
       'pt' => 'pt', ## pt -  Português (Portuguese)
-      'br' => 'br'    ## !!! todo/check - br exists?? use pt portuges??
+      'br' => 'pt',
     }
 
     secs.each do |sec|   ## sec(tion)s

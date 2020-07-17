@@ -69,6 +69,8 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
                 end
               end
 
+
+      ### todo/check: make sure team include teams from group def too!!!!!
       auto_conf_teams, _ = AutoConfParser.parse( lines,
                                                  start: start )
 
@@ -81,7 +83,10 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
                 ##    todo/fix: make more generic / reuseable!!!!
                 mods = {}
                 ## europa league uses same mods as champions league
-                mods[ 'uefa.el' ] = mods[ 'uefa.cl' ] = catalog.clubs.build_mods(
+                mods[ 'uefa.el.quali' ] =
+                mods[ 'uefa.cl.quali' ] =
+                mods[ 'uefa.el' ] =
+                mods[ 'uefa.cl' ] = catalog.clubs.build_mods(
                   { 'Liverpool | Liverpool FC' => 'Liverpool FC, ENG',
                     'Arsenal  | Arsenal FC'    => 'Arsenal FC, ENG',
                     'Barcelona'                => 'FC Barcelona, ESP',
@@ -133,12 +138,32 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
      end
 
 
-      rounds.each do |round|
-        round_rec = Sync::Round.find_or_create( round, event: event_rec )  ## check: use/rename to EventRound why? why not?
-      end
+       ## build a lookup cache for team_recs  (used by group lookup)
+       ##   lookup by "canonical" name
+       cache_team_recs = new_team_recs.reduce({}) { |h,rec| h[rec.name] = rec; h }
 
       groups.each do |group|
         group_rec = Sync::Group.find_or_create( group, event: event_rec )   ## check: use/rename to EventGroup why? why not?
+
+        ########
+        ## add/update teams  - todo/fix/clean-up - find a better way or move to sync? - possible?
+        ##   e.g. group.teams assumes an array of team names e.g.
+        ##      ["Spain", "Czech Republic", "Turkey", "Croatia"]
+        group_team_ids = []
+        group.teams.each do |team_name|
+          team_rec = cache_team_recs[ team_name ]
+          if team_rec.nil? ## assume team MUST always be present/known in mapping (via autoconfig parser)
+            puts "!! ERROR - no (cached) team rec found for team in group >#{group.name}< for >#{team_name}<"
+            exit 1
+          end
+          group_team_ids << team_rec.id
+        end
+        group_rec.team_ids = group_team_ids   ## reset/update all teams at once (via ids)
+      end
+
+
+      rounds.each do |round|
+        round_rec = Sync::Round.find_or_create( round, event: event_rec )  ## check: use/rename to EventRound why? why not?
       end
 
       matches.each do |match|

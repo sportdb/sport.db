@@ -9,6 +9,7 @@
   - up csv match parser
 - [ ] sportdb-readers
   - fix br - is pt!
+  - up add teams to group
 
 
 ## More

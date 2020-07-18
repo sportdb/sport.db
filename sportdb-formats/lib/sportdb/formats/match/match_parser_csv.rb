@@ -280,27 +280,33 @@ module SportDb
         score2i = ht[1].to_i  if ht[1] =~ /^\d{1,2}$/
       end
 
+
       ## check for all-in-one full time scores?
       if headers_mapping[ :score ]
-        ft = row[ headers_mapping[ :score ] ]
-        if ft =~ /^\d{1,2}[:-]\d{1,2}$/   ## sanity check scores format
-          scores = ft.split( /[:-]/ )
-          score1 = scores[0].to_i
-          score2 = scores[1].to_i
+        col = row[ headers_mapping[ :score ]]
+        score = parse_score( col )
+        if score
+          score1 = score[0]
+          score2 = score[1]
+        else
+          puts "!! ERROR - invalid score (ft) format >#{col}<:"
+          pp row
+          exit 1
         end
-        ## todo/fix: issue warning if non-empty!!! and not matching format!!!!
       end
 
       if headers_mapping[ :scorei ]
-        ht = row[ headers_mapping[ :scorei ] ]
-        if ht =~ /^\d{1,2}[:-]\d{1,2}$/   ## sanity check scores format
-          scores = ht.split( /[:-]/)   ## allow 1-1 and 1:1
-          score1i = scores[0].to_i
-          score2i = scores[1].to_i
+        col = row[ headers_mapping[ :scorei ]]
+        score = parse_score( col )
+        if score
+          score1i = score[0]
+          score2i = score[1]
+        else
+          puts "!! ERROR - invalid score (ht) format >#{col}<:"
+          pp row
+          exit 1
         end
-        ## todo/fix: issue warning if non-empty!!! and not matching format!!!!
       end
-
 
       ####
       ## try optional score - extra time (et) and penalities (p/pen)
@@ -310,14 +316,11 @@ module SportDb
       score2p   = nil
 
       if headers_mapping[ :score_et ]
-        col = row[ headers_mapping[ :score_et ] ]
-        if col.nil? || col.empty? || col == '-' || col == 'n/a'
-          score1et  = nil
-          score2et  = nil
-        elsif  col =~ /^\d{1,2}[:-]\d{1,2}$/   ## sanity check scores format
-          scores   = col.split( /[:-]/ )
-          score1et = scores[0].to_i
-          score2et = scores[1].to_i
+        col = row[ headers_mapping[ :score_et ]]
+        score = parse_score( col )
+        if score
+          score1et = score[0]
+          score2et = score[1]
         else
           puts "!! ERROR - invalid score (et) format >#{col}<:"
           pp row
@@ -326,14 +329,11 @@ module SportDb
       end
 
       if headers_mapping[ :score_p ]
-        col = row[ headers_mapping[ :score_p ] ]
-        if col.nil? || col.empty? || col == '-' || col == 'n/a'
-          score1p  = nil
-          score2p  = nil
-        elsif  col =~ /^\d{1,2}[:-]\d{1,2}$/   ## sanity check scores format
-          scores  = col.split( /[:-]/ )
-          score1p = scores[0].to_i
-          score2p = scores[1].to_i
+        col = row[ headers_mapping[ :score_p ]]
+        score = parse_score( col )
+        if score
+          score1p = score[0]
+          score2p = score[1]
         else
           puts "!! ERROR - invalid score (p) format >#{col}<:"
           pp row
@@ -370,6 +370,17 @@ module SportDb
                  end
       end
 
+      status = nil    ## e.g. AWARDED, CANCELLED, POSTPONED, etc.
+      if headers_mapping[ :notes ]
+        col = row[ headers_mapping[ :group ]]
+        ## check for optional (match) status in notes / comments
+        status = if col.nil? || col.empty? || col == '-' || col == 'n/a'
+                   nil
+                 else
+                   StatusParser.parse( col )  # note: returns nil if no (match) status found
+                 end
+      end
+
 
       league = nil
       league = row[ headers_mapping[ :league ]]   if headers_mapping[ :league ]
@@ -386,6 +397,7 @@ module SportDb
         round:    round,
         stage:    stage,
         group:    group,
+        status:   status,
         league:   league
       }
       pp attributes
@@ -409,6 +421,37 @@ module SportDb
     end
     nil  ## no matching header  found!!!
   end
+
+########
+# more helpers
+#
+
+def parse_score( str )
+  if str.nil?    ## todo/check: remove nil case - possible? - why? why not?
+    [nil,nil]
+  else
+    ## remove (optional single) note/footnote/endnote markers
+    ##  e.g. (*) or (a), (b),
+    ##    or [*], [A], [1], etc.
+    ##  - allow (1) or maybe (*1) in the future - why? why not?
+    str = str.sub( /\( [a-z*] \)
+                        |
+                    \[ [1-9a-z*] \]
+                   /ix, '' ).strip
+
+    if str.empty? || str == '-' || str == 'n/a'
+      [nil,nil]
+    ### todo/check: use regex with named capture groups here - why? why not?
+    elsif str =~ /^\d{1,2}[:-]\d{1,2}$/   ## sanity check scores format
+      score  = str.split( /[:-]/ )
+      [score[0].to_i, score[1].to_i]
+    else
+      nil  ## note: returns nil if invalid / unparseable format!!!
+    end
+  end
+end # method parse_score
+
+
 
   end # class CsvMatchParser
   end # module SportDb

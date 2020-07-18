@@ -10,20 +10,39 @@ require 'helper'
 
 class TestMatchStatusParser < MiniTest::Test
 
-  def test_status
+   Status       = SportDb::Status
+   StatusParser = SportDb::StatusParser
 
-    ['awarded [cancelled] canceled [ddd]',
-     'awarded [bbb; canceled] canceled [awarded; comments] eeee',
-     'aaa bbb ccc ddd eeee'
-    ].each do |line|
+  def test_find
+    [['awarded [cancelled] canceled [ddd]',                        Status::CANCELLED],
+     ['awarded [bbb; canceled] canceled [awarded; comments] eeee', Status::AWARDED],
+     ['aaa bbb ccc ddd eeee',                                      nil],
+    ].each do |rec|
+      line       = rec[0]
+      status_exp = rec[1]
        puts "line (before): >#{line}<"
-       status = SportDb::StatusParser.find!( line )
+       status = StatusParser.find!( line )
        puts "status: >#{status}<"
        puts "line (after): >#{line}<"
        puts
-    end
 
-  end # method test_status
+       assert_equal status_exp, status
+    end
+  end # method test_find
+
+  def test_parse
+    [['cancelled ddd',        Status::CANCELLED],
+     ['CANCELLED',            Status::CANCELLED],
+     ['can.',                 Status::CANCELLED],
+     ['awarded; comments',    Status::AWARDED],
+     ['awd. - comments',      Status::AWARDED],
+     ['aaa bbb ccc ddd eeee', nil],
+    ].each do |rec|
+      str        = rec[0]
+      status_exp = rec[1]
+      assert_equal status_exp, StatusParser.parse( str )
+    end
+  end
 
 end   # class TestMatchStatusParser
 

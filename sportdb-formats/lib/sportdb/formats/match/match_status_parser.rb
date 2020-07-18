@@ -1,22 +1,61 @@
 #####################
 # helpers for parsing & finding match status e.g.
-#    - canceled / cancelled
+#    - cancelled / canceled
 #    - awarded
-#    - abadoned
+#    - abandoned
 #    - replay
 #    etc.
 
 
 module SportDb
 
+  class Status
+# note: use a class as an "enum"-like namespace for now - why? why not?
+#   move class into Match e.g. Match::Status  - why? why not?
+    CANCELLED = 'CANCELLED'   # canceled (US spelling), cancelled (UK spelling) - what to use?
+    AWARDED   = 'AWARDED'
+    POSTPONED = 'POSTPONED'
+    ABANDONED = 'ABANDONED'
+    REPLAY    = 'REPLAY'
+  end # class Status
 
- class StatusParser
+
+
+  class StatusParser
+
+    def self.parse( str )
+      ## note: returns nil if no match found
+      ## note: english usage - cancelled (in UK), canceled (in US)
+      if str =~ /^(cancelled|
+                   canceled|
+                   can\.
+                  )/xi
+        Status::CANCELLED
+      elsif str =~ /^(awarded|
+                       awd\.
+                      )/xi
+        Status::AWARDED
+      elsif str =~ /^(postponed
+                      )/xi
+        Status::POSTPONED
+      elsif str =~ /^(abandoned|
+                       abd\.
+                      )/xi
+        Status::ABANDONED
+      elsif str =~ /^(replay
+                      )/xi
+        Status::REPLAY
+      else
+        # no match
+        nil
+      end
+    end
+
+
     RUN_RE = /\[
                  (?<text>[^\]]+)
                \]
              /x
-
-
     def self.find!( line )
       ## for now check all "protected" text run blocks e.g. []
       ##  puts "line: >#{line}<"
@@ -32,36 +71,12 @@ module SportDb
         text = m[:text].strip
         ## puts "  text: >#{text}<"
 
-        ## note: english usage - cancelled (in UK), canceled (in US)
+        status = parse( text )
 
-        status =  if text =~ /^(cancelled|
-                                canceled|
-                                can\.
-                               )/xi
-                             'CANCELLED'
-                  elsif text =~ /^(awarded|
-                                   awd\.
-                                  )/xi
-                             'AWARDED'
-                  elsif text =~ /^(postponed
-                                  )/xi
-                             'POSTPONED'
-                  elsif text =~ /^(abandoned|
-                                   abd\.
-                                  )/xi
-                             'ABANDONED'
-                  elsif text =~ /^(replay
-                                  )/xi
-                             'REPLAY'
-                  else
-                          # no match; continue searching
-                          nil
-                  end
-
-            if status
-              line.sub!( match_str, "[STATUS.#{status}]" )
-              break
-            end
+        if status
+           line.sub!( match_str, "[STATUS.#{status}]" )
+           break
+        end
       end  # while match
 
       status

@@ -372,7 +372,7 @@ module SportDb
 
       status = nil    ## e.g. AWARDED, CANCELLED, POSTPONED, etc.
       if headers_mapping[ :notes ]
-        col = row[ headers_mapping[ :group ]]
+        col = row[ headers_mapping[ :notes ]]
         ## check for optional (match) status in notes / comments
         status = if col.nil? || col.empty? || col == '-' || col == 'n/a'
                    nil
@@ -386,7 +386,7 @@ module SportDb
       league = row[ headers_mapping[ :league ]]   if headers_mapping[ :league ]
 
 
-      puts 'match attributes:'
+      ## puts 'match attributes:'
       attributes = {
         date:     date,
         team1:    team1,    team2:    team2,
@@ -400,7 +400,7 @@ module SportDb
         status:   status,
         league:   league
       }
-      pp attributes
+      ## pp attributes
 
       match = Import::Match.new( **attributes )
       matches << match
@@ -439,7 +439,7 @@ def parse_score( str )
                     \[ [1-9a-z*] \]
                    /ix, '' ).strip
 
-    if str.empty? || str == '-' || str == 'n/a'
+    if str.empty? || str == '?' || str == '-' || str == 'n/a'
       [nil,nil]
     ### todo/check: use regex with named capture groups here - why? why not?
     elsif str =~ /^\d{1,2}[:-]\d{1,2}$/   ## sanity check scores format

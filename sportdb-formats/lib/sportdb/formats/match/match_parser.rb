@@ -302,6 +302,11 @@ class MatchParser   ## simple match parser for team match schedules
     ScoreFormats.find!( line )
   end
 
+  def find_status!( line )
+    StatusParser.find!( line )
+  end
+
+
   def try_parse_game( line )
     # note: clone line; for possible test do NOT modify in place for now
     # note: returns true if parsed, false if no match
@@ -328,6 +333,10 @@ class MatchParser   ## simple match parser for team match schedules
       logger.debug "  no game match (two teams required) found for line: >#{line}<"
       return false
     end
+
+    ## find (optional) match status e.g. [abandoned] or [replay] or [awarded]
+    ##                                   or [cancelled] or [postponed] etc.
+    status = find_status!( line )   ## todo/check: allow match status also in geo part (e.g. after @) - why? why not?
 
     ## pos = find_game_pos!( line )
 
@@ -380,8 +389,8 @@ class MatchParser   ## simple match parser for team match schedules
                                    team2:   team2,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team2.name)
                                    score:   score,
                                    round:   round       ? round.name       : nil,   ## note: for now always use string (assume unique canonical name for event)
-                                   group:   @last_group ? @last_group.name : nil )  ## note: for now always use string (assume unique canonical name for event)
-
+                                   group:   @last_group ? @last_group.name : nil,   ## note: for now always use string (assume unique canonical name for event)
+                                   status:  status )
     ### todo: cache team lookups in hash?
 
 =begin

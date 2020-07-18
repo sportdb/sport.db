@@ -174,7 +174,7 @@ module SportDb
                      nil
                    end
 
-       ### todo/check: what happens if there's more than once match? exception raised??
+       ### todo/check: what happens if there's more than one match? exception raised??
        rec = Model::Match.find_by( round_id: round_rec.id,
                                   team1_id: team1_rec.id,
                                   team2_id: team2_rec.id )
@@ -196,7 +196,8 @@ module SportDb
                      score1et: match.score1et,
                      score2et: match.score2et,
                      score1p:  match.score1p,
-                     score2p:  match.score2p }
+                     score2p:  match.score2p,
+                     status:   match.status }
 
          attribs[ :group_id ] = group_rec.id   if group_rec
          attribs[ :stage_id ] = stage_rec.id   if stage_rec

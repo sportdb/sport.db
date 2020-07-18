@@ -18,6 +18,7 @@ class Match
               :leg,      ## e.g. '1','2','3','replay', etc.   - use leg for marking **replay** too - keep/make leg numeric?! - why? why not?
               :stage,
               :group,
+              :status,    ## e.g. replay, cancelled, awarded, abadoned, postponed, etc.
               :conf1,    :conf2,      ## special case for mls e.g. conference1, conference2 (e.g. west, east, central)
               :country1, :country2,    ## special case for champions league etc. - uses FIFA country code
               :comments,
@@ -46,6 +47,7 @@ class Match
     @stage    = kwargs[:stage]    if kwargs.has_key? :stage
     @leg      = kwargs[:leg]      if kwargs.has_key? :leg
     @group    = kwargs[:group]    if kwargs.has_key? :group
+    @status   = kwargs[:status]   if kwargs.has_key? :status
     @comments = kwargs[:comments] if kwargs.has_key? :comments
 
     @league   = kwargs[:league]   if kwargs.has_key? :league

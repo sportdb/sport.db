@@ -12,6 +12,9 @@
   - up add teams to group
 - [ ] sportdb-sync
   - up match score
+  - up match status
+- [ ] sportdb-models
+  - up match status
 
 
 ## More

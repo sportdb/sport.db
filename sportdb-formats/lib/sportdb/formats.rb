@@ -75,9 +75,11 @@ require 'sportdb/formats/goals'
 
 require 'sportdb/formats/match/mapper'
 require 'sportdb/formats/match/mapper_teams'
+require 'sportdb/formats/match/match_status_parser'
 require 'sportdb/formats/match/match_parser'
 require 'sportdb/formats/match/match_parser_auto_conf'
 require 'sportdb/formats/match/conf_parser'
+
 
 require 'sportdb/formats/match/match_parser_csv'
 

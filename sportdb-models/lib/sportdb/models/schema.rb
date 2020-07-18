@@ -207,12 +207,16 @@ create_table :matches do |t|
   t.string    :stage_key
 
 
-  t.date      :date      # optioanl play date  - todo/fix: split into play_date AND play_time!!!
+  t.date      :date      # optional play date  - todo/fix: split into play_date AND play_time!!!
   t.time      :time
 
   t.boolean    :postponed, null: false, default: false
   ## t.date   :date2   # optional old date (when postponed)
-  ## t.date   :date3   # optional odl date (when postponed twice)
+  ## t.date   :date3   # optional old date (when postponed twice)
+
+  t.string    :status     ## optional match status  - note: uses UPCASE string constants for now
+                          ## e.g. CANCELLED / ABANDONED / REPLAY / AWARDED / POSTPONED / etc.
+
 
   t.references :ground, index: false    # optional - stadium (lets you get city,region,country,etc)
   t.references :city,   index: false    # optional - convenience for ground.city_id ???

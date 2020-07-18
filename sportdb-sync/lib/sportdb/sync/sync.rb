@@ -192,7 +192,11 @@ module SportDb
                      score1:   match.score1,
                      score2:   match.score2,
                      score1i:  match.score1i,
-                     score2i:  match.score2i }
+                     score2i:  match.score2i,
+                     score1et: match.score1et,
+                     score2et: match.score2et,
+                     score1p:  match.score1p,
+                     score2p:  match.score2p }
 
          attribs[ :group_id ] = group_rec.id   if group_rec
          attribs[ :stage_id ] = stage_rec.id   if stage_rec

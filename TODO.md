@@ -10,6 +10,8 @@
 - [ ] sportdb-readers
   - fix br - is pt!
   - up add teams to group
+- [ ] sportdb-sync
+  - up match score
 
 
 ## More

@@ -46,9 +46,12 @@ module SportDb
   ##   Estudiantes (LP) => Estudiantes LP
   ##   Saint Patrick’s Athletic FC => Saint Patricks Athletic FC
   ##   Myllykosken Pallo −47 => Myllykosken Pallo 47
+  ##
+  ##  add & too!!
+  ##   e.g. Brighton & Hove Albion => Brighton Hove Albion  -- and others in England
 
   NORM_RE =  %r{
-                    [.'’º/()_−-]
+                    [.'’º/()&_−-]
                   }x   # note: in [] dash (-) if last doesn't need to get escaped
   ## note: remove all dots (.), dash (-), ', º, /, etc.
   #   .  U+002E (46) - FULL STOP

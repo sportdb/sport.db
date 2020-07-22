@@ -95,36 +95,40 @@ class LeagueIndex
   end # method add
 
 
-  def match( name )
-    ## todo/check: return empty array if no match!!! and NOT nil (add || []) - why? why not?
-    name = normalize( name )
-    @leagues_by_name[ name ]
+  ## helper to always convert (possible) country key to existing country record
+  ##  todo: make private - why? why not?
+  def country( country )
+    if country.is_a?( String ) || country.is_a?( Symbol )
+      ## note:  use own "global" countries index setting for ClubIndex - why? why not?
+      rec = catalog.countries.find( country.to_s )
+      if rec.nil?
+        puts "** !!! ERROR !!! - unknown country >#{country}< - no match found, sorry - add to world/countries.txt in config"
+        exit 1
+      end
+      rec
+    else
+      country  ## (re)use country struct - no need to run lookup again
+    end
   end
 
+
+  def match( name )
+    ## note: returns empty array if no match and NOT nil
+    name = normalize( name )
+    @leagues_by_name[ name ] || []
+  end
 
   def match_by( name:, country: )
     ## note: match must for now always include name
     m = match( name )
-    if m    ## filter by country
+    if country    ## filter by country
       ## note: country assumes / allows the country key or fifa code for now
-
       ## note: allow passing in of country struct too
-      country_rec = if country.is_a?( Country )
-                       country   ## (re)use country struct - no need to run lookup again
-                    else
-                       ## note:  use own "global" countries index setting for ClubIndex - why? why not?
-                       rec = catalog.countries.find( country )
-                       if rec.nil?
-                         puts "** !!! ERROR !!! - unknown country >#{country}< - no match found, sorry - add to world/countries.txt in config"
-                         exit 1
-                       end
-                       rec
-                    end
+      country_rec = country( country )
 
       ## note: also skip international leagues & cups (e.g. champions league etc.) for now - why? why not?
       m = m.select { |league| league.country &&
                               league.country.key == country_rec.key }
-      m = nil   if m.empty?     ## note: reset to nil if no more matches
     end
     m
   end
@@ -144,7 +148,7 @@ class LeagueIndex
     m = match( name )
     # pp m
 
-    if m.nil?
+    if m.empty?
       ## fall through/do nothing
     elsif m.size > 1
       puts "** !!! ERROR - ambigious league name; too many leagues (#{m.size}) found:"

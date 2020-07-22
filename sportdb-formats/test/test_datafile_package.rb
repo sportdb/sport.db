@@ -16,7 +16,7 @@ class TestDatafilePackage < MiniTest::Test
     ].each do |eng|
        assert eng.find( '2015-16/.conf.txt' ).read.start_with?( '= English Premier League 2015/16' )
        assert eng.find( '2017-18/.conf.txt' ).read.start_with?( '= English Premier League 2017/18' )
-       assert eng.find( '2015-16/1-premierleague-i.txt' ).read.start_with?( '= English Premier League 2015/16' )
+       assert eng.find( '2015-16/1-premierleague.txt' ).read.start_with?( '= English Premier League 2015/16' )
     end
 
     [Datafile::DirPackage.new( '../../../openfootball/austria' ),

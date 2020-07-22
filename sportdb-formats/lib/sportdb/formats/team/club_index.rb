@@ -54,6 +54,7 @@ class ClubIndex
   ##       normalize( name )
 
   def strip_wiki( name )     # todo/check: rename to strip_wikipedia_en - why? why not?
+    ##  change/rename to strip_wiki_qualifier or such - why? why not?
     ## note: strip disambiguationn qualifier from wikipedia page name if present
     ##        note: only remove year and foot... for now
     ## e.g. FC Wacker Innsbruck (2002) => FC Wacker Innsbruck
@@ -178,22 +179,24 @@ class ClubIndex
   ## todo/fix/check: use rename to find_canon  or find_canonical() or something??
   ##  remove (getting used?) - why? why not?
   def []( name )    ## lookup by canoncial name only;  todo/fix: add find alias why? why not?
+    puts "WARN!! do not use ClubIndex#[] for lookup >#{name}< - will get removed!!!"
     @clubs[ name ]
   end
 
 
-  ## todo/fix/check: return empty array if no match!!!
-  ##     and NOT nil (add || []) - why? why not?
   def match( name )
+    # note: returns empty array (e.g. []) if no match and NOT nil
     name = normalize( name )
-    m = @clubs_by_name[ name ]
+    m = @clubs_by_name[ name ] || []
 
     ## no match - retry with unaccented variant if different
     ##    e.g. example is Preussen Münster  (with mixed accent and unaccented letters) that would go unmatched for now
     ##      Preussen Münster => preussenmünster (norm) => preussenmunster (norm+unaccent)
-    if m.nil?
+    if m.empty?
       name2 = unaccent( name )
-      m = @clubs_by_name[ name2 ]    if name2 != name
+      if name2 != name
+        m = @clubs_by_name[ name2 ] || []
+      end
     end
     m
   end
@@ -227,10 +230,8 @@ class ClubIndex
       country = country( country )
 
       ## note: match must for now always  include name
-      if m    ## filter by country
-        m = m.select { |club| club.country.key == country.key }
-        m = nil   if m.empty?     ## note: reset to nil if no more matches
-      end
+      ## filter by country
+      m = m.select { |club| club.country.key == country.key }
     end
     m
   end
@@ -263,7 +264,7 @@ class ClubIndex
 
       m = match_by( name: name, country: country )
 
-      if m.nil?
+      if m.empty?
         ## (re)try with second country - quick hacks for known leagues
         ##  todo/fix: add league flag to activate!!!  - why? why not
         m = match_by( name: name, country: 'wal' )  if country.key == 'eng'
@@ -279,7 +280,7 @@ class ClubIndex
 
 
     club = nil
-    if m.nil?
+    if m.empty?
       ## puts "** !!! WARN !!! no match for club >#{name}<"
     elsif m.size > 1
       puts "** !!! ERROR - too many matches (#{m.size}) for club >#{name}<:"

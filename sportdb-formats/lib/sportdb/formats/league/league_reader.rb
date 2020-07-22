@@ -118,12 +118,18 @@ def parse
               alt_names_auto << "#{country.code}"    if league_key == '1'   ## add shortcut for top level 1 (just country key)
             end
             alt_names_auto << "#{country.name} #{league_key}"  if league_key =~ /^[0-9]+$/   ## if all numeric e.g. add Austria 1 etc.
+
+            ## auto-add with country prepended
+            ##   e.g. England Premier League, Austria Bundesliga etc.
+            ##  todo/check: also add variants with country alt name if present!!!
+            ##  todo/check: exclude cups or such from country + league name auto-add - why? why not?
+            alt_names_auto << "#{country.name} #{league_name}"
           else   ## assume int'l (no country) e.g. champions league, etc.
             ## only auto-add key (e.g. CL, EL, etc.)
             alt_names_auto << league_key.upcase.gsub('.', ' ')   ## note: no country code (prefix/leading) used
           end
 
-          pp alt_names_auto
+          ## pp alt_names_auto
 
           ## prepend country key/code if country present
           ##   todo/fix: only auto-prepend country if key/code start with a number (level) or incl. cup

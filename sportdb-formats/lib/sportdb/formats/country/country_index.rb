@@ -109,12 +109,12 @@ class CountryIndex
     @countries_by_name[ name ]
   end
 
-  def []( key )
+  def find( key )
     country = find_by_code( key )
     country = find_by_name( key )  if country.nil?     ## try lookup / find by (normalized) name
     country
   end
-  alias_method :find, :[]
+  alias_method :[], :find
 
 
   ###

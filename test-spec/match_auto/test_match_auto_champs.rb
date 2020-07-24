@@ -2,7 +2,7 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_match_auto_champs.rb
+#     ruby -I . match_auto/test_match_auto_champs.rb
 
 
 require 'helper'

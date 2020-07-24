@@ -2,7 +2,7 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_csv_match_parser_utils.rb
+#     ruby -I . test_csv_match_parser_utils.rb
 
 
 require 'helper'

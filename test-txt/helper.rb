@@ -12,80 +12,13 @@ require 'minitest/autorun'
 require 'sportdb/formats'
 
 
-
-module SportDb
-  module Import
-
-class TestCatalog
-  def build_country_index
-    recs = CountryReader.read( "#{Test.data_dir}/world/countries.txt" )
-    index = CountryIndex.new( recs )
-    index
-  end
-
-  def build_league_index
-    recs = SportDb::Import::LeagueReader.parse( <<TXT )
-  = England =
-  1       English Premier League
-            | ENG PL | England Premier League | Premier League
-  2       English Championship
-            | ENG CS | England Championship | Championship
-  3       English League One
-            | England League One | League One
-  4       English League Two
-  5       English National League
-
-  cup      EFL Cup
-            | League Cup | Football League Cup
-            | ENG LC | England Liga Cup
-
-  = Scotland =
-  1       Scottish Premiership
-  2       Scottish Championship
-  3       Scottish League One
-  4       Scottish League Two
-TXT
-
-    leagues = SportDb::Import::LeagueIndex.new
-    leagues.add( recs )
-    leagues
-  end
-
-  def build_club_index
-    recs = ClubReader.parse( <<TXT )
-= England
-
-Chelsea FC
-Arsenal FC
-Tottenham Hotspur
-West Ham United
-Crystal Palace
-Manchester United
-Manchester City
-TXT
-
-    index = ClubIndex.new
-    index.add( recs )
-    index
-  end
-
-
-  def countries() @countries ||= build_country_index; end
-  def leagues()   @leagues   ||= build_league_index; end
-  def clubs()     @clubs     ||= build_club_index; end
-end
-
-configure do |config|
-  config.catalog = TestCatalog.new
-end
-
-end  # module Import
-end  # module SportDb
-
-
-
 ################
 ## helper
+
+def parse_conf( txt )
+  parser = SportDb::ConfParser.new( txt )
+  parser.parse
+end
 
 def parse_auto_conf( txt, lang: 'en', start: nil )
   start = start ? start : Date.new( 2017, 7, 1 )
@@ -96,10 +29,6 @@ def parse_auto_conf( txt, lang: 'en', start: nil )
   parser.parse
 end
 
-def parse_conf( txt )
-  parser = SportDb::ConfParser.new( txt )
-  parser.parse
-end
 
 
 ## note: json always returns hash tables with string keys (not symbols),
@@ -118,7 +47,7 @@ end
 
 
 def read_blocks( path )
-  txt = File.open( path, 'r:utf-8' ).read
+  txt = File.open( path, 'r:utf-8' ) {|f| f.read }
 
   blocks = []
   buf    = String.new('')

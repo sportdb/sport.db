@@ -1,8 +1,6 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_csv_match_parser.rb
+#     ruby -I . test_csv_match_parser.rb
 
 
 require 'helper'

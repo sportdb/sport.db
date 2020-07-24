@@ -1,8 +1,6 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_match_euro.rb
+#     ruby -I . match/test_match_euro.rb
 
 
 require 'helper'

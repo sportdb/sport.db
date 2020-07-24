@@ -2,7 +2,7 @@
 
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_match_eng.rb
+#     ruby -I . match/test_match_eng.rb
 
 
 require 'helper'

@@ -1,0 +1,12 @@
+$LOAD_PATH.unshift( File.expand_path( '.' ))  ## add ./ to load path (same as -I .)
+require 'helper'
+
+
+task :default => :test
+
+task :test do
+  Dir.glob( './**/test_*.rb' ).each do |file|
+    puts "require_relative '#{file}'"
+    require_relative file
+  end
+end

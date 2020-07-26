@@ -273,6 +273,7 @@ class ClubIndex
         m = match_by( name: name, country: 'mc' )   if country.key == 'fr'
         m = match_by( name: name, country: 'li' )   if country.key == 'ch'
         m = match_by( name: name, country: 'ca' )   if country.key == 'us'
+        m = match_by( name: name, country: 'nz' )   if country.key == 'au'
       end
     else  ## try "global" search - no country passed in
       m = match( name )

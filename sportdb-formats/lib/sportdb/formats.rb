@@ -120,6 +120,7 @@ require 'sportdb/formats/team/club_index'
 require 'sportdb/formats/team/wiki_reader'
 require 'sportdb/formats/team/national_team_index'
 require 'sportdb/formats/team/team_index'
+require 'sportdb/formats/team/club_reader_history'
 
 
 ###

@@ -36,6 +36,7 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
       'it' => 'it', ## it - Italian
       'es' => 'es', ## es - Español (Spanish)
       'mx' => 'es',
+      'ar' => 'es', ## Argentina
       'pt' => 'pt', ## pt -  Português (Portuguese)
       'br' => 'pt',
     }

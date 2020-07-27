@@ -127,7 +127,7 @@ class LeagueOutlineReader   ## todo/check - rename to LeaguePageReader / LeagueP
     'Regular Season',
     'Regular Stage',
     'Championship Round',
-    'Championship Playoff',
+    'Championship Playoff',  # or Championship play-off
     'Relegation Round',
     'Relegation Playoff',
     'Play-offs',
@@ -140,6 +140,9 @@ class LeagueOutlineReader   ## todo/check - rename to LeaguePageReader / LeagueP
     'EL Play-off',
     'Europa League Play-off',
     'Europa-League-Play-offs',
+    'Playoffs - Championship',
+    'Playoffs - Relegation',
+    'Finals',
   ].map {|name| name.downcase.gsub( /[^a-z]/, '' ) }
 
 

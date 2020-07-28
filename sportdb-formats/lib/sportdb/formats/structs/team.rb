@@ -65,6 +65,13 @@ class Team
   end
 
 
+  ## add convenience lookup helper / method for name by season for now
+  ##   use clubs history - for now kept separate from struct - why? why not?
+  def name_by_season( season )
+    ## note: returns / fallback to "regular" name if no records found in history
+    SportDb::Import.catalog.clubs_history.find_name_by( name: name, season: season ) || name
+  end
+
   ## helper methods for import only
   ## check for duplicates
   include NameHelper

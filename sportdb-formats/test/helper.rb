@@ -55,12 +55,55 @@ TXT
 = England
 
 Chelsea FC
-Arsenal FC
 Tottenham Hotspur
 West Ham United
 Crystal Palace
-Manchester United
-Manchester City
+
+### note add move entires for testing club name history
+Manchester United FC
+  | Manchester United
+  | Newton Heath FC
+
+Manchester City FC
+  | Ardwick FC
+
+Arsenal FC
+  | The Arsenal FC
+  | Woolwich Arsenal FC
+  | Royal Arsenal FC
+
+Gateshead FC
+  | South Shields FC
+
+Sheffield Wednesday
+  | The Wednesday FC
+
+Port Vale FC
+  | Burslem Port Vale FC
+
+Chesterfield FC
+  | Chesterfield Town FC
+
+Birmingham FC
+  | Small Heath FC
+
+Burton Swifts FC
+Burton Wanderers FC
+Burton United FC
+
+Blackpool FC
+South Shore FC
+
+Glossop FC
+  | Glossop North End FC
+
+Walsall FC
+  | Walsall Town Swifts FC
+
+
+Newcastle West End FC
+Newcastle East End FC
+Newcastle United FC
 TXT
 
     index = ClubIndex.new

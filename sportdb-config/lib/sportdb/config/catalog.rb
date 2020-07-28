@@ -12,11 +12,13 @@ class Catalog
   def countries()      @countries      ||= build_country_index; end
   def national_teams() @national_teams ||= build_national_team_index; end
   def clubs()          @clubs          ||= build_club_index; end
+  def clubs_history()  @clubs_history  ||= build_club_history_index; end  ## note: used for now (only) lookups by season for now
   def teams()          @teams          ||= build_team_index; end
   def leagues()        @leagues        ||= build_league_index; end
 
   def events()         @events         ||= build_event_index; end
   def seasons()        @seasons        ||= build_season_index; end
+
 
 
   def build_team_index() TeamIndex.new;  end
@@ -64,6 +66,15 @@ class Catalog
     clubs
   end # method build_club_index
 
+  def build_club_history_index
+    if config.clubs_dir    ## (re)use clubs dir for now  - why? why not?
+      ClubHistoryIndex.build( config.clubs_dir )
+    else
+      puts "!! WARN - no clubs_dir set; for now NO built-in club histories in catalog; sorry - fix!!!!"
+      ClubHistoryIndex.new   ## return empty history index
+    end
+  end
+
 
   def build_league_index
     leagues = if config.leagues_dir   ## check if clubs_dir is defined / set (otherwise it's nil)
@@ -78,7 +89,7 @@ class Catalog
     if config.leagues_dir    ## (re)use leagues dir for now - add separate seasons_dir - why? why not?
       EventIndex.build( config.leagues_dir )
     else
-      puts "!! WARN - no leagues_dir set; for now buit-in events in catalog - fix!!!!"
+      puts "!! WARN - no leagues_dir set; for now NO built-in events in catalog; sorry - fix!!!!"
       EventIndex.new   ## return empty event index
     end
   end

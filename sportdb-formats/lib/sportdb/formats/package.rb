@@ -45,11 +45,21 @@ module SportDb
        \.wiki\.txt$
     }x
 
-    CLUB_PROPS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+    ## todo/fix: rename to CLUBS too e.g. CLUBS_PROPS to reflect filename - why? why not?
+    CLUBS_PROPS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
       (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.props.txt
         clubs
           (?:_[a-z0-9_-]+)?
         \.props\.txt$
+    }x
+    CLUB_PROPS_RE = CLUBS_PROPS_RE  ## add alias for now (fix later - why? why not?)
+
+
+    CLUBS_HISTORY_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+      (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.history.txt
+        clubs
+          (?:_[a-z0-9_-]+)?
+        \.history\.txt$
     }x
 
     ##  teams.txt or teams_history.txt
@@ -112,12 +122,14 @@ module SportDb
    def self.find_teams( path, pattern: TEAMS_RE )  find( path, pattern ); end
    def self.match_teams( path )  TEAMS_RE.match( path ); end
 
-   def self.find_clubs( path, pattern: CLUBS_RE )            find( path, pattern ); end
-   def self.find_clubs_wiki( path, pattern: CLUBS_WIKI_RE )  find( path, pattern ); end
+   def self.find_clubs( path, pattern: CLUBS_RE )                 find( path, pattern ); end
+   def self.find_clubs_wiki( path, pattern: CLUBS_WIKI_RE )       find( path, pattern ); end
+   def self.find_clubs_history( path, pattern: CLUBS_HISTORY_RE ) find( path, pattern ); end
 
-   def self.match_clubs( path )       CLUBS_RE.match( path ); end
-   def self.match_clubs_wiki( path )  CLUBS_WIKI_RE.match( path ); end
-   def self.match_club_props( path, pattern: CLUB_PROPS_RE ) pattern.match( path ); end
+   def self.match_clubs( path )         CLUBS_RE.match( path ); end
+   def self.match_clubs_wiki( path )    CLUBS_WIKI_RE.match( path ); end
+   def self.match_clubs_history( path ) CLUBS_HISTORY_RE.match( path); end
+   def self.match_clubs_props( path, pattern: CLUBS_PROPS_RE ) pattern.match( path ); end
 
    def self.find_leagues( path, pattern: LEAGUES_RE )  find( path, pattern ); end
    def self.match_leagues( path )  LEAGUES_RE.match( path ); end
@@ -149,8 +161,14 @@ module SportDb
      alias_method :match_clubs_wiki?, :match_clubs_wiki
      alias_method :clubs_wiki?,       :match_clubs_wiki
 
-     alias_method :match_club_props?, :match_club_props
-     alias_method :club_props?,       :match_club_props
+     alias_method :match_clubs_history?, :match_clubs_history
+     alias_method :clubs_history?,       :match_clubs_history
+
+     alias_method :match_club_props,      :match_clubs_props
+     alias_method :match_club_props?,     :match_clubs_props
+     alias_method :club_props?,           :match_clubs_props
+     alias_method :match_clubs_props?,    :match_clubs_props
+     alias_method :clubs_props?,          :match_clubs_props
 
      alias_method :match_leagues?, :match_leagues
      alias_method :leagues?,       :match_leagues

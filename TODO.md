@@ -15,6 +15,8 @@
   - up match status
 - [ ] sportdb-models
   - up match status
+- [ ] sportdb-config
+  - add club history
 
 
 ## More

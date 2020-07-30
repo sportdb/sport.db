@@ -362,20 +362,23 @@ class MatchParser   ## simple match parser for team match schedules
     if @last_round
       round = @last_round
     else
-      ## find (first) matching round by date
-      @rounds.values.each do |round_rec|
-        ## note: convert date to date only (no time) with to_date!!!
-        if (round_rec.start_date && round_rec.end_date) &&
-           (date.to_date >= round_rec.start_date &&
-            date.to_date <= round_rec.end_date)
-          round = round_rec
-          break
+      ## find (first) matching round by date if rounds / matchdays defined
+      ##   if not rounds / matchdays defined - YES, allow matches WITHOUT rounds!!!
+      if @rounds.size > 0
+        @rounds.values.each do |round_rec|
+          ## note: convert date to date only (no time) with to_date!!!
+          if (round_rec.start_date && round_rec.end_date) &&
+             (date.to_date >= round_rec.start_date &&
+             date.to_date <= round_rec.end_date)
+            round = round_rec
+            break
+          end
         end
-      end
-      if round.nil?
-        puts "!! ERROR - no matching round found for match date:"
-        pp date
-        exit 1
+        if round.nil?
+          puts "!! ERROR - no matching round found for match date:"
+          pp date
+          exit 1
+        end
       end
     end
 

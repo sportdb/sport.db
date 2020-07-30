@@ -42,4 +42,4 @@ class TestMatchAutoChamps < MiniTest::Test
     pp teams
     pp rounds
   end
-end   # class TestMatchAutChamps
+end   # class TestMatchAutoChamps

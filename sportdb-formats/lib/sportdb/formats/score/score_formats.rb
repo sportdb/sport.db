@@ -9,6 +9,24 @@ module ScoreFormats
     ET_EN =  '(?: aet | a\.e\.t\.? )'     # note: make last . optional (e.g a.e.t) allowed too
 
 
+    ##  note: allow SPECIAL cases WITHOUT full time scores (just a.e.t or pen. + a.e.t.)
+    ##      3-4 pen. 2-2 a.e.t.
+    ##               2-2 a.e.t.
+    EN__P_ET__RE = /\b
+            (?:
+               (?<score1p>\d{1,2})
+                 [ ]* - [ ]*          # note: sep in optional block; CANNOT use a reference
+               (?<score2p>\d{1,2})
+                 [ ]* #{P_EN} [ ]*
+             )?            # note: make penalty (P) score optional for now
+            (?<score1et>\d{1,2})
+               [ ]* - [ ]*
+            (?<score2et>\d{1,2})
+               [ ]* #{ET_EN}
+               (?=[ \]]|$)/xi    ## todo/check:  remove loakahead assertion here - why require space?
+                   ## note: \b works only after non-alphanum e.g. )
+
+
     ## e.g. 3-4 pen. 2-2 a.e.t. (1-1, 1-1)  or
     ##      3-4 pen. 2-2 a.e.t. (1-1, )     or
     ##      3-4 pen. 2-2 a.e.t. (1-1)       or
@@ -203,6 +221,7 @@ module ScoreFormats
 FORMATS_EN = [
   [ EN__P_ET_FT_HT__RE, '[SCORE.EN__P?_ET_(FT_HT?)]' ], # e.g. 5-1 pen. 2-2 a.e.t. (1-1, 1-0)
   [ EN__P_FT_HT__RE,    '[SCORE.EN__P_(FT_HT?)]'     ], # e.g. 5-1 pen. (1-1)
+  [ EN__P_ET__RE,       '[SCORE.EN__P?_ET]'          ], # e.g. 2-2 a.e.t.  or  5-1 pen. 2-2 a.e.t.
   [ EN__FT_HT__RE,      '[SCORE.EN__FT_(HT)?]'       ], # e.g. 1-1 (1-0)
 ]
 

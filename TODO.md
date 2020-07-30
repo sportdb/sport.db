@@ -17,6 +17,9 @@
   - up match status
 - [ ] sportdb-config
   - add club history
+- [ ] sportdb-sync
+  - up match (no rounds!)
+
 
 
 ## More

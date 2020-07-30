@@ -137,15 +137,22 @@ module SportDb
 
 
   class Match
+    ### todo/fix: rename to create!!   (add update support later) !!!!
+    ##    use update_by_round  or update_by_date or update_by_teams or such
+    ##      NO easy (unique always auto-id match) possible!!!!!!
     def self.create_or_update( match, event: )
        ## note: MUST find round, thus, use bang (!)
 
        ## todo/check: allow strings too - why? why not?
 
-       ## query for round - allow string or round rec
-       round_name  = match.round.is_a?( String ) ? match.round : match.round.name
-       round_rec   = Model::Round.find_by!( event_id: event.id,
+       round_rec = if match.round
+                     ## query for round - allow string or round rec
+                     round_name  = match.round.is_a?( String ) ? match.round : match.round.name
+                     Model::Round.find_by!( event_id: event.id,
                                             name:     round_name )
+                   else    # note: allow matches WITHOUT rounds too (e.g. England Football League 1888 and others)
+                     nil
+                   end
 
        ## todo/check: allow fallback with db lookup if NOT found in cache - why? why not?
        ##  or better use Sync::Team.find_or_create( team )  !!!!!!! to auto-create on first hit!
@@ -175,16 +182,23 @@ module SportDb
                    end
 
        ### todo/check: what happens if there's more than one match? exception raised??
-       rec = Model::Match.find_by( round_id: round_rec.id,
-                                  team1_id: team1_rec.id,
-                                  team2_id: team2_rec.id )
+       rec = if round_rec
+               ## add match status too? allows [abandoned] and [replay] in same round
+               Model::Match.find_by( round_id: round_rec.id,
+                                     team1_id: team1_rec.id,
+                                     team2_id: team2_rec.id )
+             else
+               ## always assume new record for now
+               ##   check for date or such - why? why not?
+               nil
+             end
+
        if rec.nil?
         ## find last pos - check if it can be nil?  yes, is nil if no records found
          max_pos = Model::Match.where( event_id: event.id ).maximum( 'pos' )
          max_pos = max_pos ? max_pos+1 : 1
 
          attribs = { event_id: event.id,          ## todo/fix: change to data struct too?
-                     round_id: round_rec.id,
                      team1_id: team1_rec.id,
                      team2_id: team2_rec.id,
                      pos:      max_pos,
@@ -199,12 +213,15 @@ module SportDb
                      score2p:  match.score2p,
                      status:   match.status }
 
+         attribs[ :round_id ] = round_rec.id   if round_rec
          attribs[ :group_id ] = group_rec.id   if group_rec
          attribs[ :stage_id ] = stage_rec.id   if stage_rec
 
          rec = Model::Match.create!( attribs )
        else
          # update - todo
+         puts "!! ERROR - match updates not yet supported (only inserts); sorry"
+         exit 1
        end
        rec
     end

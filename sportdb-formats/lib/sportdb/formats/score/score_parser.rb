@@ -175,8 +175,10 @@ private
       score2i   = h[:score2i].to_i
     end
 
-    score1 = h[:score1].to_i
-    score2 = h[:score2].to_i
+    if h[:score1] && h[:score2]     ## note: full time (FT) score can be optional too!!!
+      score1 = h[:score1].to_i
+      score2 = h[:score2].to_i
+    end
 
     if h[:score1et] && h[:score2et]
       score1et = h[:score1et].to_i

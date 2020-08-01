@@ -2,25 +2,23 @@ module SportDb
 module Import
 
 
+
 class EventIndex
 
     def self.build( path )
-      datafiles = Package.find_seasons( path )
+      pack = Package.new( path )   ## lets us use direcotry or zip archive
 
-      puts
-      puts "#{datafiles.size} seasons datafile(s):"
-      pp datafiles
+      recs = []
+      pack.each_seasons do |entry|
+        recs += EventInfoReader.parse( entry.read )
+      end
+      recs
 
       index = new
-      datafiles.each do |datafile|
-        recs = EventInfoReader.read( datafile )
-        # pp recs
-
-        index.add( recs )
-      end
-
+      index.add( recs )
       index
     end
+
 
 
     attr_reader :events

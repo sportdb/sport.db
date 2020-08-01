@@ -7,22 +7,19 @@ module SportDb
 class ClubHistoryIndex
 
   def self.build( path )
-    datafiles = Package.find_clubs_history( path )
+    pack = Package.new( path )   ## lets us use direcotry or zip archive
 
-    puts
-    puts "#{datafiles.size} club history datafile(s):"
-    pp datafiles
+    recs = []
+    pack.each_clubs_history do |entry|
+      recs += ClubHistoryReader.parse( entry.read )
+    end
+    recs
 
     index = new
-    datafiles.each do |datafile|
-      recs = ClubHistoryReader.read( datafile )
-      # pp recs
-
-      index.add( recs )
-    end
-
+    index.add( recs )
     index
   end
+
 
 
   def catalog() Import.catalog; end

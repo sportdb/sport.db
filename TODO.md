@@ -19,6 +19,8 @@
   - add club history
 - [ ] sportdb-sync
   - up match (no rounds!)
+- [ ] sportdb
+  - add clubs-dir and leagues-dir options
 
 
 

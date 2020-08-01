@@ -261,6 +261,10 @@ module SportDb
     def each_leagues( &blk )    each( pattern: LEAGUES_RE, &blk ); end
     def each_clubs( &blk )      each( pattern: CLUBS_RE, &blk ); end
     def each_clubs_wiki( &blk ) each( pattern: CLUBS_WIKI_RE, &blk ); end
+    def each_clubs_history( &blk )  each( pattern: CLUBS_HISTORY_RE, &blk ); end
+
+    def each_seasons( &blk )    each( pattern: SEASONS_RE, &blk ); end
+
 
     ## return all match datafile entries
     def match( format: 'txt' )

@@ -65,6 +65,17 @@ arg_name 'FILE'
 default_value opts.datafile
 flag [:f, :datafile]
 
+desc 'Leagues dir'
+arg_name 'PATH'
+default_value nil
+flag [:'leagues-dir', :leaguesdir]
+
+desc 'Clubs dir'
+arg_name 'PATH'
+default_value nil
+flag [:'clubs-dir', :clubsdir]
+
+
 
 desc '(Debug) Show debug messages'
 switch [:verbose], negatable: false    ## todo: use -w for short form? check ruby interpreter if in use too?
@@ -303,6 +314,18 @@ pre do |g,c,o,args|
   if opts.verbose?
     LogUtils::Logger.root.level = :debug
   end
+
+
+  if opts.clubs_dir?
+    puts "  setting clubs_dir to >#{opts.clubs_dir}<"
+    SportDb::Import.config.clubs_dir = opts.clubs_dir
+  end
+
+  if opts.leagues_dir?
+    puts "  setting leagues_dir to >#{opts.leagues_dir}<"
+    SportDb::Import.config.leagues_dir = opts.leagues_dir
+  end
+
 
   logger.debug "Executing #{c.name}"
   true

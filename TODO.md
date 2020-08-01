@@ -7,19 +7,20 @@
   - up pt.yml
 - [x] sportdb-formats
   - up csv match parser
-- [ ] sportdb-models
-  - up match status
-- [ ] sportdb-catalogs
+- [x] sportdb-catalogs
   - add club history
-- [ ] sportdb-sync
+- [x] sportdb-models
+  - up match status
+- [x] sportdb-sync
   - up match score
   - up match status
   - up match (no rounds!)
-- [ ] sportdb-readers
+- [x] sportdb-readers
   - fix br - is pt!
   - up add teams to group
-- [ ] sportdb
+- [x] sportdb
   - add clubs-dir and leagues-dir options
+
 
 
 

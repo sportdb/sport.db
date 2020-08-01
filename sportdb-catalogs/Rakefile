@@ -20,11 +20,11 @@ Hoe.spec 'sportdb-catalogs' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-formats',    '>= 1.1.0'],
+    ['sportdb-formats',    '>= 1.1.3'],
     ## dataset libs / gems
     ['fifa',               '>= 2020.5.18'],    ## for (builtin/default) countries
-    ['footballdb-clubs',   '>= 2020.6.16'],    ## for (builtin/default) clubs
-    ['footballdb-leagues', '>= 2020.6.16'],    ## for (builtin/default) leagues & cups
+    ['footballdb-leagues', '>= 2020.7.7'],    ## for (builtin/default) leagues & cups
+    ['footballdb-clubs',   '>= 2020.7.7'],     ## for (builtin/default) clubs
   ]
 
   self.spec_extras = {

@@ -20,7 +20,7 @@ Hoe.spec 'sportdb' do
   self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
-    ['sportdb-readers', '>= 1.0.2'],
+    ['sportdb-readers', '>= 1.1.2'],
 
     ['fetcher',    '>= 0.4.5'],    ## check if included already in datafil ??
     ['datafile',   '>= 0.3.1'],

@@ -3,22 +3,21 @@
 
 ## Gems / libs to push publish
 
-- [ ] sportdb-langs
+- [x] sportdb-langs
   - up pt.yml
-- [ ] sportdb-formats
+- [x] sportdb-formats
   - up csv match parser
-- [ ] sportdb-readers
-  - fix br - is pt!
-  - up add teams to group
+- [ ] sportdb-models
+  - up match status
+- [ ] sportdb-catalogs
+  - add club history
 - [ ] sportdb-sync
   - up match score
   - up match status
-- [ ] sportdb-models
-  - up match status
-- [ ] sportdb-config
-  - add club history
-- [ ] sportdb-sync
   - up match (no rounds!)
+- [ ] sportdb-readers
+  - fix br - is pt!
+  - up add teams to group
 - [ ] sportdb
   - add clubs-dir and leagues-dir options
 

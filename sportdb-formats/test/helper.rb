@@ -65,6 +65,7 @@ Manchester United FC
   | Newton Heath FC
 
 Manchester City FC
+  | Manchester City
   | Ardwick FC
 
 Arsenal FC

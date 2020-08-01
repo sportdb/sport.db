@@ -36,17 +36,16 @@ class ClubPropsReader
 
       ## find / match club by (canocial) name
       m = catalog.clubs.match( name )
-      if m && m.size > 1
+      if m.size > 1
         puts "** !!! WARN !!! ambigious (multiple) club matches (#{m.size}) for name >#{name}< in props row:"
         pp rec
         pp m
 
         ## todo/fix:  try filter by canonical name if more than one match
         m = m.select { |club| club.name == name }
-        m = nil    if m.empty?     ## note: reset to nil if no more matches
       end
 
-      if m.nil?
+      if m.empty?
         puts "** !!! ERROR !!! no club match for (canonical) name >#{name}< in props row:"
         pp rec
         exit 1

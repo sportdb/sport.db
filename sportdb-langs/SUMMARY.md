@@ -14,7 +14,7 @@
 - `es`: Fecha • Jornada
 - `fr`: Journée
 - `it`: Giornata
-- `pt`: Rodada
+- `pt`: Rodada • Jornada
 - `ro`: Runda • Etapa
 
 

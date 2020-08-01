@@ -22,7 +22,7 @@ require 'sportdb/catalogs'
 
 ## note: requires a local copy of the football.db clubs datasets
 ##          see https://github.com/openfootball/clubs
-SportDb::Import.catalog.clubs_dir = './clubs'
+SportDb::Import.config.clubs_dir = './clubs'
 
 CLUBS = SportDb::Import.catalog.clubs
 

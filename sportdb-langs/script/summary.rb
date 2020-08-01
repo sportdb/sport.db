@@ -1,7 +1,8 @@
 ###
 #  build a summary (cheatsheet) page
 
-
+## note: use the local version of sportdb gems
+$LOAD_PATH.unshift( File.expand_path( './lib' ))
 ## our own code
 require 'sportdb/langs'
 

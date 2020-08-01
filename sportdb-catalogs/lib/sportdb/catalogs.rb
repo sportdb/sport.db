@@ -11,10 +11,10 @@ require 'footballdb/clubs'
 
 ###
 # our own code
-require 'sportdb/config/version' # let version always go first
-require 'sportdb/config/wiki_index'
-require 'sportdb/config/catalog'
-require 'sportdb/config/config'
+require 'sportdb/catalogs/version' # let version always go first
+require 'sportdb/catalogs/wiki_index'
+require 'sportdb/catalogs/catalog'
+require 'sportdb/catalogs/config'
 
 
 puts SportDb::Module::Catalogs.banner   # say hello

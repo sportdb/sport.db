@@ -14,9 +14,8 @@ module Catalogs
     VERSION
   end
 
-  ## todo/fix: rename to sportdb-catalogs - why? why not?
   def self.banner
-    "sportdb-config/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+    "sportdb-catalogs/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
   end
 
   def self.root

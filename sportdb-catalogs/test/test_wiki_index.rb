@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_wiki_index.rb
@@ -15,7 +13,8 @@ class TestWikiIndex < MiniTest::Test
 
 
   def test_clubs
-    return  if SportDb::Import.config.clubs_dir.nil?  ## note: can't run if no "custom" clubs_dir set
+    ## note: CANNOT run if no "custom" clubs_dir set
+    return  if SportDb::Import.config.clubs_dir.nil?
 
     wiki = SportDb::Import::WikiIndex.build( SportDb::Import.config.clubs_dir )
     ## pp wiki

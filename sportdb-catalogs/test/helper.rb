@@ -6,7 +6,7 @@ require 'minitest/autorun'
 
 
 ## our own code
-require 'sportdb/config'
+require 'sportdb/catalogs'
 
 
 SportDb::Import.config.clubs_dir   = '../../../openfootball/clubs'

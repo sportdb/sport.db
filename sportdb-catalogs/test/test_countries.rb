@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_countries.rb
@@ -15,21 +13,21 @@ class TestCountries < MiniTest::Test
   def test_countries
     ## pp COUNTRIES
 
-    eng = COUNTRIES[:eng]
+    eng = COUNTRIES.find( :eng )
     assert_equal 'eng',      eng.key
     assert_equal 'England',  eng.name
     assert_equal 'ENG',      eng.code
 
-    at  = COUNTRIES[:at]
+    at  = COUNTRIES.find( :at )
     assert_equal 'at',       at.key
     assert_equal 'Austria',  at.name
     assert_equal 'AUT',      at.code
 
-    assert at == COUNTRIES['AT']
-    assert at == COUNTRIES['at']
-    assert at == COUNTRIES['AUT']
-    assert at == COUNTRIES['aut']
-    assert at == COUNTRIES[:aut]
+    assert at == COUNTRIES.find( 'AT' )
+    assert at == COUNTRIES.find( 'at' )
+    assert at == COUNTRIES.find( 'AUT' )
+    assert at == COUNTRIES.find( 'aut' )
+    assert at == COUNTRIES.find( :aut )
   end
 
 end # class TestCountries

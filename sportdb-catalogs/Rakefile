@@ -1,11 +1,11 @@
 require 'hoe'
-require './lib/sportdb/config/version.rb'
+require './lib/sportdb/catalogs/version.rb'
 
-Hoe.spec 'sportdb-config' do
+Hoe.spec 'sportdb-catalogs' do
 
   self.version = SportDb::Module::Catalogs::VERSION
 
-  self.summary = "sportdb-config - sport.db configuration settings and built-in defaults"
+  self.summary = "sportdb-catalogs - sport.db (search 'n' find) catalogs for countries, leagues, clubs, national teams, and more"
   self.description = summary
 
   self.urls = ['https://github.com/sportdb/sport.db']

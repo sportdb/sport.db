@@ -141,8 +141,16 @@ class LeagueOutlineReader   ## todo/check - rename to LeaguePageReader / LeagueP
     'Europa League Play-off',
     'Europa-League-Play-offs',
     'Playoffs - Championship',
+    'Playoffs - Europa League',
+    'Playoffs - Europa League - Finals',
     'Playoffs - Relegation',
     'Finals',
+
+    'Apertura',
+    'Apertura - Liguilla',
+    'Clausura',
+    'Clausura - Liguilla',
+
   ].map {|name| name.downcase.gsub( /[^a-z]/, '' ) }
 
 

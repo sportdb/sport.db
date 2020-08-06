@@ -5,16 +5,14 @@
 
 - [x] sportdb-langs
   - up pt.yml
-- [x] sportdb-formats
-  - up csv match parser
+- [ ] sportdb-formats
+  - up clubs props reader
 - [x] sportdb-catalogs
   - add club history
 - [x] sportdb-models
   - up match status
-- [x] sportdb-sync
-  - up match score
-  - up match status
-  - up match (no rounds!)
+- [ ] sportdb-sync
+  - up match update
 - [x] sportdb-readers
   - fix br - is pt!
   - up add teams to group

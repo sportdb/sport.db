@@ -61,12 +61,28 @@ class ClubPropsReader
         ## todo/fix:   only updated "on-demand" from in-memory struct/records!!!!
 
         ##  update attributes
-        club_rec.key  = rec['Key']      if rec['Key']
-        club_rec.code = rec['Code']     if rec['Code']
+        club_rec.key  = rec['Key']      if is_not_na?( rec['Key'] )
+        club_rec.code = rec['Code']     if is_not_na?( rec['Code'] )
         ## todo/fix: add (some) more props e.g. address, web, etc.
       end
     end
   end # method parse
+
+
+  ## allow various values for nil or n/a (not available/applicable) for now
+  ##  add more or less - why? why not?
+  def is_not_na?( col ) !is_na?( col); end   ## check: find a better name - why? why not?
+
+  NA_VARIANTS = ['-', '--', '---',
+                 '?', '??', '???',
+                 '_', '__', '___',
+                 'na', 'n/a',
+                 'nil', 'null']
+
+  def is_na?( col )
+    col.nil? || col.empty? || NA_VARIANTS.include?( col.downcase )
+  end
+
 
 end # class ClubPropsReader
 

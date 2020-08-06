@@ -145,6 +145,16 @@ module SportDb
 
        ## todo/check: allow strings too - why? why not?
 
+
+       ## todo/check:
+       ##   how to model "same" rounds in different stages
+       ##   e.g. Belgium
+       ##    in regular season (stage) - round 1, round 2, etc.
+       ##    in playoff        (stage) - round 1, round 2, etc.
+       ## reference same round or create a new one for each stage!!???
+       ##  and lookup by name AND stage??
+
+
        round_rec = if match.round
                      ## query for round - allow string or round rec
                      round_name  = match.round.is_a?( String ) ? match.round : match.round.name
@@ -184,9 +194,14 @@ module SportDb
        ### todo/check: what happens if there's more than one match? exception raised??
        rec = if round_rec
                ## add match status too? allows [abandoned] and [replay] in same round
-               Model::Match.find_by( round_id: round_rec.id,
-                                     team1_id: team1_rec.id,
-                                     team2_id: team2_rec.id )
+               find_attributes = { round_id: round_rec.id,
+                                   team1_id: team1_rec.id,
+                                   team2_id: team2_rec.id }
+
+               ## add stage if present to query
+               find_attributes[ :stage_id] = stage_rec.id   if stage_rec
+
+               Model::Match.find_by( find_attributes )
              else
                ## always assume new record for now
                ##   check for date or such - why? why not?

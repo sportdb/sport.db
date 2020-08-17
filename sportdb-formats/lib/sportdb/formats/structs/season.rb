@@ -65,6 +65,13 @@ class Season
     end
   end
 
+  def self.convert( *args )  ## note: used by Kernel method Season()
+    if args.size == 1 && args[0].is_a?( Season )
+      args[0]  # pass through / along as is 1:1
+    else
+      new( *args ) ## try conversion with new
+    end
+  end
 
 
   attr_reader :start_year,
@@ -190,3 +197,10 @@ module Import
   Season = ::Season   ## add a convenience alias
 end  # module Import
 end  # module SportDb
+
+
+### note: add a convenience "shortcut" season kernel method conversion method
+##  use like Season( '2012/3' )  or such
+module Kernel
+  def Season( *args ) Season.convert( *args ); end
+end

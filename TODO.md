@@ -3,10 +3,14 @@
 
 ## Gems / libs to push publish
 
+- [ ] date-formats
+  - up comments
+- [ ] score-formats
+  - new!
 - [x] sportdb-langs
   - up pt.yml
 - [ ] sportdb-formats
-  - up clubs props reader
+  - up clubs props reader; break out score-formats!!!
 - [x] sportdb-catalogs
   - add club history
 - [x] sportdb-models

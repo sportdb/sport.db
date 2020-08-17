@@ -1,13 +1,11 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_scores.rb
+#     ruby -I ./lib -I ./test test/test_formats.rb
 
 
 require 'helper'
 
-class TestScores < MiniTest::Test
+class TestFormats < MiniTest::Test
 
   def test_de
     ScoreFormats.lang = :de

@@ -68,8 +68,6 @@ require 'sportdb/formats/structs/standings'
 require 'sportdb/formats/structs/team_usage'
 
 
-require 'sportdb/formats/score/score_formats'
-require 'sportdb/formats/score/score_parser'
 require 'sportdb/formats/goals'
 
 

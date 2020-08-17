@@ -1,84 +1,9 @@
-# encoding: utf-8
-
-
-## note: lets follow the model of DateFormats -see DateFormats gem for more!!!
-
-
-## note: make Score top-level and use like Date - why? why not?
-class Score
-
-  attr_reader :score1i,  :score2i,   # half time (ht) score
-              :score1,   :score2,    # full time (ft) score
-              :score1et, :score2et,  # extra time (et) score
-              :score1p,  :score2p    # penalty (p) score
-              ## todo/fix: add :score1agg, score2agg too - why? why not?!!!
-              ##  add state too e.g. canceled or abadoned etc - why? why not?
-
-  def initialize( *values )
-    ## note: for now always assumes integers
-    ##  todo/check - check/require integer args - why? why not?
-
-    @score1i  = values[0]    # half time (ht) score
-    @score2i  = values[1]
-
-    @score1   = values[2]    # full time (ft) score
-    @score2   = values[3]
-
-    @score1et = values[4]    # extra time (et) score
-    @score2et = values[5]
-
-    @score1p  = values[6]    # penalty (p) score
-    @score2p  = values[7]
-  end
-
-  def to_a
-    ## todo: how to handle game w/o extra time
-    #   but w/ optional penalty ???  e.g. used in copa liberatores, for example
-    #    retrun 0,0 or nil,nil for extra time score ?? or -1, -1 ??
-    #    for now use nil,nil
-    score = []
-    score += [score1i,  score2i]     if score1p || score2p || score1et || score2et || score1 || score2 || score1i || score2i
-    score += [score1,   score2]      if score1p || score2p || score1et || score2et || score1 || score2
-    score += [score1et, score2et]    if score1p || score2p || score1et || score2et
-    score += [score1p,  score2p]     if score1p || score2p
-    score
-  end
-
-end  # class Score
-
-
 
 module ScoreFormats
 
-  def self.lang
-    @@lang ||= :en            ## defaults to english (:en)
-  end
-  def self.lang=( value )
-    @@lang = value.to_sym    ## note: make sure lang is always a symbol for now (NOT a string)
-    @@lang      ## todo/check: remove  =() method always returns passed in value? double check
-  end
-
-
-  def self.parser( lang: )  ## find parser
-    lang = lang.to_sym  ## note: make sure lang is always a symbol for now (NOT a string)
-
-    ## note: cache all "built-in" lang versions (e.g. formats == nil)
-    @@parser ||= {}
-    parser = @@parser[ lang ] ||= ScoreParser.new( lang: lang )
-  end
-
-  def self.parse( line, lang: ScoreFormats.lang )
-    parser( lang: lang ).parse( line )
-  end
-
-  def self.find!( line, lang: ScoreFormats.lang )
-    parser( lang: lang ).find!( line )
-  end
-
-
 class ScoreParser
 
-  include LogUtils::Logging
+  include Logging
 
   def initialize( lang: )
     @lang    = lang.to_sym   ## note: make sure lang is always a symbol for now (NOT a string)

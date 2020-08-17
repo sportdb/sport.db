@@ -1,0 +1,32 @@
+require 'hoe'
+require './lib/sports/version.rb'
+
+Hoe.spec 'sports' do
+
+  self.version = Sports::VERSION
+
+  self.summary = "sports - sport data structures for matches, scores, leagues, seasons, rounds, groups, teams, clubs and more"
+  self.description = summary
+
+  self.urls = ['https://github.com/sportdb/sport.db']
+
+  self.author = 'Gerald Bauer'
+  self.email = 'opensport@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.licenses = ['Public Domain']
+
+  self.extra_deps = [
+    ['alphabets',      '>= 1.0.0'],
+    ['date-formats',   '>= 1.0.1'],
+    ['score-formats',  '>= 0.0.1'],
+    ['csvreader',      '>= 1.2.4'],
+  ]
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.2.2'
+  }
+end

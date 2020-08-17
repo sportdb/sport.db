@@ -1,7 +1,5 @@
-# encoding: utf-8
 
-
-module SportDb
+module Sports
   class CsvMatchParser
 
   #############
@@ -402,7 +400,7 @@ module SportDb
       }
       ## pp attributes
 
-      match = Import::Match.new( **attributes )
+      match = Match.new( **attributes )
       matches << match
     end
 
@@ -453,6 +451,6 @@ end # method parse_score
 
 
 
-  end # class CsvMatchParser
-  end # module SportDb
+end # class CsvMatchParser
+end # module Sports
 

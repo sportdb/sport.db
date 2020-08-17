@@ -1,13 +1,10 @@
-# encoding: utf-8
-
 ##########
 # todo/fix:
 ##   reuse standings helper/calculator from sportdb
 ##   do NOT duplicate
 
 
-module SportDb
-  module Import
+module Sports
 
 
 class Standings
@@ -264,5 +261,4 @@ private
 end  # class Standings
 
 
-end # module Import
-end # module SportDb
+end # module Sports

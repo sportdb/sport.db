@@ -1,7 +1,6 @@
-module SportDb
-  module Import
+module Sports
 
-    class Round
+   class Round
       attr_reader   :name, :start_date, :end_date, :knockout
       attr_accessor :num   # note: make read & writable - why? why not?
 
@@ -20,6 +19,5 @@ module SportDb
       end
     end  # class Round
 
-  end # module Import
-end # module SportDb
+end # module Sports
 

@@ -1,7 +1,6 @@
-# encoding: utf-8
 
-module SportDb
-  module Import
+module Sports
+
 
 class League
   attr_reader   :key, :name, :country, :intl
@@ -33,5 +32,4 @@ class League
 
 end   # class League
 
-end   # module Import
-end   # module SportDb
+end   # module Sports

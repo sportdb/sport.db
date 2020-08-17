@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_clubs.rb
@@ -9,7 +7,7 @@ require 'helper'
 
 class TestClubs < MiniTest::Test
 
-  Club = SportDb::Import::Club
+  Club = Sports::Club
 
 
   def test_new

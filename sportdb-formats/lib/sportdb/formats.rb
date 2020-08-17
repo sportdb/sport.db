@@ -2,32 +2,10 @@
 
 
 ## 3rd party gems
-require 'alphabets'      # downcase_i18n, unaccent, variants, ...
-require 'date/formats'   # DateFormats.parse, find!, ...
-require 'csvreader'
+require 'sports'
+
 
 require 'zip'     ## todo/check: if zip is alreay included in a required module
-
-
-
-def read_csv( path, sep:             nil,
-                    symbolize_names: nil )
-  opts = {}
-  opts[:sep]               = sep         if sep
-  opts[:header_converters] = :symbol     if symbolize_names
-
-  CsvHash.read( path, **opts )
-end
-
-def parse_csv( txt, sep:             nil,
-                    symbolize_names: nil )
-  opts = {}
-  opts[:sep]               = sep         if sep
-  opts[:header_converters] = :symbol     if symbolize_names
-
-  CsvHash.parse( txt, **opts )
-end
-
 
 
 ## more sportdb libs/gems
@@ -51,35 +29,68 @@ require 'sportdb/formats/outline_reader'
 require 'sportdb/formats/datafile'
 require 'sportdb/formats/datafile_package'
 require 'sportdb/formats/package'
-require 'sportdb/formats/season_utils'
 
-require 'sportdb/formats/name_helper'
+
+module SportDb
+  ## add "old" alias for name helper
+  NameHelper = ::Sports::NameHelper
+end
+
 require 'sportdb/formats/parser_helper'
 
-require 'sportdb/formats/structs/country'
-require 'sportdb/formats/structs/season'
-require 'sportdb/formats/structs/league'
-require 'sportdb/formats/structs/team'
-require 'sportdb/formats/structs/round'
-require 'sportdb/formats/structs/group'
-require 'sportdb/formats/structs/match'
-require 'sportdb/formats/structs/matchlist'
-require 'sportdb/formats/structs/standings'
-require 'sportdb/formats/structs/team_usage'
+
+module SportDb
+  module Import
+    Season = ::Season   ## add a convenience alias for top-level Season class
+
+    ## add "old" convenience aliases for structs - why? why not?
+    Country      = ::Sports::Country
+    League       = ::Sports::League
+    Group        = ::Sports::Group
+    Round        = ::Sports::Round
+    Match        = ::Sports::Match
+    Matchlist    = ::Sports::Matchlist
+    Goal         = ::Sports::Goal
+    Team         = ::Sports::Team
+    NationalTeam = ::Sports::NationalTeam
+    Club         = ::Sports::Club
+    Standings    = ::Sports::Standings
+    TeamUsage    = ::Sports::TeamUsage
+
+
+    class Team
+      ## add convenience lookup helper / method for name by season for now
+      ##   use clubs history - for now kept separate from struct - why? why not?
+      def name_by_season( season )
+        ## note: returns / fallback to "regular" name if no records found in history
+        SportDb::Import.catalog.clubs_history.find_name_by( name: name, season: season ) || name
+      end
+    end  # class Team
+
+  end   # module Import
+end     # module SportDb
 
 
 require 'sportdb/formats/goals'
 
 
+require 'sportdb/formats/match/match_parser_csv'
+require 'sportdb/formats/match/match_status_parser'
+
+
+module SportDb
+  CsvMatchParser = ::Sports::CsvMatchParser
+  Status         = ::Sports::Status
+  StatusParser   = ::Sports::StatusParser
+end
+
 require 'sportdb/formats/match/mapper'
 require 'sportdb/formats/match/mapper_teams'
-require 'sportdb/formats/match/match_status_parser'
 require 'sportdb/formats/match/match_parser'
 require 'sportdb/formats/match/match_parser_auto_conf'
 require 'sportdb/formats/match/conf_parser'
 
 
-require 'sportdb/formats/match/match_parser_csv'
 
 require 'sportdb/formats/country/country_reader'
 require 'sportdb/formats/country/country_index'

@@ -1,5 +1,4 @@
-module SportDb
-  module Import
+module Sports
 
     class Group
       attr_reader :key, :name, :teams
@@ -13,6 +12,5 @@ module SportDb
       end
     end  # class Group
 
-  end # module Import
-end # module SportDb
+end # module Sports
 

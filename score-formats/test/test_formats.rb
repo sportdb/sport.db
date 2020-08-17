@@ -15,10 +15,10 @@ class TestFormats < MiniTest::Test
       [ '1-22',  [nil,nil, 1,22]],
 
       ## do not support three digits for now - why? why not?
-      [ '1:222', []],
-      [ '111:0', []],
-      [ '1-222', []],
-      [ '111-0', []],
+      [ '1:222', nil],
+      [ '111:0', nil],
+      [ '1-222', nil],
+      [ '111-0', nil],
 
       [ '2:2 (1:1, 1:0) n.V. 5:1 i.E.',  [1,0, 1,1, 2,2, 5,1]],
       [ '2:2 (1:1, 1:0) n.V.',           [1,0, 1,1, 2,2]],
@@ -60,14 +60,14 @@ class TestFormats < MiniTest::Test
      [ '1X22',  [nil,nil, 1,22]],
 
      ## do not support three digits for now - why? why not?
-     [ '1-222', []],
-     [ '111-0', []],
-     [ '111x0', []],
-     [ '111X0', []],
+     [ '1-222', nil],
+     [ '111-0', nil],
+     [ '111x0', nil],
+     [ '111X0', nil],
 
      ## do not support colon sep for now in en locale - why? why not?
-     [ '2:1',       []],
-     [ '2:1 (1:1)', []],
+     [ '2:1',       nil],
+     [ '2:1 (1:1)', nil],
 
 
      [ '2-1 (1-1)', [1,1, 2,1]],
@@ -116,7 +116,14 @@ private
       line = rec[0].dup
       exp  = rec[1]
 
-      assert_equal exp, ScoreFormats.find!( line ).to_a, "failed >#{rec[0]}< - >#{line}<"
+      score = ScoreFormats.find!( line )
+      ## pp score
+
+      if exp.nil?
+        assert_nil score, "failed >#{rec[0]}< - >#{line}<"
+      else
+        assert_equal exp, score.values, "failed >#{rec[0]}< - >#{line}<"
+      end
     end
   end
 end # class TestScores

@@ -1,8 +1,5 @@
-# encoding: utf-8
-
 
 ### note: make Season like Date a "top-level" / "generic" class
-
 
 
 class Season
@@ -65,10 +62,20 @@ class Season
     end
   end
 
+
   def self.convert( *args )  ## note: used by Kernel method Season()
     if args.size == 1 && args[0].is_a?( Season )
       args[0]  # pass through / along as is 1:1
-    else
+    elsif args.size == 1 && args[0].is_a?( String )
+      parse( args[0] )
+    elsif args.size == 1 && args[0].is_a?( Integer ) && args[0] > 9999
+      ## note: allow convenience "hack" such as:
+      # 202021   or 2020_21   => '2020/21' or
+      # 2020_1   or 2020_1    => '2020/21' or
+      # 20202021 or 2020_2021 => '2020/21'
+      str = args[0].to_s
+      parse( "#{str[0..3]}/#{str[4..-1]}" )
+    else ## assume all integer args e.g.  2020 or 2020, 2021 and such
       new( *args ) ## try conversion with new
     end
   end
@@ -77,12 +84,10 @@ class Season
   attr_reader :start_year,
               :end_year
 
-  def initialize( *args )   ## assume only string / line gets passed in for now
-    if args.size == 1 && args[0].is_a?( String )
-      @start_year, @end_year = self.class._parse( args[0] )
-    elsif args.size == 1 && args[0].is_a?( Integer )
+  def initialize( *args )   ## change args to years - why? why not?
+     if args.size == 1 && args[0].is_a?( Integer )
       @start_year = args[0]
-      @end_year   = nil
+      @end_year   = args[0]
     elsif args.size == 2 && args[0].is_a?( Integer ) &&
                             args[1].is_a?( Integer )
       @start_year = args[0]
@@ -91,13 +96,13 @@ class Season
       raise ArgumentError, "[Season] invalid year in season >>#{to_s}<<; expected #{end_year_exp} but got #{@end_year}"   if end_year_exp != @end_year
     else
       pp args
-      raise ArgumentError, "[Season] expected season string or season start year (integer) with opt. end year"
+      raise ArgumentError, "[Season] expected season start year (integer) with opt. end year"
     end
   end
 
 
-  ###
-  ## convenience helper
+
+  ## convenience helper  - move to sportdb or such - remove - why - why not???
   def start_date   ## generate "generic / syntetic start date" - keep helper - why? why not?
     if year?
       Date.new( start_year, 1, 1 )
@@ -107,14 +112,14 @@ class Season
   end
 
 
-  ## single-year season e.g. 2011 if no end_year present - todo - find a better name?
-  def year?()  @end_year.nil?; end
+  ## single-year season e.g. 2011 if start_year is end_year - todo - find a better name?
+  def year?()  @start_year == @end_year; end
 
   def prev
     if year?
       Season.new( @start_year-1 )
     else
-      Season.new( @start_year-1, @start_year )
+      Season.new( @start_year-1, @end_year-1 )
     end
   end
 
@@ -122,27 +127,23 @@ class Season
     if year?
       Season.new( @start_year+1 )
     else
-      Season.new( @end_year, @end_year+1 )
+      Season.new( @start_year+1, @end_year+1 )
     end
   end
   alias_method :succ, :next   ## add support for ranges
+
 
   include Comparable
   def <=>(other)
     ## todo/fix/fix:  check if other is_a?( Season )!!!
     ##  what to return if other type/class ??
-
-    res =  @start_year <=> other.start_year
-
-    ## check special edge case - year season and other e.g.
+    ## note: check special edge case - year season and other e.g.
     ##    2010 <=> 2010/2011
-    if res == 0 && @end_year != other.end_year
-      res =  @end_year ? 1 : -1   # the season with an end year is greater / wins for now
-    end
 
+    res = @start_year <=> other.start_year
+    res = @end_year   <=> other.end_year     if res == 0
     res
   end
-
 
 
   def to_formatted_s( format=:default, sep: '/' )
@@ -189,14 +190,6 @@ class Season
 
 end # class Season
 
-
-
-
-module SportDb
-module Import
-  Season = ::Season   ## add a convenience alias
-end  # module Import
-end  # module SportDb
 
 
 ### note: add a convenience "shortcut" season kernel method conversion method

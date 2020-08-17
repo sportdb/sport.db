@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_match_status_parser.rb
@@ -10,8 +8,8 @@ require 'helper'
 
 class TestMatchStatusParser < MiniTest::Test
 
-   Status       = SportDb::Status
-   StatusParser = SportDb::StatusParser
+   Status       = Sports::Status
+   StatusParser = Sports::StatusParser
 
   def test_find
     [['awarded [cancelled] canceled [ddd]',                        Status::CANCELLED],

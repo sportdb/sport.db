@@ -1,8 +1,5 @@
-# encoding: utf-8
 
-
-module SportDb
-  module Import
+module Sports
 
 
 class TeamUsage
@@ -84,5 +81,4 @@ private
 
 end # class TeamUsage
 
-end # module Import
-end # module SportDb
+end # module Sports

@@ -9,7 +9,7 @@ require 'helper'
 
 class TestMatch < MiniTest::Test
 
-  Match = SportDb::Import::Match
+  Match = Sports::Match
 
 
   def test_round

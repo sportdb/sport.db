@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_season.rb
@@ -19,6 +17,10 @@ class TestSeason < MiniTest::Test
     assert_equal '2010',          Season( '2010' ).to_path
 
     assert_equal '2010-11',       Season( 2010, 2011 ).to_path
+    assert_equal '2010-11',       Season( 2010_2011 ).to_path
+    assert_equal '2010-11',       Season( 20102011 ).to_path
+    assert_equal '2010-11',       Season( 201011 ).to_path
+    assert_equal '2010-11',       Season( 20101 ).to_path
     assert_equal '2010',          Season( 2010 ).to_path
 
     assert_equal '2010s/2010-11', Season( '2010-11' ).to_path( :decade )
@@ -51,15 +53,43 @@ class TestSeason < MiniTest::Test
     assert_equal '1999/00',       Season( '1999-2000' ).key
   end  # method test_key
 
-  def test_years
-    season = Season( '1999-00' )
-    assert_equal 1999, season.start_year
-    assert_equal 2000, season.end_year
 
-    season = Season( '2010/1' )
-    assert_equal 2010, season.start_year
-    assert_equal 2011, season.end_year
+  def test_years
+    [Season( '1999-00' ),
+     Season( '1999/00' ),
+     Season( '1999/2000' ),
+     Season( 1999, 2000 ),
+     Season( 1999_00 ),   ## allow "hacky" shortcuts - why? why not?
+     Season( 1999_2000 ),
+    ].each do |season|
+      assert_equal 1999, season.start_year
+      assert_equal 2000, season.end_year
+    end
+
+    [Season( '2010/1' ),
+     Season( '2010/11' ),
+     Season( 201011 ),    ## allow "hacky" shortcuts - why? why not?
+     Season( 20102011 ),
+    ].each do |season|
+      assert_equal 2010, season.start_year
+      assert_equal 2011, season.end_year
+    end
+
+    [Season( '1999' ),
+     Season( 1999 ),
+    ].each do |season|
+      assert_equal 1999, season.start_year
+      assert_equal 1999, season.end_year
+    end
+
+    [Season( '2010' ),
+     Season( 2010 ),
+    ].each do |season|
+      assert_equal 2010, season.start_year
+      assert_equal 2010, season.end_year
+    end
   end
+
 
   def test_prev
     assert_equal '2009/10',       Season( '2010-11' ).prev.key
@@ -91,21 +121,21 @@ class TestSeason < MiniTest::Test
 #     2015/16, 2016/17, 2017/18, 2018/19, 2019/20]
 
     puts s2010 === Season( '2015-16' )  # true
-    puts s2010 === Season( '2015' )     # false  - why? if using >= <=
+    puts s2010 === Season( '2015' )     # !!!! false  - why? if using >= <=
     puts s2010 === Season( '1999-00' )  # false
     puts s2010 === Season( '2020-21' )  # false
 
-    puts Season( '2010-11' ) < Season( '2015' )   # true
-    puts Season( '2015' )    < Season( '2019-20') # true
-
-    puts Season( '2015' ) == Season( '2015-16') # false
-    puts Season( '2015' ) < Season( '2015-16') # true
-    puts Season( '2015' ) == Season( '2015')    # true
-
     puts
     puts s2010.include? Season( '2015-16' )  # true
-    puts s2010.include? Season( '2015' )     # false
+    puts s2010.include? Season( '2015' )     # !!! false
     puts s2010.include? Season( '1999-00' )  # false
+
+    assert_equal true,  Season( '2010-11' ) < Season( '2015' )
+    assert_equal true,  Season( '2015' )    < Season( '2019-20' )
+
+    assert_equal false, Season( '2015' ) == Season( '2015-16' )
+    assert_equal true,  Season( '2015' ) <  Season( '2015-16' )
+    assert_equal true,  Season( '2015' ) == Season( '2015' )
   end
 
 end # class TestSeason

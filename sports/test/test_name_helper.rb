@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_name_helper.rb
@@ -10,7 +8,7 @@ require 'helper'
 
 class TestNameHelper < MiniTest::Test
 
-  include SportDb::NameHelper
+  include Sports::NameHelper
 
 
   def test_strip_norm    ## strip (remove) non-norm characters e.g. ()'- etc.

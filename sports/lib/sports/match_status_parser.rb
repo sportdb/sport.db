@@ -7,7 +7,7 @@
 #    etc.
 
 
-module SportDb
+module Sports
 
   class Status
 # note: use a class as an "enum"-like namespace for now - why? why not?
@@ -83,4 +83,5 @@ module SportDb
     end # method find!
  end # class StatusParser
 
-end # module SportDb
+end # module Sports
+

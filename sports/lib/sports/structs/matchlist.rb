@@ -1,8 +1,6 @@
-# encoding: utf-8
 
 
-module SportDb
-  module Import
+module Sports
 
 
 class Matchlist  ## todo: find a better name - MatchStats, MatchFixtures, MatchSchedule, ...
@@ -214,7 +212,4 @@ private
 
 end  # class Matchlist
 
-
-
-  end # module Import
-end # module SportDb
+end # module Sports

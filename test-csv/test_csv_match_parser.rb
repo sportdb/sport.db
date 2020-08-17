@@ -16,10 +16,10 @@ class TestCsvMatchParser < MiniTest::Test
 #    Bb1X2,BbMxH,BbAvH,BbMxD,BbAvD,BbMxA,BbAvA,BbOU,BbMx>2.5,BbAv>2.5,BbMx<2.5,BbAv<2.5,
 #    BbAH,BbAHh,BbMxAHH,BbAvAHH,BbMxAHA,BbAvAHA,PSCH,PSCD,PSCA
   def test_eng_filters
-    path = "#{SportDb::Test.data_dir}/england/2017-18/E0.csv"
+    path = "#{Test.data_dir}/england/2017-18/E0.csv"
 
-    matches = SportDb::CsvMatchParser.read( path,
-                                            filters: { 'HomeTeam' => 'Arsenal' } )
+    matches = CsvMatchParser.read( path,
+                                   filters: { 'HomeTeam' => 'Arsenal' } )
 
     pp path
     pp matches[0..2]
@@ -45,7 +45,7 @@ class TestCsvMatchParser < MiniTest::Test
 
 
   def test_eng_headers
-    path = "#{SportDb::Test.data_dir}/england/2017-18/E0.csv"
+    path = "#{Test.data_dir}/england/2017-18/E0.csv"
 
     headers = { team1:  'HomeTeam',
                 team2:  'AwayTeam',
@@ -53,7 +53,7 @@ class TestCsvMatchParser < MiniTest::Test
                 score1: 'FTHG',
                 score2: 'FTAG' }
 
-    matches = SportDb::CsvMatchParser.read( path, headers: headers )
+    matches = CsvMatchParser.read( path, headers: headers )
 
     pp path
     pp matches[0..2]
@@ -82,9 +82,9 @@ class TestCsvMatchParser < MiniTest::Test
 # Country,League,Season,Date,Time,Home,Away,HG,AG,
 #  Res,PH,PD,PA,MaxH,MaxD,MaxA,AvgH,AvgD,AvgA
   def test_at
-    path = "#{SportDb::Test.data_dir}/austria/AUT.csv"
+    path = "#{Test.data_dir}/austria/AUT.csv"
 
-    matches = SportDb::CsvMatchParser.read( path, filters: { 'Season' => '2017/2018' } )
+    matches = CsvMatchParser.read( path, filters: { 'Season' => '2017/2018' } )
 
     pp matches[0..2]
     pp path

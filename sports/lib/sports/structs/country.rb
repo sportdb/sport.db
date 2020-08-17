@@ -1,7 +1,4 @@
-# encoding: utf-8
-
-module SportDb
-  module Import
+module Sports
 
 ##
 #  note: check that shape/structure/fields/attributes match
@@ -25,7 +22,5 @@ class Country
 
 end  # class Country
 
-
-end   # module Import
-end   # module SportDb
+end   # module Sports
 

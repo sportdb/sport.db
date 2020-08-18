@@ -1,5 +1,7 @@
 
-module Sports
+module SportDb
+  module Module
+    module Sports
   MAJOR = 0    ## todo: namespace inside version or something - why? why not??
   MINOR = 0
   PATCH = 1
@@ -16,4 +18,7 @@ module Sports
   def self.root
     File.expand_path( File.dirname(File.dirname(__FILE__)) )
   end
-end   # module Sports
+
+    end   # module Sports
+  end
+end

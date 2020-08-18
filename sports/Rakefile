@@ -3,7 +3,7 @@ require './lib/sports/version.rb'
 
 Hoe.spec 'sports' do
 
-  self.version = Sports::VERSION
+  self.version = SportDb::Module::Sports::VERSION
 
   self.summary = "sports - sport data structures for matches, scores, leagues, seasons, rounds, groups, teams, clubs and more"
   self.description = summary

@@ -74,8 +74,9 @@ end     # module SportDb
 require 'sportdb/formats/goals'
 
 
-require 'sportdb/formats/match/match_parser_csv'
-require 'sportdb/formats/match/match_status_parser'
+## remove!!!
+## require 'sportdb/formats/match/match_parser_csv'
+## require 'sportdb/formats/match/match_status_parser'
 
 
 module SportDb
@@ -137,7 +138,8 @@ require 'sportdb/formats/team/club_index_history'
 ###
 # add convenience helpers / shortcuts
 module SportDb
-module Import
+  module Import
+
 class Club
   def self.read( path )  ClubReader.read( path ); end
   def self.parse( txt )  ClubReader.parse( txt ); end
@@ -146,6 +148,7 @@ class Club
   def self.parse_props( txt )  ClubPropsReader.parse( txt ); end
   ##  todo/check: use ClubProps.read and ClubProps.parse convenience alternate shortcuts - why? why not?
 end # class Club
+
 end   # module Import
 end   # module SportDb
 

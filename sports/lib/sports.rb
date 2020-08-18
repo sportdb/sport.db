@@ -46,10 +46,10 @@ require 'sports/structs/team_usage'
 
 require 'sports/match_status_parser'
 require 'sports/match_parser_csv'
+require 'sports/goal_parser_csv'
 
 
 
-
-puts Sports.banner   # say hello
+puts SportDb::Module::Sports.banner   # say hello
 
 

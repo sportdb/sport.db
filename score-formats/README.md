@@ -13,9 +13,7 @@
 
 
 The idea is to follow the `Date` class and make `Score`
-into a top-level free-standing class.
-
-Let's say you have the match score:
+into a top-level free-standing class. Let's say you have the match score:
 
 6-5 pen. 2-2 a.e.t. 1-1 (1-0)
 

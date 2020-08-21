@@ -88,6 +88,7 @@ module Sports
          headers_mapping[:team1]  = find_header( headers, ['Team 1'] )
          headers_mapping[:team2]  = find_header( headers, ['Team 2'] )
          headers_mapping[:date]   = find_header( headers, ['Date'] )
+         headers_mapping[:time]   = find_header( headers, ['Time'] )
 
          ## check for all-in-one full time (ft) and half time (ht9 scores?
          headers_mapping[:score]  = find_header( headers, ['FT'] )
@@ -120,6 +121,7 @@ module Sports
          headers_mapping[:team1]  = find_header( headers, ['HomeTeam', 'HT', 'Home'] )
          headers_mapping[:team2]  = find_header( headers, ['AwayTeam', 'AT', 'Away'] )
          headers_mapping[:date]   = find_header( headers, ['Date'] )
+         headers_mapping[:time]   = find_header( headers, ['Time'] )
 
          ## note: FT = Full Time, HG = Home Goal, AG = Away Goal
          headers_mapping[:score1] = find_header( headers, ['FTHG', 'HG'] )
@@ -194,6 +196,33 @@ module Sports
       ## remove possible match played counters e.g. (4) (11) etc.
       team1 = team1.sub( /\(\d+\)/, '' ).strip
       team2 = team2.sub( /\(\d+\)/, '' ).strip
+
+
+
+      col = row[ headers_mapping[ :time ]]
+      col = col.strip   # make sure not leading or trailing spaces left over
+
+      if col.empty? ||
+        col =~ /^-{1,}$/ ||      # e.g.  - or ---
+        col =~ /^\?{1,}$/        # e.g. ? or ???
+         ## note: allow missing / unknown date for match
+         time = nil
+     else
+      if col =~ /^\d{1,2}:\d{2}$/
+        time_fmt = '%H:%M'   # e.g. 17:00 or 3:00
+      elsif col =~ /^\d{1,2}.\d{2}$/
+        time_fmt = '%H.%M'   # e.g. 17:00 or 3:00
+      else
+        puts "*** !!! wrong (unknown) time format >>#{col}<<; cannot continue; fix it; sorry"
+        ## todo/fix: add to errors/warns list - why? why not?
+        exit 1
+      end
+
+      ## todo/check: use date object (keep string?) - why? why not?
+      ##  todo/fix: yes!! use date object!!!! do NOT use string
+      time = Time.strptime( col, time_fmt ).strftime( '%H:%M' )
+    end
+
 
 
 
@@ -387,6 +416,7 @@ module Sports
       ## puts 'match attributes:'
       attributes = {
         date:     date,
+        time:     time,
         team1:    team1,    team2:    team2,
         score1:   score1,   score2:   score2,
         score1i:  score1i,  score2i:  score2i,

@@ -5,6 +5,7 @@ module Sports
 class Match
 
   attr_reader :date,
+              :time,
               :team1,     :team2,      ## todo/fix: use team1_name, team2_name or similar - for compat with db activerecord version? why? why not?
               :score1,    :score2,     ## full time
               :score1i,   :score2i,    ## half time (first (i) part)
@@ -32,6 +33,7 @@ class Match
   def update( **kwargs )
     ## note: check with has_key?  because value might be nil!!!
     @date     = kwargs[:date]     if kwargs.has_key? :date
+    @time     = kwargs[:time]     if kwargs.has_key? :time
 
     ## todo/fix: use team1_name, team2_name or similar - for compat with db activerecord version? why? why not?
     @team1    = kwargs[:team1]    if kwargs.has_key? :team1

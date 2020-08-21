@@ -90,7 +90,7 @@ class EventInfo
         season_col = row['Season'] || row['Year']
         dates_col  = row['Dates']
 
-        season = Import::Season.new( season_col )
+        season = Import::Season.parse( season_col )
         league = catalog.leagues.find!( league_col )
 
 

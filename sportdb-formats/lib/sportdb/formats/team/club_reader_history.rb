@@ -80,7 +80,7 @@ def parse
             last_keyword = nil
          elsif heading_level == 2
             ## assume season
-            season = Season.new( heading )
+            season = Season.parse( heading )
             puts "  season >#{heading}< => #{season.key}"
             last_season  = season  ## reset "lowwer levels" - keyword
             last_keyword = nil

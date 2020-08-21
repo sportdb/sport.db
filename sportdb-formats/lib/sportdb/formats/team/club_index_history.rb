@@ -79,7 +79,7 @@ class ClubHistoryIndex
       club_new = catalog.clubs.find_by!( name: name_new, country: country_new )
 
       ## note use season obj for now (and NOT key) - why? why not?
-      season = Season.new( season_key )
+      season = Season.parse( season_key )
 
       ## todo/check:
       ##   check if  club_old and club_new reference different club record!!
@@ -108,7 +108,7 @@ class ClubHistoryIndex
   def find_name_by( name:, season: )
     recs = @clubs[ name ]
     if recs
-      season = season( season )   ## make sure season is a season obj (and NOT a string)
+      season = Season( season )   ## make sure season is a season obj (and NOT a string)
       ## check season records for name; use linear search (assume only few records)
       recs.each do |rec|
         if season >= rec[0]
@@ -124,10 +124,6 @@ class ClubHistoryIndex
 
   ##################
   ## helpers
-  def season( season )
-    season.is_a?( Season ) ? season : Season.new( season )
-  end
-
   def strip_geo( name )
     ## e.g. Arsenal, London   =>   Arsenal
     name.split(',')[0].strip

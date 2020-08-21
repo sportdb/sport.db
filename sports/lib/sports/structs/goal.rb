@@ -174,8 +174,8 @@ class Goal  ### nested (non-freestanding) inside match (match is parent)
         minute:  event.minute,
         offset:  event.offset,
         player:  event.player,
-        owngoal: event.owngoal?,
-        penalty: event.penalty?,
+        owngoal: event.owngoal,
+        penalty: event.penalty,
         notes:   event.notes
       }
 

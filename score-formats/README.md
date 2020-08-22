@@ -115,6 +115,24 @@ score.to_h( :db ) #=> { score1i:  4,   score2i:  1,
                   #     score1p:  nil, score2p:  nil}
 ```
 
+Use `to_s` to pretty print / get the score (as string) e.g.
+
+``` ruby
+score = Score.new( 1, 0, 1, 1, 2, 2, 6, 5 )
+score.to_s #=> "6-5 pen. 2-2 a.e.t. 1-1 (1-0)"
+
+# -or -
+
+score = Score.new( 0, 0, 0, 0 )
+score.to_s #=> "0-0"
+
+# -or -
+
+score = Score.new
+score.to_s #=> "-"
+```
+
+
 
 ## Bonus: Multi-language internationalization (i18n) support
 
@@ -125,7 +143,7 @@ For now only `de`, that is, German (Deutsch) is built-in / supported.
 Example:
 
 ``` ruby
-score = Score.parse( "i.E. 6:5, n.V. 2:2 (1:1, 1:0)", lang: "de" )
+score = Score.parse( "2:2 (1:1, 1:0) n.V. 6:5 i.E.", lang: "de" )
 score.ht  #=> [1,0]
 score.ft  #=> [1,1]
 score.et  #=> [2,2]
@@ -133,6 +151,7 @@ score.p   #=> [6,5]
 ```
 
 That's all for now.
+
 
 
 

@@ -123,7 +123,7 @@ class Score
       exit 1
     end
  end
- alias_method :to_hash, :to_h  ## add alias - why? why not?
+ ## alias_method :to_hash, :to_h  ## add alias - why? why not?
 
 
  def values

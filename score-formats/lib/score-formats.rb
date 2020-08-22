@@ -23,6 +23,7 @@ end # module ScoreFormats
 require 'score-formats/score'
 require 'score-formats/formats'
 require 'score-formats/parser'
+require 'score-formats/printer'
 
 
 

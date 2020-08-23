@@ -1,5 +1,5 @@
 
-module Sports
+module SportDb
   class CsvMatchParser
 
   #############
@@ -200,29 +200,33 @@ module Sports
 
 
       col = row[ headers_mapping[ :time ]]
-      col = col.strip   # make sure not leading or trailing spaces left over
 
-      if col.empty? ||
-        col =~ /^-{1,}$/ ||      # e.g.  - or ---
-        col =~ /^\?{1,}$/        # e.g. ? or ???
-         ## note: allow missing / unknown date for match
-         time = nil
-     else
-      if col =~ /^\d{1,2}:\d{2}$/
-        time_fmt = '%H:%M'   # e.g. 17:00 or 3:00
-      elsif col =~ /^\d{1,2}.\d{2}$/
-        time_fmt = '%H.%M'   # e.g. 17:00 or 3:00
+      if col.nil?
+        time = nil
       else
-        puts "*** !!! wrong (unknown) time format >>#{col}<<; cannot continue; fix it; sorry"
-        ## todo/fix: add to errors/warns list - why? why not?
-        exit 1
+        col = col.strip     # make sure not leading or trailing spaces left over
+
+        if col.empty?
+          col =~ /^-{1,}$/ ||      # e.g.  - or ---
+          col =~ /^\?{1,}$/        # e.g. ? or ???
+          ## note: allow missing / unknown date for match
+          time = nil
+        else
+          if col =~ /^\d{1,2}:\d{2}$/
+            time_fmt = '%H:%M'   # e.g. 17:00 or 3:00
+          elsif col =~ /^\d{1,2}.\d{2}$/
+            time_fmt = '%H.%M'   # e.g. 17:00 or 3:00
+          else
+            puts "*** !!! wrong (unknown) time format >>#{col}<<; cannot continue; fix it; sorry"
+            ## todo/fix: add to errors/warns list - why? why not?
+            exit 1
+          end
+
+          ## todo/check: use date object (keep string?) - why? why not?
+          ##  todo/fix: yes!! use date object!!!! do NOT use string
+          time = Time.strptime( col, time_fmt ).strftime( '%H:%M' )
+        end
       end
-
-      ## todo/check: use date object (keep string?) - why? why not?
-      ##  todo/fix: yes!! use date object!!!! do NOT use string
-      time = Time.strptime( col, time_fmt ).strftime( '%H:%M' )
-    end
-
 
 
 
@@ -430,7 +434,7 @@ module Sports
       }
       ## pp attributes
 
-      match = Match.new( **attributes )
+      match = Sports::Match.new( **attributes )
       matches << match
     end
 

@@ -8,8 +8,8 @@ require 'helper'
 
 class TestMatchStatusParser < MiniTest::Test
 
-   Status       = Sports::Status
-   StatusParser = Sports::StatusParser
+   Status       = SportDb::Status
+   StatusParser = SportDb::StatusParser
 
   def test_find
     [['awarded [cancelled] canceled [ddd]',                        Status::CANCELLED],

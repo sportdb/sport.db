@@ -36,3 +36,6 @@ build/
 
 # more debugging support
 errors.log
+
+# test data
+england/

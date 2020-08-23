@@ -1,5 +1,5 @@
 
-module Sports
+module SportDb
   class CsvGoalParser
 
 
@@ -19,7 +19,7 @@ module Sports
 
   def parse
     rows = parse_csv( @txt )
-    recs = rows.map { |row| GoalEvent.build( row ) }
+    recs = rows.map { |row| Sports::GoalEvent.build( row ) }
     ## pp recs[0]
     recs
   end

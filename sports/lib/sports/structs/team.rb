@@ -66,7 +66,7 @@ class Team
   ##############################
   ## helper methods for import only??
   ## check for duplicates
-  include NameHelper
+  include SportDb::NameHelper
 
   def duplicates?
     names = [name] + alt_names + alt_names_auto

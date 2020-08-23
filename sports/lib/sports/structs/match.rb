@@ -147,13 +147,23 @@ class Match
   def complete?()  true; end  ## for now all scores are complete - in the future check scores; might be missing - not yet entered
 
 
-  def score_str    # pretty print (full time) scores; convenience method
-    "#{@score1}-#{@score2}"
+  def score
+    Score.new( @score1i,   @score2i,    ## half time (first (i) part)
+               @score1,    @score2,     ## full time
+               @score1et,  @score2et,   ## extra time
+               @score1p,   @score2p )   ## penalty
   end
 
-  def scorei_str    # pretty print (half time) scores; convenience method
-    "#{@score1i}-#{@score2i}"
-  end
+
+  ####
+  ##  deprecated - use score.to_s and friends - why? why not?
+  # def score_str    # pretty print (full time) scores; convenience method
+  #  "#{@score1}-#{@score2}"
+  # end
+
+  # def scorei_str    # pretty print (half time) scores; convenience method
+  #  "#{@score1i}-#{@score2i}"
+  # end
 end  # class Match
 
 end # module Sports

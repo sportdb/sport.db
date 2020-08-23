@@ -7,7 +7,10 @@
 #    etc.
 
 
-module Sports
+module SportDb
+
+
+  ### todo/fix: move Status inside Match struct - why? why not?
 
   class Status
 # note: use a class as an "enum"-like namespace for now - why? why not?
@@ -83,5 +86,5 @@ module Sports
     end # method find!
  end # class StatusParser
 
-end # module Sports
+end # module SportDb
 

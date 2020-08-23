@@ -49,6 +49,33 @@ require 'sports/match_parser_csv'
 require 'sports/goal_parser_csv'
 
 
+### add convenience shortcut helpers
+module Sports
+  class Match
+    def self.read_csv( path, headers: nil, filters: nil, converters: nil, sep: nil )
+       SportDb::CsvMatchParser.read( path,
+                                       headers:    headers,
+                                       filters:    filters,
+                                       converters: converters,
+                                       sep:        sep )
+    end
+
+    def self.parse_csv( txt, headers: nil, filters: nil, converters: nil, sep: nil )
+       SportDb::CsvMatchParser.parse( txt,
+                                        headers:    headers,
+                                        filters:    filters,
+                                        converters: converters,
+                                        sep:        sep )
+    end
+  end # class Match
+end # module Sports
+
+
+#####
+# note: add Sport and Football convenience alias - why? why not?
+
+Sport    = Sports
+Football = Sports
 
 puts SportDb::Module::Sports.banner   # say hello
 

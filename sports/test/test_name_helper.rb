@@ -8,7 +8,7 @@ require 'helper'
 
 class TestNameHelper < MiniTest::Test
 
-  include Sports::NameHelper
+  include SportDb::NameHelper
 
 
   def test_strip_norm    ## strip (remove) non-norm characters e.g. ()'- etc.

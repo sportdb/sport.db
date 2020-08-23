@@ -1,5 +1,5 @@
 
-module Sports
+module SportDb
   module NameHelper
 
 

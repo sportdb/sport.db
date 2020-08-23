@@ -37,7 +37,7 @@ class Standings
   end # (nested) class StandingsLine
 
 
-  def initialize( opts={} )
+  def initialize( match_or_matches=nil, opts={} )
     ## fix:
     # passing in e.g. pts for win (3? 2? etc.)
     # default to 3 for now
@@ -46,6 +46,9 @@ class Standings
     @pts_won = opts[:pts_won] || 3
 
     @lines = {}   # StandingsLines cached by team name/key
+
+    ## add init and update all-in-one convenience shortcut
+    update( match_or_matches )  if match_or_matches
   end
 
 
@@ -64,6 +67,10 @@ class Standings
     self  # note: return self to allow chaining
   end
 
+
+  ## note: add a convenience shortcut
+  ##  to_a  will sort and add rank (1,2,3) to standing lines
+  def each( &block ) to_a.each( &block ); end
 
   def to_a
     ## return lines; sort and add rank
@@ -184,7 +191,7 @@ private
     team1 = m.team1.is_a?( String ) ? m.team1 : m.team1.name
     team2 = m.team2.is_a?( String ) ? m.team2 : m.team2.name
 
-    score = m.score_str
+    score = m.score.to_s
 
     ##  puts "   #{team1} - #{team2} #{score}"
 

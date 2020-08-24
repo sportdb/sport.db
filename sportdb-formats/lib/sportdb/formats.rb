@@ -31,11 +31,6 @@ require 'sportdb/formats/datafile_package'
 require 'sportdb/formats/package'
 
 
-module SportDb
-  ## add "old" alias for name helper
-  NameHelper = ::Sports::NameHelper
-end
-
 require 'sportdb/formats/parser_helper'
 
 
@@ -44,6 +39,7 @@ module SportDb
     Season = ::Season   ## add a convenience alias for top-level Season class
 
     ## add "old" convenience aliases for structs - why? why not?
+    ##   todo/check: just use include Sports !!!!
     Country      = ::Sports::Country
     League       = ::Sports::League
     Group        = ::Sports::Group
@@ -74,16 +70,6 @@ end     # module SportDb
 require 'sportdb/formats/goals'
 
 
-## remove!!!
-## require 'sportdb/formats/match/match_parser_csv'
-## require 'sportdb/formats/match/match_status_parser'
-
-
-module SportDb
-  CsvMatchParser = ::Sports::CsvMatchParser
-  Status         = ::Sports::Status
-  StatusParser   = ::Sports::StatusParser
-end
 
 require 'sportdb/formats/match/mapper'
 require 'sportdb/formats/match/mapper_teams'

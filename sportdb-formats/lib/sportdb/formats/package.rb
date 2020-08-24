@@ -335,13 +335,13 @@ module SportDb
       ##             filter.skip? filter.include? ( season_sason_key )?
       ##             fiteer.before?( season_key )  etc.
       ##              find some good method names!!!!
-      season_start = start ? Import::Season.new( start ) : nil
+      season_start = start ? Season( start ) : nil
 
       h = {}
       match( format: format ).each do |entry|
         ## note: assume last directory in datafile path is the season part/key
         season_q = File.basename( File.dirname( entry.name ))
-        season   = Import::Season.new( season_q )  ## normalize season
+        season   = Season.parse( season_q )  ## normalize season
 
         ## skip if start season before this season
         next if season_start && season_start.start_year > season.start_year

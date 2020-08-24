@@ -65,7 +65,7 @@ class LeagueOutlineReader   ## todo/check - rename to LeaguePageReader / LeagueP
        filtered_secs = []
        filter = norm_seasons( season )
        secs.each do |sec|
-         if filter.include?( Import::Season.new( sec[:season] ).key )
+         if filter.include?( Season.parse( sec[:season] ).key )
            filtered_secs << sec
          else
            puts "  skipping season >#{sec[:season]}< NOT matched by filter"
@@ -76,7 +76,7 @@ class LeagueOutlineReader   ## todo/check - rename to LeaguePageReader / LeagueP
 
     ## pass 3 - check & map; replace inline (string with data struct record)
     secs.each do |sec|
-      sec[:season] = Import::Season.new( sec[:season ] )
+      sec[:season] = Season.parse( sec[:season ] )
       sec[:league] = catalog.leagues.find!( sec[:league] )
 
       check_stage( sec[:stage] )   if sec[:stage]   ## note: only check for now (no remapping etc.)
@@ -100,14 +100,18 @@ class LeagueOutlineReader   ## todo/check - rename to LeaguePageReader / LeagueP
          )
             $}x
 
+
   def norm_seasons( season_or_seasons )     ## todo/check: add alias norm_seasons - why? why not?
-      seasons = if season_or_seasons.is_a?( String )   ## wrap in array
+
+      seasons = if season_or_seasons.is_a?( Array )  # is it an array already
+                  season_or_seasons
+                elsif season_or_seasons.is_a?( Range )  # e.g. Season(1999)..Season(2001) or such
+                  season_or_seasons.to_a
+                else  ## assume - single entry - wrap in array
                   [season_or_seasons]
-                else  ## assume it's an array already
-                   season_or_seasons
                 end
 
-      seasons.map { |season| Import::Season.new( season ).key }
+      seasons.map { |season| Season( season ).key }
   end
 
 

@@ -53,6 +53,11 @@ class Score
  def p()   [@score1p,  @score2p];  end  ## e.g. note - starts "fresh" score from 0-0
  alias_method :pen, :p   ## add alias - why? why not?
 
+ alias_method :full_time,  :ft 
+ alias_method :half_time,  :ht 
+ alias_method :extra_time, :et 
+ alias_method :penalties,  :p     ## penalties - use a different word(ing)? why? why not?
+  
  ## todo/check: allow one part missing why? why not?
  ##   e.g.  1-nil  or nil-1  - why? why not?
  def ft?()  @score1   && @score2;   end
@@ -61,7 +66,11 @@ class Score
  def p?()   @score1p  && @score2p;  end
  alias_method :pen?, :p?
 
-
+ alias_method :full_time?,  :ft? 
+ alias_method :half_time?,  :ht? 
+ alias_method :extra_time?, :et? 
+ alias_method :penalties?,  :p? 
+ 
 
  def initialize( *values )
    ## note: for now always assumes integers

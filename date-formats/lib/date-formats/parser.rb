@@ -18,7 +18,7 @@ module DateFormats
 
     ## note: cache all "built-in" lang versions (e.g. formats == nil)
     @@parser ||= {}
-    parser = @@parser[ lang ] ||= DateParser.new( lang: lang )
+    @@parser[ lang ] ||= DateParser.new( lang: lang )
   end
 
   def self.parse( line,

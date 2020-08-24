@@ -80,7 +80,7 @@ private
 
     ## puts "[parse_date_time] match_data:"
     ## pp h
-    logger.debug "   [parse_matchdata] hash: >#{h.inspect}<"
+    ## logger.debug "   [parse_matchdata] hash: >#{h.inspect}<"
 
     score1i   = nil    # half time (ht) scores
     score2i   = nil

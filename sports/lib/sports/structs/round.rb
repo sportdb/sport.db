@@ -1,6 +1,6 @@
 module Sports
 
-   class Round
+  class Round
       attr_reader   :name, :start_date, :end_date, :knockout
       attr_accessor :num   # note: make read & writable - why? why not?
 
@@ -17,7 +17,7 @@ module Sports
         @knockout   = knockout
         @auto       = auto        # auto-created (inline reference/header without proper definition before)
       end
-    end  # class Round
+  end  # class Round
 
 end # module Sports
 

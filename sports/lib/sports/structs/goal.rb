@@ -47,8 +47,8 @@ class GoalEvent
                 )?
                 ['.]
           $}x.match( row['Minute'])
-      minute = $1.to_i
-      offset = $2 ? $2.to_i : nil
+      minute = m[1].to_i
+      offset = m[2] ? m[2].to_i : nil
     else
       puts "!! ERROR - unsupported minute (goal) format >#{row['Minute']}<"
       exit 1

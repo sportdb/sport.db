@@ -485,6 +485,6 @@ end # method parse_score
 
 
 
-end # class CsvMatchParser
+  end # class CsvMatchParser
 end # module Sports
 

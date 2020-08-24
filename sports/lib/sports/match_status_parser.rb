@@ -84,7 +84,7 @@ module SportDb
 
       status
     end # method find!
- end # class StatusParser
+  end # class StatusParser
 
 end # module SportDb
 

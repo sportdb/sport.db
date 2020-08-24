@@ -86,23 +86,21 @@ will pretty print (pp):
 
 ```
 [#<Sports::Match
-  @date="2019-08-09",
-  @score1=4,
-  @score1i=4,
-  @score2=1,
-  @score2i=0,
-  @team1="Liverpool FC",
-  @team2="Norwich City FC",
-  @winner=1>,
+  @date    = "2019-08-09",
+  @score1  = 4,
+  @score1i = 4,
+  @score2  = 1,
+  @score2i = 0,
+  @team1   = "Liverpool FC",
+  @team2   = "Norwich City FC">,
  #<Sports::Match
-  @date="2019-08-10",
-  @score1=0,
-  @score1i=0,
-  @score2=5,
-  @score2i=1,
-  @team1="West Ham United FC",
-  @team2="Manchester City FC",
-  @winner=2>,
+  @date    = "2019-08-10",
+  @score1  = 0,
+  @score1i = 0,
+  @score2  = 5,
+  @score2i = 1,
+  @team1   = "West Ham United FC",
+  @team2   = "Manchester City FC">,
   ...]
 ```
 
@@ -116,58 +114,56 @@ pp standings
 will pretty print (pp):
 
 ```
-#<Sports::Standings
- @lines=
-  {"Liverpool FC"=>
-    #<Sports::StandingsLine
-     @away_drawn=0,
-     @away_goals_against=1,
-     @away_goals_for=5,
-     @away_lost=0,
-     @away_played=2,
-     @away_pts=6,
-     @away_won=2,
-     @drawn=0,
-     @goals_against=3,
-     @goals_for=12,
-     @home_drawn=0,
-     @home_goals_against=2,
-     @home_goals_for=7,
-     @home_lost=0,
-     @home_played=2,
-     @home_pts=6,
-     @home_won=2,
-     @lost=0,
-     @played=4,
-     @pts=12,
-     @rank=nil,
-     @team="Liverpool FC",
-     @won=4>,
-   "Norwich City FC"=>
-    #<Sports::StandingsLine
-     @away_drawn=0,
-     @away_goals_against=6,
-     @away_goals_for=1,
-     @away_lost=2,
-     @away_played=2,
-     @away_pts=0,
-     @away_won=0,
-     @drawn=0,
-     @goals_against=10,
-     @goals_for=6,
-     @home_drawn=0,
-     @home_goals_against=4,
-     @home_goals_for=5,
-     @home_lost=1,
-     @home_played=2,
-     @home_pts=3,
-     @home_won=1,
-     @lost=3,
-     @played=4,
-     @pts=3,
-     @rank=nil,
-     @team="Norwich City FC",
-     @won=1>,  ...>
+#<Sports::Standings @lines=[
+   #<Sports::StandingsLine
+     @away_drawn         = 0,
+     @away_goals_against = 1,
+     @away_goals_for     = 5,
+     @away_lost          = 0,
+     @away_played        = 2,
+     @away_pts           = 6,
+     @away_won           = 2,
+     @drawn              = 0,
+     @goals_against      = 3,
+     @goals_for          = 12,
+     @home_drawn         = 0,
+     @home_goals_against = 2,
+     @home_goals_for     = 7,
+     @home_lost          = 0,
+     @home_played        = 2,
+     @home_pts           = 6,
+     @home_won           = 2,
+     @lost               = 0,
+     @played             = 4,
+     @pts                = 12,
+     @rank               = 1,
+     @team               = "Liverpool FC",
+     @won                = 4>,
+   #<Sports::StandingsLine
+     @away_drawn         = 0,
+     @away_goals_against = 6,
+     @away_goals_for     = 1,
+     @away_lost          = 2,
+     @away_played        = 2,
+     @away_pts           = 0,
+     @away_won           = 0,
+     @drawn              = 0,
+     @goals_against      = 10,
+     @goals_for          = 6,
+     @home_drawn         = 0,
+     @home_goals_against = 4,
+     @home_goals_for     = 5,
+     @home_lost          = 1,
+     @home_played        = 2,
+     @home_pts           = 3,
+     @home_won           = 1,
+     @lost               = 3,
+     @played             = 4,
+     @pts                = 3,
+     @rank               = 19,
+     @team               = "Norwich City FC",
+     @won                = 1>,
+   ... ]>
 ```
 
 Now let's format the standings for humans :-) in the classic more compact table format.
@@ -221,13 +217,13 @@ print "                                        - Home -          - Away -       
 print "                                 Pld   W  D  L   F:A     W  D  L   F:A      F:A   +/-  Pts\n"
 
 standings.each do |l|
-  print '%2d. '  % l.rank
-  print '%-28s  ' % l.team
-  print '%2d  '     % l.played
+  print '%2d. '      % l.rank
+  print '%-28s  '    % l.team
+  print '%2d  '      % l.played
 
-  print '%2d '      % l.home_won
-  print '%2d '      % l.home_drawn
-  print '%2d '      % l.home_lost
+  print '%2d '       % l.home_won
+  print '%2d '       % l.home_drawn
+  print '%2d '       % l.home_lost
   print '%3d:%-3d  ' % [l.home_goals_for,l.home_goals_against]
 
   print '%2d '       % l.away_won
@@ -235,7 +231,7 @@ standings.each do |l|
   print '%2d '       % l.away_lost
   print '%3d:%-3d  ' % [l.away_goals_for,l.away_goals_against]
 
-  print '%3d:%-3d ' % [l.goals_for,l.goals_against]
+  print '%3d:%-3d '  % [l.goals_for,l.goals_against]
 
   goals_diff = l.goals_for-l.goals_against
   if goals_diff > 0

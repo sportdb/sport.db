@@ -22,7 +22,7 @@ Hoe.spec 'sports' do
   self.extra_deps = [
     ['alphabets',      '>= 1.0.0'],
     ['date-formats',   '>= 1.0.1'],
-    ['score-formats',  '>= 0.0.1'],
+    ['score-formats',  '>= 0.1.0'],
     ['csvreader',      '>= 1.2.4'],
   ]
 

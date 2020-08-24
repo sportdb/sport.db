@@ -4,6 +4,7 @@ README.md
 Rakefile
 lib/sports.rb
 lib/sports/config.rb
+lib/sports/goal_parser_csv.rb
 lib/sports/match_parser_csv.rb
 lib/sports/match_status_parser.rb
 lib/sports/name_helper.rb

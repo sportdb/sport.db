@@ -45,7 +45,7 @@ class TestPrinter < MiniTest::Test
 
       assert_equal exp, Score.new( *values ).to_s( lang: 'de' )
     end
- end
+  end
 
 end  # class TestPrinter
 

@@ -44,7 +44,7 @@ score.et  #=> [2,2]
 score.p   #=> [6,5]
 ```
 
-For now `Score` offers in addition to the read-only `ht`, `ft`, `et`, `p`  accesors some more methods:
+For now `Score` offers in addition to the read-only `ht`, `ft`, `et`, `p`  accessors some more methods:
 
 
 Use `ht?`, `ft?`, `et?`, `p?` for checking if the score components are present e.g.

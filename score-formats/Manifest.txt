@@ -5,9 +5,11 @@ Rakefile
 lib/score-formats.rb
 lib/score-formats/formats.rb
 lib/score-formats/parser.rb
+lib/score-formats/printer.rb
 lib/score-formats/score.rb
 lib/score-formats/version.rb
 lib/score/formats.rb
 test/helper.rb
 test/test_formats.rb
+test/test_printer.rb
 test/test_score.rb

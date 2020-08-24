@@ -41,7 +41,7 @@ module ScoreFormats
 
     ## note: cache all "built-in" lang versions (e.g. formats == nil)
     @@parser ||= {}
-    parser = @@parser[ lang ] ||= ScoreParser.new( lang: lang )
+    @@parser[ lang ] ||= ScoreParser.new( lang: lang )
   end
 
   def self.parse( line, lang: ScoreFormats.lang )

@@ -71,6 +71,6 @@ class TestScore < MiniTest::Test
                        score1:   2,   score2:  3,
                        score1et: nil, score2et: nil,
                        score1p:  nil, score2p:  nil ), score.to_h( :db )
- end
+  end
 
 end

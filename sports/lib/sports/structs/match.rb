@@ -27,6 +27,13 @@ class Match
   attr_accessor :goals  ## todo/fix: make goals like all other attribs!!
 
   def initialize( **kwargs )
+    @score1    =  @score2    = nil  ## full time
+    @score1i   =  @score2i   = nil  ## half time (first (i) part)
+    @score1et  =  @score2et  = nil  ## extra time
+    @score1p   =  @score2p   = nil  ## penalty
+    @score1agg =  @score2agg = nil  ## full time (all legs) aggregated
+
+
     update( kwargs )  unless kwargs.empty?
   end
 
@@ -116,15 +123,17 @@ class Match
     ##
 
     ##  for now score1 and score2 must be present
-    if @score1.nil? || @score2.nil?
-      puts "** WARN: missing scores for match:"
-      pp kwargs
-      ## exit 1
-    end
+    ## if @score1.nil? || @score2.nil?
+    ##  puts "** WARN: missing scores for match:"
+    ##  pp kwargs
+    ##  ## exit 1
+    ## end
 
     ## todo/fix: auto-calculate winner
     # return 1,2,0   1 => team1, 2 => team2, 0 => draw/tie
     ### calculate winner - use 1,2,0
+    ##
+    ##  move winner calc to score class - why? why not?
     if @score1 && @score2
        if @score1 > @score2
           @winner = 1

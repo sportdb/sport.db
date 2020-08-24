@@ -15,7 +15,7 @@ class Score
    ## e.g. allow/support
    ##      1-1 or 1 - 1      - "english" style
    ##      1:1               - "german / deutsch" style
-   ##      1x1 1X1           - "brazil/portugese" style
+   ##      1x1 1X1           - "brazil - português / portuguese" style
 
    ## note: add unicode "fancy" dash too (e.g. –)
    ## add some more - why? why not?
@@ -23,16 +23,15 @@ class Score
    if m=SCORE_SPLIT_RE.match(str)
      [m[1].to_i, m[2].to_i]
    else
-     # no match - warn if str is not empty? why? why not?
-     ##
-     ## todo/fix:
-     ## do NOT warn on
-     ##    assert_equal [], Score.split( '-' )
-     ##    assert_equal [], Score.split( '-:-' )
-     ##    assert_equal [], Score.split( '?' )
-     ## for now - add more?
+     # no match - warn if str is NOT empty? why? why not?
 
-     puts "!! WARN - cannot match (split) score format >#{str}<"  unless str.empty?
+     if str.empty? || ['-', '-:-', '?'].include?( str )
+       ## do NOT warn for known "good" empty scores for now - why? why not?
+       ##   add some more?? use Score.empty? or such - why? why not?
+     else
+       puts "!! WARN - cannot match (split) score format >#{str}<"
+     end
+
      []
    end
  end
@@ -123,7 +122,6 @@ class Score
       exit 1
     end
  end
- ## alias_method :to_hash, :to_h  ## add alias - why? why not?
 
 
  def values

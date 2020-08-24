@@ -82,13 +82,13 @@ private
 
      def has_dates?()  @start_date && @end_date; end
      def dates_str
-      ## note: start_date/end_date might be optional/missing
-      if has_dates?
-        "#{start_date.strftime( '%a %d %b %Y' )} - #{end_date.strftime( '%a %d %b %Y' )}"
-      else
-        "??? - ???"
-      end
-    end
+       ## note: start_date/end_date might be optional/missing
+       if has_dates?
+         "#{start_date.strftime( '%a %d %b %Y' )} - #{end_date.strftime( '%a %d %b %Y' )}"
+       else
+         "??? - ???"
+       end
+     end
 
     def days() end_date.jd - start_date.jd; end
 

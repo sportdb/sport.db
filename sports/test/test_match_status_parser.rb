@@ -24,7 +24,11 @@ class TestMatchStatusParser < MiniTest::Test
        puts "line (after): >#{line}<"
        puts
 
-       assert_equal status_exp, status
+       if status_exp.nil?
+        assert_nil status
+       else
+        assert_equal status_exp, status
+       end
     end
   end # method test_find
 
@@ -38,7 +42,13 @@ class TestMatchStatusParser < MiniTest::Test
     ].each do |rec|
       str        = rec[0]
       status_exp = rec[1]
-      assert_equal status_exp, StatusParser.parse( str )
+      status     = StatusParser.parse( str )
+
+      if status_exp.nil?     ##  for "silencing" minitest warning - Use assert_nil if expecting nil
+        assert_nil status
+      else
+        assert_equal status_exp, status
+      end
     end
   end
 

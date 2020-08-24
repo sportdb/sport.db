@@ -85,7 +85,7 @@ class Season
               :end_year
 
   def initialize( *args )   ## change args to years - why? why not?
-     if args.size == 1 && args[0].is_a?( Integer )
+    if args.size == 1 && args[0].is_a?( Integer )
       @start_year = args[0]
       @end_year   = args[0]
     elsif args.size == 2 && args[0].is_a?( Integer ) &&

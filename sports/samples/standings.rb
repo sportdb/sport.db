@@ -1,17 +1,9 @@
 ###
-#  to run use
+#  to run use:
 #     ruby samples/standings.rb
 
+require_relative 'boot'
 
-## note: use the local version of sportdb gems
-$LOAD_PATH.unshift( File.expand_path( '../date-formats/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../score-formats/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sports/lib' ))
-
-require 'sports'
-
-
-include Sports    ## include Match, Team, Standings, etc. data classes
 
 
 matches = Match.read_csv( 'england/2010s/2019-20/eng.1.csv' )

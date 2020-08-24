@@ -74,9 +74,6 @@ Read in all matches with the `Match.read_csv` method from the sports library / g
 ``` ruby
 require 'sports'
 
-include Sports     ## include Match, Team, Standings, etc. data classes
-
-
 matches = Match.read_csv( 'england/2010s/2019-20/eng.1.csv' )
 pp matches.size  #=> 380
 pp matches

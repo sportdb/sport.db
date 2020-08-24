@@ -1,11 +1,11 @@
 require 'hoe'
-require './lib/sports/version.rb'
+require './lib/sportdb/structs/version.rb'
 
-Hoe.spec 'sports' do
+Hoe.spec 'sportdb-structs' do
 
-  self.version = SportDb::Module::Sports::VERSION
+  self.version = SportDb::Module::Structs::VERSION
 
-  self.summary = "sports - sport data structures for matches, scores, leagues, seasons, rounds, groups, teams, clubs and more"
+  self.summary = "sportdb-structs - sport data structures for matches, scores, leagues, seasons, rounds, groups, teams, clubs and more"
   self.description = summary
 
   self.urls = ['https://github.com/sportdb/sport.db']
@@ -20,7 +20,11 @@ Hoe.spec 'sports' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-formats', '>= 1.1.4'],
+    ['alphabets',      '>= 1.0.0'],
+    ['date-formats',   '>= 1.0.1'],
+    ['score-formats',  '>= 0.1.0'],
+    ['csvreader',      '>= 1.2.4'],
+    ['sportdb-langs',  '>= 0.1.1'],
   ]
 
   self.spec_extras = {

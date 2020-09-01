@@ -13,7 +13,11 @@ class TestBase < MiniTest::Test
   end
 
   def test_root
-     puts Mono.root
+    puts Mono.root
+  end
+
+  def test_env
+    puts Mono.env
   end
 
 end # class TestBase

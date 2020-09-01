@@ -19,12 +19,13 @@ git commands on multiple repo(sitories) with a single command.
 
 ### Setup
 
-#### MOPATH - The monorepo (single source tree) root
+#### 1) The monorepo (single source tree) root - `MOPATH`
 
 Use the `MOPATH` environment variable to set the monorepo (single source tree) root
 path. The builtin default for now is `/sites`.
 
-#### `monorepo.yml` - The configuration / manifest file to list all repos
+#### 2) The configuration / manifest file to list all repos - `monorepo.yml`
+
 
 Add all repo(sitories) to the `monorepo.yml` that you want
 to be part of the "virtual" all-in-one / single mono source tree
@@ -57,7 +58,7 @@ openfootball:
 
 ### Commands
 
-`status` • `sync`
+`status` • `sync` • `env`
 
 ### `status` Command
 
@@ -95,10 +96,6 @@ RM monos/lib/monoscript.rb -> monos/lib/monos.rb
 
 ### `sync` Command
 
-Note:  `install` or `get` or `up` are all aliases that you can use for `sync`.
-
-Note: `moget` is a shortcut convenience command for `mono get` (or, that is, `mono sync`).
-
 
 Use the `sync` command to sync up (pull) changes (will use `git pull --ff-only`) on all existing repos and `git clone` for new not-yet-cloned repos.
 
@@ -113,6 +110,15 @@ $ mo get
 $ moget           # moget is a "shortcut" convenience alis for mono get
 ```
 
+Note:  `install` or `get` or `up` are all aliases that you can use for `sync`.
+
+Note: `moget` is a shortcut convenience command for `mono get` (or, that is, `mono sync`).
+
+
+
+### `env` Command
+
+Use the `env` command to check your `mono` environment setup.
 
 
 That's all for now.

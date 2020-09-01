@@ -22,6 +22,8 @@ class Tool
         'install', 'insta', 'inst', 'ins', 'i',
         'up', 'u'
       Mono.sync
+   when 'env', 'e'
+      Mono.env
    else
      puts "!! ERROR: unknown command >#{cmd}<"
      exit 1

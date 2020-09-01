@@ -15,11 +15,22 @@
 The `mono` (or short `mo`) command line tool lets you run
 git commands on multiple repo(sitories) with a single command.
 
-Add all repo(sitories) to the `monorepo.yml` that you want
-to be part of the "virtual" all-in-one / single mono source tree.
-Example:
 
-``` yml
+
+### Setup
+
+#### MOPATH - The monorepo (single source tree) root
+
+Use the `MOPATH` environment variable to set the monorepo (single source tree) root
+path. The builtin default for now is `/sites`.
+
+#### `monorepo.yml` - The configuration / manifest file to list all repos
+
+Add all repo(sitories) to the `monorepo.yml` that you want
+to be part of the "virtual" all-in-one / single mono source tree
+in your project. Example:
+
+``` yaml
 ####################
 #  checkout skripts (auto-update machinery)
 yorobot:
@@ -43,13 +54,6 @@ openfootball:
 ```
 
 
-### MOPATH - The monorepo (single source tree) root
-
-Use the `MOPATH` environment variable to set the monorepo (single source tree) root
-path. The builtin default for now is `/sites`.
-
-
-
 
 ### Commands
 
@@ -59,17 +63,17 @@ path. The builtin default for now is `/sites`.
 
 Use the `status` command to check for changes (will use `git status --short`) on all repos. Example:
 
-´´´
+```
 $ mono status
 $ mono       # status is the default command
 $ mo status  # mo is a "shortcut" convenience alias for mono
 $ mo stat
 $ mo
-´´´
+```
 
 resulting in something like:
 
-´´´
+```
 2 change(s) in 9 repo(s) @ 3 org(s)
 
 == yorobot@cache.csv - CHANGES:
@@ -85,7 +89,7 @@ RM monos/lib/monoscript.rb -> monos/lib/monos.rb
 
 == yorobot@football.csv - CHANGES:
 ?? footballdata/
-´´´
+```
 
 
 
@@ -100,14 +104,14 @@ Use the `sync` command to sync up (pull) changes (will use `git pull --ff-only`)
 
 Example:
 
-´´´
+```
 $ mono sync
 $ mono install    # install is an alias for sync
 $ mono get        # get is another alias for sync
 $ mo sync         # mo is a "shortcut" convenience alias for mono
 $ mo get
 $ moget           # moget is a "shortcut" convenience alis for mono get
-´´´
+```
 
 
 

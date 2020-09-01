@@ -32,20 +32,20 @@ to be part of the "virtual" all-in-one / single mono source tree
 in your project. Example:
 
 ``` yaml
-####################
-#  checkout skripts (auto-update machinery)
-yorobot:
-- cache.csv      ## incl. self
-- sport.db.more
-- football.db
-- football.csv
-
 ###############
 #  use latest sportdb machinery (from source)
 sportdb:
 - sport.db
 - sport.db.sources
 - football.db
+
+##############################
+#  auto-update machinery (from source)
+yorobot:
+- cache.csv
+- sport.db.more
+- football.db
+- football.csv
 
 #####################
 # football.db - open football
@@ -77,7 +77,7 @@ resulting in something like:
 ```
 2 change(s) in 9 repo(s) @ 3 org(s)
 
-== yorobot@cache.csv - CHANGES:
+== sportdb@sport.db - CHANGES:
  M monos/Manifest.txt
  M monos/README.md
  M monos/Rakefile
@@ -97,9 +97,7 @@ RM monos/lib/monoscript.rb -> monos/lib/monos.rb
 ### `sync` Command
 
 
-Use the `sync` command to sync up (pull) changes (will use `git pull --ff-only`) on all existing repos and `git clone` for new not-yet-cloned repos.
-
-Example:
+Use the `sync` command to sync up (pull) changes (will use `git pull --ff-only`) on all existing repos and `git clone` for new not-yet-cloned repos. Example:
 
 ```
 $ mono sync

@@ -144,10 +144,12 @@ class LeagueOutlineReader   ## todo/check - rename to LeaguePageReader / LeagueP
     'EL Play-off',
     'Europa League Play-off',
     'Europa-League-Play-offs',
+    'Europa League Finals',
     'Playoffs - Championship',
     'Playoffs - Europa League',
     'Playoffs - Europa League - Finals',
     'Playoffs - Relegation',
+    'Playoffs - Challenger',
     'Finals',
 
     'Apertura',

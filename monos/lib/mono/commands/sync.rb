@@ -1,43 +1,4 @@
-
-
-class GitHubRepo   ## todo: change to GitHubRepoRef or such - why? why not?
-  attr_reader :owner, :name
-
-  def initialize( owner, name )
-    @owner = owner    ## use/rename to login or something - why? why not??
-    @name  = name     #  e.g. "rubylibs/webservice"
-  end
-
-  def ssh_clone_url
-     ##  check: use https: as default? for github - http:// still supported? or redirected?
-     ## "http://github.com/#{@owner}/#{@name}"
-     "git@github.com:#{@owner}/#{@name}.git"
-  end
-end   ## class GitHubRepo
-
-
-
 module Mono
-
-  def self.monofile
-    path =  if File.exist?( './monorepo.yml' )
-               './monorepo.yml'
-            elsif File.exist?( './monotree.yml' )
-               './monotree.yml'
-            elsif File.exist?( './repos.yml' )
-               './repos.yml'
-            else
-               puts "!! WARN: no mo|moget|mono configuration file (that is, monorepo|monotree|repos.yml) found in >#{Dir.getwd}<"
-               nil
-            end
-
-    if path
-      YAML.load_file( path )
-    else
-      {}
-    end
-  end
-
 
   ## pass along hash of repos (e.g. monorepo.yml or repos.yml )
   def self.sync( h=Mono.monofile )

@@ -3,15 +3,16 @@ require './lib/mono/version.rb'
 
 Hoe.spec 'monos' do
 
-  self.version = Mono::Module::VERSION
+  self.version = Mono::VERSION
 
   self.summary = "monos - monorepo / mono source tree tools and (startup) scripts"
   self.description = summary
 
-  self.urls = ['https://github.com/sportdb/sport.db']
+  # self.urls = ['https://github.com/sportdb/sport.db' ]
+  self.urls = { home: 'https://github.com/sportdb/sport.db' }
 
   self.author = 'Gerald Bauer'
-  self.email = 'opensport@googlegroups.com'
+  self.email  = 'opensport@googlegroups.com'
 
   # switch extension to .markdown for gihub formatting
   self.readme_file  = 'README.md'

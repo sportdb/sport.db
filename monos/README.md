@@ -32,23 +32,17 @@ to be part of the "virtual" all-in-one / single mono source tree
 in your project. Example:
 
 ``` yaml
-###############
-#  use latest sportdb machinery (from source)
 sportdb:
 - sport.db
 - sport.db.sources
 - football.db
 
-##############################
-#  auto-update machinery (from source)
 yorobot:
 - cache.csv
 - sport.db.more
 - football.db
 - football.csv
 
-#####################
-# football.db - open football
 openfootball:
 - leagues
 - clubs
@@ -77,7 +71,7 @@ resulting in something like:
 ```
 2 change(s) in 9 repo(s) @ 3 org(s)
 
-== sportdb@sport.db - CHANGES:
+-- sportdb@sport.db - CHANGES:
  M monos/Manifest.txt
  M monos/README.md
  M monos/Rakefile
@@ -88,7 +82,7 @@ RM monos/lib/monoscript.rb -> monos/lib/monos.rb
  M monos/test/test_base.rb
 ?? monos/bin/
 
-== yorobot@football.csv - CHANGES:
+-- yorobot@football.csv - CHANGES:
 ?? footballdata/
 ```
 

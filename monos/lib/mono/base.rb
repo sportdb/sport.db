@@ -16,6 +16,25 @@ module Mono
     end
   end
 
+  def self.monofile
+    path =  if File.exist?( './monorepo.yml' )
+               './monorepo.yml'
+            elsif File.exist?( './monotree.yml' )
+               './monotree.yml'
+            elsif File.exist?( './repos.yml' )
+               './repos.yml'
+            else
+               puts "!! WARN: no mono configuration file (that is, {monorepo,monotree,repos}.yml) found in >#{Dir.getwd}<"
+               nil
+            end
+
+    if path
+      YAML.load_file( path )
+    else
+      {}
+    end
+  end
+
 end  ## module Mono
 
 

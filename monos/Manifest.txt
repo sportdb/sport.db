@@ -7,11 +7,12 @@ bin/moget
 bin/mono
 lib/mono.rb
 lib/mono/base.rb
+lib/mono/commands/env.rb
+lib/mono/commands/status.rb
+lib/mono/commands/sync.rb
 lib/mono/git/base.rb
-lib/mono/git/status.rb
-lib/mono/git/sync.rb
-lib/mono/git/tool.rb
 lib/mono/sportdb.rb
+lib/mono/tool.rb
 lib/mono/version.rb
 lib/monos.rb
 test/helper.rb

@@ -172,3 +172,23 @@ class GitRepo
 
 
 end # class GitRepo
+
+
+
+
+## todo: change to GitHubRepoRef or such - why? why not?
+class GitHubRepo
+  attr_reader :owner, :name
+
+  def initialize( owner, name )
+    @owner = owner    ## use/rename to login or something - why? why not??
+    @name  = name     #  e.g. "rubylibs/webservice"
+  end
+
+  def ssh_clone_url
+     ##  check: use https: as default? for github - http:// still supported? or redirected?
+     ## "http://github.com/#{@owner}/#{@name}"
+     "git@github.com:#{@owner}/#{@name}.git"
+  end
+end   ## class GitHubRepo
+

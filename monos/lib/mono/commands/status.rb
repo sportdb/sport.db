@@ -1,5 +1,3 @@
-
-
 module Mono
 
   ## pass along hash of repos (e.g. monorepo.yml or repos.yml )

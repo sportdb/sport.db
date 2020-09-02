@@ -2,16 +2,19 @@
 ##   for the gem version info e.g. Mono::Module vs Mono
 
 module Mono
+  MAJOR = 0    ## todo: namespace inside version or something - why? why not??
+  MINOR = 1
+  PATCH = 2
+  VERSION = [MAJOR,MINOR,PATCH].join('.')
+
+  def self.version
+    VERSION
+  end
+
+
   module Module
-
-    MAJOR = 0    ## todo: namespace inside version or something - why? why not??
-    MINOR = 1
-    PATCH = 2
-    VERSION = [MAJOR,MINOR,PATCH].join('.')
-
-    def self.version
-      VERSION
-    end
+     ## note: move root to its own namespace to avoid
+     ##   conflict with Mono.root!!!!
 
     def self.banner
       "monos/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"

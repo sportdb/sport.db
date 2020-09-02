@@ -31,7 +31,11 @@ module Mono
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sports/lib" )
 
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-importers/lib" )
-    ## todo - add readers, models, sync, etc.
+    $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-readers/lib" )
+    $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-sync/lib" )
+    $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-models/lib" )
+
+    ## todo/check: add fifa, footballdb-leagues, footballdb-clubs too ???
 
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-catalogs/lib" )
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-formats/lib" )
@@ -39,7 +43,7 @@ module Mono
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-langs/lib" )
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/score-formats/lib" )
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/date-formats/lib" )
-
+    $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/alphabets/lib" )
 
     pp $:  # print load path
   end

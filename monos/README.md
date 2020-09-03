@@ -52,7 +52,7 @@ openfootball:
 
 ### Commands
 
-`status` • `sync` • `env`
+`status` • `fetch` • `sync` • `env`
 
 ### `status` Command
 
@@ -87,6 +87,16 @@ RM monos/lib/monoscript.rb -> monos/lib/monos.rb
 ```
 
 
+### `fetch` Command
+
+Use the `fetch` command to fetch all (remote) changes (will use `git fetch`) on all existing repos and warn about not-yet-cloned repos. Example:
+
+```
+$ mono fetch
+$ mo fetch         # mo is a "shortcut" convenience alias for mono
+```
+
+
 
 ### `sync` Command
 
@@ -99,12 +109,9 @@ $ mono install    # install is an alias for sync
 $ mono get        # get is another alias for sync
 $ mo sync         # mo is a "shortcut" convenience alias for mono
 $ mo get
-$ moget           # moget is a "shortcut" convenience alis for mono get
 ```
 
 Note:  `install` or `get` or `up` are all aliases that you can use for `sync`.
-
-Note: `moget` is a shortcut convenience command for `mono get` (or, that is, `mono sync`).
 
 
 

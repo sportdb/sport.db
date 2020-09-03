@@ -15,13 +15,15 @@ class Tool
 
    ## note: allow shortcut for commands
    case cmd.downcase
-   when 'status', 'stati', 'stat', 's'
+   when 'status', 'stati', 'stat', 'st', 's'
       Mono.status
    when 'sync', 'syn', 'sy',  ## note: allow aliases such as install, get & up too
         'get', 'g',
         'install', 'insta', 'inst', 'ins', 'i',
         'up', 'u'
       Mono.sync
+   when 'fetch', 'f'
+      Mono.fetch
    when 'env', 'e'
       Mono.env
    else

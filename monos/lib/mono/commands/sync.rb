@@ -26,7 +26,7 @@ module Mono
 
           Dir.chdir( org_path ) do
             if Dir.exist?( repo.name )
-              GitRepo.open( repo.name ) do |git|
+              GitProject.open( repo.name ) do |git|
                 if git.changes?
                   puts "!! WARN - local changes in workdir; skipping fast forward (remote) sync / merge"
                 else

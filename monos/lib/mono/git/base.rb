@@ -58,6 +58,11 @@ class Git   ## make Git a module - why? why not?
   #######
   ## more (major) git commands
 
+  def self.fetch
+    cmd = 'git fetch'
+    Shell.run( cmd )
+  end
+
   def self.pull
     cmd = 'git pull'
     Shell.run( cmd )
@@ -93,6 +98,14 @@ class Git   ## make Git a module - why? why not?
     cmd << %Q{ -m "#{message}"}  unless message.nil? || message.empty?
     Shell.run( cmd )
   end
+
+
+  def self.files( pathspec=nil )  ## e.g. git ls-files .  or git ls-files *.rb or such
+    cmd = 'git ls-files'
+    cmd << " #{pathspec}"   unless pathspec.nil? || pathspec.empty?
+    Shell.run( cmd )
+  end
+  ## add list_files or ls_files alias - why? why not?
 
 
 ###
@@ -135,15 +148,17 @@ end # class Git
 
 
 
-class GitRepo
+class GitProject
   def self.open( path, &blk )
     new( path ).open( &blk )
   end
 
   def initialize( path )
-    raise ArgumentError, "dir >#{path}< not found; dir MUST already exist for GitRepo class - sorry"   unless Dir.exist?( path )
+    raise ArgumentError, "dir >#{path}< not found; dir MUST already exist for GitProject class - sorry"   unless Dir.exist?( path )
+    raise ArgumentError, "dir >#{path}/.git< not found; dir MUST already be initialized with git for GitProject class - sorry"  unless Dir.exist?( "#{path}/.git" )
     @path = path
   end
+
 
   def open( &blk )
     ## puts "Dir.getwd: #{Dir.getwd}"
@@ -160,6 +175,8 @@ class GitRepo
   def changes?()                Git.changes?; end
   alias_method :dirty?, :changes?
 
+
+  def fetch()                   Git.fetch; end
   def pull()                    Git.pull; end
   def fast_forward()            Git.fast_forward; end
   alias_method :ff, :fast_forward
@@ -170,13 +187,15 @@ class GitRepo
   def add_all()                 Git.add_all; end
   def commit( message: )        Git.commit( message: message ); end
 
+  def files( pathspec=nil )     Git.files( pathspec ); end
 
-end # class GitRepo
+end # class GitProject
 
 
 
 
-## todo: change to GitHubRepoRef or such - why? why not?
+## todo: change to GitHubRepoRef or GitHubProject
+##   or Git::GitHub or Git::Source::GitHub or such - why? why not?
 class GitHubRepo
   attr_reader :owner, :name
 

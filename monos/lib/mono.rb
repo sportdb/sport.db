@@ -14,6 +14,7 @@ require 'mono/base'
 require 'mono/git/base'
 
 require 'mono/commands/status'
+require 'mono/commands/fetch'
 require 'mono/commands/sync'
 require 'mono/commands/env'
 require 'mono/tool'

@@ -1,9 +1,7 @@
 module Mono
 
   ## pass along hash of repos (e.g. monorepo.yml or repos.yml )
-  def self.status( h=Mono.monofile )
-    changes =  []   ## track changes
-
+  def self.fetch( h=Mono.monofile )
     count_orgs  = 0
     count_repos = 0
 
@@ -29,16 +27,10 @@ module Mono
           Dir.chdir( org_path ) do
             if Dir.exist?( repo.name )
               GitProject.open( repo.name ) do |git|
-                output = git.changes
-                if output.empty?
-                   puts "   - no changes -"
-                else
-                  changes << ["#{org}@#{name}", :CHANGES, output]
-                end
+                git.fetch
               end
             else
               puts "!!  repo not found / missing"
-              changes << ["#{org}@#{name}", :NOT_FOUND]
             end
           end
 
@@ -50,22 +42,8 @@ module Mono
 
     ## print stats & changes summary
     puts
-    print "#{changes.size} change(s) in "
     print "#{count_repos} repo(s) @ #{count_orgs} org(s)"
     print "\n"
-
-    changes.each do |item|
-      puts
-      print "== #{item[0]} - #{item[1]}"
-      case item[1]
-      when :CHANGES
-        print ":\n"
-        print item[2]
-      when :NOT_FOUND
-        print "\n"
-      end
-    end
-
-  end # method status
+  end # method fetch
 
 end  # module Mono

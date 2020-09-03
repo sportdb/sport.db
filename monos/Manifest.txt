@@ -3,11 +3,11 @@ Manifest.txt
 README.md
 Rakefile
 bin/mo
-bin/moget
 bin/mono
 lib/mono.rb
 lib/mono/base.rb
 lib/mono/commands/env.rb
+lib/mono/commands/fetch.rb
 lib/mono/commands/status.rb
 lib/mono/commands/sync.rb
 lib/mono/git/base.rb

@@ -12,11 +12,11 @@ module Mono
 
     puts "git version:"
     Git.version
-    ## Git.config_get( 'user.name' )
-    ## Git.config_get( 'user.email', show_origin: true )
+    ## Git.config( 'user.name' )
+    ## Git.config( 'user.email', show_origin: true )
 
     ## dump/print all user.* settings e.g. user.name, user.email
-    Git.config_get_regexp( 'user', show_origin: true )
+    Git.config( /user/, show_origin: true )
 
     puts
     puts "monorepo.yml:"

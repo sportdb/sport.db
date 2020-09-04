@@ -134,18 +134,24 @@ class Git   ## make Git a module - why? why not?
 
   ########
   ## query git configuration helpers
-
-  def self.config_get( prop, show_origin: false )  ## find a better name e.g. get_config? why? why not?
-    cmd = "git config --get"
+  def self.config( prop,
+                   show_origin: false,
+                   show_scope: false )  ## find a better name e.g. config_get? why? why not?
+    cmd = "git config"
     cmd << " --show-origin"   if show_origin
-    cmd << " #{prop}"
-    Shell.run( cmd )
-  end
+    cmd << " --show-scope"    if show_scope
 
-  def self.config_get_regexp( prop, show_origin: false )  ## find a better name? why? why not?
-    cmd = "git config --get-regexp"
-    cmd << " --show-origin"   if show_origin
-    cmd << " #{prop}"
+    if prop.is_a?( Regexp )
+      ## note: use Regexp#source
+      ##    Returns the original string of the pattern.
+      ##      e.g. /ab+c/ix.source #=> "ab+c"
+      ##    Note that escape sequences are retained as is.
+      ##    /\x20\+/.source  #=> "\\x20\\+"
+      cmd << " --get-regexp #{prop.source}"
+    else  ## assume string
+      cmd << " --get #{prop}"
+    end
+
     Shell.run( cmd )
   end
 

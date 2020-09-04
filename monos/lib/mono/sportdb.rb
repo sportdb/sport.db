@@ -1,3 +1,11 @@
+########
+##
+#  fix:
+#   move to sportdb/setup   or sportdb/boot ?
+#   use module SportDb::Boot
+
+
+
 ##########
 #  setup load path
 #     lets you use environments
@@ -9,13 +17,45 @@
 
 
 
+
+
+$RUBYLIBS_DEBUG = true
+$RUBYCOCO_DEBUG = true    ## always include (NOT just in sportdb?)
+
+
+### include / check for ruby debug flag too - why? why not?
+def debug?     ## always include (NOT just insportdb?)
+  value = ENV['DEBUG']
+  if value && ['true', 't',
+               'yes', 'y',
+               'on'].include?( value.downcase )
+    true
+  else
+    false
+  end
+end
+
+
 require_relative '../mono'
+
+
+
+
+SPORTDB_DIR      = "#{Mono.root}/sportdb"     # path to libs
+OPENFOOTBALL_DIR = "#{Mono.root}/openfootball"
+## add more "standard" dirs - why? why not? - why? why not?
+##   use
+##  module SportDb::Source / Code / Boot or such????
+##
+##  use module SportDb::Boot  - yes, yes, yes - why? why not?
+
 
 
 ## convenience pre-configured/pre-built shortcut - lets you use
 ##    require 'mono/sportdb'
 ##    Mono.setup
 
+##  use SportDb::Boot.setup (setup_load_path)  or such??? - why? why not?
 
 module Mono
     def self.setup   ## setup load path
@@ -34,10 +74,14 @@ module Mono
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-readers/lib" )
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-sync/lib" )
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-models/lib" )
-
-    ## todo/check: add fifa, footballdb-leagues, footballdb-clubs too ???
-
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-catalogs/lib" )
+
+    ## todo/check:
+    ##   add fifa, footballdb-leagues, footballdb-clubs too ???
+    $LOAD_PATH.unshift( "#{root}/sportdb/football.db/footballdb-clubs/lib" ))
+    $LOAD_PATH.unshift( "#{root}/sportdb/football.db/footballdb-leagues/lib" ))
+    $LOAD_PATH.unshift( "#{root}/sportdb/football.db/fifa/lib" ))
+
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-formats/lib" )
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-structs/lib" )
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/sportdb-langs/lib" )

@@ -97,11 +97,13 @@ class Git   ## make Git a module - why? why not?
     Shell.run( cmd )
   end
 
-  def self.commit( message: )
-    cmd = 'git commit'
-
+  def self.commit( message )
     ### todo/check: make message.nil? an ArgumentError - why? why not?
-    cmd << %Q{ -m "#{message}"}  unless message.nil? || message.empty?
+    ###  if message.nil? || message.empty?
+
+    cmd = 'git commit'
+    cmd << %Q{ -m "#{message}"}
+
     Shell.run( cmd )
   end
 
@@ -238,7 +240,7 @@ class GitProject
 
   def add( pathspec )           Git.add( pathspec ); end
   def add_all()                 Git.add_all; end
-  def commit( message: )        Git.commit( message: message ); end
+  def commit( message )         Git.commit( message ); end
 
   def files()                   Git.files; end
 

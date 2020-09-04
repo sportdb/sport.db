@@ -20,5 +20,14 @@ class TestBase < MiniTest::Test
     puts Mono.env
   end
 
+
+  def test_git_config
+    Git.config_get( 'user.name' )
+    Git.config_get( 'user.name', show_origin: true )
+
+    Git.config_get_regexp( 'user' )
+    Git.config_get_regexp( 'user', show_origin: true )
+  end
+
 end # class TestBase
 

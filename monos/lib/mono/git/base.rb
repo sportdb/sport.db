@@ -99,6 +99,8 @@ class Git   ## make Git a module - why? why not?
 
   def self.commit( message: )
     cmd = 'git commit'
+
+    ### todo/check: make message.nil? an ArgumentError - why? why not?
     cmd << %Q{ -m "#{message}"}  unless message.nil? || message.empty?
     Shell.run( cmd )
   end
@@ -106,23 +108,46 @@ class Git   ## make Git a module - why? why not?
 
   #############
   #  change git ls-files to git ls-tree ... - why? why not?
+  ##  - note: git ls-files will include stages files too
+  #                not only committed ones!!!
   #
   #  git ls-tree --full-tree --name-only -r HEAD
-  #   --full-tree makes the command run as if you were in the repo's root directory.
-  #   -r recurses into subdirectories. Combined with --full-tree, this gives you all committed, tracked files.
-  #   --name-only removes SHA / permission info for when you just want the file paths.
-  #   HEAD specifies which branch you want the list of tracked, committed files for.
-  #     You could change this to master or any other branch name, but HEAD is the commit you have checked out right now.
+  #   1)  --full-tree makes the command run as if you were in the repo's root directory.
+  #   2)  -r recurses into subdirectories. Combined with --full-tree, this gives you all committed, tracked files.
+  #   3)  --name-only removes SHA / permission info for when you just want the file paths.
+  #   4)  HEAD specifies which branch you want the list of tracked, committed files for.
+  #       You could change this to master or any other branch name, but HEAD is the commit you have checked out right now.
   #
   #   see https://stackoverflow.com/questions/15606955/how-can-i-make-git-show-a-list-of-the-files-that-are-being-tracked
   #
   #  was:
 
   def self.files  ## was: e.g. git ls-files .  or git ls-files *.rb or such
-    cmd =  'git ls-tree --full-tree --name-only -r HEAD'  # was:  'git ls-files'
+    ### todo/check: include --full-tree - why? why not?
+    ##   will ALWAYS list all files NOT depending on (current) working directory
+
+    cmd = 'git ls-tree --full-tree --name-only -r HEAD'  # was:  'git ls-files'
     Shell.run( cmd )
   end
   ## add list_files or ls_files alias - why? why not?
+
+
+  ########
+  ## query git configuration helpers
+
+  def self.config_get( prop, show_origin: false )  ## find a better name e.g. get_config? why? why not?
+    cmd = "git config --get"
+    cmd << " --show-origin"   if show_origin
+    cmd << " #{prop}"
+    Shell.run( cmd )
+  end
+
+  def self.config_get_regexp( prop, show_origin: false )  ## find a better name? why? why not?
+    cmd = "git config --get-regexp"
+    cmd << " --show-origin"   if show_origin
+    cmd << " #{prop}"
+    Shell.run( cmd )
+  end
 
 
 ###

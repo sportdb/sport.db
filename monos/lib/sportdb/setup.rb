@@ -13,7 +13,7 @@
 
 
 ## todo/fix: move later app/gem-family/-specific configs
-##   to its own gem e.g. mono-sportdb or such - why? why not?
+##   to its own gem e.g. mono-sportdb or sportdb-boot/starter/startup or such - why? why not?
 
 
 
@@ -40,30 +40,22 @@ require_relative '../mono'
 
 
 
-
-SPORTDB_DIR      = "#{Mono.root}/sportdb"     # path to libs
-OPENFOOTBALL_DIR = "#{Mono.root}/openfootball"
-## add more "standard" dirs - why? why not? - why? why not?
-##   use
-##  module SportDb::Source / Code / Boot or such????
-##
-##  use module SportDb::Boot  - yes, yes, yes - why? why not?
-
-
-
 ## convenience pre-configured/pre-built shortcut - lets you use
-##    require 'mono/sportdb'
-##    Mono.setup
+##    require 'sportdb/setup'
+##    SportDb::Boot.setup
 
-##  use SportDb::Boot.setup (setup_load_path)  or such??? - why? why not?
 
-module Mono
-    def self.setup   ## setup load path
+module SportDb
+module Boot
+  def self.root()  Mono.root; end
+
+  def self.setup   ## setup load path
 ### note: for now always assume dev/development
 ###   add ENV check later or pass in as args or such
 
-    puts "Mono.root: >#{root}<"
+    puts "SportDb::Boot.root: >#{root}<"
 
+    ### todo/fix: use an inline Gemfile and bundler's setup? why? why not?
     $LOAD_PATH.unshift( "#{root}/yorobot/sport.db.more/sportdb-exporters/lib" )
     $LOAD_PATH.unshift( "#{root}/yorobot/sport.db.more/sportdb-writers/lib" )
     $LOAD_PATH.unshift( "#{root}/yorobot/sport.db.more/sportdb-linters/lib" )
@@ -90,20 +82,25 @@ module Mono
     $LOAD_PATH.unshift( "#{root}/sportdb/sport.db/alphabets/lib" )
 
     pp $:  # print load path
-  end
-end # module Mono
+    end  # method setup
+end # module Boot
+end # module Sportdb
 
 
-## todo/fix:
-##   use
-##   module Starter
-##    module SportDb
-##      def setup ...
-##   end
-##   end
+### use something like SportDb::Path[:sportdb]
+##                     SportDb.path( :sportdb )
+##                     SportDb::Boot.sportdb_path or sportdb_dir or such???
+##                     SportDb::Env.path( 'sportdb' )  ???
+##                     SportDb::Env::SPORTDB_DIR ???
+##                     or such - why? why not?
 ##
-## or such? and use Mono.extend - why? why not?
-## module Mono
-##   extend Starter::SportDb
-## end
+##  check rails path setup / style ???
+
+SPORTDB_DIR      = "#{SportDb::Boot.root}/sportdb"     # path to libs
+OPENFOOTBALL_DIR = "#{SportDb::Boot.root}/openfootball"
+## add more "standard" dirs - why? why not? - why? why not?
+##   use
+##  module SportDb::Source / Code / Boot or such????
+##
+##  use module SportDb::Boot  - yes, yes, yes - why? why not?
 

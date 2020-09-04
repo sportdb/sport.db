@@ -26,6 +26,8 @@ class Tool
       Mono.fetch
    when 'env', 'e'
       Mono.env
+   when 'run', 'r', 'exec'
+      Mono.run( args )
    else
      puts "!! ERROR: unknown command >#{cmd}<"
      exit 1

@@ -1,6 +1,10 @@
 
+## raised by Git::Shell.run -- check if top-level ShellError alread exists?
+##   use ShellError or RunError - why? why not?
+##   and make Git::Shell top-level e.g. Shell - why? why not?
 class GitError < StandardError
 end
+
 
 class Git   ## make Git a module - why? why not?
 
@@ -152,10 +156,15 @@ def self.run( cmd )
   else
     puts "!! ERROR: cmd exec >#{cmd}< failed with exit status #{status.exitstatus}:"
     puts stderr
-    raise GitError, "git cmd exec >#{cmd}< failed with exit status #{status.exitstatus}<: #{stderr}"
+
+    ### todo/fix:  do NOT use GitError here!!! make it more "general"
+    ###   use a Git::Shell.run() wrapper or such - why? why not?
+    ##   or use a Shell.git() or Shell.git_run() ???
+    ##   or pass in error class - why? why not?
+    raise GitError, "cmd exec >#{cmd}< failed with exit status #{status.exitstatus}<: #{stderr}"
   end
 end
-end # class Shell
+end # class Git::Shell
 
 end # class Git
 
@@ -201,6 +210,8 @@ class GitProject
   def commit( message: )        Git.commit( message: message ); end
 
   def files()                   Git.files; end
+
+  def run( cmd )                Git::Shell.run( cmd ); end
 
 end # class GitProject
 

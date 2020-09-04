@@ -26,8 +26,8 @@ module Mono
 
           Dir.chdir( org_path ) do
             if Dir.exist?( repo.name )
-              GitProject.open( repo.name ) do |git|
-                git.fetch
+              GitProject.open( repo.name ) do |proj|
+                proj.fetch
               end
             else
               puts "!!  repo not found / missing"

@@ -52,7 +52,7 @@ openfootball:
 
 ### Commands
 
-`status` • `fetch` • `sync` • `env`
+`status` • `fetch` • `sync` • `run` •`env`
 
 ### `status` Command
 
@@ -112,6 +112,27 @@ $ mo get
 ```
 
 Note:  `install` or `get` or `up` are all aliases that you can use for `sync`.
+
+
+### `run` Command
+
+Use the `run` command to run any command in all repos. Example:
+
+```
+$ mono run git ls-files
+$ mono exec git ls-files   # exec is an alias for run
+$ mo run git ls-files      # mo is a "shortcut" convenience alias for mono
+$ mo exec git ls-files
+
+# -or-
+
+$ mono run tree
+$ mono exec tree
+$ mo run tree
+$ mo exec tree
+```
+
+Note: `exec` is an alias that you can use for `run`.
 
 
 

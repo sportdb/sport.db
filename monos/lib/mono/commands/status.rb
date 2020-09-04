@@ -28,8 +28,8 @@ module Mono
 
           Dir.chdir( org_path ) do
             if Dir.exist?( repo.name )
-              GitProject.open( repo.name ) do |git|
-                output = git.changes
+              GitProject.open( repo.name ) do |proj|
+                output = proj.changes
                 if output.empty?
                    puts "   - no changes -"
                 else

@@ -17,6 +17,7 @@ require 'mono/commands/status'
 require 'mono/commands/fetch'
 require 'mono/commands/sync'
 require 'mono/commands/env'
+require 'mono/commands/run'
 require 'mono/tool'
 
 

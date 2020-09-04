@@ -1,12 +1,19 @@
 module Mono
 
-  ## pass along hash of repos (e.g. monorepo.yml or repos.yml )
-  def self.sync( h=Mono.monofile )
+  def self.run( *args )
+    ## todo/fix: use a "standard" argument to pass along hash of repos
+    ##   (e.g. monorepo.yml or repos.yml ) how?  - why? why not?
+    h = Mono.monofile
+
+
+    cmd = args.join( ' ' )
+
     count_orgs  = 0
     count_repos = 0
 
     ## sum up total number of repos
     total_repos = h.reduce(0) {|sum,(_,names)| sum+= names.size; sum }
+
 
     h.each do |org_with_counter,names|
 
@@ -17,7 +24,6 @@ module Mono
       org = org_with_counter.sub( /\([0-9]+\)/, '' ).strip
 
       org_path = "#{Mono.root}/#{org}"
-      FileUtils.mkdir_p( org_path ) unless Dir.exist?( org_path )   ## make sure path exists
 
       names.each do |name|
           puts "[#{count_repos+1}/#{total_repos}] #{org}@#{name}..."
@@ -27,33 +33,23 @@ module Mono
           Dir.chdir( org_path ) do
             if Dir.exist?( repo.name )
               GitProject.open( repo.name ) do |proj|
-                if proj.changes?
-                  puts "!! WARN - local changes in workdir; skipping fast forward (remote) sync / merge"
-                else
-                  proj.fast_forward   ## note: use git pull --ff-only (fast forward only - do NOT merge)
-                end
+                proj.run( cmd )
               end
             else
-              Git.clone( repo.ssh_clone_url )
+              puts "!!  repo not found / missing"
             end
           end
-
-#
-# todo/fix: add (back) error log !!!!!!!!!!!!
-#        rescue GitError => ex
-#          puts "!! ERROR: #{ex.message}"
-#
-#          File.open( './errors.log', 'a' ) do |f|
-#              f.write "#{Time.now} -- repo #{org}/#{name} - #{ex.message}\n"
-#           end
 
           count_repos += 1
       end
       count_orgs += 1
     end
 
-    ## print stats
-    puts "#{count_repos} repo(s) @ #{count_orgs} org(s)"
-  end # method sync
+
+    ## print stats & changes summary
+    puts
+    print "#{count_repos} repo(s) @ #{count_orgs} org(s)"
+    print "\n"
+  end # method run
 
 end  # module Mono

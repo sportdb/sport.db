@@ -2,7 +2,7 @@ module Mono
 
   def self.env   ## check environment setup
     puts "Mono.root (MOPATH): >#{Mono.root}<"
-    puts "Mono::Module.root:  >#{Mono::Module.root}<"
+    puts "MonoCore.root:  >#{MonoCore.root}<"
     puts
 
     ## add ruby version and path - why? why not? e.g.

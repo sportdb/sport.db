@@ -29,9 +29,9 @@ module Mono
             end
 
     if path
-      YAML.load_file( path )
+      GitRepoSet.read( path )
     else
-      {}
+      GitRepoSet.new( {} )  ## return empty set -todo/check: return nil - why? why not?
     end
   end
 

@@ -1,21 +1,15 @@
 module Mono
 
   ## pass along hash of repos (e.g. monorepo.yml or repos.yml )
-  def self.sync( h=Mono.monofile )
+  def self.sync
+    repos = Mono.monofile
+
     count_orgs  = 0
     count_repos = 0
 
-    ## sum up total number of repos
-    total_repos = h.reduce(0) {|sum,(_,names)| sum+= names.size; sum }
+    total_repos = repos.size
 
-    h.each do |org_with_counter,names|
-
-      ## remove optional number from key e.g.
-      ##   mrhydescripts (3)    =>  mrhydescripts
-      ##   footballjs (4)       =>  footballjs
-      ##   etc.
-      org = org_with_counter.sub( /\([0-9]+\)/, '' ).strip
-
+    repos.each do |org,names|
       org_path = "#{Mono.root}/#{org}"
       FileUtils.mkdir_p( org_path ) unless Dir.exist?( org_path )   ## make sure path exists
 

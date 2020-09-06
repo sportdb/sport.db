@@ -3,12 +3,11 @@ require './lib/mono/version.rb'
 
 Hoe.spec 'monos' do
 
-  self.version = Mono::VERSION
+  self.version = MonoCore::VERSION
 
   self.summary = "monos - monorepo / mono source tree tools and (startup) scripts"
   self.description = summary
 
-  # self.urls = ['https://github.com/sportdb/sport.db' ]
   self.urls = { home: 'https://github.com/sportdb/sport.db' }
 
   self.author = 'Gerald Bauer'
@@ -20,7 +19,9 @@ Hoe.spec 'monos' do
 
   self.licenses = ['Public Domain']
 
-  self.extra_deps = []
+  self.extra_deps = [
+    ['gitti', '>= 0.4.0' ],
+  ]
 
   self.spec_extras = {
     required_ruby_version: '>= 2.2.2'

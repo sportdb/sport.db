@@ -8,7 +8,7 @@ Hoe.spec 'sportdb-formats' do
   self.summary = "sportdb-formats - sport.db format and text utilities"
   self.description = summary
 
-  self.urls = ['https://github.com/sportdb/sport.db']
+  self.urls = { home: 'https://github.com/sportdb/sport.db' }
 
   self.author = 'Gerald Bauer'
   self.email = 'opensport@googlegroups.com'
@@ -20,7 +20,7 @@ Hoe.spec 'sportdb-formats' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-structs', '>= 0.1.0'],
+    ['sportdb-structs', '>= 0.1.1'],
 
     ['rubyzip',         '>= 1.2.4' ],
   ]

@@ -8,7 +8,7 @@ Hoe.spec 'sportdb-sync' do
   self.summary = "sportdb-sync - sport.db sync helpers for leagues, seasons, clubs, match schedules and results, and more"
   self.description = summary
 
-  self.urls = ['https://github.com/sportdb/sport.db']
+  self.urls = { home: 'https://github.com/sportdb/sport.db' }
 
   self.author = 'Gerald Bauer'
   self.email  = 'opensport@googlegroups.com'

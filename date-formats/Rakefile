@@ -8,7 +8,7 @@ Hoe.spec 'date-formats' do
   self.summary = "date-formats - read / parse and print dates (and times) from around the world"
   self.description = summary
 
-  self.urls = ['https://github.com/sportdb/sport.db']
+  self.urls = { home: 'https://github.com/sportdb/sport.db' }
 
   self.author = 'Gerald Bauer'
   self.email = 'opensport@googlegroups.com'

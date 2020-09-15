@@ -3,19 +3,21 @@
 
 ## Gems / libs to push publish
 
-- [ ] date-formats
+- [x] date-formats   - v1.0.2
   - up comments
-- [ ] score-formats
+- [x] score-formats   - v0.1.1
   - new!
 - [x] sportdb-langs
   - up pt.yml
-- [ ] sportdb-formats
+- [x] sportdb-structs - v0.1.1
+   -
+- [x] sportdb-formats  - v1.1.5
   - up clubs props reader; break out score-formats!!!
 - [x] sportdb-catalogs
   - add club history
 - [x] sportdb-models
   - up match status
-- [ ] sportdb-sync
+- [x] sportdb-sync  - v1.1.2
   - up match update
 - [x] sportdb-readers
   - fix br - is pt!

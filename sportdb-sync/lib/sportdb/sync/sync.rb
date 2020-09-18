@@ -192,7 +192,12 @@ module SportDb
                    end
 
        ### todo/check: what happens if there's more than one match? exception raised??
-       rec = if round_rec
+       rec = if ['N. N.'].include?( team1_name ) && ## some special cases - always assume new record for now (to avoid ambigious update conflict)
+                ['N. N.'].include?( team2_name )
+               ## always assume new record for now
+               ##   check for date or such - why? why not?
+               nil
+             elsif round_rec
                ## add match status too? allows [abandoned] and [replay] in same round
                find_attributes = { round_id: round_rec.id,
                                    team1_id: team1_rec.id,

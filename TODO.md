@@ -17,7 +17,7 @@
   - add club history
 - [x] sportdb-models
   - up match status
-- [x] sportdb-sync  - v1.1.2
+- [ ] sportdb-sync  - v1.1.2
   - up match update
 - [x] sportdb-readers
   - fix br - is pt!

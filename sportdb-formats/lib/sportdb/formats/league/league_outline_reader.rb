@@ -151,6 +151,7 @@ class LeagueOutlineReader   ## todo/check - rename to LeaguePageReader / LeagueP
     'Playoffs - Relegation',
     'Playoffs - Challenger',
     'Finals',
+    'Match 6th Place',  # e.g. Super League Greece 2012/13
 
     'Apertura',
     'Apertura - Liguilla',

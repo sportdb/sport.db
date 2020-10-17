@@ -1,11 +1,9 @@
-# encoding: utf-8
-
 module SportDb
 module Module
 module Models
   MAJOR = 2
   MINOR = 0
-  PATCH = 2
+  PATCH = 3
   VERSION = [MAJOR,MINOR,PATCH].join('.')
 
   def self.version

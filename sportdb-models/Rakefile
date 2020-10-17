@@ -9,7 +9,7 @@ Hoe.spec 'sportdb-models' do
   self.summary = "sportdb-models - sport.db schema 'n' models for easy (re)use"
   self.description = summary
 
-  self.urls    = ['https://github.com/sportdb/sport.db']
+  self.urls    = { home: 'https://github.com/sportdb/sport.db' }
 
   self.author  = 'Gerald Bauer'
   self.email   = 'opensport@googlegroups.com'

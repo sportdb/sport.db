@@ -9,7 +9,7 @@ Hoe.spec 'sportdb' do
   self.summary = 'sportdb - sport.db Command Line Tool'
   self.description = summary
 
-  self.urls    = ['https://github.com/sportdb/sport.db']
+  self.urls    = { home: 'https://github.com/sportdb/sport.db' }
 
   self.author  = 'Gerald Bauer'
   self.email   = 'opensport@googlegroups.com'
@@ -34,7 +34,10 @@ Hoe.spec 'sportdb' do
     ['gli', '>= 2.19.0'],
 
     ## ['activerecord'],  # Note: will include activesupport,etc.
-    ['sqlite3']
+    ['sqlite3'],
+
+    ## more tools
+    ['football-to-sqlite'],
   ]
 
   self.licenses = ['Public Domain']

@@ -1,6 +1,3 @@
-# encoding: utf-8
-
-
 # core and stlibs  (note: get included via worlddb-models gem; see worlddb-models gem/lib)
 require 'worlddb/models'     # NOTE: include worlddb-models gem (not cli tools gem, that is, worlddb)
 require 'persondb/models'
@@ -62,6 +59,38 @@ module SportDb
     SportDb.create
   end
 
+  def self.auto_migrate!
+    ### todo/fix:
+    ##    check props table and versions!!!!!
+
+    # first time? - auto-run db migratation, that is, create db tables
+    unless LogDb::Model::Log.table_exists?
+      LogDb.create     # add logs table
+    end
+
+    unless ConfDb::Model::Prop.table_exists?
+      ConfDb.create    # add props table
+    end
+
+
+    unless TagDb::Model::Tag.table_exists?
+      TagDb.create    # add tags & taggings tables
+    end
+
+    unless WorldDb::Model::Place.table_exists?
+      WorldDb.create   # add places, & co. tables
+    end
+
+    unless PersonDb::Model::Person.table_exists?
+      PersonDb.create  # add persons table
+    end
+
+    unless SportDb::Model::League.table_exists?
+      SportDb.create
+    end
+  end # method auto_migrate!
+
+
   # delete ALL records (use with care!)
   def self.delete!
     puts '*** deleting sport table records/data...'
@@ -74,8 +103,12 @@ module SportDb
   end
 
 
-  def self.connect( config={} )
+  def self.connect!( config={} )  # convenience shortcut w/ automigrate
+    connect( config )
+    auto_migrate!
+  end
 
+  def self.connect( config={} )
     if config.empty?
       puts "ENV['DATBASE_URL'] - >#{ENV['DATABASE_URL']}<"
 

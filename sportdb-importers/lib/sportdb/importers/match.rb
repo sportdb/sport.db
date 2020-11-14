@@ -49,7 +49,7 @@ class CsvMatchImporter
                    end
 
       ## note: for now always assume 2019/20 season
-      season = Import::Season.new( '%d/%d' % [start_year, (start_year+1)%100] )
+      season = Season.parse( '%d/%d' % [start_year, (start_year+1)%100] )
       # pp season
 
 

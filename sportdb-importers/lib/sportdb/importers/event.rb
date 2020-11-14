@@ -6,13 +6,15 @@ class CsvEventImporter
   def self.read( path, league:, season:,
                        headers: nil )
     txt = File.open( path, 'r:utf-8' ) {|f| f.read }
-    parse( txt, league: league, season: season,
+    parse( txt, league:  league,
+                season:  season,
                 headers: headers )
   end
 
   def self.parse( txt, league:, season:,
                        headers: nil  )
-    new( txt, league: league, season: season,
+    new( txt, league:  league,
+              season:  season,
               headers: headers ).parse
   end
 
@@ -26,7 +28,7 @@ class CsvEventImporter
 
     ## try mapping of league here - why? why not?
     @league  = Import.catalog.leagues.find!( league )
-    @season  = Import::Season.new( season )
+    @season  = Season.parse( season )
   end
 
 

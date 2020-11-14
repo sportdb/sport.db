@@ -8,7 +8,7 @@ Hoe.spec 'sportdb-importers' do
   self.summary = "sportdb-importers - tools 'n' scripts for importing sports (football) data in alternate (text) formats incl. comma-separated values (csv) format"
   self.description = summary
 
-  self.urls = ['https://github.com/sportdb/sport.db']
+  self.urls = { home: 'https://github.com/sportdb/sport.db' }
 
   self.author = 'Gerald Bauer'
   self.email  = 'opensport@googlegroups.com'

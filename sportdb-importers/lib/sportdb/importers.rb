@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 
 ## 3rd party gemss
 require 'sportdb/sync'
@@ -53,7 +51,7 @@ def self.handle_csv( source, start: nil )
   ##             filter.skip? filter.include? ( season_sason_key )?
   ##             fiteer.before?( season_key )  etc.
   ##              find some good method names!!!!
-  season_start = start ? Import::Season.new( start ) : nil
+  season_start = start ? Season.parse( start ) : nil
 
   if source.is_a?( Datafile::DirPackage::Entry) ||
      source.is_a?( Datafile::ZipPackage::Entry)
@@ -72,10 +70,10 @@ def self.handle_csv( source, start: nil )
 
       ## todo/fix: check if season_key is proper season - e.g. matches pattern !!!!
       season_q   = File.basename( File.dirname( entry.name ))
-      season     = Import::Season.new( season_q )  ## normalize season
+      season     = Season.parse( season_q )  ## normalize season
       season_key = season.key
 
-      if season_start && season_start.start_year > season.start_year
+      if season_start && season_start > season
         ## skip if start season before this season
       else
         pp [entry.name, season_key, league_key]
@@ -106,10 +104,10 @@ def self.handle_csv( source, start: nil )
       league_key = basename
 
       season_q   = File.basename( File.dirname( full_path ) )
-      season     = Import::Season.new( season_q )  ## normalize season
+      season     = Season.parse( season_q )  ## normalize season
       season_key = season.key
 
-      if season_start && season_start.start_year > season.start_year
+      if season_start && season_start > season
         ## skip if start season before this season
       else
         ## todo/fix: check if season_key is proper season - e.g. matches pattern !!!!

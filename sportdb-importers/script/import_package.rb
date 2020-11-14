@@ -23,7 +23,7 @@ AUSTRIA_PATH = "#{FOOTBALLCSV_PATH}/austria"
 # path = AUSTRIA_PATH
 # SportDb.read_csv( path )
 
-SportDb.read_csv( "#{AUSTRIA_PATH}/2012-13/at.1.csv" )
-SportDb.read_csv( "#{AUSTRIA_PATH}/2013-14/at.1.csv" )
+SportDb.read_csv( "#{AUSTRIA_PATH}/2010s/2012-13/at.1.csv" )
+SportDb.read_csv( "#{AUSTRIA_PATH}/2010s/2013-14/at.1.csv" )
 
 puts "bye"

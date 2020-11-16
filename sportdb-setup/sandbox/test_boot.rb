@@ -6,8 +6,9 @@ SportDb::Boot.setup
 
 
 puts
-puts "SPORTDB_DIR:      #{SPORTDB_DIR}"
-puts "OPENFOOTBALL_DIR: #{OPENFOOTBALL_DIR}"
+puts "SportDb::Boot.root: #{SportDb::Boot.root}"
+puts "SPORTDB_DIR:        #{SportDb::Boot.root}/sportdb"
+puts "OPENFOOTBALL_DIR:   #{SportDb::Boot.root}/openfootball"
 
 
 

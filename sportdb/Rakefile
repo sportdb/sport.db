@@ -38,6 +38,7 @@ Hoe.spec 'sportdb' do
 
     ## more tools
     ['football-to-sqlite'],
+    ['football-cat'],
   ]
 
   self.licenses = ['Public Domain']

@@ -1,0 +1,28 @@
+require 'hoe'
+require './lib/sportdb/setup/version.rb'
+
+Hoe.spec 'sportdb-setup' do
+
+  self.version = SportDb::Module::Boot::VERSION
+
+  self.summary = "sportdb-setup - sport.db dev (source) mode boot scripts for setting up load path and more"
+  self.description = summary
+
+  self.urls = { home: 'https://github.com/sportdb/sport.db' }
+
+  self.author = 'Gerald Bauer'
+  self.email  = 'opensport@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.licenses = ['Public Domain']
+
+  self.extra_deps = []
+
+  self.spec_extras = {
+   required_ruby_version: '>= 2.2.2'
+  }
+
+end

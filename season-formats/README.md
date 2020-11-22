@@ -154,7 +154,7 @@ Season( '2019/20' ).next.next   #=>  2021/22
 
 # -or-
 
-Season( '2019' ).succ     #=>  2020
+Season( '2019' ).succ     # or
 Season( '2019' ).next     #=>  2020
 ```
 

@@ -1,6 +1,7 @@
 ## 3rd party gems
-require 'alphabets'      # downcase_i18n, unaccent, variants, ...
-require 'date/formats'   # DateFormats.parse, find!, ...
+require 'alphabets'       # downcase_i18n, unaccent, variants, ...
+require 'date/formats'    # DateFormats.parse, find!, ...
+require 'season/formats'  # Season.parse, ...
 require 'score/formats'
 require 'csvreader'
 
@@ -57,8 +58,6 @@ end   # module SportDb
 require 'sportdb/structs/version' # let version always go first
 require 'sportdb/structs/config'  # let "global" config "framework" go next - why? why not?
 
-
-require 'sportdb/structs/season'
 
 require 'sportdb/structs/name_helper'
 

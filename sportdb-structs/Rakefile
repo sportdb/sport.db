@@ -11,7 +11,7 @@ Hoe.spec 'sportdb-structs' do
   self.urls = { home: 'https://github.com/sportdb/sport.db' }
 
   self.author = 'Gerald Bauer'
-  self.email = 'opensport@googlegroups.com'
+  self.email  = 'opensport@googlegroups.com'
 
   # switch extension to .markdown for gihub formatting
   self.readme_file  = 'README.md'
@@ -23,6 +23,7 @@ Hoe.spec 'sportdb-structs' do
     ['alphabets',      '>= 1.0.0'],
     ['date-formats',   '>= 1.0.2'],
     ['score-formats',  '>= 0.1.1'],
+    ['season-formats', '>= 0.0.1'],
     ['csvreader',      '>= 1.2.4'],
     ['sportdb-langs',  '>= 0.1.1'],
   ]

@@ -8,7 +8,6 @@ lib/sportdb/structs/goal_parser_csv.rb
 lib/sportdb/structs/match_parser_csv.rb
 lib/sportdb/structs/match_status_parser.rb
 lib/sportdb/structs/name_helper.rb
-lib/sportdb/structs/season.rb
 lib/sportdb/structs/structs/country.rb
 lib/sportdb/structs/structs/goal.rb
 lib/sportdb/structs/structs/group.rb
@@ -26,4 +25,3 @@ test/test_csv_reader.rb
 test/test_match.rb
 test/test_match_status_parser.rb
 test/test_name_helper.rb
-test/test_season.rb

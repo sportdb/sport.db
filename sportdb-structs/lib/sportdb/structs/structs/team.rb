@@ -50,7 +50,7 @@ class Team
     @alt_names      = []
     @alt_names_auto = []
 
-    update( kwargs )  unless kwargs.empty?
+    update( **kwargs )  unless kwargs.empty?
   end
 
   def update( **kwargs )

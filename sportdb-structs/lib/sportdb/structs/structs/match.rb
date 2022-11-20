@@ -34,7 +34,7 @@ class Match
     @score1agg =  @score2agg = nil  ## full time (all legs) aggregated
 
 
-    update( kwargs )  unless kwargs.empty?
+    update( **kwargs )  unless kwargs.empty?
   end
 
   def update( **kwargs )

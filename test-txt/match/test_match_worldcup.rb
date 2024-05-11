@@ -6,7 +6,7 @@
 require 'helper'
 
 
-class TestMatchWorld < MiniTest::Test
+class TestMatchWorld < Minitest::Test
 
   def test_parse
     txt, exp, teams = read_test( 'match/worldcup_2018_finals.txt' )

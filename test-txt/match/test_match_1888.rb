@@ -11,7 +11,7 @@
 require 'helper'
 
 
-class TestMatch1888 < MiniTest::Test
+class TestMatch1888 < Minitest::Test
 
   def test_eng_1888
     txt =<<TXT

@@ -8,7 +8,7 @@
 require 'helper'
 
 
-class TestMatchAutoRelegation < MiniTest::Test
+class TestMatchAutoRelegation < Minitest::Test
 
   def test_rel
     txt = <<TXT

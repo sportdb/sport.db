@@ -6,7 +6,7 @@
 require 'helper'
 
 
-class TestMatchChamps < MiniTest::Test
+class TestMatchChamps < Minitest::Test
 
   def test_parse
     txt, exp, teams = read_test( 'match/champs_group.txt' )

@@ -11,6 +11,13 @@ task :test do
   end
 end
 
+task :test_match do
+  Dir.glob( './match/test_*.rb' ).each do |file|
+    puts "require_relative '#{file}'"
+    require_relative file
+  end
+end
+
 task :test_match_auto do
   Dir.glob( './match_auto/test_*.rb' ).each do |file|
     puts "require_relative '#{file}'"

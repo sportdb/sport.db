@@ -6,7 +6,7 @@
 require 'helper'
 
 
-class TestConf < MiniTest::Test
+class TestConf < Minitest::Test
 
   def test_conf
     %w[conf/at_cup.txt

@@ -6,7 +6,7 @@
 require 'helper'
 
 
-class TestMatchStart < MiniTest::Test
+class TestMatchStart < Minitest::Test
 
   def test_date
     txt =<<TXT
@@ -35,8 +35,8 @@ TXT
     pp rounds
     pp matches
 
-    assert_equal Date.new( 2017, 8, 2), matches[0].date
-    assert_equal Date.new( 2018, 1, 3), matches[1].date
-    assert_equal Date.new( 2018, 8, 4), matches[2].date
+    assert_equal '2017-08-02', matches[0].date
+    assert_equal '2018-01-03', matches[1].date
+    assert_equal '2018-08-04', matches[2].date
   end   # method test_date
 end   # class TestMatchStart

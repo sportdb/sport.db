@@ -6,7 +6,7 @@
 require 'helper'
 
 
-class TestConfRe < MiniTest::Test
+class TestConfRe < Minitest::Test
 
   COUNTRY_RE = SportDb::ConfParser::COUNTRY_RE
   TABLE_RE   = SportDb::ConfParser::TABLE_RE

@@ -8,7 +8,7 @@
 require 'helper'
 
 
-class TestMatchAutoWorldCup < MiniTest::Test
+class TestMatchAutoWorldCup < Minitest::Test
 
   def test_2018
     txt, exp = read_test( 'match_auto/worldcup_2018.txt')

@@ -1,0 +1,375 @@
+Benfica
+CSKA Moscow
+Manchester United
+Basel
+Bayern München
+Anderlecht
+Celtic
+Paris Saint-Germain
+Chelsea
+Qarabağ
+Roma
+Atlético Madrid
+Barcelona
+Juventus
+Olympiacos
+Sporting CP
+Maribor
+Spartak Moscow
+Liverpool
+Sevilla
+Feyenoord
+Manchester City
+Shakhtar Donetsk
+Napoli
+RB Leipzig
+Monaco
+Porto
+Beşiktaş
+Real Madrid
+APOEL
+Tottenham Hotspur
+Borussia Dortmund
+
+<<<<<<<<<
+
+Group A |  Manchester United    Basel                CSKA Moscow        Benfica
+Group B |  Paris Saint-Germain  Bayern München       Celtic             Anderlecht
+Group C |  Roma                 Chelsea              Atlético Madrid    Qarabağ
+Group D |  Barcelona            Juventus             Sporting CP        Olympiacos
+Group E |  Liverpool            Sevilla              Spartak Moscow     Maribor
+Group F |  Manchester City      Shakhtar Donetsk     Napoli             Feyenoord
+Group G |  Beşiktaş             Porto                RB Leipzig         Monaco
+Group H |  Tottenham Hotspur    Real Madrid          Borussia Dortmund  APOEL
+
+
+
+Matchday 1 | Sep/12 - Sep/13     ## Tu+We 12-13 September 2017
+Matchday 2 | Sep/26 - Sep/27     ## Tu+We 26-27 September 2017
+Matchday 3 | Oct/17 - Oct/18     ## Tu+We 17-18 October 2017
+Matchday 4 | Oct/31 - Nov/1      ## Tu+We 31 October - 1 November 2017
+Matchday 5 | Nov/21 - Nov/22     ## Tu+We 21-22 November 2017
+Matchday 6 | Dec/5  - Dec/6      ## Tu+We 5-6 December 2017
+
+
+
+Group A:
+
+[Tue Sep/12]
+  20.45  Benfica              1-2  CSKA Moscow          @ Estádio da Luz, Lisbon
+           [Seferović 50'; Vitinho 63' (pen.) Zhamaletdinov 71']
+  20.45  Manchester United    3-0  Basel                @ Old Trafford, Manchester
+           [Fellaini 35' Lukaku 53' Rashford 84']
+
+[Wed Sep/27]
+  20.45  Basel                5-0  Benfica              @ St. Jakob-Park, Basel
+           [Lang 2' Oberlin 20', 69' Van Wolfswinkel 60' (pen.) Riveros 76']
+  20.45  CSKA Moscow          1-4  Manchester United    @ VEB Arena, Moscow
+           [Kuchayev 90'; Lukaku 4', 27' Martial 19' (pen.) Mkhitaryan 57']
+
+[Wed Oct/18]
+  20.45  CSKA Moscow          0-2  Basel                @ VEB Arena, Moscow
+           [-; Xhaka 29' Oberlin 90']
+  20.45  Benfica              0-1  Manchester United    @ Estádio da Luz, Lisbon
+           [-; Rashford 64']
+
+[Tue Oct/31]
+  20.45  Basel                1-2  CSKA Moscow          @ St. Jakob-Park, Basel
+           [Zuffi 32'; Dzagoev 65' Wernbloom 79']
+  20.45  Manchester United    2-0  Benfica              @ Old Trafford, Manchester
+           [Svilar 45' (o.g.) Blind 78' (pen.)]
+
+[Wed Nov/22]
+  18.00  CSKA Moscow          2-0  Benfica              @ VEB Arena, Moscow
+           [Shchennikov 13' Jardel 56' (o.g.)]
+  20.45  Basel                1-0  Manchester United    @ St. Jakob-Park, Basel
+           [Lang 89']
+
+[Tue Dec/5]
+  20.45  Benfica              0-2  Basel                @ Estádio da Luz, Lisbon
+           [-; Elyounoussi 5' Oberlin 65']
+  20.45  Manchester United    2-1  CSKA Moscow          @ Old Trafford, Manchester
+           [Lukaku 64' Rashford 66'; Vitinho 45']
+
+
+
+Group B:
+
+[Tue Sep/12]
+  20.45  Bayern München       3-0  Anderlecht           @ Allianz Arena, München
+           [Lewandowski 12' (pen.) Thiago 65' Kimmich 90']
+  20.45  Celtic               0-5  Paris Saint-Germain  @ Celtic Park, Glasgow
+           [-; Neymar 19' Mbappé 34' Cavani 40' (pen.), 85' Lustig 83' (o.g.)]
+
+[Wed Sep/27]
+  20.45  Paris Saint-Germain  3-0  Bayern München       @ Parc des Princes, Paris
+           [Dani Alves 2' Cavani 31' Neymar 63']
+  20.45  Anderlecht           0-3  Celtic               @ Constant Vanden Stock Stadium, Anderlecht
+           [-; Griffiths 38' Roberts 50' Sinclair 90+3']
+
+[Wed Oct/18]
+  20.45  Anderlecht           0-4  Paris Saint-Germain  @ Constant Vanden Stock Stadium, Anderlecht
+           [-; Mbappé 3' Cavani 44' Neymar 66' Di María 88']
+  20.45  Bayern München       3-0  Celtic               @ Allianz Arena, München
+           [Müller 17' Kimmich 29' Hummels 51']
+
+[Tue Oct/31]
+  20.45  Paris Saint-Germain  5-0  Anderlecht           @ Parc des Princes, Paris
+           [Verratti 30' Neymar 45+4' Kurzawa 52', 72', 78']
+  20.45  Celtic               1-2  Bayern München       @ Celtic Park, Glasgow
+           [McGregor 74'; Coman 22' Martínez 77']
+
+[Wed Nov/22]
+  20.45  Anderlecht           1-2  Bayern München       @ Constant Vanden Stock Stadium, Anderlecht
+           [Hanni 63'; Lewandowski 51' Tolisso 77']
+  20.45  Paris Saint-Germain  7-1  Celtic               @ Parc des Princes, Paris
+           [Neymar 9', 22' Cavani 28', 79' Mbappé 35' Verratti 75' Dani Alves 80'; Dembélé 1']
+
+[Tue Dec/5]
+  20.45  Bayern München       3-1  Paris Saint-Germain  @ Allianz Arena, München
+           [Lewandowski 8' Tolisso 37', 69'; Mbappé 50']
+  20.45  Celtic               0-1  Anderlecht           @ Celtic Park, Glasgow
+           [-; Šimunović 62' (o.g.)]
+
+
+Group C:
+
+[Tue Sep/12]
+  20.45  Chelsea              6-0  Qarabağ              @ Stamford Bridge, London
+           [Pedro 5' Zappacosta 30' Azpilicueta 55' Bakayoko 71' Batshuayi 76' Medvedev 82' (o.g.)]
+  20.45  Roma                 0-0  Atlético Madrid      @ Stadio Olimpico, Rome
+
+[Wed Sep/27]
+  18.00  Qarabağ              1-2  Roma                 @ Olympic Stadium, Baku  [A]
+           [Pedro Henrique 28'; Manolas 7' Džeko 15']
+  20.45  Atlético Madrid      1-2  Chelsea              @ Wanda Metropolitano, Madrid
+           [Griezmann 40' (pen.); Morata 60' Batshuayi 90+3']
+
+[Wed Oct/18]
+  18.00  Qarabağ              0-0  Atlético Madrid      @ Olympic Stadium, Baku  [A]
+  20.45  Chelsea              3-3  Roma                 @ Stamford Bridge, London
+           [David Luiz 11' Hazard 37', 75'; Kolarov 40' Džeko 64', 70']
+
+[Tue Oct/31]
+  20.45  Atlético Madrid      1-1  Qarabağ              @ Wanda Metropolitano, Madrid
+           [Partey 56'; Míchel 40']
+  20.45  Roma                 3-0  Chelsea              @ Stadio Olimpico, Rome
+           [El Shaarawy 1', 36' Perotti 63']
+
+[Wed Nov/22]
+  18.00  Qarabağ              0-4  Chelsea              @ Olympic Stadium, Baku  [A]
+           [-; Hazard 21' (pen.) Willian 36', 85' Fàbregas 73' (pen.)]
+  20.45  Atlético Madrid      2-0  Roma                 @ Wanda Metropolitano, Madrid
+           [Griezmann 69' Gameiro 85']
+
+[Tue Dec/5]
+  20.45  Chelsea              1-1  Atlético Madrid      @ Stamford Bridge, London
+           [Savić 75' (o.g.); Saúl 56']
+  20.45  Roma                 1-0  Qarabağ              @ Stadio Olimpico, Rome
+           [Perotti 53']
+
+###
+# [^A]: Qarabağ played their home matches at Olympic Stadium, Baku,
+#       instead of their regular stadium Azersun Arena, Baku.
+
+
+
+Group D:
+
+[Tue Sep/12]
+  20.45  Barcelona            3-0  Juventus             @ Camp Nou, Barcelona
+           [Messi 45', 69' Rakitić 56']
+  20.45  Olympiacos           2-3  Sporting CP          @ Karaiskakis Stadium, Piraeus
+           [Pardo 89', 90+3'; Doumbia 2' Gelson M. 13' Fernandes 43']
+
+[Wed Sep/27]
+  20.45  Sporting CP          0-1  Barcelona            @ Estádio José Alvalade, Lisbon
+           [-; Coates 49' (o.g.)]
+  20.45  Juventus             2-0  Olympiacos           @ Juventus Stadium, Turin
+           [Higuaín 69' Mandžukić 80']
+
+[Wed Oct/18]
+  20.45  Juventus             2-1  Sporting CP          @ Juventus Stadium, Turin
+           [Pjanić 29' Mandžukić 84'; Alex Sandro 12' (o.g.)]
+  20.45  Barcelona            3-1  Olympiacos           @ Camp Nou, Barcelona
+           [Nikolaou 18' (o.g.) Messi 61' Digne 64'; Nikolaou 90']
+
+[Tue Oct/31]
+  20.45  Sporting CP          1-1  Juventus             @ Estádio José Alvalade, Lisbon
+           [Bruno César 20'; Higuaín 79']
+  20.45  Olympiacos           0-0  Barcelona            @ Karaiskakis Stadium, Piraeus
+
+[Wed Nov/22]
+  20.45  Juventus             0-0  Barcelona            @ Juventus Stadium, Turin
+  20.45  Sporting CP          3-1  Olympiacos           @ Estádio José Alvalade, Lisbon
+           [Dost 40', 66' Bruno César 43'; Odjidja-Ofoe 86']
+
+[Tue Dec/5]
+  20.45  Barcelona            2-0  Sporting CP          @ Camp Nou, Barcelona
+           [Alcácer 59' Mathieu 90+1' (o.g.)]
+  20.45  Olympiacos           0-2  Juventus             @ Karaiskakis Stadium, Piraeus
+           [-; Cuadrado 15' Bernardeschi 90']
+
+
+Group E:
+
+[Wed Sep/13]
+  20.45  Maribor              1-1  Spartak Moscow       @ Ljudski vrt, Maribor
+           [Bohar 85'; Samedov 59']
+  20.45  Liverpool            2-2  Sevilla              @ Anfield, Liverpool
+           [Firmino 21' Salah 37'; Ben Yedder 5' Correa 72']
+
+[Tue Sep/26]
+  20.45  Sevilla              3-0  Maribor              @ Ramón Sánchez Pizjuán, Seville
+           [Ben Yedder 27', 38', 83' (pen.)]
+  20.45  Spartak Moscow       1-1  Liverpool            @ Otkritie Arena, Moscow
+           [Fernando 23'; Coutinho 31']
+
+[Tue Oct/17]
+  20.45  Spartak Moscow       5-1  Sevilla              @ Otkritie Arena, Moscow
+           [Promes 18', 90' Melgarejo 58' Glushakov 67' Luiz Adriano 74'; Kjær 30']
+  20.45  Maribor              0-7  Liverpool            @ Ljudski vrt, Maribor
+           [-; Firmino 4', 54' Coutinho 13' Salah 19', 40' Oxlade-Chamberlain 86' Alexander-Arnold 90']
+
+[Wed Nov/1]
+  20.45  Sevilla              2-1  Spartak Moscow       @ Ramón Sánchez Pizjuán, Seville
+           [Lenglet 30' Banega 59'; Zé Luís 78']
+  20.45  Liverpool            3-0  Maribor              @ Anfield, Liverpool
+           [Salah 49' Can 64' Sturridge 90']
+
+[Tue Nov/21]
+  18.00  Spartak Moscow       1-1  Maribor              @ Otkritie Arena, Moscow
+           [Zé Luís 82'; Mešanović 90+2']
+  20.45  Sevilla              3-3  Liverpool            @ Ramón Sánchez Pizjuán, Seville
+           [Ben Yedder 51', 60' (pen.) Pizarro 90+3'; Firmino 2', 30' Mané 22']
+
+[Wed Dec/6]
+  20.45  Maribor              1-1  Sevilla              @ Ljudski vrt, Maribor
+           [Tavares 10'; Ganso 75']
+  20.45  Liverpool            7-0  Spartak Moscow       @ Anfield, Liverpool
+           [Coutinho 4' (pen.), 15', 50' Firmino 19' Mané 47', 76' Salah 86']
+
+
+Group F:
+
+[Wed Sep/13]
+  20.45  Feyenoord            0-4  Manchester City      @ De Kuip, Rotterdam
+           [-; Stones 2', 63' Agüero 10' Gabriel Jesus 25']
+  20.45  Shakhtar Donetsk     2-1  Napoli               @ Metalist Stadium, Kharkiv  [B]
+           [Taison 15' Ferreyra 58'; Milik 72' (pen.)]
+
+[Tue Sep/26]
+  20.45  Napoli               3-1  Feyenoord            @ Stadio San Paolo, Naples
+           [Insigne 7' Mertens 49' Callejón 70'; Amrabat 90+3']
+  20.45  Manchester City      2-0  Shakhtar Donetsk     @ City of Manchester Stadium, Manchester
+           [De Bruyne 48' Sterling 90']
+
+[Tue Oct/17]
+  20.45  Manchester City      2-1  Napoli               @ City of Manchester Stadium, Manchester
+           [Sterling 9' Gabriel Jesus 13'; Diawara 73' (pen.)]
+  20.45  Feyenoord            1-2  Shakhtar Donetsk     @ De Kuip, Rotterdam
+           [Berghuis 8'; Bernard 24', 54']
+
+[Wed Nov/1]
+  20.45  Napoli               2-4  Manchester City      @ Stadio San Paolo, Naples
+           [Insigne 21' Jorginho 62' (pen.); Otamendi 34' Stones 48' Agüero 69' Sterling 90+2']
+  20.45  Shakhtar Donetsk     3-1  Feyenoord            @ Metalist Stadium, Kharkiv  [B]
+           [Ferreyra 14' Marlos 17', 68'; Jørgensen 12']
+
+[Tue Nov/21]
+  20.45  Manchester City      1-0  Feyenoord            @ City of Manchester Stadium, Manchester
+           [Sterling 88']
+  20.45  Napoli               3-0  Shakhtar Donetsk     @ Stadio San Paolo, Naples
+           [Insigne 56' Zieliński 81' Mertens 83']
+
+[Wed Dec/6]
+  20.45  Feyenoord            2-1  Napoli               @ De Kuip, Rotterdam
+           [Jørgensen 33' St. Juste 90+1'; Zieliński 2']
+  20.45  Shakhtar Donetsk     2-1  Manchester City      @ Metalist Stadium, Kharkiv  [B]
+           [Bernard 26' Ismaily 32'; Agüero 90+2' (pen.)]
+
+###
+# [^B]: Shakhtar Donetsk played their home matches at Metalist Stadium, Kharkiv,
+#       instead of their regular stadium Donbass Arena, Donetsk,
+#       due to the war conditions in Eastern Ukraine.
+
+
+Group G:
+
+[Wed Sep/13]
+  20.45  RB Leipzig           1-1  Monaco               @ Red Bull Arena, Leipzig
+           [Forsberg 33'; Tielemans 34']
+  20.45  Porto                1-3  Beşiktaş             @ Estádio do Dragão, Porto
+           [Tošić 21' (o.g.); Talisca 13' Tosun 28' Babel 86']
+
+[Tue Sep/26]
+  20.45  Beşiktaş             2-0  RB Leipzig           @ Vodafone Park, Istanbul
+           [Babel 11' Talisca 43']
+  20.45  Monaco               0-3  Porto                @ Stade Louis II, Monaco
+           [-; Aboubakar 31', 69' Layún 89']
+
+[Tue Oct/17]
+  20.45  Monaco               1-2  Beşiktaş             @ Stade Louis II, Monaco
+           [Falcao 30'; Tosun 34', 54']
+  20.45  RB Leipzig           3-2  Porto                @ Red Bull Arena, Leipzig
+           [Orban 8' Forsberg 38' Augustin 41'; Aboubakar 18' Marcano 44']
+
+[Wed Nov/1]
+  18.00  Beşiktaş             1-1  Monaco               @ Vodafone Park, Istanbul
+           [Tosun 54' (pen.); Lopes 45+1']
+  20.45  Porto                3-1  RB Leipzig           @ Estádio do Dragão, Porto
+           [Herrera 13' Danilo 61' Pereira 90+3'; Werner 48']
+
+[Tue Nov/21]
+  18.00  Beşiktaş             1-1  Porto                @ Vodafone Park, Istanbul
+           [Talisca 41'; Felipe 29']
+  20.45  Monaco               1-4  RB Leipzig           @ Stade Louis II, Monaco
+           [Falcao 43'; Jemerson 6' (o.g.) Werner 9', 31' (pen.) Keïta 45']
+
+[Wed Dec/6]
+  20.45  RB Leipzig           1-2  Beşiktaş             @ Red Bull Arena, Leipzig
+           [Keïta 87'; Negredo 10' (pen.) Talisca 90']
+  20.45  Porto                5-2  Monaco               @ Estádio do Dragão, Porto
+           [Aboubakar 9', 33' Brahimi 45' Alex Telles 65' Soares 88'; Glik 61' (pen.) Falcao 78']
+
+
+Group H:
+
+[Wed Sep/13]
+  20.45  Real Madrid          3-0  APOEL                @ Santiago Bernabéu, Madrid
+           [Ronaldo 12', 51' (pen.) Ramos 61']
+  20.45  Tottenham Hotspur    3-1  Borussia Dortmund    @ Wembley Stadium, London
+           [Son Heung-min 4' Kane 15', 60'; Yarmolenko 11']
+
+[Tue Sep/26]
+  20.45  Borussia Dortmund    1-3  Real Madrid          @ Westfalenstadion, Dortmund
+           [Aubameyang 54'; Bale 18' Ronaldo 50', 79']
+  20.45  APOEL                0-3  Tottenham Hotspur    @ GSP Stadium, Nicosia
+           [-; Kane 39', 62', 67']
+
+[Tue Oct/17]
+  20.45  APOEL                1-1  Borussia Dortmund    @ GSP Stadium, Nicosia
+           [Poté 62'; Papastathopoulos 67']
+  20.45  Real Madrid          1-1  Tottenham Hotspur    @ Santiago Bernabéu, Madrid
+           [Ronaldo 43' (pen.); Varane 28' (o.g.)]
+
+[Wed Nov/1]
+  20.45  Borussia Dortmund    1-1  APOEL                @ Westfalenstadion, Dortmund
+           [Guerreiro 29'; Poté 51']
+  20.45  Tottenham Hotspur    3-1  Real Madrid          @ Wembley Stadium, London
+           [Alli 27', 56' Eriksen 65'; Ronaldo 80']
+
+[Tue Nov/21]
+  20.45  APOEL                0-6  Real Madrid          @ GSP Stadium, Nicosia
+           [-; Modrić 23' Benzema 39', 45+1' Nacho 41' Ronaldo 49', 54']
+  20.45  Borussia Dortmund    1-2  Tottenham Hotspur    @ Westfalenstadion, Dortmund
+           [Aubameyang 31'; Kane 49' Son Heung-min 76']
+
+[Wed Dec/6]
+  20.45  Real Madrid          3-2  Borussia Dortmund    @ Santiago Bernabéu, Madrid
+           [Mayoral 8' Ronaldo 12' Vázquez 81'; Aubameyang 43', 49']
+  20.45  Tottenham Hotspur    3-0  APOEL                @ Wembley Stadium, London
+           [Llorente 20' Son Heung-min 37' N'Koudou 80']
+
+>>>>>>>>>
+

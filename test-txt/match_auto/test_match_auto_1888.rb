@@ -12,7 +12,7 @@ require 'helper'
 #   use the English Football League 1888/9 example and others
 
 
-class TestMatchAuto1888 < MiniTest::Test
+class TestMatchAuto1888 < Minitest::Test
 
   def test_eng_1888
     txt =<<TXT

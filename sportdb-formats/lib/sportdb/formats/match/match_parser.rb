@@ -340,7 +340,12 @@ class MatchParser   ## simple match parser for team match schedules
 
     ## pos = find_game_pos!( line )
 
-      date      = find_date!( line, start: @start )
+      date      = find_date!( line, start: @start )  ## date or datetime (but NOT time!)
+
+    ## todo/fix:
+    ##   add support for find_time!   e.g. 21.00 (or 21:00 ?)
+
+
 
     ###
     # check if date found?
@@ -387,7 +392,20 @@ class MatchParser   ## simple match parser for team match schedules
 
     ## todo/check: pass along round and group refs or just string (canonical names) - why? why not?
 
-    @matches << Import::Match.new( date:    date,
+
+    ## split date in date & time if DateTime
+    time_str = nil
+    date_str = nil
+    if date.is_a?( DateTime )
+        date_str = date.strftime('%Y-%m-%d')
+        time_str = date.strftime('%H:%M')
+    elsif date.is_a?( Date )
+        date_str = date.strftime('%Y-%m-%d')
+    else  # assume date is nil
+    end        
+
+    @matches << Import::Match.new( date:    date_str,
+                                   time:    time_str,
                                    team1:   team1,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team1.name)
                                    team2:   team2,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team2.name)
                                    score:   score,

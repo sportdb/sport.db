@@ -1,0 +1,90 @@
+
+1  FC Red Bull Salzburg       32  25   5   2  79:27  +52  52
+2  LASK                       32  18   9   5  59:31  +28  40
+3  Wolfsberger AC             32  12  10  10  47:47   ±0  31
+4  FK Austria Wien            32  12   6  14  45:48   -3  27
+5  SK Sturm Graz              32  10  10  12  37:40   -3  24
+6  SKN St. Pölten             32   9   9  14  32:50  -18  21
+
+>>>>>>>>>
+
+{
+  "FC Red Bull Salzburg": {
+    "rank": 1,
+    "standing": {
+      "pld": 32,
+      "w": 25,
+      "d": 5,
+      "l": 2,
+      "gf": 79,
+      "ga": 27,
+      "gd": 52,
+      "pts": 52
+    }
+  },
+  "LASK": {
+    "rank": 2,
+    "standing": {
+      "pld": 32,
+      "w": 18,
+      "d": 9,
+      "l": 5,
+      "gf": 59,
+      "ga": 31,
+      "gd": 28,
+      "pts": 40
+    }
+  },
+  "Wolfsberger AC": {
+    "rank": 3,
+    "standing": {
+      "pld": 32,
+      "w": 12,
+      "d": 10,
+      "l": 10,
+      "gf": 47,
+      "ga": 47,
+      "gd": 0,
+      "pts": 31
+    }
+  },
+  "FK Austria Wien": {
+    "rank": 4,
+    "standing": {
+      "pld": 32,
+      "w": 12,
+      "d": 6,
+      "l": 14,
+      "gf": 45,
+      "ga": 48,
+      "gd": -3,
+      "pts": 27
+    }
+  },
+  "SK Sturm Graz": {
+    "rank": 5,
+    "standing": {
+      "pld": 32,
+      "w": 10,
+      "d": 10,
+      "l": 12,
+      "gf": 37,
+      "ga": 40,
+      "gd": -3,
+      "pts": 24
+    }
+  },
+  "SKN St. Pölten": {
+    "rank": 6,
+    "standing": {
+      "pld": 32,
+      "w": 9,
+      "d": 9,
+      "l": 14,
+      "gf": 32,
+      "ga": 50,
+      "gd": -18,
+      "pts": 21
+    }
+  }
+}

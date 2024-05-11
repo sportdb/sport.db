@@ -222,7 +222,9 @@ module SportDb
                      team1_id: team1_rec.id,
                      team2_id: team2_rec.id,
                      pos:      max_pos,
-                     date:     match.date.to_date,  ## todo/fix: split and add date & time!!!!
+                     # date:     match.date.to_date,  ## todo/fix: split and add date & time!!!!
+                     date:     match.date,  # assume iso format as string e.g. 2021-07-10 !!!
+                     time:     match.time,  # assume iso format as string e.g. 21:00 !!!
                      score1:   match.score1,
                      score2:   match.score2,
                      score1i:  match.score1i,

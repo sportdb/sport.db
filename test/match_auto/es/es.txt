@@ -1,0 +1,59 @@
+
+Jornada 1
+
+18.08.2012   Barcelona  R. Sociedad  5-1
+18.08.2012   Levante  Atlético  1-1
+18.08.2012   Athletic  Betis  3-5
+18.08.2012   Zaragoza  Valladolid  0-1
+18.08.2012   R. Madrid  Valencia  1-1
+18.08.2012   Celta  Málaga  0-1
+18.08.2012   Sevilla  Getafe  2-1
+18.08.2012   Mallorca  Espanyol  2-1
+18.08.2012   Rayo  Granada  1-0
+18.08.2012   Deportivo  Osasuna  2-0
+
+
+Jornada 2
+
+25.08.2012   Valladolid  Levante  2-0
+25.08.2012   Espanyol  Zaragoza  1-2
+25.08.2012   Málaga  Mallorca  1-1
+25.08.2012   R. Sociedad  Celta  2-1
+25.08.2012   Osasuna  Barcelona  1-2
+25.08.2012   Valencia  Deportivo  3-3
+25.08.2012   Getafe  R. Madrid  2-1
+25.08.2012   Granada  Sevilla  1-1
+25.08.2012   Betis  Rayo  1-2
+25.08.2012   Atlético  Athletic  4-0
+
+
+>>>>>>>>>
+
+{
+  "teams": {
+    "Barcelona": 2,
+    "R. Sociedad": 2,
+    "Levante": 2,
+    "Atlético": 2,
+    "Athletic": 2,
+    "Betis": 2,
+    "Zaragoza": 2,
+    "Valladolid": 2,
+    "R. Madrid": 2,
+    "Valencia": 2,
+    "Celta": 2,
+    "Málaga": 2,
+    "Sevilla": 2,
+    "Getafe": 2,
+    "Mallorca": 2,
+    "Espanyol": 2,
+    "Rayo": 2,
+    "Granada": 2,
+    "Deportivo": 2,
+    "Osasuna": 2
+  },
+  "rounds": {
+    "Jornada 1": {"count": 1, "match_count": 10},
+    "Jornada 2": {"count": 1, "match_count": 10}
+  }
+}

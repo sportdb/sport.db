@@ -6,7 +6,7 @@
 require 'helper'
 
 
-class TestMatchEuro < MiniTest::Test
+class TestMatchEuro < Minitest::Test
 
   def test_parse
     txt, exp, teams = read_test( 'match/euro_2016.txt' )
@@ -20,6 +20,7 @@ class TestMatchEuro < MiniTest::Test
 
     pp rounds
     pp groups
-    pp matches[-1]     ## only dump last record for now
+    pp matches[0]     ## only dump first & last record for now
+    pp matches[-1]   
   end   # method test_parse
 end   # class TestMatchEuro

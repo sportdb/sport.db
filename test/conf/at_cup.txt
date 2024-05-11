@@ -1,0 +1,38 @@
+
+
+FC Red Bull Salzburg      ## Bundesliga
+FK Austria Wien
+SK Rapid Wien
+SK Sturm Graz
+SC Wiener Neustadt
+SV Mattersburg
+SV Ried
+Kapfenberger SV
+FC Wacker Innsbruck
+FC Admira Wacker Mödling
+
+TSV Hartberg              ## Erste Liga
+SV Grödig
+SC Austria Lustenau
+
+FC Red Bull Salzburg II   ## Landes-Cup-Sieger
+
+>>>>>>>>>
+
+{
+  "FC Red Bull Salzburg": {},
+  "FK Austria Wien": {},
+  "SK Rapid Wien": {},
+  "SK Sturm Graz": {},
+  "SC Wiener Neustadt": {},
+  "SV Mattersburg": {},
+  "SV Ried": {},
+  "Kapfenberger SV": {},
+  "FC Wacker Innsbruck": {},
+  "FC Admira Wacker Mödling": {},
+  "TSV Hartberg": {},
+  "SV Grödig": {},
+  "SC Austria Lustenau": {},
+  "FC Red Bull Salzburg II": {}
+}
+

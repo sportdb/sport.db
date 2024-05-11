@@ -1,0 +1,121 @@
+
+Manchester United › ENG
+Liverpool         › ENG
+Chelsea           › ENG
+Manchester City   › ENG
+Tottenham Hotspur › ENG
+
+Atlético Madrid › ESP
+Barcelona       › ESP
+Sevilla         › ESP
+Real Madrid     › ESP
+
+Roma     › ITA
+Juventus › ITA
+Napoli   › ITA
+
+Bayern München    › GER
+Borussia Dortmund › GER
+RB Leipzig        › GER
+
+Benfica     › POR
+Sporting CP › POR
+Porto       › POR
+
+CSKA Moscow    › RUS
+Spartak Moscow › RUS
+
+Paris Saint-Germain › FRA
+Basel › SUI
+Celtic › SCO
+Anderlecht › BEL
+Qarabağ › AZE
+Olympiacos › GRE
+Maribor › SVN
+Shakhtar Donetsk › UKR
+Feyenoord › NED
+Beşiktaş › TUR
+Monaco › MCO
+APOEL › CYP
+
+>>>>>>>>>
+
+{
+  "Manchester United": {"country": "ENG"},
+  "Liverpool":         {"country": "ENG"},
+  "Chelsea":           {"country": "ENG"},
+  "Manchester City":   {"country": "ENG"},
+  "Tottenham Hotspur": {"country": "ENG"},
+  "Atlético Madrid":   {"country": "ESP"},
+  "Barcelona":         {"country": "ESP"},
+  "Sevilla":           {"country": "ESP"},
+  "Real Madrid":       {"country": "ESP"},
+  "Roma":              {"country": "ITA"},
+  "Juventus": {
+    "country": "ITA"
+  },
+  "Napoli": {
+    "country": "ITA"
+  },
+  "Bayern München": {
+    "country": "GER"
+  },
+  "Borussia Dortmund": {
+    "country": "GER"
+  },
+  "RB Leipzig": {
+    "country": "GER"
+  },
+  "Benfica": {
+    "country": "POR"
+  },
+  "Sporting CP": {
+    "country": "POR"
+  },
+  "Porto": {
+    "country": "POR"
+  },
+  "CSKA Moscow": {
+    "country": "RUS"
+  },
+  "Spartak Moscow": {
+    "country": "RUS"
+  },
+  "Paris Saint-Germain": {
+    "country": "FRA"
+  },
+  "Basel": {
+    "country": "SUI"
+  },
+  "Celtic": {
+    "country": "SCO"
+  },
+  "Anderlecht": {
+    "country": "BEL"
+  },
+  "Qarabağ": {
+    "country": "AZE"
+  },
+  "Olympiacos": {
+    "country": "GRE"
+  },
+  "Maribor": {
+    "country": "SVN"
+  },
+  "Shakhtar Donetsk": {
+    "country": "UKR"
+  },
+  "Feyenoord": {
+    "country": "NED"
+  },
+  "Beşiktaş": {
+    "country": "TUR"
+  },
+  "Monaco": {
+    "country": "MCO"
+  },
+  "APOEL": {
+    "country": "CYP"
+  }
+}
+

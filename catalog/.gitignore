@@ -1,0 +1,8 @@
+
+## ignore sqlite dbs for now
+*.db
+catalog.db
+
+
+# more
+/tmp/

@@ -5,6 +5,9 @@ class CreateDb
 def up
   ActiveRecord::Schema.define do
 
+
+##############
+# country tables
 create_table :countries do |t|
   t.string :key,    null: false
   t.string :name,   null: false
@@ -38,6 +41,29 @@ create_table :country_names do |t|
 end
 
 add_index :country_names, :name, unique: true
+
+
+####
+# club tables
+create_table :clubs do |t|
+   t.string :key, null: false
+   t.string :name, null: false
+   t.string :alt_names
+   t.string :code
+   t.references :country  ## optional - yes? no? why? why not?
+
+   t.timestamps  ## (auto)add - why? why not?
+end
+
+## add_index :clubs, :key, unique: true  - fix!! make unique!!!
+add_index :clubs, :name, unique: true  ## note: enforce unique canoncial names for now
+
+create_table :club_names do |t|
+  t.references :club
+  t.string :name, null: false     ## normalized (lowercase)!!!
+
+  t.timestamps  ## (auto)add - why? why not?
+end
 
 
   end  # Schema.define

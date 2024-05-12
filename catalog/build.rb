@@ -4,9 +4,13 @@ require_relative 'schema'
 require_relative 'models'
 
 
+require 'sportdb/formats'
+require 'sportdb/catalogs'  ## todo/fix!!! - replace with new db/sqlite catalog machinery!!!
 require 'fifa'
 
+
 require_relative 'country_index'
+require_relative 'club_index'
 
 
 ## start with countries - was:
@@ -115,7 +119,62 @@ end
 auto_migrate!
 
 
+
+
+=begin
+def build_national_team_index
+  ## auto-build national teams from Fifa.countries for now
+  teams = []
+  Fifa.countries.each do |country|
+    team = NationalTeam.new( key:        country.code.downcase,  ## note: use country code (fifa)
+                             name:       country.name,
+                             code:       country.code,           ## note: use country code (fifa)
+                             alt_names:  country.alt_names )
+    team.country = country
+
+    teams << team
+  end
+
+  NationalTeamIndex.new( teams )
+end
+
+  def build_club_index
+    ## unify team names; team (builtin/known/shared) name mappings
+    ## cleanup team names - use local ("native") name with umlaut etc.
+    ## todo/fix: add to teamreader
+    ##              check that name and alt_names for a club are all unique (not duplicates)
+
+    clubs = if config.clubs_dir   ## check if clubs_dir is defined / set (otherwise it's nil)
+              ClubIndex.build( config.clubs_dir )
+            else   ## no clubs_dir set - try using builtin from footballdb-clubs
+              FootballDb::Import::build_club_index
+            end
+
+    if clubs.errors?
+      puts ""
+      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+      puts " #{clubs.errors.size} errors:"
+      pp clubs.errors
+      ## exit 1
+    end
+
+    clubs
+  end # method build_club_index
+
+  def build_club_history_index
+    if config.clubs_dir    ## (re)use clubs dir for now  - why? why not?
+      ClubHistoryIndex.build( config.clubs_dir )
+    else
+      puts "!! WARN - no clubs_dir set; for now NO built-in club histories in catalog; sorry - fix!!!!"
+      ClubHistoryIndex.new   ## return empty history index
+    end
+  end
+=end
+
+
 CatalogDb::CountryIndex.new( countries )
 
+CatalogDb::ClubIndex.build( '../../../openfootball/clubs' )
+           
 
 puts "bye"

@@ -107,7 +107,7 @@ class ClubIndex
                     name: rec.name,
                     code: rec.code, 
                     # alt_names:  - fix!!!! 
-                    country: country( rec.country ),                
+                    country_key:  country( rec.country ).key,                
       )
       pp club
    
@@ -157,7 +157,7 @@ class ClubIndex
       norms = norms.uniq  
 
       norms.each do |norm|
-          Model::ClubName.create!( club_id: club.id, 
+          Model::ClubName.create!( key:    club.key, 
                                    name:    norm )
       end
     end
@@ -173,8 +173,7 @@ class ClubIndex
     end
 
     ## (re)use country struct - no need to run lookup again
-    rec = Model::Country.find_by!( key: country.key )
-    rec  
+    rec = Model::Country.find_by!( key: country.key )   
  end
 
 

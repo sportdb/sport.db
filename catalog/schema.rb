@@ -6,9 +6,11 @@ def up
   ActiveRecord::Schema.define do
 
 
+
 ##############
 # country tables
-create_table :countries do |t|
+  ## note - use id as (alpha) string type (id == key!!!)
+create_table :countries, id: false do |t|
   t.string :key,    null: false
   t.string :name,   null: false
   t.string :code,   null: false
@@ -18,9 +20,12 @@ create_table :countries do |t|
   t.timestamps  ## (auto)add - why? why not?
 end
 
+add_index :countries, :key, unique: true
 
-create_table :country_codes do |t|
-  t.references :country
+
+## fix - make join table e.g. without id - why? why not?
+create_table :country_codes, id: false do |t|
+  t.string :key, null: false   ## was: ## t.references :country
   ## note:  code must be unique (by default) - see index below
   t.string :code, null: false     ## normalized (lowercase)
 
@@ -30,10 +35,8 @@ end
 add_index :country_codes, :code, unique: true
 
 
-
-
-create_table :country_names do |t|
-  t.references :country
+create_table :country_names, id: false do |t|
+  t.string :key, null: false   # was t.references :country
   ## note:  name must be unique (by default) - see index below
   t.string :name, null: false     ## normalized (lowercase)!!!
 
@@ -45,21 +48,23 @@ add_index :country_names, :name, unique: true
 
 ####
 # club tables
-create_table :clubs do |t|
+create_table :clubs, id: false do |t|
    t.string :key, null: false
    t.string :name, null: false
    t.string :alt_names
    t.string :code
-   t.references :country  ## optional - yes? no? why? why not?
+
+   t.string :country_key
+   # was t.references :country  ## optional - yes? no? why? why not?
 
    t.timestamps  ## (auto)add - why? why not?
 end
 
-## add_index :clubs, :key, unique: true  - fix!! make unique!!!
+add_index :clubs, :key, unique: true  
 add_index :clubs, :name, unique: true  ## note: enforce unique canoncial names for now
 
-create_table :club_names do |t|
-  t.references :club
+create_table :club_names, id: false do |t|
+  t.string :key,  null: false    # was t.references :club
   t.string :name, null: false     ## normalized (lowercase)!!!
 
   t.timestamps  ## (auto)add - why? why not?

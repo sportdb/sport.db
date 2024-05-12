@@ -20,7 +20,15 @@ class Team
   def key
     ## note: auto-generate key "on-the-fly" if missing for now - why? why not?
     ## note: quick hack - auto-generate key, that is, remove all non-ascii chars and downcase
-    @key || @name.downcase.gsub( /[^a-z]/, '' )
+    ##  fix update - allow numbers (0-9)
+    ##  add dash(-) plus parens () too!!  for (-1999) or (1999-2011) or such
+    ##  add umlauts too for now - plus add more later!!!
+
+    ## fix- add more (all) diacritics!!!
+    ##  GÍ Gøta (1926-2008)
+    ##  FC Suðuroy
+    ## fix - remove dash(-) if not followed or preceded by year (four digits)!!!
+     @key || @name.downcase.gsub( /[^a-zäöüßøð0-9()-]/, '' )
   end
 
 

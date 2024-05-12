@@ -8,29 +8,33 @@ class CatalogRecord <   ActiveRecord::Base  # ApplicationRecord
 end
 
 class Country < CatalogRecord
-    has_many :country_codes
-    has_many :country_names
+    has_many :country_codes, foreign_key: 'key', primary_key: 'key' 
+    has_many :country_names, foreign_key: 'key', primary_key: 'key'
     
-    has_many :clubs
+    has_many :clubs, foreign_key: 'country_key', primary_key: 'key'
 end # class Country
 
+
+
 class CountryCode < CatalogRecord
-    belongs_to  :country
+    belongs_to  :country,  foreign_key: 'key', primary_key: 'key'
 end # class CountryCode
 
 class CountryName < CatalogRecord
-    belongs_to  :country
+    belongs_to  :country, foreign_key: 'key', primary_key: 'key'
 end # class CountryName
 
 
-class Club < CatalogRecord
-    belongs_to  :country
 
-    has_many :club_names
+class Club < CatalogRecord
+    belongs_to  :country, foreign_key: 'country_key', primary_key: 'key'
+
+    has_many :club_names, foreign_key: 'key', primary_key: 'key'
 end
 
+
 class ClubName  < CatalogRecord
-    belongs_to :club
+    belongs_to :club, foreign_key: 'key', primary_key: 'key'
 end
 
 end # module Model

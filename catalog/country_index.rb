@@ -38,13 +38,13 @@ class CountryIndex
        pp country
     
       ## add codes lookups - key, code, ...
-      Model::CountryCode.create!( country_id: country.id, 
+      Model::CountryCode.create!( key:         country.key, 
                                   code:        rec.key )
 
       ## add  code (only) if different from key
       if rec.key != rec.code.downcase
-        Model::CountryCode.create!( country_id: country.id, 
-                                    code:        rec.code.downcase )
+        Model::CountryCode.create!( key:           country.key, 
+                                    code:          rec.code.downcase )
       end
        
       ##  add all names (canonical name + alt names
@@ -77,7 +77,7 @@ class CountryIndex
         name = strip_lang( name )
         norm = normalize( name )
 
-        Model::CountryName.create!( country_id: country.id, 
+        Model::CountryName.create!( key:    country.key, 
                                     name:       norm )
       end
     end  ## each record

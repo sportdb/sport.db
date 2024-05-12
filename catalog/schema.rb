@@ -59,7 +59,6 @@ create_table :clubs, id: false do |t|
 
    t.timestamps  ## (auto)add - why? why not?
 end
-
 add_index :clubs, :key, unique: true  
 add_index :clubs, :name, unique: true  ## note: enforce unique canoncial names for now
 
@@ -70,6 +69,35 @@ create_table :club_names, id: false do |t|
   t.timestamps  ## (auto)add - why? why not?
 end
 
+####
+# national teams tables
+create_table :national_teams, id: false do |t|
+  t.string :key, null: false
+  t.string :name, null: false
+  t.string :code, null: false
+  t.string :alt_names
+
+  t.string :country_key
+  # was t.references :country  ## optional - yes? no? why? why not?
+
+  t.timestamps  ## (auto)add - why? why not?
+end
+add_index :national_teams, :key, unique: true  
+add_index :national_teams, :name, unique: true  ## note: enforce unique canoncial names for now
+
+create_table :national_team_codes, id: false do |t|
+  t.string :key,  null: false    # was t.references :national_team
+  t.string :code, null: false  
+
+  t.timestamps  ## (auto)add - why? why not?
+end
+
+create_table :national_team_names, id: false do |t|
+  t.string :key,  null: false    # was t.references :national_team
+  t.string :name, null: false     ## normalized (lowercase)!!!
+
+  t.timestamps  ## (auto)add - why? why not?
+end
 
   end  # Schema.define
 end # method up

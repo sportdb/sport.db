@@ -7,12 +7,27 @@ require_relative 'models'
 ### note: make sure to load latest sportdb/structs !!!  (allow key with numbers!)
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
 
+require 'sportdb/structs'
+
+puts SportDb::Module::Structs.banner
+puts SportDb::Module::Structs.root
+
+## note:  module is Sports (not SportDb)!!!!
+pp Sports::Team
+pp Sports::Club
+pp Sports::NationalTeam
+
+
 require 'sportdb/formats'
+
+
+
 require 'sportdb/catalogs'  ## todo/fix!!! - replace with new db/sqlite catalog machinery!!!
 require 'fifa'
 
 
 require_relative 'country_index'
+require_relative 'national_team_index'
 require_relative 'club_index'
 
 
@@ -177,7 +192,22 @@ end
 
 CatalogDb::CountryIndex.new( countries )
 
-CatalogDb::ClubIndex.build( '../../../openfootball/clubs' )
+## auto-build national teams from Fifa.countries for now
+teams = []
+countries.each do |country|
+    team = Sports::NationalTeam.new( key:        country.code.downcase,  ## note: use country code (fifa)
+                                name:       country.name,
+                                code:       country.code,           ## note: use country code (fifa)
+                               alt_names:  country.alt_names )
+    team.country = country
+
+    teams << team
+end
+
+CatalogDb::NationalTeamIndex.new( teams )
+
+
+# CatalogDb::ClubIndex.build( '../../../openfootball/clubs' )
            
 
 puts "bye"

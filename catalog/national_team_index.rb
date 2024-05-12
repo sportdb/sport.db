@@ -1,6 +1,5 @@
 
-module SportDb
-  module Import
+module CatalogDb
 
 class NationalTeamIndex
 
@@ -14,7 +13,8 @@ class NationalTeamIndex
     add( recs )
   end
 
-  include NameHelper
+  
+  include SportDb::NameHelper
   ## incl. strip_year( name )
   ##       has_year?( name)
   ##       strip_lang( name )
@@ -79,36 +79,6 @@ class NationalTeamIndex
     end  ## each record
   end # method initialize
 
-  ##  fix/todo: add  find_by (alias for find_by_name/find_by_code)
-  def find_by_code( code )
-    code = code.to_s.downcase   ## allow symbols (and always downcase e.g. AUT to aut etc.)
-    @teams_by_code[ code ]
-  end
-
-  def find_by_name( name )
-    name = normalize( name.to_s )  ## allow symbols too (e.g. use to.s first)
-    @teams_by_name[ name ]
-  end
-
-  def find( q )
-    ## check longest match first (assume name is longer than code)
-    ## try lookup / find by (normalized) name first
-    team = find_by_name( q )
-    team = find_by_code( q )  if team.nil?
-    team
-  end
-
-  def find!( q )
-    team = find( q )
-    if team.nil?
-      puts "** !!! ERROR - no match for national team >#{q}< found"
-      exit 1
-    end
-    team
-  end
 end   # class NationalTeamIndex
-
-
-end   # module Import
-end   # module SportDb
+end   # module CatalogDb
 

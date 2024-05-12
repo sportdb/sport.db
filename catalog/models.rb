@@ -32,10 +32,25 @@ class Club < CatalogRecord
     has_many :club_names, foreign_key: 'key', primary_key: 'key'
 end
 
-
 class ClubName  < CatalogRecord
     belongs_to :club, foreign_key: 'key', primary_key: 'key'
 end
+
+
+class NationalTeam < CatalogRecord
+    belongs_to  :country, foreign_key: 'country_key', primary_key: 'key'
+
+    has_many :national_team_names, foreign_key: 'key', primary_key: 'key'
+end
+
+class NationalTeamCode  < CatalogRecord
+    belongs_to :club, foreign_key: 'key', primary_key: 'key'
+end
+
+class NationalTeamName  < CatalogRecord
+    belongs_to :club, foreign_key: 'key', primary_key: 'key'
+end
+
 
 end # module Model
 end # module CatalogDb

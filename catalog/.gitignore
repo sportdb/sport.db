@@ -1,6 +1,8 @@
 
 ## ignore sqlite dbs for now
 *.db
+*.db-shm
+*.db-wal
 catalog.db
 
 

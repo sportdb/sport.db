@@ -5,7 +5,7 @@
 
 require 'helper'
 
-class TestNationalTeams < MiniTest::Test
+class TestNationalTeams < Minitest::Test
 
   NATIONAL_TEAMS = SportDb::Import.catalog.national_teams
 

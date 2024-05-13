@@ -11,11 +11,33 @@ class Country  < Record
                      'tags',
                      'alt_names']
 
-      
+     def self.cache() @cache ||= Hash.new; end
+
+
+     def self._record( key )  ## use _record! as name - why? why not?
+        if (rec = cache[ key ])
+          rec   ## return cached
+        else  ## query and cache and return
+        rows = execute( <<-SQL )
+      SELECT #{self.columns.join(', ')}
+      FROM countries 
+      WHERE countries.key = '#{key}' 
+SQL
+     rows 
+
+        ## todo/fix: also assert for rows == 1 AND NOT MULTIPLE records - why? why not?
+        if rows.empty? 
+           raise ArgumentError, "country record with key #{key} not found" 
+        else 
+            _build_country( rows[0] )
+        end
+      end
+     end
+
+  
      def self._build_country( row )
         ## note: cache structs by key (do NOT rebuild duplicates; reuse)
-        @cache ||= Hash.new
-        @cache[ row[0] ] ||= Sports::Country.new(
+        cache[ row[0] ] ||= Sports::Country.new(
                                 key: row[0],
                                 name: row[1],
                                 code: row[2]   
@@ -24,13 +46,13 @@ class Country  < Record
                      
   ##  fix/todo: add  find_by (alias for find_by_name/find_by_code)
   def self.find_by_code( code )
-   code = code.to_s.downcase   ## allow symbols (and always downcase e.g. AUT to aut etc.)
+   q = code.to_s.downcase   ## allow symbols (and always downcase e.g. AUT to aut etc.)
    
    rows = execute( <<-SQL )
    SELECT #{self.columns.join(', ')}
    FROM countries 
    INNER JOIN country_codes ON countries.key  = country_codes.key
-   WHERE country_codes.code = '#{code}' 
+   WHERE country_codes.code = '#{q}' 
 SQL
   rows 
    
@@ -42,23 +64,15 @@ SQL
  end
 
 
-  ## helpers from country - use a helper module for includes (share with clubs etc.) - why? why not?
-  # include NameHelper
-  extend SportDb::NameHelper
-  ## incl. strip_year( name )
-  ##       has_year?( name)
-  ##       strip_lang( name )
-  ##       normalize( name )
-
 
  def self.find_by_name( name )
-   name = normalize( name.to_s )  ## allow symbols too (e.g. use to.s first)
+   q = normalize( name.to_s )  ## allow symbols too (e.g. use to.s first)
    
    rows = execute( <<-SQL )
    SELECT #{self.columns.join(', ')}
    FROM countries 
    INNER JOIN country_names ON countries.key  = country_names.key
-   WHERE country_names.name = '#{name}' 
+   WHERE country_names.name = '#{q}' 
 SQL
   rows 
 
@@ -70,9 +84,9 @@ SQL
  end
 
 
- def self.find( key )
-   country = find_by_code( key )
-   country = find_by_name( key )  if country.nil?     ## try lookup / find by (normalized) name
+ def self.find( q )
+   country = find_by_code( q )
+   country = find_by_name( q )  if country.nil?     ## try lookup / find by (normalized) name
    country
  end
  class << self

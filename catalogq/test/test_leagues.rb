@@ -5,16 +5,12 @@
 
 require 'helper'
 
-class TestLeagues < MiniTest::Test
+class TestLeagues < Minitest::Test
 
   LEAGUES = SportDb::Import.catalog.leagues
 
 
   def test_match
-    pp LEAGUES.errors
-
-    LEAGUES.dump_duplicates
-
     m = LEAGUES.match( 'English Premier League' )
     pp m
     assert_equal 'Premier League',         m[0].name

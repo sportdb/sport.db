@@ -11,7 +11,8 @@ class Country < CatalogRecord
     has_many :country_codes, foreign_key: 'key', primary_key: 'key' 
     has_many :country_names, foreign_key: 'key', primary_key: 'key'
     
-    has_many :clubs, foreign_key: 'country_key', primary_key: 'key'
+    has_many :clubs,   foreign_key: 'country_key', primary_key: 'key'
+    has_many :leagues, foreign_key: 'country_key', primary_key: 'key'
 end # class Country
 
 
@@ -43,12 +44,20 @@ class NationalTeam < CatalogRecord
     has_many :national_team_names, foreign_key: 'key', primary_key: 'key'
 end
 
-class NationalTeamCode  < CatalogRecord
+class NationalTeamName  < CatalogRecord
     belongs_to :club, foreign_key: 'key', primary_key: 'key'
 end
 
-class NationalTeamName  < CatalogRecord
-    belongs_to :club, foreign_key: 'key', primary_key: 'key'
+
+
+class League < CatalogRecord
+    belongs_to  :country, foreign_key: 'country_key', primary_key: 'key'
+
+    has_many :league_names, foreign_key: 'key', primary_key: 'key'
+end
+
+class LeagueName  < CatalogRecord
+    belongs_to :league, foreign_key: 'key', primary_key: 'key'
 end
 
 

@@ -8,20 +8,7 @@ require_relative 'models'
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
 
 require 'sportdb/structs'
-
-puts SportDb::Module::Structs.banner
-puts SportDb::Module::Structs.root
-
-## note:  module is Sports (not SportDb)!!!!
-pp Sports::Team
-pp Sports::Club
-pp Sports::NationalTeam
-
-
 require 'sportdb/formats'
-
-
-
 require 'sportdb/catalogs'  ## todo/fix!!! - replace with new db/sqlite catalog machinery!!!
 require 'fifa'
 
@@ -29,59 +16,12 @@ require 'fifa'
 require_relative 'country_index'
 require_relative 'national_team_index'
 require_relative 'club_index'
-
-
-## start with countries - was:
-##   def build_country_index    ## todo/check: rename to setup_country_index or read_country_index - why? why not?
-##      CountryIndex.new( Fifa.countries )
-##   end
-
-
-countries = Fifa.countries
-
-## pp countries
-=begin
-#<Sports::Country:0x000001d873349fc0
-  @alt_names=["Deutschland [de]"],
-  @code="GER",
-  @key="de",
-  @name="Germany",
-  @tags=["fifa", "uefa"]>,
-#<Sports::Country:0x000001d87334b4b0
-  @alt_names=["Österreich [de]"],
-  @code="AUT",
-  @key="at",
-  @name="Austria",
-  @tags=["fifa", "uefa"]>,
-#<Sports::Country:0x000001d87334ae70
-  @alt_names=["Bosnia-Herzegovina", "Bosnia", "Bosnia-Herz."],
-  @code="BIH",
-  @key="ba",
-  @name="Bosnia and Herzegovina",
-  @tags=["fifa", "uefa"]>,  
- #<Sports::Country:0x000001d873342b30
-  @alt_names=["IR Iran", "Islamic Republic of Iran"],
-  @code="IRN",
-  @key="ir",
-  @name="Iran",
-  @tags=["fifa", "afc", "cafa"]>,
- #<Sports::Country:0x000001d8727ea828
-  @alt_names=[],
-  @code="YUG",
-  @key="yugoslavia",
-  @name="Yugoslavia (-2003)",
-  @tags=[]>,
-=end
-
-puts "  #{countries.size} countries"
-#=> 241 countries
+require_relative 'league_index'
 
 
 
 ####
 #  db support
-
-
 def connect
     config = {
         adapter:  'sqlite3',
@@ -137,48 +77,7 @@ end
 auto_migrate!
 
 
-
-
 =begin
-def build_national_team_index
-  ## auto-build national teams from Fifa.countries for now
-  teams = []
-  Fifa.countries.each do |country|
-    team = NationalTeam.new( key:        country.code.downcase,  ## note: use country code (fifa)
-                             name:       country.name,
-                             code:       country.code,           ## note: use country code (fifa)
-                             alt_names:  country.alt_names )
-    team.country = country
-
-    teams << team
-  end
-
-  NationalTeamIndex.new( teams )
-end
-
-  def build_club_index
-    ## unify team names; team (builtin/known/shared) name mappings
-    ## cleanup team names - use local ("native") name with umlaut etc.
-    ## todo/fix: add to teamreader
-    ##              check that name and alt_names for a club are all unique (not duplicates)
-
-    clubs = if config.clubs_dir   ## check if clubs_dir is defined / set (otherwise it's nil)
-              ClubIndex.build( config.clubs_dir )
-            else   ## no clubs_dir set - try using builtin from footballdb-clubs
-              FootballDb::Import::build_club_index
-            end
-
-    if clubs.errors?
-      puts ""
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts " #{clubs.errors.size} errors:"
-      pp clubs.errors
-      ## exit 1
-    end
-
-    clubs
-  end # method build_club_index
-
   def build_club_history_index
     if config.clubs_dir    ## (re)use clubs dir for now  - why? why not?
       ClubHistoryIndex.build( config.clubs_dir )
@@ -189,6 +88,45 @@ end
   end
 =end
 
+
+countries = Fifa.countries
+
+## pp countries
+=begin
+#<Sports::Country:0x000001d873349fc0
+  @alt_names=["Deutschland [de]"],
+  @code="GER",
+  @key="de",
+  @name="Germany",
+  @tags=["fifa", "uefa"]>,
+#<Sports::Country:0x000001d87334b4b0
+  @alt_names=["Österreich [de]"],
+  @code="AUT",
+  @key="at",
+  @name="Austria",
+  @tags=["fifa", "uefa"]>,
+#<Sports::Country:0x000001d87334ae70
+  @alt_names=["Bosnia-Herzegovina", "Bosnia", "Bosnia-Herz."],
+  @code="BIH",
+  @key="ba",
+  @name="Bosnia and Herzegovina",
+  @tags=["fifa", "uefa"]>,  
+ #<Sports::Country:0x000001d873342b30
+  @alt_names=["IR Iran", "Islamic Republic of Iran"],
+  @code="IRN",
+  @key="ir",
+  @name="Iran",
+  @tags=["fifa", "afc", "cafa"]>,
+ #<Sports::Country:0x000001d8727ea828
+  @alt_names=[],
+  @code="YUG",
+  @key="yugoslavia",
+  @name="Yugoslavia (-2003)",
+  @tags=[]>,
+=end
+
+puts "  #{countries.size} countries"
+#=> 241 countries
 
 CatalogDb::CountryIndex.new( countries )
 
@@ -207,7 +145,8 @@ end
 CatalogDb::NationalTeamIndex.new( teams )
 
 
-# CatalogDb::ClubIndex.build( '../../../openfootball/clubs' )
+CatalogDb::LeagueIndex.build( '../../../openfootball/leagues' )
+CatalogDb::ClubIndex.build( '../../../openfootball/clubs' )
            
 
 puts "bye"

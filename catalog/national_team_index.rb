@@ -3,13 +3,7 @@ module CatalogDb
 
 class NationalTeamIndex
 
-  attr_reader :teams     ## all (national) team records
-
   def initialize( recs )
-    @teams         = []
-    @teams_by_code = {}
-    @teams_by_name = {}
-
     add( recs )
   end
 
@@ -26,17 +20,17 @@ class NationalTeamIndex
     ## auto-fill national teams
     ## pp recs
     recs.each do |rec|
-      @teams << rec
 
-      ## add fifa code lookup
-      if @teams_by_code[ rec.code.downcase ]
-        puts "** !! ERROR !! national team code (code) >#{rec.code}< already exits!!"
-        exit 1
-      else
-        @teams_by_code[ rec.code.downcase ] = rec
-      end
-
-
+     team = Model::NationalTeam.create!(
+                    key:  rec.key,
+                    name: rec.name,
+                    code: rec.code, 
+                    ## alt_names:  - fix!!!! 
+                    country_key:  country( rec.country ).key,   
+               )
+      pp team             
+ 
+  
       ##  add all names (canonical name + alt names
       names = [rec.name] + rec.alt_names
       more_names = []
@@ -49,6 +43,10 @@ class NationalTeamIndex
         end
       end
 
+      ## auto-add fifa code lookup
+      more_names << rec.code.downcase 
+   
+      
       names += more_names
       ## check for duplicates - simple check for now - fix/improve
       ## todo/fix: (auto)remove duplicates - why? why not?
@@ -61,23 +59,30 @@ class NationalTeamIndex
         exit 1
       end
 
-      names.each_with_index do |name,i|
+      names.each do |name|
         ## check lang codes e.g. [en], [fr], etc.
         ##  todo/check/fix:  move strip_lang up in the chain - check for duplicates (e.g. only lang code marker different etc.) - why? why not?
         name = strip_lang( name )
         norm = normalize( name )
-        old_rec = @teams_by_name[ norm ]
-        if old_rec
-          ## check if tame name already is included or is new team rec
-            msg = "** !!! ERROR !!! - national team name conflict/duplicate - >#{name}< will overwrite >#{old_rec.name}< with >#{rec.name}<"
-            puts msg
-            exit 1
-        else
-          @teams_by_name[ norm ] = rec
-        end
+        Model::NationalTeamName.create!( key:  team.key,
+                                         name: norm )
       end
     end  ## each record
   end # method initialize
+
+
+  ## helper to always convert (possible) country key to existing country record
+  ##  todo: make private - why? why not?
+  def country( country )
+    if country.is_a?( String ) || country.is_a?( Symbol )       
+        puts "** !!! ERROR !!! - struct expect for now for country >#{country}<; sorry"
+        exit 1
+    end
+
+    ## (re)use country struct - no need to run lookup again
+    rec = Model::Country.find_by!( key: country.key )   
+ end
+
 
 end   # class NationalTeamIndex
 end   # module CatalogDb

@@ -1,5 +1,8 @@
 
 module CatalogDb
+
+
+  ### fix: change to LeagueIndexer!!!!!  
 class LeagueIndex
 
   def self.build( path )

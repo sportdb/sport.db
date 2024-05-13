@@ -2,6 +2,8 @@
 module CatalogDb
 
 
+##  FIX!! change name to CountryIndexer!!!!
+
 ## built-in countries for (quick starter) auto-add
 class CountryIndex
 

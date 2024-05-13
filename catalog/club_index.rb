@@ -2,6 +2,8 @@
 
 module CatalogDb
 
+
+  ## FIX - change name to ClubIndexer!!!
 class ClubIndex
 
   def self.build( path )

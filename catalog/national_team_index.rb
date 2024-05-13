@@ -1,6 +1,9 @@
 
 module CatalogDb
 
+  
+###
+##  fix: change to NationalTeamIndexer
 class NationalTeamIndex
 
   def initialize( recs )

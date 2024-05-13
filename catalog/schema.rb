@@ -92,6 +92,10 @@ create_table :national_team_names, id: false do |t|
   t.timestamps  ## (auto)add - why? why not?
 end
 
+## note: nationa team names (plus codes) MUST be unique for now
+##      (no duplicates like in leagues or clubs allowed)!!!
+add_index :national_team_names, :name, unique: true
+
 
 ####
 # league tables

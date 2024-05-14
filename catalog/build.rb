@@ -57,6 +57,15 @@ end
 
 auto_migrate!
 
+## set "system" catalog to use this db too
+SportDb::Import.config.catalog_path = './catalog.db'
+## check country count
+puts "countries:"
+puts CatalogDb::Metal::Country.count
+
+
+
+
 
 
 countries = Fifa.countries

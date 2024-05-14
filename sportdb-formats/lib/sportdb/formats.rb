@@ -66,7 +66,6 @@ require 'sportdb/formats/match/conf_parser'
 
 
 require 'sportdb/formats/country/country_reader'
-require 'sportdb/formats/country/country_index'
 
 
 ## add convenience helper
@@ -81,7 +80,6 @@ end   # module SportDb
 
 
 require 'sportdb/formats/league/league_reader'
-require 'sportdb/formats/league/league_index'
 require 'sportdb/formats/league/league_outline_reader'
 
 ##
@@ -98,10 +96,7 @@ end   # module SportDb
 
 require 'sportdb/formats/team/club_reader'
 require 'sportdb/formats/team/club_reader_props'
-require 'sportdb/formats/team/club_index'
 require 'sportdb/formats/team/wiki_reader'
-require 'sportdb/formats/team/national_team_index'
-require 'sportdb/formats/team/team_index'
 
 require 'sportdb/formats/team/club_reader_history'
 require 'sportdb/formats/team/club_index_history'
@@ -126,7 +121,6 @@ end   # module SportDb
 
 
 require 'sportdb/formats/event/event_reader'
-require 'sportdb/formats/event/event_index'
 
 ## add convenience helper
 module SportDb

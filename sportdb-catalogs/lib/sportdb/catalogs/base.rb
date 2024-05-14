@@ -4,13 +4,17 @@ module Metal
   class Record
     ## add db alias why? why not?
      def self.database
-        @db ||= SQLite3::Database.new( '../catalog/catalog.db' ) 
-        @db
+        ### note: only one database for all derived records/tables!!!
+        ##   thus MUST use @@ and not @!!!!!
+        @@db ||= SQLite3::Database.new( '../catalog/catalog.db' ) 
+        @@db
      end
 
      def self.database=(path)
-        @db = SQLite3::Database.new( path )
-        @db
+        puts "==> setting (internal) catalog db to: >#{path}<"
+        @@db = SQLite3::Database.new( path )
+        pp @@db
+        @@db
      end
 
      def self.execute( sql ) 

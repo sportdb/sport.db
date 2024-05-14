@@ -4,7 +4,8 @@ module Import
 
 
 class EventInfo
-    ##  "high level" info (summary) about event  (like a "wikipedia infobox")
+    ##  "high level" info (summary) about event 
+    ##    (like a "wikipedia infobox")
     ##    use for checking dataset imports; lets you check e.g.
     ##    - dates within range
     ##    - number of teams e.g. 20

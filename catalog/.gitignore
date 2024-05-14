@@ -4,6 +4,7 @@
 *.db-shm
 *.db-wal
 catalog.db
+testcatalog.db
 
 
 # more

@@ -13,25 +13,25 @@ module SportDb
 module Import
 
 class Configuration
-  ## note: add more configs (open class), see sportdb-formats for original config!!!
+  ## note: add more configs (open class), see sportdb-structs for original config!!!
 
-  ##
-  ##  todo: allow configure of countries_dir like clubs_dir
-  ##         "fallback" and use a default built-in world/countries.txt
+  ###   
+  #  find a better name for setting - why? why not?
+  #     how about catalogdb or ???
+  attr_reader   :catalog_path 
+  def catalog_path=(path)
+      @catalog_path = path
+      ######## 
+      # reset database here to new path
+      CatalogDb::Metal::Record.database = path
+      @catalog_path
+  end
 
-  ####
-  #  todo/check:  find a better way to configure club / team datasets - why? why not?
-  attr_accessor   :clubs_dir
-  ## def clubs_dir()      @clubs_dir; end   ### note: return nil if NOT set on purpose for now - why? why not?
-
-  attr_accessor   :leagues_dir
-  ## def leagues_dir()    @leagues_dir; end
-
-  ## FIX!!! 
-  ##   warning: method redefined; discarding old catalog 
-  ##       check where defined first!!!!!
   def catalog()      @catalog ||= Catalog.new;  end
 end # class Configuration
+
+  ##  e.g. use config.catalog  -- keep Import.catalog as a shortcut (for "read-only" access)
+  def self.catalog() config.catalog;  end
 end   # module Import
 end   # module SportDb
 
@@ -68,16 +68,16 @@ class Team
     if name.is_a?( Array )
       recs = []
       name.each do |q|
-        recs << __find_by!( name: q, league: league, mods: mods )
+        recs << _find_by!( name: q, league: league, mods: mods )
       end
       recs
     else  ## assume single name
-      __find_by!( name: name, league: league, mods: mods )
+      _find_by!( name: name, league: league, mods: mods )
     end
   end
 
 
-  def self.__find_by!( name:, league:, mods: nil )
+  def self._find_by!( name:, league:, mods: nil )
     if mods && mods[ league.key ] && mods[ league.key ][ name ]
       mods[ league.key ][ name ]
     else
@@ -91,7 +91,7 @@ class Team
         NationalTeam.find!( name )
       end
     end
-  end # method __find_by!
+  end # method _find_by!
 end  # class Team
 end # module Metal
 end # module CatalogDb

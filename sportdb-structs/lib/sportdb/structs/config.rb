@@ -1,12 +1,13 @@
 module SportDb
-  module Import
+module Import
 
 class Configuration
   ##
   ##  todo: allow configure of countries_dir like clubs_dir
   ##         "fallback" and use a default built-in world/countries.txt
 
-  attr_accessor   :catalog
+  ##  note: catalog defined/added in sports-catalogs gem!!! 
+  ## attr_accessor   :catalog
 
   attr_reader   :lang
   def lang=(value)
@@ -15,8 +16,10 @@ class Configuration
     ScoreFormats.lang = value
     SportDb.lang.lang = value
 
-    ## todo/fix:  change SportDb.lang to SportDb.parser.lang or lang_parser or utils or someting !!!!
-    ##   use Sport.lang only as a read-only shortcut a la catalog for config.lang!!!!
+    ## todo/fix:  change SportDb.lang to SportDb.parser.lang
+    ##             or lang_parser or utils or someting !!!!
+    ##   use Sport.lang only as a read-only shortcut 
+    #        a la catalog for config.lang!!!!
   end
 
 end # class Configuration
@@ -26,13 +29,10 @@ end # class Configuration
 ##   SportDb::Import.configure do |config|
 ##      config.lang = 'it'
 ##   end
-
 def self.configure()  yield( config ); end
 
 def self.config()  @config ||= Configuration.new;  end
 
-##  e.g. use config.catalog  -- keep Import.catalog as a shortcut (for "read-only" access)
-def self.catalog() config.catalog;  end
 
 end   # module Import
 end   # module SportDb

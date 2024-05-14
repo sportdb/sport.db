@@ -116,7 +116,7 @@ module SportDb
 
          header_league = find_header( headers, ['League'] )
          headers_mapping[:league] = header_league   if header_league
-        else
+      else
          ## else try footballdata.uk and others
          headers_mapping[:team1]  = find_header( headers, ['HomeTeam', 'HT', 'Home'] )
          headers_mapping[:team2]  = find_header( headers, ['AwayTeam', 'AT', 'Away'] )

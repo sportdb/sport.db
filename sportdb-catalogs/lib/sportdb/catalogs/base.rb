@@ -8,6 +8,11 @@ module Metal
         @db
      end
 
+     def self.database=(path)
+        @db = SQLite3::Database.new( path )
+        @db
+     end
+
      def self.execute( sql ) 
         puts "==> sql query [#{self.name}]"
         puts sql

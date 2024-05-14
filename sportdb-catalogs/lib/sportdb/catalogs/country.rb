@@ -23,15 +23,14 @@ class Country  < Record
       FROM countries 
       WHERE countries.key = '#{key}' 
 SQL
-     rows 
-
-        ## todo/fix: also assert for rows == 1 AND NOT MULTIPLE records - why? why not?
-        if rows.empty? 
-           raise ArgumentError, "country record with key #{key} not found" 
-        else 
+ 
+          ## todo/fix: also assert for rows == 1 AND NOT MULTIPLE records - why? why not?
+          if rows.empty? 
+            raise ArgumentError, "country record with key #{key} not found" 
+          else 
             _build_country( rows[0] )
+          end
         end
-      end
      end
 
   
@@ -54,14 +53,13 @@ SQL
    INNER JOIN country_codes ON countries.key  = country_codes.key
    WHERE country_codes.code = '#{q}' 
 SQL
-  rows 
    
      if rows.empty? 
         nil 
      else 
          _build_country( rows[0] )
      end
- end
+  end
 
 
 
@@ -74,7 +72,6 @@ SQL
    INNER JOIN country_names ON countries.key  = country_names.key
    WHERE country_names.name = '#{q}' 
 SQL
-  rows 
 
      if rows.empty? 
         nil 

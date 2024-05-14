@@ -1,11 +1,11 @@
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_national_teams.rb
+#     ruby -I ./test test/test_national_teams.rb
 
 
 require 'helper'
 
-class TestNationalTeams < MiniTest::Test
+class TestNationalTeams < Minitest::Test
 
   NATIONAL_TEAMS = SportDb::Import.catalog.national_teams
 

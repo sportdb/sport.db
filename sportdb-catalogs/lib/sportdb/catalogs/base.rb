@@ -1,12 +1,3 @@
-## note: use the local version of sportdb gems
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
-require 'sportdb/structs'
-
-
-
-require 'sqlite3'
-
-
 module CatalogDb
 module Metal
 
@@ -39,6 +30,7 @@ module Metal
         rows = execute( sql )
         rows[0][0]    # e.g. returns [[241]]
      end
+
 
 ###########
 ### share common methods for reuse
@@ -79,35 +71,9 @@ def self._country( country )
    else
      country  ## (re)use country struct - no need to run lookup again
    end
- end
+end
 
 
   end  # class Record
 end # module Metal
 end # module CatalogDb
-
-
-require_relative 'country'
-require_relative 'club'   
-require_relative 'national_team'
-require_relative 'league'
-
-
-
-###
-# compat with old catalog class/api
-
-module SportDb
-module Import
-   def self.catalog() Catalog; end
-
-  class Catalog
-    def self.countries()      CatalogDb::Metal::Country; end
-    def self.national_teams() CatalogDb::Metal::NationalTeam; end
-    def self.leagues()        CatalogDb::Metal::League; end
-    def self.clubs()          CatalogDb::Metal::Club; end
-  end # class Catalog
-end # module Import
-end # module SportDb
-
-

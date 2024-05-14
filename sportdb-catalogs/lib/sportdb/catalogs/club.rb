@@ -24,7 +24,7 @@ class Club < Record
                                 club 
                               end   
                                                    
-     end                
+    end                
  
 
     def self._find_by_name( name )

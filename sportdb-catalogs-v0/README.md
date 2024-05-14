@@ -5,11 +5,12 @@
 * bugs  :: [github.com/sportdb/sport.db/issues](https://github.com/sportdb/sport.db/issues)
 * gem   :: [rubygems.org/gems/sportdb-catalogs](https://rubygems.org/gems/sportdb-catalogs)
 * rdoc  :: [rubydoc.info/gems/sportdb-catalogs](http://rubydoc.info/gems/sportdb-catalogs)
+* forum :: [opensport](http://groups.google.com/group/opensport)
 
 
 
 
-## Usage  
+## Usage
 
 Let's use the [/clubs datasets](https://github.com/openfootball/clubs)
 (1500+ football clubs from around the world)
@@ -73,6 +74,55 @@ m[0].name; m[0].city; m[0].country
 # ...
 ```
 
+Let's print all names that have duplicate (more than one) matching club:
+
+``` ruby
+CLUBS.mappings.each do |name, clubs|
+  if clubs.size > 1
+    puts "#{clubs.size} matching clubs for `#{name}`:"
+    clubs.each do |club|
+      puts "  - #{club.name}, #{club.city}, #{club.country.name} (#{club.country.key})"
+    end
+    puts
+  end
+end
+```
+
+resulting in:
+
+```
+2 matching clubs for `valencia`:
+  - Valencia FC, Léogâne, Haiti (ht)
+  - Valencia CF, Valencia, Spain (es)
+
+2 matching clubs for `apollon`:
+  - Apollon Limassol FC, , Cyprus (cy)
+  - Apollon Smyrnis FC, Athens, Greece (gr)
+
+3 matching clubs for `arsenal`:
+  - Arsenal FC, London, England (eng)
+  - Arsenal Tula, Tula, Russia (ru)
+  - Arsenal de Sarandí, Sarandí, Argentina (ar)
+
+2 matching clubs for `liverpool`:
+  - Liverpool FC, Liverpool, England (eng)
+  - Liverpool Montevideo, Montevideo, Uruguay (uy)
+
+2 matching clubs for `barcelona`:
+  - FC Barcelona, Barcelona, Spain (es)
+  - Barcelona Guayaquil, Guayaquil, Ecuador (ec)
+
+3 matching clubs for `nacional`:
+  - CD Nacional Madeira, Funchal, Portugal (pt)
+  - Club Nacional, Asunción, Paraguay (py)
+  - Nacional de Montevideo, Montevideo, Uruguay (uy)
+
+2 matching clubs for `sanjose`:
+  - San Jose Earthquakes, San Jose, United States (us)
+  - Club Deportivo San José, Oruro, Bolivia (bo)
+
+...
+```
 
 That's it.
 

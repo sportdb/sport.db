@@ -30,7 +30,6 @@ class NationalTeam < Record
     INNER JOIN national_team_names ON national_teams.key  = national_team_names.key
     WHERE national_team_names.name = '#{q}' 
  SQL
-   rows 
  
       if rows.empty? 
          nil 

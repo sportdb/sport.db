@@ -94,13 +94,24 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
                     'Valencia'                 => 'Valencia CF, ESP'  })
        end
 
+       # puts " [debug] auto_conf_teams:"
+       # pp auto_conf_teams
+
+
        teams = catalog.teams.find_by!( name:   auto_conf_teams.keys,
                                        league: league,
                                        mods:   mods )
 
+       # puts " [debug] teams:"
+       # pp teams
+
        ## build mapping - name => team struct record
        team_mapping =  auto_conf_teams.keys.zip( teams ).to_h
 
+       # puts " [debug] team_mapping:"
+       # pp team_mapping
+
+    
 
       parser = MatchParser.new( lines,
                                 team_mapping,

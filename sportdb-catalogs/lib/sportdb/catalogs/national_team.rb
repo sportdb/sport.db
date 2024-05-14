@@ -12,11 +12,19 @@ class NationalTeam < Record
      def self._build_national_team( row )
         ## note: cache structs by key (do NOT rebuild duplicates; reuse)
         @cache ||= Hash.new
-        @cache[ row[0] ] ||= Sports::NationalTeam.new(
-                                key: row[0],
-                                name: row[1],
-                                code: row[2]   
-                             )
+        @cache[ row[0] ] ||= begin
+                               team = Sports::NationalTeam.new(
+                                        key: row[0],
+                                        name: row[1],
+                                        code: row[2]   
+                                      )
+
+                                ## note: country for now NOT supported 
+                                ##       via keyword on init!!!
+                                ##    fix - why? why not?
+                                team.country = row[3] ? _to_country( row[3] ) : nil
+                                team      
+                             end
      end                
 
     

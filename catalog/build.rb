@@ -6,10 +6,12 @@ require_relative 'models'
 
 ### note: make sure to load latest sportdb/structs !!!  (allow key with numbers!)
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
 
 require 'sportdb/structs'
+require 'sportdb/catalogs'
 require 'sportdb/formats'
-require 'sportdb/catalogs'  ## todo/fix!!! - replace with new db/sqlite catalog machinery!!!
 require 'fifa'
 
 require_relative 'indexer'

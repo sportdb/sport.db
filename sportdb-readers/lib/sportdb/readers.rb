@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+## note:  sportdb/catalogs no longer pulls in sportdb/formats!!!
+require 'sportdb/formats' 
 require 'sportdb/sync'
 
 

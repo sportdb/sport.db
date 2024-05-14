@@ -8,7 +8,7 @@
 require 'helper'
 
 
-class TestMatchReaderEng < MiniTest::Test
+class TestMatchReaderEng < Minitest::Test
 
   def setup
     SportDb.connect( adapter:  'sqlite3',

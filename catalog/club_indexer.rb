@@ -3,8 +3,7 @@
 module CatalogDb
 
 
-  ## FIX - change name to ClubIndexer!!!
-class ClubIndex
+class ClubIndexer < Indexer
 
   def self.build( path )
     pack = SportDb::Package.new( path )   ## lets us use direcotry or zip archive
@@ -30,28 +29,7 @@ class ClubIndex
   end
 
 
-  def catalog() Import.catalog; end
 
-  def initialize
-    @clubs          = {}   ## clubs (indexed) by canonical name
-    @clubs_by_name  = {}
-    @errors         = []
-  end
-
-  attr_reader :errors
-  def errors?() @errors.empty? == false; end
-
-  def mappings() @clubs_by_name; end   ## todo/check: rename to index or something - why? why not?
-  def clubs()    @clubs.values;  end
-  alias_method :all, :clubs      ## use ActiveRecord-like alias for clubs
-
-
-  ## helpers from club - use a helper module for includes - why? why not?
-  include SportDb::NameHelper
-  ## incl. strip_year( name )
-  ##       has_year?( name)
-  ##       strip_lang( name )
-  ##       normalize( name )
 
   def strip_wiki( name )     # todo/check: rename to strip_wikipedia_en - why? why not?
     ##  change/rename to strip_wiki_qualifier or such - why? why not?
@@ -164,29 +142,5 @@ class ClubIndex
       end
     end
   end # method add
-
-
-  ## helper to always convert (possible) country key to existing country record
-  ##  todo: make private - why? why not?
-  def country( country )
-    if country.is_a?( String ) || country.is_a?( Symbol )       
-        puts "** !!! ERROR !!! - struct expect for now for country >#{country}<; sorry"
-        exit 1
-    end
-
-    ## (re)use country struct - no need to run lookup again
-    rec = Model::Country.find_by!( key: country.key )   
- end
-
-
-
-  def dump_duplicates # debug helper - report duplicate club name records
-     @clubs_by_name.each do |name, clubs|
-       if clubs.size > 1
-         puts "#{clubs.size} matching club duplicates for >#{name}<:"
-         pp clubs
-       end
-     end
-  end
-end # class ClubIndex
+end # class ClubIndexer
 end   # module CatalogDb

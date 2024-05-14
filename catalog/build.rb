@@ -12,11 +12,11 @@ require 'sportdb/formats'
 require 'sportdb/catalogs'  ## todo/fix!!! - replace with new db/sqlite catalog machinery!!!
 require 'fifa'
 
-
-require_relative 'country_index'
-require_relative 'national_team_index'
-require_relative 'club_index'
-require_relative 'league_index'
+require_relative 'indexer'
+require_relative 'country_indexer'
+require_relative 'national_team_indexer'
+require_relative 'club_indexer'
+require_relative 'league_indexer'
 
 
 
@@ -28,28 +28,8 @@ def connect
         database: './catalog.db',
     }
 
-    # puts "configs before:"
-    # pp ActiveRecord::Base.configurations
-
-    ## ActiveRecord::Base.configurations = {    catalog: config  }
-
-    # puts "configs after:"
-    # pp ActiveRecord::Base.configurations
-=begin
-@configurations=
-  [#<ActiveRecord::DatabaseConfigurations::HashConfig:0x000002be8a2001c0
-    @configuration_hash={:adapter=>"sqlite3", :database=>"./catalog.db"},
-    @env_name="catalog",
-    @name="primary">]>
-=end
-
     ActiveRecord::Base.establish_connection( config )
-    # CatalogDb::Model::CatalogRecord.establish_connection( :catalog )
     # ActiveRecord::Base.logger = Logger.new( STDOUT )
-
-    puts "configs after:"
-    pp ActiveRecord::Base.configurations
-    
 
     ## if sqlite3 add (use) some pragmas for speedups
     if config[:adapter]  == 'sqlite3'  &&
@@ -58,7 +38,6 @@ def connect
       ## try to speed up sqlite
       ##   see http://www.sqlite.org/pragma.html
       con = ActiveRecord::Base.connection
-      ## con = CatalogDb::Model::CatalogRecord.connection
       con.execute( 'PRAGMA synchronous=OFF;' )
       con.execute( 'PRAGMA journal_mode=OFF;' )
       con.execute( 'PRAGMA temp_store=MEMORY;' )
@@ -76,17 +55,6 @@ end
 
 auto_migrate!
 
-
-=begin
-  def build_club_history_index
-    if config.clubs_dir    ## (re)use clubs dir for now  - why? why not?
-      ClubHistoryIndex.build( config.clubs_dir )
-    else
-      puts "!! WARN - no clubs_dir set; for now NO built-in club histories in catalog; sorry - fix!!!!"
-      ClubHistoryIndex.new   ## return empty history index
-    end
-  end
-=end
 
 
 countries = Fifa.countries
@@ -128,7 +96,7 @@ countries = Fifa.countries
 puts "  #{countries.size} countries"
 #=> 241 countries
 
-CatalogDb::CountryIndex.new( countries )
+CatalogDb::CountryIndexer.new( countries )
 
 ## auto-build national teams from Fifa.countries for now
 teams = []
@@ -142,11 +110,11 @@ countries.each do |country|
     teams << team
 end
 
-CatalogDb::NationalTeamIndex.new( teams )
+CatalogDb::NationalTeamIndexer.new( teams )
 
 
-CatalogDb::LeagueIndex.build( '../../../openfootball/leagues' )
-CatalogDb::ClubIndex.build( '../../../openfootball/clubs' )
+CatalogDb::LeagueIndexer.build( '../../../openfootball/leagues' )
+CatalogDb::ClubIndexer.build( '../../../openfootball/clubs' )
            
 
 puts "bye"

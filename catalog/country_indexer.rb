@@ -2,22 +2,13 @@
 module CatalogDb
 
 
-##  FIX!! change name to CountryIndexer!!!!
 
 ## built-in countries for (quick starter) auto-add
-class CountryIndex
+class CountryIndexer  < Indexer
 
   def initialize( recs )
     add( recs )
   end
-
-  ## helpers from country - use a helper module for includes (share with clubs etc.) - why? why not?
-  include SportDb::NameHelper  ## from sports-struct gem
-  
-  ## incl. strip_year( name )
-  ##       has_year?( name)
-  ##       strip_lang( name )
-  ##       normalize( name )
 
 
   def add( recs )
@@ -86,5 +77,5 @@ class CountryIndex
   end # method initialize
 
 
-end # class CountryIndex
+end # class CountryIndexer
 end   # module CatalogDb

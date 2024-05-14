@@ -2,22 +2,13 @@
 module CatalogDb
 
   
-###
-##  fix: change to NationalTeamIndexer
-class NationalTeamIndex
+class NationalTeamIndexer < Indexer
 
   def initialize( recs )
     add( recs )
   end
 
   
-  include SportDb::NameHelper
-  ## incl. strip_year( name )
-  ##       has_year?( name)
-  ##       strip_lang( name )
-  ##       normalize( name )
-
-
   def add( recs )
     ###########################################
     ## auto-fill national teams
@@ -73,20 +64,6 @@ class NationalTeamIndex
     end  ## each record
   end # method initialize
 
-
-  ## helper to always convert (possible) country key to existing country record
-  ##  todo: make private - why? why not?
-  def country( country )
-    if country.is_a?( String ) || country.is_a?( Symbol )       
-        puts "** !!! ERROR !!! - struct expect for now for country >#{country}<; sorry"
-        exit 1
-    end
-
-    ## (re)use country struct - no need to run lookup again
-    rec = Model::Country.find_by!( key: country.key )   
- end
-
-
-end   # class NationalTeamIndex
+end   # class NationalTeamIndexer
 end   # module CatalogDb
 

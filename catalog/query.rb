@@ -12,9 +12,14 @@ ActiveRecord::Base.establish_connection( config )
 
 
 puts "  #{CatalogDb::Model::Country.count} countries"
-puts "  #{CatalogDb::Model::CountryName.count} country names"
+puts "        #{CatalogDb::Model::CountryName.count} country names"
 puts "  #{CatalogDb::Model::Club.count} clubs"
-puts "  #{CatalogDb::Model::ClubName.count} club names"
+puts "        #{CatalogDb::Model::ClubName.count} club names"
+puts "  #{CatalogDb::Model::NationalTeam.count} national teams"
+puts "        #{CatalogDb::Model::NationalTeamName.count} national team names"
+puts "  #{CatalogDb::Model::League.count} leagues"
+puts "        #{CatalogDb::Model::LeagueName.count} league names"
+
 
 
 ## find all duplicate club keys!!!

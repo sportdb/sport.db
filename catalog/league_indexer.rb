@@ -2,8 +2,7 @@
 module CatalogDb
 
 
-  ### fix: change to LeagueIndexer!!!!!  
-class LeagueIndex
+class LeagueIndexer < Indexer
 
   def self.build( path )
     pack = SportDb::Package.new( path )   ## lets us use direcotry or zip archive
@@ -20,26 +19,6 @@ class LeagueIndex
   end
 
 
-  def initialize
-    @leagues         = []   ## leagues by canonical name
-    @leagues_by_name = {}
-    @errors          = []
-  end
-
-  attr_reader :errors
-  def errors?() @errors.empty? == false; end
-
-  def mappings()   @leagues_by_name; end   ## todo/check: rename to index or something - why? why not?
-  def leagues()    @leagues.values;  end
-  alias_method :all, :leagues   ## use ActiveRecord-like alias for leagues
-
-
-  ## helpers from club - use a helper module for includes - why? why not?
-  include SportDb::NameHelper
-  ## incl. strip_lang( name )
-  ##       normalize( name )
-
-
   def add( rec_or_recs )   ## add club record / alt_names
     recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]      ## wrap (single) rec in array
 
@@ -54,8 +33,6 @@ class LeagueIndex
                                       intl:  rec.intl?, 
                                       country_key:  rec.country ? country( rec.country).key : nil
                                     )
-
-      @leagues << rec
 
       ## step 2) add all names (canonical name + alt names + alt names (auto))
       names = [rec.name] + rec.alt_names
@@ -92,19 +69,6 @@ class LeagueIndex
   end # method add
 
 
-
-  ## helper to always convert (possible) country key to existing country record
-  ##  todo: make private - why? why not?
-  def country( country )
-    if country.is_a?( String ) || country.is_a?( Symbol )       
-        puts "** !!! ERROR !!! - struct expect for now for country >#{country}<; sorry"
-        exit 1
-    end
-
-    ## (re)use country struct - no need to run lookup again
-    rec = Model::Country.find_by!( key: country.key )   
-  end
-
-end # class LeagueIndex
+end # class LeagueIndexer
 end   # module CatalogDb
 

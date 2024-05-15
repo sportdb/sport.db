@@ -16,7 +16,7 @@ require_relative 'indexers/country_indexer'
 require_relative 'indexers/national_team_indexer'
 require_relative 'indexers/club_indexer'
 require_relative 'indexers/league_indexer'
-
+require_relative 'indexers/event_indexer'
 
 
 ####

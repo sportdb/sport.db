@@ -72,6 +72,8 @@ CatalogDb::NationalTeamIndexer.new( teams )
 
 
 CatalogDb::LeagueIndexer.build( '../../../openfootball/leagues' )
+CatalogDb::EventIndexer.build( '../../../openfootball/leagues' )
+
 CatalogDb::ClubIndexer.build( '../../../openfootball/clubs' )
            
 

@@ -121,6 +121,27 @@ create_table :league_names, id: false do |t|
 
   t.timestamps  ## (auto)add - why? why not?
 end
+
+
+################
+# more/extra tables
+create_table :event_infos, id: false do |t|
+  t.string :league_key, null: false    # use t.references :leagues?
+  t.string :season,     null: false
+
+  # counts
+  t.integer :teams    
+  t.integer :matches
+  t.integer :goals
+  # dates
+  t.date       :start_date  
+  t.date       :end_date    
+
+  t.timestamps  ## (auto)add - why? why not?
+end
+add_index :event_infos, [:league_key,:season], unique: true  
+
+
   end  # Schema.define
 end # method up
 

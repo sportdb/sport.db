@@ -1,28 +1,48 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_country_index.rb
+#     ruby test/test_country_index.rb
 
 
-require 'helper'
+require_relative 'helper'
 
-class TestCountryIndex < MiniTest::Test
+
+class TestCountryIndex < Minitest::Test
 
   def test_countries
-    recs      = SportDb::Import::CountryReader.read( "#{SportDb::Test.data_dir}/world/countries.txt" )
-    countries = SportDb::Import::CountryIndex.new( recs )
+
+  ###
+  ## note: use a new db generatated in tmp
+  ##   check if we can use :memory: in the future - why? why not?
+    CatalogDb.open( "./tmp/testcountry-#{Time.now.to_i}.db" )
+
+    recs = SportDb::Import::CountryReader.parse( <<TXT )
+at   Austria,              AUT,   fifa › uefa
+      | Österreich [de]
+de   Germany,              GER,  fifa › uefa
+      | Deutschland [de]
+
+uk   Great Britain,    GBR     # note: NOT fifa or uefa member
+eng  England          › UK, ENG,  fifa › uefa
+TXT
+
+    CatalogDb::CountryIndexer.new( recs )
+
+
+    countries = SportDb::Import.catalog.countries
+
 
     eng = countries[:eng]
     assert_equal 'eng',      eng.key
     assert_equal 'England',  eng.name
     assert_equal 'ENG',      eng.code
+    assert_equal ['fifa', 'uefa'], eng.tags
 
     at  = countries[:at]
     assert_equal 'at',                at.key
     assert_equal 'Austria',           at.name
     assert_equal 'AUT',               at.code
     assert_equal ['Österreich [de]'], at.alt_names
+    assert_equal ['fifa', 'uefa'],    at.tags
 
     assert at == countries['AT']
     assert at == countries['at']
@@ -56,6 +76,7 @@ class TestCountryIndex < MiniTest::Test
     assert_equal 'Germany',            de.name
     assert_equal 'GER',                de.code
     assert_equal ['Deutschland [de]'], de.alt_names
+    assert_equal ['fifa', 'uefa'],     de.tags
 
     assert de == countries.parse( 'Deutschland (de) • Germany' )
   end

@@ -36,13 +36,22 @@ SQL
   
      def self._build_country( row )
         ## note: cache structs by key (do NOT rebuild duplicates; reuse)
-        cache[ row[0] ] ||= Sports::Country.new(
-                                key: row[0],
-                                name: row[1],
-                                code: row[2]   
-                             )
+        cache[ row[0] ] ||= begin
+                              ## note: split tags & alt names (PLUS remove leading//trailing spaces)
+                              tags      = row[3].split(',').map {|tag| tag.strip }
+                              alt_names = row[4].split('|').map {|alt_name| alt_name.strip } 
+                              country = Sports::Country.new(
+                                 key: row[0],
+                                 name: row[1],
+                                 code: row[2],
+                                 tags: tags   
+                              )
+                              country.alt_names = alt_names
+                              country
+                            end
      end                
                      
+
   ##  fix/todo: add  find_by (alias for find_by_name/find_by_code)
   def self.find_by_code( code )
    q = code.to_s.downcase   ## allow symbols (and always downcase e.g. AUT to aut etc.)

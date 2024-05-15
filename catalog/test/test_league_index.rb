@@ -1,15 +1,21 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_league_index.rb
+#     ruby test/test_league_index.rb
 
 
-require 'helper'
+require_relative 'helper'
 
-class TestLeagueIndex < MiniTest::Test
+class TestLeagueIndex < Minitest::Test
 
   def test_match
+    CatalogDb.open( "./tmp/testleague-#{Time.now.to_i}.db" )
+
+    recs = SportDb::Import::CountryReader.parse( <<TXT )
+eng  England,  ENG
+sco  Scotland, SCO
+TXT
+    CatalogDb::CountryIndexer.new( recs )
+
     recs = SportDb::Import::LeagueReader.parse( <<TXT )
 = England =
 1       English Premier League
@@ -32,12 +38,11 @@ cup      EFL Cup
 4       Scottish League Two
 TXT
 
-   leagues = SportDb::Import::LeagueIndex.new
-   leagues.add( recs )
+   league_indexer = CatalogDb::LeagueIndexer.new
+   league_indexer.add( recs )
 
-    pp leagues.errors
 
-    leagues.dump_duplicates
+   leagues = SportDb::Import.catalog.leagues
 
     m = leagues.match( 'English Premier League' )
     assert_equal 'English Premier League', m[0].name
@@ -86,6 +91,16 @@ TXT
 end
 
   def test_match_by
+    CatalogDb.open( "./tmp/testleague-#{Time.now.to_i}.db" )
+
+    recs = SportDb::Import::CountryReader.parse( <<TXT )
+de   Germany,  GER
+at   Austria,  AUT
+eng  England,  ENG
+wal  Wales,    WAL
+TXT
+    CatalogDb::CountryIndexer.new( recs )
+
     recs = SportDb::Import::LeagueReader.parse( <<TXT )
 = Germany =
 1       Bundesliga
@@ -102,13 +117,12 @@ end
           | Premier League
 TXT
 
-    leagues = SportDb::Import::LeagueIndex.new
-    leagues.add( recs )
+  league_indexer = CatalogDb::LeagueIndexer.new
+  league_indexer.add( recs )
 
-    pp leagues.errors
+   leagues = SportDb::Import.catalog.leagues
 
-    leagues.dump_duplicates
-
+   
     m = leagues.match( 'Bundesliga' )
     assert_equal 2, m.size
 

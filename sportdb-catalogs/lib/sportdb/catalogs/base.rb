@@ -63,6 +63,10 @@ def self._to_bool( value )
    end
 end             
 
+def self._to_league( key )
+   League._record( key )
+end
+
 def self._to_country( key ) 
    # note: use cached record or (faster) key lookup on fallback
    Country._record( key )   

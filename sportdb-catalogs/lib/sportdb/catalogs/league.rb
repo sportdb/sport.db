@@ -11,10 +11,31 @@ class League < Record
                     'country_key']
           
 
+    def self.cache() @cache ||= Hash.new; end
+
+
+     def self._record( key )  ## use _record! as name - why? why not?
+        if (rec = cache[ key ])
+          rec   ## return cached
+        else  ## query and cache and return
+        rows = execute( <<-SQL )
+      SELECT #{self.columns.join(', ')}
+      FROM leagues 
+      WHERE leagues.key = '#{key}' 
+SQL
+ 
+          ## todo/fix: also assert for rows == 1 AND NOT MULTIPLE records - why? why not?
+          if rows.empty? 
+            raise ArgumentError, "league record with key #{key} not found" 
+          else 
+            _build_league( rows[0] )
+          end
+        end
+     end
+
      def self._build_league( row )
         ## note: cache structs by key (do NOT rebuild duplicates; reuse)
-        @cache ||= Hash.new
-        @cache[ row[0] ] ||= Sports::League.new(
+        cache[ row[0] ] ||= Sports::League.new(
                                 key: row[0],
                                 name: row[1],
                                 intl: _to_bool( row[2] ),   

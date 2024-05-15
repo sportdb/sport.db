@@ -46,16 +46,25 @@ require_relative 'catalogs/country'
 require_relative 'catalogs/club'   
 require_relative 'catalogs/national_team'
 require_relative 'catalogs/league'
+require_relative 'catalogs/event_info'
 
 
 
 module CatalogDb
 module Metal
-class Event < Record
-   def self.find_by( season:, league: ) 
-      nil   ## always return nil for now; not found 
-   end
-end
+
+####
+## virtual table for season lookup
+##   note - use EventSeaon  to avoid name conflict with (global) Season class 
+##      find a better name SeasonInfo or SeasonFinder or SeasonStore 
+##                       or SeasonQ or ??
+
+class EventSeason
+  def self.find_by( date:, league: )
+    EventInfo.find_season( date: date, league: league )
+  end
+end # class SeasonInfo
+
 
 ######
 ### add virtual team table ( clubs + national teams)
@@ -107,9 +116,10 @@ module Import
         def leagues()        CatalogDb::Metal::League; end
         def national_teams() CatalogDb::Metal::NationalTeam; end
         def clubs()          CatalogDb::Metal::Club; end
-        def teams()          CatalogDb::Metal::Team; end
+        def teams()          CatalogDb::Metal::Team; end  ## note - virtual table
 
-        def events()         CatalogDb::Metal::Event; end
+        def events()         CatalogDb::Metal::EventInfo; end
+        def seasons()        CetalogDb::Metal::EventSeason; end ## note - virtual table
       end # class Catalog
 end # module Import
 end # module SportDb

@@ -1,6 +1,7 @@
 require 'active_record'   ## todo: add sqlite3? etc.
 
-require_relative 'models'
+
+require_relative 'lib/sportdb/indexers/models'
 
 
 config = {

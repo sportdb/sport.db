@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_country_reader.rb
@@ -7,7 +5,7 @@
 
 require 'helper'
 
-class TestCountryReader < MiniTest::Test
+class TestCountryReader < Minitest::Test
 
   def test_read
     recs = SportDb::Import::CountryReader.read( "#{SportDb::Test.data_dir}/world/countries.txt" )

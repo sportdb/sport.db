@@ -2,71 +2,17 @@
 #  build a simple test catalog.db
 #     was TestCatalog in sportdb-formats
 
-require 'active_record'   ## todo: add sqlite3? etc.
-
-require_relative 'schema'
-require_relative 'models'
-
-
 ### note: make sure to load latest sportdb/structs !!!  (allow key with numbers!)
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
-
-require 'sportdb/structs'
-require 'sportdb/catalogs'
-require 'sportdb/formats'
-require 'fifa'
-
-require_relative 'indexer'
-require_relative 'country_indexer'
-require_relative 'national_team_indexer'
-require_relative 'club_indexer'
-require_relative 'league_indexer'
+$LOAD_PATH.unshift( File.expand_path( './lib' ))
 
 
-
-####
-#  db support
-def connect
-    config = {
-        adapter:  'sqlite3',
-        database: './testcatalog.db',
-    }
-
-    ActiveRecord::Base.establish_connection( config )
-    # ActiveRecord::Base.logger = Logger.new( STDOUT )
-
-    ## if sqlite3 add (use) some pragmas for speedups
-    if config[:adapter]  == 'sqlite3'  &&
-       config[:database] != ':memory:'
-      ## note: if in memory database e.g. ':memory:' no pragma needed!!
-      ## try to speed up sqlite
-      ##   see http://www.sqlite.org/pragma.html
-      con = ActiveRecord::Base.connection
-      con.execute( 'PRAGMA synchronous=OFF;' )
-      con.execute( 'PRAGMA journal_mode=OFF;' )
-      con.execute( 'PRAGMA temp_store=MEMORY;' )
-    end
-end
+require 'sportdb/indexers'
 
 
-def auto_migrate!
-    connect
-    unless CatalogDb::Model::Country.table_exists?
-        CatalogDb::CreateDb.new.up
-    end
-end
-
-
-auto_migrate!
-
-
-## set "system" catalog to use this db too
-SportDb::Import.config.catalog_path = './testcatalog.db'
-## check country count
-puts "countries:"
-puts CatalogDb::Metal::Country.count
+CatalogDb.open( './testcatalog.db' )
 
 
 
@@ -87,7 +33,7 @@ puts CatalogDb::Metal::Country.count
 
 ###########
 ## build_league_index
-leagues  = SportDb::Import::LeagueReader.parse( <<TXT )
+leagues  = LeagueReader.parse( <<TXT )
 = England =
 1       English Premier League
           | ENG PL | England Premier League | Premier League
@@ -108,30 +54,18 @@ cup      EFL Cup
 3       Scottish League One
 4       Scottish League Two
 TXT
+
 pp leagues
 
 league_indexer = CatalogDb::LeagueIndexer.new
 league_indexer.add( leagues )
 
 
+########################
+##   build_club_index
+    
 
-puts "Test.data_dir:"
-puts Test.data_dir
-
-end     # module SportDb
-end     # module Import
-
-puts "bye"
-
-
-
-__END__
-
-
-
-
-  def build_club_index
-    recs = ClubReader.parse( <<TXT )
+   clubs = ClubReader.parse( <<TXT )
 = England
 
 Chelsea FC
@@ -187,8 +121,17 @@ Newcastle East End FC
 Newcastle United FC
 TXT
 
-    index = ClubIndex.new
-    index.add( recs )
-    index
-  end
+pp clubs
 
+club_indexer = CatalogDb::ClubIndexer.new
+club_indexer.add( clubs )
+    
+puts "Test.data_dir:"
+puts Test.data_dir
+
+end     # module SportDb
+end     # module Import
+
+
+
+puts "bye"

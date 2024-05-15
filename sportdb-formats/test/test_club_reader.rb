@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_club_reader.rb
@@ -7,7 +5,7 @@
 
 require 'helper'
 
-class TestClubReader < MiniTest::Test
+class TestClubReader < Minitest::Test
 
   def test_parse_ii   ## test club/team B/II
     recs = SportDb::Import::ClubReader.parse( <<TXT )

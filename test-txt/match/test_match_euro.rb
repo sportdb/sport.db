@@ -1,9 +1,9 @@
 ###
 #  to run use
-#     ruby -I . match/test_match_euro.rb
+#     ruby match/test_match_euro.rb
 
 
-require 'helper'
+require_relative '../helper'
 
 
 class TestMatchEuro < Minitest::Test

@@ -208,8 +208,13 @@ create_table :matches do |t|
 
 
   t.date      :date      # optional play date  - todo/fix: split into play_date AND play_time!!!
-  t.time      :time
+  ## note:  activerecord(rails) will auto-add date (2000-01-01) to hours/time!!!
+  ##   work around - save a string type!!!!
+  ##  e.g.  19:00 etc.
+  ## t.time      :time
+  t.string    :time
 
+  
   t.boolean    :postponed, null: false, default: false
   ## t.date   :date2   # optional old date (when postponed)
   ## t.date   :date3   # optional old date (when postponed twice)

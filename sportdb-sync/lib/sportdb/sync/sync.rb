@@ -240,6 +240,34 @@ module SportDb
          attribs[ :stage_id ] = stage_rec.id   if stage_rec
 
          rec = Model::Match.create!( attribs )
+
+
+         #############################################
+         ### try to update goals
+         ####   quick & dirty v0 - redo !!!!
+         goals = match.goals
+          if goals && goals.size > 0
+            goals.each do |goal|
+               person_rec = Model::Person.find_by(
+                                           name: goal.name )
+               if person_rec.nil?
+                 person_rec = Model::Person.create!( 
+                                key:  goal.name.downcase.gsub( /[^a-z]/, '' ),
+                                name: goal.name
+                 )
+               end
+               Model::Goal.create!(
+                  match_id:  rec.id,
+                  person_id: person_rec.id, 
+                  team_id:   goal.team == 1 ? rec.team1.id 
+                                            : rec.team2.id,
+                  minute:    goal.minute,
+                  offset:    goal.offset,
+                  penalty:   goal.penalty,
+                  owngoal:   goal.owngoal,               
+               )
+            end
+          end
        else
          # update - todo
          puts "!! ERROR - match updates not yet supported (only inserts); sorry"

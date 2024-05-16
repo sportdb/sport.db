@@ -42,7 +42,15 @@ class MatchParser   ## simple match parser for team match schedules
 
     @lines.each do |line|
       if is_goals?( line )
-        logger.debug "skipping matched goals line: >#{line}<"
+        logger.debug "matched goals line: >#{line}<"
+        logger.debug "  try parse:"
+
+        goals = GoalsFinder.new.find!( line )
+        pp goals 
+        ## quick & dirty - auto add goals to last match
+        match = @matches[-1]
+        match.goals = goals
+        
       elsif is_round_def?( line )
         ## todo/fix:  add round definition (w begin n end date)
         ## todo: do not patch rounds with definition (already assume begin/end date is good)

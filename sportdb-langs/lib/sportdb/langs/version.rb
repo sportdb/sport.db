@@ -14,7 +14,7 @@ module Langs     ## note: we use Langs with s (plular)
   end
 
   def self.banner
-    "sportdb-langs/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+    "sportdb-langs/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}] in (#{root})"
   end
 
   def self.root

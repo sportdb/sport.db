@@ -1,8 +1,9 @@
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-models/lib' ))
 require 'sportdb/models'
 
 
-SportDb.connect( adapter:  'sqlite3',
-                 database: './euro2024.db' )
+
+SportDb.open( './euro2024.db' )
 
 puts "table stats:"
 SportDb.tables

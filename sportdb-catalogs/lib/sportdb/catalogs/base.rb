@@ -18,8 +18,8 @@ module Metal
      end
 
      def self.execute( sql ) 
-        puts "==> sql query [#{self.name}]"
-        puts sql
+        ## puts "==> sql query [#{self.name}]"
+        ## puts sql
         database.execute( sql ) 
      end
 

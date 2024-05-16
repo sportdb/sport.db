@@ -2,10 +2,7 @@ require_relative 'helper'
 
 
 
-SportDb.connect( adapter:  'sqlite3',
-                 database: './euro2024.db' )
-SportDb.create_all   
-
+SportDb.open( './euro2024.db' )
 SportDb.read( '../../../openfootball/euro/2024--germany/euro.txt' ) 
 
 

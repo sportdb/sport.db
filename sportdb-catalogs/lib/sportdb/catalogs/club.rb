@@ -157,6 +157,35 @@ SQL
 
     club
   end
+
+
+#######
+# more support methods
+  def self.build_mods( mods )
+    ## e.g.
+    ##  { 'Arsenal   | Arsenal FC'    => 'Arsenal, ENG',
+    ##    'Liverpool | Liverpool FC'  => 'Liverpool, ENG',
+    ##    'Barcelona'                 => 'Barcelona, ESP',
+    ##    'Valencia'                  => 'Valencia, ESP' }
+
+    mods.reduce({}) do |h,(club_names, club_line)|
+
+      values = club_line.split( ',' )
+      values = values.map { |value| value.strip }  ## strip all spaces
+
+      ## todo/fix: make sure country is present !!!!
+      club_name, country_name = values
+      club = find_by!( name: club_name, country: country_name )
+
+      values = club_names.split( '|' )
+      values = values.map { |value| value.strip }  ## strip all spaces
+
+      values.each do |club_name|
+        h[club_name] = club
+      end
+      h
+    end
+  end
 end  # class Club
 
 end  # module Metal

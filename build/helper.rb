@@ -5,6 +5,7 @@ $LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-readers/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-sync/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-models/lib' ))
 
 
 ## our own code

@@ -16,8 +16,9 @@ class Team < ActiveRecord::Base
   has_many :home_matches, class_name: 'Match', foreign_key: 'team1_id'
   has_many :away_matches, class_name: 'Match', foreign_key: 'team2_id'
 
-  validates :key,  format: { with: TEAM_KEY_RE,  message: TEAM_KEY_MESSAGE }
-  validates :code, format: { with: TEAM_CODE_RE, message: TEAM_CODE_MESSAGE }, allow_nil: true
+  ## note: for now allow any key and code
+  ## validates :key,  format: { with: TEAM_KEY_RE,  message: TEAM_KEY_MESSAGE }
+  ## validates :code, format: { with: TEAM_CODE_RE, message: TEAM_CODE_MESSAGE }, allow_nil: true
 
   has_many :event_teams, class_name: 'EventTeam'  # join table (events+teams)
   has_many :events, :through => :event_teams

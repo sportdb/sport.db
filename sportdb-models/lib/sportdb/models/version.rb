@@ -11,13 +11,12 @@ module Models
   end
 
   def self.banner
-    "sportdb-models/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}]"
+    "sportdb-models/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}] in (#{root})"
   end
 
   def self.root
-    "#{File.expand_path( File.dirname(File.dirname(File.dirname(File.dirname(__FILE__)))) )}"
+    File.expand_path( File.dirname(File.dirname(File.dirname(File.dirname(__FILE__)))) )
   end
-
 end  # module Models
 end  # module Module
 

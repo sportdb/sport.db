@@ -4,42 +4,42 @@ require 'persondb/models'
 
 
 # our own code
+require_relative 'models/version'    # let version always go first
 
-require 'sportdb/models/version'    # let version always go first
+require_relative 'models/formats'
+require_relative 'models/models/forward'
 
-require 'sportdb/models/formats'
-require 'sportdb/models/models/forward'
+require_relative 'models/models/world/city'
+require_relative 'models/models/world/country'
+require_relative 'models/models/world/continent'
+require_relative 'models/models/world/state'
 
-require 'sportdb/models/models/world/city'
-require 'sportdb/models/models/world/country'
-require 'sportdb/models/models/world/continent'
-require 'sportdb/models/models/world/state'
+require_relative 'models/models/assoc'
+require_relative 'models/models/badge'
+require_relative 'models/models/event'
+require_relative 'models/models/goal'
+require_relative 'models/models/ground'
+require_relative 'models/models/group'
+require_relative 'models/models/league'
+require_relative 'models/models/lineup'
+require_relative 'models/models/match'
+require_relative 'models/models/person'
+require_relative 'models/models/round'
+require_relative 'models/models/season'
+require_relative 'models/models/stage'
+require_relative 'models/models/team'
 
-require 'sportdb/models/models/assoc'
-require 'sportdb/models/models/badge'
-require 'sportdb/models/models/event'
-require 'sportdb/models/models/goal'
-require 'sportdb/models/models/ground'
-require 'sportdb/models/models/group'
-require 'sportdb/models/models/league'
-require 'sportdb/models/models/lineup'
-require 'sportdb/models/models/match'
-require 'sportdb/models/models/person'
-require 'sportdb/models/models/round'
-require 'sportdb/models/models/season'
-require 'sportdb/models/models/stage'
-require 'sportdb/models/models/team'
+require_relative 'models/models/stats/alltime_standing'
+require_relative 'models/models/stats/event_standing'
+require_relative 'models/models/stats/group_standing'
 
-require 'sportdb/models/models/stats/alltime_standing'
-require 'sportdb/models/models/stats/event_standing'
-require 'sportdb/models/models/stats/group_standing'
+require_relative 'models/schema'       # note: requires sportdb/models (include SportDB::Models)
 
-require 'sportdb/models/schema'       # note: requires sportdb/models (include SportDB::Models)
+require_relative 'models/utils'   # e.g. MatchCursor
 
-require 'sportdb/models/utils'   # e.g. MatchCursor
+require_relative 'models/deleter'
+require_relative 'models/stats'
 
-require 'sportdb/models/deleter'
-require 'sportdb/models/stats'
 
 
 module SportDb
@@ -103,6 +103,16 @@ module SportDb
   end
 
 
+
+  def self.open( path )  ## shortcut for sqlite only
+    config = {
+      adapter:  'sqlite3',
+      database: path  # e.g. ':memory', './sport.db'
+    }
+    connect!( config )
+  end
+
+  
   def self.connect!( config={} )  # convenience shortcut w/ automigrate
     connect( config )
     auto_migrate!

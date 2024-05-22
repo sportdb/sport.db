@@ -37,6 +37,16 @@ SQL
        rows 
     end
 
+    def self._find_by_name_and_country( name, country )
+      rows = execute( <<-SQL )
+      SELECT #{self.columns.join(', ')}
+      FROM clubs 
+      INNER JOIN club_names ON clubs.key  = club_names.key
+      WHERE club_names.name = '#{name}' AND 
+            clubs.country_key = '#{country}'
+SQL
+     rows 
+  end
 
   ## todo/fix/check: use rename to find_canon  or find_canonical() or something??
   ##  remove (getting used?) - why? why not?
@@ -47,10 +57,13 @@ SQL
 
 
   def self.match( name )
+    ##  note: ALWAYS unaccent 1st in normalize  
+    ##            - add upstream - why? why not?
     # note: returns empty array (e.g. []) if no match and NOT nil
-    q  = normalize( name )
-    rows = _find_by_name( q )
+    nameq  = normalize( unaccent(name) )
+    rows = _find_by_name( nameq )
 
+=begin    
     ## no match - retry with unaccented variant if different
     ##    e.g. example is Preussen Münster  (with mixed accent and unaccented letters) that would go unmatched for now
     ##      Preussen Münster => preussenmünster (norm) 
@@ -66,7 +79,8 @@ SQL
         rows = _find_by_name( q2 ) 
       end
     end
-     
+=end
+
     rows.map {|row| _build_club( row )}
   end
 
@@ -78,15 +92,25 @@ SQL
     ## note: allow passing in of country key too (auto-counvert)
     ##       and country struct too
     ##     - country assumes / allows the country key or fifa code for now
-    recs = match( name ) 
 
-   ###
+    nameq = normalize( unaccent(name) )
+
+    rows = if country
+              country = _country( country )
+              countryq = country.key
+              _find_by_name_and_country( nameq, countryq )
+           else
+              _find_by_name( nameq )
+           end
+    
+    rows.map {|row| _build_club( row )}
+=begin
+    ###
    ## todo/fix:  use a sql query here for country check too!!!
    ##               see leagues for example
    ##             needs to fix special case with unaccent first (or ignore) - why? why not?
 
     if country
-      country = _country( country )
 
       ## note: match must for now always include name
       ## filter by country
@@ -94,8 +118,11 @@ SQL
                                   club.country.key == country.key }
     end
     recs
-  end
+=end
 
+
+
+end
  
  ##########
  #  "legacy" finders - return zero or one club 
@@ -108,7 +135,7 @@ SQL
   ## find - always returns a single record / match or nil
   ##   if there is more than one match than find aborts / fails
   def self.find_by!( name:, country: nil )    ## todo/fix: add international or league flag?
-    club = self.find_by( name: name, country: country )
+    club = find_by( name: name, country: country )
 
     if club.nil?
       puts "** !!! ERROR - no match for club >#{name}<"
@@ -130,8 +157,16 @@ SQL
       recs = match_by( name: name, country: country )
 
       if recs.empty?
+        ##  quick hack - use league 
+        ##    or pass in %w[eng wal] etc. - why? why not?
+        ##
         ## (re)try with second country - quick hacks for known leagues
         ##  todo/fix: add league flag to activate!!!  - why? why not
+        ##
+        ##  e.g. Swanse, cardiff  in premier league
+        ##       san mariono in serie a (italy)
+        ##       monaco  in ligue 1 (france)
+        ##       etc.
         recs = match_by( name: name, country: 'wal' )  if country.key == 'eng'
         recs = match_by( name: name, country: 'eng' )  if country.key == 'sco'
         recs = match_by( name: name, country: 'nir' )  if country.key == 'ie'

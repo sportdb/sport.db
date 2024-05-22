@@ -125,12 +125,18 @@ class ClubIndexer < Indexer
         pp rec
       end
 
-
+      ####
+      #   note:
+      ##    for now only add
+      ##      - 1st unaccent
+      ##      - 2nd downcase
+      ##      - 3rd 
       norms = names.map do |name|
         ## check lang codes e.g. [en], [fr], etc.
         ##  todo/check/fix:  move strip_lang up in the chain - check for duplicates (e.g. only lang code marker different etc.) - why? why not?
-        name = strip_lang( name )
-        norm = normalize( name )
+        norm = strip_lang( name )
+        norm = unaccent( norm ).downcase     
+        norm = normalize( norm )
         norm
       end
 

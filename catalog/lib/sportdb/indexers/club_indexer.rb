@@ -82,6 +82,18 @@ class ClubIndexer < Indexer
       ## puts "adding:"
       ## pp rec
       ### step 1) add canonical name
+
+###
+## check for unique name and report error!!
+
+      club = Model::Club.find_by( name: rec.name )
+      if club
+        puts "!! ERROR - found club with same name:"
+        pp club
+        puts "cannot add; sorry:"
+        pp rec
+      end
+
       club = Model::Club.create!(
                     key:  rec.key,
                     name: rec.name,

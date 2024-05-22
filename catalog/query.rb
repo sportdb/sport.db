@@ -50,6 +50,14 @@ end
 
 
 
+## debug
+##  check for Al-Ittihad
+
+
+pp rec =  CatalogDb::Model::Club.find_by( name: 'Al-Ittihad' )
+
+
+
 puts "bye"
 
 

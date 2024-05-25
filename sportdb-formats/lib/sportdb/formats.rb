@@ -9,15 +9,51 @@ require 'zip'     ## todo/check: if zip is alreay included in a required module
 
 ###
 # our own code
-require 'sportdb/formats/version' # let version always go first
+require_relative 'formats/version' # let version always go first
 
-require 'sportdb/formats/outline_reader'
-require 'sportdb/formats/datafile'
-require 'sportdb/formats/datafile_package'
-require 'sportdb/formats/package'
+require_relative 'formats/outline_reader'
+require_relative 'formats/datafile'
+require_relative 'formats/datafile_package'
+require_relative 'formats/package'
 
 
-require 'sportdb/formats/parser_helper'
+require_relative 'formats/parser_helper'
+
+
+###
+# define search services apis  (move to its own gem later - why? why not?)
+
+module SportDb
+module Import
+
+class Configuration
+  ## note: add more configs (open class), see sportdb-structs for original config!!!
+
+  ## add 
+  def world()        @world ||= WorldSearch.new( DummyWorldSearch.new ); end
+  def world=(world)  @world = world; end
+
+  ## tood/fix - add/move catalog here from   sportdb-catalogs!!!
+  ## def catalog()         @catalog ||= Catalog.new;  end
+  ## def catalog(catalog)  @catalog = catalog; end
+end # class Configuration
+
+  ##  e.g. use config.catalog  -- keep Import.catalog as a shortcut (for "read-only" access)
+  ## def self.catalog() config.catalog;  end
+  def self.world()   config.world;    end
+end   # module Import
+end   # module SportDb
+
+
+
+
+require_relative 'formats/search/world'
+
+
+
+
+
+
 
 
 module SportDb
@@ -53,19 +89,19 @@ module SportDb
 end     # module SportDb
 
 
-require 'sportdb/formats/goals'
+require_relative 'formats/goals'
 
 
 
-require 'sportdb/formats/match/mapper'
-require 'sportdb/formats/match/mapper_teams'
-require 'sportdb/formats/match/match_parser'
-require 'sportdb/formats/match/match_parser_auto_conf'
-require 'sportdb/formats/match/conf_parser'
+require_relative 'formats/match/mapper'
+require_relative 'formats/match/mapper_teams'
+require_relative 'formats/match/match_parser'
+require_relative 'formats/match/match_parser_auto_conf'
+require_relative 'formats/match/conf_parser'
 
 
 
-require 'sportdb/formats/country/country_reader'
+require_relative 'formats/country/country_reader'
 
 
 ## add convenience helper
@@ -79,8 +115,8 @@ end   # module Import
 end   # module SportDb
 
 
-require 'sportdb/formats/league/league_reader'
-require 'sportdb/formats/league/league_outline_reader'
+require_relative 'formats/league/league_reader'
+require_relative 'formats/league/league_outline_reader'
 
 ##
 ## add convenience helper / short-cuts
@@ -94,12 +130,12 @@ end   # module Import
 end   # module SportDb
 
 
-require 'sportdb/formats/team/club_reader'
-require 'sportdb/formats/team/club_reader_props'
-require 'sportdb/formats/team/wiki_reader'
+require_relative 'formats/team/club_reader'
+require_relative 'formats/team/club_reader_props'
+require_relative 'formats/team/wiki_reader'
 
-require 'sportdb/formats/team/club_reader_history'
-require 'sportdb/formats/team/club_index_history'
+require_relative 'formats/team/club_reader_history'
+require_relative 'formats/team/club_index_history'
 
 
 ###
@@ -120,7 +156,7 @@ end   # module Import
 end   # module SportDb
 
 
-require 'sportdb/formats/event/event_reader'
+require_relative 'formats/event/event_reader'
 
 ## add convenience helper
 module SportDb

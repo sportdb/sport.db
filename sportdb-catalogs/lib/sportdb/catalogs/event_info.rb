@@ -78,7 +78,7 @@ SQL
       else
          _build_event_info( rows[0] )
       end
-end
+    end
 
 end  # class EventInfo
 end  # module Metal

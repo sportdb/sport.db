@@ -15,7 +15,7 @@ class WikiReader    ## todo/check: rename to WikiClubReader - why? why not?
   end  # (nested) class WikiClub
 
 
-  def catalog() Import.catalog; end
+  def world() Import.world; end
 
 
 def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
@@ -72,7 +72,7 @@ def parse
       ##   Österreich • Austria
       ##   Austria
       ##   Deutschland (de) • Germany
-      country = catalog.countries.parse( heading )
+      country = world.countries.parse( heading )
       ## check country code - MUST exist for now!!!!
       if country.nil?
         puts "!!! error [wiki reader] - unknown country >#{heading}< - sorry - add country to config to fix"

@@ -1,6 +1,7 @@
 ### our own sportdb libs / gems
-###  try min. dependencies
-require 'sportdb/structs'
+###  try min. dependencies  - change to structs only (NOT formats) - why? why not?
+## require 'sportdb/structs'
+require 'sportdb/formats'
 
 
 ###
@@ -24,6 +25,10 @@ class Configuration
       ######## 
       # reset database here to new path
       CatalogDb::Metal::Record.database = path
+
+      ##  plus automagically set world search too (to use CatalogDb)
+      self.world = WorldSearch.new( CatalogDb::Metal::Country ) 
+
       @catalog_path
   end
 
@@ -112,7 +117,16 @@ end # module CatalogDb
 module SportDb
 module Import       
       class Catalog
-        def countries()      CatalogDb::Metal::Country; end
+        
+        def countries
+               puts
+               puts "[WARN] do NOT use catalog.countries, deprecated!!!"
+               puts "   please, switch to new world.countries search service"
+               puts
+
+               CatalogDb::Metal::Country
+        end
+
         def leagues()        CatalogDb::Metal::League; end
         def national_teams() CatalogDb::Metal::NationalTeam; end
         def clubs()          CatalogDb::Metal::Club; end

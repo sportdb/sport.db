@@ -75,7 +75,8 @@ end
 def self._country( country )
    if country.is_a?( String ) || country.is_a?( Symbol )
      # note: query/find country via catalog db
-     rec = Country.find( country.to_s )  
+     rec = Country.find_by_code( country )
+     rec = Country.find_by_name( country )  if rec.nil?  
      if rec.nil?
        puts "** !!! ERROR !!! - unknown country >#{country}< - no match found, sorry - add to world/countries.txt in config"
        exit 1

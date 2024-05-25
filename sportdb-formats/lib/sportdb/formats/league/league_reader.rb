@@ -7,7 +7,7 @@ module Import
 
 class LeagueReader
 
-  def catalog() Import.catalog; end
+  def world() Import.world; end
 
 
 def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
@@ -64,7 +64,7 @@ def parse
           ##   Österreich • Austria
           ##   Austria
           ##   Deutschland (de) • Germany
-          country = catalog.countries.parse( heading )
+          country = world.countries.parse( heading )
           intl    = false
           clubs   = true
 

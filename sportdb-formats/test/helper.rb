@@ -14,6 +14,8 @@ require 'minitest/autorun'
 ## our own code
 require 'sportdb/formats'
 
+
+
 ###########
 ## add sport catalogs  -  todo - rework dependencies/dependency graph
 ##                        update for sportdb/catalog update 

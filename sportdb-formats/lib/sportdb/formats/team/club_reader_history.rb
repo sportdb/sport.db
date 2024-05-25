@@ -7,7 +7,7 @@ module Import
 
 class ClubHistoryReader
 
-  def catalog() Import.catalog; end
+  def world() Import.world; end
 
 
 
@@ -68,7 +68,7 @@ def parse
             ##   Österreich • Austria
             ##   Austria
             ##   Deutschland (de) • Germany
-            country = catalog.countries.parse( heading )
+            country = world.countries.parse( heading )
             ## check country code - MUST exist for now!!!!
             if country.nil?
               puts "!!! error [club history reader] - unknown country >#{heading}< - sorry - add country to config to fix"

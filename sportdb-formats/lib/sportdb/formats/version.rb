@@ -1,8 +1,5 @@
-# encoding: utf-8
-
-
 module SportDb
-  module Module
+module Module
 module Formats
 
   MAJOR = 1    ## todo: namespace inside version or something - why? why not??

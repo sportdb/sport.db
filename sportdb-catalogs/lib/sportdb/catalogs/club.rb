@@ -45,8 +45,8 @@ SQL
       WHERE club_names.name = '#{name}' AND 
             clubs.country_key = '#{country}'
 SQL
-     rows 
-  end
+      rows 
+    end
 
   ## todo/fix/check: use rename to find_canon  or find_canonical() or something??
   ##  remove (getting used?) - why? why not?
@@ -119,10 +119,7 @@ SQL
     end
     recs
 =end
-
-
-
-end
+  end
  
  ##########
  #  "legacy" finders - return zero or one club 

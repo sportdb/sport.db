@@ -20,6 +20,7 @@ require_relative 'formats/package'
 require_relative 'formats/parser_helper'
 
 
+
 ###
 # define search services apis  (move to its own gem later - why? why not?)
 
@@ -30,7 +31,7 @@ class Configuration
   ## note: add more configs (open class), see sportdb-structs for original config!!!
 
   ## add 
-  def world()        @world ||= WorldSearch.new( DummyWorldSearch.new ); end
+  def world()        @world ||= WorldSearch.new( countries: DummyCountrySearch.new ); end
   def world=(world)  @world = world; end
 
   ## tood/fix - add/move catalog here from   sportdb-catalogs!!!
@@ -44,12 +45,8 @@ end # class Configuration
 end   # module Import
 end   # module SportDb
 
-
-
-
 require_relative 'formats/search/world'
-
-
+require_relative 'formats/search/sport'
 
 
 

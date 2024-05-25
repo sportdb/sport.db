@@ -6,32 +6,16 @@
 # -                 .find_by_name
 
 
-class DummyWorldSearch
-    def find_by_code( code ) 
-        puts "[WARN] no world search configured; cannot find country by code"
-        nil 
-    end
-    def find_by_name( name )
-        puts "[WARN] no world search configured; cannot find country by name"
-        nil
-    end
-end
-
 class WorldSearch    
-    def initialize( service )
-        ## change service to country_service or such - why? why not?
-        ##  add city_service and such later
-        @service = service
-    end
 
-    ####
-    #  note: for now setup only for countries
-    def countries() self; end
-
+class CountrySearch
+  def initialize( service ) @service = service; end
+  
     ###################
     ## core required delegates  - use delegate generator - why? why not?
     def find_by_code( code ) @service.find_by_code( code ); end
     def find_by_name( name ) @service.find_by_name( name ); end
+
 
     ###############
     ### more deriv support functions / helpers
@@ -110,7 +94,33 @@ class WorldSearch
    end
    country
  end # method parse
+end  # class CountrySearch
+
+
+    def initialize( countries: )
+        ## change service to country_service or such - why? why not?
+        ##  add city_service and such later
+        @countries = CountrySearch.new( countries )
+    end
+
+    ####
+    #  note: for now setup only for countries
+    def countries() @countries; end
 end  # class WorldSearch
 
+
+
+
+
+class DummyCountrySearch
+    def find_by_code( code ) 
+        puts "[WARN] no world search configured; cannot find country by code"
+        nil 
+    end
+    def find_by_name( name )
+        puts "[WARN] no world search configured; cannot find country by name"
+        nil
+    end
+end  # class DummyCountrySearch
 
 

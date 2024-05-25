@@ -45,9 +45,6 @@ SQL
      end                
           
 
- 
-      def self.match( name ) match_by( name: name ); end
-
       def self.match_by( name:, 
                          country: nil )
         ## note: match must for now always include name
@@ -82,37 +79,6 @@ SQL
          ## wrap results array into struct records
          rows.map {|row| _build_league( row )}
       end
-
-
-  def self.find!( name )
-    league = find( name )
-    if league.nil?
-      puts "** !!! ERROR - no league match found for >#{name}<, add to leagues table; sorry"
-      exit 1
-    end
-    league
-  end
-
-  def self.find( name )
-    league = nil
-    recs = match( name )
-    # pp m
-
-    if recs.empty?
-      ## fall through/do nothing
-    elsif recs.size > 1
-      puts "** !!! ERROR - ambigious league name; too many leagues (#{recs.size}) found:"
-      pp recs
-      exit 1
-    else
-      league = recs[0]
-    end
-
-    league
-  end
-
-
-
 
 end  # class League
 end  # module Metal

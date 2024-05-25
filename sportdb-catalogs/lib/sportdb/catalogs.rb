@@ -4,9 +4,19 @@
 require 'sportdb/formats'
 
 
+require 'sqlite3'
+
+
 ###
 # our own code
 require_relative 'catalogs/version' # let version always go first
+
+require_relative 'catalogs/base'       ## base record
+require_relative 'catalogs/country'
+require_relative 'catalogs/club'   
+require_relative 'catalogs/national_team'
+require_relative 'catalogs/league'
+require_relative 'catalogs/event_info'
 
 
 
@@ -27,12 +37,21 @@ class Configuration
       CatalogDb::Metal::Record.database = path
 
       ##  plus automagically set world search too (to use CatalogDb)
-      self.world = WorldSearch.new( CatalogDb::Metal::Country ) 
+      self.world = WorldSearch.new( 
+                          countries: CatalogDb::Metal::Country 
+                        ) 
 
       @catalog_path
   end
 
-  def catalog()      @catalog ||= Catalog.new;  end
+  def catalog      
+       @catalog ||= SportSearch.new( 
+                           leagues:        CatalogDb::Metal::League,
+                           national_teams: CatalogDb::Metal::NationalTeam,
+                           clubs:          CatalogDb::Metal::Club,
+                           events:         CatalogDb::Metal::EventInfo,
+                        )
+  end
 end # class Configuration
 
   ##  e.g. use config.catalog  -- keep Import.catalog as a shortcut (for "read-only" access)
@@ -43,101 +62,6 @@ end   # module SportDb
 
 
 
-
-require 'sqlite3'
-
-require_relative 'catalogs/base'       ## base record
-require_relative 'catalogs/country'
-require_relative 'catalogs/club'   
-require_relative 'catalogs/national_team'
-require_relative 'catalogs/league'
-require_relative 'catalogs/event_info'
-
-
-
-module CatalogDb
-module Metal
-
-####
-## virtual table for season lookup
-##   note - use EventSeaon  to avoid name conflict with (global) Season class 
-##      find a better name SeasonInfo or SeasonFinder or SeasonStore 
-##                       or SeasonQ or ??
-
-class EventSeason
-  def self.find_by( date:, league: )
-    EventInfo.find_season( date: date, league: league )
-  end
-end # class SeasonInfo
-
-
-######
-### add virtual team table ( clubs + national teams)
-##   note: no record base!!!!!
-class Team
-  ## note: "virtual" index lets you search clubs and/or national_teams (don't care)
-
-  ## todo/check: rename to/use map_by! for array version - why? why not?
-  def self.find_by!( name:, league:, mods: nil )
-    if name.is_a?( Array )
-      recs = []
-      name.each do |q|
-        recs << _find_by!( name: q, league: league, mods: mods )
-      end
-      recs
-    else  ## assume single name
-      _find_by!( name: name, league: league, mods: mods )
-    end
-  end
-
-
-  def self._find_by!( name:, league:, mods: nil )
-    if mods && mods[ league.key ] && mods[ league.key ][ name ]
-      mods[ league.key ][ name ]
-    else
-      if league.clubs?
-        if league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
-          Club.find!( name )
-        else  ## assume clubs in domestic/national league tournament
-          Club.find_by!( name: name, country: league.country )
-        end
-      else   ## assume national teams (not clubs)
-        NationalTeam.find!( name )
-      end
-    end
-  end # method _find_by!
-end  # class Team
-end # module Metal
-end # module CatalogDb
-  
-
-
-###
-# compat with old catalog class/api
-module SportDb
-module Import       
-      class Catalog
-        
-        def countries
-               puts
-               puts "[WARN] do NOT use catalog.countries, deprecated!!!"
-               puts "   please, switch to new world.countries search service"
-               puts
-
-               CatalogDb::Metal::Country
-        end
-
-        def leagues()        CatalogDb::Metal::League; end
-        def national_teams() CatalogDb::Metal::NationalTeam; end
-        def clubs()          CatalogDb::Metal::Club; end
-        def teams()          CatalogDb::Metal::Team; end  ## note - virtual table
-
-        def events()         CatalogDb::Metal::EventInfo; end
-        def seasons()        CetalogDb::Metal::EventSeason; end ## note - virtual table
-      end # class Catalog
-end # module Import
-end # module SportDb
-    
     
 
 puts SportDb::Module::Catalogs.banner   # say hello

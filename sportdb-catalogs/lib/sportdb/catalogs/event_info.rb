@@ -42,20 +42,7 @@ SQL
          rows.map {|row| _build_event_info( row ) }
     end
 
-    ###
-    ## todo/fix:  find a better algo to guess season for date!!!
-    ##
-    def self.find_season( date:, league: )
-      date = Date.strptime( date, '%Y-%m-%d' )   if date.is_a?( String )
     
-      infos = seasons( league )
-
-      infos.each do |info|
-         return info.season   if info.include?( date )
-      end
-      nil
-    end
-
     def self.find_by( league:, season: )
       league_key = league.is_a?( String ) ? League.find!( league ).key 
                                           : league.key

@@ -61,6 +61,22 @@ class LeagueIndexer < Indexer
 
       norms = norms.uniq 
 
+
+      ## auto-add country upfront e.g.
+      ##   English Premier League  =>  England - English Premier League
+      ##   Premier League          =>  England - Premier League
+      ##  etc.
+      ##
+      ##  note - must be league for clubs and not intl!!!
+      ##   maybe later add continent (e.g. Europe / Asia etc.)
+
+      if rec.country 
+        country_norm =  normalize( unaccent( country( rec.country ).name ))
+
+        norms += norms.map { |norm| country_norm+norm }
+        norms = norms.uniq 
+      end
+
       norms.each do |norm|
           Model::LeagueName.create!( key:     league.key, 
                                      name:    norm )

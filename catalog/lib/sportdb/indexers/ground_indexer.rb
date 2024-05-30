@@ -30,14 +30,13 @@ class GroundIndexer < Indexer
       ## pp rec
       ### step 1) add canonical name
 
-###
-## check for unique name and report error!!
-
+      ###
+      ## check for unique name and report warning
       ground = Model::Ground.find_by( name: rec.name )
       if ground
-        puts "!! ERROR - found club ground same name:"
+        puts "!! WARN - found ground same name:"
         pp ground
-        puts "cannot add; sorry:"
+        puts "---"
         pp rec
       end
 

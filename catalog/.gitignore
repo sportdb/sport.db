@@ -5,7 +5,7 @@
 *.db-wal
 catalog.db
 testcatalog.db
-
+grounds.db
 
 # more
 /tmp/

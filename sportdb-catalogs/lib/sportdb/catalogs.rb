@@ -17,6 +17,7 @@ require_relative 'catalogs/club'
 require_relative 'catalogs/national_team'
 require_relative 'catalogs/league'
 require_relative 'catalogs/event_info'
+require_relative 'catalogs/ground'   
 
 
 
@@ -49,6 +50,7 @@ class Configuration
                            leagues:        CatalogDb::Metal::League,
                            national_teams: CatalogDb::Metal::NationalTeam,
                            clubs:          CatalogDb::Metal::Club,
+                           grounds:        CatalogDb::Metal::Ground,
                            events:         CatalogDb::Metal::EventInfo,
                         )
   end

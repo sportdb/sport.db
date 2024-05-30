@@ -72,6 +72,8 @@ module SportDb
     Standings    = ::Sports::Standings
     TeamUsage    = ::Sports::TeamUsage
 
+    Ground       = ::Sports::Ground
+
 
     class Team
       ## add convenience lookup helper / method for name by season for now
@@ -167,6 +169,7 @@ end   # module SportDb
 
 
 
+require_relative 'formats/ground/ground_reader'
 
 
 

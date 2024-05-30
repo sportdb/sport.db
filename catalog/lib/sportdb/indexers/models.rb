@@ -13,6 +13,7 @@ class Country < CatalogRecord
     
     has_many :clubs,   foreign_key: 'country_key', primary_key: 'key'
     has_many :leagues, foreign_key: 'country_key', primary_key: 'key'
+    has_many :grounds, foreign_key: 'country_key', primary_key: 'key'
 end # class Country
 
 
@@ -61,6 +62,16 @@ class LeagueName  < CatalogRecord
     belongs_to :league, foreign_key: 'key', primary_key: 'key'
 end
 
+
+class Ground < CatalogRecord
+    belongs_to  :country, foreign_key: 'country_key', primary_key: 'key'
+
+    has_many :ground_names, foreign_key: 'key',        primary_key: 'key'
+end
+
+class GroundName  < CatalogRecord
+    belongs_to :ground, foreign_key: 'key', primary_key: 'key'
+end
 
 
 class EventInfo  < CatalogRecord

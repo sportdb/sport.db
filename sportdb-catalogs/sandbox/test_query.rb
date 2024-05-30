@@ -14,6 +14,8 @@ NationalTeam = CatalogDb::Metal::NationalTeam
 Club         = CatalogDb::Metal::Club
 EventInfo    = CatalogDb::Metal::EventInfo
 
+Ground       = CatalogDb::Metal::Ground
+
 
 pp Country.count
 pp League.count
@@ -21,24 +23,26 @@ pp NationalTeam.count
 pp Club.count
 pp EventInfo.count
 
-
-pp EventInfo.find_by( league: 'at.1', season: '2018/19' )
-pp EventInfo.find_by( league: 'at.1', season: '2122/23' )
-
-pp EventInfo.seasons( 'at.1' )
-pp EventInfo.seasons( 'eng.1' )
-
-pp EventInfo.find_season( date: '2018-11-11', league: 'at.1' )
-pp EventInfo.find_season( date: '2122-11-11', league: 'at.1' )
+pp Ground.count
 
 
+# pp EventInfo.find_by( league: 'at.1', season: '2018/19' )
+# pp EventInfo.find_by( league: 'at.1', season: '2122/23' )
 
-pp Club.match( 'arsenal' )
-pp Club.match( 'xxx' )
-pp Club.match( 'liverpool' )
+# pp EventInfo.seasons( 'at.1' )
+# pp EventInfo.seasons( 'eng.1' )
 
-pp Club.match( 'az' )
-pp Club.match( 'bayern' )
+# pp EventInfo.find_season( date: '2018-11-11', league: 'at.1' )
+# pp EventInfo.find_season( date: '2122-11-11', league: 'at.1' )
+
+
+
+pp Club.match_by( name: 'arsenal' )
+pp Club.match_by( name: 'xxx' )
+pp Club.match_by( name: 'liverpool' )
+
+pp Club.match_by( name: 'az' )
+pp Club.match_by( name: 'bayern' )
 
 
 pp Country.find_by_name( 'austria' )
@@ -49,8 +53,8 @@ pp Country.find_by_name( 'iran' )
 # pp Country[ 'at' ]       deprecate .[] - why? why not?
 
 
-pp League.match( 'English Premier League' )
-pp League.match( 'Euro' )
+pp League.match_by( name: 'English Premier League' )
+pp League.match_by( name: 'Euro' )
 pp League.match_by( name: 'Premier League',
                     country: 'eng' )
 pp League.match_by( name: 'Premier League',
@@ -58,12 +62,18 @@ pp League.match_by( name: 'Premier League',
  
 
 
-pp Club.match( 'Preussen Münster' )
+pp Club.match_by( name: 'Preussen Münster' )
 
 pp Club.match_by( name: 'Arsenal', country: 'eng' )
 pp Club.match_by( name: 'Arsenal', country: 'Argentina' )
 
 
-pp Club.find_by( name: 'Arsenal', country: 'eng' )
+pp Club.match_by( name: 'Arsenal', country: 'eng' )
+
+
+
+pp Ground.match_by( name: 'Waldstadion' )
+pp Ground.match_by( name: 'Waldstadion', country: 'de' )
+
 
 puts "bye"

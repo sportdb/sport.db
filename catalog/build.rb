@@ -42,4 +42,6 @@ CatalogDb::EventIndexer.build( '../../../openfootball/leagues' )
 CatalogDb::ClubIndexer.build( '../../../openfootball/clubs' )
            
 
+CatalogDb::GroundIndexer.build( '../../../openfootball/stadiums' )
+
 puts "bye"

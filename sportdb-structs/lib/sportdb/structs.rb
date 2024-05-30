@@ -72,6 +72,8 @@ require 'sportdb/structs/structs/matchlist'
 require 'sportdb/structs/structs/standings'
 require 'sportdb/structs/structs/team_usage'
 
+require 'sportdb/structs/structs/ground'
+
 
 require 'sportdb/structs/match_status_parser'
 require 'sportdb/structs/match_parser_csv'

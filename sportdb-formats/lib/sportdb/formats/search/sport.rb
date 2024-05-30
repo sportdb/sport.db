@@ -52,6 +52,22 @@ class LeagueSearch < Search
 end # class LeagueSearch
 
 
+class GroundSearch  < Search
+  ###################
+  ## core required delegates  - use delegate generator - why? why not?
+  def match_by( name:, country: nil )
+    @service.match_by( name: name, 
+                       country: country ) 
+  end
+
+  ###############
+  ### more deriv support functions / helpers
+  def match( name ) match_by( name: name ); end
+  ## add more here - why? why not? 
+end  # class GroundSearch
+
+
+
 class NationalTeamSearch  < Search
   ###################
   ## core required delegates  - use delegate generator - why? why not?
@@ -293,6 +309,7 @@ class TeamSearch
    def initialize( leagues:,
                    national_teams:,
                    clubs:,
+                   grounds:,
                    events:
                    )
        @leagues        = LeagueSearch.new( leagues ) 
@@ -300,6 +317,8 @@ class TeamSearch
        @clubs          = ClubSearch.new( clubs )
        @events         = EventSearch.new( events ) 
        
+       @grounds        = GroundSearch.new( grounds )
+
        ## virtual deriv ("composite") search services
        @teams          = TeamSearch.new( clubs:          @clubs,
                                          national_teams: @national_teams )
@@ -318,6 +337,7 @@ class TeamSearch
  def national_teams() @national_teams; end
  def clubs()          @clubs; end
  def events()         @events; end
+ def grounds()         @grounds; end
  
  def teams()          @teams; end         ## note - virtual table
  def seasons()        @event_seasons; end ## note - virtual table

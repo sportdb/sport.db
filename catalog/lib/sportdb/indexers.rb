@@ -18,6 +18,8 @@ require_relative 'indexers/club_indexer'
 require_relative 'indexers/league_indexer'
 require_relative 'indexers/event_indexer'
 
+require_relative 'indexers/ground_indexer'
+
 
 ####
 #  db support

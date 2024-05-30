@@ -142,6 +142,32 @@ end
 add_index :event_infos, [:league_key,:season], unique: true  
 
 
+
+####
+# ground tables
+create_table :grounds, id: false do |t|
+  t.string :key,  null: false
+  t.string :name, null: false
+  t.string :alt_names
+
+  t.string :city, null: false    ## city (name) for now a string only
+
+  t.string :country_key
+ 
+  t.timestamps  ## (auto)add - why? why not?
+end
+add_index :grounds, :key, unique: true  
+## add_index :grounds, :name, unique: true  ## note: enforce unique canoncial names for now
+
+create_table :ground_names, id: false do |t|
+ t.string :key,  null: false    # was t.references :club
+ t.string :name, null: false     ## normalized (lowercase)!!!
+
+ t.timestamps  ## (auto)add - why? why not?
+end
+
+
+
   end  # Schema.define
 end # method up
 

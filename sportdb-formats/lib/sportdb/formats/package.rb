@@ -29,6 +29,16 @@ module SportDb
     }x
 
 
+    ####
+    #  de.stadiums.txt or stadiums.txt or stadiums_de.txt
+    GROUNDS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+       (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.txt
+        stadiums
+          (?:_[a-z0-9_-]+)?
+        \.txt$
+    }x
+
+
     ## clubs.txt or clubs_en.txt
     ##   remove support for en.clubs.txt - why? why not?
     CLUBS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
@@ -265,6 +275,8 @@ module SportDb
 
     def each_seasons( &blk )    each( pattern: SEASONS_RE, &blk ); end
 
+
+    def each_grounds( &blk )    each( pattern: GROUNDS_RE, &blk ); end
 
     ## return all match datafile entries
     def match( format: 'txt' )

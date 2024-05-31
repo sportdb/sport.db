@@ -10,7 +10,6 @@ class GroundIndexer < Indexer
 
     recs = []
     pack.each_grounds do |entry|
-      puts "==> read ground entry..."
       recs += SportDb::Import::GroundReader.parse( entry.read )
     end
     recs
@@ -30,31 +29,25 @@ class GroundIndexer < Indexer
       ## pp rec
       ### step 1) add canonical name
 
-      ###
-      ## check for unique name and report warning
-      ground = Model::Ground.find_by( name: rec.name )
-      if ground
-        puts "!! WARN - found ground same name:"
-        pp ground
-        puts "---"
-        pp rec
-      end
-
       ground = Model::Ground.create!(
-                    key:  rec.key,
-                    name: rec.name,
-                    # alt_names:  - fix!!!! 
-                    city: rec.city,   ## note: city for now a string 
-                    country_key:  country( rec.country ).key,                
+                    key:        rec.key,
+                    name:       rec.name,
+                    alt_names:  rec.alt_names.empty? ? nil : rec.alt_names.join( ' | ' ), 
+                    city:       rec.city,   ## note: city for now a string 
+                    district:   rec.district,
+                    address:    rec.address,
+                    country_key:  country( rec.country ).key,
+                    geos:       rec.geos.nil? || rec.geos.empty?  ? nil : rec.geos.join( ' › ' )                
       )
       pp ground
 
       ## step 2) add all names (canonical name + alt names + alt names (auto))
       names = [rec.name] + rec.alt_names
-      more_names = []
+
       ## check "hand-typed" names for year (auto-add)
       ## check for year(s) e.g. (1887-1911), (-2013),
       ##                        (1946-2001,2013-) etc.
+      more_names = []
       names.each do |name|
         if has_year?( name )
           more_names <<  strip_year( name )
@@ -62,6 +55,7 @@ class GroundIndexer < Indexer
       end
 
       names += more_names
+      
       ## check for duplicates - simple check for now - fix/improve
       ## todo/fix: (auto)remove duplicates - why? why not?
       count      = names.size
@@ -71,16 +65,6 @@ class GroundIndexer < Indexer
         pp names
         pp rec
         exit 1
-      end
-
-      ## check with auto-names just warn for now and do not exit
-      names += rec.alt_names_auto
-      count      = names.size
-      count_uniq = names.uniq.size
-      if count != count_uniq
-        puts "** !!! WARN !!! - #{count-count_uniq} duplicate name(s):"
-        pp names
-        pp rec
       end
 
       ####

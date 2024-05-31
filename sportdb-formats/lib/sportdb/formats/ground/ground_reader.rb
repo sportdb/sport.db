@@ -40,30 +40,6 @@ ADDR_MARKER_RE =  %r{ (?: ^|[ ] )                # space or beginning of line
                        }x
 
 
-def add_alt_names( rec, names )   ## helper for adding alternat names
-
-  ## strip and  squish (white)spaces
-  #   e.g. New York FC      (2011-)  => New York FC (2011-)
-  names = names.map { |name| name.gsub( '$', '' ).strip
-                                 .gsub( /[ \t]+/, ' ' ) }
-  rec.alt_names += names
-  rec.add_variants( names ) # auto-add (possible) auto-generated variant names
-
-  ## check for duplicates
-  if rec.duplicates?
-    duplicates = rec.duplicates
-    puts "*** !!! WARN !!! - #{duplicates.size} duplicate alt name mapping(s):"
-    pp duplicates
-    pp rec
-    ##
-    ##  todo/fix:  make it only an error with exit 1
-    ##               if (not normalized) names are the same (not unique/uniq)
-    ##                  e.g. don't exit on  A.F.C. == AFC etc.
-    ## exit 1
-  end
-end
-
-
 def parse
   recs = []
   last_rec  = nil
@@ -84,7 +60,7 @@ def parse
       ## 2) add missing (hierarchy) level if
       while headings.size+1 < heading_level
         ##  todo/fix: issue warning about "skipping" hierarchy level
-        puts "!!! warn [team reader] - skipping hierarchy level in headings "
+        puts "!!! warn [ground reader] - skipping hierarchy level in headings "
         headings.push( nil )
       end
 
@@ -101,7 +77,7 @@ def parse
             country = world.countries.parse( heading )
             ## check country code - MUST exist for now!!!!
             if country.nil?
-              puts "!!! error [club reader] - unknown country >#{heading}< - sorry - add country to config to fix"
+              puts "!!! error [ground reader] - unknown country >#{heading}< - sorry - add country to config to fix"
               exit 1
             end
 
@@ -135,8 +111,10 @@ def parse
         ## assume continuation with line of alternative names
         ##  note: skip leading pipe
         values = line[1..-1].split( '|' )   # team names - allow/use pipe(|)
+        values = values.map {|value| _norm(value) }  ## squish/strip etc.
 
-        add_alt_names( last_rec, values )   ## note: use alt_names helper for (re)use
+        ## squish values here - why? why not?
+        last_rec.alt_names += values
 
        ## check for address line e.g.
        ##    use just one style / syntax - why? why not?
@@ -144,9 +122,8 @@ def parse
        ##  Fischhofgasse 12 // 1100 Wien or Fischhofgasse 12 /// 1100 Wien
        ##  Fischhofgasse 12 ++ 1100 Wien or Fischhofgasse 12 +++ 1100 Wien
       elsif line =~ ADDR_MARKER_RE
-         # note skip for now!!!
-         # todo/fix: add support for address line!!!
-         puts "  skipping address line for now >#{line}<"
+        ## squish line here - why? why not?
+        last_rec.address = _squish( line )
       else
         values = line.split( ',' )
 
@@ -155,18 +132,14 @@ def parse
         col  = values.shift    ## get first item
         ## note: allow optional alt names for convenience with required canoncial name
         names = col.split( '|' )   # team names - allow/use pipe(|)
+        names = names.map {|name| _norm(name) }  ## squish/strip etc.
+
         value     = names[0]         ## canonical name
         alt_names = names[1..-1]     ## optional (inline) alt names
 
-        ## strip and  squish (white)spaces
-        #   e.g. New York FC      (2011-)  => New York FC (2011-)
-        value = value.gsub( '$', '' ).strip
-                     .gsub( /[ \t]+/, ' ' )
         rec.name = value            # canoncial name (global unique "beautiful/long" name)
-        rec.add_variants( value )   # auto-add (possible) auto-generated variant names
-
         ## note: add optional (inline) alternate names if present
-        add_alt_names( rec, alt_names )   if alt_names.size > 0
+        rec.alt_names += alt_names    if alt_names.size > 0
 
         ## note:
         ##   check/todo!!!!!!!!!!!!!!!!!-
@@ -200,11 +173,13 @@ def parse
         ##  todo/check - check for unknown format values
         ##    e.g. too many values, duplicate years, etc.
         ##         check for overwritting, etc.
+
+        ##  strip and squish (white)spaces
+        #   e.g. León     › Guanajuato     => León › Guanajuato
+        values = values.map {|value| _squish(value) }
+
         while values.size > 0
           value = values.shift
-          ##  strip and squish (white)spaces
-          #   e.g. León     › Guanajuato     => León › Guanajuato
-          value = value.strip.gsub( /[ \t]+/, ' ' )
           if value =~/^\d{4}$/   # e.g 1904
             ## todo/check: issue warning if year is already set!!!!!!!
             if rec.year
@@ -268,25 +243,11 @@ def parse
 
         last_rec = rec
 
-
-      ### todo/fix:
-      ##  auto-add alt name with dots stripped - why? why not?
-      ##    e.g.  D.C. United    => DC United
-      ##    e.g.  Liverpool F.C. => Liverpool FC
-      ##    e.g.  St. Albin       => St Albin etc.
-      ##    e.g.  1. FC Köln     => 1 FC Köln  -- make special case for 1. - why? why not?
-
-      ##
-      ## todo/fix:  unify mapping entries
-      ##   always lowercase !!!!  (case insensitive)
-      ##   always strip (2011-) !!!
-      ##   always strip dots (e.g. St., F.C, etc.)
-
         recs << rec
       end
       end  # each line (in paragraph)
     else
-      puts "** !!! ERROR !!! [club reader] - unknown line type:"
+      puts "** !!! ERROR !!! [ground reader] - unknown line type:"
       pp node
       exit 1
     end
@@ -297,16 +258,29 @@ end  # method read
 
 #######################
 ###  helpers
+
 def split_geo( str )
   ## assume city / geo tree
   ##  strip and squish (white)spaces
   #   e.g. León     › Guanajuato     => León › Guanajuato
-  str = str.strip.gsub( /[ \t]+/, ' ' )
+  str = _squish( str )
 
   ## split into geo tree
   geos = str.split( /[<>‹›]/ )   ## note: allow > < or › ‹
   geos = geos.map { |geo| geo.strip }   ## remove all whitespaces
   geos
+end
+
+## norm(alize) helper  - squish (spaces) 
+##                      and remove dollars ($$$)
+##                      and remove leading and trailing spaces
+def _norm( str )
+  ## only extra clean-up of dollars for now ($$$)
+  _squish( str.gsub( '$', '' ) )
+end
+
+def _squish( str )
+  str.gsub( /[ \t\u00a0]+/, ' ' ).strip
 end
 
 end  # class GroundReader

@@ -151,6 +151,10 @@ create_table :grounds, id: false do |t|
   t.string :alt_names
 
   t.string :city, null: false    ## city (name) for now a string only
+  t.string :district    ## e.g. city district/neighborhood
+
+  t.string :address     # address line
+  t.string :geos        # geo "tree/hierarchy"   Bayern > Oberbayern etc.
 
   t.string :country_key
  

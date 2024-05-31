@@ -5,16 +5,15 @@
 
 module Sports
 
-##
-##  todo/fix:  remove self.create in structs!!!  use just new!!!
 
 class Ground
   ##  todo: use just names for alt_names - why? why not?
   attr_accessor :key, :name, :alt_names,
-                :code,    ## code == abbreviation e.g. ARS etc.
-                :year, :year_end,   ## todo/fix: change year to start_year and year_end to end_year (like in season)!!!
-                :country
-
+                :year, :year_end,   ## todo/fix: change year to start_year and end_year/year_end to end_year (like in season)!!!
+                :country,
+                :city, :district, 
+                :geos,
+                :address
 
   def names
     ## todo/check: add alt_names_auto too? - why? why not?
@@ -51,72 +50,29 @@ class Ground
   end
 
 
-  ## special import only attribs
-  attr_accessor :alt_names_auto    ## auto-generated alt names
-
+  ##  todo/check
+  ##  check event_ifno  - for start_date, end_date ??
+  ##           use same naming convention here too (start_year/end_year)
   def historic?()  @year_end ? true : false; end
   alias_method  :past?, :historic?
 
 
   def initialize( **kwargs )
     @alt_names      = []
-    @alt_names_auto = []
-
+  
     update( **kwargs )  unless kwargs.empty?
   end
 
   def update( **kwargs )
-    @key         = kwargs[:key]        if kwargs.has_key? :key
-    @name        = kwargs[:name]       if kwargs.has_key? :name
-    @code        = kwargs[:code]       if kwargs.has_key? :code
-    @alt_names   = kwargs[:alt_names]  if kwargs.has_key? :alt_names
+    @key         = kwargs[:key]        if kwargs.has_key?( :key )
+    @name        = kwargs[:name]       if kwargs.has_key?( :name )
+    @alt_names   = kwargs[:alt_names]  if kwargs.has_key?( :alt_names )
 
-    @city        = kwargs[:city]       if kwargs.has_key? :city
+    @city        = kwargs[:city]       if kwargs.has_key?( :city )
     ## todo/fix:  use city struct - why? why not?
     ## todo/fix: add country too  or report unused keywords / attributes - why? why not?
 
     self   ## note - MUST return self for chaining
-  end
-
-
-
-  ##############################
-  ## helper methods for import only??
-  ## check for duplicates
-  include SportDb::NameHelper
-
-  def duplicates?
-    names = [name] + alt_names + alt_names_auto
-    names = names.map { |name| normalize( sanitize(name) ) }
-
-    names.size != names.uniq.size
-  end
-
-  def duplicates
-    names = [name] + alt_names + alt_names_auto
-
-    ## calculate (count) frequency and select if greater than one
-    names.reduce( {} ) do |h,name|
-       norm = normalize( sanitize(name) )
-       h[norm] ||= []
-       h[norm] << name; h
-    end.select { |norm,names| names.size > 1 }
-  end
-
-
-  def add_variants( name_or_names )
-    names = name_or_names.is_a?(Array) ? name_or_names : [name_or_names]
-    names.each do |name|
-      name = sanitize( name )
-      self.alt_names_auto += variants( name )
-    end
-  end
-
-  ## note: delegate/forward all geo attributes for team b for now (to team a) - keep - why? why not?
-  attr_accessor  :city, 
-                 :district, 
-                 :geos
- 
-
+  end 
 end   # class Ground
 end   # module Sports

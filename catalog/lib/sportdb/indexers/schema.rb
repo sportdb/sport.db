@@ -54,6 +54,11 @@ create_table :clubs, id: false do |t|
    t.string :alt_names
    t.string :code
 
+   t.string :city
+   t.string :district
+   t.string :address
+   t.string :geos
+
    t.string :country_key
    # was t.references :country  ## optional - yes? no? why? why not?
 

@@ -7,7 +7,10 @@ class Club < Record
     self.columns = ['key', 
                     'name', 
                     'code', 
-                    'country_key']
+                    'city',   #3 
+                    'district', #4
+                    'country_key',  #5
+                  ]
 
     def self._build_club( row )
         ## note: cache structs by key (do NOT rebuild duplicates; reuse)
@@ -17,10 +20,13 @@ class Club < Record
                                          key:  row[0],
                                          name: row[1],
                                          code: row[2] )
+
+                                club.city     = row[3]  ## might be nil
+                                club.district = row[4]  
                                 ## note: country for now NOT supported 
                                 ##       via keyword on init!!!
                                 ##    fix - why? why not?
-                                club.country = row[3] ? _to_country( row[3] ) : nil
+                                club.country = row[5] ? _to_country( row[5] ) : nil
                                 club 
                               end   
                                                    

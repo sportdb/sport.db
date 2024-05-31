@@ -30,7 +30,7 @@ class NationalTeam < Record
     
 
   def self.find( q )
-    q = normalize( q.to_s )  ## allow symbols too (e.g. use to.s first)
+    q = normalize( unaccent(q.to_s) )  ## allow symbols too (e.g. use to.s first)
    
     rows = execute( <<-SQL )
     SELECT #{self.columns.join(', ')}

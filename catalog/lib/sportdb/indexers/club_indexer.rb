@@ -95,20 +95,24 @@ class ClubIndexer < Indexer
       end
 
       club = Model::Club.create!(
-                    key:  rec.key,
-                    name: rec.name,
-                    code: rec.code, 
-                    # alt_names:  - fix!!!! 
-                    country_key:  country( rec.country ).key,                
+                    key:        rec.key,
+                    name:       rec.name,
+                    alt_names:  rec.alt_names.empty? ? nil : rec.alt_names.join( ' | ' ), 
+                    code:       rec.code, 
+                    city:       rec.city,
+                    district:   rec.district,
+                    address:    rec.address, 
+                    country_key:  country( rec.country ).key,
+                    geos:       rec.geos.nil? || rec.geos.empty?  ? nil : rec.geos.join( ' › ' )                                                  
       )
       pp club
    
       ## step 2) add all names (canonical name + alt names + alt names (auto))
       names = [rec.name] + rec.alt_names
-      more_names = []
       ## check "hand-typed" names for year (auto-add)
       ## check for year(s) e.g. (1887-1911), (-2013),
       ##                        (1946-2001,2013-) etc.
+      more_names = []
       names.each do |name|
         if has_year?( name )
           more_names <<  strip_year( name )
@@ -116,6 +120,7 @@ class ClubIndexer < Indexer
       end
 
       names += more_names
+
       ## check for duplicates - simple check for now - fix/improve
       ## todo/fix: (auto)remove duplicates - why? why not?
       count      = names.size
@@ -125,16 +130,6 @@ class ClubIndexer < Indexer
         pp names
         pp rec
         exit 1
-      end
-
-      ## check with auto-names just warn for now and do not exit
-      names += rec.alt_names_auto
-      count      = names.size
-      count_uniq = names.uniq.size
-      if count != count_uniq
-        puts "** !!! WARN !!! - #{count-count_uniq} duplicate name(s):"
-        pp names
-        pp rec
       end
 
       ####

@@ -14,29 +14,29 @@ class TestClubs < Minitest::Test
     m = CLUBS.match( 'Rapid Wien' )
     assert_equal 'SK Rapid Wien', m[0].name
     assert_equal 'Austria',       m[0].country.name
-    # assert_equal 'Wien',          m[0].city
+    assert_equal 'Wien',          m[0].city
 
     m = CLUBS.match( 'rapid wien' )
     assert_equal 'SK Rapid Wien', m[0].name
     assert_equal 'Austria',       m[0].country.name
-    # assert_equal 'Wien',          m[0].city
+    assert_equal 'Wien',          m[0].city
 
     ## note: all dots (.) get always removed
     m = CLUBS.match( '...r.a.p.i.d w.i.e.n...' )
     assert_equal 'SK Rapid Wien', m[0].name
     assert_equal 'Austria',       m[0].country.name
-    # assert_equal 'Wien',          m[0].city
+    assert_equal 'Wien',          m[0].city
 
     ## note: all spaces and dashes (-) get always removed
     m = CLUBS.match( '--- r a p i d  w i e n ---' )
     assert_equal 'SK Rapid Wien', m[0].name
     assert_equal 'Austria',       m[0].country.name
-    # assert_equal 'Wien',          m[0].city
+    assert_equal 'Wien',          m[0].city
 
     m = CLUBS.match( 'RAPID WIEN' )
     assert_equal 'SK Rapid Wien', m[0].name
     assert_equal 'Austria',       m[0].country.name
-    # assert_equal 'Wien',          m[0].city
+    assert_equal 'Wien',          m[0].city
 
 
     ## check canoncial name match (only) - deprecated for now, do not use, sorry
@@ -56,19 +56,19 @@ class TestClubs < Minitest::Test
     assert_equal 1, m.size
     assert_equal 'Arsenal FC', m[0].name
     assert_equal 'England',    m[0].country.name
-    # assert_equal 'London',     m[0].city
+    assert_equal 'London',     m[0].city
 
     m = CLUBS.match_by( name: 'Arsenal', country: 'ar' )
     assert_equal 1, m.size
     assert_equal 'Arsenal de Sarandí', m[0].name
     assert_equal 'Argentina',          m[0].country.name
-    # assert_equal 'Sarandí',            m[0].city
+    assert_equal 'Sarandí',            m[0].city
 
     m = CLUBS.match_by( name: 'Arsenal', country: 'ru' )
     assert_equal 1, m.size
     assert_equal 'Arsenal Tula', m[0].name
     assert_equal 'Russia',       m[0].country.name
-    # assert_equal 'Tula',         m[0].city
+    assert_equal 'Tula',         m[0].city
 
 
     m = CLUBS.match( 'Arsenal FC' )

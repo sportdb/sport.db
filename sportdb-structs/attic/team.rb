@@ -5,12 +5,13 @@
 #    maybe add later to index downstream - why? why not?
 
 
-class Ground
- ## special import only attribs
- attr_accessor :alt_names_auto    ## auto-generated alt names
+class Team
 
+## special import only attribs
+attr_accessor :alt_names_auto    ## auto-generated alt names
+  
 
- def duplicates?
+def duplicates?
     names = [name] + alt_names + alt_names_auto
     names = names.map { |name| normalize( sanitize(name) ) }
 
@@ -28,6 +29,7 @@ class Ground
     end.select { |norm,names| names.size > 1 }
   end
 
+
   def add_variants( name_or_names )
     names = name_or_names.is_a?(Array) ? name_or_names : [name_or_names]
     names.each do |name|
@@ -36,22 +38,18 @@ class Ground
     end
   end
 
-  ##############################
-  ## helper methods for import only??
-  ## check for duplicates
-  include SportDb::NameHelper
+
+
 end
 
-----
+# ---
 
 def add_alt_names( rec, names )   ## helper for adding alternat names
+
     ## strip and  squish (white)spaces
     #   e.g. New York FC      (2011-)  => New York FC (2011-)
-    #
-    #  move remove $ and squish  upstream to indexer - why? why not? 
-  
-    names = names.map { |name| name.gsub( '$', '' ).gsub( /[ \t\u00a0]+/, ' ' ).strip }
-  
+    names = names.map { |name| name.gsub( '$', '' ).strip
+                                   .gsub( /[ \t]+/, ' ' ) }
     rec.alt_names += names
     rec.add_variants( names ) # auto-add (possible) auto-generated variant names
   
@@ -68,4 +66,6 @@ def add_alt_names( rec, names )   ## helper for adding alternat names
       ## exit 1
     end
   end
+  
+  
   

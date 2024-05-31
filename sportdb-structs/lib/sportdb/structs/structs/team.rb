@@ -1,10 +1,8 @@
 
 module Sports
 
-##
-##  todo/fix:  remove self.create in structs!!!  use just new!!!
 
-class Team
+class Team   # shared base for clubs AND natinal_teams
   ##  todo: use just names for alt_names - why? why not?
   attr_accessor :key, :name, :alt_names,
                 :code,    ## code == abbreviation e.g. ARS etc.
@@ -33,17 +31,22 @@ class Team
     ##   - 1st unaccent, 2nd downcase, 3rd remove space et al
     ##   use keygen or autokey function or such - why? why not?
 
-     @key || unaccent( @name ).downcase.gsub( /[^a-z0-9()-]/, '' )
+    ##   cache autokey generation (elg. use ||= NOT ||) - why? why not?
+
+     @key ||= begin
+                unaccent( @name ).downcase.gsub( /[^a-z0-9()-]/, '' )
+              end
+     @key
   end
 
 
   ## special import only attribs
-  attr_accessor :alt_names_auto    ## auto-generated alt names
   attr_accessor :wikipedia   # wikipedia page name (for english (en))
 
 
   def historic?()  @year_end ? true : false; end
   alias_method  :past?, :historic?
+
 
   def wikipedia?()  @wikipedia; end
   def wikipedia_url
@@ -61,16 +64,15 @@ class Team
 
   def initialize( **kwargs )
     @alt_names      = []
-    @alt_names_auto = []
-
+ 
     update( **kwargs )  unless kwargs.empty?
   end
 
   def update( **kwargs )
-    @key         = kwargs[:key]        if kwargs.has_key? :key
-    @name        = kwargs[:name]       if kwargs.has_key? :name
-    @code        = kwargs[:code]       if kwargs.has_key? :code
-    @alt_names   = kwargs[:alt_names]  if kwargs.has_key? :alt_names
+    @key         = kwargs[:key]        if kwargs.has_key?( :key )
+    @name        = kwargs[:name]       if kwargs.has_key?( :name )
+    @code        = kwargs[:code]       if kwargs.has_key?( :code )
+    @alt_names   = kwargs[:alt_names]  if kwargs.has_key?( :alt_names )
     self   ## note - MUST return self for chaining
   end
 
@@ -81,32 +83,6 @@ class Team
   ## check for duplicates
   include SportDb::NameHelper
 
-  def duplicates?
-    names = [name] + alt_names + alt_names_auto
-    names = names.map { |name| normalize( sanitize(name) ) }
-
-    names.size != names.uniq.size
-  end
-
-  def duplicates
-    names = [name] + alt_names + alt_names_auto
-
-    ## calculate (count) frequency and select if greater than one
-    names.reduce( {} ) do |h,name|
-       norm = normalize( sanitize(name) )
-       h[norm] ||= []
-       h[norm] << name; h
-    end.select { |norm,names| names.size > 1 }
-  end
-
-
-  def add_variants( name_or_names )
-    names = name_or_names.is_a?(Array) ? name_or_names : [name_or_names]
-    names.each do |name|
-      name = sanitize( name )
-      self.alt_names_auto += variants( name )
-    end
-  end
 end   # class Team
 
 
@@ -129,7 +105,8 @@ end  # class NationalTeam
 #   district, geos, year_end, country, etc.
 
 class Club < Team
-  attr_accessor  :ground
+  attr_accessor   :address,
+                  :ground
 
   attr_accessor :a, :b
   def a?()  @a == nil; end  ## is a (1st) team / club (i)?            if a is NOT set
@@ -149,7 +126,7 @@ class Club < Team
 
   def update( **kwargs )
     super
-    @city        = kwargs[:city]       if kwargs.has_key? :city
+    @city        = kwargs[:city]       if kwargs.has_key?( :city )
     ## todo/fix:  use city struct - why? why not?
     ## todo/fix: add country too  or report unused keywords / attributes - why? why not?
 

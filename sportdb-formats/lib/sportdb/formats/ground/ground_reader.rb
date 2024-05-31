@@ -113,7 +113,6 @@ def parse
         values = line[1..-1].split( '|' )   # team names - allow/use pipe(|)
         values = values.map {|value| _norm(value) }  ## squish/strip etc.
 
-        ## squish values here - why? why not?
         last_rec.alt_names += values
 
        ## check for address line e.g.

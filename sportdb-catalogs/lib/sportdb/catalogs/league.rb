@@ -48,7 +48,7 @@ SQL
       def self.match_by( name:, 
                          country: nil )
         ## note: match must for now always include name
-        name = normalize( name )
+        name = normalize( unaccent(name) )
 
         rows = nil 
         if country.nil? 

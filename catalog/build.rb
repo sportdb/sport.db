@@ -39,9 +39,12 @@ CatalogDb::NationalTeamIndexer.new( teams )
 CatalogDb::LeagueIndexer.build( '../../../openfootball/leagues' )
 CatalogDb::EventIndexer.build( '../../../openfootball/leagues' )
 
+## note: grounds before clubs (clubs may reference grounds!!)
+CatalogDb::GroundIndexer.build( '../../../openfootball/stadiums' )
+
+
 CatalogDb::ClubIndexer.build( '../../../openfootball/clubs' )
            
 
-CatalogDb::GroundIndexer.build( '../../../openfootball/stadiums' )
 
 puts "bye"

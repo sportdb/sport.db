@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 
 module SportDb
 module Import
@@ -83,12 +81,8 @@ def parse
           ## assume continuation with line of alternative names
           ##  note: skip leading pipe
           values = line[1..-1].split( '|' )   # team names - allow/use pipe(|)
-          ## 1) strip (commerical) sponsor markers/tags e.g. $$ Liga $$BBV$$ MX
-          ## 2) strip and  squish (white)spaces
-          #   e.g. New York FC      (2011-)  => New York FC (2011-)
-          values = values.map { |value| value.gsub( '$', '' )
-                                             .gsub( /[ \t]+/, ' ' )
-                                             .strip  }
+          values = values.map {|value| _norm(value) }  ## squish/strip etc.
+
           logger.debug "alt_names: #{values.join( '|' )}"
 
           last_rec.alt_names += values
@@ -99,37 +93,10 @@ def parse
           league_key  = $1
           ## 1) strip (commercial) sponsor markers/tags e.g $$
           ## 2) strip and squish (white)spaces
-          league_name = $2.gsub( '$', '' )
-                          .gsub( /[ \t]+/, ' ' )
-                          .strip
+          league_name = _norm( $2 )
 
           logger.debug "key: >#{league_key}<, name: >#{league_name}<"
 
-
-          alt_names_auto = []
-          if country
-            alt_names_auto << "#{country.key.upcase} #{league_key.upcase.gsub('.', ' ')}"
-            ## todo/check: add "hack" for cl (chile) and exclude?
-            ##             add a list of (auto-)excluded country codes with conflicts? why? why not?
-            ##                 cl - a) Chile  b) Champions League
-            alt_names_auto << "#{country.key.upcase}"   if league_key == '1'   ## add shortcut for top level 1 (just country key)
-            if country.key.upcase != country.code
-              alt_names_auto << "#{country.code} #{league_key.upcase.gsub('.', ' ')}"
-              alt_names_auto << "#{country.code}"    if league_key == '1'   ## add shortcut for top level 1 (just country key)
-            end
-            alt_names_auto << "#{country.name} #{league_key}"  if league_key =~ /^[0-9]+$/   ## if all numeric e.g. add Austria 1 etc.
-
-            ## auto-add with country prepended
-            ##   e.g. England Premier League, Austria Bundesliga etc.
-            ##  todo/check: also add variants with country alt name if present!!!
-            ##  todo/check: exclude cups or such from country + league name auto-add - why? why not?
-            alt_names_auto << "#{country.name} #{league_name}"
-          else   ## assume int'l (no country) e.g. champions league, etc.
-            ## only auto-add key (e.g. CL, EL, etc.)
-            alt_names_auto << league_key.upcase.gsub('.', ' ')   ## note: no country code (prefix/leading) used
-          end
-
-          ## pp alt_names_auto
 
           ## prepend country key/code if country present
           ##   todo/fix: only auto-prepend country if key/code start with a number (level) or incl. cup
@@ -140,7 +107,6 @@ def parse
 
           rec = League.new( key:            league_key,
                             name:           league_name,
-                            alt_names_auto: alt_names_auto,
                             country:        country,
                             intl:           intl,
                             clubs:          clubs)
@@ -161,6 +127,24 @@ def parse
   end
   recs
 end # method parse
+
+
+
+#######################
+###  helpers
+
+## norm(alize) helper  - squish (spaces) 
+##                      and remove dollars ($$$)
+##                      and remove leading and trailing spaces
+def _norm( str )
+  ## only extra clean-up of dollars for now ($$$)
+  _squish( str.gsub( '$', '' ) )
+end
+
+def _squish( str )
+  str.gsub( /[ \t\u00a0]+/, ' ' ).strip
+end
+
 
 end # class LeagueReader
 

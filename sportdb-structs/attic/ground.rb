@@ -42,7 +42,8 @@ class Ground
   include SportDb::NameHelper
 end
 
-----
+
+# ----
 
 def add_alt_names( rec, names )   ## helper for adding alternat names
     ## strip and  squish (white)spaces

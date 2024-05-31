@@ -75,14 +75,6 @@ class Team   # shared base for clubs AND natinal_teams
     @alt_names   = kwargs[:alt_names]  if kwargs.has_key?( :alt_names )
     self   ## note - MUST return self for chaining
   end
-
-
-
-  ##############################
-  ## helper methods for import only??
-  ## check for duplicates
-  include SportDb::NameHelper
-
 end   # class Team
 
 

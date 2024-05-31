@@ -6,16 +6,13 @@ class League
   attr_reader   :key, :name, :country, :intl
   attr_accessor :alt_names
 
-  ## special import only attribs
-  attr_accessor :alt_names_auto    ## auto-generated alt names
 
-  def initialize( key:, name:, alt_names: [], alt_names_auto: [],
+  def initialize( key:, name:, alt_names: [],
                   country: nil, intl: false, clubs: true )
     @key            = key
     @name           = name
     @alt_names      = alt_names
-    @alt_names_auto = alt_names_auto
-
+ 
     @country        = country
     @intl           = intl
     @clubs          = clubs

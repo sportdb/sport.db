@@ -1,7 +1,7 @@
 module CatalogDb
 
 class EventIndexer < Indexer
-    def self.build( path )
+    def self.read( path )
       pack = SportDb::Package.new( path )   ## lets us use direcotry or zip archive
 
       recs = []
@@ -10,13 +10,12 @@ class EventIndexer < Indexer
       end
       recs
 
-      index = new
-      index.add( recs )
-      index
+      add( recs )
     end
-
  
-    def add( recs )
+ 
+    def add( rec_or_recs )  
+      recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]   ## wrap (single) rec in array
       recs.each do |rec|
         ## pp rec
          info = Model::EventInfo.create!(

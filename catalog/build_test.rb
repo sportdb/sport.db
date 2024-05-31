@@ -22,13 +22,13 @@ module Import
 
 ##########
 ## build_country_index
-countries = CountryReader.read( "#{Test.data_dir}/world/countries.txt" )
-pp countries
-CatalogDb::CountryIndexer.new( countries )
+countries = CountryReader.parse( <<TXT )
+eng  England,  ENG
+sco  Scotland, SCO
+TXT
 
-## check country count
-puts "countries:"
-puts CatalogDb::Metal::Country.count
+pp countries
+CatalogDb::CountryIndexer.add( countries )
 
 
 ###########
@@ -57,8 +57,10 @@ TXT
 
 pp leagues
 
-league_indexer = CatalogDb::LeagueIndexer.new
-league_indexer.add( leagues )
+CatalogDb::LeagueIndexer.add( leagues )
+
+
+
 
 
 ########################
@@ -123,15 +125,17 @@ TXT
 
 pp clubs
 
-club_indexer = CatalogDb::ClubIndexer.new
-club_indexer.add( clubs )
-    
-puts "Test.data_dir:"
-puts Test.data_dir
+CatalogDb::ClubIndexer.add( clubs )
 
 end     # module SportDb
 end     # module Import
 
 
+
+## check table counts
+puts
+puts "  #{CatalogDb::Metal::Country.count} countries"
+puts "  #{CatalogDb::Metal::League.count} leagues"
+puts "  #{CatalogDb::Metal::Club.count} clubs"
 
 puts "bye"

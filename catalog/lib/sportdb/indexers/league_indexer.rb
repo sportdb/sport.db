@@ -4,7 +4,7 @@ module CatalogDb
 
 class LeagueIndexer < Indexer
 
-  def self.build( path )
+  def self.read( path )
     pack = SportDb::Package.new( path )   ## lets us use direcotry or zip archive
 
     recs = []
@@ -13,11 +13,9 @@ class LeagueIndexer < Indexer
     end
     recs
 
-    leagues = new
-    leagues.add( recs )
-    leagues
+    add( recs )
   end
-
+ 
 
   def add( rec_or_recs )   ## add club record / alt_names
     recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]      ## wrap (single) rec in array

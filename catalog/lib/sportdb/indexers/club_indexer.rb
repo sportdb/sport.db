@@ -5,7 +5,7 @@ module CatalogDb
 
 class ClubIndexer < Indexer
 
-  def self.build( path )
+  def self.read( path )
     pack = SportDb::Package.new( path )   ## lets us use direcotry or zip archive
 
     recs = []
@@ -14,8 +14,7 @@ class ClubIndexer < Indexer
     end
     recs
 
-    clubs = new
-    clubs.add( recs )
+    add( recs )
 
     ## add wiki(pedia) anchored links
     # recs = []
@@ -25,11 +24,10 @@ class ClubIndexer < Indexer
 
     # pp recs
     # clubs.add_wiki( recs )
-    clubs
   end
+ 
 
-
-
+ 
 
   def strip_wiki( name )     # todo/check: rename to strip_wikipedia_en - why? why not?
     ##  change/rename to strip_wiki_qualifier or such - why? why not?

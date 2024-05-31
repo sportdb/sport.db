@@ -6,12 +6,9 @@ module CatalogDb
 ## built-in countries for (quick starter) auto-add
 class CountryIndexer  < Indexer
 
-  def initialize( recs )
-    add( recs )
-  end
 
-
-  def add( recs )
+  def add( rec_or_recs )  
+    recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]   ## wrap (single) rec in array
     ###########################################
     ## auto-fill countries
     ## pp recs

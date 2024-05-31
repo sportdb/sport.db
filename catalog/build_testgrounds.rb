@@ -19,9 +19,9 @@ countries = Fifa.countries
 puts "  #{countries.size} countries"
 #=> 241 countries
 
-CatalogDb::CountryIndexer.new( countries )
+CatalogDb::CountryIndexer.add( countries )
 
 
-CatalogDb::GroundIndexer.build( '../../../openfootball/stadiums' )
+CatalogDb::GroundIndexer.read( '../../../openfootball/stadiums' )
            
 puts "bye"

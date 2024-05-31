@@ -25,10 +25,10 @@ uk   Great Britain,    GBR     # note: NOT fifa or uefa member
 eng  England          › UK, ENG,  fifa › uefa
 TXT
 
-    CatalogDb::CountryIndexer.new( recs )
+    CatalogDb::CountryIndexer.add( recs )
 
 
-    countries = SportDb::Import.catalog.countries
+    countries = SportDb::Import.world.countries
 
 
     eng = countries[:eng]

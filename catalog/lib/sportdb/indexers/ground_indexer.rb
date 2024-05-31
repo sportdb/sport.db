@@ -5,7 +5,7 @@ module CatalogDb
 
 class GroundIndexer < Indexer
 
-  def self.build( path )
+  def self.read( path )
     pack = SportDb::Package.new( path )   ## lets us use direcotry or zip archive
 
     recs = []
@@ -14,13 +14,11 @@ class GroundIndexer < Indexer
     end
     recs
 
-    grounds = new
-    grounds.add( recs )
-    grounds
+    ## return db records on add - why? why not?
+    add( recs )
   end
-
-
-
+ 
+  
   def add( rec_or_recs )   ## add club record / alt_names
     recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]      ## wrap (single) rec in array
 

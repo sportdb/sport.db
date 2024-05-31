@@ -14,7 +14,9 @@ class TestLeagueIndex < Minitest::Test
 eng  England,  ENG
 sco  Scotland, SCO
 TXT
-    CatalogDb::CountryIndexer.new( recs )
+
+
+    CatalogDb::CountryIndexer.add( recs )
 
     recs = SportDb::Import::LeagueReader.parse( <<TXT )
 = England =
@@ -38,8 +40,7 @@ cup      EFL Cup
 4       Scottish League Two
 TXT
 
-   league_indexer = CatalogDb::LeagueIndexer.new
-   league_indexer.add( recs )
+   CatalogDb::LeagueIndexer.add( recs )
 
 
    leagues = SportDb::Import.catalog.leagues
@@ -90,6 +91,7 @@ TXT
     assert_equal 'eng',                    m[0].country.key
 end
 
+
   def test_match_by
     CatalogDb.open( "./tmp/testleague-#{Time.now.to_i}.db" )
 
@@ -99,7 +101,7 @@ at   Austria,  AUT
 eng  England,  ENG
 wal  Wales,    WAL
 TXT
-    CatalogDb::CountryIndexer.new( recs )
+    CatalogDb::CountryIndexer.add( recs )
 
     recs = SportDb::Import::LeagueReader.parse( <<TXT )
 = Germany =
@@ -117,8 +119,7 @@ TXT
           | Premier League
 TXT
 
-  league_indexer = CatalogDb::LeagueIndexer.new
-  league_indexer.add( recs )
+   CatalogDb::LeagueIndexer.add( recs )
 
    leagues = SportDb::Import.catalog.leagues
 

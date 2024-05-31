@@ -4,17 +4,11 @@ module CatalogDb
   
 class NationalTeamIndexer < Indexer
 
-  ### fix - use "standard" api for all indexer
-  ##  - [ ] remove initialize 
-  ##  - [ ] add - allow rec or recs!!!
-
-
-  def initialize( recs )
-    add( recs )
-  end
-
   
-  def add( recs )
+  def add( rec_or_recs )  
+    ## wrap (single) rec in array
+    recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]   
+
     ###########################################
     ## auto-fill national teams
     ## pp recs

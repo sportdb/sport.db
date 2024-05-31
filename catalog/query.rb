@@ -35,12 +35,24 @@ pp infos
 puts " #{infos.count} info(s)"
 
 
-## find all duplicate club keys!!!
+## debug
+##  check for Al-Ittihad
 
+
+pp rec =  CatalogDb::Model::Club.find_by( name: 'Al-Ittihad' )
+
+
+
+
+## find all duplicate clubs by keys!!!
 dups = CatalogDb::Model::Club.group('key').having( 'count(key) > 1' )
-pp dups
+## pp dups
 
-puts "  #{dups.size} dupliate(s)"
+dups_h = dups.count   ## or dups.size returns hash with counts!!!
+puts
+puts
+puts "  #{dups_h.count} dupliate club(s)"
+pp dups_h
 
 dups.each do |dup|
     recs =  CatalogDb::Model::Club.where( key: dup.key )
@@ -50,11 +62,23 @@ end
 
 
 
-## debug
-##  check for Al-Ittihad
+## find all duplicate grounds by names!!!
 
+dups = CatalogDb::Model::Ground.group('name').having( 'count(name) > 1' )
+## pp dups
 
-pp rec =  CatalogDb::Model::Club.find_by( name: 'Al-Ittihad' )
+dups_h = dups.count   ## or dups.size returns hash with counts!!!
+puts
+puts
+puts "  #{dups_h.size} dupliate ground(s)"
+pp dups_h
+
+dups.each do |dup|
+    recs =  CatalogDb::Model::Ground.where( name: dup.name )
+   puts "==> #{dup.name}  - #{recs.size}"
+   pp recs
+end
+
 
 
 

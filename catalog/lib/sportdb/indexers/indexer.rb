@@ -3,6 +3,17 @@
 module CatalogDb
 class Indexer     ## base indexer for shared common code
 
+  ###
+  #  add (static) convenience helpers
+  #    let's you use:
+  #     ClubIndexer.add( ... )
+  #     LeagueIndexer.add( ... )
+  #     etc.
+  def self.indexer() @instance ||= new; end
+  def self.add( rec_or_recs ) indexer.add( rec_or_recs ); end
+
+
+
   ## helpers from club - use a helper module for includes - why? why not?
   include SportDb::NameHelper
   ## incl. strip_year( name )

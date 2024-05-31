@@ -19,7 +19,7 @@ countries = Fifa.countries
 puts "  #{countries.size} countries"
 #=> 241 countries
 
-CatalogDb::CountryIndexer.new( countries )
+CatalogDb::CountryIndexer.add( countries )
 
 ## auto-build national teams from Fifa.countries for now
 teams = []
@@ -33,17 +33,20 @@ countries.each do |country|
     teams << team
 end
 
-CatalogDb::NationalTeamIndexer.new( teams )
+CatalogDb::NationalTeamIndexer.add( teams )
 
 
-CatalogDb::LeagueIndexer.build( '../../../openfootball/leagues' )
-CatalogDb::EventIndexer.build( '../../../openfootball/leagues' )
+CatalogDb::LeagueIndexer.read( '../../../openfootball/leagues' )
+
+## change EventIndexer to LeagueSeason(s)Indexer  - why? why not?
+CatalogDb::EventIndexer.read( '../../../openfootball/leagues' )
+
 
 ## note: grounds before clubs (clubs may reference grounds!!)
-CatalogDb::GroundIndexer.build( '../../../openfootball/stadiums' )
+CatalogDb::GroundIndexer.read( '../../../openfootball/stadiums' )
 
 
-CatalogDb::ClubIndexer.build( '../../../openfootball/clubs' )
+CatalogDb::ClubIndexer.read( '../../../openfootball/clubs' )
            
 
 

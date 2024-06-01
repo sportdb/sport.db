@@ -1,4 +1,3 @@
-# encoding: utf-8
 
 module SportDb
 
@@ -37,8 +36,12 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
     ## usage/refs
     @rounds       = {}           ## track usage counter and match (two teams) counter
     @groups       = {}           ##  -"-
+
     @teams        = Hash.new(0)   ## keep track of usage counter
 
+    ## note: ground incl. optional city (timezone) etc. - why? why not?
+    @grounds      = Hash.new(0)    
+  
     @warns        = []    ## track list of warnings (unmatched lines)  too - why? why not?
 
 
@@ -77,7 +80,10 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
       end
     end # lines.each
 
-    [@teams, @rounds, @groups, @round_defs, @group_defs, @warns]
+    ## new - add grounds and cities
+    [@teams, @rounds, @groups, @round_defs, @group_defs,
+     @grounds,  ## note: ground incl. optional city (timezone) etc. 
+     @warns]
   end
 
 
@@ -102,6 +108,21 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
 
     ## split by geo (@) - remove for now
     values = line.split( '@' )
+
+    ### check for ground/stadium and cities
+    if values.size == 1
+       ## no stadium
+    elsif values.size == 2   # bingo!!!
+       ## process stadium, city (timezone) etc.
+       ## for now keep it simple  (split by comma)
+       ground = values[1].gsub( /[ \t]+/, ' ').strip   ## squish
+       @grounds[ ground ] += 1
+    else
+       puts "!! ERROR - too many @-markers founds in line:"
+       puts line
+       exit 1
+    end
+
     line = values[0]
 
 

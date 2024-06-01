@@ -1,0 +1,199 @@
+= Euro 2021       # in 11 cities across Europe, June 11th to July 11th
+
+
+#############################################
+# Group phase
+
+Group A | Turkey       Italy     Wales      Switzerland
+Group B | Denmark      Finland   Belgium    Russia
+Group C | Netherlands  Ukraine   Austria    North Macedonia
+Group D | England      Croatia   Scotland   Czech Republic
+Group E | Spain        Sweden    Poland     Slovakia
+Group F | Hungary      Portugal  France     Germany
+
+
+Matchday 1 | Jun/11 - Jun/15         # 1 v 2, 3 v 4
+Matchday 2 | Jun/16 - Jun/19         # 1 v 3, 2 v 4
+Matchday 3 | Jun/20 - Jun/23         # 4 v 1, 2 v 3
+
+
+
+
+
+
+Group A:
+
+(1)  June/11   21:00    Turkey   0-3 (0-0)   Italy         @ Stadio Olimpico, Rome
+        [-; Demiral 53' (o.g.) Immobile 66' Insigne 79']
+(2)  June/12   15:00    Wales    1-1 (0-0)   Switzerland   @ Olympic Stadium, Baku   # 17:00 UTC+4
+        [Moore 74'; Embolo 49']
+
+(13) June/16   18:00    Turkey   0-2   Wales         @ Olympic Stadium, Baku   # 20:00 UTC+4
+          [-; Ramsey 42' C. Roberts 90+5']
+(14) June/16   21:00    Italy    3-0   Switzerland   @ Stadio Olimpico, Rome
+          [Locatelli 26', 52' Immobile 89']
+
+
+(25) June/20   18:00    Switzerland   3-1 Turkey      @ Olympic Stadium, Baku   # 20:00 UTC+4
+            [Seferovic 6' Shaqiri 26', 68'; Kahveci 62']
+(26) June/20   18:00    Italy        1-0  Wales       @ Stadio Olimpico, Rome
+               [Pessina 39']
+
+
+Group B:
+
+(3)  June/12  18:00     Denmark    0-1 (0-0)   Finland     @ Parken Stadium, Copenhagen
+         [-; Pohjanpalo 60']
+(4)  June/12  21:00     Belgium    3-0 (2-0)   Russia      @ Krestovsky Stadium, Saint Petersburg  # 22:00 UTC+3
+         [Lukaku 10', 88' Meunier 34']
+
+(15) June/16  15:00     Finland    0-1   Russia      @ Krestovsky Stadium, Saint Petersburg  # 16:00 UTC+3
+            [-; Miranchuk 45+2']
+(16) June/17  18:00     Denmark    1-2   Belgium     @ Parken Stadium, Copenhagen
+             [Poulsen 2'; T. Hazard 55' De Bruyne 70']
+
+(27) June/21  21:00     Russia     1-4   Denmark     @ Parken Stadium, Copenhagen
+            [Dzyuba 70' (pen.);  Damsgaard 38' Poulsen 59' Christensen 79' Mæhle 82']
+(28) June/21  21:00     Finland    0-2  Belgium     @ Krestovsky Stadium, Saint Petersburg   # 22:00 UTC+3
+            [-; Hradecky 74' (o.g.) Lukaku 81']
+
+
+
+Group C:
+
+(6)  June/13  18:00    Austria      3-1 (1-1)   North Macedonia   @ Arena Națională, Bucharest   # 19:00 UTC+3
+         [Lainer 18' Gregoritsch 78' Arnautović 89'; Pandev 28']
+(5)  June/13  21:00    Netherlands  3-2 (0-0)   Ukraine           @ Johan Cruyff Arena, Amsterdam
+         [Wijnaldum 52' Weghorst 58' Dumfries 85'; Yarmolenko 75' Yaremchuk 79']
+
+(18) June/17  15:00    Ukraine      2-1   North Macedonia   @ Arena Națională, Bucharest   # 16:00 UTC+3
+         [Yarmolenko 29' Yaremchuk 34'; Alioski 57']
+(17) June/17  21:00    Netherlands  2-0   Austria           @ Johan Cruyff Arena, Amsterdam
+         [Depay 11' (pen.) Dumfries 67']   
+
+(29) June/21  18:00    North Macedonia  0-3   Netherlands   @ Johan Cruyff Arena, Amsterdam
+          [-; Depay 24' Wijnaldum 50', 58']
+(30) June/21  18:00    Ukraine          0-1   Austria       @ Arena Națională, Bucharest   # 19:00 UTC+3
+          [-; Baumgartner 21']
+
+
+
+Group D:
+
+(7)  June/13  15:00    England         1-0 (0-0)  Croatia         @ Wembley Stadium, London  # 14:00 UTC+1
+        [Sterling 57']
+(8)  June/14  15:00    Scotland        0-2 (0-1)  Czech Republic  @ Hampden Park, Glasgow   # 14:00 UTC+1
+        [-; Schick 42', 52']
+
+(19) June/18  18:00    Croatia         1-1  Czech Republic  @ Hampden Park, Glasgow  # 17:00 UTC+1
+            [Perišić 47'; Schick 37' (pen.)]
+(20) June/18  21:00    England         0-0  Scotland        @ Wembley Stadium, London  # 20:00 UTC+1
+                
+(31) June/22  21:00    Croatia         3-1  Scotland        @ Hampden Park, Glasgow  # 20:00 UTC+1
+                 [Vlašić 17' Modrić 62' Perišić 77'; McGregor 42']
+(32) June/22  21:00    Czech Republic  0-1  England         @ Wembley Stadium, London  # 20:00 UTC+1
+                 [-; Sterling 12']
+
+
+
+Group E:
+
+(10) June/14  18:00    Poland          1-2 (0-1)  Slovakia        @ Krestovsky Stadium, Saint Petersburg   # 19:00 UTC+3
+        [Linetty 46'; Szczęsny 18' (o.g.) Škriniar 69']
+(9)  June/14  21:00    Spain           0-0        Sweden          @ La Cartuja, Seville
+       
+(21) June/18  15:00    Sweden          1-0  Slovakia        @ Krestovsky Stadium, Saint Petersburg   # 16:00 UTC+3
+              [Forsberg 77' (pen.)]
+(22) June/19  21:00    Spain           1-1  Poland          @ La Cartuja, Seville
+               [Morata 25'; Lewandowski 54']
+
+(33) June/23  18:00    Slovakia        0-5  Spain           @ La Cartuja, Seville
+                [-; Dúbravka 30' (o.g.) Laporte  45+3' Sarabia 56' F. Torres  67' Kucka 71' (o.g.)]
+(34) June/23  18:00    Sweden          3-2  Poland          @ Krestovsky Stadium, Saint Petersburg   # 19:00 UTC+3
+                [Forsberg 2', 59' Claesson 90+4'; Lewandowski 61', 84']
+
+
+Group F:
+
+(11) June/15  18:00    Hungary         0-3  Portugal        @ Puskás Aréna, Budapest
+               [-; Guerreiro 84' Ronaldo 87' (pen.), 90+2']
+(12) June/15  21:00    France          1-0  Germany         @ Allianz Arena, Munich
+               [Hummels 20' (o.g.)]
+
+(23) June/19  15:00    Hungary         1-1  France          @ Puskás Aréna, Budapest
+                [Fiola 45+2'; Griezmann 66']
+(24) June/19  18:00    Portugal        2-4  Germany         @ Allianz Arena, Munich
+                [Ronaldo 15' Jota 67'; Dias 35' (o.g.) Guerreiro 39' (o.g.) Havertz 51' Gosens 60']
+
+(35) June/23  21:00    Portugal        2-2  France          @ Puskás Aréna, Budapest
+                 [Ronaldo 31' (pen.), 60' (pen.); Benzema 45+2' (pen.), 47']
+(36) June/23  21:00    Germany         2-2  Hungary         @ Allianz Arena, Munich
+                 [Havertz 66' Goretzka 84'; Ád. Szalai 11' Schäfer 68']
+
+
+
+#############################
+# Knockout phase / Finals
+
+Round of 16
+
+(38) June/26  18:00           Wales    0-4  Denmark    @ Johan Cruyff Arena, Amsterdam
+                     [-; Dolberg 27', 48' Mæhle 88' Braithwaite 90+4']
+
+(37) June/26 21:00          Italy  2-1 a.e.t. (1-1)    Austria  @ Wembley Stadium, London   # (20:00 UTC+1)
+                   [Chiesa 95' Pessina 105'; Kalajdžić 114']
+
+(40) June/27 18:00      Netherlands    0-2  Czech Republic  @ Puskás Aréna, Budapest
+                [-; Holeš 68' Schick 80']
+
+(39) June/27 21:00      Belgium  1-0  Portugal  @ Estadio de La Cartuja, Seville
+                [T. Hazard 42']
+
+(42) June/28 18:00    Croatia  3-5 a.e.t. (3-3)  Spain   @ Parken Stadium, Copenhagen
+                  [Pedri 20' (o.g.) Oršić 85' Pašalić 90+2';  Sarabia 38' Azpilicueta  57' F. Torres 77' Morata 100' Oyarzabal 103']
+
+(41) June/28 21:00    France    4-5 pen. 3-3 a.e.t. (3-3)   Switzerland     @ Arena Națională, Bucharest  # (22:00 UTC+3)
+                   [Benzema 57', 59' Pogba 75'; Seferovic 15', 81' Gavranović 90']
+
+(44) June/29 18:00    England  2-0  Germany   @ Wembley Stadium, London  # (17:00 UTC+1)
+                   [Sterling 75' Kane 86']
+ 
+(43) June/29 21:00     Sweden  1-2 a.e.t. (1-1)  Ukraine  @ Hampden Park, Glasgow  # (20:00 UTC+1)
+                   [Forsberg  43'; Zinchenko 27' Dovbyk 120+1']
+
+
+
+Quarter-finals
+
+(45) July/2 18:00    Switzerland   1-3 pen. 1-1 a.e.t. (1-1)  Spain  @ Krestovsky Stadium, Saint Petersburg # (19:00 UTC+3)
+                  [Shaqiri  68'; Zakaria  8' (o.g.)]
+
+(46) July/2  21:00    Belgium   1-2  Italy     @ Allianz Arena, Munich
+                 [Lukaku 45+2' (pen.); Barella  31' Insigne  44']
+
+(47) July/3  18:00     Czech Republic    1-2   Denmark   @ Olympic Stadium, Baku  # (20:00 UTC+4)
+                 [Schick  49'; Delaney  5' Dolberg  42']
+
+(48) July/3  21:00   Ukraine   0-4  England   @ Stadio Olimpico, Rome
+              [Kane 4', 50' Maguire 46' J. Henderson 63']
+
+
+Semi-finals
+
+(49) July/6 21:00     Italy    4-2 pen. 1-1 a.e.t. (1-1)  Spain  @ Wembley Stadium, London  # (20:00 UTC+1)
+                 [Chiesa  60'; Morata  80']
+
+(50) July/7 21:00     England   2–1 a.e.t. (1-1)  Denmark  @ Wembley Stadium, London  # (20:00 UTC+1)
+              [Kjær 39' (o.g.) Kane 104'; Damsgaard 30']
+
+
+Final
+
+(51) July/11 21:00     Italy   3-2 pen. 1-1 a.e.t. (1-1)  England    @ Wembley Stadium, London  # (20:00 UTC+1)
+               [Bonucci 67'; Shaw 2']
+
+
+
+>>>>>>>>>
+
+{}

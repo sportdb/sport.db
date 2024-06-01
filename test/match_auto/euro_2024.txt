@@ -1,0 +1,132 @@
+= Euro 2024  
+
+# 24 teams in 10 venues (in 10 host cities), June 14th to July 14th
+# all times are local, CEST (UTC+2)
+
+
+
+#############################################
+# Group phase
+
+
+Group A  |  Germany   Scotland     Hungary   Switzerland
+Group B  |  Spain     Croatia      Italy     Albania
+Group C  |  Slovenia  Denmark      Serbia    England
+Group D  |  Poland    Netherlands  Austria   France
+Group E  |  Belgium   Slovakia     Romania   Ukraine 
+Group F  |  Turkey    Georgia      Portugal  Czech Republic
+ 
+
+
+Matchday 1 | Fri Jun/14 - Tue Jun/18   
+Matchday 2 | Wed Jun/19 - Sat Jun/22   
+Matchday 3 | Sun Jun/23 - Wed Jun/26        
+
+
+Group A:
+
+ (1) Fri Jun/14 21:00         Germany   -   Scotland     @ München Fußball Arena, München
+ (2) Sat Jun/15 15:00         Hungary   -   Switzerland  @ Köln Stadion, Köln
+
+(14) Wed Jun/19 18:00         Germany   -   Hungary      @ Stuttgart Arena, Stuttgart
+(13) Wed Jun/19 21:00         Scotland   -   Switzerland  @ Köln Stadion, Köln
+
+(25) Sun Jun/23 21:00         Switzerland - Germany       @ Frankfurt Arena, Frankfurt
+(26) Sun Jun/23 21:00         Scotland     - Hungary       @ Stuttgart Arena, Stuttgart
+
+
+Group B:
+
+ (3) Sat Jun/15 18:00         Spain   -    Croatia    @ Olympiastadion, Berlin
+ (4) Sat Jun/15 21:00         Italy   -   Albania    @ BVB Stadion Dortmund, Dortmund
+
+(15) Wed Jun/19 15:00         Croatia   -   Albania    @ Volksparkstadion, Hamburg
+(16) Thu Jun/20 21:00         Spain   -   Italy      @ Arena Auf Schalke, Gelsenkirchen
+
+(27) Mon Jun/24 21:00         Albania   -   Spain      @ Düsseldorf Arena, Düsseldorf
+(28) Mon Jun/24 21:00         Croatia   -   Italy      @ Leipzig Stadion, Leipzig
+
+
+Group C:
+
+ (6) Sun Jun/16 18:00        Slovenia   -   Denmark    @ Stuttgart Arena, Stuttgart
+ (5) Sun Jun/16 21:00        Serbia   -   England    @ Arena Auf Schalke, Gelsenkirchen
+
+(18) Thu Jun/20 15:00        Slovenia   -   Serbia     @ München Football Arena, München
+(17) Thu Jun/20 18:00        Denmark   -   England    @ Waldstadion, Frankfurt
+
+(29) Tue Jun/25 21:00        England   -   Slovenia   @ Köln Stadion, Köln
+(30) Tue Jun/25 21:00        Denmark   -   Serbia     @ München Football Arena, München
+
+
+Group D:
+
+ (7) Sun Jun/16 15:00       Poland    -   Netherlands   @ Volksparkstadion, Hamburg
+ (8) Mon Jun/17 21:00       Austria  -   France        @ Düsseldorf Arena, Düsseldorf
+
+(19) Fri Jun/21 18:00       Poland       -   Austria       @ Olympiastadion, Berlin
+(20) Fri Jun/21 21:00       Netherlands -   France        @ Leipzig Stadion, Leipzig
+
+(31) Tue Jun/25 18:00       Netherlands  -   Austria       @ Olympiastadion, Berlin
+(32) Tue Jun/25 18:00       France        -   Poland        @ BVB Stadion Dortmund, Dortmund
+
+
+Group E:
+
+(10) Mon Jun/17 15:00      Romania     -   Ukraine       @ München Football Arena, München
+ (9) Mon Jun/17 18:00      Belgium     -   Slovakia      @ Frankfurt Arena, Frankfurt
+
+(21) Fri Jun/21 15:00      Slovakia   -  Ukraine       @ Düsseldorf Arena, Düsseldorf
+(22) Sat Jun/22 21:00      Belgium     -   Romania       @ Köln Stadion, Köln
+
+(33) Wed Jun/26 18:00      Slovakia   -  Romania       @ Waldstadion, Frankfurt
+(34) Wed Jun/26 18:00      Ukraine     -   Belgium       @ Stuttgart Arena, Stuttgart
+
+
+Group F:
+
+(11) Tue Jun/18 18:00      Turkey    -   Georgia   @ BVB Stadion Dortmund, Dortmund
+(12) Tue Jun/18 21:00      Portugal   -   Czech Republic  @ Leipzig Stadion, Leipzig
+
+(24) Sat Jun/22 15:00     Georgia   -   Czech Republic  @ Volksparkstadion, Hamburg
+(23) Sat Jun/22 18:00     Turkey   -   Portugal   @ BVB Stadion Dortmund, Dortmund
+
+(35) Wed Jun/26 21:00     Georgia   -   Portugal   @ Arena Auf Schalke, Gelsenkirchen
+(36) Wed Jun/26 21:00     Czech Republic -   Turkey  @ Volksparkstadion, Hamburg
+
+
+
+#############################
+# Knockout phase / Finals
+
+# Round of 16
+# (38) Sat Jun/29 18:00   Runner-up Group A  -  Runner-up Group B  @ Olympiastadion, Berlin
+# (37) Sat Jun/29 21:00   Winner Group A    -  Runner-up Group C  @ BVB Stadion Dortmund, Dortmund
+# (40) Sun Jun/30 18:00   Winner Group C   -  3rd Group D/E/F  @ Arena Auf Schalke, Gelsenkirchen
+# (39) Sun Jun/30 21:00   Winner Group B   -  3rd Group A/D/E/F  @ Köln Stadion, Köln
+# (42) Mon Jul/1 18:00    Runner-up Group D  -  Runner-up Group E  @ Düsseldorf Arena, Düsseldorf
+# (41) Mon Jul/1 21:00    Winner Group F    -   3rd Group A/B/C  @ Waldstadion, Frankfurt
+# (43) Tue Jul/2 18:00    Winner Group E    -  3rd Group A/B/C/D  @ München Fußball Arena, München
+# (44) Tue Jul/2 21:00   Winner Group D   -  Runner-up Group F  @ Leipzig Stadion, Leipzig
+
+
+# Quarter-finals
+# (45) Fri Jul/5 18:00   Winner Match 39  - Winner Match 37  @ Stuttgart Arena, Stuttgart
+# (46) Fri Jul/5 21:00   Winner Match 41  - Winner Match 42  @ Volksparkstadion, Hamburg
+
+# (48) Sat Jul/6 18:00   Winner Match 40  - Winner Match 38  @ Düsseldorf Arena, Düsseldorf
+# (47) Sat Jul/6 21:00   Winner Match 43  - Winner Match 44  @ Olympiastadion, Berlin
+
+
+# Semi-finals
+# (49) Tue Jul/9 21:00   Winner Match 45  - Winner Match 46  @ München Fußball Arena, München
+# (50) Wed Jul/10 21:00  Winner Match 47  - Winner Match 48  @ BVB Stadion Dortmund, Dortmund
+
+# Final
+# (51) Sun Jul/14 21:00     Winner Match 49 - Winner Match 50       @ Olympiastadion, Berlin
+
+
+
+>>>>>>>>>
+
+{}

@@ -298,7 +298,7 @@ class TeamSearch
             @club.find_by!( name: name, country: league.country )
           end
         else   ## assume national teams (not clubs)
-          @national_team.find!( name )
+          @national_teams.find!( name )
         end
       end
     end # method _find_by!

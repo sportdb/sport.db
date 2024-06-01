@@ -21,8 +21,8 @@ class Match
               :conf1,    :conf2,      ## special case for mls e.g. conference1, conference2 (e.g. west, east, central)
               :country1, :country2,    ## special case for champions league etc. - uses FIFA country code
               :comments,
-              :league      ## (optinal) added as text for now (use struct?)
-
+              :league,      ## (optinal) added as text for now (use struct?)
+              :ground       ## (optional) add as text line for now (incl. city, timezone etc.)
 
   attr_accessor :goals  ## todo/fix: make goals like all other attribs!!
 
@@ -39,28 +39,29 @@ class Match
 
   def update( **kwargs )
     ## note: check with has_key?  because value might be nil!!!
-    @date     = kwargs[:date]     if kwargs.has_key? :date
-    @time     = kwargs[:time]     if kwargs.has_key? :time
+    @date     = kwargs[:date]     if kwargs.has_key?( :date )
+    @time     = kwargs[:time]     if kwargs.has_key?( :time )
 
     ## todo/fix: use team1_name, team2_name or similar - for compat with db activerecord version? why? why not?
-    @team1    = kwargs[:team1]    if kwargs.has_key? :team1
-    @team2    = kwargs[:team2]    if kwargs.has_key? :team2
+    @team1    = kwargs[:team1]    if kwargs.has_key?( :team1 )
+    @team2    = kwargs[:team2]    if kwargs.has_key?( :team2 )
 
-    @conf1    = kwargs[:conf1]    if kwargs.has_key? :conf1
-    @conf2    = kwargs[:conf2]    if kwargs.has_key? :conf2
-    @country1 = kwargs[:country1]  if kwargs.has_key? :country1
-    @country2 = kwargs[:country2]  if kwargs.has_key? :country2
+    @conf1    = kwargs[:conf1]    if kwargs.has_key?( :conf1 )
+    @conf2    = kwargs[:conf2]    if kwargs.has_key?( :conf2 )
+    @country1 = kwargs[:country1]  if kwargs.has_key?( :country1 )
+    @country2 = kwargs[:country2]  if kwargs.has_key?( :country2 )
 
     ## note: round is a string!!!  e.g. '1', '2' for matchday or 'Final', 'Semi-final', etc.
     ##   todo: use to_s - why? why not?
-    @round    = kwargs[:round]    if kwargs.has_key? :round
-    @stage    = kwargs[:stage]    if kwargs.has_key? :stage
-    @leg      = kwargs[:leg]      if kwargs.has_key? :leg
-    @group    = kwargs[:group]    if kwargs.has_key? :group
-    @status   = kwargs[:status]   if kwargs.has_key? :status
-    @comments = kwargs[:comments] if kwargs.has_key? :comments
+    @round    = kwargs[:round]    if kwargs.has_key?( :round )
+    @stage    = kwargs[:stage]    if kwargs.has_key?( :stage )
+    @leg      = kwargs[:leg]      if kwargs.has_key?( :leg )
+    @group    = kwargs[:group]    if kwargs.has_key?( :group )
+    @status   = kwargs[:status]   if kwargs.has_key?( :status )
+    @comments = kwargs[:comments] if kwargs.has_key?( :comments )
 
-    @league   = kwargs[:league]   if kwargs.has_key? :league
+    @league   = kwargs[:league]   if kwargs.has_key?( :league )
+    @ground   = kwargs[:ground]   if kwargs.has_key?( :ground )
 
 
     if kwargs.has_key?( :score )   ## check all-in-one score struct for convenience!!!
@@ -91,17 +92,17 @@ class Match
         ## @score2agg  = score.score2agg
       end
     else
-      @score1     = kwargs[:score1]      if kwargs.has_key? :score1
-      @score1i    = kwargs[:score1i]     if kwargs.has_key? :score1i
-      @score1et   = kwargs[:score1et]    if kwargs.has_key? :score1et
-      @score1p    = kwargs[:score1p]     if kwargs.has_key? :score1p
-      @score1agg  = kwargs[:score1agg]   if kwargs.has_key? :score1agg
+      @score1     = kwargs[:score1]      if kwargs.has_key?( :score1 )
+      @score1i    = kwargs[:score1i]     if kwargs.has_key?( :score1i )
+      @score1et   = kwargs[:score1et]    if kwargs.has_key?( :score1et )
+      @score1p    = kwargs[:score1p]     if kwargs.has_key?( :score1p )
+      @score1agg  = kwargs[:score1agg]   if kwargs.has_key?( :score1agg )
 
-      @score2     = kwargs[:score2]      if kwargs.has_key? :score2
-      @score2i    = kwargs[:score2i]     if kwargs.has_key? :score2i
-      @score2et   = kwargs[:score2et]    if kwargs.has_key? :score2et
-      @score2p    = kwargs[:score2p]     if kwargs.has_key? :score2p
-      @score2agg  = kwargs[:score2agg]   if kwargs.has_key? :score2agg
+      @score2     = kwargs[:score2]      if kwargs.has_key?( :score2 )
+      @score2i    = kwargs[:score2i]     if kwargs.has_key?( :score2i )
+      @score2et   = kwargs[:score2et]    if kwargs.has_key?( :score2et )
+      @score2p    = kwargs[:score2p]     if kwargs.has_key?( :score2p )
+      @score2agg  = kwargs[:score2agg]   if kwargs.has_key?( :score2agg )
 
       ## note: (always) (auto-)convert scores to integers
       @score1     = @score1.to_i      if @score1

@@ -114,11 +114,11 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
        ## no stadium
     elsif values.size == 2   # bingo!!!
        ## process stadium, city (timezone) etc.
-       ## for now keep it simple  (split by comma)
+       ## for now keep it simple - pass along "unparsed" all-in-one
        ground = values[1].gsub( /[ \t]+/, ' ').strip   ## squish
        @grounds[ ground ] += 1
     else
-       puts "!! ERROR - too many @-markers founds in line:"
+       puts "!! ERROR - too many @-markers found in line:"
        puts line
        exit 1
     end

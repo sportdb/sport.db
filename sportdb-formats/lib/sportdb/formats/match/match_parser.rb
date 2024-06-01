@@ -1,4 +1,3 @@
-# encoding: utf-8
 
 module SportDb
 
@@ -325,11 +324,27 @@ class MatchParser   ## simple match parser for team match schedules
   def parse_game( line )
     logger.debug "parsing game (fixture) line: >#{line}<"
 
-    ## split by geo (@) - remove for now
+    ## split by geo (@)
     ##   split into parts e.g. break using @ !!!
     values = line.split( '@' )
-    line = values[0]
 
+    ## for now pass along ground, city (timezone) as string as is
+    ##         parse (map) later - why? why not??
+    ### check for ground/stadium and cities
+    ground =  if values.size == 1
+                 nil ## no stadium
+              elsif values.size == 2   # bingo!!!
+                 ## process stadium, city (timezone) etc.
+                 ## for now keep it simple - pass along "unparsed" all-in-one
+                 values[1].gsub( /[ \t]+/, ' ').strip   ## squish
+              else
+                 puts "!! ERROR - too many @-markers found in line:"
+                 puts line
+                 exit 1
+              end
+
+
+    line   = values[0]
 
     @mapper_teams.map_teams!( line )   ### todo/fix: limit mapping to two(2) teams - why? why not?  might avoid matching @ Barcelona ??
     teams = @mapper_teams.find_teams!( line )
@@ -419,7 +434,8 @@ class MatchParser   ## simple match parser for team match schedules
                                    score:   score,
                                    round:   round       ? round.name       : nil,   ## note: for now always use string (assume unique canonical name for event)
                                    group:   @last_group ? @last_group.name : nil,   ## note: for now always use string (assume unique canonical name for event)
-                                   status:  status )
+                                   status:  status,
+                                   ground:  ground )
     ### todo: cache team lookups in hash?
 
 =begin

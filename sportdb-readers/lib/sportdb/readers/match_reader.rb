@@ -72,9 +72,14 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
 
 
       ### todo/check: make sure team include teams from group def too!!!!!
-      auto_conf_teams, _ = AutoConfParser.parse( lines,
-                                                 start: start )
-
+      ###
+      ###             note - only use teams and grounds for now
+      auto_conf_teams, 
+      _rounds, _groups, _round_defs, _group_defs, 
+      auto_conf_grounds, 
+      _  = AutoConfParser.parse( lines, start: start )
+    
+                                    
       ## step 1: map/find teams
 
       ## note: loop over keys (holding the names); values hold the usage counter!! e.g. 'Arsenal' => 2, etc.

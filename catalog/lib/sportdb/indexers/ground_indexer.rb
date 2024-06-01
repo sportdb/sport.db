@@ -28,9 +28,21 @@ class GroundIndexer < Indexer
     'München' => ['Munich'],    # en
     'Köln'    => ['Cologne'],   # en
     'Wien'    => ['Vienna'],    # en
+    'Roma'    => ['Rome'],      # en
+    'Sevilla'    => ['Seville'],    # en
+    'København'  => ['Copenhagen'],  # en
+    'București'  => ['Bucharest'],  # en
+    #  'Copenhagen'
+    ## quick hack
+    ## add districts (or nearbys) for now too - why? why not?
+    ##  e.g. Stade de France, Paris 
+    ##       Stade de France, Paris (Saint-Denis)
+    ##       Stade de France, Saint-Denis
+    'Paris'   => ['Saint-Denis'], 
   }
 
   
+
   def add( rec_or_recs )   ## add club record / alt_names
     recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]      ## wrap (single) rec in array
 
@@ -46,7 +58,7 @@ class GroundIndexer < Indexer
       ##    break out - why? why not?
 
       ### add city record if not yet added
-      country_key =  country( rec.country ).key
+      country =  country( rec.country )
 
       
       ##
@@ -58,17 +70,17 @@ class GroundIndexer < Indexer
       ## There is no implied ordering so if order matters, you should specify it yourself.
       ##  If no record is found, returns nil. 
       city = Model::City.find_by( name:        rec.city, 
-                                  country_key: country_key )
+                                  country_key: country.key )
       if city.nil?
         ## add
         city_alt_names = CITY_ALT_NAMES[ rec.city ] || []
-        city_key = unaccent( rec.city ).downcase.gsub( /[^a-z]/, '' ) + "_" + country_key
+        city_key = unaccent( rec.city ).downcase.gsub( /[^a-z]/, '' ) + "_" + country.key
    
         city = Model::City.create!( 
                           key:         city_key,
                           name:        rec.city,
                           alt_names:   city_alt_names.empty? ? nil : city_alt_names.join( ' | ' ), 
-                          country_key: country_key
+                          country_key: country.key
                      )
         ## add names for queries/lookups
         city_names = [rec.city] + city_alt_names
@@ -87,10 +99,11 @@ class GroundIndexer < Indexer
                     key:        rec.key,
                     name:       rec.name,
                     alt_names:  rec.alt_names.empty? ? nil : rec.alt_names.join( ' | ' ), 
-                    city:       rec.city,   ## note: city for now a string 
+                    city_key:   city.key,
+                    ## add (keep) city: as string to - why? why not?
                     district:   rec.district,
                     address:    rec.address,
-                    country_key:  country_key,
+                    country_key:  country.key,
                     geos:       rec.geos.nil? || rec.geos.empty?  ? nil : rec.geos.join( ' › ' )                
       )
       pp ground

@@ -76,14 +76,13 @@ create_table :clubs, id: false do |t|
    t.string :alt_names
    t.string :code
 
+   t.string :country_key, null: false   # note - required for now!!!
+
    t.string :city
    t.string :district
    t.string :address
    t.string :geos
-
-   ## todo/fix - check if club exist without assigned country ???
-   t.string :country_key    ## todo/fix - make required - why? why not?
-   # was t.references :country  ## optional - yes? no? why? why not?
+  
 
    t.timestamps  ## (auto)add - why? why not?
 end
@@ -132,11 +131,10 @@ create_table :leagues, id: false do |t|
   t.string :name, null: false
   t.string :alt_names
 
-  t.boolean :intl, null: false, default: false
+  t.boolean :intl,  null: false, default: false
   t.boolean :clubs, null: false, default: true  
 
   t.string :country_key
-  # was t.references :country  ## optional - yes? no? why? why not?
 
   t.timestamps  ## (auto)add - why? why not?
 end
@@ -178,13 +176,13 @@ create_table :grounds, id: false do |t|
   t.string :name, null: false
   t.string :alt_names
 
-  t.string :city, null: false    ## city (name) for now a string only
+  t.string :country_key, null: false   # note - required for now!!!
+  t.string :city_key,    null: false   # note - required for now!!!
   t.string :district    ## e.g. city district/neighborhood
 
   t.string :address     # address line
   t.string :geos        # geo "tree/hierarchy"   Bayern > Oberbayern etc.
 
-  t.string :country_key
  
   t.timestamps  ## (auto)add - why? why not?
 end

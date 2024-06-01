@@ -55,9 +55,10 @@ end # class LeagueSearch
 class GroundSearch  < Search
   ###################
   ## core required delegates  - use delegate generator - why? why not?
-  def match_by( name:, country: nil )
-    @service.match_by( name: name, 
-                       country: country ) 
+  def match_by( name:, country: nil, city: nil )
+    @service.match_by( name:    name, 
+                       country: country,
+                       city:    city ) 
   end
 
   ###############

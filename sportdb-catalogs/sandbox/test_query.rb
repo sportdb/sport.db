@@ -74,6 +74,14 @@ pp Club.match_by( name: 'Arsenal', country: 'eng' )
 
 pp Ground.match_by( name: 'Waldstadion' )
 pp Ground.match_by( name: 'Waldstadion', country: 'de' )
+pp Ground.match_by( name: 'Waldstadion', city: 'Frankfurt' )
+
+puts "---"
+
+pp Ground.match_by( name: 'Stade de France' )
+pp Ground.match_by( name: 'Stade de France', city: 'Paris' )
+pp Ground.match_by( name: 'Stade de France', city: 'Saint-Denis' )
+
 
 
 puts "bye"

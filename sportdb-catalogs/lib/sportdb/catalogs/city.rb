@@ -10,10 +10,30 @@ class City < Record
                     'country_key',  #3
                   ]
 
+    def self.cache() @cache ||= Hash.new; end
+
+    def self._record( key )  ## use _record! as name - why? why not?
+        if (rec = cache[ key ])
+          rec   ## return cached
+        else  ## query and cache and return
+        rows = execute( <<-SQL )
+      SELECT #{self.columns.join(', ')}
+      FROM cities 
+      WHERE cities.key = '#{key}' 
+SQL
+ 
+          ## todo/fix: also assert for rows == 1 AND NOT MULTIPLE records - why? why not?
+          if rows.empty? 
+            raise ArgumentError, "city record with key #{key} not found" 
+          else 
+            _build_city( rows[0] )
+          end
+        end
+    end
+
     def self._build_city( row )
         ## note: cache structs by key (do NOT rebuild duplicates; reuse)
-        @cache ||= Hash.new
-        @cache[ row[0] ] ||= begin 
+        cache[ row[0] ] ||= begin 
                                 city = Sports::City.new(
                                          key:     row[0],
                                          name:    row[1],

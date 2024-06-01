@@ -72,6 +72,13 @@ def self._to_country( key )
    Country._record( key )   
 end
 
+def self._to_city( key )   ### rename; use find_by_key / find_by( key: )
+   # note: use cached record or (faster) key lookup on fallback
+   City._record( key )   
+end
+
+
+
 def self._country( country )
    if country.is_a?( String ) || country.is_a?( Symbol )
      # note: query/find country via catalog db
@@ -86,6 +93,26 @@ def self._country( country )
      country  ## (re)use country struct - no need to run lookup again
    end
 end
+
+def self._city( city )
+   if city.is_a?( String ) || city.is_a?( Symbol )
+     # note: query/find country via catalog db
+     recs = City.match_by( name: city )
+     if recs.empty?
+       puts "** !!! ERROR !!! - unknown city >#{city}< - no match found, sorry"
+       exit 1
+     elsif recs.size > 1
+       puts "** !!! ERROR !!! - city >#{city}< - too many matches found (#{recs.size}), sorry"
+       pp recs
+       exit 1
+     end
+     recs[0]
+   else
+     city  ## (re)use city struct - no need to run lookup again
+   end
+end
+
+
 
 
   end  # class Record

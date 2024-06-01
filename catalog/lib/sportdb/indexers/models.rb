@@ -29,7 +29,8 @@ end # class CountryName
 
 class City < CatalogRecord
     has_many :city_names, foreign_key: 'key', primary_key: 'key'
- 
+
+    has_many :grounds, foreign_key: 'city_key', primary_key: 'key'
     ## add has_many :clubs
     ##     has_many :ground
 end # class City
@@ -78,6 +79,7 @@ end
 
 class Ground < CatalogRecord
     belongs_to  :country, foreign_key: 'country_key', primary_key: 'key'
+    belongs_to  :city,    foreign_key: 'city_key',    primary_key: 'key'
 
     has_many :ground_names, foreign_key: 'key',        primary_key: 'key'
 end

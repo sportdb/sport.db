@@ -46,6 +46,28 @@ end
 add_index :country_names, :name, unique: true
 
 
+create_table :cities, id: false do |t|
+  t.string :key,    null: false
+  t.string :name,   null: false
+  t.string :alt_names
+
+  t.string :country_key, null: false
+
+  t.timestamps  ## (auto)add - why? why not?
+end
+
+add_index :cities, :key, unique: true
+
+create_table :city_names, id: false do |t|
+  t.string :key,  null: false  
+  t.string :name, null: false     ## normalized (lowercase)!!!
+
+  t.timestamps  ## (auto)add - why? why not?
+end
+
+
+
+
 ####
 # club tables
 create_table :clubs, id: false do |t|
@@ -59,7 +81,8 @@ create_table :clubs, id: false do |t|
    t.string :address
    t.string :geos
 
-   t.string :country_key
+   ## todo/fix - check if club exist without assigned country ???
+   t.string :country_key    ## todo/fix - make required - why? why not?
    # was t.references :country  ## optional - yes? no? why? why not?
 
    t.timestamps  ## (auto)add - why? why not?

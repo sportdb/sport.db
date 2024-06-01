@@ -1,18 +1,29 @@
 ###
 #  to run use
-#     ruby -I ./test test/test_countries.rb
+#     ruby test/test_countries.rb
 
 
-require 'helper'
+require_relative 'helper'
 
 class TestCountries < Minitest::Test
 
   COUNTRIES = SportDb::Import.world.countries
+  CITIES    = SportDb::Import.world.cities
+
+  def test_cities
+     m = CITIES.match_by( name: 'München' )
+     pp m
+     m = CITIES.match_by( name: 'Munich' )
+     pp m
+
+     m = CITIES.match_by( name: 'Wien' )
+     pp m
+     m = CITIES.match_by( name: 'Vienna' )
+     pp m
+  end
 
 
   def test_countries
-    ## pp COUNTRIES
-
     eng = COUNTRIES.find( :eng )
     assert_equal 'eng',      eng.key
     assert_equal 'England',  eng.name

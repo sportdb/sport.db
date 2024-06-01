@@ -13,6 +13,8 @@ require_relative 'catalogs/version' # let version always go first
 
 require_relative 'catalogs/base'       ## base record
 require_relative 'catalogs/country'
+require_relative 'catalogs/city'
+
 require_relative 'catalogs/club'   
 require_relative 'catalogs/national_team'
 require_relative 'catalogs/league'
@@ -39,7 +41,8 @@ class Configuration
 
       ##  plus automagically set world search too (to use CatalogDb)
       self.world = WorldSearch.new( 
-                          countries: CatalogDb::Metal::Country 
+                          countries: CatalogDb::Metal::Country,
+                          cities:    CatalogDb::Metal::City, 
                         ) 
 
       @catalog_path

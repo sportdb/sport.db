@@ -14,9 +14,9 @@ class Country < CatalogRecord
     has_many :clubs,   foreign_key: 'country_key', primary_key: 'key'
     has_many :leagues, foreign_key: 'country_key', primary_key: 'key'
     has_many :grounds, foreign_key: 'country_key', primary_key: 'key'
+
+    has_many :cities, foreign_key: 'country_key', primary_key: 'key'
 end # class Country
-
-
 
 class CountryCode < CatalogRecord
     belongs_to  :country,  foreign_key: 'key', primary_key: 'key'
@@ -25,6 +25,19 @@ end # class CountryCode
 class CountryName < CatalogRecord
     belongs_to  :country, foreign_key: 'key', primary_key: 'key'
 end # class CountryName
+
+
+class City < CatalogRecord
+    has_many :city_names, foreign_key: 'key', primary_key: 'key'
+ 
+    ## add has_many :clubs
+    ##     has_many :ground
+end # class City
+
+class CityName < CatalogRecord
+    belongs_to  :city, foreign_key: 'key', primary_key: 'key'
+end # class CityName
+
 
 
 

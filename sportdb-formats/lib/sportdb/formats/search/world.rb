@@ -8,6 +8,17 @@
 
 class WorldSearch    
 
+class CitySearch
+  def initialize( service ) @service = service; end
+
+  ###################
+  ## core required delegates  - use delegate generator - why? why not?
+  def match_by( name: )
+    @service.match_by( name: name ) 
+  end
+end  # class CitySearch
+
+
 class CountrySearch
   def initialize( service ) @service = service; end
   
@@ -97,15 +108,17 @@ class CountrySearch
 end  # class CountrySearch
 
 
-    def initialize( countries: )
+    def initialize( countries:, cities: )
         ## change service to country_service or such - why? why not?
         ##  add city_service and such later
         @countries = CountrySearch.new( countries )
+        @cities    = CitySearch.new( cities )
     end
 
     ####
     #  note: for now setup only for countries
-    def countries() @countries; end
+    def countries() @countries;  end
+    def cities()    @cities;  end
 end  # class WorldSearch
 
 

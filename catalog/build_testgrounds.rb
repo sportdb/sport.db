@@ -22,6 +22,6 @@ puts "  #{countries.size} countries"
 CatalogDb::CountryIndexer.add( countries )
 
 
-CatalogDb::GroundIndexer.read( '../../../openfootball/stadiums' )
+CatalogDb::GroundIndexer.read( '../../../openfootball/clubs' )
            
 puts "bye"

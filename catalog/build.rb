@@ -43,7 +43,7 @@ CatalogDb::EventIndexer.read( '../../../openfootball/leagues' )
 
 
 ## note: grounds before clubs (clubs may reference grounds!!)
-CatalogDb::GroundIndexer.read( '../../../openfootball/stadiums' )
+CatalogDb::GroundIndexer.read( '../../../openfootball/clubs' )
 
 
 CatalogDb::ClubIndexer.read( '../../../openfootball/clubs' )

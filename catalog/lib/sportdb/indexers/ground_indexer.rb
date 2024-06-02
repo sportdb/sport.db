@@ -38,7 +38,7 @@ class GroundIndexer < Indexer
     ##  e.g. Stade de France, Paris 
     ##       Stade de France, Paris (Saint-Denis)
     ##       Stade de France, Saint-Denis
-    'Paris'   => ['Saint-Denis'], 
+    'Paris'   => ['Saint-Denis', 'Paris Saint-Denis'], 
   }
 
   

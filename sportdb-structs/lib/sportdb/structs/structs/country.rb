@@ -33,7 +33,15 @@ class Country
   def initialize( key: nil, name:, code:, tags: [] )
     ## note: auto-generate key "on-the-fly" if missing for now - why? why not?
     ## note: quick hack - auto-generate key, that is, remove all non-ascii chars and downcase
-    @key = key || name.downcase.gsub( /[^a-z]/, '' )
+    @key = begin 
+              if key
+                key 
+              elsif code
+                 code.downcase
+              else
+                 unaccent( name ).downcase.gsub( /[^a-z]/, '' )
+              end
+            end
     @name, @code = name, code
     @alt_names      = []
     @tags           = tags

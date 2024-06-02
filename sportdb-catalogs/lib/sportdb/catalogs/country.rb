@@ -73,7 +73,7 @@ SQL
 
 
  def self.find_by_name( name )
-   q = normalize( name.to_s )  ## allow symbols too (e.g. use to.s first)
+   q = normalize( unaccent( name.to_s ))  ## allow symbols too (e.g. use to.s first)
    
    rows = execute( <<-SQL )
    SELECT #{self.columns.join(', ')}

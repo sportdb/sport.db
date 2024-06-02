@@ -1,3 +1,4 @@
+require 'cocos'
 
 
 require 'active_record'   ## todo: add sqlite3? etc.

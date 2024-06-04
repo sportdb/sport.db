@@ -38,6 +38,13 @@ module SportDb
         \.txt$
     }x
 
+    PLAYERS_RE = %r{  (?: ^|/ )               # beginning (^) or beginning of path (/)
+       (?: [a-z]{1,4}\. )?   # optional country code/key e.g. eng.clubs.txt
+        players
+          (?:_[a-z0-9_-]+)?
+        \.txt$
+    }x
+
 
     ## clubs.txt or clubs_en.txt
     ##   remove support for en.clubs.txt - why? why not?
@@ -277,6 +284,7 @@ module SportDb
 
 
     def each_grounds( &blk )    each( pattern: GROUNDS_RE, &blk ); end
+    def each_players( &blk )    each( pattern: PLAYERS_RE, &blk ); end
 
     ## return all match datafile entries
     def match( format: 'txt' )

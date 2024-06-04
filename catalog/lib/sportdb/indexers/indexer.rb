@@ -26,6 +26,10 @@ class Indexer     ## base indexer for shared common code
   ## helper to always convert (possible) country key to existing country record
   ##  todo: make private - why? why not?
   def country( country )
+   # note: always use  world search api
+    ##          yes here too - why? why not?
+    puts "[DEPRECATED] do NOT use Indexer#country(country) cast !!!!"
+
     if country.is_a?( String ) || country.is_a?( Symbol )       
         puts "** !!! ERROR !!! - struct expect for now for country >#{country}<; sorry"
         exit 1
@@ -33,7 +37,7 @@ class Indexer     ## base indexer for shared common code
 
     ## (re)use country struct - no need to run lookup again
     rec = Model::Country.find_by!( key: country.key )   
-    rec
+    rec 
  end
 
 

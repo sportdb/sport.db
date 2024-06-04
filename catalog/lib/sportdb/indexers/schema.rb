@@ -95,6 +95,8 @@ create_table :club_names, id: false do |t|
 
   t.timestamps  ## (auto)add - why? why not?
 end
+add_index :club_names, [:key,:name], unique: true  
+
 
 ####
 # national teams tables
@@ -195,7 +197,7 @@ create_table :ground_names, id: false do |t|
 
  t.timestamps  ## (auto)add - why? why not?
 end
-
+add_index :ground_names, [:key,:name], unique: true  
 
 
   end  # Schema.define

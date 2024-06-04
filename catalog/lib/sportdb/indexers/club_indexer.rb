@@ -92,17 +92,24 @@ class ClubIndexer < Indexer
         pp rec
       end
 
+## todo/check:
+##  check if code is used in ClubReader???
+
       club = Model::Club.create!(
                     key:        rec.key,
                     name:       rec.name,
                     alt_names:  rec.alt_names.empty? ? nil : rec.alt_names.join( ' | ' ), 
-                    code:       rec.code, 
+              ##      code:       rec.code, 
                     city:       rec.city,
                     district:   rec.district,
-                    address:    rec.address, 
-                    country_key:  country( rec.country ).key,
+                    address:     rec.address, 
+                    country_key:  rec.country.key,
                     geos:       rec.geos.nil? || rec.geos.empty?  ? nil : rec.geos.join( ' › ' )                                                  
       )
+      ##  was:
+      ##   country_key:  country( rec.country ).key,
+      ##   - no lookup anymore, assume key is ok
+  
       pp club
    
       ## step 2) add all names (canonical name + alt names + alt names (auto))

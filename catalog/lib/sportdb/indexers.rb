@@ -27,6 +27,28 @@ require_relative 'indexers/ground_indexer'
 
 module CatalogDb
 
+##
+##  configuration support for options
+##    e.g. use (world) city (records)? or "vanilla" strings
+##              city = true|false
+##
+##
+class Configuration
+    ### note - by default use (world) city (records)
+    ##           and not "vanilla" strings
+    def city?()  defined?(@city) ? @city : true; end
+    def city=(value) @city = value; end
+end # class Configuration
+   
+## lets you use
+##   CatalogtDb.configure do |config|
+##      config.city = false
+##   end
+def self.configure()  yield( config ); end
+def self.config()  @config ||= Configuration.new;  end
+  
+
+
 
 def self.open( path='./catalog.db' )
     config = {

@@ -41,7 +41,10 @@ class GroundIndexer < Indexer
     'Paris'   => ['Saint-Denis', 'Paris Saint-Denis'], 
   }
 
-  
+  ### move shortcuts to indexer base for (re)use - why? why not?
+  def config() CatalogDb.config;  end
+  ## def city?()    config.city?   end
+
 
   def add( rec_or_recs )   ## add club record / alt_names
     recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]      ## wrap (single) rec in array
@@ -58,7 +61,7 @@ class GroundIndexer < Indexer
       ##    break out - why? why not?
 
       ### add city record if not yet added
-      country =  country( rec.country )
+      ## country =  country( rec.country )
 
       
       ##
@@ -69,46 +72,52 @@ class GroundIndexer < Indexer
       ## Finds the first record matching the specified conditions. 
       ## There is no implied ordering so if order matters, you should specify it yourself.
       ##  If no record is found, returns nil. 
-      city = Model::City.find_by( name:        rec.city, 
-                                  country_key: country.key )
-      if city.nil?
-        ## add
-        city_alt_names = CITY_ALT_NAMES[ rec.city ] || []
-        city_key = unaccent( rec.city ).downcase.gsub( /[^a-z]/, '' ) + "_" + country.key
+  
+      attribs = {
+        key:         rec.key,
+        name:        rec.name,
+        alt_names:   rec.alt_names.empty? ? nil : rec.alt_names.join( ' | ' ), 
+        district:    rec.district,
+        address:     rec.address,
+        country_key: rec.country.key,
+        geos:        rec.geos.nil? || rec.geos.empty?  ? nil : rec.geos.join( ' › ' )                
+      }
+
+      ## add (keep) city: as string to - why? why not?
+      ## todo - use city_key (record) instead of city (string ) - why? why not?
+      ##  note - now a config option
+
+      if config.city?
+
+        city = Model::City.find_by( name:        rec.city, 
+                                    country_key: rec.country.key )
+        if city.nil?
+          ## (quick 6 dirty) auto-add
+          city_alt_names = CITY_ALT_NAMES[ rec.city ] || []
+          city_key = unaccent( rec.city ).downcase.gsub( /[^a-z]/, '' ) + "_" + rec.country.key
    
-        city = Model::City.create!( 
-                          key:         city_key,
-                          name:        rec.city,
-                          alt_names:   city_alt_names.empty? ? nil : city_alt_names.join( ' | ' ), 
-                          country_key: country.key
-                     )
-        ## add names for queries/lookups
-        city_names = [rec.city] + city_alt_names
-        city_names.each do |city_name|
-           Model::CityName.create!(
+          city = Model::City.create!( 
+                              key:         city_key,
+                              name:        rec.city,
+                              alt_names:   city_alt_names.empty? ? nil : city_alt_names.join( ' | ' ), 
+                              country_key: rec.country.key
+                          )
+          ## add names for queries/lookups
+          city_names = [rec.city] + city_alt_names
+          city_names.each do |city_name|
+             Model::CityName.create!(
                            key:   city.key,
                            name:  unaccent( city_name ).downcase.gsub( /[^a-z]/, '' )
-           )
+                         )
+          end
         end
+        attribs[ :city_key ]  = city.key 
+      else
+        attribs[ :city_name ] = rec.city
       end
-
-
-      ## todo - use city_key (record) instead of city (string ) - why? why not?
-
-      ground = Model::Ground.create!(
-                    key:        rec.key,
-                    name:       rec.name,
-                    alt_names:  rec.alt_names.empty? ? nil : rec.alt_names.join( ' | ' ), 
-                    city_key:   city.key,
-                    ## add (keep) city: as string to - why? why not?
-                    district:   rec.district,
-                    address:    rec.address,
-                    country_key:  country.key,
-                    geos:       rec.geos.nil? || rec.geos.empty?  ? nil : rec.geos.join( ' › ' )                
-      )
+   
+      ground = Model::Ground.create!( **attribs )
       pp ground
-
-
 
 
       ## step 2) add all names (canonical name + alt names + alt names (auto))

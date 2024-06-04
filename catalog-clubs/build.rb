@@ -33,6 +33,10 @@ require_relative 'schema'
 module CatalogDb
 module ClubDb
   def self.open( path='./clubs.db' )
+
+    ### reuse connect here !!!
+    ###   why? why not?
+
     config = {
         adapter:  'sqlite3',
         database: path,
@@ -74,42 +78,3 @@ CatalogDb::ClubIndexer.read( '../../../openfootball/clubs' )
 
 puts "bye"
 
-__END__
-
-
-countries = Fifa.countries
-puts "  #{countries.size} countries"
-#=> 241 countries
-
-CatalogDb::CountryIndexer.add( countries )
-
-## auto-build national teams from Fifa.countries for now
-teams = []
-countries.each do |country|
-    team = Sports::NationalTeam.new( key:        country.code.downcase,  ## note: use country code (fifa)
-                                name:       country.name,
-                                code:       country.code,           ## note: use country code (fifa)
-                               alt_names:  country.alt_names )
-    team.country = country
-
-    teams << team
-end
-
-CatalogDb::NationalTeamIndexer.add( teams )
-
-
-CatalogDb::LeagueIndexer.read( '../../../openfootball/leagues' )
-
-## change EventIndexer to LeagueSeason(s)Indexer  - why? why not?
-CatalogDb::EventIndexer.read( '../../../openfootball/leagues' )
-
-
-## note: grounds before clubs (clubs may reference grounds!!)
-CatalogDb::GroundIndexer.read( '../../../openfootball/clubs' )
-
-
-CatalogDb::ClubIndexer.read( '../../../openfootball/clubs' )
-           
-
-
-puts "bye"

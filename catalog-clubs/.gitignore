@@ -1,0 +1,13 @@
+
+## ignore sqlite dbs for now
+*.db
+*.db-shm
+*.db-wal
+catalog.db
+testcatalog.db
+grounds.db
+players.db
+clubs.db
+
+# more
+/tmp/

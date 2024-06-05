@@ -149,6 +149,7 @@ create_table :league_names, id: false do |t|
 
   t.timestamps  ## (auto)add - why? why not?
 end
+add_index :league_names, [:key,:name], unique: true  
 
 
 ################

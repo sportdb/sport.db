@@ -29,7 +29,7 @@ class LeagueIndexer < Indexer
                                       alt_names:  rec.alt_names.empty? ? nil : rec.alt_names.join( ' | ' ), 
                                       clubs:      rec.clubs?,
                                       intl:       rec.intl?, 
-                                      country_key:  rec.country ? country( rec.country).key : nil
+                                      country_key:  rec.country ? rec.country.key : nil
                                     )
 
       ## step 2) add all names (canonical name + alt names + alt names (auto))
@@ -64,7 +64,7 @@ class LeagueIndexer < Indexer
       ##  note - must be league for clubs and not intl!!!
       ##   maybe later add continent (e.g. Europe / Asia etc.)
       if rec.country 
-        country_norm =  normalize( unaccent( country( rec.country ).name ))
+        country_norm =  normalize( unaccent( rec.country.name ))
 
         norms += norms.map { |norm| country_norm + norm }
       end

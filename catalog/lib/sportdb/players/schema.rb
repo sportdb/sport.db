@@ -18,6 +18,38 @@ module CatalogDb
   module PersonDb     ## use nested PersonDb - why? why not?
 
 
+def self.open( path='./players.db' )
+    config = {
+        adapter:  'sqlite3',
+        database: path,
+    }
+
+    ##
+    ## todo/fix - check - how to use
+    ##    multiple db connections
+    ActiveRecord::Base.establish_connection( config )
+    # ActiveRecord::Base.logger = Logger.new( STDOUT )
+
+    ## if sqlite3 add (use) some pragmas for speedups
+    if config[:database] != ':memory:'
+      ## note: if in memory database e.g. ':memory:' no pragma needed!!
+      ## try to speed up sqlite
+      ##   see http://www.sqlite.org/pragma.html
+      con = ActiveRecord::Base.connection
+      con.execute( 'PRAGMA synchronous=OFF;' )
+      con.execute( 'PRAGMA journal_mode=OFF;' )
+      con.execute( 'PRAGMA temp_store=MEMORY;' )
+    end
+
+    ##########################
+    ### auto_migrate
+    unless Model::Person.table_exists?
+        CreateDb.new.up
+    end
+end
+
+
+
 class CreateDb
 def up
   ActiveRecord::Schema.define do

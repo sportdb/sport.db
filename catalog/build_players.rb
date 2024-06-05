@@ -2,21 +2,20 @@
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../catalog/lib' ))  ## sportdb-indexers
-$LOAD_PATH.unshift( File.expand_path( './lib' ))
+$LOAD_PATH.unshift( File.expand_path( './lib' ))  ## sportdb-indexers
 
-require 'players'
+
+require 'sportdb/indexers'
 
 
 ## set catalog db (required for world search api)
-SportDb::Import.config.catalog_path = '../catalog/catalog.db'
+SportDb::Import.config.catalog_path = './catalog.db'
 
 
-path = "../../../openfootball/players/europe/austria/at.players.txt"
-recs  =  SportDb::Import::PlayerReader.read( path )
+## note: avoid conflict with "generic"/top-level PersonDb for now
+CatalogDb::PersonDb.open( './players.db' )
 
-pp recs
+CatalogDb::PlayerIndexer.read( '../../../openfootball/players' )
 
 
 puts "bye"
-

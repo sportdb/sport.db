@@ -5,7 +5,11 @@
 *.db-wal
 catalog.db
 testcatalog.db
+
 grounds.db
+players.db
+leagues.db
+clubs.db
 
 # more
 /tmp/

@@ -89,3 +89,14 @@ def self.open( path='./catalog.db' )
 end
 end    # module CatalogDb
 
+
+
+## add more (catalog/reference) dbs (schemas) support
+require_relative 'dbs/leagues'
+require_relative 'dbs/clubs'
+
+require_relative 'players/schema'
+require_relative 'players/models'
+require_relative 'players/player_reader'
+require_relative 'players/player_indexer'
+

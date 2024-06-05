@@ -1,13 +1,40 @@
 
 module CatalogDb
   module LeagueDb
+    def self.open( path='./leagues.db' )
+
+      ### reuse connect here !!!
+      ###   why? why not?
+  
+      config = {
+          adapter:  'sqlite3',
+          database: path,
+      }
+  
+      ActiveRecord::Base.establish_connection( config )
+      # ActiveRecord::Base.logger = Logger.new( STDOUT )
+  
+        ## try to speed up sqlite
+        ##   see http://www.sqlite.org/pragma.html
+        con = ActiveRecord::Base.connection
+        con.execute( 'PRAGMA synchronous=OFF;' )
+        con.execute( 'PRAGMA journal_mode=OFF;' )
+        con.execute( 'PRAGMA temp_store=MEMORY;' )
+  
+      ##########################
+      ### auto_migrate
+      unless Model::League.table_exists?
+          CreateDb.new.up
+      end
+    end  # method open
 
 
 class CreateDb
 
+
+  
 def up
   ActiveRecord::Schema.define do
-
 
 ####
 # league tables

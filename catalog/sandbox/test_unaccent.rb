@@ -58,6 +58,9 @@ DATA = parse_data( <<TXT )
   Grêmio RS,           gremio rs
   Avaí FC,             avai fc
   Brasília FC,         brasilia fc
+
+  Grobiņas SC,         grobinas sc
+  Grobiņa,             grobina
 TXT
 
 pp DATA

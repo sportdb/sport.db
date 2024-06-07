@@ -73,6 +73,10 @@ class CountryIndexer  < Indexer
     ##   T (Thailand), Z (Zambia) - why? why not?
     Japan, J
 
+    ## more quirky codes
+    Sudan,     SUD   #   fifa code is SDN 
+    Mongolia,  MGL   #   fifa code is MNG  
+
     ## add more??? 
     ##  todo/fix - add upstream to new alt_codes attribute - why? why not?
     ##  for more see

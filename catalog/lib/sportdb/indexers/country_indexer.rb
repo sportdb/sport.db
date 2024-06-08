@@ -61,6 +61,7 @@ class CountryIndexer  < Indexer
 
     Nicaragua,              NIC      ## fifa code is NCA
     Saudi Arabia,           SAUD     ## fifa code is KSA
+    Saudi Arabia,           SAU      ## - SAU is iso code???
     Iran,                   IRI      ## fifa code is IRN
       
     ##  BAH in use by Bahmas!!! cannot use for Bahrain - sorry

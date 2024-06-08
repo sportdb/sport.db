@@ -3,6 +3,9 @@ module SportDb
 module Import
 
 
+### derive subclass e.g. National(Squad)Player or 
+##                        Club(Squad)Player or such
+###                       why? why not?  
 class Player
   attr_reader :name,
               :pos,      # position (g/d/m/f) for now
@@ -11,6 +14,13 @@ class Player
               :birthdate,
               :birthplace
 
+   ## for national team squads            
+   attr_reader :num,        ## jersey/shirt number
+               :club,       ## current club
+               :club_nat,   ## current club nationality
+               :caps,       ## caps
+               :goals       ## goals
+
   attr_accessor :alt_names
 
 def initialize( name:,
@@ -18,7 +28,12 @@ def initialize( name:,
                 nat:    nil,  
                 height: nil,
                 birthdate: nil,
-                birthplace: nil )
+                birthplace: nil,
+                num: nil,
+                club: nil,
+                club_nat: nil,
+                caps: nil,
+                goals: nil )
     @name       = name
     @alt_names  = []
     @pos        = pos
@@ -26,8 +41,16 @@ def initialize( name:,
     @height     = height
     @birthdate  = birthdate
     @birthplace = birthplace
+
+    @num  = num
+    @club = club
+    @club_nat = club_nat
+    @caps  = caps
+    @goals = goals
 end
 end  # class Player
+
+
 
 
 class PlayerReader

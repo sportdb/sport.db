@@ -11,6 +11,22 @@ class Search    ## base search service - use/keep - why? why not?
 end  # class Search
 
 
+class PlayerSearch < Search
+  ###################
+  ## core required delegates  - use delegate generator - why? why not?
+  def match_by( name:, country: nil, year: nil )
+    @service.match_by( name:    name, 
+                       country: country,
+                       year:    year ) 
+  end
+
+  ###############
+  ### more deriv support functions / helpers
+  def match( name ) match_by( name: name ); end
+  ## add more here - why? why not? 
+end   # class PlayerSearch
+
+
 class LeagueSearch < Search
   ###################
   ## core required delegates  - use delegate generator - why? why not?
@@ -311,7 +327,8 @@ class TeamSearch
                    national_teams:,
                    clubs:,
                    grounds:,
-                   events:
+                   events:,
+                   players:
                    )
        @leagues        = LeagueSearch.new( leagues ) 
        @national_teams = NationalTeamSearch.new( national_teams )
@@ -320,10 +337,13 @@ class TeamSearch
        
        @grounds        = GroundSearch.new( grounds )
 
+       @players        = PlayerSearch.new( players )
+
        ## virtual deriv ("composite") search services
        @teams          = TeamSearch.new( clubs:          @clubs,
                                          national_teams: @national_teams )
-       @event_seasons  = EventSeasonSearch.new( events: @events )                                  
+       @event_seasons  = EventSeasonSearch.new( events: @events )                                
+       
    end
 
     def countries
@@ -339,6 +359,8 @@ class TeamSearch
  def clubs()          @clubs; end
  def events()         @events; end
  def grounds()         @grounds; end
+
+ def players()        @players; end
  
  def teams()          @teams; end         ## note - virtual table
  def seasons()        @event_seasons; end ## note - virtual table

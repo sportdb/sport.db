@@ -74,7 +74,9 @@ module SportDb
 
     Ground       = ::Sports::Ground
 
+    Player       = ::Sports::Player
 
+    
     class Team
       ## add convenience lookup helper / method for name by season for now
       ##   use clubs history - for now kept separate from struct - why? why not?

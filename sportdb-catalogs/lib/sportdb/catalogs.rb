@@ -21,6 +21,9 @@ require_relative 'catalogs/league'
 require_relative 'catalogs/event_info'
 require_relative 'catalogs/ground'   
 
+## more
+require_relative 'catalogs/player'
+
 
 
 module SportDb
@@ -55,9 +58,24 @@ class Configuration
                            clubs:          CatalogDb::Metal::Club,
                            grounds:        CatalogDb::Metal::Ground,
                            events:         CatalogDb::Metal::EventInfo,
+                           players:        CatalogDb::Metal::Player,    # note - via players.db !!!
                         )
   end
+
+  ###   
+  #  find a better name for setting - why? why not?
+  #     how about playersdb or ???
+  attr_reader   :players_path 
+  def players_path=(path)
+      @players_path = path
+      ######## 
+      # reset database here to new path
+      CatalogDb::Metal::PlayerRecord.database = path
+
+      @players_path
+  end
 end # class Configuration
+
 
   ##  e.g. use config.catalog  -- keep Import.catalog as a shortcut (for "read-only" access)
   def self.catalog() config.catalog;  end

@@ -61,6 +61,10 @@ DATA = parse_data( <<TXT )
 
   Grobiņas SC,         grobinas sc
   Grobiņa,             grobina
+
+  ## player names
+  Đorđe Petrović,      dorde petrovic
+  Ľubomír Tupta,       lubomir tupta    
 TXT
 
 pp DATA

@@ -100,5 +100,7 @@ require_relative 'players/models'
 require_relative 'players/player_reader'
 require_relative 'players/player_indexer'
 
+require_relative 'players/player_update_reader'
+require_relative 'players/player_update_indexer'
 require_relative 'players/national_squad_reader'
 

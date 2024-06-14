@@ -2,8 +2,23 @@
 module SportDb
 module Import
 
+class PlayerUpdate
+      attr_reader :names,
+                  :birthyear,
+                  :nat
+        
+    def initialize( names:,
+                    birthyear:,
+                    nat:)  
+        @names      = names
+        @nat        = nat
+        @birthyear  = birthyear
+    end
+end  # class PlayerUpdate
+    
+  
 
-class PlayerReader
+class PlayerUpdateReader
 
   def world() Import.world; end
 
@@ -54,7 +69,7 @@ def parse
 
           ## check country code - MUST exist for now!!!!
           if country.nil?
-            puts "!!! error [player reader] - unknown country >#{heading}< - sorry - add country to config to fix"
+            puts "!!! error [national squad reader] - unknown country >#{heading}< - sorry - add country to config to fix"
             exit 1
           end
       end
@@ -65,41 +80,18 @@ def parse
          ## one line type for now only
          ##   split by comman
          values = line.split( ',' )
-         values = values.map {|value| _squish( value ) }  ## squish/strip etc.
-
+     
          ## assume "strict" order for now
          ##  make more flexible later
          ##  e.g.
-         ##  David Alaba,  D,  1.75 m,  b. 24 Jun 1992 @ Vienna
-         name   = values[0]
-         pos    = values[1]   ## required for now
-         height = values[2]
-         born   = values[3] 
+         ##   Max Wöber | Maximilian Wöber,  b. 1998
 
-         ## check for n/a - not available markers
-         height = nil   if ['','-'].include?( height ) 
-         born   = nil   if ['','-'].include?( born ) 
+         names_str     = values[0]
+         birthyear_str = values[1] 
 
-         if height
-            ## auto-convert to cm (integer)
-            ## e.g. 1.75 m   to 175 (cm)
-            height =  height.gsub( /[^0-9]/, '' ).to_i( 10 )
-         end
-
-         ## split in birthdate (and birthplace)
-         birthdate  = nil
-         birthplace = nil
-         if born
-             ## cut-off  (optional)  b. prefix
-             born = born.sub( /^b\./, '' ).strip
-             values = born.split( '@' )
-             values = values.map {|value| _squish( value ) }  ## squish/strip etc.
-
-             ## assume format is 24 Jun 1992
-             ## for now
-             birthdate  = Date.strptime( values[0], '%d %b %Y' )
-             birthplace = values[1]  if values.size > 1
-         end
+         names     = names_str.split( '|' )
+         names     = names.map {|name| _squish( name ) }
+         birthyear = _squish( birthyear_str.sub( 'b.', '' )).to_i( 10 ) 
 
          ## use fifa codes for nat?
          ##  or use internet codes for nat?
@@ -108,17 +100,14 @@ def parse
          ##   same with leagues - use internet codes mostly
          ##    reuse for consistency - why? why not?
 
-         rec = Player.new(  name:       name,
-                            pos:        pos.downcase,
-                            nat:        country.key,
-                            height:     height,
-                            birthdate:  birthdate,
-                            birthplace: birthplace
-                            )
+         rec = PlayerUpdate.new(  names:      names,
+                                  birthyear:  birthyear,   
+                                  nat:        country.key,
+                               )
           recs << rec
       end  # each line
     else
-      puts "** !!! ERROR !!! [player reader] - unknown line type:"
+      puts "** !!! ERROR !!! [player update reader] - unknown line type:"
       pp node
       exit 1
     end
@@ -138,8 +127,7 @@ def _squish( str )
   str.gsub( /[ \t\u00a0]+/, ' ' ).strip
 end
 
-
-end # class PlayereReader
+end # class PlayerUpdateReader
 
 end ## module Import
 end ## module SportDb

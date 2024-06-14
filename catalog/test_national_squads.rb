@@ -7,6 +7,17 @@
 #   remove (Riyadh) from Al Shabab FC  !!!
 
 
+# known duplicates - same names in euro 2024
+##   - Ladislav Krejčí (CZE)    - 1999, 1992
+##   - Lorenzo Pellegrini (ITA) - 2003, 1996
+##   - Piotr Zieliński (POL)    - 1999, 1994
+##   - Pepe (POR)               - 1997, 1983
+##   - Bernardo Silva (POR)     - 2001, 1994
+##   -  Liam Kelly (SCO)        - 1995, 1990
+##   -  Rodri (ESP)             - 2000, 1996, 1990
+##   -  Joselu (ESP)            - 2004, 1991, 1990
+
+
 
 ### note: make sure to load latest sportdb/structs !!!  (allow key with numbers!)
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
@@ -65,7 +76,20 @@ paths.each_with_index do |path, i|
         print "!! more than one match (#{m.size}) for #{player_name} (#{player_nat}):"
         print "\n"
         pp m
-        exit 1
+
+        ## note - only exit/stop on unknown duplicates for now
+        ##   todo/fix: add nat/country_code too - why? why not?
+        if ['Ladislav Krejčí',
+            'Lorenzo Pellegrini',
+            'Piotr Zieliński',
+            'Pepe',
+            'Bernardo Silva',
+            'Liam Kelly',
+            'Rodri',
+            'Joselu'].include?( player_name )
+        else 
+          exit 1
+        end
     end
 
      ####

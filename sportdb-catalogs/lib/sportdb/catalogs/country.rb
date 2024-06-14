@@ -56,6 +56,17 @@ SQL
   def self.find_by_code( code )
    q = code.to_s.downcase   ## allow symbols (and always downcase e.g. AUT to aut etc.)
    
+   ## note: results in
+   ##    Côte d'Ivoire  => côte d'ivoire
+   ##  quote will break sql!!!
+   ##   remove - spaces etc.
+   ##     for now remove only single quote (will break sql) - add more?
+   ##
+   ## or use escape_sql_string - possible??
+
+   q = q.gsub( /[']/, '' )
+
+
    rows = execute( <<-SQL )
    SELECT #{self.columns.join(', ')}
    FROM countries 
@@ -71,6 +82,11 @@ SQL
   end
 
 
+ ##
+ ##
+ ## note - need to escape name ?
+ ##  e.g.  Côte d'Ivoire 
+ ##  make sure normalize removes single quotes (')!!!
 
  def self.find_by_name( name )
    q = normalize( unaccent( name.to_s ))  ## allow symbols too (e.g. use to.s first)

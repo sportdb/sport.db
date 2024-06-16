@@ -51,7 +51,13 @@ def parse
           ##   Österreich • Austria
           ##   Austria
           ##   Deutschland (de) • Germany
-          country = world.countries.parse( heading )
+
+          ## note - heading split in country and league
+          ##   note - for now divider is dash " - " with leading/trailing spaces!!!
+          values = heading.split( ' - ' )
+          puts " ==> league - #{values[1]}"   ## note - gets ignored for now
+
+          country = world.countries.parse( values[0].strip )
 
           ## check country code - MUST exist for now!!!!
           if country.nil?
@@ -77,7 +83,8 @@ def parse
          name       = values[1] 
          pos        = values[2]   ## required for now
          caps_str   = values[3]   ## split into caps & goals
-         club_str   = values[4]   ## split into club name & club nat/country
+         born_str   = values[4]
+         club_str   = values[5]   ## split into club name & club nat/country
 
          ## check for n/a - not available markers
          num =  ['','-'].include?( num_str ) ? nil : num_str.to_i(10) 
@@ -124,6 +131,13 @@ def parse
          ##   use country keys for now (e.g. internet codes mostly)
          ##   same with leagues - use internet codes mostly
          ##    reuse for consistency - why? why not?
+
+      
+         ##
+         ## todo/fix: 
+         ##   add birthyear 
+         ###   change struct to NationalSquadPlayer !!!!!
+         ##       add birthyear!!!!
 
          rec = Player.new(  num: num,
                             name:       name,

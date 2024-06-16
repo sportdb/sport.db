@@ -38,7 +38,8 @@ PLAYERS = SportDb::Import.config.catalog.players
 
 
 
-paths = Dir.glob( '../../../openfootball/euro/2024--germany/squads/*.txt')
+##paths = Dir.glob( '../../../openfootball/euro/2024--germany/squads/*.txt')
+paths = Dir.glob( '../../../openfootball/euro/2020--europe/squads/*.txt')
 pp paths
 
 
@@ -86,7 +87,13 @@ paths.each_with_index do |path, i|
             'Bernardo Silva',
             'Liam Kelly',
             'Rodri',
-            'Joselu'].include?( player_name )
+            'Joselu',
+            'Reece James',   ## eng.
+            'João Moutinho',  ## por
+            'Diego Llorente',  ## esp
+            'Koke',            ## esp
+            'Burak Yılmaz',    ## tur
+            ].include?( player_name )
         else 
           exit 1
         end

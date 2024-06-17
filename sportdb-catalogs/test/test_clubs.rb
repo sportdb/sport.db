@@ -52,6 +52,15 @@ class TestClubs < Minitest::Test
     m = CLUBS.match( 'ARSENAL' )
     assert_equal 3, m.size
 
+
+    m = CLUBS.match_by( name: 'ARSENAL', country: ['ENG', 'AR', 'RU'] )
+    assert_equal 3, m.size
+
+    m = CLUBS.match_by( name: 'ARSENAL', country: ['AT', 'DE'] )
+    assert_equal 0, m.size
+
+
+
     m = CLUBS.match_by( name: 'Arsenal', country: 'eng' )
     assert_equal 1, m.size
     assert_equal 'Arsenal FC', m[0].name

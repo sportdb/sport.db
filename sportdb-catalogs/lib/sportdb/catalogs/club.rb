@@ -43,14 +43,28 @@ SQL
        rows 
     end
 
-    def self._find_by_name_and_country( name, country )
-      rows = execute( <<-SQL )
+
+    def self._find_by_name_and_country( name, country_or_countries )
+          sql = <<-SQL
       SELECT #{self.columns.join(', ')}
       FROM clubs 
       INNER JOIN club_names ON clubs.key  = club_names.key
       WHERE club_names.name = '#{name}' AND 
-            clubs.country_key = '#{country}'
 SQL
+       
+        ## check if single country or n countries         
+         if country_or_countries.is_a?(Array) 
+          countries = country_or_countries
+          ## add (single) quotes and join with comma 
+          ##       e.g.  'at','de'  
+          country_list = countries.map {|country| %Q<'#{country}'>}.join(',')
+          sql <<  "clubs.country_key in (#{country_list})\n"
+         else ## assume string/symbol (single country key)
+          country = country_or_countries
+          sql <<  "clubs.country_key = '#{country}'\n"
+         end
+          
+      rows = execute( sql )
       rows 
     end
 
@@ -68,9 +82,14 @@ SQL
     # note: returns empty array (e.g. []) if no match and NOT nil
     nameq = normalize( unaccent(name) )
 
-    rows = if country
-              country = _country( country )
-              countryq = country.key
+    ## todo - check for empty array passed in?
+    rows = if country    
+              ### always wrap country in array
+              countries =  country.is_a?(Array) ? country : [country]
+              country_keys = countries.map {|country| _country( country ).key }
+              ## unwrap key if array with single country key
+              countryq = country_keys.size == 1 ? country_keys[0] : country_keys
+
               _find_by_name_and_country( nameq, countryq )
            else
               _find_by_name( nameq )

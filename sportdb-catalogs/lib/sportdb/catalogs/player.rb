@@ -69,17 +69,29 @@ SQL
     def self._find_by_name_and_year( name, year )
       ## check if there's a date function for year 
       ##  (using integer compare instead of string with qoutes???) 
+      ##  use cast to convert year to integer - why? why not? 
 
       rows = execute( <<-SQL )
       SELECT #{self.columns.join(', ')}
       FROM persons 
       INNER JOIN person_names ON persons.id  = person_names.person_id
       WHERE person_names.name = '#{name}' AND 
-            strftime('%Y',persons.birthdate) = '#{year}'
+            CAST(strftime('%Y',persons.birthdate) AS INTEGER) = #{year}
 SQL
       rows 
     end
 
+    def self._find_by_name_and_year_and_country( name, year, country )
+      rows = execute( <<-SQL )
+      SELECT #{self.columns.join(', ')}
+      FROM persons 
+      INNER JOIN person_names ON persons.id  = person_names.person_id
+      WHERE person_names.name = '#{name}' AND 
+            CAST(strftime('%Y',persons.birthdate) AS INTEGER) = #{year} AND
+            persons.nat = '#{country}'
+SQL
+      rows 
+    end
 
 
   ## match - always returns an array (with one or more matches)
@@ -88,16 +100,20 @@ SQL
                      year:    nil )
     nameq = normalize( unaccent(name) )
 
-    rows = if country && year.nil?
+    rows = if country 
               country = _country( country )
               countryq = country.key
-              _find_by_name_and_country( nameq, countryq )
+              if year
+                _find_by_name_and_year_and_country( nameq, year, countryq ) 
+              else    ## no year (country only)
+                _find_by_name_and_country( nameq, countryq )
+              end
            elsif year && country.nil?
               _find_by_name_and_year( nameq, year )
            elsif year.nil? && country.nil?
              _find_by_name( nameq )
            else
-              raise ArgumentError, "unsupported year query params pairs; sorry"
+              raise ArgumentError, "unsupported query for player; sorry"
            end
     
     rows.map {|row| _build_player( row )}

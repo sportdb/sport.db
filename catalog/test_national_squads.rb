@@ -16,6 +16,12 @@
 ##   -  Liam Kelly (SCO)        - 1995, 1990
 ##   -  Rodri (ESP)             - 2000, 1996, 1990
 ##   -  Joselu (ESP)            - 2004, 1991, 1990
+##         Reece James (ENG)
+##            João Moutinho (POR)
+##           Diego Llorente (ESP) 
+##           Koke (ESP) 
+##          Burak Yılmaz (TUR)
+   
 
 
 
@@ -38,7 +44,7 @@ PLAYERS = SportDb::Import.config.catalog.players
 
 
 
-##paths = Dir.glob( '../../../openfootball/euro/2024--germany/squads/*.txt')
+## paths = Dir.glob( '../../../openfootball/euro/2024--germany/squads/*.txt')
 paths = Dir.glob( '../../../openfootball/euro/2020--europe/squads/*.txt')
 pp paths
 
@@ -56,47 +62,30 @@ paths.each_with_index do |path, i|
       
      ####
       #  pass 1 - check player  names 
-      player_name   = rec.name
-      player_nat    = rec.nat    ## aka country key
+      player_name      = rec.name
+      player_birthyear = rec.birthyear
+      player_nat       = rec.nat          ## aka country key
  
       m = PLAYERS.match_by( name:    player_name,
+                            year:    player_birthyear,
                             country: player_nat )
   if m.size == 1
          player = m[0]
-        print "OK  #{player_name} (#{player_nat})" 
+        print "OK  #{player_name} (#{player_nat}) b. #{player_birthyear}" 
         print "   =>    #{player.name} (#{player.nat})"  if player_name != player.name
         print "\n"
     elsif m.size == 0
-        print "    #{player_name} (#{player_nat})" 
+        print "    #{player_name} (#{player_nat}) b. #{player_birthyear}" 
         print "\n"
         
         ## note - only add once (check for duplicates)
-        errors <<  "player - #{player_name} (#{player_nat})"   
+        errors <<  "player - #{player_name} (#{player_nat}) b. #{player_birthyear}"   
     else   # ambigous
         print "\n"
-        print "!! more than one match (#{m.size}) for #{player_name} (#{player_nat}):"
+        print "!! more than one match (#{m.size}) for #{player_name} (#{player_nat})  b. #{player_birthyear}:"
         print "\n"
         pp m
-
-        ## note - only exit/stop on unknown duplicates for now
-        ##   todo/fix: add nat/country_code too - why? why not?
-        if ['Ladislav Krejčí',
-            'Lorenzo Pellegrini',
-            'Piotr Zieliński',
-            'Pepe',
-            'Bernardo Silva',
-            'Liam Kelly',
-            'Rodri',
-            'Joselu',
-            'Reece James',   ## eng.
-            'João Moutinho',  ## por
-            'Diego Llorente',  ## esp
-            'Koke',            ## esp
-            'Burak Yılmaz',    ## tur
-            ].include?( player_name )
-        else 
-          exit 1
-        end
+        exit 1
     end
 
      ####

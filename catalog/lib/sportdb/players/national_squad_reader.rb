@@ -3,6 +3,35 @@ module SportDb
 module Import
 
 
+class NationalSquadPlayer   ## maybe change to Person later (incl. coach/manager/etc.)
+    attr_reader :num,
+                :name,
+                :pos,
+                :nat,
+                :caps,  :goals,
+                :club,  :club_nat,
+                :birthyear
+      
+    ## make num optional ????             
+  def initialize( num:,   
+                  name:,
+                  pos:,
+                  nat:,
+                  caps:, goals:,
+                  club:, club_nat:,
+                  birthyear: )
+      @num  = num  
+      @name      = name
+      @pos       = pos
+      @nat        = nat
+      @caps, @goals = caps, goals
+      @club, @club_nat = club, club_nat
+      @birthyear  = birthyear
+  end
+end  # class NationalSquadPlayer
+
+
+
 class NationalSquadReader
 
   def world() Import.world; end
@@ -28,7 +57,6 @@ end
 
 def parse
   recs = []
-  last_rec = nil
   country  = nil    # last country
 
   OutlineReader.parse( @txt ).each do |node|
@@ -96,7 +124,9 @@ def parse
                                                    _squish(value).to_i(10) 
                                                  end
                         end
-                    
+
+         birthyear = born_str.sub( 'b.', '' ).strip.to_i(10)
+
          club, club_nat = if ['','-'].include?( club_str ) 
                            [nil,nil]
                           else
@@ -120,26 +150,15 @@ def parse
            end 
           end
 
-         # height    = nil
-         # birthdate  = nil
-         # birthplace = nil
-       
-
          ## use fifa codes for nat?
          ##  or use internet codes for nat?
          ##  note - to allow "auto-magic" joins with catalog.db
          ##   use country keys for now (e.g. internet codes mostly)
          ##   same with leagues - use internet codes mostly
          ##    reuse for consistency - why? why not?
-
       
-         ##
-         ## todo/fix: 
-         ##   add birthyear 
-         ###   change struct to NationalSquadPlayer !!!!!
-         ##       add birthyear!!!!
-
-         rec = Player.new(  num: num,
+         rec = NationalSquadPlayer.new( 
+                            num:        num,
                             name:       name,
                             pos:        _norm_pos( pos ),
                             nat:        country.key,
@@ -147,9 +166,9 @@ def parse
                             goals:      goals,
                             club:       club,
                             club_nat:   club_nat,
+                            birthyear:  birthyear,
                             )
           recs << rec
-          last_rec = rec
       end  # each line
     else
       puts "** !!! ERROR !!! [national squad reader] - unknown line type:"

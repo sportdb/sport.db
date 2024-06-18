@@ -85,6 +85,76 @@ end   # module SportDb
 
 
 
-    
+
+###
+# add status
+module CatalogDb
+module Metal
+
+def self.tables
+
+  puts "==> table stats"
+  catalog_path = SportDb::Import.config.catalog_path 
+  if catalog_path
+    puts "  #{File.basename(catalog_path)} in (#{File.dirname(catalog_path)})"
+    puts "    #{Country.count} countries / #{City.count} cities" 
+    puts "    #{NationalTeam.count} national teams"
+    puts "    #{League.count} leagues"
+    puts "    #{Club.count} clubs"
+    puts "    #{Ground.count} grounds"
+      ## add more
+
+  else
+    puts "  - no catalog.db set - "
+  end
+
+  ## todo/fix:
+  ##   check if players_path configured???
+  players_path = SportDb::Import.config.players_path 
+  if players_path
+    puts "  #{File.basename(players_path)} in (#{File.dirname(players_path)})"
+    puts "    #{Player.count} players"
+  else
+    puts " - no players.db set -"
+  end
+end
+
+end # module Metal
+end # module CatalogDb
+        
+
+
+###
+# global helpers
+#    find a better name/place in module(s) or such
+##
+##  what name to use?
+##    find_countries_for_league_clubs or such
+##     find_countries_for_league  - why? why not?
+##     note -  returns array of countries OR single country 
+
+def find_countries_for_league( league )
+    ## todo/fix: assert league is a League with country record/struct !!!!! 
+
+    countries = [] 
+    countries << league.country   ### assume league.country is already db record/struct - why? why not?
+    ## check for 2nd countries for known leagues 
+    ## (re)try with second country - quick hacks for known leagues
+    case league.country.key
+    when 'eng' then countries << CatalogDb::Metal::Country._record('wal') 
+    when 'ie'  then countries << CatalogDb::Metal::Country._record('nir')   
+    when 'fr'  then countries << CatalogDb::Metal::Country._record('mc') 
+    when 'es'  then countries << CatalogDb::Metal::Country._record('ad') 
+    when 'ch'  then countries << CatalogDb::Metal::Country._record('li') 
+    when 'us'  then countries << CatalogDb::Metal::Country._record('ca')
+    end 
+
+    ## use single ("unwrapped") item for one country 
+    ##    otherwise use array
+    country =  countries.size == 1 ? countries[0] : countries
+    country
+end
+
+
 
 puts SportDb::Module::Catalogs.banner   # say hello

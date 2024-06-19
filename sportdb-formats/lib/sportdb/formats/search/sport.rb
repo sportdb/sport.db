@@ -99,10 +99,30 @@ end # class NationalTeamSearch
 class ClubSearch  < Search
   ###################
   ## core required delegates  - use delegate generator - why? why not?
-  def match_by( name:, country: nil )
-    @service.match_by( name: name, 
-                       country: country ) 
+  def match_by( name:, country: nil,
+                       league:  nil )
+
+    ## note: add "auto-magic" country calculation via league record
+    ##            if league is a national league for football clubs
+    if league
+        raise ArgumentError, "match_by - league AND country NOT supported; sorry"  if country
+### find countries via league        
+###     support league.intl? too - why? why not?
+###       or only nationa league
+        raise ArgumentError, "match_by - league - only national club leagues supported (not int'l or national teams for now); sorry"   unless league.national? && league.clubs?
+       
+        ### calc countries
+        ### uses "global" func in sports-catalogs for now
+        ##   move code here - why? why not? 
+        country = find_countries_for_league( league )
+        @service.match_by( name:    name, 
+                           country: country )
+    else
+        @service.match_by( name:    name, 
+                           country: country )
+    end 
   end
+
 
   ## todo/fix/check: use rename to find_canon  or find_canonical() or something??
   ##  remove (getting used?) - why? why not?
@@ -119,13 +139,16 @@ class ClubSearch  < Search
   ##########
   #  "legacy" finders - return zero or one club 
   ##    (if more than one match, exit/raise error/exception) 
-  def find( name )   find_by( name: name, country: nil ); end
-  def find!( name )  find_by!( name: name, country: nil ); end
+  def find( name )   find_by( name: name ); end
+  def find!( name )  find_by!( name: name ); end
 
   ## find - always returns a single record / match or nil
   ##   if there is more than one match than find aborts / fails
-  def find_by!( name:, country: nil )    ## todo/fix: add international or league flag?
-    club = find_by( name: name, country: country )
+  def find_by!( name:, country: nil,
+                       league:  nil )    ## todo/fix: add international or league flag?
+    club = find_by( name:    name, 
+                    country: country,
+                    league:  league )
 
     if club.nil?
       puts "** !!! ERROR - no match for club >#{name}<"
@@ -136,59 +159,14 @@ class ClubSearch  < Search
   end
 
 
-  ###
-  ##  fix/fix/fix
-  ##  fix: country lookup hack - always pass in two country code if needed/wanted
-   ##   let service "resolve" country 
-  def _country( country )
-    if country.is_a?( String ) || country.is_a?( Symbol )
-        # note: query/find country via catalog db
-        rec = SportDb::Import.config.world.countries.find_by_code( country )
-        rec = SportDb::Import.config.world.countries.find_by_name( country )  if rec.nil?  
-        if rec.nil?
-          puts "** !!! ERROR !!! - unknown country >#{country}< - no match found, sorry - add to world/countries.txt in config"
-          exit 1
-        end
-        rec
-    else
-        country  ## (re)use country struct - no need to run lookup again
-    end
-  end
-
-  def find_by( name:, country: nil )    ## todo/fix: add international or league flag?
+  def find_by( name:, country: nil,
+                      league:  nil )    ## todo/fix: add international or league flag?
     ## note: allow passing in of country key too (auto-counvert)
     ##       and country struct too
     ##     - country assumes / allows the country key or fifa code for now
-    recs = nil
-
-    if country
-      country = _country( country )
-
-      recs = match_by( name: name, country: country )
-
-      if recs.empty?
-        ##  quick hack - use league 
-        ##    or pass in %w[eng wal] etc. - why? why not?
-        ##
-        ## (re)try with second country - quick hacks for known leagues
-        ##  todo/fix: add league flag to activate!!!  - why? why not
-        ##
-        ##  e.g. Swanse, cardiff  in premier league
-        ##       san mariono in serie a (italy)
-        ##       monaco  in ligue 1 (france)
-        ##       etc.
-        ##   add  andorra to spanish la liga (e.g. andorra fc???)
-        recs = match_by( name: name, country: 'wal' )  if country.key == 'eng'
-        recs = match_by( name: name, country: 'eng' )  if country.key == 'sco'
-        recs = match_by( name: name, country: 'nir' )  if country.key == 'ie'
-        recs = match_by( name: name, country: 'mc' )   if country.key == 'fr'
-        recs = match_by( name: name, country: 'li' )   if country.key == 'ch'
-        recs = match_by( name: name, country: 'ca' )   if country.key == 'us'
-        recs = match_by( name: name, country: 'nz' )   if country.key == 'au'
-      end
-    else  ## try "global" search - no country passed in
-      recs = match( name )
-    end
+    recs = match_by( name:    name, 
+                     country: country, 
+                     league:  league )
 
     club = nil
     if recs.empty?
@@ -312,7 +290,9 @@ class TeamSearch
           if league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
             @club.find!( name )
           else  ## assume clubs in domestic/national league tournament
-            @club.find_by!( name: name, country: league.country )
+             ## note - search by league countries (may incl. more than one country 
+             ##             e.g. us incl. ca, fr incl. mc, ch incl. li, etc.
+            @club.find_by!( name: name, league: league )
           end
         else   ## assume national teams (not clubs)
           @national_teams.find!( name )

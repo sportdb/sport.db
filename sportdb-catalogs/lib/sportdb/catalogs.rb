@@ -140,13 +140,22 @@ def find_countries_for_league( league )
     countries << league.country   ### assume league.country is already db record/struct - why? why not?
     ## check for 2nd countries for known leagues 
     ## (re)try with second country - quick hacks for known leagues
+    ##  e.g. Swanse, cardiff  in premier league
+    ##       san mariono in serie a (italy)
+    ##       monaco  in ligue 1 (france)
+    ##       etc.
+    ##   add  andorra to spanish la liga (e.g. andorra fc???)
+ 
     case league.country.key
     when 'eng' then countries << CatalogDb::Metal::Country._record('wal') 
+    when 'sco' then countries << CatalogDb::Metal::Country._record('eng')
     when 'ie'  then countries << CatalogDb::Metal::Country._record('nir')   
     when 'fr'  then countries << CatalogDb::Metal::Country._record('mc') 
     when 'es'  then countries << CatalogDb::Metal::Country._record('ad') 
+    when 'it'  then countries << CatalogDb::Metal::Country._record('sm')
     when 'ch'  then countries << CatalogDb::Metal::Country._record('li') 
     when 'us'  then countries << CatalogDb::Metal::Country._record('ca')
+    when 'au'  then countries << CatalogDb::Metal::Country._record('nz')
     end 
 
     ## use single ("unwrapped") item for one country 

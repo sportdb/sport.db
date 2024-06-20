@@ -99,8 +99,18 @@ end # class NationalTeamSearch
 class ClubSearch  < Search
   ###################
   ## core required delegates  - use delegate generator - why? why not?
+
+  ## add mods here - why? why not?
+
   def match_by( name:, country: nil,
-                       league:  nil )
+                       league:  nil,
+                       mods:    nil )
+    ## for now assume "global" mods  - checks only for name
+    ##     
+    if mods && mods[ name ]
+      club = mods[ name ]
+      return [club]   # note: wrap (single record) in array
+    end   
 
     ## note: add "auto-magic" country calculation via league record
     ##            if league is a national league for football clubs

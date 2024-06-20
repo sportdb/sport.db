@@ -45,8 +45,26 @@ PLAYERS = SportDb::Import.config.catalog.players
 
 
 ## paths = Dir.glob( '../../../openfootball/euro/2024--germany/squads/*.txt')
-paths = Dir.glob( '../../../openfootball/euro/2020--europe/squads/*.txt')
+## paths = Dir.glob( '../../../openfootball/euro/2020--europe/squads/*.txt')
+paths = Dir.glob( '../../../openfootball/copa-america/2024--usa/squads/*.txt')
+## paths = Dir.glob( '../../../openfootball/copa-america/2021--brazil/squads/*.txt')
 pp paths
+
+##
+# check how to deal with:
+#   -  "Free agent, "
+
+
+## duplicate - Club Atlético Huracán  (two clubs in argentina)
+CLUB_MODS = CLUBS.build_mods( {
+                ## fix - use Huracán (Buenos Aires) or such !!!
+                'Club Atlético Huracán' => 'Huracán, ARG', 
+                ## quick fix
+                'FC Košice (2018)' => 'FC Košice, SVK',
+             } )
+
+pp CLUB_MODS
+
 
 
 errors = []
@@ -94,7 +112,8 @@ paths.each_with_index do |path, i|
       country_key = rec.club_nat 
  
       m = CLUBS.match_by( name:    club_name,
-                          country: country_key )
+                          country: country_key,
+                          mods:    CLUB_MODS )
      if m.size == 1
           club = m[0]
          print "OK    @ #{club_name}, #{country_key}" 

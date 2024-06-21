@@ -2,8 +2,8 @@
 
   ATTRIB_REGEX = /^  
                    [ ]*?     # slurp leading spaces
-                (?<key>[^: \]\[()\/;-]
-                       [^:\]\[()\/;]{0,30}
+                (?<key>[^:|\]\[()\/; -]
+                       [^:|\]\[()\/;]{0,30}
                  )
                    [ ]*?     # slurp trailing spaces
                    :[ ]+
@@ -11,6 +11,7 @@
                     [ ]*?   # slurp trailing spaces
                    $
                 /ix
+
 
 lines = [
    " Austria:  Pentz - Posch",

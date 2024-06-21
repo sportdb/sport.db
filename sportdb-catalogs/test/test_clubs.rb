@@ -49,6 +49,8 @@ class TestClubs < Minitest::Test
     m = CLUBS.match( 'Arsenal' )
     assert_equal 3, m.size
 
+    pp m
+
     m = CLUBS.match( 'ARSENAL' )
     assert_equal 3, m.size
 

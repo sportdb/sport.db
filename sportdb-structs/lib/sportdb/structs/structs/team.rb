@@ -89,6 +89,15 @@ class NationalTeam < Team
     self   ## note - MUST return self for chaining
   end
 
+  def pretty_print( printer ) 
+    buf = String.new
+    buf << "<NationalTeam: #{@name}"
+    ## use code from country or from team ???
+    buf << " (#{@code})"  
+    buf << ">"
+
+    printer.text( buf ) 
+  end
 end  # class NationalTeam
 
 
@@ -123,6 +132,16 @@ class Club < Team
     ## todo/fix: add country too  or report unused keywords / attributes - why? why not?
 
     self   ## note - MUST return self for chaining
+  end
+
+
+  def pretty_print( printer ) 
+    buf = String.new
+    buf << "<Club: #{@name}"
+    buf << " (#{@country.code})"    if @country
+    buf << ">"
+
+    printer.text( buf ) 
   end
 end # class Club
 

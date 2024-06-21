@@ -78,9 +78,7 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
 
   ## todo/fix - use @lines.rewind first  here - why? why not?   
     @lines.each do |line|
-      if is_goals?( line )
-        logger.debug "skipping matched goals line: >#{line}<"
-      elsif is_round_def?( line )
+      if is_round_def?( line )
         ## todo/fix:  add round definition (w begin n end date)
         ## todo: do not patch rounds with definition (already assume begin/end date is good)
         ##  -- how to deal with matches that get rescheduled/postponed?
@@ -118,6 +116,9 @@ class AutoConfParser     ## todo/check: rename/change to MatchAutoConfParser - w
             line = @lines.next
             logger.debug "skipping key/value line (cont.) - >#{line}<"
         end        
+      elsif is_goals?( line )
+        ## note - goals must be AFTER attributes!!!
+        logger.debug "skipping matched goals line: >#{line}<"
       elsif try_parse_game( line )
         # do nothing here
       else

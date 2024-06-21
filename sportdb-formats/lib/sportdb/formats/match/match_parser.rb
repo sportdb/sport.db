@@ -71,18 +71,8 @@ class MatchParser   ## simple match parser for team match schedules
 
  ## todo/fix - use @lines.rewind first  here - why? why not?
     @lines.each do |line|
-
-      if is_goals?( line )
-        logger.debug "matched goals line: >#{line}<"
-        logger.debug "  try parse:"
-
-        goals = GoalsFinder.new.find!( line )
-        pp goals 
-        ## quick & dirty - auto add goals to last match
-        match = @matches[-1]
-        match.goals = goals
-        
-      elsif is_round_def?( line )
+       
+      if is_round_def?( line )
         ## todo/fix:  add round definition (w begin n end date)
         ## todo: do not patch rounds with definition (already assume begin/end date is good)
         ##  -- how to deal with matches that get rescheduled/postponed?
@@ -109,7 +99,18 @@ class MatchParser   ## simple match parser for team match schedules
          while !line.end_with?( '.' ) || line.nil? do
              line = @lines.next
              logger.debug "skipping key/value line (cont.) - >#{line}<"
-         end        
+         end       
+       elsif is_goals?( line )
+          ## note - goals must be AFTER attributes!!!
+          logger.debug "matched goals line: >#{line}<"
+          logger.debug "  try parse:"
+  
+          goals = GoalsFinder.new.find!( line )
+          pp goals 
+          ## quick & dirty - auto add goals to last match
+          match = @matches[-1]
+          match.goals = goals
+       
       elsif try_parse_game( line )
         # do nothing here
       elsif try_parse_date_header( line )

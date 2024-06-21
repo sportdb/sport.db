@@ -19,6 +19,7 @@ require_relative 'formats/package'
 
 require_relative 'formats/parser_helper'
 
+require_relative 'formats/lines_reader'
 
 
 ###

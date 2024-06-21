@@ -20,11 +20,42 @@ class MatchParser   ## simple match parser for team match schedules
     # for convenience split string into lines
     ##    note: removes/strips empty lines
     ## todo/check: change to text instead of array of lines - why? why not?
-    @lines        = lines.is_a?( String ) ? read_lines( lines ) : lines
-
+ 
+    ## note - wrap in enumerator/iterator a.k.a lines reader
+    @lines = LinesReader.new( lines.is_a?( String ) ?
+                                 read_lines( lines ) : 
+                                 lines 
+                            )
+ 
     @mapper_teams = TeamMapper.new( teams )
     @start        = start
   end
+
+
+  
+
+  ## note:  colon (:) MUST be followed by one (or more) spaces
+  ##      make sure mon feb 12 18:10 will not match
+  ##        allow 1. FC Köln etc.
+  ##               Mainz 05:
+  ##           limit to 30 chars max
+  ##          only allow  chars incl. intl buut (NOT ()[]/;)
+  ##
+  ##   Group A:
+  ##   Group B:   - remove colon
+  ##    or lookup first
+
+  ATTRIB_REGEX = /^  
+                   [ ]*?     # slurp leading spaces
+                (?<key>[^:|\]\[()\/; -]
+                       [^:|\]\[()\/;]{0,30}
+                 )
+                   [ ]*?     # slurp trailing spaces
+                   :[ ]+
+                (?<value>.+)
+                    [ ]*?   # slurp trailing spaces
+                   $
+                /ix
 
 
   def parse
@@ -38,8 +69,9 @@ class MatchParser   ## simple match parser for team match schedules
 
     @warns        = []    ## track list of warnings (unmatched lines)  too - why? why not?
 
-
+ ## todo/fix - use @lines.rewind first  here - why? why not?
     @lines.each do |line|
+
       if is_goals?( line )
         logger.debug "matched goals line: >#{line}<"
         logger.debug "  try parse:"
@@ -63,6 +95,21 @@ class MatchParser   ## simple match parser for team match schedules
       elsif is_group?( line )
         ##  -- lets you set group  e.g. Group A etc.
         parse_group_header( line )
+
+      elsif m=ATTRIB_REGEX.match( line )
+         ## note: check attrib regex AFTER group def e.g.:
+         ##         Group A: 
+         ##         Group B:  etc.
+         ##     todo/fix - change Group A: to Group A etc.
+         ##                       Group B: to Group B
+
+         ## check if line ends with dot
+         ##  if not slurp up lines to the next do!!!
+         logger.debug "skipping key/value line - >#{line}<"
+         while !line.end_with?( '.' ) || line.nil? do
+             line = @lines.next
+             logger.debug "skipping key/value line (cont.) - >#{line}<"
+         end        
       elsif try_parse_game( line )
         # do nothing here
       elsif try_parse_date_header( line )

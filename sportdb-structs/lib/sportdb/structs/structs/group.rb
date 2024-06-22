@@ -1,6 +1,6 @@
 module Sports
 
-    class Group
+class Group
       attr_reader :key, :name, :teams
 
       def initialize( key: nil,
@@ -10,7 +10,15 @@ module Sports
         @name   = name
         @teams  = teams
       end
-    end  # class Group
 
+      def pretty_print( printer ) 
+        ## todo/check - how to display/format key - use () or not - why? why not? 
+        buf = String.new
+        buf << "<Group: #{@key ? @key : '?'} - #{@name} "
+        buf << @teams.pretty_print_inspect
+        buf << ">"
+    
+        printer.text( buf ) 
+      end
+end  # class Group
 end # module Sports
-

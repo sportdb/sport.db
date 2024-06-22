@@ -1,4 +1,3 @@
-# encoding: utf-8
 
 module SportDb
 
@@ -15,6 +14,15 @@ class GoalsPlayerStruct
   def initialize
     @minutes = []
   end
+
+  def pretty_print( printer ) 
+    buf = String.new
+    buf << "<GoalsPlayerStruct: #{@name} "
+    buf << @minutes.pretty_print_inspect
+    buf << ">"
+
+    printer.text( buf ) 
+  end
 end
 
 
@@ -26,6 +34,18 @@ class GoalsMinuteStruct
     @offset  = 0
     @penalty = false
     @owngoal = false
+  end
+
+  def pretty_print( printer ) 
+    buf = String.new
+    buf << "<GoalsMinuteStruct: #{@minute}"
+    buf << "+#{@offset}"    if @offset && @offset > 0
+    buf << "'"
+    buf << " (o.g.)"  if @owngoal
+    buf << " (pen.)"  if @penalty
+    buf << ">"
+
+    printer.text( buf ) 
   end
 end
 
@@ -59,6 +79,22 @@ class GoalStruct
   def state
     [@name, @team, @minute, @offset, @penalty, @owngoal, @score1, @score2]
   end
+
+
+  def pretty_print( printer ) 
+    buf = String.new
+    buf << "<GoalStruct: #{@score1}-#{@score2} #{@name} #{@minute}"
+    buf << "+#{@offset}"    if @offset && @offset > 0
+    buf << "'"
+    buf << " (o.g.)"  if @owngoal
+    buf << " (pen.)"  if @penalty
+    buf << " for #{@team}"     ### team 1 or 2 - use home/away
+    buf << ">"
+
+    printer.text( buf ) 
+  end
+
+
 end
 
 

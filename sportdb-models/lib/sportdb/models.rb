@@ -103,16 +103,8 @@ module SportDb
   end
 
 
-
-  def self.open( path )  ## shortcut for sqlite only
-    config = {
-      adapter:  'sqlite3',
-      database: path  # e.g. ':memory', './sport.db'
-    }
-    connect!( config )
-  end
-
-  
+  ###  use/change to **config - to allow "inline" conif with keywords
+  ##          (without enclosing {}) - why? why not?
   def self.connect!( config={} )  # convenience shortcut w/ automigrate
     connect( config )
     auto_migrate!
@@ -175,19 +167,43 @@ module SportDb
   end
 
 
+
+  def self.open( path )  ## shortcut for sqlite only
+    config = {
+      adapter:  'sqlite3',
+      database: path  # e.g. ':memory', './sport.db'
+    }
+    connect!( config )
+  end
+
   def self.setup_in_memory_db
     # Database Setup & Config
-    ActiveRecord::Base.logger = Logger.new( STDOUT )
+    ##  add logger as option - why? why not?
+    ##  e.g.  open_mem( logger: true ) or
+    ##         always possible to add logger "manually" before 
+    ##         thus, no need for option/flag really ??
+    ## ActiveRecord::Base.logger = Logger.new( STDOUT )
     ## ActiveRecord::Base.colorize_logging = false  - no longer exists - check new api/config setting?
-
-    connect( adapter:  'sqlite3',
-             database: ':memory:' )
+   
+    config = {
+      adapter:  'sqlite3',
+      database: ':memory:'
+    }
+    connect( config )
 
     ## build schema
     create_all
   end # setup_in_memory_db (using SQLite :memory:)
 
 
+  ###########
+  #   add more aliases/alt names for in memory db - why? why not?
+  ##    rename to open_mem for canonical name - why? why not?
+  class << self
+     alias_method :open_mem,       :setup_in_memory_db
+     alias_method :open_memory,    :setup_in_memory_db
+     alias_method :open_in_memory, :setup_in_memory_db
+  end
 end  # module SportDb
 
 
@@ -198,17 +214,19 @@ module SportDb
 #  add alias why? why not?
 #
 #  more aliases to consider:
-#   - Tournament for Event?
-#   - Cup for League?
-#   - Roster for Lineup?
-#   - Stadium for Ground?  - why? why not?
+#   - Roster for Squad/Lineup?
+#   - Stadium / Venue for Ground?  - why? why not?
+#
+#   use Competition/Tournament for League/Cup alias
+#
+#   Event => LeagueSeason (League+Season) - use LeagueSeason alias - why? why not?
 
 
-Competition = Event
-Comp        = Event
+### fix - use Squad for (all) LeagueSeason players
+##        use Lineup for players for one match!!!!
 
 LineUp = Lineup
-Squad  = Lineup
+Squad  = Lineup   #### fix - do NOT use squad and lineup as alias (see above)!!!!
 
 Game = Match  ## add (old) alias - why? why not?
   end # module Model

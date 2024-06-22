@@ -1,3 +1,6 @@
+####
+# note - to save space for now do NOT add timestamps
+#
 
 module CatalogDb
 class CreateDb
@@ -17,7 +20,7 @@ create_table :countries, id: false do |t|
   t.string :alt_names
   t.string :tags 
 
-  t.timestamps  ## (auto)add - why? why not?
+  # t.timestamps  ## (auto)add - why? why not?
 end
 
 add_index :countries, :key, unique: true
@@ -29,7 +32,7 @@ create_table :country_codes, id: false do |t|
   ## note:  code must be unique (by default) - see index below
   t.string :code, null: false     ## normalized (lowercase)
 
-  t.timestamps  ## (auto)add - why? why not?
+  # t.timestamps  ## (auto)add - why? why not?
 end
 
 add_index :country_codes, :code, unique: true
@@ -40,7 +43,7 @@ create_table :country_names, id: false do |t|
   ## note:  name must be unique (by default) - see index below
   t.string :name, null: false     ## normalized (lowercase)!!!
 
-  t.timestamps  ## (auto)add - why? why not?
+  # t.timestamps  ## (auto)add - why? why not?
 end
 
 add_index :country_names, :name, unique: true
@@ -53,7 +56,7 @@ create_table :cities, id: false do |t|
 
   t.string :country_key, null: false
 
-  t.timestamps  ## (auto)add - why? why not?
+  # t.timestamps  ## (auto)add - why? why not?
 end
 
 add_index :cities, :key, unique: true
@@ -62,7 +65,7 @@ create_table :city_names, id: false do |t|
   t.string :key,  null: false  
   t.string :name, null: false     ## normalized (lowercase)!!!
 
-  t.timestamps  ## (auto)add - why? why not?
+  # t.timestamps  ## (auto)add - why? why not?
 end
 
 
@@ -84,7 +87,7 @@ create_table :clubs, id: false do |t|
    t.string :geos
   
 
-   t.timestamps  ## (auto)add - why? why not?
+   # t.timestamps  ## (auto)add - why? why not?
 end
 add_index :clubs, :key, unique: true  
 add_index :clubs, :name, unique: true  ## note: enforce unique canoncial names for now
@@ -93,7 +96,7 @@ create_table :club_names, id: false do |t|
   t.string :key,  null: false    # was t.references :club
   t.string :name, null: false     ## normalized (lowercase)!!!
 
-  t.timestamps  ## (auto)add - why? why not?
+  # t.timestamps  ## (auto)add - why? why not?
 end
 add_index :club_names, [:key,:name], unique: true  
 
@@ -109,7 +112,7 @@ create_table :national_teams, id: false do |t|
   t.string :country_key
   # was t.references :country  ## optional - yes? no? why? why not?
 
-  t.timestamps  ## (auto)add - why? why not?
+  # t.timestamps  ## (auto)add - why? why not?
 end
 add_index :national_teams, :key, unique: true  
 add_index :national_teams, :name, unique: true  ## note: enforce unique canoncial names for now
@@ -118,12 +121,12 @@ create_table :national_team_names, id: false do |t|
   t.string :key,  null: false    # was t.references :national_team
   t.string :name, null: false     ## normalized (lowercase)!!!
 
-  t.timestamps  ## (auto)add - why? why not?
+  # t.timestamps  ## (auto)add - why? why not?
 end
 
-## note: nationa team names (plus codes) MUST be unique for now
+## note: national team names (plus codes) MUST be unique for now
 ##      (no duplicates like in leagues or clubs allowed)!!!
-add_index :national_team_names, :name, unique: true
+add_index :national_team_names, [:key,:name], unique: true
 
 
 ####
@@ -138,7 +141,7 @@ create_table :leagues, id: false do |t|
 
   t.string :country_key
 
-  t.timestamps  ## (auto)add - why? why not?
+  # t.timestamps  ## (auto)add - why? why not?
 end
 add_index :leagues, :key, unique: true  
 
@@ -147,7 +150,7 @@ create_table :league_names, id: false do |t|
   t.string :key,  null: false    # was t.references :leagues
   t.string :name, null: false     ## normalized (lowercase)!!!
 
-  t.timestamps  ## (auto)add - why? why not?
+  # t.timestamps  ## (auto)add - why? why not?
 end
 add_index :league_names, [:key,:name], unique: true  
 
@@ -166,7 +169,7 @@ create_table :event_infos, id: false do |t|
   t.date       :start_date  
   t.date       :end_date    
 
-  t.timestamps  ## (auto)add - why? why not?
+  # t.timestamps  ## (auto)add - why? why not?
 end
 add_index :event_infos, [:league_key,:season], unique: true  
 
@@ -187,7 +190,7 @@ create_table :grounds, id: false do |t|
   t.string :geos        # geo "tree/hierarchy"   Bayern > Oberbayern etc.
 
  
-  t.timestamps  ## (auto)add - why? why not?
+  # t.timestamps  ## (auto)add - why? why not?
 end
 add_index :grounds, :key, unique: true  
 ## add_index :grounds, :name, unique: true  ## note: enforce unique canoncial names for now
@@ -196,7 +199,7 @@ create_table :ground_names, id: false do |t|
  t.string :key,  null: false    # was t.references :club
  t.string :name, null: false     ## normalized (lowercase)!!!
 
- t.timestamps  ## (auto)add - why? why not?
+ # t.timestamps  ## (auto)add - why? why not?
 end
 add_index :ground_names, [:key,:name], unique: true  
 

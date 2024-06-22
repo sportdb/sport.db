@@ -1,0 +1,7 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+data/catalog.db
+lib/footballdb-data.rb
+lib/footballdb/data.rb

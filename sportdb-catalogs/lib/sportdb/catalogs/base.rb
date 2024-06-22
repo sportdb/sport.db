@@ -75,7 +75,9 @@ class PlayerRecord  < BaseRecord
       def self.database
          ### note: only one database for all derived records/tables!!!
          ##   thus MUST use @@ and not @!!!!!
-         @@db ||= SQLite3::Database.new( '../catalog/players.db' ) 
+         ##  todo - change later to built-in database
+         ##   or download on request???
+         @@db ||= SQLite3::Database.new( './players.db' ) 
          @@db
       end
  
@@ -96,7 +98,9 @@ class Record  < BaseRecord
      def self.database
         ### note: only one database for all derived records/tables!!!
         ##   thus MUST use @@ and not @!!!!!
-        @@db ||= SQLite3::Database.new( '../catalog/catalog.db' ) 
+        ##
+        ##  default to built-in via footballdb-data gem for now!!!
+        @@db ||= SQLite3::Database.new( './catalog.db' ) 
         @@db
      end
 

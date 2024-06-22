@@ -1,9 +1,9 @@
 ###
 #  to run use
-#     ruby -I ./test test/test_clubs.rb
+#     ruby  test/test_clubs.rb
 
+require_relative 'helper'
 
-require 'helper'
 
 class TestClubs < Minitest::Test
 

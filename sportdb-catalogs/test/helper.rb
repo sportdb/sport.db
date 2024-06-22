@@ -10,6 +10,6 @@ require 'sportdb/catalogs'
 
 
 
-SportDb::Import.config.catalog_path = '../catalog/catalog.db'
+## SportDb::Import.config.catalog_path = '../catalog/catalog.db'
 
 

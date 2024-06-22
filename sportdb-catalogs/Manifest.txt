@@ -4,8 +4,12 @@ README.md
 Rakefile
 lib/sportdb/catalogs.rb
 lib/sportdb/catalogs/base.rb
+lib/sportdb/catalogs/city.rb
 lib/sportdb/catalogs/club.rb
 lib/sportdb/catalogs/country.rb
+lib/sportdb/catalogs/event_info.rb
+lib/sportdb/catalogs/ground.rb
 lib/sportdb/catalogs/league.rb
 lib/sportdb/catalogs/national_team.rb
+lib/sportdb/catalogs/player.rb
 lib/sportdb/catalogs/version.rb

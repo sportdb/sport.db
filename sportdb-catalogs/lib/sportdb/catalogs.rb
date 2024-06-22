@@ -3,8 +3,8 @@
 ## require 'sportdb/structs'
 require 'sportdb/formats'
 
-
 require 'sqlite3'
+
 
 
 ###
@@ -163,6 +163,19 @@ def find_countries_for_league( league )
     country =  countries.size == 1 ? countries[0] : countries
     country
 end
+
+
+
+
+
+
+require 'footballdb/data'   ## pull in catalog.db (built-in/default data/db)
+
+###
+## add default/built-in catalog here - why? why not?
+##  todo/fix  - set catalog_path on demand 
+##   note:  for now required for world search setup etc.
+SportDb::Import.config.catalog_path = "#{FootballDb::Data.data_dir}/catalog.db"
 
 
 

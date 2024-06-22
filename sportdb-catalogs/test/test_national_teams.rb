@@ -1,9 +1,10 @@
 ###
 #  to run use
-#     ruby -I ./test test/test_national_teams.rb
+#     ruby test/test_national_teams.rb
 
 
-require 'helper'
+require_relative 'helper'
+
 
 class TestNationalTeams < Minitest::Test
 

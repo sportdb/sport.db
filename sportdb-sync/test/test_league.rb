@@ -1,13 +1,11 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_league.rb
+#     ruby test/test_league.rb
 
 
-require 'helper'
+require_relative 'helper'
 
-class TestLeague < MiniTest::Test
+class TestLeague < Minitest::Test
 
   League = SportDb::Sync::League
 

@@ -11,7 +11,7 @@ Hoe.spec 'sportdb-sync' do
   self.urls = { home: 'https://github.com/sportdb/sport.db' }
 
   self.author = 'Gerald Bauer'
-  self.email  = 'opensport@googlegroups.com'
+  self.email  = 'gerald.bauer@gmail.com'
 
   # switch extension to .markdown for gihub formatting
   self.readme_file  = 'README.md'
@@ -20,8 +20,8 @@ Hoe.spec 'sportdb-sync' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-catalogs',  '>= 1.0.0'],
-    ['sportdb-models',    '>= 2.0.2'],
+    ['sportdb-catalogs',  '>= 1.2.0'],
+    ['sportdb-models',    '>= 2.1.0'],
   ]
 
   self.spec_extras = {

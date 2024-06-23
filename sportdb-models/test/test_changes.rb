@@ -1,12 +1,11 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_changes.rb
+#     ruby test/test_changes.rb
 
-require 'helper'
+require_relative  'helper'
 
-class TestChanges < MiniTest::Test
+
+class TestChanges < Minitest::Test
 
   def test_score
     match1 = Match.new

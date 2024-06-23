@@ -1,22 +1,17 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_match_reader_euro.rb
+#     ruby test/test_match_reader_euro.rb
 
 
-require 'helper'
+require_relative 'helper'
 
 
 class TestMatchReaderEuro < Minitest::Test
 
   def setup
-    SportDb.connect( adapter:  'sqlite3',
-                     database: ':memory:' )
-    SportDb.create_all   ## build schema
-
+    SportDb.open_mem
     ## turn on logging to console
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    ## ActiveRecord::Base.logger = Logger.new(STDOUT)
   end
 
 

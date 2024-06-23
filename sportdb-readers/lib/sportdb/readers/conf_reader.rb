@@ -1,4 +1,3 @@
-# encoding: utf-8
 
 module SportDb
 
@@ -43,8 +42,8 @@ class ConfReader    ## todo/check: rename to EventsReaderV2 (use plural?) why? w
         else
           conf.each do |name, _|
             ## note: rank and standing gets ignored (not used) for now
-            teams << catalog.clubs.find_by!( name: name,
-                                            country: league.country )
+            teams << catalog.clubs.find_by!( name:  name,
+                                             league: league )
           end
         end
       else   ### assume national teams

@@ -1,16 +1,14 @@
-# encoding: utf-8
 
-## note:  sportdb/catalogs no longer pulls in sportdb/formats!!!
-require 'sportdb/formats' 
 require 'sportdb/sync'
 
 
 ###
 # our own code
-require 'sportdb/readers/version' # let version always go first
-require 'sportdb/readers/conf_reader'
-require 'sportdb/readers/match_reader'
-require 'sportdb/readers/package'
+require_relative 'readers/version' # let version always go first
+require_relative 'readers/conf_reader'
+require_relative 'readers/match_reader'
+require_relative 'readers/package'
+
 
 
 

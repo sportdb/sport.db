@@ -298,11 +298,11 @@ class TeamSearch
       else
         if league.clubs?
           if league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
-            @club.find!( name )
+            @clubs.find!( name )
           else  ## assume clubs in domestic/national league tournament
              ## note - search by league countries (may incl. more than one country 
              ##             e.g. us incl. ca, fr incl. mc, ch incl. li, etc.
-            @club.find_by!( name: name, league: league )
+            @clubs.find_by!( name: name, league: league )
           end
         else   ## assume national teams (not clubs)
           @national_teams.find!( name )

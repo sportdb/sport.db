@@ -13,7 +13,7 @@ Teams
 - title     => name
 - title2    => x (removed)
 - synonyms  => alt_names
-- since     => start_year
+- since     => start_year  or year (founded/formed) ???
 
 Grounds
 - title     => name

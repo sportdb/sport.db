@@ -1,20 +1,18 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_country.rb
+#     ruby test/test_country.rb
 
 
-require 'helper'
+require_relative 'helper'
 
 
-class TestCountry < MiniTest::Test
+class TestCountry < Minitest::Test
 
   Country = SportDb::Sync::Country
 
   def test_find  # note: find uses "data" structs
-    at  = SportDb::Import::Country.new( key: 'at',  name: 'Austria', code: 'AUT' )
-    eng = SportDb::Import::Country.new( key: 'eng', name: 'England', code: 'ENG' )
+    at  = Sports::Country.new( key: 'at',  name: 'Austria', code: 'AUT' )
+    eng = Sports::Country.new( key: 'eng', name: 'England', code: 'ENG' )
 
     rec  = Country.find_or_create( at )
     rec2 = Country.find_or_create( at )

@@ -9,7 +9,7 @@ module SportDb
 
     def self.country( q )
        ## note: use built-in countries for mapping country keys/codes
-       country = Import.catalog.countries.find( q )
+       country = Import.world.countries.find( q )
        if country
         ## todo/check:  keep key mapping warning - useful? why? why not?
          if country.key != q.to_s
@@ -24,6 +24,9 @@ module SportDb
 
     ########################
     #  searchers
+    #
+    #  - fix!!!! - remove searchers - why? why not?
+    #                check if used anywhere ????
 
     def self.search!( q )
       country = country( q )

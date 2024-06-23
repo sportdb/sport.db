@@ -2,7 +2,7 @@ module SportDb
   module Sync
     class Season
       def self.season( q )    ## helper for season key (rename to norm_key ???)
-        Import::Season.new( q )
+        ::Season.parse( q )
       end
 
 

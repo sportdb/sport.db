@@ -2,7 +2,10 @@
 module SportDb
   module Model
 
-### use Squad for name? - alias??
+### todo/fix - yes, use Squad for name
+###     use lineup table for match (specific) players lineup/formation 
+##          NOT league (all season) squad !!!!!
+
 
 class Lineup < ActiveRecord::Base
 

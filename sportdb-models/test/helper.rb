@@ -2,6 +2,8 @@
 require 'minitest/autorun'
 
 
+$LOAD_PATH.unshift( './lib' )
+
 ## our own code
 require 'sportdb/models'
 
@@ -39,7 +41,7 @@ AlltimeStandingEntry = SportDb::Model::AlltimeStandingEntry
 #################################
 # setup db -> schema / tables
 
-SportDb.setup_in_memory_db
+SportDb.open_mem  # was setup_in_memory_db
 
 ## test helpers here
 SportDb.delete!

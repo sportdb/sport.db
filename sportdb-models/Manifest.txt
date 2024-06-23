@@ -31,7 +31,3 @@ lib/sportdb/models/schema.rb
 lib/sportdb/models/stats.rb
 lib/sportdb/models/utils.rb
 lib/sportdb/models/version.rb
-test/helper.rb
-test/test_changes.rb
-test/test_cursor.rb
-test/test_winner.rb

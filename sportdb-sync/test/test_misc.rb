@@ -1,13 +1,11 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_misc.rb
+#     ruby test/test_misc.rb
 
 
-require 'helper'
+require_relative 'helper'
 
-class TestMisc < MiniTest::Test
+class TestMisc < Minitest::Test
 
   Season = SportDb::Sync::Season
 

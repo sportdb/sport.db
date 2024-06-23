@@ -1,22 +1,17 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_read.rb
+#     ruby test/test_read.rb
 
 
-require 'helper'
+require_relative 'helper'
 
 
-class TestRead < MiniTest::Test
+class TestRead < Minitest::Test
 
   def test_read
-
-    SportDb.connect( adapter: 'sqlite3', database: ':memory:' )
-    SportDb.create_all   ## build schema
-
+    SportDb.open_mem
     ## turn on logging to console
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    ## ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 
     path = "../../../openfootball/england/2015-16/.conf.txt"

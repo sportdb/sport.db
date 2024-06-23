@@ -5,7 +5,6 @@
 * bugs  :: [github.com/sportdb/sport.db/issues](https://github.com/sportdb/sport.db/issues)
 * gem   :: [rubygems.org/gems/sportdb-readers](https://rubygems.org/gems/sportdb-readers)
 * rdoc  :: [rubydoc.info/gems/sportdb-readers](http://rubydoc.info/gems/sportdb-readers)
-* forum :: [opensport](http://groups.google.com/group/opensport)
 
 
 
@@ -20,9 +19,7 @@ as an example:
 ``` ruby
 require 'sportdb/readers'
 
-SportDb.connect( adapter:  'sqlite3',
-                 database: './england.db' )
-SportDb.create_all       ## build database schema (tables, indexes, etc.)
+SportDb.open( './england.db' )
 ```
 
 **Step 2**
@@ -83,14 +80,14 @@ pl_2015_16.teams.count  #=> 20
 #      INNER JOIN events_teams ON teams.id = events_teams.team_id
 #      WHERE events_teams.event_id = 1
 
-pl_2015_16.games.count  #=> 380
-#=>  SELECT COUNT(*) FROM games
-#      INNER JOIN rounds ON games.round_id = rounds.id
+pl_2015_16.matches.count  #=> 380
+#=>  SELECT COUNT(*) FROM matches
+#      INNER JOIN rounds ON matches.round_id = rounds.id
 #      WHERE rounds.event_id = 1
 
 pl_2019_20 = Event.find_by( key: 'eng.1.2019/20' )
 pl_2015_16.teams.count  #=> 20
-pl_2015_16.games.count  #=> 380
+pl_2015_16.matches.count  #=> 380
 
 # -or-
 
@@ -151,6 +148,8 @@ Use it as you please with no restrictions whatsoever.
 
 ## Questions? Comments?
 
-Send them along to the
-[Open Sports & Friends Forum/Mailing List](http://groups.google.com/group/opensport).
-Thanks!
+Yes, you can. More than welcome.
+See [Help & Support »](https://github.com/openfootball/help)
+
+
+

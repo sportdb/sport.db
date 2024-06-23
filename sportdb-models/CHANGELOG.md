@@ -1,3 +1,5 @@
+### 2.1.0
+
 ### 0.4.0 / 2012-10-16
 
 * Add plain text fixture reader/loader

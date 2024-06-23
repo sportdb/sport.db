@@ -1,13 +1,11 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_cursor.rb
+#     ruby  test/test_cursor.rb
 
 
-require 'helper'
+require_relative 'helper'
 
-class TestCursor < MiniTest::Test
+class TestCursor < Minitest::Test
 
   def test_matches
     matches = []

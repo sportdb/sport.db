@@ -1,7 +1,9 @@
 ## note: use the local version of sportdb gems
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-models/lib' ))
+$LOAD_PATH.unshift( './lib' )
 
 
 ## minitest setup
@@ -12,19 +14,16 @@ require 'minitest/autorun'
 require 'sportdb/sync'
 
 
-## use (switch to) "external" datasets
-SportDb::Import.config.leagues_dir = "../../../openfootball/leagues"
-SportDb::Import.config.clubs_dir   = "../../../openfootball/clubs"
+## use (switch to) "external" dbs - why? why not?
+# SportDb::Import.config.catalog_path = "../catalog/catalog.db"
 
 
-COUNTRIES = SportDb::Import.catalog.countries
+COUNTRIES = SportDb::Import.world.countries
 LEAGUES   = SportDb::Import.catalog.leagues
 CLUBS     = SportDb::Import.catalog.clubs
 
 
-SportDb.connect( adapter: 'sqlite3', database: ':memory:' )
-SportDb.create_all   ## build schema
-
+SportDb.open_mem
 ## turn on logging to console
 ## ActiveRecord::Base.logger = Logger.new(STDOUT)
 

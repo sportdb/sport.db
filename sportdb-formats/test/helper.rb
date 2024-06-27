@@ -4,6 +4,7 @@ $LOAD_PATH.unshift( File.expand_path( '../score-formats/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-langs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
+$LOAD_PATH.unshift( File.expand_path( './lib' ))
 
 
 

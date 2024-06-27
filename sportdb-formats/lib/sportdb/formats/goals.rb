@@ -209,6 +209,10 @@ class GoalsParser
   include LogUtils::Logging
 
 
+  ### todo/fix:
+  ##    let's use stringscanner for parsing line - why? why not?
+
+
   # note: use ^ for start of string only!!!
   # - for now slurp everything up to digits (inlc. spaces - use strip to remove)
   # todo/check: use/rename to NAME_UNTIL_REGEX ??? ( add lookahead for spaces?)
@@ -220,18 +224,21 @@ class GoalsParser
   # todo/check: change to MINUTE_REGEX ??
   # add MINUTE_SKIP_REGEX or MINUTE_SEP_REGEX /^[ ,]+/
   # todo/fix:  split out  penalty and owngoal flag in PATTERN constant for reuse
+  #   note - offset  90+10 possible!!!!
+  #    note - allow  p/pen./pen  or  o.g. or og
   MINUTES_REGEX = /^      # note: use ^ for start of string only!!!
                     (?<minute>[0-9]{1,3})
                     (?:\+
-                      (?<offset>[1-9]{1})
+                      (?<offset>[0-9]{1,2})
                     )?
                     '
                     (?:[ ]*
                       \(
-                      (?<type>P|pen\.|o\.g\.)
+                      (?<type>p|pen\.?|
+                              og|o\.g\.)
                       \)
                     )?
-                  /x
+                  /ix
 
 
 
@@ -256,22 +263,21 @@ class GoalsParser
       player = GoalsPlayerStruct.new
       player.name = name
 
-      minute_hash = get_minute_hash!( line )
-      while minute_hash
+      minute_hash = nil 
+      while minute_hash=get_minute_hash!( line )   ## note: returns nil if no (regex) match
         logger.debug "  found minutes >#{minute_hash.inspect}< - remaining >#{line}<"
 
         minute = GoalsMinuteStruct.new
         minute.minute = minute_hash[:minute].to_i
         minute.offset = minute_hash[:offset].to_i  if minute_hash[:offset]
         if minute_hash[:type]
-          minute.owngoal = true  if minute_hash[:type] =~ /o\.g\./
-          minute.penalty = true  if minute_hash[:type] =~ /P|pen\./
+          minute.owngoal = true  if minute_hash[:type] =~ /og|o\.g\./i
+          minute.penalty = true  if minute_hash[:type] =~ /p|pen\.?/i
         end
         player.minutes << minute
 
         # remove commas and spaces (note: use ^ for start of string only!!!)
         line.sub!( /^[ ,]+/, '' )
-        minute_hash = get_minute_hash!( line )
       end
 
       players << player
@@ -297,6 +303,8 @@ private
     m = MINUTES_REGEX.match( line ) # note: use ^ for start of string only!!!
     if m
       h = {}
+      ## todo/fix - hash conversion no longer need in ruby 3+!!
+      ##               double check - and remove (simplify) !!!!
       # - note: do NOT forget to turn name into symbol for lookup in new hash (name.to_sym)
       m.names.each { |n| h[n.to_sym] = m[n] } # or use match_data.names.zip( match_data.captures ) - more cryptic but "elegant"??
 

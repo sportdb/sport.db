@@ -362,6 +362,27 @@ class MatchParser   ## simple match parser for team match schedules
   end
 
 
+  ### todo/check - include (optional) leading space in regex - why? why not?
+  NUM_RE = /^[ ]*\(
+                    (?<num>[0-9]{1,3})
+                  \)
+           /x
+
+  def find_num!( line )
+      ## check for leading match number e.g.
+      ##    (1) Fri Jun/14 21:00         Germany   5-1 (3-0)  Scotland 
+      m = line.match( NUM_RE )
+      if m
+        num = m[:num].to_i(10)  ## allows 01/02/07 etc. -- why? why not?
+        match_str = m[0]
+        line.sub!( match_str, '[NUM]' )
+        num
+      else
+        nil
+      end
+  end
+
+
   def try_parse_game( line )
     # note: clone line; for possible test do NOT modify in place for now
     # note: returns true if parsed, false if no match
@@ -405,11 +426,16 @@ class MatchParser   ## simple match parser for team match schedules
       return false
     end
 
+
+    ## try optional match number e.g. 
+    ##        (1) Fri Jun/14 21:00         Germany   5-1 (3-0)  Scotland 
+    num = find_num!( line )
+    ## pos = find_game_pos!( line )
+
     ## find (optional) match status e.g. [abandoned] or [replay] or [awarded]
     ##                                   or [cancelled] or [postponed] etc.
     status = find_status!( line )   ## todo/check: allow match status also in geo part (e.g. after @) - why? why not?
 
-    ## pos = find_game_pos!( line )
 
       date      = find_date!( line, start: @start )  ## date or datetime (but NOT time!)
 
@@ -475,7 +501,8 @@ class MatchParser   ## simple match parser for team match schedules
     else  # assume date is nil
     end        
 
-    @matches << Import::Match.new( date:    date_str,
+    @matches << Import::Match.new( num:     num,
+                                   date:    date_str,
                                    time:    time_str,
                                    team1:   team1,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team1.name)
                                    team2:   team2,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team2.name)

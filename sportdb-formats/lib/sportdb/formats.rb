@@ -48,7 +48,7 @@ end   # module SportDb
 
 require_relative 'formats/search/world'
 require_relative 'formats/search/sport'
-
+require_relative 'formats/search/structs'
 
 
 

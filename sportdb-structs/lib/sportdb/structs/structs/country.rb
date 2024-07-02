@@ -47,6 +47,15 @@ class Country
     @tags           = tags
   end
 
+  def pretty_print( printer ) 
+    buf = String.new
+    buf << "<Country: #{@key} - #{@name} (#{@code})"
+    buf << "|#{@alt_names.join('|')}"  if @alt_names && !@alt_names.empty?
+    buf << ", #{@tags.join('|')})"     if @tags && !@tags.empty?
+    buf << ">"
+
+    printer.text( buf ) 
+  end
 end  # class Country
 
 end   # module Sports

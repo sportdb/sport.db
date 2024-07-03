@@ -24,15 +24,32 @@ class CountrySearch
   
     ###################
     ## core required delegates  - use delegate generator - why? why not?
-    def find_by_code( code ) @service.find_by_code( code ); end
-    def find_by_name( name ) @service.find_by_name( name ); end
+    def find_by_code( code ) 
+      puts "!! DEPRECATED - use CountrySearch#find_by( code: )"
+      @service.find_by_code( code ) 
+    end
+    def find_by_name( name ) 
+      puts "!! DEPRECATED - use CountrySearch#find_by( name: )"
+      @service.find_by_name( name )
+    end
+
+    def find_by( code: nil, name: nil )
+      ## todo/fix upstream - change to find_by( code:, name:, ) too               
+      if code && name.nil?
+        @service.find_by_code( code )
+      elsif name && code.nil?
+        @service.find_by_name( name )
+      else
+        raise ArgumentError, "CountrySearch#find_by - one (and only one arg) required - code: or name:"  
+      end
+    end
 
 
     ###############
     ### more deriv support functions / helpers
     def find( q )
-       country = find_by_code( q )
-       country = find_by_name( q )  if country.nil?     ## try lookup / find by (normalized) name
+       country = find_by( code: q )
+       country = find_by( name: q )  if country.nil?     ## try lookup / find by (normalized) name
        country
     end
     alias_method :[], :find    ### keep shortcut - why? why not?
@@ -56,29 +73,31 @@ class CountrySearch
    country = nil
    values.each do |value|
       value = value.strip
-      ## check for trailing country code e.g. (at), (eng), etc.
-      if value =~ /[ ]+\((?<code>[a-z]{1,4})\)$/  ## e.g. Austria (at)
+      ## check for trailing country code e.g. (at), (eng), etc
+      ##   allow code 1 to 5 for now - northern cyprus(fifa) with 5 letters?.
+      ##     add/allow  gb-eng, gb-wal (official iso2!!), in the future too - why? why not?
+      if value =~ /[ ]+\((?<code>[A-Za-z]{1,5})\)$/  ## e.g. Austria (at)
         code =  $~[:code]
         name = value[0...(value.size-code.size-2)].strip  ## note: add -2 for brackets
-        candidates = [ find_by_code( code ), find_by_name( name ) ]
+        candidates = [ find_by( code: code ), find_by( name: name ) ]
         if candidates[0].nil?
-          puts "** !!! ERROR !!! country - unknown code >#{code}< in line: #{line}"
+          puts "** !!! ERROR Country.parse_heading - unknown code >#{code}< in line: #{line}"
           pp line
           exit 1
         end
         if candidates[1].nil?
-          puts "** !!! ERROR !!! country - unknown name >#{code}< in line: #{line}"
+          puts "** !!! ERROR Country.parse_heading - unknown name >#{code}< in line: #{line}"
           pp line
           exit 1
         end
         if candidates[0] != candidates[1]
-          puts "** !!! ERROR !!! country - name and code do NOT match the same country:"
+          puts "** !!! ERROR Country.parse_heading - name and code do NOT match the same country:"
           pp line
           pp candidates
           exit 1
         end
         if country && country != candidates[0]
-          puts "** !!! ERROR !!! country - names do NOT match the same country:"
+          puts "** !!! ERROR Country.parse_heading - names do NOT match the same country:"
           pp line
           pp country
           pp candidates
@@ -89,12 +108,12 @@ class CountrySearch
         ## just assume value is name or code
         candidate = find( value )
         if candidate.nil?
-          puts "** !!! ERROR !!! country - unknown name or code >#{value}< in line: #{line}"
+          puts "** !!! ERROR Country.parse_heading - unknown name or code >#{value}< in line: #{line}"
           pp line
           exit 1
         end
         if country && country != candidate
-          puts "** !!! ERROR !!! country - names do NOT match the same country:"
+          puts "** !!! ERROR Country.parse_heading - names do NOT match the same country:"
           pp line
           pp country
           pp candidate

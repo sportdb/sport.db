@@ -32,6 +32,13 @@ pp Country.find_by( code: 'E' )
 pp Country.find_by( name: 'Austria' )
 pp Country.find_by( name: 'Österreich' )
 
+pp Country.parse_heading( 'Austria (at)' )
+pp Country.parse_heading( 'Austria' )
+pp Country.parse_heading( 'at' )
+pp Country.parse_heading( 'Austria (AUT)' )
+pp Country.parse_heading( 'Austria' )
+pp Country.parse_heading( 'A' )
+
 
 pp League.match_by( name: 'Bundesliga' )
 pp League.match_by( name: 'ENG' )

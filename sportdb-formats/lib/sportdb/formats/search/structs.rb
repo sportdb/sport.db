@@ -15,32 +15,33 @@ class Country
     def self._search #### use service/api or such - why? why not?
         SportDb::Import.world.countries
     end
-   def self.find_by( code: nil, 
-                     name: nil )
-      ## todo/fix upstream - change to find_by( code:, name:, ) too               
-      if code && name.nil?
-          _search.find_by_code( code )
-      elsif name && code.nil?
-          _search.find_by_name( name )
-      else
-        raise ArgumentError, "find_by - one (and only one arg) required - code: or name:"  
-      end
+   def self.find_by( code: nil, name: nil )
+        _search.find_by( code: code, name: name )
    end 
 
    def self.find( q )   ## find by code (first) or name (second) 
        _search.find( q )
    end
+
+   def self.parse_heading( line )
+      ## fix - move parse code here from search - why? why not?
+      _search.parse( line )
+   end
+
+   ## add alternate names/aliases 
    class << self
-     alias_method :[], :find    ### keep shortcut - why? why not?
+    alias_method :[],      :find    ### keep shortcut - why? why not?
+    alias_method :heading, :parse_heading
    end
 
 
-# open questoin - what name to use build or  parse_line or ?
+# open question - what name to use build or  parse_line or ?
 #                              or   parse_recs for CountryReader?
 #          remove CountryReader helper methods - why? why not?   
+#   use parse_heading/heading for now !!!
 #
 #   def self.parse( line )  or build( line ) ??
-#      SportDb::Import.world.countries.find( q )    
+#      SportDb::Import.world.countries.parse( line )    
 #   end
 #
 # !!!! note - conflict with 

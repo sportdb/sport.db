@@ -1,0 +1,53 @@
+###########################
+# known keywords for fixtures
+
+
+group:      Groupe
+
+round:      Journée
+
+stage:    Phase de groupes|Phase à élimination directe|Phase finale
+# e.g.
+#  Group stage
+#  Play off stage|Play-off stage
+#  Knockout stage|Knockout stages
+#  First stage
+#  Second stage
+#  Qualifying rounds
+
+
+
+
+### Knockout rounds
+
+## fix: add playoffs + fifthplace
+
+
+round32:        Seizièmes de finale
+round16:        Huitièmes de finale
+quarterfinals:  Quarts de finale
+semifinals:     Demi-finales
+thirdplace:     Match pour la troisième place
+final:          Finale
+
+### Pair matches/games if marked with leg1 n leg2
+
+leg1:  Match aller
+leg2:  Match retour
+
+
+#######################
+# months of year
+
+january:   janvier
+february:  février
+march:     mars
+april:     avril
+may:       mai
+june:      juin
+july:      juillet
+august:    août
+september: septembre
+october:   octobre
+november:  novembre
+december:  décembre

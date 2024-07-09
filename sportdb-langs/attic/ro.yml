@@ -1,0 +1,55 @@
+###########################
+# known keywords for fixtures
+
+
+group:       Grupa
+
+round:      Runda|Etapa
+
+
+stage:    Faza grupelor|Faza eliminatorie
+# e.g.
+#  Group stage
+#  Play off stage|Play-off stage
+#  Knockout stage|Knockout stages
+#  First stage
+#  Second stage
+#  Qualifying rounds
+
+
+
+
+### Knockout rounds
+
+## fix: add playoffs + fifthplace
+
+
+round32:        1/16 de finală
+round16:        Optimi de finală
+quarterfinals:  Sferturi de finală
+semifinals:     Semifinale
+thirdplace:     Meciul pentru locul 3
+final:          Finala
+
+### Pair matches/games if marked with leg1 n leg2
+
+leg1:  Tur     ##  Prima manșă - use too ??
+leg2:  Retur   ##  Manșa secundă  - use too ??
+
+
+#######################
+# months of year
+
+january:   ianuarie
+february:  februarie
+march:     martie
+april:     aprilie
+may:       mai
+june:      iunie
+july:      iulie
+august:    august
+september: septembrie
+october:   octombrie
+november:  noiembrie
+december:  decembrie
+

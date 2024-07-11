@@ -13,10 +13,123 @@
 
 ## NOT_SYM
 
+
+
+##
+#    add date duration (date range??)
+#     used for matchday defs e.g. matchday 1  |
+#     allow +-
+#
+#  match date duration (before date)
+
+
+
+SCORE_RE = %r{
+    (?<score>  
+       ([0-9]+-[0-9]+)
+       ([ ]+             ## require space?
+        \([0-9]+-[0-9]+
+        \)
+       )?
+    ) 
+}ix
+
+def build_names( txt )
+  lines = [] # array of lines (with words)
+
+  txt.each_line do |line|
+    line = line.strip
+
+    next if line.empty?
+    next if line.start_with?( '#' )   ## skip comments too
+
+    ## strip inline (until end-of-line) comments too
+    ##   e.g. Janvier  Janv  Jan  ## check janv in use??
+    ##   =>   Janvier  Janv  Jan
+
+    line = line.sub( /#.*/, '' ).strip
+    ## pp line
+
+    values = line.split( /[ \t]+/ )
+    ## pp values
+
+    ## todo/fix -- add check for duplicates
+    lines << values
+  end
+  lines
+
+  ## join all words together into a single string e.g.
+  ##   January|Jan|February|Feb|March|Mar|April|Apr|May|June|Jun|...
+  lines.map { |line| line.join('|') }.join('|')
+end # method parse
+
+
+
+MONTH_NAMES = build_names( <<TXT )
+January    Jan
+February   Feb
+March      Mar
+April      Apr
+May
+June       Jun
+July       Jul
+August     Aug
+September  Sept  Sep
+October    Oct
+November   Nov
+December   Dec
+TXT
+
+DAY_NAMES = build_names( <<TXT )
+Monday                   Mon  Mo
+Tuesday            Tues  Tue  Tu
+Wednesday                Wed  We
+Thursday    Thurs  Thur  Thu  Th
+Friday                   Fri  Fr
+Saturday                 Sat  Sa
+Sunday                   Sun  Su
+TXT
+
+
+
+pp MONTH_NAMES 
+pp  DAY_NAMES 
+
+#=>
+# "January|Jan|February|Feb|March|Mar|April|Apr|May|June|Jun|
+#  July|Jul|August|Aug|September|Sept|Sep|October|Oct|
+#  November|Nov|December|Dec"
+#
+# "Monday|Mon|Mo|Tuesday|Tues|Tue|Tu|Wednesday|Wed|We|
+#  Thursday|Thurs|Thur|Thu|Th|Friday|Fri|Fr|
+#  Saturday|Sat|Sa|Sunday|Sun|Su"
+
+
+
+## todo - add more date variants !!!!
+
+# e.g. Fri Aug/9  or Fri Aug 9
+DATE_RE = /\b
+(?<date>
+     ((?<day_name>#{DAY_NAMES})
+        \s
+     )?    ## optional day name
+     (?<month_name>#{MONTH_NAMES})
+        (?: \/|\s )
+     (?<day>\d{1,2})
+     ( \s
+        (?<year>\d{4})
+     )?   ## optional year
+)
+\b/ix
+
+
+
+
 BASICS_RE = %r{
-    (?<score>  [0-9]+-[0-9]+) 
-       |
     (?<time>   [0-9]+(:|\.)[0-9]+)       ## e.g. 18.30 (or 18:30)
+       |
+    (?<num> \([0-9]+\) )    ## e.g. (51) or (1) etc.
        |
     (?<vs>   
        (?<=[ ])	# Positive lookbehind for space	
@@ -24,17 +137,45 @@ BASICS_RE = %r{
        (?=[ ])   # positive lookahead for space
     ) 
        | 
+    (?<none>
+       (?<=[ \[]|^)	 # Positive lookbehind for space or [	
+           -
+        (?=[ ]*;)   # positive lookahead for space
+    )
+       |
     (?<spaces> [ ]{2,}) |
     (?<space>  [ ]) 
         |
     (?<sym>[;,@|\[\]]) 
 }ix
 
-# (?=X)	Positive lookahead	"Ruby"[/.(?=b)/] #=> "u"
-# (?!X)	Negative lookahead	"Ruby"[/.(?!u)/] #=> "u"
-# (?<=X)	Positive lookbehind	"Ruby"[/(?<=u)./] #=> "b"
-# (?<!X)	Negative lookbehind	"Ruby"[/(?<!R|^)./] #=> "b"
 
+MINUTE_RE = %r{
+     (?<minute>
+       (?<=[ ])	 # Positive lookbehind for space
+        [0-9]{1,3}    ## constrain numbers to 0 to 999!!!
+        (\+
+         [0-9]{1,3}
+        )? 	
+        '       ## must have minute marker!!!!
+     )
+}ix
+
+
+# (pen.) or (pen) or (p.) or (p)  
+## (o.g.) or (og)
+##  rename to goal type or such - why? why not?
+GOAL_RE = %r{
+   (?<goal>
+    \(
+     (
+       ((pen|p)\.?)
+         |
+       (og|o\.g\.)
+      )
+    \)
+   )
+}ix
 
 
 ##  note - do NOT allow single alpha text for now
@@ -54,38 +195,10 @@ BASICS_RE = %r{
 # 1890 Munich
 #
 
-=begin
-TEXT2_RE = %r<
-          (?<text2>
-             [0-9]+  # check for num lookahead (MUST be space or dot)
-              ## MUST be followed by (optional dot) and
-              ##                      required space !!!
-              ## MUST be follow by a to z!!!!
-              (\.?     ## optional dot
-                [ ]   ## make space optional too - why? why not?
-               [a-z]+
-              )
-              (([ ]|     # only single spaces allowed inline!!!
-                [-]     # check for lookbehind and ahead (NOT a space)
-                        #      and lookbehind (NOT a number!!)
-               )?
-               (
-                 [a-z&]|
-                 [0-9]+|  
-                 \.     # check for lookahead (NOT a number!!!)
-               )  
-              )* 
-          )
->ix
-=end
 
-###
-# (?=X)	Positive lookahead	"Ruby"[/.(?=b)/] #=> "u"
-# (?!X)	Negative lookahead	"Ruby"[/.(?!u)/] #=> "u"
-# (?<=X)	Positive lookbehind	"Ruby"[/(?<=u)./] #=> "b"
-# (?<!X)	Negative lookbehind	"Ruby"[/(?<!R|^)./] #=> "b"
-#
-#  see https://idiosyncratic-ruby.com/11-regular-extremism.html
+##
+#  allow Cote'd Ivoir or such
+##   e.g. add '
 
 
 TEXT_RE = %r{
@@ -96,7 +209,7 @@ TEXT_RE = %r{
                  |^
             )
             (  # opt 1 - start with alpha
-                 [a-z]+
+                 \p{L}+    ## all unicode letters (e.g. [a-z])
                    |
                   # opt 2 - start with num!! - allow special case (e.g. 1. FC) 
                  [0-9]+  # check for num lookahead (MUST be space or dot)
@@ -105,17 +218,21 @@ TEXT_RE = %r{
                   ## MUST be follow by a to z!!!!
                    \.?     ## optional dot
                    [ ]   ## make space optional too - why? why not?
-                   [a-z]+                
+                   \p{L}+                
                )
-                    
-              ((  [ ]|     # only single spaces allowed inline!!!
+        
+              ((  ([ ]
+                   (?!vs?[ ]) ## note - exclude (v[ ]/vs[ ])
+                    )  
+                   |     # only single spaces allowed inline!!!
                   [-]                                              
                )?
                (
-                 [a-z&]|
+                  \p{L} |
+                  [&'] |
                  (
                    [0-9]+ 
-                   (?![.:-])   ## negative lookahead
+                   (?![.:'+-])   ## negative lookahead
                  )|  
                  \.     # check for lookahead (NOT a number!!!)
                )  
@@ -137,38 +254,12 @@ TEXT_RE = %r{
 
 
 
-re = Regexp.union( BASICS_RE, TEXT_RE )
 
-# re = TEXT_RE 
-# pp re
-
-RE = Regexp.union( BASICS_RE, TEXT_RE )
- 
-
-##  make -1 possible  (e.g. check ukraine dnepro-1 !!!)
-
-lines = [
-"1. FC Koln    ",
-"Brighton & Abilion   ",
-"Schalke 04    ",
-"Dnipro-1     27+4' 12'  ",
-"1 FC   ",
-"1. FC   ",
-"1890 Munich      ",
-"America - RS  ",
-"Team 4-3  ",
-]
-
-
-
-lines.each do |line|
-  puts "==> >#{line}<"
-  pp line.match( re )
-end
-
-
-
-
+RE = Regexp.union( DATE_RE,
+                    SCORE_RE,
+                    BASICS_RE, MINUTE_RE,
+                    GOAL_RE,
+                     TEXT_RE )
 
 
 
@@ -184,6 +275,18 @@ def tokenize( line, debug: false )
       puts "pos: #{pos}"  
     end
     offsets = [m.begin(0), m.end(0)]
+
+    if offsets[0] != pos
+      ## match NOT starting at start/begin position!!!
+      ##  report parse error!!!
+      puts "!! WARN - parse error - skipping >#{line[pos..(offsets[0]-1)]}<"
+    end
+
+    ##
+    ## todo/fix - also check if possible
+    ##   if no match but not yet end off string!!!!
+    ##    report skipped text run too!!!
+
     pos = offsets[1]
 
     pp offsets   if debug
@@ -196,12 +299,22 @@ def tokenize( line, debug: false )
            nil
         elsif m[:text] 
           [:text, m[:text]]   ## keep pos - why? why not?
+        elsif m[:date]
+          [:date, m[:date]]
         elsif m[:time]
           [:time, m[:time]]
+        elsif m[:num]
+          [:num, m[:num]]
         elsif m[:score]
           [:score, m[:score]]
+        elsif m[:minute]
+          [:minute, m[:minute]]
+        elsif m[:goal]
+          [:goal, m[:goal]]
         elsif m[:vs]
           [:vs, m[:vs]]
+        elsif m[:none]
+          [:none, m[:none]]
         elsif m[:sym]
           sym = m[:sym]
           ## return symbols "inline" as is - why? why not?
@@ -228,19 +341,3 @@ def tokenize( line, debug: false )
   end
   tokens
 end
-
-lines = [
- "1. FC Koln   Koln 2   Fortuna Dusseldorf  -  Rot-Weiss Preussen 18:30   11-12    vs   Munchen 1840  3-2  12.30  @ Waldstadion, Dusseldorf ",
- " 18.30   21:30  Brighton & Abilion  0-0  Arsenal F.C. ",
-]
-
-
-lines.each do |line|
-   puts
-   puts ">#{line}<"
-   tokens = tokenize( line )
-   pp tokens
-end
-
-
-puts "bye bye"

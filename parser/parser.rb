@@ -92,8 +92,8 @@ TXT
 
 
 
-pp MONTH_NAMES 
-pp  DAY_NAMES 
+## pp MONTH_NAMES 
+## pp  DAY_NAMES 
 
 #=>
 # "January|Jan|February|Feb|March|Mar|April|Apr|May|June|Jun|

@@ -109,10 +109,7 @@ MINUTE_RE = %r{
 
 
 ##  (match) status 
-##
-##   canceled|cancelled
-##   awarded|award.  etc.
-##   postponed  etc.
+##    note: english usage - cancelled (in UK), canceled (in US)
 ##
 ##  add more variants - why? why not?
 
@@ -120,19 +117,22 @@ STATUS_RE = %r{
      (?<status>
          \b
          (?:
-            cancelled|canceled
+            cancelled|canceled|can\.
                |
-            abandoned
+            abandoned|abd\.
                |
             postponed
                |
-            (awarded|awd\.)      
+            awarded|awd\. 
+               |
+            replay     
          )
    (?=[ \]]|$)
-        ## todo/check:  remove loakahead assertion here - why require space?
-        ## note: \b works only after non-alphanum 
      )}ix
 
+## todo/check:  remove loakahead assertion here - why require space?
+## note: \b works only after non-alphanum  
+##          to make it work with awd. (dot) "custom" lookahead neeeded 
 
 
 ##   goal types
@@ -203,7 +203,12 @@ TEXT_RE = %r{
                   )?
                 (?:
                   \p{L} |
-                  [&'] |
+                  [&/'] 
+                    |
+                   ## (A) -    allow with ascii alpha only for now e.g. (A) etc.
+                   ## (1879-1893) or allow years e.g. (1879-1893)
+                     \([a+z]+\)  | \(\d{4}-\d{4}\)
+                    |
                  (?:
                    \d+ 
                    (?![.:h'/+-])   ## negative lookahead for numbers
@@ -250,8 +255,11 @@ def log( msg )
 end
 
 
-def tokenize( line, debug: false )
+
+def tokenize_with_errors( line, debug: false )
   tokens = []
+  errors = []   ## keep a list of errors - why? why not?
+
   puts ">#{line}<"    if debug
 
   pos = 0
@@ -270,8 +278,10 @@ def tokenize( line, debug: false )
     if offsets[0] != pos
       ## match NOT starting at start/begin position!!!
       ##  report parse error!!!
-      msg =  "!! WARN - parse error - skipping >#{line[pos..(offsets[0]-1)]}< in line >#{line}<"
+      msg =  "!! WARN - parse error - skipping >#{line[pos..(offsets[0]-1)]}< @#{offsets[0]},#{offsets[1]} in line >#{line}<"
       puts msg
+
+      errors << "parse error - skipping >#{line[pos..(offsets[0]-1)]}< @#{offsets[0]},#{offsets[1]}"
       log( msg )
     end
 
@@ -343,11 +353,20 @@ def tokenize( line, debug: false )
 
   ## check if no match in end of string
   if offsets[1] != line.size
-    msg =  "!! WARN - parse error - skipping >#{line[offsets[1]..-1]}< in line >#{line}<"
+    msg =  "!! WARN - parse error - skipping >#{line[offsets[1]..-1]}< @#{offsets[1]},#{line.size} in line >#{line}<"
     puts msg
     log( msg )
+
+    errors << "parse error - skipping >#{line[offsets[1]..-1]}< @#{offsets[1]},#{line.size}"
   end
 
 
-  tokens
+  [tokens,errors] 
+end
+
+
+### convience helper - ignore errors by default
+def tokenize(  line, debug: false )
+   tokens, _ = tokenize_with_errors( line, debug: debug )
+   tokens
 end

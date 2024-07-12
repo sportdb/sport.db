@@ -8,6 +8,12 @@ module SportDb
 
 class OutlineReader
 
+  def self.debug=(value) @@debug = value; end
+  def self.debug?() @@debug ||= false; end
+  def debug?()  self.class.debug?; end   
+
+
+
   def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
     txt = File.open( path, 'r:utf-8' ) {|f| f.read }
     parse( txt )
@@ -57,7 +63,7 @@ class OutlineReader
         ##  e.g bq   Bonaire,  BOE        # CONCACAF
         ##   => bq   Bonaire,  BOE
         line = line.sub( /#.*/, '' ).strip
-        pp line
+        pp line    if debug?
 
         ## todo/check: also use heading blank as paragraph "breaker" or treat it like a comment ?? - why? why not?
         next if HEADING_BLANK_RE.match( line )  # skip "decorative" only heading e.g. ========
@@ -70,7 +76,7 @@ class OutlineReader
            heading_level  = m[:marker].length   ## count number of = for heading level
            heading        = m[:text].strip
 
-           puts "heading #{heading_level} >#{heading}<"
+           puts "heading #{heading_level} >#{heading}<"   if debug?
            outline << [:"h#{heading_level}", heading]
         else    ## assume it's a (plain/regular) text line
            if start_para

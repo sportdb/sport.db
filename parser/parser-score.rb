@@ -10,7 +10,7 @@
     ##  note: allow SPECIAL cases WITHOUT full time scores (just a.e.t or pen. + a.e.t.)
     ##      3-4 pen. 2-2 a.e.t.
     ##               2-2 a.e.t.
-    SCORE__P_ET__RE = /
+    SCORE__P_ET__RE = %r{
         (?<score>
            \b
             (?:
@@ -20,7 +20,7 @@
             (?<score1et>\d{1,2}) - (?<score2et>\d{1,2})
                [ ]* #{ET_EN}
                (?=[ \]]|$)
-        )/ix  
+        )}ix  
                 ## todo/check:  remove loakahead assertion here - why require space?
                 ## note: \b works only after non-alphanum e.g. )
 
@@ -32,7 +32,7 @@
     ##               2-2 a.e.t. (1-1, )     or
     ##               2-2 a.e.t. (1-1)
 
-    SCORE__P_ET_FT_HT__RE = /
+    SCORE__P_ET_FT_HT__RE = %r{
           (?<score>
                \b
                (?:
@@ -53,13 +53,13 @@
                 )?              # note: make half time (HT) score optional for now
               \)
              (?=[ \]]|$)
-            )/ix       ## todo/check:  remove loakahead assertion here - why require space?
+            )}ix       ## todo/check:  remove loakahead assertion here - why require space?
                                ## note: \b works only after non-alphanum e.g. )
 
     ###
     ##   special case for case WITHOUT extra time!!
     ##     same as above (but WITHOUT extra time and pen required)
-    SCORE__P_FT_HT__RE = /
+    SCORE__P_FT_HT__RE = %r{
              (?<score>
                 \b
      (?<score1p>\d{1,2}) - (?<score2p>\d{1,2})
@@ -76,7 +76,7 @@
      )?              # note: make half time (HT) score optional for now
    \)
   (?=[ \]]|$)
-    )/ix    ## todo/check:  remove loakahead assertion here - why require space?
+    )}ix    ## todo/check:  remove loakahead assertion here - why require space?
             ## note: \b works only after non-alphanum e.g. )
 
 
@@ -84,7 +84,7 @@
     ## e.g. 2-1 (1-1) or
     ##      2-1
  
-    SCORE__FT_HT__RE = /      
+    SCORE__FT_HT__RE = %r{      
             (?<score>
               \b
               (?<score1>\d{1,2}) - (?<score2>\d{1,2})
@@ -94,7 +94,7 @@
                    [ ]* \)
                )?   # note: make half time (HT) score optional for now
              (?=[ \]]|$)
-             )/ix    ## todo/check:  remove loakahead assertion here - why require space?
+             )}ix    ## todo/check:  remove loakahead assertion here - why require space?
                     ## note: \b works only after non-alphanum e.g. )
 
 

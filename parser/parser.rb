@@ -14,13 +14,23 @@
 ## NOT_SYM
 
 
+##
+#  todo
+#   add timezone - why? why not?
+#   e.g.  (UTC-3)  or (CEST-2)
+#    or    
+#        must have +1/-1 offsets!!!
+#         for detection 
+
 
 ##
-#    add date duration (date range??)
-#     used for matchday defs e.g. matchday 1  |
-#     allow +-
-#
-#  match date duration (before date)
+##  add (match) status !!!
+##
+##   canceled|cancelled
+##   awarded|award.  etc.
+##   postponed  etc.
+
+
 
 
 require_relative 'parser-score'
@@ -28,15 +38,25 @@ require_relative 'parser-date'
 
 
 
-
 BASICS_RE = %r{
-    (?<time>   [0-9]+(:|\.)[0-9]+)       ## e.g. 18.30 (or 18:30)
+    ## e.g. 18.30 (or 18:30 or 18h30)
+    (?<time>  \b
+              \d{1,2}
+              (?: :|\.|h )
+               \d{2}
+              \b
+    )     
        |
-    (?<num> \([0-9]+\) )    ## e.g. (51) or (1) etc.
+    ## e.g. (51) or (1) etc.  - limit digits of number???
+    (?<num> \(\d+\) )    
        |
     (?<vs>   
        (?<=[ ])	# Positive lookbehind for space	
-       (vs|v|-)   # not bigger match first e.g. vs than v etc.
+       (?: 
+          vs\.?|   ## allow optional dot (eg. vs. v.)
+          v\.?|
+          -
+       )   # not bigger match first e.g. vs than v etc.
        (?=[ ])   # positive lookahead for space
     ) 
        | 
@@ -55,10 +75,10 @@ BASICS_RE = %r{
 
 MINUTE_RE = %r{
      (?<minute>
-       (?<=[ ])	 # Positive lookbehind for space
-        [0-9]{1,3}    ## constrain numbers to 0 to 999!!!
-        (\+
-         [0-9]{1,3}
+       (?<=[ ])	 # Positive lookbehind for space required
+        \d{1,3}    ## constrain numbers to 0 to 999!!!
+        (?: \+
+            \d{1,3}
         )? 	
         '       ## must have minute marker!!!!
      )
@@ -69,10 +89,16 @@ MINUTE_RE = %r{
 # (pen.) or (pen) or (p.) or (p)  
 ## (o.g.) or (og)
 GOAL_PEN_RE = %r{
-   (?<pen> \(  (pen|p)\.? \))
+   (?<pen> \(  
+           (?:pen|p)\.? 
+           \)
+    )
 }ix
 GOAL_OG_RE = %r{
-   (?<og> \(  (og|o\.g\.) \))
+   (?<og> \(  
+          (?:og|o\.g\.) 
+          \)
+   )
 }ix
 
 
@@ -106,11 +132,11 @@ TEXT_RE = %r{
             (?<=[ ,;@|\[\]]
                  |^
             )
-            (  # opt 1 - start with alpha
+            (?:  # opt 1 - start with alpha
                  \p{L}+    ## all unicode letters (e.g. [a-z])
                    |
                   # opt 2 - start with num!! - allow special case (e.g. 1. FC) 
-                 [0-9]+  # check for num lookahead (MUST be space or dot)
+                 \d+  # check for num lookahead (MUST be space or dot)
                   ## MUST be followed by (optional dot) and
                   ##                      required space !!!
                   ## MUST be follow by a to z!!!!
@@ -119,18 +145,18 @@ TEXT_RE = %r{
                    \p{L}+                
                )
         
-              ((  ([ ]
-                   (?!vs?[ ]) ## note - exclude (v[ ]/vs[ ])
-                    )  
-                   |     # only single spaces allowed inline!!!
-                  [-]                                              
-               )?
-               (
+              (?:(?:  (?:[ ]
+                     (?!vs?\.?[ ])    ## note - exclude (v[ ]/vs[ ]/v.[ ]/vs.[ ])
+                       )  
+                      |     # only single spaces allowed inline!!!
+                     [-]                                              
+                  )?
+                (?:
                   \p{L} |
                   [&'] |
-                 (
-                   [0-9]+ 
-                   (?![.:'+-])   ## negative lookahead
+                 (?:
+                   \d+ 
+                   (?![.:h'/+-])   ## negative lookahead for numbers
                  )|  
                  \.     # check for lookahead (NOT a number!!!)
                )  
@@ -153,7 +179,8 @@ TEXT_RE = %r{
 
 
 
-RE = Regexp.union( DATE_RE,
+RE = Regexp.union( DURATION_RE,  # note - duration MUST match before date
+                    DATE_RE,
                     SCORE_RE,
                     BASICS_RE, MINUTE_RE,
                     GOAL_OG_RE, GOAL_PEN_RE,
@@ -216,6 +243,8 @@ def tokenize( line, debug: false )
           [:date, m[:date]]
         elsif m[:time]
           [:time, m[:time]]
+        elsif m[:duration]
+          [:duration, m[:duration]]
         elsif m[:num]
           [:num, m[:num]]
         elsif m[:score]

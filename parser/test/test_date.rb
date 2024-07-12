@@ -7,8 +7,41 @@ require_relative 'helper'
 
 class TestDate < Minitest::Test
 
+  def test_duration
+    m = DURATION_RE.match( 'Sun Jun/23 - Wed Jun/26' )
+    pp m
+    pp m[:duration]
+    pp m.named_captures
 
-  def test_re
+    assert_equal 'Sun Jun/23 - Wed Jun/26', m[:duration]
+
+
+    m = DURATION_RE.match( 'Jun/23 - Jun/26' )
+    pp m
+    pp m[:duration]
+    pp m.named_captures
+
+    assert_equal 'Jun/23 - Jun/26', m[:duration]
+
+
+    m = DURATION_RE.match( 'Tue Jun/25 + Wed Jun/26' )
+    pp m
+    pp m[:duration]
+    pp m.named_captures
+
+    assert_equal 'Tue Jun/25 + Wed Jun/26', m[:duration]
+
+
+    m = DURATION_RE.match( 'Jun/25 + Jun/26' )
+    pp m
+    pp m[:duration]
+    pp m.named_captures
+
+    assert_equal 'Jun/25 + Jun/26', m[:duration]
+  end
+
+
+  def test_date
 
 m=DATE_RE.match( "Jun 12 2013" )
 pp m

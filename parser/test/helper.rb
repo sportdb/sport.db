@@ -2,6 +2,8 @@
 require 'minitest/autorun'
 
 
+$LOAD_PATH.unshift( './lib' )
+
 ## our own code
-require_relative '../parser'   
+require  'sportdb/parser'   
 

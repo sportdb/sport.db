@@ -12,13 +12,6 @@
 
 
 
-
-
-require_relative 'parser-score'
-require_relative 'parser-date'
-
-
-
 ##
 #  keep 18h30 - why? why not?
 #    add support for 6:30pm 8:20am etc. - why? why not?

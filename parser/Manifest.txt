@@ -1,0 +1,8 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/sportdb/parser.rb
+lib/sportdb/parser/parser-date.rb
+lib/sportdb/parser/parser-score.rb
+lib/sportdb/parser/parser.rb

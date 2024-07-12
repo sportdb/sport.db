@@ -1,0 +1,27 @@
+require 'hoe'
+
+
+Hoe.spec 'sportdb-parser' do
+
+  self.version = '0.0.1'
+
+  self.summary = "sportdb-parser -  football.txt match parser"
+  self.description = summary
+
+  self.urls = { home: 'https://github.com/sportdb/sport.db' }
+
+  self.author = 'Gerald Bauer'
+  self.email = 'gerald.bauer@gmail.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.licenses = ['Public Domain']
+
+  self.extra_deps = []
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.2.2'
+  }
+end

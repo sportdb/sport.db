@@ -41,7 +41,7 @@ exp = [
   [[:text, "Round 2"]],
   [[:date, "Jul 28"]],
   [[:text, "Puebla"], [:score, "1-1"], [:text, "Morelia"]],
-  [[:text, "Brayan Angulo"], [:minute, "8'"], [:";"], [:text, "Brayan Angulo"], [:minute, "45'"], [:goal, "(og)"]],
+  [[:text, "Brayan Angulo"], [:minute, "8'"], [:";"], [:text, "Brayan Angulo"], [:minute, "45'"], [:og, "(og)"]],
   [[:text, "Atlas"], [:score, "2-1"], [:text, "Pumas"]],
   [[:text, "Jaine Barreiro"],[:minute, "12'"],[:","],
    [:text, "Gustavo Matías Alustiza"],[:minute, "70'"],[:";"],

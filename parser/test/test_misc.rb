@@ -8,6 +8,40 @@ require_relative 'helper'
 class TestMisc < Minitest::Test
 
 
+
+  ## todo - move to test score - why? why not?
+
+  def test_scores
+lines = {
+  '3-4 pen. 2-2 a.e.t.' =>  [[:score, "3-4 pen. 2-2 a.e.t."]],
+  '2-2 a.e.t.'          =>   [[:score, "2-2 a.e.t."]],
+
+  '3-4 pen. 2-2 a.e.t. (1-1, 1-1)' => [[:score, "3-4 pen. 2-2 a.e.t. (1-1, 1-1)"]],
+  '3-4 pen. 2-2 a.e.t. (1-1, )'  => [[:score, "3-4 pen. 2-2 a.e.t. (1-1, )"]],
+  '3-4 pen. 2-2 a.e.t. (1-1)'  => [[:score, "3-4 pen. 2-2 a.e.t. (1-1)"]],
+  '2-2 a.e.t. (1-1, 1-1)'  => [[:score, "2-2 a.e.t. (1-1, 1-1)"]],
+  '2-2 a.e.t. (1-1, )'  => [[:score, "2-2 a.e.t. (1-1, )"]],
+  '2-2 a.e.t. (1-1)'  => [[:score, "2-2 a.e.t. (1-1)"]],
+
+  '3-4 pen. (1-1, 1-1)' => [[:score, "3-4 pen. (1-1, 1-1)"]],
+  '3-4 pen. (1-1, )'    => [[:score, "3-4 pen. (1-1, )"]],
+  '3-4 pen. (1-1)'      => [[:score, "3-4 pen. (1-1)"]], 
+
+  '4-2 (2-1)' => [[:score, "4-2 (2-1)"]],
+  '2-1'       => [[:score, "2-1"]],
+}
+
+
+
+lines.each do |line,exp|
+  puts "==> >#{line}<"
+  tokens = tokenize( line )
+  pp tokens
+  assert_equal exp, tokens
+end
+  end
+
+
   def test_tokenize
 
 lines = {

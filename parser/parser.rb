@@ -23,105 +23,8 @@
 #  match date duration (before date)
 
 
-
-SCORE_RE = %r{
-    (?<score>  
-       ([0-9]+-[0-9]+)
-       ([ ]+             ## require space?
-        \([0-9]+-[0-9]+
-        \)
-       )?
-    ) 
-}ix
-
-def build_names( txt )
-  lines = [] # array of lines (with words)
-
-  txt.each_line do |line|
-    line = line.strip
-
-    next if line.empty?
-    next if line.start_with?( '#' )   ## skip comments too
-
-    ## strip inline (until end-of-line) comments too
-    ##   e.g. Janvier  Janv  Jan  ## check janv in use??
-    ##   =>   Janvier  Janv  Jan
-
-    line = line.sub( /#.*/, '' ).strip
-    ## pp line
-
-    values = line.split( /[ \t]+/ )
-    ## pp values
-
-    ## todo/fix -- add check for duplicates
-    lines << values
-  end
-  lines
-
-  ## join all words together into a single string e.g.
-  ##   January|Jan|February|Feb|March|Mar|April|Apr|May|June|Jun|...
-  lines.map { |line| line.join('|') }.join('|')
-end # method parse
-
-
-
-MONTH_NAMES = build_names( <<TXT )
-January    Jan
-February   Feb
-March      Mar
-April      Apr
-May
-June       Jun
-July       Jul
-August     Aug
-September  Sept  Sep
-October    Oct
-November   Nov
-December   Dec
-TXT
-
-DAY_NAMES = build_names( <<TXT )
-Monday                   Mon  Mo
-Tuesday            Tues  Tue  Tu
-Wednesday                Wed  We
-Thursday    Thurs  Thur  Thu  Th
-Friday                   Fri  Fr
-Saturday                 Sat  Sa
-Sunday                   Sun  Su
-TXT
-
-
-
-## pp MONTH_NAMES 
-## pp  DAY_NAMES 
-
-#=>
-# "January|Jan|February|Feb|March|Mar|April|Apr|May|June|Jun|
-#  July|Jul|August|Aug|September|Sept|Sep|October|Oct|
-#  November|Nov|December|Dec"
-#
-# "Monday|Mon|Mo|Tuesday|Tues|Tue|Tu|Wednesday|Wed|We|
-#  Thursday|Thurs|Thur|Thu|Th|Friday|Fri|Fr|
-#  Saturday|Sat|Sa|Sunday|Sun|Su"
-
-
-
-## todo - add more date variants !!!!
-
-# e.g. Fri Aug/9  or Fri Aug 9
-DATE_RE = /\b
-(?<date>
-     ((?<day_name>#{DAY_NAMES})
-        \s
-     )?    ## optional day name
-     (?<month_name>#{MONTH_NAMES})
-        (?: \/|\s )
-     (?<day>\d{1,2})
-     ( \s
-        (?<year>\d{4})
-     )?   ## optional year
-)
-\b/ix
+require_relative 'parser-score'
+require_relative 'parser-date'
 
 
 
@@ -162,19 +65,14 @@ MINUTE_RE = %r{
 }ix
 
 
+##   goal types
 # (pen.) or (pen) or (p.) or (p)  
 ## (o.g.) or (og)
-##  rename to goal type or such - why? why not?
-GOAL_RE = %r{
-   (?<goal>
-    \(
-     (
-       ((pen|p)\.?)
-         |
-       (og|o\.g\.)
-      )
-    \)
-   )
+GOAL_PEN_RE = %r{
+   (?<pen> \(  (pen|p)\.? \))
+}ix
+GOAL_OG_RE = %r{
+   (?<og> \(  (og|o\.g\.) \))
 }ix
 
 
@@ -258,9 +156,18 @@ TEXT_RE = %r{
 RE = Regexp.union( DATE_RE,
                     SCORE_RE,
                     BASICS_RE, MINUTE_RE,
-                    GOAL_RE,
+                    GOAL_OG_RE, GOAL_PEN_RE,
                      TEXT_RE )
 
+
+def log( msg )
+   ## append msg to ./logs.txt  
+   ##     use ./errors.txt - why? why not?
+   File.open( './logs.txt', 'a:utf-8' ) do |f|
+     f.write( msg )
+     f.write( "\n" ) 
+   end
+end
 
 
 def tokenize( line, debug: false )
@@ -268,7 +175,11 @@ def tokenize( line, debug: false )
   puts ">#{line}<"    if debug
 
   pos = 0
+  ## track last offsets - to report error on no match 
+  ##   or no match in end of string
+  offsets = [0,0]
   m = nil
+
   while m = RE.match( line, pos )
     if debug
       pp m
@@ -279,7 +190,9 @@ def tokenize( line, debug: false )
     if offsets[0] != pos
       ## match NOT starting at start/begin position!!!
       ##  report parse error!!!
-      puts "!! WARN - parse error - skipping >#{line[pos..(offsets[0]-1)]}<"
+      msg =  "!! WARN - parse error - skipping >#{line[pos..(offsets[0]-1)]}< in line >#{line}<"
+      puts msg
+      log( msg )
     end
 
     ##
@@ -309,8 +222,10 @@ def tokenize( line, debug: false )
           [:score, m[:score]]
         elsif m[:minute]
           [:minute, m[:minute]]
-        elsif m[:goal]
-          [:goal, m[:goal]]
+        elsif m[:og]
+          [:og, m[:og]]
+        elsif m[:pen]
+          [:pen, m[:pen]]
         elsif m[:vs]
           [:vs, m[:vs]]
         elsif m[:none]
@@ -339,5 +254,14 @@ def tokenize( line, debug: false )
       puts "#{line[pos..-1]}<"
     end
   end
+
+  ## check if no match in end of string
+  if offsets[1] != line.size
+    msg =  "!! WARN - parse error - skipping >#{line[offsets[1]..-1]}< in line >#{line}<"
+    puts msg
+    log( msg )
+  end
+
+
   tokens
 end

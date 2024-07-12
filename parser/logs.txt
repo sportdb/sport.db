@@ -1,0 +1,13 @@
+!! WARN - parse error - skipping >A:< in line >Group A:<
+!! WARN - parse error - skipping >A:< in line >Group A:<
+!! WARN - parse error - skipping >$$$$< in line > $$$$   !!!   §§§  <
+!! WARN - parse error - skipping >!!!< in line > $$$$   !!!   §§§  <
+!! WARN - parse error - skipping >§§§< in line > $$$$   !!!   §§§  <
+!! WARN - parse error - skipping >$$$$< in line > $$$$   !!!   §§§  <
+!! WARN - parse error - skipping >!!!< in line > $$$$   !!!   §§§  <
+!! WARN - parse error - skipping >§§§< in line > $$$$   !!!   §§§  <
+!! WARN - parse error - skipping >$$$$< in line > $$$$   !!!   §§§  <
+!! WARN - parse error - skipping >!!!< in line > $$$$   !!!   §§§  <
+!! WARN - parse error - skipping >§§§< in line > $$$$   !!!   §§§  <
+!! WARN - parse error - skipping >A:< in line >Group A:<
+!! WARN - parse error - skipping >A:< in line >Group A:<

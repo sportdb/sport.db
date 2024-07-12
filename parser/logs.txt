@@ -1,3 +1,0 @@
-!! WARN - parse error - skipping >$$$$< in line > $$$$   !!!   §§§  <
-!! WARN - parse error - skipping >!!!< in line > $$$$   !!!   §§§  <
-!! WARN - parse error - skipping >§§§< in line > $$$$   !!!   §§§  <

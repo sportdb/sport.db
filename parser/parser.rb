@@ -5,30 +5,11 @@
 #            avoid massive backtracking by definition
 #             that is, making it impossible
 
-## vs - allow v, vs  - add point vs. too - why? why not?
-###  (short for versus! - that is, against)
-
 ## sym(bols) -
 ##  text - change text to name - why? why not?
 
-## NOT_SYM
 
 
-##
-#  todo
-#   add timezone - why? why not?
-#   e.g.  (UTC-3)  or (CEST-2)
-#    or    
-#        must have +1/-1 offsets!!!
-#         for detection 
-
-
-##
-##  add (match) status !!!
-##
-##   canceled|cancelled
-##   awarded|award.  etc.
-##   postponed  etc.
 
 
 
@@ -38,7 +19,11 @@ require_relative 'parser-date'
 
 
 
-BASICS_RE = %r{
+##
+#  keep 18h30 - why? why not?
+#    add support for 6:30pm 8:20am etc. - why? why not?
+
+TIME_RE = %r{
     ## e.g. 18.30 (or 18:30 or 18h30)
     (?<time>  \b
               \d{1,2}
@@ -46,7 +31,52 @@ BASICS_RE = %r{
                \d{2}
               \b
     )     
-       |
+}ix
+
+
+
+##
+# for timezone format use for now:
+# (BRT/UTC-3)      (e.g. brazil time)
+#
+# (CET/UTC+1)   - central european time
+# (CEST/UTC+2)  - central european summer time  - daylight saving time (DST).
+# (EET/UTC+1)  - eastern european time
+# (EEST/UTC+2)  - eastern european summer time  - daylight saving time (DST).
+# 
+# UTC+3
+# UTC+4
+# UTC+0
+# UTC+00
+# UTC+0000
+#
+#  - allow +01 or +0100  - why? why not
+#  -       +0130 (01:30)
+#
+# see
+#   https://en.wikipedia.org/wiki/Time_zone
+#   https://en.wikipedia.org/wiki/List_of_UTC_offsets
+#   https://en.wikipedia.org/wiki/UTC−04:00  etc.
+
+TIMEZONE_RE = %r{
+   ## e.g. (UTC-2) or (CEST/UTC-2) etc.
+   (?<timezone>  
+      \(
+           ## optional "local" timezone name eg. BRT or CEST etc.
+           (?:  [a-z]+
+                 /
+           )?
+            [a-z]+
+            [+-]
+            \d{1,4}   ## e.g. 0 or 00 or 0000
+      \)
+   )
+}ix
+
+
+
+
+BASICS_RE = %r{
     ## e.g. (51) or (1) etc.  - limit digits of number???
     (?<num> \(\d+\) )    
        |
@@ -83,6 +113,33 @@ MINUTE_RE = %r{
         '       ## must have minute marker!!!!
      )
 }ix
+
+
+##  (match) status 
+##
+##   canceled|cancelled
+##   awarded|award.  etc.
+##   postponed  etc.
+##
+##  add more variants - why? why not?
+
+STATUS_RE = %r{
+     (?<status>
+         \b
+         (?:
+            cancelled|canceled
+               |
+            abandoned
+               |
+            postponed
+               |
+            (awarded|awd\.)      
+         )
+   (?=[ \]]|$)
+        ## todo/check:  remove loakahead assertion here - why require space?
+        ## note: \b works only after non-alphanum 
+     )}ix
+
 
 
 ##   goal types
@@ -179,7 +236,10 @@ TEXT_RE = %r{
 
 
 
-RE = Regexp.union( DURATION_RE,  # note - duration MUST match before date
+RE = Regexp.union(   STATUS_RE,
+                     TIMEZONE_RE,
+                     TIME_RE,
+                     DURATION_RE,  # note - duration MUST match before date
                     DATE_RE,
                     SCORE_RE,
                     BASICS_RE, MINUTE_RE,
@@ -237,12 +297,16 @@ def tokenize( line, debug: false )
         elsif m[:spaces]
            ## skip spaces
            nil
+        elsif m[:status]   ## (match) status e.g. cancelled, awarded, etc.
+          [:status, m[:status]]   
         elsif m[:text] 
           [:text, m[:text]]   ## keep pos - why? why not?
         elsif m[:date]
           [:date, m[:date]]
         elsif m[:time]
           [:time, m[:time]]
+        elsif m[:timezone]
+          [:timezone, m[:timezone]]
         elsif m[:duration]
           [:duration, m[:duration]]
         elsif m[:num]

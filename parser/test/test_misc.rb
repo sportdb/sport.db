@@ -8,15 +8,43 @@ require_relative 'helper'
 class TestMisc < Minitest::Test
 
 
+  def test_status
+    lines = {
+        'cancelled'   => [[:status, "cancelled"]],
+        '[cancelled]' => [[:status, "cancelled"]],
+        'canceled'    => [[:status, "canceled"]],
+        '[canceled]'  => [[:status, "canceled"]],
+        'abandoned'   => [[:status, "abandoned"]],
+        '[abandoned]' => [[:status, "abandoned"]],
+        'postponed'   => [[:status, "postponed"]],
+        '[postponed]' => [[:status, "postponed"]],
+        'awarded'     => [[:status, "awarded"]],
+        '[awarded]'   => [[:status, "awarded"]],
+        'awd.'        => [[:status, "awd."]],
+        '[awd.]'      => [[:status, "awd."]],
+      }
+
+lines.each do |line,exp|
+  puts "==> >#{line}<"
+  tokens = tokenize( line )
+  pp tokens
+  assert_equal exp, tokens
+end
+  end
+
 
   ## todo - move to test score - why? why not?
-
   def test_scores
 lines = {
-  '3-4 pen. 2-2 a.e.t.' =>  [[:score, "3-4 pen. 2-2 a.e.t."]],
-  '2-2 a.e.t.'          =>   [[:score, "2-2 a.e.t."]],
+  '3-4 pen. 2-2 a.e.t.'   =>  [[:score, "3-4 pen. 2-2 a.e.t."]],
+  '3-4 pen.   2-2 a.e.t.' =>  [[:score, "3-4 pen.   2-2 a.e.t."]],
+  '3-4 p. 2-2 a.e.t.'     =>  [[:score, "3-4 p. 2-2 a.e.t."]],
+  '3-4p 2-2aet'           =>  [[:score, "3-4p 2-2aet"]],
+  '2-2 a.e.t.'            =>  [[:score, "2-2 a.e.t."]],
 
-  '3-4 pen. 2-2 a.e.t. (1-1, 1-1)' => [[:score, "3-4 pen. 2-2 a.e.t. (1-1, 1-1)"]],
+  '3-4 pen. 2-2 a.e.t. (1-1, 1-1)'   => [[:score, "3-4 pen. 2-2 a.e.t. (1-1, 1-1)"]],
+  '3-4 pen. 2-2 a.e.t. (1-1,1-1)'    => [[:score, "3-4 pen. 2-2 a.e.t. (1-1,1-1)"]],
+  '3-4 pen. 2-2 a.e.t. (1-1,   1-1)' => [[:score, "3-4 pen. 2-2 a.e.t. (1-1,   1-1)"]],
   '3-4 pen. 2-2 a.e.t. (1-1, )'  => [[:score, "3-4 pen. 2-2 a.e.t. (1-1, )"]],
   '3-4 pen. 2-2 a.e.t. (1-1)'  => [[:score, "3-4 pen. 2-2 a.e.t. (1-1)"]],
   '2-2 a.e.t. (1-1, 1-1)'  => [[:score, "2-2 a.e.t. (1-1, 1-1)"]],
@@ -26,8 +54,10 @@ lines = {
   '3-4 pen. (1-1, 1-1)' => [[:score, "3-4 pen. (1-1, 1-1)"]],
   '3-4 pen. (1-1, )'    => [[:score, "3-4 pen. (1-1, )"]],
   '3-4 pen. (1-1)'      => [[:score, "3-4 pen. (1-1)"]], 
+  '3-4p (1-1)'          => [[:score, "3-4p (1-1)"]], 
 
   '4-2 (2-1)' => [[:score, "4-2 (2-1)"]],
+  '4-2   (2-1)' => [[:score, "4-2   (2-1)"]],
   '2-1'       => [[:score, "2-1"]],
 }
 

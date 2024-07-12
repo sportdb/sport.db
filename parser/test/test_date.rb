@@ -5,7 +5,33 @@
 
 require_relative 'helper'
 
+## date & time
+
 class TestDate < Minitest::Test
+
+  def test_timezone
+    m = TIMEZONE_RE.match( '(CEST/UTC+2)' )
+    pp m
+    pp m[:timezone]
+    pp m.named_captures
+
+    assert_equal '(CEST/UTC+2)', m[:timezone]
+
+    m = TIMEZONE_RE.match( '(UTC+2)' )
+    pp m
+    pp m[:timezone]
+    pp m.named_captures
+
+    assert_equal '(UTC+2)', m[:timezone]
+
+    m = TIMEZONE_RE.match( '(BRT/UTC-3)' )
+    pp m
+    pp m[:timezone]
+    pp m.named_captures
+
+    assert_equal '(BRT/UTC-3)', m[:timezone]
+  end
+  
 
   def test_duration
     m = DURATION_RE.match( 'Sun Jun/23 - Wed Jun/26' )

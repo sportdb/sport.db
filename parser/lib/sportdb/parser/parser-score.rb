@@ -17,10 +17,10 @@
         (?<score>
            \b
             (?:
-               (?<score1p>\d{1,2}) - (?<score2p>\d{1,2})
+               (?<p1>\d{1,2}) - (?<p2>\d{1,2})
                  [ ]* #{P_EN} [ ]+
              )?             # note: make penalty (P) score optional for now
-            (?<score1et>\d{1,2}) - (?<score2et>\d{1,2})
+            (?<et1>\d{1,2}) - (?<et2>\d{1,2})
                [ ]* #{ET_EN}
                (?=[ \]]|$)
         )}ix  
@@ -39,18 +39,18 @@
           (?<score>
                \b
                (?:
-                (?<score1p>\d{1,2}) - (?<score2p>\d{1,2})
+                (?<p1>\d{1,2}) - (?<p2>\d{1,2})
                    [ ]* #{P_EN} [ ]+
                 )?            # note: make penalty (P) score optional for now
-               (?<score1et>\d{1,2}) - (?<score2et>\d{1,2})
+               (?<et1>\d{1,2}) - (?<et2>\d{1,2})
                    [ ]* #{ET_EN} [ ]+
                    \(
                    [ ]*
-              (?<score1>\d{1,2}) - (?<score2>\d{1,2})
+              (?<ft1>\d{1,2}) - (?<ft2>\d{1,2})
                    [ ]*
                 (?:
                      , [ ]*
-                    (?: (?<score1i>\d{1,2}) - (?<score2i>\d{1,2})
+                    (?: (?<ht1>\d{1,2}) - (?<ht2>\d{1,2})
                         [ ]*
                     )?
                 )?              # note: make half time (HT) score optional for now
@@ -65,15 +65,15 @@
     SCORE__P_FT_HT__RE = %r{
              (?<score>
                 \b
-     (?<score1p>\d{1,2}) - (?<score2p>\d{1,2})
+     (?<p1>\d{1,2}) - (?<p2>\d{1,2})
         [ ]* #{P_EN} [ ]+
         \(
         [ ]*
-      (?<score1>\d{1,2}) - (?<score2>\d{1,2})
+      (?<ft1>\d{1,2}) - (?<ft2>\d{1,2})
         [ ]*
      (?:
           , [ ]*
-         (?: (?<score1i>\d{1,2}) - (?<score2i>\d{1,2})
+         (?: (?<ht1>\d{1,2}) - (?<ht2>\d{1,2})
              [ ]*
          )?
      )?              # note: make half time (HT) score optional for now
@@ -90,10 +90,10 @@
     SCORE__FT_HT__RE = %r{      
             (?<score>
               \b
-              (?<score1>\d{1,2}) - (?<score2>\d{1,2})
+              (?<ft1>\d{1,2}) - (?<ft2>\d{1,2})
                (?:
                    [ ]+ \( [ ]*
-                (?<score1i>\d{1,2}) - (?<score2i>\d{1,2})
+                (?<ht1>\d{1,2}) - (?<ht2>\d{1,2})
                    [ ]* \)
                )?   # note: make half time (HT) score optional for now
              (?=[ \]]|$)

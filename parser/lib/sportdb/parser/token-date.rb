@@ -1,6 +1,6 @@
 
 
-def build_names( txt )
+def parse_names( txt )
   lines = [] # array of lines (with words)
 
   txt.each_line do |line|
@@ -24,14 +24,33 @@ def build_names( txt )
   end
   lines
 
-  ## join all words together into a single string e.g.
-  ##   January|Jan|February|Feb|March|Mar|April|Apr|May|June|Jun|...
-  lines.map { |line| line.join('|') }.join('|')
 end # method parse
 
 
+def build_names( lines )
+  ## join all words together into a single string e.g.
+  ##   January|Jan|February|Feb|March|Mar|April|Apr|May|June|Jun|...
+  lines.map { |line| line.join('|') }.join('|')
+end
 
-MONTH_NAMES = build_names( <<TXT )
+
+def build_map( lines )
+    ## note: downcase name!!!
+   ## build a lookup map that maps the word to the index (line no) plus 1 e.g.
+   ##  {"january" => 1,  "jan" => 1,
+   ##   "february" => 2, "feb" => 2,
+   ##   "march" => 3,    "mar" => 3,
+   ##   "april" => 4,    "apr" => 4,
+   ##   "may" => 5,
+   ##   "june" => 6,     "jun" => 6, ...
+   lines.each_with_index.reduce( {} ) do |h,(line,i)|
+     line.each { |name| h[ name.downcase ] = i+1 }  ## note: start mapping with 1 (and NOT zero-based, that is, 0)
+     h
+   end
+ end
+
+
+MONTH_LINES = parse_names( <<TXT )
 January    Jan
 February   Feb
 March      Mar
@@ -46,7 +65,14 @@ November   Nov
 December   Dec
 TXT
 
-DAY_NAMES = build_names( <<TXT )
+MONTH_NAMES = build_names( MONTH_LINES )
+# pp MONTH_NAMES
+MONTH_MAP   = build_map( MONTH_LINES )
+# pp MONTH_MAP
+
+
+
+DAY_LINES = parse_names( <<TXT )
 Monday                   Mon  Mo
 Tuesday            Tues  Tue  Tu
 Wednesday                Wed  We
@@ -56,10 +82,11 @@ Saturday                 Sat  Sa
 Sunday                   Sun  Su
 TXT
 
+DAY_NAMES = build_names( DAY_LINES )
+# pp DAY_NAMES
+DAY_MAP   = build_map( DAY_LINES )
+# pp DAY_MAP
 
-
-## pp MONTH_NAMES 
-## pp  DAY_NAMES 
 
 #=>
 # "January|Jan|February|Feb|March|Mar|April|Apr|May|June|Jun|

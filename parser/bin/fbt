@@ -24,9 +24,14 @@ require 'optparse'
 class Linter
    
 def self.debug=(value) @@debug = value; end
-def self.debug?() @@debug ||= false; end
+def self.debug?() @@debug ||= false; end  ## note: default is FALSE
 def debug?()  self.class.debug?; end   
         
+def self.typed=(value) @@typed = value; end
+def self.typed?() @@typed ||= true; end   ## note: default is TRUE
+def typed?()  self.class.typed?; end   
+
+
    
     attr_reader :errors
 
@@ -62,7 +67,7 @@ def errors?() @errors.size > 0; end
                 /ix
 
 
-def read( path )
+def read( path, parser: false )
   nodes = SportDb::OutlineReader.read( path ) 
 
   ##  process nodes
@@ -121,8 +126,12 @@ def read( path )
               next
         end    
     
-
-        t, error_messages = tokenize_with_errors( line )
+        t, error_messages  =  if parser  ## change back to parse flag
+                                  parse_with_errors( line )
+                              else
+                                  tokenize_with_errors( line )                   
+                              end
+         
 
          if error_messages.size > 0
             ## add to "global" error list
@@ -189,7 +198,8 @@ def find( path, pattern=MATCH_RE )
 
 
  args = ARGV
- opts = { debug: false }
+ opts = { debug: false,
+          metal: false }
 
  parser = OptionParser.new do |parser|
   parser.banner = "Usage: #{$PROGRAM_NAME} [options]"
@@ -203,6 +213,12 @@ def find( path, pattern=MATCH_RE )
                "turn on verbose / debug output (default: #{opts[:debug]} )" ) do |debug|
     opts[:debug] = debug
   end
+
+  parser.on( "--metal",
+                 "turn off typed parse tree; show to the metal tokens"+
+                   " (default: #{opts[:metal]})" ) do |metal|
+    opts[:metal] = metal
+  end
 end
 parser.parse!( args )
 
@@ -213,7 +229,6 @@ p args
 
 
 Linter.debug = true    if opts[:debug]
-
 
 
 
@@ -258,7 +273,7 @@ linter = Linter.new
 
 paths.each_with_index do |path,i|
     puts "==> [#{i+1}/#{paths.size}] reading >#{path}<..."
-    linter.read( path )
+    linter.read( path, parser: !opts[:metal] )
 end
 
 

@@ -9,16 +9,19 @@ module Names
 ## Group 1-99
 ## Group HEX  # used in concaf world cup quali
 ## Group 1A or A1, B1  - used anywhere
+##
+##  use "key" of group - why? why not?
 
 GROUP_RE = %r{^
                 Group [ ]
-                   [a-z0-9]+
-                   
+                   (?<key>[a-z0-9]+)                   
               $}ix
 def self.is_group?( text )
    ## use regex for match
    GROUP_RE.match?( text )
 end
+
+
 
 
 ROUND_RE = %r{^(

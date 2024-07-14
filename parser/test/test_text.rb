@@ -13,6 +13,13 @@ class TestText < Minitest::Test
 def test_text
 
  lines = {
+    ## check round names starting with numbers
+   ' 1st leg   '             =>  '1st leg',
+   ' 2nd leg   '             =>  '2nd leg',
+   '  5th place play-off  '  =>  '5th place play-off',
+   '  3rd place final  '     =>  '3rd place final',
+
+   ## check clubs starting with numbers
    '   1. FC Köln  '      =>  '1. FC Köln',
    '   1. FC Köln 2  '      =>  '1. FC Köln 2',
    ## try edge case with score (1-1) or hour (18:30)

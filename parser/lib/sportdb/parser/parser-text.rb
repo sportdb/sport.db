@@ -35,13 +35,14 @@ TEXT_RE = %r{
                    |
 
                 # opt 2 - start with num!! - allow special case (e.g. 1. FC) 
-                 \d+  # check for num lookahead (MUST be space or dot)
-                  ## MUST be followed by (optional dot) and
-                  ##                      required space !!!
-                  ## MUST be follow by a to z!!!!
-                   \.?     ## optional dot
-                   [ ]   ## make space optional too - why? why not?
-                   \p{L}+                
+                     \d+  # check for num lookahead (MUST be space or dot)
+                      ## MUST be followed by (optional dot) and
+                      ##                      required space !!!
+                      ## MUST be follow by a to z!!!!
+                      \.?     ## optional dot
+                      [ ]?   ## make space optional too  - why? why not?
+                             ##  yes - eg. 1st, 2nd, 5th etc.
+                       \p{L}+               
                )
         
               (?:(?:  (?:[ ]

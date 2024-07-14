@@ -112,6 +112,27 @@ def parse( line )
     tokens, token_errors = tokenize_with_errors( line )
     errors += token_errors
 
+#############
+## pass 1 
+##   replace all texts with keyword matches (e.g. group, round, leg, etc.)
+     tokens = tokens.map do |t|
+                      if t[0] == :text
+                          text = t[1]
+                          if Names.is_group?( text )
+                             [:group, text]
+                          elsif Names.is_leg?( text )
+                             [:leg, text]
+                          elsif Names.is_round?( text )
+                             [:round, text]
+                          else
+                              t   ## pass through as-is (1:1)
+                          end
+                      else
+                         t
+                      end
+                end
+
+
     ## puts "tokens:"
     ## pp tokens
 
@@ -121,54 +142,29 @@ def parse( line )
     buf = Tokens.new( tokens )
     ## pp buf
 
+
     loop do 
-          if buf.pos == 0
-    
-            ## check for round
-            ##    group def or match def 
-            ## if buf.cur == :text && buf.peek == :'|'
-            if buf.match?( :text, :'|' )
-                  if buf.include?( :date, :duration )
-                      ## assume round def
+          if buf.pos == 0   
+            ## check for 
+            ##    group def or round def 
+            if buf.match?( :round, :'|' )    ## assume round def (change round to round_def)
                       nodes << [:round_def, buf.next[1]]
                       buf.next ## swallow pipe
                       nodes += buf.collect
-                  else
-                      ## assume group def
+                      break
+            end
+            if buf.match?( :group, :'|' )    ## assume group def (change group to group_def)
                       nodes << [:group_def, buf.next[1]]
                       buf.next ## swallow pipe
                       ## change all text to team
                       nodes += buf.collect { |t|
                                 t[0] == :text ? [:team, t[1]] : t
                                }
-                  end
-                  break
-            end
-
-            if buf.cur == :text
-                 ## check for round ref or group ref
-                 ##   if match
-
-                text = buf.text.downcase 
-
-                if text.start_with?( 'group' )
-                    nodes << [:group, buf.next[1]] 
-                elsif text.start_with?( 'final' ) ||
-                      text.start_with?( 'semi-final' )
-                   nodes << [:round, buf.next[1]]
-                else
-                    ## continue
-                end
-
-                break if buf.eos?               
-            end
+                      break
+            end  
           end
 
-=begin
-          if buf.cur == :text &&
-             (buf.peek == :score || buf.peek == :vs) &&
-             buf.peek(2) == :text
-=end
+
           if buf.match?( :text, [:score, :vs], :text )
              nodes << [:team, buf.next[1]]
              nodes << buf.next
@@ -197,7 +193,7 @@ end
 
 txt = <<TXT
 
-Group A  |  Germany   Scotland     Hungary   Switzerland
+Group A  |    Germany   Scotland     Hungary   Switzerland
 Group B  |  Spain     Croatia      Italy     Albania
 Group C  |  Slovenia  Denmark      Serbia    England
 Group D  |  Poland    Netherlands  Austria   France
@@ -206,11 +202,41 @@ Group F  |  Turkey    Georgia      Portugal  Czech Republic
 
 
 
-Matchday 1 | Fri Jun/14 - Tue Jun/18   
-Matchday 2 | Wed Jun/19 - Sat Jun/22   
-Matchday 3 | Sun Jun/23 - Wed Jun/26
+Matchday 1  |  Fri Jun/14 - Tue Jun/18   
+Matchday 2  |   Wed Jun/19 - Sat Jun/22   
+Matchday 3  |  Sun Jun/23 - Wed Jun/26
+
+##
+## add (inline) stage definitions 
+##  why? why not?
+##
+## Quali         |
+## Group Phase   |
+## Finals        | 
+##
+## or (one line?)
+##  Stage(s)  |  Quali    Group Phase     Finals
 
 
+## add (inline)
+## shortcuts
+##  e.g.
+##  Frankfurt  =>   Waldstadion, Frankfurt
+
+##  or (inline)
+##   venue defintion ???
+##   e.g.
+##  @ Frankfurt  |   @ Waldstadion 
+##
+##   Rapid Wien (AUT)  |   @ Hanappi Stadion, Wien
+##
+##   Kansas City, Kentucky  |  @ Rock Cafe Arena    44 400   (UTC-4)  ## num for capacity
+##                                or use 44 000 cap. or such ? 
+##   Kansas City, Kentucky (UTC-4)   |  @ Rock Cafe Arena  (44_400)     ## num for capacity
+##   Kansas City, Kentucky (UTC-4)   |  @ Rock Cafe Arena,  (44_400)     ## num for capacity
+
+
+Group A
 Fri Jun/14
  (1)  21:00   Germany   5-1 (3-0)  Scotland     @ München
                 Wirtz 10' Musiala 19' Havertz 45+1' (pen.)  Füllkrug 68' Can 90+3';  

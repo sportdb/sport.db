@@ -7,3 +7,6 @@ require_relative 'parser/parser'
 
 require_relative 'parser/outline_reader'
 
+require_relative 'parser/lang'
+
+

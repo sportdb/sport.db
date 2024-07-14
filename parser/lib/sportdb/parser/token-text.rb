@@ -1,3 +1,7 @@
+module SportDb 
+class Parser
+   
+   
 ##  note - do NOT allow single alpha text for now
 ##   add later??      A - B    C - D  - why?        
 ## opt 1) one alpha
@@ -105,3 +109,6 @@ TEXT_RE = %r{
 }ix
 
 
+end # class Parser
+end # module SportDb 
+   

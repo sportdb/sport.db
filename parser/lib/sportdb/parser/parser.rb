@@ -1,3 +1,6 @@
+module SportDb 
+class Parser
+    
 
 ## transforms
 ##
@@ -108,11 +111,11 @@ def parse_with_errors( line, debug: false )
      tokens = tokens.map do |t|
                       if t[0] == :text
                           text = t[1]
-                          if Names.is_group?( text )
+                          if is_group?( text )
                              [:group, text]
-                          elsif Names.is_leg?( text )
+                          elsif is_leg?( text )
                              [:leg, text]
-                          elsif Names.is_round?( text )
+                          elsif is_round?( text )
                              [:round, text]
                           else
                               t   ## pass through as-is (1:1)
@@ -187,3 +190,7 @@ def parse( line, debug: false )
   nodes
 end
 
+
+end #  class Parser
+end  # module SportDb 
+    

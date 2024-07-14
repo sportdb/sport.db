@@ -1,15 +1,7 @@
-####
-# try a (simple) tokenizer/parser with regex
-
-## note - match line-by-line
-#            avoid massive backtracking by definition
-#             that is, making it impossible
-
-## sym(bols) -
-##  text - change text to name - why? why not?
 
 
-
+module SportDb 
+class Parser
 
 
 ##
@@ -365,3 +357,8 @@ def tokenize(  line, typed: false,
                                            debug: debug )
    tokens
 end
+
+
+end  # class Parser
+end # module SportDb 
+  

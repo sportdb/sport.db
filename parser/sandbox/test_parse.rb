@@ -80,6 +80,8 @@ puts txt
 puts
 
 
+parser = SportDb::Parser.new
+
 tree = []
 
 lines = txt.split( "\n" )
@@ -87,7 +89,7 @@ lines.each_with_index do |line,i|
     next if line.strip.empty? || line.strip.start_with?( '#' )
 
    puts "line >#{line}<"
-   nodes = parse( line )
+   nodes = parser.parse( line )
    pp nodes
 
    tree << nodes

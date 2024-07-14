@@ -1,9 +1,10 @@
 
+## use Sports (not SportDb) for module - why? why not?
 
 
 
-module Names
-
+module SportDb
+class Parser
 
 ## Group A-Z
 ## Group 1-99
@@ -16,7 +17,7 @@ GROUP_RE = %r{^
                 Group [ ]
                    (?<key>[a-z0-9]+)                   
               $}ix
-def self.is_group?( text )
+def is_group?( text )
    ## use regex for match
    GROUP_RE.match?( text )
 end
@@ -85,7 +86,7 @@ ROUND_RE = %r{^(
         )$}ix
 
 
-def self.is_round?( text )
+def is_round?( text )
     ROUND_RE.match?( text )
 end
 
@@ -101,8 +102,10 @@ LEG_RE = %r{^
 $}ix
 
 ### Pair matches/games if marked with leg1 n leg2
-def self.is_leg?( text )
+def is_leg?( text )
    LEG_RE.match?( text )
 end
 
-end  # module Names
+
+end  # class Parser
+end  # module SportDb

@@ -5,7 +5,7 @@ Hoe.spec 'sportdb-parser' do
 
   self.version = '0.0.1'
 
-  self.summary = "sportdb-parser -  football.txt match parser"
+  self.summary = "sportdb-parser - football.txt match parser (& tokenizer)"
   self.description = summary
 
   self.urls = { home: 'https://github.com/sportdb/sport.db' }

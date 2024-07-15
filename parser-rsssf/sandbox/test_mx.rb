@@ -1,0 +1,112 @@
+####
+#  to run use:
+#    $ ruby sandbox/test_mx.rb
+
+
+$LOAD_PATH.unshift( './lib' )
+require 'rsssf/parser'
+
+
+
+mx =<<TXT
+
+Round 1
+[Jul 21]
+Morelia            0-0 Monterrey          
+Tijuana            0-2 Cruz Azul          
+  [Edgar Méndez 20, 82]
+[Jul 22]
+América            0-1 Querétaro          
+  [Camilo Sanvezzo 86pen]
+Lobos BUAP         2-2 Santos             
+  [Jorge Enríquez 14og, Julián Quiñónes 31; Osvaldo David Martínez 21, Julio César Furch 42]
+Tigres             5-0 Puebla             
+  [Lucas Zelarayán 15, Enner Valencia 23, 55, 58, Anselmo Vendrechovski 29]
+León               0-3 Atlas              
+  [Juan Pablo Vigón 2, Gustavo Matías Alustiza 60pen, Milton Caraglio 65]
+Guadalajara        0-0 Toluca             
+[Jul 23]
+Pumas              1-0 Pachuca            
+  [Nicolás Castillo 30]
+Veracruz           0-2 Necaxa             
+  [Jesús Antonio Isijara 11, Carlos Gabriel González 18]
+
+Round 2
+[Jul 28]
+Puebla             1-1 Morelia            
+  [Brayan Angulo 8; Brayan Angulo 45og]
+Atlas              2-1 Pumas              
+  [Jaine Barreiro 12, Gustavo Matías Alustiza 70; Abraham González 1]
+[Jul 29]
+Cruz Azul          1-1 Guadalajara        
+  [Rafael Baca 30; Rodolfo Pizarro 63]
+Querétaro          0-4 Lobos BUAP         
+  [Julián Quiñónes 27, Francisco Javier Rodríguez 58, Juan Carlos Medina 65, 
+   Diego Rafael Jiménez 94]
+Monterrey          1-0 Veracruz           
+  [Dorlan Pabón 1]
+Pachuca            0-2 América            
+  [Cecilio Domínguez 2, 52]
+Necaxa             1-0 Tijuana            
+  [Jesús Antonio Isijara 20]
+[Jul 30]
+Toluca             3-1 León               
+  [Fernando Uribe 39, 43, Rubens Sambueza 47; Mauro Boselli 79pen]
+Santos             1-1 Tigres             
+  [Julio César Furch 58; Eduardo Jesús Vargas 12]
+
+
+# minutes with Offset
+[De Paul 40, Lautaro Martinez 84, Messi 90+3]
+[Yotun 45, Lapadula 82; Cuadrado 49, Diaz 66, 90+4]
+
+[Tapia 23og, Ayrton Preciado 45+3; Lapadula 49, Carrillo 54]
+[Firmino 78, Casemiro 90+10; Diaz 10]
+
+
+## try club names with numbers
+##  and dates without []
+
+Jul 23
+SSV Ulm 1846    0-0   FC Ingolstadt 04
+Bayer 04 Leverkusen  1-1   TSG 1899 Hoffenheim
+1.FC Heidenheim  2-2  1.FSV Mainz 05
+
+
+Jul/24
+SSV Ulm 1846 0-0 FC Ingolstadt 04
+Bayer 04 Leverkusen 1-1 TSG 1899 Hoffenheim
+1.FC Heidenheim 2-2 1.FSV Mainz 05
+
+
+
+
+TXT
+
+
+
+lines = mx.split( "\n" )
+pp lines
+
+
+parser = Rsssf::Parser.new
+
+tree = []
+lines.each do |line|
+    ## skip blank and comment lines
+    next if line.strip.empty? || line.strip.start_with?('#')
+
+   puts
+   puts "line #{line.inspect}"   # note - use inspect (will show \t etc.)
+   # t = parser.tokenize( line )
+   t = parser.parse( line )
+   pp t
+   tree << t
+end
+
+puts
+puts "tree:"
+pp tree
+
+
+puts "bye"

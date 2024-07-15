@@ -21,7 +21,20 @@ def test_text
    '    1.FC Heidenheim     '   => '1.FC Heidenheim',
    '    1.FSV Mainz 05      '   => '1.FSV Mainz 05',
    '    1.FC Union Berlin   '   => '1.FC Union Berlin',
+   '    1. FC Heidenheim     '   => '1. FC Heidenheim',
+   '    1. FSV Mainz 05      '   => '1. FSV Mainz 05',
+   '    1. FC Union Berlin   '   => '1. FC Union Berlin',
     
+   ## text with and (&) AND trailing dot (.)
+   '   Bosnia & Herz.   '  =>  'Bosnia & Herz.',
+
+   ## text with slash
+   '   Atlético/PR    '  =>  'Atlético/PR',
+   '  Atlético/MG     '  =>  'Atlético/MG',  
+ 
+   ## team (with score)
+  '   Atlas 2-1 Pumas   '   => 'Atlas',
+  '   Puebla 1-1 Morelia   '  => 'Puebla',
 
     ## rounds (with numbers)
    ' Round 2   '             =>  'Round 2',
@@ -33,9 +46,6 @@ def test_text
    '  Abraham González 1  '  =>  'Abraham González 1',
    '   Brayan Angulo 45og  '  =>  'Brayan Angulo 45og', 
 
-  ## team (with score)
-  '   Atlas 2-1 Pumas   '   => 'Atlas',
-  '   Puebla 1-1 Morelia   '  => 'Puebla',
  }
 
 

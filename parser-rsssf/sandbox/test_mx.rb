@@ -78,8 +78,21 @@ SSV Ulm 1846 0-0 FC Ingolstadt 04
 Bayer 04 Leverkusen 1-1 TSG 1899 Hoffenheim
 1.FC Heidenheim 2-2 1.FSV Mainz 05
 
+## try inline  notes
 
-
+[played in Macaé-RJ]
+[postponed due to problems with the screen of the stadium]
+[postponed from Sep 10-12 due to death Queen Elizabeth II]
+[originally scheduled to play in Mexico City] 
+[suspended at 0-0 in 12' due to storm]  
+[remaining 79']     
+[In Estadio La Corregidora]  
+[in Unidad Deportiva Centenario] 
+[Rescheduled due to earthquake occurred in Mexico on September 19]
+[awarded match to Leones Negros by undue alignment; original result 1-2]
+[awarded 3-0 to Cafetaleros by undue alignment; originally ended 2-0]
+[awarded 3-0; originally 0-2, América used ineligible player (Federico Viñas)]
+[abandoned at 1-1 in 65' due to cardiac arrest Luton player Tom Lockyer]
 
 TXT
 

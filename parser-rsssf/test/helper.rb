@@ -19,6 +19,10 @@ class Test
  SCORE_RE    = Rsssf::Parser::SCORE_RE
  RE          = Rsssf::Parser::RE
 
+ MINUTE_RE   = Rsssf::Parser::MINUTE_RE
+ GOAL_PEN_RE = Rsssf::Parser::GOAL_PEN_RE
+ GOAL_OG_RE  = Rsssf::Parser::GOAL_OG_RE
+
 
  def parser() @@parser ||= Rsssf::Parser.new; end
 

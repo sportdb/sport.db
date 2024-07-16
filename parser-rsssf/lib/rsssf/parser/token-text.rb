@@ -28,37 +28,11 @@ class Parser
 ## note - use a more strict text re(gex)
 ##         if inside brackets !!!!
 
-## cannot start with number
-## cannot have number inside
-## cannot end with number!!!
-##
-##  check if can end in dot - why? why not?
-##    e.g.  jr. or such?
-
-MINUTE_RE = %r{
-     (?<minute>
-         \b
-            \d{1,3}
-            # optional offset/extra e.g. 45+10 or 90+5
-            (?:       
-              \+ 
-              \d{1,3}
-            )?
-        (?:
-         \b |
-         ###  or  og, pen  e.g. 23og etc. use (positive) lookahead
-          (?= (?:og|pen)\b) 
-        )
-    )
-}ix
-
-
 ###
 ## "simple" strict text regex
 ###  no numbers  (or & or such inside)
 ##    allows  dash/hyphen (-)
 ##      and   dot (.) and apostroph (') for now
-
 
 TEXT_STRICT_RE = %r{
    (?<text>

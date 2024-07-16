@@ -146,8 +146,10 @@ def parse_with_errors( line, debug: false )
 
 
     loop do 
-
-          if buf.match?( :text, [:score, :vs], :text )
+          if buf.match?( :text, [:score, 
+                                 :score_awd,
+                                 :score_np,
+                                 :vs], :text )
              nodes << [:team, buf.next[1]]
              nodes << buf.next
              nodes << [:team, buf.next[1]]

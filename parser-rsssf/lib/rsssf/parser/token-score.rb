@@ -2,128 +2,65 @@ module Rsssf
 class Parser
   
 
-    ## todo/check: use ‹› (unicode chars) to mark optional parts in regex constant name - why? why not?
-
-    #####
-    #  english helpers (penalty, extra time, ...)
-    ##   note - p must go last (shortest match)
-    #     pso = penalty shootout 
-    P_EN  =  '(?: pso | pen\.? | p\.? )'     # e.g. p., p, pen, pen., PSO, etc.
-    ET_EN =  '(?: aet | a\.e\.t\.? )'     # note: make last . optional (e.g a.e.t) allowed too
-
-
-    ##  note: allow SPECIAL cases WITHOUT full time scores (just a.e.t or pen. + a.e.t.)
-    ##      3-4 pen. 2-2 a.e.t.
-    ##      3-4 pen.   2-2 a.e.t.
-    ##               2-2 a.e.t.
-    SCORE__P_ET__RE = %r{
-        (?<score>
-           \b
-            (?:
-               (?<p1>\d{1,2}) - (?<p2>\d{1,2})
-                 [ ]* #{P_EN} [ ]+
-             )?             # note: make penalty (P) score optional for now
-            (?<et1>\d{1,2}) - (?<et2>\d{1,2})
-               [ ]* #{ET_EN}
-               (?=[ \]]|$)
-        )}ix  
-                ## todo/check:  remove loakahead assertion here - why require space?
-                ## note: \b works only after non-alphanum e.g. )
-
-
-    ## e.g. 3-4 pen. 2-2 a.e.t. (1-1, 1-1)  or
-    ##      3-4p 2-2aet (1-1, )     or
-    ##      3-4 pen.  2-2 a.e.t. (1-1)       or
-    ##               2-2 a.e.t. (1-1, 1-1)  or
-    ##               2-2 a.e.t. (1-1, )     or
-    ##               2-2 a.e.t. (1-1)
-
-    SCORE__P_ET_FT_HT__RE = %r{
-          (?<score>
-               \b
-               (?:
-                (?<p1>\d{1,2}) - (?<p2>\d{1,2})
-                   [ ]* #{P_EN} [ ]+
-                )?            # note: make penalty (P) score optional for now
-               (?<et1>\d{1,2}) - (?<et2>\d{1,2})
-                   [ ]* #{ET_EN} [ ]+
-                   \(
-                   [ ]*
-              (?<ft1>\d{1,2}) - (?<ft2>\d{1,2})
-                   [ ]*
-                (?:
-                     , [ ]*
-                    (?: (?<ht1>\d{1,2}) - (?<ht2>\d{1,2})
-                        [ ]*
-                    )?
-                )?              # note: make half time (HT) score optional for now
-              \)
-             (?=[ \]]|$)
-            )}ix       ## todo/check:  remove loakahead assertion here - why require space?
-                               ## note: \b works only after non-alphanum e.g. )
-
-    ###
-    ##   special case for case WITHOUT extra time!!
-    ##     same as above (but WITHOUT extra time and pen required)
-    SCORE__P_FT_HT__RE = %r{
-             (?<score>
-                \b
-     (?<p1>\d{1,2}) - (?<p2>\d{1,2})
-        [ ]* #{P_EN} [ ]+
-        \(
-        [ ]*
-      (?<ft1>\d{1,2}) - (?<ft2>\d{1,2})
-        [ ]*
-     (?:
-          , [ ]*
-         (?: (?<ht1>\d{1,2}) - (?<ht2>\d{1,2})
-             [ ]*
-         )?
-     )?              # note: make half time (HT) score optional for now
-   \)
-  (?=[ \]]|$)
-    )}ix    ## todo/check:  remove loakahead assertion here - why require space?
-            ## note: \b works only after non-alphanum e.g. )
-
-
-
-    ## e.g. 2-1 (1-1) or
-    ##      2-1
- 
-    SCORE__FT_HT__RE = %r{      
+    ######
+    ## e.g. 2-1 
+    SCORE_RE = %r{      
             (?<score>
-              \b
-              (?<ft1>\d{1,2}) - (?<ft2>\d{1,2})
-               (?:
-                   [ ]+ \( [ ]*
-                (?<ht1>\d{1,2}) - (?<ht2>\d{1,2})
-                   [ ]* \)
-               )?   # note: make half time (HT) score optional for now
-             (?=[ \]]|$)
-             )}ix    ## todo/check:  remove loakahead assertion here - why require space?
-                    ## note: \b works only after non-alphanum e.g. )
+                (?<=[ ])	# Positive lookbehind for space
+                   (?<score1>\d{1,2}) - (?<score2>\d{1,2})
+                (?=[ ])   # positive lookahead for space 
+            )
+          }ix  
+
+##  [aet]
+##  [aet, 3-2 pen]
+##  [aet; 3-2 pen]
+##  [3-2 pen]
+##  [3-2 pen.]
+##  [aet, 9-8 pen]
+##  [aet, 5-3 pen]
+##  [aet, 6-5 pen]
+##  [aet]
+##
+## - add dot (.) too ??
+##     [aet. 3-2 pen]
 
 
-                    
-#############################################
-# map tables 
-#  note: order matters; first come-first matched/served
-
-SCORE_RE = Regexp.union( 
-  SCORE__P_ET_FT_HT__RE,  # e.g. 5-1 pen. 2-2 a.e.t. (1-1, 1-0)
-  SCORE__P_FT_HT__RE,     # e.g. 5-1 pen. (1-1)
-  SCORE__P_ET__RE,        # e.g. 2-2 a.e.t.  or  5-1 pen. 2-2 a.e.t.
-  SCORE__FT_HT__RE        # e.g. 1-1 (1-0)
-)
-
-## [3-2 pen]
 SCORE_EXT_RE =  %r{ \[
                       (?<score_ext>
-                          \d+-\d+[ ]pen
+                          (?:       ## aet only e.g.  aet
+                             aet
+                             (?:   ##  optional pen
+                               [,;][ ]*
+                               \d{1,2}-\d{1,2} [ ]? pen\.? 
+                             )?
+                          )
+                          |
+                          (?:   ##  penalty only e.g. 3-2 pen
+                            \d{1,2}-\d{1,2} [ ]? pen\.?
+                          )
                       )
                     \]
                   }ix
 
+### awd  - awarded
+SCORE_AWD_RE  = %r{  ## must be space before and after!!!
+                    (?<score_awd>
+                      (?<=[ ])	# Positive lookbehind for space
+                        awd
+                       (?=[ ])   # positive lookahead for space 
+                    )
+                }ix
+
+### n/p   - not played
+SCORE_NP_RE    = %r{  ## must be space before and after!!!
+                    (?<score_np>
+                      (?<=[ ])	# Positive lookbehind for space
+                         n/p
+                       (?=[ ])   # positive lookahead for space 
+                    )
+                }ix
+                
 end  #  class Parser
 end  # module Rsssf 
   

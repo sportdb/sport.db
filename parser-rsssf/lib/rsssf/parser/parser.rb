@@ -151,6 +151,7 @@ def parse_with_errors( line, debug: false )
                                  :score_abd,
                                  :score_ppd,
                                  :score_np,
+                                 :score_wo,
                                  :vs], :text )
              nodes << [:team, buf.next[1]]
              nodes << buf.next

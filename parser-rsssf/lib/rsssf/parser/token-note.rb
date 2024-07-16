@@ -94,6 +94,9 @@ NOTE_RE = %r{
               |
               annulled
               ## e.g.  [annulled]
+              |
+              replay
+              ## e.g.  [replay]
           )
         ([ ]    ## note - optional text
           [^\]]+?

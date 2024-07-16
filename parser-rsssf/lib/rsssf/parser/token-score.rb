@@ -52,6 +52,16 @@ SCORE_AWD_RE  = %r{  ## must be space before and after!!!
                     )
                 }ix
 
+### abd  -  abandoned
+SCORE_ABD_RE  = %r{  ## must be space before and after!!!
+                    (?<score_abd>
+                      (?<=[ ])	# Positive lookbehind for space
+                        abd
+                       (?=[ ])   # positive lookahead for space 
+                    )
+                }ix
+
+
 ### n/p   - not played
 SCORE_NP_RE    = %r{  ## must be space before and after!!!
                     (?<score_np>

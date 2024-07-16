@@ -28,41 +28,14 @@ MINUTE_RE = %r{
 }ix
 =end
 
-##  (match) status 
-##    note: english usage - cancelled (in UK), canceled (in US)
-##
-##  add more variants - why? why not?
-
-STATUS_RE = %r{
-     (?<status>
-         \b
-         (?:
-            cancelled|canceled|can\.
-               |
-            abandoned|abd\.
-               |
-            postponed
-               |
-            awarded|awd\. 
-               |
-            replay     
-         )
-   (?=[ \]]|$)
-     )}ix
-
-## todo/check:  remove loakahead assertion here - why require space?
-## note: \b works only after non-alphanum  
-##          to make it work with awd. (dot) "custom" lookahead neeeded 
 
 
 
 
-
-RE = Regexp.union(   STATUS_RE,
-                     GROUP_RE, ROUND_RE, LEG_RE,
+RE = Regexp.union(  GROUP_RE, ROUND_RE, LEG_RE,
                     DATE_RE,
                     SCORE_RE,
-                    SCORE_AWD_RE, SCORE_NP_RE,
+                    SCORE_AWD_RE, SCORE_ABD_RE, SCORE_NP_RE,
                     SCORE_EXT_RE,
                     NOTE_RE,
                     BASICS_RE,
@@ -175,8 +148,6 @@ def tokenize_with_errors( line, debug: false )
             [:text, m[:text]]   ## keep pos - why? why not?
           elsif m[:note]
             [:note, m[:note]]
-          elsif m[:status]   ## (match) status e.g. cancelled, awarded, etc.
-            [:status, m[:status]]   
           elsif m[:group]
             [:group, m[:group]]
           elsif m[:round]
@@ -189,6 +160,8 @@ def tokenize_with_errors( line, debug: false )
             [:score, m[:score]]
           elsif m[:score_awd]
             [:score_awd, m[:score_awd]]
+          elsif m[:score_abd]
+            [:score_abd, m[:score_abd]]
           elsif m[:score_np]
             [:score_np, m[:score_np]]
           elsif m[:score_ext]

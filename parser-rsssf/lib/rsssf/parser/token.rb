@@ -14,28 +14,24 @@ BASICS_RE = %r{
 
 
 
-
-=begin
-MINUTE_RE = %r{
-     (?<minute>
-       (?<=[ ])	 # Positive lookbehind for space required
-           (?<value>\d{1,3})      ## constrain numbers to 0 to 999!!!
-        (?: \+
-            (?<value2>\d{1,3})
-        )? 	
-        '     ## must have minute marker!!!!
-     )
-}ix
-=end
-
+VS_RE = %r{   ## must be space before and after!!!
+                    (?<vs>
+                      (?<=[ ])	# Positive lookbehind for space
+                         -
+                       (?=[ ])   # positive lookahead for space 
+                    )
+                }ix
+                
 
 
 
 
 RE = Regexp.union(  GROUP_RE, ROUND_RE, LEG_RE,
                     DATE_RE,
+                    VS_RE,
                     SCORE_RE,
-                    SCORE_AWD_RE, SCORE_ABD_RE, SCORE_NP_RE,
+                    SCORE_AWD_RE, SCORE_ABD_RE, SCORE_PPD_RE, SCORE_NP_RE,
+                       SCORE_WO_RE,
                     SCORE_EXT_RE,
                     NOTE_RE,
                     BASICS_RE,
@@ -156,14 +152,20 @@ def tokenize_with_errors( line, debug: false )
             [:leg, m[:leg]]
           elsif m[:date]
             [:date, m[:date]]
+          elsif m[:vs]
+            [:vs, m[:vs]]
           elsif m[:score]
             [:score, m[:score]]
-          elsif m[:score_awd]
+          elsif m[:score_awd]   # awarded (awd)
             [:score_awd, m[:score_awd]]
-          elsif m[:score_abd]
+          elsif m[:score_abd]   # abandoned (abd)
             [:score_abd, m[:score_abd]]
-          elsif m[:score_np]
+          elsif m[:score_ppd]   # postponed (ppd)
+            [:score_ppd, m[:score_ppd]]
+          elsif m[:score_np]    # not played (n/p)
             [:score_np, m[:score_np]]
+          elsif m[:score_wo]    # walk over (w/o)
+            [:score_wo, m[:score_wo]]
           elsif m[:score_ext]
             [:score_ext, m[:score_ext]]
           elsif m[:sym]

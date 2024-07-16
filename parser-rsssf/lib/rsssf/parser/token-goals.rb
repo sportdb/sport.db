@@ -14,6 +14,7 @@ class Parser
 ##     or   90+pen or
 ##          90+ pen/90+p/90+ og
 
+
 MINUTE_RE = %r{
      (?<minute>
          \b

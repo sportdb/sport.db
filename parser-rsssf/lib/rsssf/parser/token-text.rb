@@ -84,33 +84,46 @@ TEXT_RE = %r{
                )
         
               (?:(?:  (?:[ ]
-                     (?! (awd|abd|n/p)[ ])    ## note - exclude (awd[ ]/abd[ ]/n/p[ ])
+                     (?! (awd|abd|ppd|n/p|w/o)[ ])    ## note - exclude (awd[ ]/abd[ ]/n/p[ ])
                        )  
                       |     # only single spaces allowed inline!!!
                      [-]                                              
                   )?
                 (?:
-                  \p{L} |
-                  [&/'] 
+                  \p{L}+ | [&/'.] 
                     |
                  (?:
                    \d+ 
-                   (?![0-9.:h'/+-])   
+                   (?![0-9.:'/+-])   
                    ## negative lookahead for numbers
                    ##   note - include digits itself!!!
-                 )|  
-                 \.   
+                 )  
                )  
               )*  ## must NOT end with space or dash(-)
               ##  todo/fix - possible in regex here
               ##     only end in alphanum a-z0-9 (not dot or & ???)
+
+              ## support (Hamburg) or such at the end (ony)
+              ##   note - no numbers allowed inside () for now!!
+             (?:
+                  [ ]\(\p{L}+
+                      (?:
+                         (?: [ ] |
+                             [-]
+                          )? 
+                          \p{L}+ | [&/'.]
+                        )*
+                      \)
+             )?
+
 
             ## add lookahead/lookbehind
            ##    must be space!!! 
            ##   (or comma or  start/end of string)
            ##   kind of \b !!!
             ## positive lookahead
-            (?=[ ,;@|\[\]]
+            ##  note - added : too - why? why not?
+            (?=[ ,;@|:\[\]]
                  |$
             )
    )   

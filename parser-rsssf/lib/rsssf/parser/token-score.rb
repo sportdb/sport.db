@@ -61,6 +61,15 @@ SCORE_ABD_RE  = %r{  ## must be space before and after!!!
                     )
                 }ix
 
+### ppd  - postponed
+SCORE_PPD_RE  = %r{  ## must be space before and after!!!
+                    (?<score_ppd>
+                      (?<=[ ])	# Positive lookbehind for space
+                        ppd
+                       (?=[ ])   # positive lookahead for space 
+                    )
+                }ix
+
 
 ### n/p   - not played
 SCORE_NP_RE    = %r{  ## must be space before and after!!!
@@ -71,6 +80,24 @@ SCORE_NP_RE    = %r{  ## must be space before and after!!!
                     )
                 }ix
                 
+## A walkover, also W.O. or w/o (originally two words: "walk over"), 
+##  is awarded to the opposing team/player etc, 
+## if there are no other players available, 
+## or they have been disqualified, 
+## because the other contestants have forfeited or 
+# the other contestants have withdrawn from the contest.
+##
+##  w/o  - walk over
+SCORE_WO_RE    = %r{  ## must be space before and after!!!
+                    (?<score_wo>
+                      (?<=[ ])	# Positive lookbehind for space
+                         w/o
+                       (?=[ ])   # positive lookahead for space 
+                    )
+                }ix
+
+
+
 end  #  class Parser
 end  # module Rsssf 
   

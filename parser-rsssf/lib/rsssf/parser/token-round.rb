@@ -36,12 +36,17 @@ ROUND_RE = %r{(?<round>
         |    
    # round32
         (?: Round[ ]of[ ]32 | 
-            Last[ ]32 )
+            Last[ ]32 |
+            16th[ ]finals |  
+            1/16[ ]finals
+            )
           |
    # round16   
         (?: Round[ ]of[ ]16 |
             Last[ ]16 | 
-            8th[ ]finals )
+            8th[ ]finals |
+            1/8[ ]finals 
+            )
            |
    # fifthplace
          (?:

@@ -63,8 +63,8 @@ Final
 ## Path B
 
 Semifinals
-24- 3-22 Moskva          Russia        awd Poland        [awarded 0-3 because of suspension Russia]
-24- 3-22 Solna           Sweden        1-0 Czech Rep.    [aet]
+24- 3-22 Moskva          Russia awd Poland        [awarded 0-3 because of suspension Russia]
+24- 3-22 Solna           Sweden 1-0 Czech Rep.    [aet]
 
 Final
 29- 3-22 Chorzów         Poland        2-0 Sweden
@@ -97,17 +97,17 @@ Final
  9- 9-21 Buenos Aires     Argentina     3-0 Bolivia
  9- 9-21 São Lourenço M.  Brazil        2-0 Peru
 ## ...
-21- 9-22 São Paulo       Brazil        n/p Argentina     [declared void]
+21- 9-22 São Paulo       Brazil n/p Argentina     [declared void]
 
 # AFC/CONMEBOL Playoff
 
-13- 6-22 Al-Rayyan       Australia     0-0 Peru          [aet, 5-4 pen.]
+13- 6-22 Al-Rayyan       Australia 0-0 Peru          [aet, 5-4 pen.]
 
 # Africa
 # First Round
 
- 8- 9-19 Maseru           Lesotho       1-1 Ethiopia
- 8- 9-19 Dar es Salaam   Tanzania      1-1 Burundi       [aet, 3-0 pen.]
+ 8- 9-19 Maseru           Lesotho 1-1 Ethiopia
+ 8- 9-19 Dar es Salaam   Tanzania 1-1 Burundi       [aet, 3-0 pen.]
 # ... 
 10- 9-19 Bissau          Guinea-Bissau 2-1 São Tomé & Príncipe
 
@@ -125,9 +125,11 @@ Final
 29- 3-22 Blida           Algeria       1-2 Cameroon      [aet]
 
 
+
+## try awd with single space before team name
 #  Asia
-11- 6-19 Bandar Seri B.  Brunei        2-1 Mongolia
-11- 6-19 Colombo         Sri Lanka     awd Macao         [awarded 3-0]
+11- 6-19 Bandar Seri B.  Brunei 2-1 Mongolia
+11- 6-19 Colombo         Sri Lanka awd Macao         [awarded 3-0]
 
 # ...
 30- 3-20 Chiba           Mongolia     0-14 Japan
@@ -143,12 +145,15 @@ Final
 
 # Oceania
 
-17- 3-22 Doha            Cook Islands  0-2 Solomon I.    [annulled]
-17- 3-22 Doha            Tahiti        n/p Vanuatu       
-20- 3-22 Doha            Cook Islands  n/p Tahiti        
-20- 3-22 Doha            Solomon I.    n/p Vanuatu       
-24- 3-22 Doha            Vanuatu       n/p Cook Islands  
-24- 3-22 Doha            Solomon I.    3-1 Tahiti        
+##
+##  try  n/p  with single space before team name
+
+17- 3-22 Doha            Cook Islands 0-2 Solomon I.    [annulled]
+17- 3-22 Doha            Tahiti n/p Vanuatu       
+20- 3-22 Doha            Cook Islands n/p Tahiti        
+20- 3-22 Doha            Solomon I. n/p Vanuatu       
+24- 3-22 Doha            Vanuatu n/p Cook Islands  
+24- 3-22 Doha            Solomon I. 3-1 Tahiti        
 
 
 TXT

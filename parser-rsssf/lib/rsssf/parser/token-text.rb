@@ -84,7 +84,7 @@ TEXT_RE = %r{
                )
         
               (?:(?:  (?:[ ]
-                     (?!vs?\.?[ ])    ## note - exclude (v[ ]/vs[ ]/v.[ ]/vs.[ ])
+                     (?! (awd|abd|n/p)[ ])    ## note - exclude (awd[ ]/abd[ ]/n/p[ ])
                        )  
                       |     # only single spaces allowed inline!!!
                      [-]                                              

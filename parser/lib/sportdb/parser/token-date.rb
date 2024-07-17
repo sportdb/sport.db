@@ -37,22 +37,24 @@ def self.build_names( lines )
 end
 
 
+def self.build_map( lines, downcase: false )
+   ## note: downcase name!!!
+  ## build a lookup map that maps the word to the index (line no) plus 1 e.g.
+  ##  {"january" => 1,  "jan" => 1,
+  ##   "february" => 2, "feb" => 2,
+  ##   "march" => 3,    "mar" => 3,
+  ##   "april" => 4,    "apr" => 4,
+  ##   "may" => 5,
+  ##   "june" => 6,     "jun" => 6, ...
+  lines.each_with_index.reduce( {} ) do |h,(line,i)|
+    line.each do |name| 
+       h[ downcase ? name.downcase : name ] = i+1 
+    end  ## note: start mapping with 1 (and NOT zero-based, that is, 0)
+    h
+  end
+end
 
-## add normalize option (for downcase) - why? why not?
-def self.build_map( lines )
-    ## note: downcase name!!!
-   ## build a lookup map that maps the word to the index (line no) plus 1 e.g.
-   ##  {"january" => 1,  "jan" => 1,
-   ##   "february" => 2, "feb" => 2,
-   ##   "march" => 3,    "mar" => 3,
-   ##   "april" => 4,    "apr" => 4,
-   ##   "may" => 5,
-   ##   "june" => 6,     "jun" => 6, ...
-   lines.each_with_index.reduce( {} ) do |h,(line,i)|
-     line.each { |name| h[ name.downcase ] = i+1 }  ## note: start mapping with 1 (and NOT zero-based, that is, 0)
-     h
-   end
- end
+
 
 
 MONTH_LINES = parse_names( <<TXT )
@@ -72,7 +74,7 @@ TXT
 
 MONTH_NAMES = build_names( MONTH_LINES )
 # pp MONTH_NAMES
-MONTH_MAP   = build_map( MONTH_LINES )
+MONTH_MAP   = build_map( MONTH_LINES, downcase: true )
 # pp MONTH_MAP
 
 
@@ -89,7 +91,7 @@ TXT
 
 DAY_NAMES = build_names( DAY_LINES )
 # pp DAY_NAMES
-DAY_MAP   = build_map( DAY_LINES )
+DAY_MAP   = build_map( DAY_LINES, downcase: true )
 # pp DAY_MAP
 
 

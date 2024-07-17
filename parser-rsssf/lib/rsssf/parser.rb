@@ -2,6 +2,13 @@
 ####
 ##  build on "standard" parse
 require 'sportdb/parser'
+## pulled in for/uses only
+##  -  SportDb::Parser::Tokens  !!!
+##  
+##  plus in the future pull in SportDb::OutlineReader
+##
+##  note - pulls in more deps e.g. cococs AND season-formats
+
 
 
 ## our own code

@@ -10,12 +10,6 @@ def self.debug=(value) @@debug = value; end
 def self.debug?() @@debug ||= false; end  ## note: default is FALSE
 def debug?()  self.class.debug?; end   
     
-## keep typed - why? why not? 
-## - used anywhere? 
-def self.typed=(value) @@typed = value; end
-def self.typed?() @@typed ||= true; end   ## note: default is TRUE
-def typed?()  self.class.typed?; end   
-
 
 
 attr_reader :errors
@@ -94,9 +88,8 @@ def read( path, parse: false )
 
 
         ## skip new (experimental attrib syntax)
-        m = nil
         if attrib_found == false && 
-            m=ATTRIB_RE.match( line )
+            ATTRIB_RE.match?( line )
           ## note: check attrib regex AFTER group def e.g.:
           ##         Group A: 
           ##         Group B:  etc.

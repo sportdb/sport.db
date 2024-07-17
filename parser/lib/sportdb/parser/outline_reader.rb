@@ -73,7 +73,7 @@ class OutlineReader
            start_para = true
 
            heading_marker = m[:marker]
-           heading_level  = m[:marker].length   ## count number of = for heading level
+           heading_level  = heading_marker.length   ## count number of = for heading level
            heading        = m[:text].strip
 
            puts "heading #{heading_level} >#{heading}<"   if debug?

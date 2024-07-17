@@ -698,6 +698,6 @@ exp = [
 [[:team, "Wiener Neustadt"], [:score_abd, "abd"], [:team, "Grödig"], [:note, "abandoned at 1-0 in 20' due to fog"]],
 [[:team, "SV Austria Salzburg"], [:score, "2-0"], [:team, "FC Blau-Weiß Linz"], [:note, "played in Vöcklabruck"]]]
 
-assert_equal exp, tree
-end
+    assert_equal exp, tree
+  end
 end

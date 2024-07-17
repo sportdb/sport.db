@@ -92,8 +92,8 @@ exp = [
    [:player, "Arthur"],[:minute, "90'+1'"],[:";"],
    [:player, "Diego Tardelli"],[:minute, "51'"]]] 
 
-  assert_equal exp, tree
-end
+    assert_equal exp, tree
+  end
 
 
 end # class TestBr

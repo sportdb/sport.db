@@ -291,5 +291,5 @@ exp = [
 [[:date, "24- 3-22"], [:text, "Doha"], [:team, "Solomon I."], [:score, "3-1"], [:team, "Tahiti"]]]
 
    assert_equal exp, tree
-end
+  end
 end

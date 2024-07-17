@@ -235,8 +235,6 @@ exp = [
 [[:player, "Di Maria"], [:minute, "22"]]
 ]
 
-assert_equal exp, tree
-
-
-end
+    assert_equal exp, tree
+  end
 end

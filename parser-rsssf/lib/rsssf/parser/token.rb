@@ -101,98 +101,98 @@ def tokenize_with_errors( line, debug: false )
     pp offsets   if debug
 
     t =  if @re == INSIDE_RE
-          if m[:space]
-           nil   ## skip space
-          elsif m[:spaces]
-           nil  ## skip spaces
-          elsif m[:text] 
-            [:text, m[:text]]   ## keep pos - why? why not?
-          elsif m[:minute]
-            [:minute, m[:minute]]
-          elsif m[:og]
-            [:og, m[:og]]    ## for typed drop - string version/variants
-          elsif m[:pen]
-            [:pen, m[:pen]]
-          elsif m[:sym]
-            sym = m[:sym]
-            ## return symbols "inline" as is - why? why not?
-            case sym
-            when ',' then [:',']
-            when ';' then [:';']
-            when '@' then [:'@']
-            when '|' then [:'|']   
-            when '['
+           if m[:space]
+             nil   ## skip space
+           elsif m[:spaces]
+             nil  ## skip spaces
+           elsif m[:text] 
+             [:text, m[:text]]   ## keep pos - why? why not?
+           elsif m[:minute]
+             [:minute, m[:minute]]
+           elsif m[:og]
+             [:og, m[:og]]    ## for typed drop - string version/variants
+           elsif m[:pen]
+             [:pen, m[:pen]]
+           elsif m[:sym]
+             sym = m[:sym]
+             ## return symbols "inline" as is - why? why not?
+             case sym
+             when ',' then [:',']
+             when ';' then [:';']
+             when '@' then [:'@']
+             when '|' then [:'|']   
+             when '['
                ## report error - already in inside mode!!!
                nil
-            when ']'
+             when ']'
                puts "  leave inside match mode"
                @re = RE
                nil
-            else
+             else
               nil  ## ignore others (e.g. brackets [])
-            end
-          else
-            ## report error  - why? why not?
-            nil
-          end    
-        else  ## assume standard mode/ctx
-          if m[:space]
-           nil   ## skip space
-          elsif m[:spaces]
-           nil  ## skip spaces
-          elsif m[:text] 
-            [:text, m[:text]]   ## keep pos - why? why not?
-          elsif m[:note]
-            [:note, m[:note]]
-          elsif m[:group]
-            [:group, m[:group]]
-          elsif m[:round]
-            [:round, m[:round]]
-          elsif m[:leg]
-            [:leg, m[:leg]]
-          elsif m[:date]
-            [:date, m[:date]]
-          elsif m[:vs]
-            [:vs, m[:vs]]
-          elsif m[:score]
-            [:score, m[:score]]
-          elsif m[:score_awd]   # awarded (awd)
-            [:score_awd, m[:score_awd]]
-          elsif m[:score_abd]   # abandoned (abd)
-            [:score_abd, m[:score_abd]]
-          elsif m[:score_ppd]   # postponed (ppd)
-            [:score_ppd, m[:score_ppd]]
-          elsif m[:score_np]    # not played (n/p)
-            [:score_np, m[:score_np]]
-          elsif m[:score_wo]    # walk over (w/o)
-            [:score_wo, m[:score_wo]]
-          elsif m[:score_ext]
-            [:score_ext, m[:score_ext]]
-          elsif m[:sym]
-          sym = m[:sym]
-          ## return symbols "inline" as is - why? why not?
-          case sym
-          when ',' then [:',']
-          when ';' then [:';']
-          when '@' then [:'@']
-          when '|' then [:'|']   
-          when '['
-             ##  switch to inside mode!!!
-             puts "  enter inside match mode"
-             @re = INSIDE_RE
+             end
+           else
+             ## report error  - why? why not?
              nil
-          when ']'
-             ## already in standard mode/ctx
-             ##  report warn/error - why? why not?
+           end    
+         else  ## assume standard mode/ctx
+           if m[:space]
+             nil   ## skip space
+           elsif m[:spaces]
+             nil  ## skip spaces
+           elsif m[:text] 
+             [:text, m[:text]]   ## keep pos - why? why not?
+           elsif m[:note]
+             [:note, m[:note]]
+           elsif m[:group]
+             [:group, m[:group]]
+           elsif m[:round]
+             [:round, m[:round]]
+           elsif m[:leg]
+             [:leg, m[:leg]]
+           elsif m[:date]
+             [:date, m[:date]]
+           elsif m[:vs]
+             [:vs, m[:vs]]
+           elsif m[:score]
+             [:score, m[:score]]
+           elsif m[:score_awd]   # awarded (awd)
+             [:score_awd, m[:score_awd]]
+           elsif m[:score_abd]   # abandoned (abd)
+             [:score_abd, m[:score_abd]]
+           elsif m[:score_ppd]   # postponed (ppd)
+             [:score_ppd, m[:score_ppd]]
+           elsif m[:score_np]    # not played (n/p)
+             [:score_np, m[:score_np]]
+           elsif m[:score_wo]    # walk over (w/o)
+             [:score_wo, m[:score_wo]]
+           elsif m[:score_ext]
+             [:score_ext, m[:score_ext]]
+           elsif m[:sym]
+             sym = m[:sym]
+             ## return symbols "inline" as is - why? why not?
+             case sym
+             when ',' then [:',']
+             when ';' then [:';']
+             when '@' then [:'@']
+             when '|' then [:'|']   
+             when '['
+               ##  switch to inside mode!!!
+               puts "  enter inside match mode"
+               @re = INSIDE_RE
+               nil
+             when ']'
+               ## already in standard mode/ctx
+               ##  report warn/error - why? why not?
+               nil
+             else
+               nil  ## ignore others (e.g. brackets [])
+             end
+           else
+             ## report error  - why? why not?
              nil
-          else
-            nil  ## ignore others (e.g. brackets [])
-          end
-        else
-          ## report error  - why? why not?
-          nil
-        end
-      end
+           end
+         end
 
 
     tokens << t    if t    

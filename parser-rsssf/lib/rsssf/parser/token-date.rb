@@ -52,7 +52,7 @@ def self.build_map( lines )
      line.each { |name| h[ name.downcase ] = i+1 }  ## note: start mapping with 1 (and NOT zero-based, that is, 0)
      h
    end
- end
+end
 
 
  ## note -  support only 5 letter max for now

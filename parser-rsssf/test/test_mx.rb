@@ -148,8 +148,8 @@ exp = [
   [:player, "Eduardo Jesús Vargas"],[:minute, "30"],[:","],
   [:player, "Francisco Meza"],[:minute, "34"]]]
 
-  assert_equal exp, tree
-end
+    assert_equal exp, tree
+  end
 
 
   def test_regular

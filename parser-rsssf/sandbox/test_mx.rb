@@ -94,6 +94,23 @@ Bayer 04 Leverkusen 1-1 TSG 1899 Hoffenheim
 [awarded 3-0; originally 0-2, América used ineligible player (Federico Viñas)]
 [abandoned at 1-1 in 65' due to cardiac arrest Luton player Tom Lockyer]
 
+
+## try player with quotes
+## see https://github.com/rsssf/espana/blob/master/2010-11/1-liga.txt
+
+["Renato" Dirnei Florencio 87,  
+  "Simao" Pedro Fonseca 90]   
+  
+[  "Nilmar" Honorato da Silva 77, "Tiago" Cardoso Mendes 80; 
+  "Cristiano Ronaldo" dos Santos Aveiro 74]
+   
+
+[ "Tiago" Cardoso Mendes 80,
+    "Zé Castro" José Eduardo Rosa Vale Castro 60og,
+     Antonio Galdeano "Apoño" 61pen,
+     Xavier "Xavi" Hernández 73]
+
+
 TXT
 
 

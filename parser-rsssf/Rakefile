@@ -1,0 +1,29 @@
+require 'hoe'
+
+
+Hoe.spec 'rsssf-parser' do
+
+  self.version = '0.0.1'
+
+  self.summary = "rsssf-parser - football match schedule & results parser (& tokenizer) using the rsssf format / conventions"
+  self.description = summary
+
+  self.urls = { home: 'https://github.com/sportdb/sport.db' }
+
+  self.author = 'Gerald Bauer'
+  self.email = 'gerald.bauer@gmail.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.licenses = ['Public Domain']
+
+  self.extra_deps = [
+      ['sportdb-parser'],     ### (re(use standard football.txt parser machinery - why? why not?
+  ]
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.2.2'
+  }
+end

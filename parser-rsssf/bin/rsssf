@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+## tip: to test run:
+##   ruby -I ./lib bin/rsssf
+
+require 'rsssf/parser'
+
+
+require 'optparse'
+
+
+

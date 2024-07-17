@@ -10,6 +10,33 @@ require_relative 'helper'
 
 class TestGoals < Minitest::Test
 
+
+  def test_text_strict
+    lines = {
+        %Q{"Renato" Dirnei Florencio 87   }       => %Q{"Renato" Dirnei Florencio},  
+        %Q{"Simao" Pedro Fonseca 90    }          => %Q{"Simao" Pedro Fonseca},  
+        %Q{   "Nilmar" Honorato da Silva 77     } => %Q{"Nilmar" Honorato da Silva},  
+        %Q{   "Tiago" Cardoso Mendes 80     }     => %Q{"Tiago" Cardoso Mendes},  
+        %Q{  "Cristiano Ronaldo" dos Santos Aveiro 74    } => %Q{"Cristiano Ronaldo" dos Santos Aveiro},  
+        %Q{     "Zé Castro" José Eduardo Rosa Vale Castro 60og  } => %Q{"Zé Castro" José Eduardo Rosa Vale Castro},
+        %Q{     Antonio Galdeano "Apoño" 61pen  } => %Q{Antonio Galdeano "Apoño"},
+        %Q{     Xavier "Xavi" Hernández 73   } => %Q{Xavier "Xavi" Hernández},
+        ## for more see https://github.com/rsssf/espana/blob/master/2010-11/1-liga.txt
+    }
+  
+    lines.each do |line,exp|
+      puts "==> >#{line}<"
+      m = TEXT_STRICT_RE.match( line )
+      pp m
+      pp m[:text]
+      pp m.named_captures
+  
+      assert_equal exp, m[:text]
+    end
+  end
+  
+  
+
 def test_og
   lines = {
     '   Brayan Angulo 45og  '  =>  'og', 
@@ -143,6 +170,17 @@ def test_tokenize
    '  Arthur 90+1  '       => [[:text, "Arthur"], [:minute, "90+1"]],
    '  Caio 90+10  '        => [[:text, "Caio"], [:minute, "90+10"]],
    '   Matheus Ferraz 45+   ' => [[:text, "Matheus Ferraz"], [:minute, "45+"]],
+
+   %Q{   "Tiago" Cardoso Mendes 80     }     => [[:text, %Q{"Tiago" Cardoso Mendes}],
+                                                  [:minute, "80"]],  
+   %Q{  "Cristiano Ronaldo" dos Santos Aveiro 74    } => [[:text, %Q{"Cristiano Ronaldo" dos Santos Aveiro}],
+                                                          [:minute, "74"]],  
+   %Q{     "Zé Castro" José Eduardo Rosa Vale Castro 60og  } => [[:text, %Q{"Zé Castro" José Eduardo Rosa Vale Castro}],
+                                                                 [:minute, "60"], [:og, "og"]],
+   %Q{     Antonio Galdeano "Apoño" 61pen  } =>  [[:text, %Q{Antonio Galdeano "Apoño"}],
+                                                  [:minute, "61"], [:pen, "pen"]],
+   %Q{     Xavier "Xavi" Hernández 73   } =>   [[:text, %Q{Xavier "Xavi" Hernández}],
+                                                 [:minute, "73"]],
   }
  
   ## note - wrap line in [] for "inside" mode!!!!

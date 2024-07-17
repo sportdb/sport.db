@@ -34,21 +34,47 @@ class Parser
 ##    allows  dash/hyphen (-)
 ##      and   dot (.) and apostroph (') for now
 
+
+## simple (double) quoted text
+##   only supports a-z (unicode) PLUS (single) inline space
+##    add more chars - why? why not?
+TEXT_QUOTED =   '(?:  "    ' +
+                 '  \p{L}+  ' + 
+                 '     (?: [ ]  ' +
+                 '        \p{L}+ )*   '  + 
+                 '    "  )  '
+
+
+### might start with "" !!!
+##    e.g. 
+##      "Tiago" Cardoso Mendes 80
+##     "Cristiano Ronaldo" dos Santos Aveiro 74
+##     "Zé Castro" José Eduardo Rosa Vale Castro 60og
+
+
 TEXT_STRICT_RE = %r{
    (?<text>
-      \b
+         (?: \b |  #{TEXT_QUOTED} [ ]   ## note - leading quoted text must be followed by space!!
+          )
           \p{L}+    ## all unicode letters (e.g. [a-z])
-           (?:(?:  [ ]
+           
+             (?:
+               (?:[ ]
                     |     # only single spaces allowed inline!!!
                    [-]                                              
                )?
                (?:
-                  \p{L} |
-                   [']   ## add dot here (no special meta meaning in class?)
-                     |  
-                    \.   
+                  \p{L}+ |
+                   ['.] |
+                   (?:
+                      (?<= [ ])
+                      #{TEXT_QUOTED}
+                      (?= [ ]|$)   ### must be followed by space
+                                  ##  todo/fix - add all end of text lookaheads to (see below)
+                   )
                )  
-             )*  ## must NOT end with space or dash(-)
+              )*  
+               ## must NOT end with space or dash(-)
               ##  todo/fix - possible in regex here
               ##     only end in alphanum a-z0-9 (not dot or & ???)
    

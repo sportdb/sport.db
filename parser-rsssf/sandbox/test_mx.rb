@@ -3,6 +3,7 @@
 #    $ ruby sandbox/test_mx.rb
 
 
+$LOAD_PATH.unshift( '../parser/lib' )
 $LOAD_PATH.unshift( './lib' )
 require 'rsssf/parser'
 

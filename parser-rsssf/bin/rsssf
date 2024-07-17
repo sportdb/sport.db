@@ -1,12 +1,80 @@
 #!/usr/bin/env ruby
 
 ## tip: to test run:
-##   ruby -I ./lib bin/rsssf
+##   ruby -I ./lib -I ../parser/lib  bin/rsssf
 
 require 'rsssf/parser'
 
 
 require 'optparse'
+
+
+args = ARGV
+opts = { debug: false,
+          metal: false }
+
+parser = OptionParser.new do |parser|
+parser.banner = "Usage: #{$PROGRAM_NAME} [options]"
+
+##
+## check if git has a offline option?? (use same)
+##             check for other tools - why? why not?
+
+
+  parser.on( "--verbose", "--debug",
+               "turn on verbose / debug output (default: #{opts[:debug]} )" ) do |debug|
+    opts[:debug] = debug
+  end
+
+  parser.on( "--metal",
+                 "turn off typed parse tree; show to the metal tokens"+
+                   " (default: #{opts[:metal]})" ) do |metal|
+    opts[:metal] = metal
+  end
+end
+parser.parse!( args )
+
+puts "OPTS:"
+p opts
+puts "ARGV:"
+p args
+
+
+paths =  if args.empty?
+          [
+            '../../../rsssf/austria/2010-11/cup.txt',
+          ]
+         else
+            ## todo/fix - expand_args!!!
+            args
+         end
+
+
+pp paths
+
+
+
+
+Rsssf::Parser::Linter.debug = true    if opts[:debug]
+
+linter = Rsssf::Parser::Linter.new
+
+
+paths.each_with_index do |path,i|
+    puts "==> [#{i+1}/#{paths.size}] reading >#{path}<..."
+    linter.read( path, parse: !opts[:metal] )
+end
+
+if linter.errors?
+    puts
+    pp linter.errors
+    puts "!!   #{linter.errors.size} parse error(s) in #{paths.size} datafiles(s)"
+else
+    puts "OK   no parse errors found in #{paths.size} datafile(s)"
+end
+
+puts "bye"
+
 
 
 

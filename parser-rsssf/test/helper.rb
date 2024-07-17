@@ -2,7 +2,9 @@
 require 'minitest/autorun'
 
 
+$LOAD_PATH.unshift( '../parser/lib' )
 $LOAD_PATH.unshift( './lib' )
+
 
 ## our own code
 require  'rsssf/parser'   

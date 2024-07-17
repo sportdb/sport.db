@@ -5,7 +5,7 @@ Hoe.spec 'rsssf-parser' do
 
   self.version = '0.0.1'
 
-  self.summary = "rsssf-parser - football match schedule & results parser (& tokenizer) using the rsssf format / conventions"
+  self.summary = "rsssf-parser - football match schedule & results parser (& tokenizer) for the rsssf format / conventions"
   self.description = summary
 
   self.urls = { home: 'https://github.com/sportdb/sport.db' }

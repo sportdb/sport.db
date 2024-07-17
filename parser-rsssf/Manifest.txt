@@ -4,6 +4,7 @@ README.md
 Rakefile
 bin/rsssf
 lib/rsssf/parser.rb
+lib/rsssf/parser/linter.rb
 lib/rsssf/parser/parser.rb
 lib/rsssf/parser/token-date.rb
 lib/rsssf/parser/token-goals.rb

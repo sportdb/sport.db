@@ -1,4 +1,4 @@
-#  rsssf-parser - football match schedule & results parser (& tokenizer) using the rsssf format / conventions
+#  rsssf-parser - football match schedule & results parser (& tokenizer) for the rsssf format / conventions
 
 
 

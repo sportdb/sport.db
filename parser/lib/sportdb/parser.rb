@@ -23,6 +23,7 @@ require_relative 'parser/parser'
 ## more
 require_relative 'parser/outline_reader'
 require_relative 'parser/linter'
+require_relative 'parser/opts'
 
 
 ###

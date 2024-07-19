@@ -45,8 +45,7 @@ paths =  if args.empty?
             '../../../rsssf/austria/2010-11/cup.txt',
           ]
          else
-            ## todo/fix - expand_args!!!
-            args
+            SportDb::Parser::Opts.expand_args( args )
          end
 
 
@@ -60,15 +59,18 @@ Rsssf::Parser::Linter.debug = true    if opts[:debug]
 linter = Rsssf::Parser::Linter.new
 
 
+errors = []
+
 paths.each_with_index do |path,i|
     puts "==> [#{i+1}/#{paths.size}] reading >#{path}<..."
     linter.read( path, parse: !opts[:metal] )
+    errors += linter.errors  if linter.errors? 
 end
 
-if linter.errors?
+if errors.size > 0
     puts
-    pp linter.errors
-    puts "!!   #{linter.errors.size} parse error(s) in #{paths.size} datafiles(s)"
+    pp errors
+    puts "!!   #{errors.size} parse error(s) in #{paths.size} datafiles(s)"
 else
     puts "OK   no parse errors found in #{paths.size} datafile(s)"
 end

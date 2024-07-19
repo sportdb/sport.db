@@ -29,35 +29,48 @@ def errors?() @errors.size > 0; end
 ## parse - false (default) - tokenize (only)
 ##       - true            - tokenize & parse                
 def read( path, parse: false )
+  ## note: every (new) read call - resets errors list to empty
+  @errors = []
 
-  ## fix - (re)use outline reader later!!!
-  ##   plus check for headings etc.
-
-  text = File.open( path, 'r:utf-8' ) { |f| f.read } 
-  lines = text.split( "\n" )
+  nodes = SportDb::OutlineReader.read( path ) 
 
 
-  ##  process lines 
-  tree = [] 
-  lines.each do |line|
+  ##  process nodes
+  h1         = nil
+  orphans    = 0    ## track paragraphs with no heading
+  paragraphs = 0    ## track paragraphs with heading
 
-    ## skip blank and comment lines
-    next if line.strip.empty? || line.strip.start_with?('#')
+  nodes.each do |node|
+    type = node[0]
+    
+    if type == :h1
+        h1 = node[1]  ## get heading text
+        ## puts
+        puts "  = Heading 1 >#{node[1]}<"
+    elsif type == :p
 
-    ## strip inline (end-of-line) comments
-    line = line.sub( /#.+$/, '' )
+      if h1.nil?
+        orphans += 1    ## only warn once (at the end; see below)
+        next
+      end
 
+      paragraphs += 1
 
-    if debug?
-      puts
-      puts "line >#{line}<"
-    end
+      lines = node[1]
 
-    t, error_messages  =  if parse
-                            @parser.parse_with_errors( line )
-                          else
-                            @parser.tokenize_with_errors( line )                   
-                          end
+      tree = [] 
+      lines.each_with_index do |line,i|
+     
+        if debug?
+          puts
+          puts "line >#{line}<"
+        end
+
+        t, error_messages  =  if parse
+                                @parser.parse_with_errors( line )
+                              else
+                                @parser.tokenize_with_errors( line )                   
+                              end
          
 
     if error_messages.size > 0
@@ -74,8 +87,39 @@ def read( path, parse: false )
     pp t   if debug?
 
     tree << t
-  end       
+  end    
   ## pp tree
+else
+  pp node
+  raise ArgumentError, "unsupported (node) type >#{type}<"
+end
+end  # each node
+
+  ## no heading and no orphans => assume empty file (comments only)!!!
+  if h1.nil? && orphans == 0
+    puts "  !! WARN - no heading(s) and paragraph(s) found"
+     @errors << [ path,
+                  "warn - no heading(s) and paragraph(s) found",
+                  ""  ## pass along empty line
+                ]
+  end
+
+  if orphans > 0
+    puts "  !! WARN - no heading for #{orphans} text paragraph(s); skipping parse"
+    @errors << [ path,
+                  "warn - no heading for #{orphans} text paragraph(s); skipping parse",
+                  ""  ## pass along empty line
+               ]
+  end
+
+  if h1 && paragraphs == 0
+    puts "  !! WARN - heading with no text paragraph(s)"
+    @errors << [ path,
+                  "warn - heading with no text paragraph(s)",
+                  ""  ## pass along empty line
+               ]
+  end
+
 end  # read
 end  # class Linter
 

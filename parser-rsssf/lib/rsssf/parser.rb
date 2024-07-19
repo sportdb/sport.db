@@ -12,6 +12,7 @@ require 'sportdb/parser'
 
 
 ## our own code
+require_relative 'parser/version'
 require_relative 'parser/token-text'
 require_relative 'parser/token-note'
 require_relative 'parser/token-round'    ## round (& group)
@@ -26,3 +27,5 @@ require_relative 'parser/linter'
 
 
 
+# say hello
+puts SportDb::Module::RsssfParser.banner

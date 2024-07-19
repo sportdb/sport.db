@@ -52,6 +52,9 @@ def errors?() @errors.size > 0; end
 ## parse - false (default) - tokenize (only)
 ##       - true            - tokenize & parse                
 def read( path, parse: false )
+  ## note: every (new) read call - resets errors list to empty
+  @errors = []
+
   nodes = OutlineReader.read( path ) 
 
   ##  process nodes

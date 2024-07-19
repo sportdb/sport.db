@@ -15,40 +15,6 @@ require 'optparse'
 ##   fbt  ../openfootball/.../euro.txt
 
 
-  SEASON_RE = %r{ (?:
-                       \d{4}-\d{2}
-                     | \d{4}(--[a-z0-9_-]+)?
-                    )
-                  }x
-    SEASON = SEASON_RE.source    ## "inline" helper for embedding in other regexes - keep? why? why not?
-
-
-    ## note: if pattern includes directory add here
-    ##     (otherwise move to more "generic" datafile) - why? why not?
-    MATCH_RE = %r{ (?: ^|/ )      # beginning (^) or beginning of path (/)
-                       #{SEASON}
-                     /[a-z0-9_-]+\.txt$  ## txt e.g /1-premierleague.txt
-                }x
-
-
-def find( path, pattern=MATCH_RE )
-    datafiles = []
-
-    ## check all txt files
-    ## note: incl. files starting with dot (.)) as candidates (normally excluded with just *)
-    candidates = Dir.glob( "#{path}/**/{*,.*}.txt" )
-    ## pp candidates
-    candidates.each do |candidate|
-      datafiles << candidate    if pattern.match( candidate )
-    end
-
-    ## pp datafiles
-    datafiles
- end
-
-
-
-
 
 
  args = ARGV
@@ -86,25 +52,6 @@ p args
 
 
 
-def expand_args( args )
-    paths = []
-
-    args.each do |arg|
-        ## check if directory
-        if Dir.exist?( arg )
-            datafiles = find( arg )
-            puts
-            puts "  found #{datafiles.size} match txt datafiles in #{arg}"
-            pp datafiles
-            paths += datafiles
-        else
-              ## assume it's a file
-            paths << arg
-        end
-    end
-
-    paths
-end
 
 
 paths =  if args.empty?
@@ -116,7 +63,7 @@ paths =  if args.empty?
             ## check for directories
             ##   and auto-expand
              
-            expand_args( args )
+            SportDb::Parser::Opts.expand_args( args )
          end
 
 
@@ -125,17 +72,19 @@ SportDb::Parser::Linter.debug = true    if opts[:debug]
 
 linter = SportDb::Parser::Linter.new
 
-
+errors = []
 
 paths.each_with_index do |path,i|
     puts "==> [#{i+1}/#{paths.size}] reading >#{path}<..."
     linter.read( path, parse: !opts[:metal] )
+
+    errors += linter.errors    if linter.errors?
 end
 
-if linter.errors?
+if errors.size > 0
     puts
-    pp linter.errors
-    puts "!!   #{linter.errors.size} parse error(s) in #{paths.size} datafiles(s)"
+    pp errors
+    puts "!!   #{errors.size} parse error(s) in #{paths.size} datafiles(s)"
 else
     puts "OK   no parse errors found in #{paths.size} datafile(s)"
 end

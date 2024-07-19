@@ -84,10 +84,14 @@ def tokenize_with_errors( line, debug: false )
     if offsets[0] != pos
       ## match NOT starting at start/begin position!!!
       ##  report parse error!!!
-      msg =  "!! WARN - parse error - skipping >#{line[pos..(offsets[0]-1)]}< @#{offsets[0]},#{offsets[1]} in line >#{line}<"
+
+      ctx = @re == INSIDE_RE ? 'INSIDE_RE' : 'RE'  ## assume RE
+      ## fix/change - use str.inspect to show tabs (\t)
+      ##          and possibly other special characters causing trouble     
+      msg =  "  !! WARN - parse error (#{ctx}) - skipping >#{line[pos..(offsets[0]-1)]}< @#{offsets[0]},#{offsets[1]} in line >#{line}<"
       puts msg
 
-      errors << "parse error - skipping >#{line[pos..(offsets[0]-1)]}< @#{offsets[0]},#{offsets[1]}"
+      errors << "parse error (#{ctx}) - skipping >#{line[pos..(offsets[0]-1)]}< @#{offsets[0]},#{offsets[1]}"
       log( msg )
     end
 
@@ -125,7 +129,7 @@ def tokenize_with_errors( line, debug: false )
                ## report error - already in inside mode!!!
                nil
              when ']'
-               puts "  leave inside match mode"
+               ## puts "  leave inside match mode"
                @re = RE
                nil
              else
@@ -178,7 +182,7 @@ def tokenize_with_errors( line, debug: false )
              when '|' then [:'|']   
              when '['
                ##  switch to inside mode!!!
-               puts "  enter inside match mode"
+               ## puts "  enter inside match mode"
                @re = INSIDE_RE
                nil
              when ']'
@@ -204,13 +208,21 @@ def tokenize_with_errors( line, debug: false )
     end
   end
 
+
   ## check if no match in end of string
   if offsets[1] != line.size
-    msg =  "!! WARN - parse error - skipping >#{line[offsets[1]..-1]}< @#{offsets[1]},#{line.size} in line >#{line}<"
+
+    ## note - report regex context
+    ##  e.g.  RE or INSIDE_RE  to help debugging/troubleshooting format errors
+    ctx = @re == INSIDE_RE ? 'INSIDE_RE' : 'RE'  ## assume RE
+    ## fix/change - use str.inspect to show tabs (\t)
+    ##          and possibly other special characters causing trouble     
+
+    msg =  "  !! WARN - parse error (#{ctx}) - skipping >#{line[offsets[1]..-1]}< @#{offsets[1]},#{line.size} in line >#{line}<"
     puts msg
     log( msg )
 
-    errors << "parse error - skipping >#{line[offsets[1]..-1]}< @#{offsets[1]},#{line.size}"
+    errors << "parse error (#{ctx}) - skipping >#{line[offsets[1]..-1]}< @#{offsets[1]},#{line.size}"
   end
 
 

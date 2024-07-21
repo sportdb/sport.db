@@ -29,12 +29,12 @@ MINUTE_RE = %r{
                     (?:
                       \d{1,3} 
                       '?   ## optional minute quote (')
-                      (?= (og|pen|p)? ([ ;,\]]|$))
+                      (?= (og|o|pen|p)? ([ ;,\]\)]|$))
                     )
                   )
                 )
                 |
-                (?= (og|pen|p)? ([ ;,\]]|$))  # note - break can be og|pen|p too
+                (?= (og|o|pen|p)? ([ ;,\]\)]|$))  # note - break can be og|pen|p too
          )
       )}ix
 ### note - word boundary (\b) will NOT work for quoet (')  
@@ -55,7 +55,7 @@ GOAL_PEN_RE = %r{
 GOAL_OG_RE = %r{
    (?<og> 
         (?<=\d|\+|[ ]|')	## must follow a number or plus (e.g. 45og / 45+og / 45 og) or space
-          og
+          (?: og|o )
           \b
    )
 }ix

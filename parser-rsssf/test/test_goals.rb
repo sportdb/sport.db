@@ -181,12 +181,19 @@ def test_tokenize
                                                   [:minute, "61"], [:pen, "pen"]],
    %Q{     Xavier "Xavi" Hernández 73   } =>   [[:text, %Q{Xavier "Xavi" Hernández}],
                                                  [:minute, "73"]],
+
+   "Cardoso 84" => [[:text, "Cardoso"], [:minute, "84"]],
   }
  
   ## note - wrap line in [] for "inside" mode!!!!
   lines.each do |line,exp|
     puts "==> >#{line}<"
     t = tokenize( "[#{line}]" )
+    pp t
+    assert_equal exp, t
+
+    ## try again with () too
+    t = tokenize( "(#{line})" )
     pp t
     assert_equal exp, t
   end

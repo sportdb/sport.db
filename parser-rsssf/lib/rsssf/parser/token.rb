@@ -9,7 +9,7 @@ BASICS_RE = %r{
     (?<spaces> [ ]{2,}) |
     (?<space>  [ ]) 
         |
-    (?<sym>[;,@|\[\]]) 
+    (?<sym>[;,@|\[\]\(\)])     ## note - add () too  - why? why not?
 }ix
 
 
@@ -56,6 +56,11 @@ def log( msg )
 end
 
 
+## open/close pairs - lookup close (by open char)
+SYM_CLOSE = {
+  '(' => ')',
+  '[' => ']',
+}
 
 def tokenize_with_errors( line, debug: false )
   tokens = []
@@ -72,6 +77,7 @@ def tokenize_with_errors( line, debug: false )
   ####
   ## quick hack - keep re state/mode between tokenize calls!!!
   @re  ||= RE     ## note - switch between RE & INSIDE_RE
+  
 
 
   while m = @re.match( line, pos )
@@ -125,12 +131,20 @@ def tokenize_with_errors( line, debug: false )
              when ';' then [:';']
              when '@' then [:'@']
              when '|' then [:'|']   
-             when '['
-               ## report error - already in inside mode!!!
+             when '[', '('
+               if sym == @sym_open   
+                 ## report error - already in inside mode!!!
+                 ##  e.g. another [ in [] or ( in ()
+                 log( "warn - unexpected (opening) #{sym} in inside (goal) mode" )
+               end
                nil
-             when ']'
+             when ']', ')'   ## allow [] AND () for inside mode
                ## puts "  leave inside match mode"
-               @re = RE
+               if sym == @sym_close 
+                   @re = RE
+                   @sym_open  = nil  ## reset sym_open/close
+                   @sym_close = nil
+               end
                nil
              else
               nil  ## ignore others (e.g. brackets [])
@@ -180,12 +194,15 @@ def tokenize_with_errors( line, debug: false )
              when ';' then [:';']
              when '@' then [:'@']
              when '|' then [:'|']   
-             when '['
+             when '[', '('
                ##  switch to inside mode!!!
                ## puts "  enter inside match mode"
                @re = INSIDE_RE
+               @sym_open  =  sym      ## record open/close style - why? why not?
+               @sym_close =  SYM_CLOSE[sym]
                nil
-             when ']'
+             when ']', ')'
+               log( "warn - unexpected (closing) #{sym} in standard mode" )   
                ## already in standard mode/ctx
                ##  report warn/error - why? why not?
                nil

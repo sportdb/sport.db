@@ -80,8 +80,9 @@ TEXT_STRICT_RE = %r{
    
         ## positive lookahead
         ##   cannot use \b  if text ends in dot (.) or other non-alphnum 
-        ##        than \b will not work 
-            (?=[ ,;@|\[\]]
+        ##        than \b will not work
+        ##   not    - add () too for now - why? why not? 
+            (?=[ ,;@|\[\]\(\)]  
                  |$
             )  
     )

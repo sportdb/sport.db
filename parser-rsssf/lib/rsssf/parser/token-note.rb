@@ -6,8 +6,8 @@ class Parser
 ##  move to token-note(s) file !!!!
 ##
 
-NOTE_RE = %r{
-    \[
+NOTE_BASICS_RE = %r{
+    (?<note_open> \[ )
    (?<note>
      (?:  ##  starting with ___   PLUS requiring more text
        (?:
@@ -102,10 +102,35 @@ NOTE_RE = %r{
           [^\]]+?
          )?         ## slurp all to next ] - (use non-greedy) 
       )
-    )    # note capture    
-     \] 
+    )    # note capture  
+        
+     (?: 
+         (?<note_close> \] )
+         | $ ## note - allow open notes (that continue on next line) 
+      )  
 }ix
 
+
+NOTE_MORE_RE = %r{
+      (?<=[ ])  ## one (leading) space min. required
+       (?<note_cont>
+             [⮑…] |
+             \.{2,3}   ### .. or ...
+       )
+        [ ]*
+       (?<note>
+            [^\]]+?   ## non-greeedy
+          )  
+       (?: 
+         (?<note_close> \] )
+         | $ ## note - allow open notes (that continue on next line) 
+       )  
+}ix
+
+
+NOTE_RE  = Regexp.union(  NOTE_BASICS_RE, 
+                          NOTE_MORE_RE, 
+                         )
 
     
 end  #   class Parser    

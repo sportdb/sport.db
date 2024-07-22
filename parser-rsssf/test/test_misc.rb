@@ -9,7 +9,7 @@ require_relative 'helper'
 class TestMisc < Minitest::Test
 
   def test_misc
- misc =<<TXT
+ txt =<<TXT
         Athletic Club (Bilbao)
         USC Paloma (Hamburg)
         1/8 Finals
@@ -128,7 +128,7 @@ Argentina 1-1 Colombia           [3-2 pen]
 
 TXT
 
-lines = misc.split( "\n" )
+lines = txt.split( "\n" )
 pp lines
 
 
@@ -536,7 +536,7 @@ assert_equal exp, tree
 
 
   def test_misc_ii
-misc =<<TXT
+txt =<<TXT
 ## see  https://www.rsssf.org/tables/2022q.html 
 
 Group I
@@ -602,7 +602,7 @@ SV Austria Salzburg         2-0 FC Blau-Weiß Linz           [played in Vöcklab
 TXT
 
 
-lines = misc.split( "\n" )
+lines = txt.split( "\n" )
 pp lines
 
 

@@ -21,7 +21,7 @@ require_relative 'helper'
 class TestWorld < Minitest::Test
 
   def test_quali2022
-world =<<TXT
+txt =<<TXT
 # source @  https://www.rsssf.org/tables/2022q.html
 #
 
@@ -160,7 +160,7 @@ TXT
 
 
 
-lines = world.split( "\n" )
+lines = txt.split( "\n" )
 pp lines
 
 

@@ -183,6 +183,26 @@ def test_tokenize
                                                  [:minute, "73"]],
 
    "Cardoso 84" => [[:text, "Cardoso"], [:minute, "84"]],
+
+   ## try minutes first
+  ## deutschland/2010-11/cup.txt
+ ##  (18' Draxler, 22' Huntelaar, 42' Höwedes, 55' Jurado, 70' Huntelaar)
+ "   18' Draxler      " => [[:minute, "18'"], [:text, "Draxler"]],
+ "18' Draxler" => [[:minute, "18'"], [:text, "Draxler"]],
+ "   18 Draxler  " => [[:minute, "18"], [:text, "Draxler"]],
+ "18 Draxler"      => [[:minute, "18"], [:text, "Draxler"]],
+ " 18' Draxler, 22' Huntelaar, 42' Höwedes  " => 
+   [[:minute, "18'"],[:text, "Draxler"],[:","],
+    [:minute, "22'"],[:text, "Huntelaar"],[:","],
+    [:minute, "42'"],[:text, "Höwedes"]],
+ "18' Draxler, 22' Huntelaar, 42' Höwedes" => 
+   [[:minute, "18'"],[:text, "Draxler"],[:","],
+    [:minute, "22'"],[:text, "Huntelaar"],[:","],
+    [:minute, "42'"],[:text, "Höwedes"]],
+ "18 Draxler, 22 Huntelaar, 42 Höwedes" => 
+   [[:minute, "18"],[:text, "Draxler"],[:","],
+    [:minute, "22"],[:text, "Huntelaar"],[:","],
+    [:minute, "42"],[:text, "Höwedes"]],
   }
  
   ## note - wrap line in [] for "inside" mode!!!!

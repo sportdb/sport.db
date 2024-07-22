@@ -8,7 +8,7 @@ require_relative 'helper'
 class TestMx < Minitest::Test
 
   def test_playoffs
-mx =<<TXT
+txt =<<TXT
 
 # Playoffs
 #
@@ -73,7 +73,7 @@ Monterrey          1-2 Tigres
 
 TXT
 
-lines = mx.split( "\n" )
+lines = txt.split( "\n" )
 pp lines
 
 
@@ -154,7 +154,7 @@ exp = [
 
   def test_regular
 
-mx =<<TXT
+txt =<<TXT
 
 Round 1
 [Jul 21]
@@ -203,7 +203,7 @@ Santos             1-1 Tigres
 TXT
 
 
-lines = mx.split( "\n" )
+lines = txt.split( "\n" )
 pp lines
 
 

@@ -25,15 +25,22 @@ def errors?() @errors.size > 0; end
 
 
 
+def read( path, parse: false )
+     parse( read_text( path ), parse: parse,
+                               path:  path )
+end
+
 #########
 ## parse - false (default) - tokenize (only)
 ##       - true            - tokenize & parse                
-def read( path, parse: false )
+##
+## todo/fix - change path to file or such - why? why not?
+def parse( txt, parse: false, 
+                path: 'path/to/filename/here' )
   ## note: every (new) read call - resets errors list to empty
   @errors = []
 
-  nodes = SportDb::OutlineReader.read( path ) 
-
+  nodes = SportDb::OutlineReader.parse( txt ) 
 
   ##  process nodes
   h1         = nil
@@ -120,7 +127,7 @@ end  # each node
                ]
   end
 
-end  # read
+end  # parse
 end  # class Linter
 
 

@@ -8,7 +8,7 @@ require_relative 'helper'
 class TestBr < Minitest::Test
 
   def test_sample
-br =<<TXT
+txt =<<TXT
 
 ## source
 ##  - https://rsssf.github.io/
@@ -37,7 +37,7 @@ Coritiba        2-1 Atlético/MG
  [Deivid 53', Arthur 90'+1'; Diego Tardelli 51']
 TXT
 
-lines = br.split( "\n" )
+lines = txt.split( "\n" )
 pp lines
 
 

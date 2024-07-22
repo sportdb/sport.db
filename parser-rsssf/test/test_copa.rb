@@ -9,7 +9,7 @@ require_relative 'helper'
 class TestCopa < Minitest::Test
 
   def test_2021
-copa =<<TXT
+txt =<<TXT
 # source @  https://www.rsssf.org/tables/2021sa.html
 #
 
@@ -89,7 +89,7 @@ Jul 10 Brazil          0-1 Argentina                    Rio de Janeiro
 TXT
 
 
-lines = copa.split( "\n" )
+lines = txt.split( "\n" )
 pp lines
 
 

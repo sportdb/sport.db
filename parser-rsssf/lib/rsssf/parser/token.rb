@@ -38,10 +38,24 @@ RE = Regexp.union(  GROUP_RE, ROUND_RE, LEG_RE,
                      TEXT_RE )
 
 
+
+###  rename to dash or to ???
+####   used to add/allow hyphen/dash (-) in INSIDE_RE                       
+HYPHEN_RE = %r{   ## must be space before and after (or end of line)!!!
+                  ##  note - uses SYM capture 
+                    (?<sym>
+                      (?<=[ ])	# Positive lookbehind for space
+                         -
+                       (?=[ ]|$)   # positive lookahead for space 
+                    )
+                }ix
+
+
+
 ## "strict" text match mode inside brackets  
 ##  ]                     
 INSIDE_RE  = Regexp.union(  GOAL_OG_RE, GOAL_PEN_RE,
-                            BASICS_RE,
+                            BASICS_RE, HYPHEN_RE,
                             TEXT_STRICT_RE,
                             MINUTE_RE, 
                          )
@@ -131,11 +145,12 @@ def tokenize_with_errors( line, debug: false )
              when ';' then [:';']
              when '@' then [:'@']
              when '|' then [:'|']   
+             when '-' then [:'-']                
              when '[', '('
                if sym == @sym_open   
                  ## report error - already in inside mode!!!
                  ##  e.g. another [ in [] or ( in ()
-                 log( "warn - unexpected (opening) #{sym} in inside (goal) mode" )
+                 log( "warn - unexpected (opening) #{sym} in inside (goal) mode in line >#{line}<" )
                end
                nil
              when ']', ')'   ## allow [] AND () for inside mode
@@ -202,7 +217,7 @@ def tokenize_with_errors( line, debug: false )
                @sym_close =  SYM_CLOSE[sym]
                nil
              when ']', ')'
-               log( "warn - unexpected (closing) #{sym} in standard mode" )   
+               log( "warn - unexpected (closing) #{sym} in standard mode in line >#{line}<" )   
                ## already in standard mode/ctx
                ##  report warn/error - why? why not?
                nil

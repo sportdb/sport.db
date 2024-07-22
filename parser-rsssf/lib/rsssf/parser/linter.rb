@@ -35,6 +35,10 @@ end
 ##       - true            - tokenize & parse                
 ##
 ## todo/fix - change path to file or such - why? why not?
+
+
+MAX_ERRORS = 13   ## stop after 13 errors
+
 def parse( txt, parse: false, 
                 path: 'path/to/filename/here' )
   ## note: every (new) read call - resets errors list to empty
@@ -84,6 +88,15 @@ def parse( txt, parse: false,
       ## add to "global" error list
       ##   make a triplet tuple (file / msg / line text)
             error_messages.each do |msg|
+
+                ## note - stop processing / adding errors if hit MAX ERRORS 
+                if @errors.size >= MAX_ERRORS
+                   @errors << [ path,
+                                 "stop after #{MAX_ERRORS} errors", 
+                                 '']
+                   return
+                end
+
                 @errors << [ path,
                              msg,
                              line

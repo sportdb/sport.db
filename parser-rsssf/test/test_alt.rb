@@ -11,6 +11,67 @@ require_relative 'helper'
 class TestAlt < Minitest::Test
 
   def test_de
+    ## goals with score_at
+    txt =<<TXT
+
+    [0-1 Zkitischwili 45, 1-1 Löbe 90, 2-1 Cartus 102, 2-2 Mohamad 111]
+           
+    [1-0 Andrei 08, 1-1 Rydlewicz 24, 1-2 Prica 85, 2-2 Bella 88,
+       2-3 Arvidsson 102]
+
+      [0-1 Küntzel 1, 0-2 Buckley 2, 0-3 Buckley 39, 1-3 Schlösser 66,
+   2-3 Federico 68, 2-4 Vata 71]
+
+   [1-0 Klimowicz 31, 2-0, 3-0 Brdaric 42, 50]
+
+     [0-1 Neuendorf 86]
+
+     [0-1 Cacau 54, 0-2 Hleb 57]
+TXT
+
+lines = txt.split( "\n" )
+pp lines
+
+
+tree = []
+lines.each do |line|
+   ## skip blank and comment lines
+   next if line.strip.empty? || line.strip.start_with?('#')
+
+   tree <<  parse( line )
+end
+
+pp tree
+
+exp = [
+  [[:score_at, "0-1"],[:player, "Zkitischwili"],[:minute, "45"],[:","],
+   [:score_at, "1-1"],[:player, "Löbe"],[:minute, "90"],[:","],
+   [:score_at, "2-1"],[:player, "Cartus"],[:minute, "102"],[:","],
+   [:score_at, "2-2"],[:player, "Mohamad"],[:minute, "111"]],
+  [[:score_at, "1-0"],[:player, "Andrei"],[:minute, "08"],[:","],
+   [:score_at, "1-1"],[:player, "Rydlewicz"],[:minute, "24"],[:","],
+   [:score_at, "1-2"],[:player, "Prica"],[:minute, "85"],[:","],
+   [:score_at, "2-2"],[:player, "Bella"],[:minute, "88"],[:","]],
+  [[:score_at, "2-3"], [:player, "Arvidsson"], [:minute, "102"]],
+  [[:score_at, "0-1"],[:player, "Küntzel"],[:minute, "1"],[:","],
+   [:score_at, "0-2"],[:player, "Buckley"],[:minute, "2"],[:","],
+   [:score_at, "0-3"],[:player, "Buckley"],[:minute, "39"],[:","],
+   [:score_at, "1-3"],[:player, "Schlösser"],[:minute, "66"],[:","]],
+  [[:score_at, "2-3"],[:player, "Federico"],[:minute, "68"],[:","],
+   [:score_at, "2-4"],[:player, "Vata"],[:minute, "71"]],
+  [[:score_at, "1-0"],[:player, "Klimowicz"],[:minute, "31"],[:","],
+   [:score_at, "2-0"],[:","],
+   [:score_at, "3-0"],[:player, "Brdaric"],[:minute, "42"],[:","],[:minute, "50"]],
+  [[:score_at, "0-1"], [:player, "Neuendorf"], [:minute, "86"]],
+  [[:score_at, "0-1"],[:player, "Cacau"],[:minute, "54"],[:","],
+   [:score_at, "0-2"],[:player, "Hleb"],[:minute, "57"]]]
+
+   assert_equal exp, tree  
+  end
+
+
+
+  def test_de_ii
     txt =<<TXT
 
 K'lautern 2-4 S'brücken (Reitgaßl 2, Neumann 56 - Schönwälder 17, 57,
@@ -27,6 +88,9 @@ Bayern 4-3 M'gladbach (Olk 15, Brenninger 39, G.Müller 63, 68 - Heynckes
 1. FC Köln 2-4 Bayern (Magnusson 19, Pott 68 - G.Müller 3, 89, Ohlhauser
                           32, 62)
 
+TSV 1860 3-0 Karlsruher (Küppers 2, 60, Bründl 84)
+
+Karlsruher 1-1 1. FC Köln (C.Müller 87 - Löhr 35)
 
 TXT
     
@@ -72,14 +136,22 @@ exp = [
   [[:minute, "31"], [:","], 
    [:player, "Wimmer"], [:minute, "41"], [:","], 
    [:player, "Laumen"], [:minute, "47"]],
-   
+
   [[:team, "1. FC Köln"],[:score, "2-4"],[:team, "Bayern"],
    [:player, "Magnusson"],[:minute, "19"],[:","],
    [:player, "Pott"],[:minute, "68"],[:-],
    [:player, "G.Müller"],[:minute, "3"],[:","],[:minute, "89"],[:","],
    [:text, "Ohlhauser"]],   ### note - minute in next line!!! (keep text here (NOT player??)
-  [[:minute, "32"], [:","], [:minute, "62"]]
-]
+  [[:minute, "32"], [:","], [:minute, "62"]],
+
+  [[:team, "TSV 1860"],[:score, "3-0"],[:team, "Karlsruher"],
+   [:player, "Küppers"],[:minute, "2"],[:","],[:minute, "60"],[:","],
+   [:player, "Bründl"],[:minute, "84"]],
+
+  [[:team, "Karlsruher"],[:score, "1-1"],[:team, "1. FC Köln"],
+   [:player, "C.Müller"],[:minute, "87"],[:-],
+   [:player, "Löhr"],[:minute, "35"]],
+]  
 
 assert_equal exp, tree
 end

@@ -97,6 +97,9 @@ NOTE_BASICS_RE = %r{
               |
               replay
               ## e.g.  [replay]
+              |
+              verified
+              ## e.g.  [verified 2:0 wo.]
           )
         ([ ]    ## note - optional text
           [^\]]+?

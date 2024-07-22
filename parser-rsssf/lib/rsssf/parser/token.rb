@@ -50,11 +50,24 @@ HYPHEN_RE = %r{   ## must be space before and after (or end of line)!!!
                     )
                 }ix
 
+### rename to ??  use SCORE_AT for now - why? why not?
+##   add support for score at/score points/markers                
+###  e.g.  [1-0 Andrei 08, 1-1 Rydlewicz 24, 1-2 Prica 85, 2-2 Bella 88,
+##      2-3 Arvidsson 102]
+
+SCORE_AT_RE = %r{ (?<score_at> 
+                    \b
+                    \d{1,2}-\d{1,2}
+                    \b
+                  )  
+              }ix
+
 
 
 ## "strict" text match mode inside brackets  
 ##  ]                     
-INSIDE_RE  = Regexp.union(  GOAL_OG_RE, GOAL_PEN_RE,
+INSIDE_RE  = Regexp.union(  SCORE_AT_RE,
+                            GOAL_OG_RE, GOAL_PEN_RE,
                             BASICS_RE, HYPHEN_RE,
                             TEXT_STRICT_RE,
                             MINUTE_RE, 
@@ -133,7 +146,9 @@ def tokenize_with_errors( line, debug: false )
              [:text, m[:text]]   ## keep pos - why? why not?
            elsif m[:minute]
              [:minute, m[:minute]]
-           elsif m[:og]
+           elsif m[:score_at]
+             [:score_at, m[:score_at]]
+          elsif m[:og]
              [:og, m[:og]]    ## for typed drop - string version/variants
            elsif m[:pen]
              [:pen, m[:pen]]

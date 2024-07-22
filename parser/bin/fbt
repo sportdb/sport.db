@@ -3,7 +3,9 @@
 ## tip: to test run:
 ##   ruby -I ./lib bin/fbt
 
+## our own code
 require 'sportdb/parser'
+
 
 
 require 'optparse'

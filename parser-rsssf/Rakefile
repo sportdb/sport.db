@@ -1,9 +1,10 @@
 require 'hoe'
+require './lib/rsssf/parser/version.rb'
 
 
 Hoe.spec 'rsssf-parser' do
 
-  self.version = '0.0.1'
+  self.version = SportDb::Module::RsssfParser::VERSION
 
   self.summary = "rsssf-parser - football match schedule & results parser (& tokenizer) for the rsssf format / conventions"
   self.description = summary

@@ -1,3 +1,7 @@
+## pulls in   
+require 'cocos' 
+require 'season/formats'  # e.g. Season() support machinery
+
 
 
 ####
@@ -11,7 +15,7 @@
 ##  text - change text to name - why? why not?
 
 
-
+require_relative 'parser/version'
 require_relative 'parser/token-score'
 require_relative 'parser/token-date'
 require_relative 'parser/token-text'
@@ -40,6 +44,5 @@ end  # module SportDb
 =end
 
 
-
-
+puts SportDb::Module::Parser.banner    # say hello
 

@@ -1,9 +1,10 @@
 require 'hoe'
+require './lib/sportdb/parser/version.rb'
 
 
 Hoe.spec 'sportdb-parser' do
 
-  self.version = '0.0.1'
+  self.version = SportDb::Module::Parser::VERSION
 
   self.summary = "sportdb-parser - football.txt match parser (& tokenizer)"
   self.description = summary
@@ -19,7 +20,10 @@ Hoe.spec 'sportdb-parser' do
 
   self.licenses = ['Public Domain']
 
-  self.extra_deps = []
+  self.extra_deps = [
+       ['cocos'],
+       ['season-formats'],
+  ]
 
   self.spec_extras = {
     required_ruby_version: '>= 2.2.2'

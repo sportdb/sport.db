@@ -25,9 +25,9 @@ class ClubIndexer < Indexer
     # pp recs
     # clubs.add_wiki( recs )
   end
- 
 
- 
+
+
 
   def strip_wiki( name )     # todo/check: rename to strip_wikipedia_en - why? why not?
     ##  change/rename to strip_wiki_qualifier or such - why? why not?
@@ -98,20 +98,20 @@ class ClubIndexer < Indexer
       club = Model::Club.create!(
                     key:        rec.key,
                     name:       rec.name,
-                    alt_names:  rec.alt_names.empty? ? nil : rec.alt_names.join( ' | ' ), 
-              ##      code:       rec.code, 
+                    alt_names:  rec.alt_names.empty? ? nil : rec.alt_names.join( ' | ' ),
+              ##      code:       rec.code,
                     city:       rec.city,
                     district:   rec.district,
-                    address:     rec.address, 
+                    address:     rec.address,
                     country_key:  rec.country.key,
-                    geos:       rec.geos.nil? || rec.geos.empty?  ? nil : rec.geos.join( ' › ' )                                                  
+                    geos:       rec.geos.nil? || rec.geos.empty?  ? nil : rec.geos.join( ' › ' )
       )
       ##  was:
       ##   country_key:  country( rec.country ).key,
       ##   - no lookup anymore, assume key is ok
-  
+
       pp club
-   
+
       ## step 2) add all names (canonical name + alt names + alt names (auto))
       names = [rec.name] + rec.alt_names
       ## check "hand-typed" names for year (auto-add)
@@ -126,13 +126,19 @@ class ClubIndexer < Indexer
 
       names += more_names
 
+      ###
+      ##  note - use unaccent for unique name check!!!
+      ##
       ## check for duplicates - simple check for now - fix/improve
       ## todo/fix: (auto)remove duplicates - why? why not?
       count      = names.size
-      count_uniq = names.uniq.size
+      ## note - unaccent before uniq here!!!
+      count_uniq = names.map {|name| unaccent(name) }.uniq.size
       if count != count_uniq
         puts "** !!! ERROR !!! - #{count-count_uniq} duplicate name(s):"
         pp names
+        puts
+        pp names.map {|name| unaccent(name) }
         pp rec
         exit 1
       end
@@ -142,20 +148,20 @@ class ClubIndexer < Indexer
       ##    for now only add
       ##      - 1st unaccent
       ##      - 2nd downcase
-      ##      - 3rd 
+      ##      - 3rd
       norms = names.map do |name|
         ## check lang codes e.g. [en], [fr], etc.
         ##  todo/check/fix:  move strip_lang up in the chain - check for duplicates (e.g. only lang code marker different etc.) - why? why not?
         norm = strip_lang( name )
-        norm = unaccent( norm ).downcase     
+        norm = unaccent( norm ).downcase
         norm = normalize( norm )
         norm
       end
 
-      norms = norms.uniq  
+      norms = norms.uniq
 
       norms.each do |norm|
-          Model::ClubName.create!( key:    club.key, 
+          Model::ClubName.create!( key:    club.key,
                                    name:    norm )
       end
     end

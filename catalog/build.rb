@@ -11,6 +11,12 @@ require 'sportdb/indexers'
 require 'fifa'
 
 
+if File.exist?( './catalog.db' )
+    File.delete( './catalog.db' )
+    sleep( 2 )  ## wait 2 secs before reopen file
+end
+
+
 CatalogDb.open( './catalog.db' )
 
 
@@ -47,7 +53,7 @@ CatalogDb::GroundIndexer.read( '../../../openfootball/clubs' )
 
 
 CatalogDb::ClubIndexer.read( '../../../openfootball/clubs' )
-           
+
 
 
 puts "bye"

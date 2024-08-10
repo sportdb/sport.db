@@ -11,8 +11,8 @@ require 'minitest/autorun'
 
 ##
 # notes:
-#   ß    to ss - yes 
-#   ö    to o  - yes, (NOT to oe) 
+#   ß    to ss - yes
+#   ö    to o  - yes, (NOT to oe)
 #
 #
 #  todo/check: use our own downcase method - why? why not?
@@ -30,7 +30,7 @@ DATA = parse_data( <<TXT )
   USC Kirchberg/W.,     usc kirchberg/w.
 
   FK Viktoria Žižkov,   fk viktoria zizkov
-  Viktoria Plzeň,       viktoria plzen 
+  Viktoria Plzeň,       viktoria plzen
 
   LB Châteauroux,       lb chateauroux
   Nîmes Olympique,      nimes olympique
@@ -64,8 +64,37 @@ DATA = parse_data( <<TXT )
 
   ## player names
   Đorđe Petrović,      dorde petrovic
-  Ľubomír Tupta,       lubomir tupta    
+  Ľubomír Tupta,       lubomir tupta
+
+
+  ## more club names
+  # Constel·lació,       constel·lacio   ## interpunct - remove via normalize - why? why not?
+  Constellació,        constellacio
+
+  # more clubs names - romanian
+  FC Petrolul Ploiești,   fc petrolul ploiesti
+  Ploiești,               ploiesti
+  Petrolul Ploiesti,      petrolul ploiesti
+  Petrolul Ploiești,      petrolul ploiesti
+
+  Steaua București,       steaua bucuresti
+  Steaua Bucuresti,       steaua bucuresti
+  București,              bucuresti
+  FC Steaua Bucuresti,    fc steaua bucuresti
+  FC Steaua București,    fc steaua bucuresti
+
+  Ceahlăul Piatra Neamț,   ceahlaul piatra neamt
+  Ceahlaul Piatra Neamt,   ceahlaul piatra neamt
+  Piatra Neamț,            piatra neamt
+
+  FC Botoșani,    fc botosani
+  FC Botoşani,    fc botosani
+  Botoşani,       botosani
+
+  Oţelul,    otelul
+  Oțelul,    otelul
 TXT
+
 
 pp DATA
 puts "  #{DATA.size} names(s)"

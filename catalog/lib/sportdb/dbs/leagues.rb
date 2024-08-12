@@ -5,22 +5,22 @@ module CatalogDb
 
       ### reuse connect here !!!
       ###   why? why not?
-  
+
       config = {
           adapter:  'sqlite3',
           database: path,
       }
-  
+
       ActiveRecord::Base.establish_connection( config )
       # ActiveRecord::Base.logger = Logger.new( STDOUT )
-  
+
         ## try to speed up sqlite
         ##   see http://www.sqlite.org/pragma.html
         con = ActiveRecord::Base.connection
         con.execute( 'PRAGMA synchronous=OFF;' )
         con.execute( 'PRAGMA journal_mode=OFF;' )
         con.execute( 'PRAGMA temp_store=MEMORY;' )
-  
+
       ##########################
       ### auto_migrate
       unless Model::League.table_exists?
@@ -32,7 +32,7 @@ module CatalogDb
 class CreateDb
 
 
-  
+
 def up
   ActiveRecord::Schema.define do
 
@@ -44,14 +44,14 @@ create_table :leagues, id: false do |t|
   t.string :alt_names
 
   t.boolean :intl,  null: false, default: false
-  t.boolean :clubs, null: false, default: true  
+  t.boolean :clubs, null: false, default: true
 
   t.string :country_key
 
   # t.timestamps  ## (auto)add - why? why not?
   #  do NOT use; save space for now - auto-generated db is read-only
 end
-add_index :leagues, :key, unique: true  
+add_index :leagues, :key, unique: true
 
 
 create_table :league_names, id: false do |t|
@@ -61,7 +61,20 @@ create_table :league_names, id: false do |t|
   # t.timestamps  ## (auto)add - why? why not?
   #  do NOT use; save space for now - auto-generated db is read-only
 end
-add_index :league_names, [:key,:name], unique: true  
+add_index :league_names, [:key,:name], unique: true
+
+
+## note - allow sames codes for leagues - why? why not?
+##              e.g. en.1 (for premier league and first division??)
+create_table :league_codes, id: false do |t|
+  t.string :key,  null: false   ## was: ## t.references :country
+  t.string :code, null: false     ## normalized (lowercase)
+
+  # t.timestamps  ## (auto)add - why? why not?
+end
+add_index :league_codes, [:key,:code], unique: true
+
+
 
 =begin
 ################
@@ -71,7 +84,7 @@ create_table :league_seasons, id: false do |t|
   t.string :league_key, null: false    # use t.references :leagues?
   t.string :season,     null: false
 
-  ## add (optinal) stage   
+  ## add (optinal) stage
   ## for apertura/clausura-style (opening/closing) "double" seasons
   ##   and make "recursive"
   ##      that is, league_season record may have sub records
@@ -79,16 +92,16 @@ create_table :league_seasons, id: false do |t|
 
   # counts
   t.integer :teams       # e.g. 24 teams
-  t.integer :matches     
+  t.integer :matches
   t.integer :goals
   # dates
-  t.date       :start_date  
-  t.date       :end_date    
+  t.date       :start_date
+  t.date       :end_date
 
   #  do NOT use; save space for now - auto-generated db is read-only
   # t.timestamps  ## (auto)add - why? why not?
 end
-add_index :league_seasons, [:league_key,:season], unique: true  
+add_index :league_seasons, [:league_key,:season], unique: true
 =end
 
 

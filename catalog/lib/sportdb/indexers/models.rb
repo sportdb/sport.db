@@ -1,6 +1,6 @@
 module CatalogDb
 module Model
-  
+
 ##
 # setup for multiple database connection support
 class CatalogRecord <   ActiveRecord::Base  # ApplicationRecord
@@ -8,9 +8,9 @@ class CatalogRecord <   ActiveRecord::Base  # ApplicationRecord
 end
 
 class Country < CatalogRecord
-    has_many :country_codes, foreign_key: 'key', primary_key: 'key' 
+    has_many :country_codes, foreign_key: 'key', primary_key: 'key'
     has_many :country_names, foreign_key: 'key', primary_key: 'key'
-    
+
     has_many :clubs,   foreign_key: 'country_key', primary_key: 'key'
     has_many :leagues, foreign_key: 'country_key', primary_key: 'key'
     has_many :grounds, foreign_key: 'country_key', primary_key: 'key'
@@ -69,10 +69,16 @@ class League < CatalogRecord
     belongs_to  :country, foreign_key: 'country_key', primary_key: 'key'
 
     has_many :league_names, foreign_key: 'key',        primary_key: 'key'
+    has_many :league_codes, foreign_key: 'key',        primary_key: 'key'
+
     has_many :event_infos,  foreign_key: 'league_key', primary_key: 'key'
 end
 
 class LeagueName  < CatalogRecord
+    belongs_to :league, foreign_key: 'key', primary_key: 'key'
+end
+
+class LeagueCode  < CatalogRecord
     belongs_to :league, foreign_key: 'key', primary_key: 'key'
 end
 
@@ -96,4 +102,3 @@ end
 
 end # module Model
 end # module CatalogDb
-  

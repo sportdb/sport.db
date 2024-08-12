@@ -6,7 +6,7 @@
 # -                 .find_by_name
 
 
-class WorldSearch    
+class WorldSearch
 
 class CitySearch
   def initialize( service ) @service = service; end
@@ -14,46 +14,45 @@ class CitySearch
   ###################
   ## core required delegates  - use delegate generator - why? why not?
   def match_by( name: )
-    @service.match_by( name: name ) 
+    @service.match_by( name: name )
   end
 end  # class CitySearch
 
 
 class CountrySearch
   def initialize( service ) @service = service; end
-  
+
     ###################
     ## core required delegates  - use delegate generator - why? why not?
-    def find_by_code( code ) 
+    def find_by_code( code )
       puts "!! DEPRECATED - use CountrySearch#find_by( code: )"
-      @service.find_by_code( code ) 
+      @service.find_by_code( code )
     end
-    def find_by_name( name ) 
+    def find_by_name( name )
       puts "!! DEPRECATED - use CountrySearch#find_by( name: )"
       @service.find_by_name( name )
     end
 
     def find_by( code: nil, name: nil )
-      ## todo/fix upstream - change to find_by( code:, name:, ) too               
+      ## todo/fix upstream - change to find_by( code:, name:, ) too
       if code && name.nil?
         @service.find_by_code( code )
       elsif name && code.nil?
         @service.find_by_name( name )
       else
-        raise ArgumentError, "CountrySearch#find_by - one (and only one arg) required - code: or name:"  
+        raise ArgumentError, "CountrySearch#find_by - one (and only one arg) required - code: or name:"
       end
     end
+
+    def find( q )
+      @service.find_by_name_or_code( q )
+    end
+    alias_method :[], :find    ### keep shortcut - why? why not?
 
 
     ###############
     ### more deriv support functions / helpers
-    def find( q )
-       country = find_by( code: q )
-       country = find_by( name: q )  if country.nil?     ## try lookup / find by (normalized) name
-       country
-    end
-    alias_method :[], :find    ### keep shortcut - why? why not?
-         
+
  ###
  ##   split/parse country line
  ##
@@ -145,9 +144,9 @@ end  # class WorldSearch
 
 
 class DummyCountrySearch
-    def find_by_code( code ) 
+    def find_by_code( code )
         puts "[WARN] no world search configured; cannot find country by code"
-        nil 
+        nil
     end
     def find_by_name( name )
         puts "[WARN] no world search configured; cannot find country by name"

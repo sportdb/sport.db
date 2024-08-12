@@ -45,6 +45,8 @@ CatalogDb::NationalTeamIndexer.add( teams )
 CatalogDb::LeagueIndexer.read( '../../../openfootball/leagues' )
 
 ## change EventIndexer to LeagueSeason(s)Indexer  - why? why not?
+
+
 CatalogDb::EventIndexer.read( '../../../openfootball/leagues' )
 
 

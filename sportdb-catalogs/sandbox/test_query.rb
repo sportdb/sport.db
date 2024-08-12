@@ -17,6 +17,9 @@ EventInfo    = CatalogDb::Metal::EventInfo
 Ground       = CatalogDb::Metal::Ground
 
 
+SportDb::Import.config.catalog_path = "../catalog/catalog.db"
+
+
 pp Country.count
 pp League.count
 pp NationalTeam.count
@@ -49,17 +52,34 @@ pp Country.find_by_name( 'austria' )
 pp Country.find_by_name( 'deutschland' )
 pp Country.find_by_name( 'iran' )
 
+pp Country.find_by_name_or_code( 'austria' )
+pp Country.find_by_name_or_code( 'at' )
+
+
 # pp Country[ 'austria' ]  deprecate .[] - why? why not?
 # pp Country[ 'at' ]       deprecate .[] - why? why not?
 
 
-pp League.match_by( name: 'English Premier League' )
-pp League.match_by( name: 'Euro' )
-pp League.match_by( name: 'Premier League',
-                    country: 'eng' )
-pp League.match_by( name: 'Premier League',
-                    country: 'England' )
- 
+pp League.match_by_name( 'English Premier League' )
+pp League.match_by_name( 'Euro' )
+pp League.match_by_name( 'Premier League',
+                           country: 'eng' )
+pp League.match_by_name( 'Premier League',
+                           country: 'England' )
+
+## try new by code machinery
+pp League.match_by_code( 'ENG PL' )
+pp League.match_by_code( 'ENG PL', country: 'England' )
+pp League.match_by_code( 'ENG 1' )
+pp League.match_by_code( 'AT 1' )
+pp League.match_by_code( 'EURO' )
+
+pp League.match_by_name_or_code( 'AT 1' )
+pp League.match_by_name_or_code( 'ENG PL' )
+pp League.match_by_name_or_code( 'Premier League' )
+pp League.match_by_name_or_code( 'Premier League',
+                                  country: 'eng' )
+
 
 
 pp Club.match_by( name: 'Preussen Münster' )

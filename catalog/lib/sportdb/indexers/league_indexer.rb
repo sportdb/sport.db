@@ -39,9 +39,25 @@ IS_CODE_RE           = %r{^
       ## puts "adding:"
       ## pp rec
       ### step 1) add canonical name
-      league = Model::League.create!( key:        rec.key,
+
+      ##
+      # note - use auto key and reuse "old" key as code
+      ##  e.g. eng_premierleague etc.
+      ##       at_bundesliga
+      ##       worldcup
+      ## note: auto-generate key "on-the-fly" if missing for now - why? why not?
+      ## note: quick hack - auto-generate key, that is, remove all non-ascii chars and downcase
+      auto_key  = unaccent( rec.name ).downcase.gsub( /[^0-9a-z]/, '' )
+      auto_key  = rec.country.key + '_' + auto_key     unless rec.intl?
+
+      ## reorg - add "old" key to alt names
+      alt_names = rec.alt_names + [rec.key]
+
+      ## todo/check: use/add a codes attribute/column - why? why not?
+
+      league = Model::League.create!( key:        auto_key,
                                       name:       rec.name,
-                                      alt_names:  rec.alt_names.empty? ? nil : rec.alt_names.join( ' | ' ),
+                                      alt_names:  alt_names.join( ' | ' ),
                                       clubs:      rec.clubs?,
                                       intl:       rec.intl?,
                                       country_key:  rec.country ? rec.country.key : nil

@@ -12,13 +12,20 @@ require 'sportdb/indexers'
 ## set catalog db (required for world search api)
 SportDb::Import.config.catalog_path = './catalog.db'
 
+## dump table stats and test country lookup
+CatalogDb::Metal.tables
 
-COUNTRIES = SportDb::Import.world.countries
+Country = Sports::Country
 
-pp COUNTRIES.find_by_code( 'a' )
-pp COUNTRIES.find_by_code( 'at' )
+pp Country.find_by( code: 'a' )
+pp Country.find_by( code: 'at' )
 
 
+
+if File.exist?( './leagues.db' )
+    File.delete( './leagues.db' )
+    sleep( 2 )  ## wait 2 secs before reopen file
+end
 
 
 CatalogDb::LeagueDb.open( './leagues.db' )

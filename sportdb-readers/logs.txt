@@ -1,8 +1,0 @@
-!! WARN - parse error - skipping >A:< @6,8 in line >Group A:<
-!! WARN - parse error - skipping >B:< @6,8 in line >Group B:<
-!! WARN - parse error - skipping >C:< @6,8 in line >Group C:<
-!! WARN - parse error - skipping >D:< @6,8 in line >Group D:<
-!! WARN - parse error - skipping >E:< @6,8 in line >Group E:<
-!! WARN - parse error - skipping >F:< @6,8 in line >Group F:<
-!! WARN - parse error - skipping >C:< @6,8 in line >Group C:<
-!! WARN - parse error - skipping >H:< @6,8 in line >Group H:<

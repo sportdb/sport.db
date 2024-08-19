@@ -37,3 +37,9 @@ build/
 ###
 # exclude test dbs too e.g. sport.db etc.
 *.db
+
+
+###
+# add logs
+logs.txt
+errors.txt

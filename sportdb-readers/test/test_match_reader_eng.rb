@@ -53,7 +53,8 @@ Matchday 2
   Manchester City          1-1  Everton FC
 TXT
 
-    SportDb::MatchReader.parse( txt )
+    ## SportDb::MatchReader.parse( txt )
+    SportDb::MatchReaderV2.parse( txt )
   end  # method test_read_eng
 
   def test_read_eng_2012_13
@@ -82,7 +83,8 @@ Matchday 20
   QPR              0-3  Liverpool
 TXT
 
-    SportDb::MatchReader.parse( txt )
+    ## SportDb::MatchReader.parse( txt )
+    SportDb::MatchReaderV2.parse( txt )
 
     puts SportDb::Model::Match.count
   end

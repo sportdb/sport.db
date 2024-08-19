@@ -252,20 +252,20 @@ module SportDb
                person_rec = Model::Person.find_by(
                                            name: goal.name )
                if person_rec.nil?
-                 person_rec = Model::Person.create!( 
+                 person_rec = Model::Person.create!(
                                 key:  goal.name.downcase.gsub( /[^a-z]/, '' ),
                                 name: goal.name
                  )
                end
                Model::Goal.create!(
                   match_id:  rec.id,
-                  person_id: person_rec.id, 
-                  team_id:   goal.team == 1 ? rec.team1.id 
+                  person_id: person_rec.id,
+                  team_id:   goal.team == 1 ? rec.team1.id
                                             : rec.team2.id,
                   minute:    goal.minute,
-                  offset:    goal.offset,
-                  penalty:   goal.penalty,
-                  owngoal:   goal.owngoal,               
+                  offset:    goal.offset || 0,
+                  penalty:   goal.penalty || false,
+                  owngoal:   goal.owngoal || false,
                )
             end
           end

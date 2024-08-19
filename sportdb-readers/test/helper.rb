@@ -6,6 +6,8 @@ $LOAD_PATH.unshift( File.expand_path( '../sportdb-models/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-sync/lib' ))
 $LOAD_PATH.unshift( './lib' )
 
+$LOAD_PATH.unshift( File.expand_path( '../parser/lib' ))
+
 
 ## minitest setup
 require 'minitest/autorun'

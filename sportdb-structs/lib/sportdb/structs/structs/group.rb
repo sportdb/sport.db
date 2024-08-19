@@ -11,14 +11,14 @@ class Group
         @teams  = teams
       end
 
-      def pretty_print( printer ) 
-        ## todo/check - how to display/format key - use () or not - why? why not? 
+      def pretty_print( printer )
+        ## todo/check - how to display/format key - use () or not - why? why not?
         buf = String.new
         buf << "<Group: #{@key ? @key : '?'} - #{@name} "
         buf << @teams.pretty_print_inspect
         buf << ">"
-    
-        printer.text( buf ) 
+
+        printer.text( buf )
       end
 end  # class Group
 end # module Sports

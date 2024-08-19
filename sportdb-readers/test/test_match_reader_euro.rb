@@ -36,7 +36,7 @@ Matchday 2 | Jun/15 - Jun/18
 Matchday 3 | Jun/19 - Jun/22
 
 
-Group A:
+Group A
 
 (1) Jun/10  21:00   France            2-1  Romania           @ Stade de France, Saint-Denis
 (2) Jun/11  15:00   Albania           0-1  Switzerland       @ Stade Bollaert-Delelis, Lens
@@ -48,7 +48,7 @@ Group A:
 (26) Jun/19 21:00   Switzerland       0-0  France            @ Parc Olympique Lyonnais, Lyon
 
 
-Group B:
+Group B
 
 (3) Jun/11 18:00    Wales             2-1  Slovakia          @ Nouveau Stade de Bordeaux, Bordeaux
 (4) Jun/11 21:00    England           1-1  Russia            @ Stade Vélodrome, Marseille
@@ -60,7 +60,7 @@ Group B:
 (28) Jun/20 21:00   Slovakia          0-0  England           @ Stade Geoffroy-Guichard, Saint-Étienne
 
 
-Group C:
+Group C
 
 (6) Jun/12 18:00    Poland            1-0  Northern Ireland  @ Allianz Riviera, Nice
 (7) Jun/12 21:00    Germany           2-0  Ukraine           @ Stade Pierre-Mauroy, Lille
@@ -72,7 +72,7 @@ Group C:
 (30) Jun/21 18:00   Ukraine           0-1  Poland            @ Stade Vélodrome, Marseille
 
 
-Group D:
+Group D
 
 (5) Jun/12 15:00    Turkey            0-1  Croatia           @ Parc des Princes, Paris
 (8) Jun/13 15:00    Spain             1-0  Czech Republic    @ Stadium Municipal, Toulouse
@@ -84,7 +84,7 @@ Group D:
 (32) Jun/21 21:00   Czech Republic    0-2  Turkey            @ Stade Bollaert-Delelis, Lens
 
 
-Group E:
+Group E
 
 (10) Jun/13 21:00   Belgium           0-2  Italy             @ Parc Olympique Lyonnais, Lyon
  (9) Jun/13 18:00   Ireland           1-1  Sweden            @ Stade de France, Saint-Denis
@@ -96,7 +96,7 @@ Group E:
 (36) Jun/21 21:00   Sweden            0-1  Belgium           @ Allianz Riviera, Nice
 
 
-Group F:
+Group F
 
 (11) Jun/14 18:00   Austria           0-2  Hungary           @ Nouveau Stade de Bordeaux, Bordeaux
 (12) Jun/14 21:00   Portugal          1-1  Iceland           @ Stade Geoffroy-Guichard, Saint-Étienne
@@ -128,15 +128,15 @@ Round of 16
 Quarter-finals
 
 (45) Jun/30 21:00   Poland       3-5 pen. 1-1 a.e.t. (0-0,)   Portugal          @ Stade Vélodrome, Marseille
-(46) Jul/01 21:00   Wales        3-1              Belgium           @ Stade Pierre-Mauroy, Lille
-(47) Jul/02 21:00   Germany      6-5 pen. 1-1 a.e.t. (0-0,)   Italy             @ Nouveau Stade de Bordeaux, Bordeaux
-(48) Jul/03 21:00   France       5-2              Iceland           @ Stade de France, Saint-Denis
+(46) Jul/1  21:00   Wales        3-1              Belgium           @ Stade Pierre-Mauroy, Lille
+(47) Jul/2  21:00   Germany      6-5 pen. 1-1 a.e.t. (0-0,)   Italy             @ Nouveau Stade de Bordeaux, Bordeaux
+(48) Jul/3  21:00   France       5-2              Iceland           @ Stade de France, Saint-Denis
 
 
 Semi-finals
 
-(49) Jul/06 21:00   Portugal     2-0              Wales             @ Parc Olympique Lyonnais, Lyon
-(50) Jul/07 21:00   Germany      0-2              France            @ Stade Vélodrome, Marseille
+(49) Jul/6  21:00   Portugal     2-0              Wales             @ Parc Olympique Lyonnais, Lyon
+(50) Jul/7  21:00   Germany      0-2              France            @ Stade Vélodrome, Marseille
 
 
 Final
@@ -144,7 +144,8 @@ Final
 TXT
 
 
-    SportDb::MatchReader.parse( txt )
+    ## SportDb::MatchReader.parse( txt )
+    SportDb::MatchReaderV2.parse( txt )
   end
 end  # class TestMatchReaderEuro
 

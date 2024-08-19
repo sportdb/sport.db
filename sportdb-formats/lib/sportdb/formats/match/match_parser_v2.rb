@@ -164,7 +164,8 @@ class MatchParserV2    ## simple match parser for team match schedules
         ### todo: add pipe (|) marker (required)
         parse_group_def( nodes )
 
-       elsif node_type == :player
+       elsif node_type == :player  ||
+             node_type == :none  # e.g  [[:none], [:";"], [:player, "Xhaka"],...]
         ## note - for now goals line MUST start with player!!
         parse_goals( nodes )
        else
@@ -450,6 +451,14 @@ class MatchParserV2    ## simple match parser for team match schedules
       break  if nodes.empty?
 
       node_type = nodes[0][0]
+
+      ## Kane 39', 62', 67'
+      ## consume/eat-up (optional?) commas
+      if node_type == :','
+        nodes.shift
+        node_type = nodes[0][0]
+      end
+
       break  if node_type != :minute
     end
 
@@ -475,6 +484,8 @@ class MatchParserV2    ## simple match parser for team match schedules
         elsif node_type == :';'   ## team separator
             nodes.shift  # eat-up
             @last_goals = 2
+        elsif node_type == :none
+            nodes.shift  # eat-up
         else
           puts "!! PARSE ERROR - unexpected node type in goals;; got #{node_type}:"
           pp nodes
@@ -587,7 +598,10 @@ class GoalStruct
 ##    status = find_status!( line )   ## todo/check: allow match status also in geo part (e.g. after @) - why? why not?
 
         elsif node_type == :'@' ||
+              node_type == :',' ||
               node_type == :geo
+         ## e.g.
+         ## [:"@"], [:geo, "Stade de France"], [:","], [:geo, "Saint-Denis"]]
             more << node[1]  if node_type == :geo
         else
             puts "!! PARSE ERROR - unexpected node type #{node_type} in match line; got:"

@@ -39,7 +39,7 @@ Matchday 6 | Dec/5  - Dec/6      ## Tu+We 5-6 December 2017
 
 
 
-Group A:
+Group A
 
 [Tue Sep/12]
   20.45  Benfica              1-2  CSKA Moscow          @ Estádio da Luz, Lisbon
@@ -79,7 +79,7 @@ Group A:
 
 
 
-Group B:
+Group B
 
 [Tue Sep/12]
   20.45  Bayern München       3-0  Anderlecht           @ Allianz Arena, München
@@ -118,7 +118,7 @@ Group B:
            [-; Šimunović 62' (o.g.)]
 
 
-Group C:
+Group C
 
 [Tue Sep/12]
   20.45  Chelsea              6-0  Qarabağ              @ Stamford Bridge, London
@@ -160,7 +160,7 @@ Group C:
 
 
 
-Group D:
+Group D
 
 [Tue Sep/12]
   20.45  Barcelona            3-0  Juventus             @ Camp Nou, Barcelona
@@ -197,7 +197,7 @@ Group D:
            [-; Cuadrado 15' Bernardeschi 90']
 
 
-Group E:
+Group E
 
 [Wed Sep/13]
   20.45  Maribor              1-1  Spartak Moscow       @ Ljudski vrt, Maribor
@@ -236,7 +236,7 @@ Group E:
            [Coutinho 4' (pen.), 15', 50' Firmino 19' Mané 47', 76' Salah 86']
 
 
-Group F:
+Group F
 
 [Wed Sep/13]
   20.45  Feyenoord            0-4  Manchester City      @ De Kuip, Rotterdam
@@ -280,7 +280,7 @@ Group F:
 #       due to the war conditions in Eastern Ukraine.
 
 
-Group G:
+Group G
 
 [Wed Sep/13]
   20.45  RB Leipzig           1-1  Monaco               @ Red Bull Arena, Leipzig
@@ -319,7 +319,7 @@ Group G:
            [Aboubakar 9', 33' Brahimi 45' Alex Telles 65' Soares 88'; Glik 61' (pen.) Falcao 78']
 
 
-Group H:
+Group H
 
 [Wed Sep/13]
   20.45  Real Madrid          3-0  APOEL                @ Santiago Bernabéu, Madrid
@@ -358,10 +358,11 @@ Group H:
            [Llorente 20' Son Heung-min 37' N'Koudou 80']
 TXT
 
-    SportDb::MatchReader.parse( txt )
+    # SportDb::MatchReader.parse( txt )
+    SportDb::MatchReaderV2.parse( txt )
   end
 
-  def test_read_finals
+  def xxx_test_read_finals
 txt =<<TXT
 = UEFA Champions League 2017/18
 

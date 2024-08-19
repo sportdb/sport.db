@@ -1,6 +1,6 @@
 
 
-module SportDb 
+module SportDb
 class Parser
 
 
@@ -15,7 +15,7 @@ TIME_RE = %r{
                  (?: :|\.|h )
               (?<minute>\d{2})
               \b
-    )     
+    )
 }ix
 
 
@@ -28,7 +28,7 @@ TIME_RE = %r{
 # (CEST/UTC+2)  - central european summer time  - daylight saving time (DST).
 # (EET/UTC+1)  - eastern european time
 # (EEST/UTC+2)  - eastern european summer time  - daylight saving time (DST).
-# 
+#
 # UTC+3
 # UTC+4
 # UTC+0
@@ -45,7 +45,7 @@ TIME_RE = %r{
 
 TIMEZONE_RE = %r{
    ## e.g. (UTC-2) or (CEST/UTC-2) etc.
-   (?<timezone>  
+   (?<timezone>
       \(
            ## optional "local" timezone name eg. BRT or CEST etc.
            (?:  [a-z]+
@@ -63,28 +63,28 @@ TIMEZONE_RE = %r{
 
 BASICS_RE = %r{
     ## e.g. (51) or (1) etc.  - limit digits of number???
-    (?<num> \(  (?<value>\d+) \) )    
+    (?<num> \(  (?<value>\d+) \) )
        |
-    (?<vs>   
-       (?<=[ ])	# Positive lookbehind for space	
-       (?: 
+    (?<vs>
+       (?<=[ ])	# Positive lookbehind for space
+       (?:
           vs\.?|   ## allow optional dot (eg. vs. v.)
           v\.?|
           -
        )   # not bigger match first e.g. vs than v etc.
        (?=[ ])   # positive lookahead for space
-    ) 
-       | 
+    )
+       |
     (?<none>
-       (?<=[ \[]|^)	 # Positive lookbehind for space or [	
+       (?<=[ \[]|^)	 # Positive lookbehind for space or [
            -
         (?=[ ]*;)   # positive lookahead for space
     )
        |
     (?<spaces> [ ]{2,}) |
-    (?<space>  [ ]) 
+    (?<space>  [ ])
         |
-    (?<sym>[;,@|\[\]]) 
+    (?<sym>[;,@|\[\]])
 }ix
 
 
@@ -94,13 +94,13 @@ MINUTE_RE = %r{
            (?<value>\d{1,3})      ## constrain numbers to 0 to 999!!!
         (?: \+
             (?<value2>\d{1,3})
-        )? 	
+        )?
         '     ## must have minute marker!!!!
      )
 }ix
 
 
-##  (match) status 
+##  (match) status
 ##    note: english usage - cancelled (in UK), canceled (in US)
 ##
 ##  add more variants - why? why not?
@@ -115,30 +115,30 @@ STATUS_RE = %r{
                |
             postponed
                |
-            awarded|awd\. 
+            awarded|awd\.
                |
-            replay     
+            replay
          )
    (?=[ \]]|$)
      )}ix
 
 ## todo/check:  remove loakahead assertion here - why require space?
-## note: \b works only after non-alphanum  
-##          to make it work with awd. (dot) "custom" lookahead neeeded 
+## note: \b works only after non-alphanum
+##          to make it work with awd. (dot) "custom" lookahead neeeded
 
 
 ##   goal types
-# (pen.) or (pen) or (p.) or (p)  
+# (pen.) or (pen) or (p.) or (p)
 ## (o.g.) or (og)
 GOAL_PEN_RE = %r{
-   (?<pen> \(  
-           (?:pen|p)\.? 
+   (?<pen> \(
+           (?:pen|p)\.?
            \)
     )
 }ix
 GOAL_OG_RE = %r{
-   (?<og> \(  
-          (?:og|o\.g\.) 
+   (?<og> \(
+          (?:og|o\.g\.)
           \)
    )
 }ix
@@ -158,11 +158,11 @@ RE = Regexp.union(   STATUS_RE,
 
 
 def log( msg )
-   ## append msg to ./logs.txt  
+   ## append msg to ./logs.txt
    ##     use ./errors.txt - why? why not?
    File.open( './logs.txt', 'a:utf-8' ) do |f|
      f.write( msg )
-     f.write( "\n" ) 
+     f.write( "\n" )
    end
 end
 
@@ -176,7 +176,7 @@ def tokenize_with_errors( line, typed: false,
   puts ">#{line}<"    if debug
 
   pos = 0
-  ## track last offsets - to report error on no match 
+  ## track last offsets - to report error on no match
   ##   or no match in end of string
   offsets = [0,0]
   m = nil
@@ -184,7 +184,7 @@ def tokenize_with_errors( line, typed: false,
   while m = RE.match( line, pos )
     if debug
       pp m
-      puts "pos: #{pos}"  
+      puts "pos: #{pos}"
     end
     offsets = [m.begin(0), m.end(0)]
 
@@ -213,10 +213,10 @@ def tokenize_with_errors( line, typed: false,
         elsif m[:spaces]
            ## skip spaces
            nil
-        elsif m[:text] 
+        elsif m[:text]
           [:text, m[:text]]   ## keep pos - why? why not?
         elsif m[:status]   ## (match) status e.g. cancelled, awarded, etc.
-          [:status, m[:status]]   
+          [:status, m[:status]]
         elsif m[:time]
           if typed
               ## unify to iso-format
@@ -230,7 +230,7 @@ def tokenize_with_errors( line, typed: false,
               if (hour >= 0 && hour <= 24) &&
                  (minute >=0 && minute <= 59)
                ## note - for debugging keep (pass along) "literal" time
-               ##   might use/add support for am/pm later                
+               ##   might use/add support for am/pm later
                [:time, m[:time], {h:hour,m:minute}]
               else
                  raise ArgumentError, "parse error - time >#{m[:time]}< out-of-range"
@@ -241,54 +241,68 @@ def tokenize_with_errors( line, typed: false,
         elsif m[:date]
           if typed
             date = {}
-=begin            
+=begin
             ((?<day_name>#{DAY_NAMES})
             [ ]
-       )?    
+       )?
        (?<month_name>#{MONTH_NAMES})
            (?: \/|[ ] )
        (?<day>\d{1,2})
        ## optional year
        (  [ ]
           (?<year>\d{4})
-       )?   
+       )?
 =end
  ## map month names
  ## note - allow any/upcase JULY/JUL etc. thus ALWAYS downcase for lookup
-            date[:y] = m[:year].to_i(10)  if m[:year]       
+            date[:y] = m[:year].to_i(10)  if m[:year]
             date[:m] = MONTH_MAP[ m[:month_name].downcase ]   if m[:month_name]
             date[:d]  = m[:day].to_i(10)   if m[:day]
             date[:wday] = DAY_MAP[ m[:day_name].downcase ]   if m[:day_name]
-            ## note - for debugging keep (pass along) "literal" date                
-            [:date, m[:date], date]        
+            ## note - for debugging keep (pass along) "literal" date
+            [:date, m[:date], date]
           else
             [:date, m[:date]]
           end
         elsif m[:timezone]
           [:timezone, m[:timezone]]
         elsif m[:duration]
-          [:duration, m[:duration]]
+          if typed
+            duration = { start: {}, end: {}}
+            duration[:start][:y] = m[:year1].to_i(10)  if m[:year1]
+            duration[:start][:m] = MONTH_MAP[ m[:month_name1].downcase ]   if m[:month_name1]
+            duration[:start][:d]  = m[:day1].to_i(10)   if m[:day1]
+            duration[:start][:wday] = DAY_MAP[ m[:day_name1].downcase ]   if m[:day_name1]
+            duration[:end][:y] = m[:year2].to_i(10)  if m[:year2]
+            duration[:end][:m] = MONTH_MAP[ m[:month_name2].downcase ]   if m[:month_name2]
+            duration[:end][:d]  = m[:day2].to_i(10)   if m[:day2]
+            duration[:end][:wday] = DAY_MAP[ m[:day_name2].downcase ]   if m[:day_name2]
+            ## note - for debugging keep (pass along) "literal" duration
+            [:duration, m[:duration], duration]
+          else
+            [:duration, m[:duration]]
+          end
         elsif m[:num]
           if typed
               ## note -  strip enclosing () and convert to integer
              [:num, m[:value].to_i(10)]
-          else 
+          else
              [:num, m[:num]]
           end
         elsif m[:score]
           if typed
               score = {}
               ## check for pen
-              score[:p] = [m[:p1].to_i(10), 
+              score[:p] = [m[:p1].to_i(10),
                            m[:p2].to_i(10)]  if m[:p1] && m[:p2]
-              score[:et] = [m[:et1].to_i(10), 
+              score[:et] = [m[:et1].to_i(10),
                             m[:et2].to_i(10)]  if m[:et1] && m[:et2]
-              score[:ft] = [m[:ft1].to_i(10), 
+              score[:ft] = [m[:ft1].to_i(10),
                             m[:ft2].to_i(10)]  if m[:ft1] && m[:ft2]
-              score[:ht] = [m[:ht1].to_i(10), 
+              score[:ht] = [m[:ht1].to_i(10),
                             m[:ht2].to_i(10)]  if m[:ht1] && m[:ht2]
 
-            ## note - for debugging keep (pass along) "literal" score                
+            ## note - for debugging keep (pass along) "literal" score
             [:score, m[:score], score]
           else
             [:score, m[:score]]
@@ -298,7 +312,7 @@ def tokenize_with_errors( line, typed: false,
               minute = {}
               minute[:m]      = m[:value].to_i(10)
               minute[:offset] = m[:value2].to_i(10)   if m[:value2]
-             ## note - for debugging keep (pass along) "literal" minute                
+             ## note - for debugging keep (pass along) "literal" minute
              [:minute, m[:minute], minute]
           else
              [:minute, m[:minute]]
@@ -318,16 +332,16 @@ def tokenize_with_errors( line, typed: false,
           when ',' then [:',']
           when ';' then [:';']
           when '@' then [:'@']
-          when '|' then [:'|']   
+          when '|' then [:'|']
           else
             nil  ## ignore others (e.g. brackets [])
           end
         else
-          ## report error 
+          ## report error
           nil
         end
 
-    tokens << t    if t    
+    tokens << t    if t
 
     if debug
       print ">"
@@ -346,7 +360,7 @@ def tokenize_with_errors( line, typed: false,
   end
 
 
-  [tokens,errors] 
+  [tokens,errors]
 end
 
 
@@ -360,5 +374,4 @@ end
 
 
 end  # class Parser
-end # module SportDb 
-  
+end # module SportDb

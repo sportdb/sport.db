@@ -31,7 +31,7 @@ module Import
 class Configuration
   ## note: add more configs (open class), see sportdb-structs for original config!!!
 
-  ## add 
+  ## add
   def world()        @world ||= WorldSearch.new( countries: DummyCountrySearch.new ); end
   def world=(world)  @world = world; end
 
@@ -77,7 +77,7 @@ module SportDb
 
     Player       = ::Sports::Player
 
-    
+
     class Team
       ## add convenience lookup helper / method for name by season for now
       ##   use clubs history - for now kept separate from struct - why? why not?
@@ -98,6 +98,7 @@ require_relative 'formats/goals'
 require_relative 'formats/match/mapper'
 require_relative 'formats/match/mapper_teams'
 require_relative 'formats/match/match_parser'
+require_relative 'formats/match/match_parser_v2'
 require_relative 'formats/match/match_parser_auto_conf'
 require_relative 'formats/match/conf_parser'
 
@@ -174,6 +175,11 @@ end   # module SportDb
 
 require_relative 'formats/ground/ground_reader'
 
+
+
+
+### add new parser machinery !!!
+require 'sportdb/parser'
 
 
 puts SportDb::Module::Formats.banner   # say hello

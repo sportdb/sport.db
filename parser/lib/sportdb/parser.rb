@@ -1,5 +1,5 @@
-## pulls in   
-require 'cocos' 
+## pulls in
+require 'cocos'
 require 'season/formats'  # e.g. Season() support machinery
 
 
@@ -36,7 +36,7 @@ require_relative 'parser/opts'
 =begin
 module SportDb
    def self.parser() @@parser ||= Parser.new; end
-   def self.parse( ... ) 
+   def self.parse( ... )
    end
    def self.tokenize( ... )
    end

@@ -3,9 +3,10 @@
 #     ruby -I ./lib -I ./test test/test_clubs.rb
 
 
-require 'helper'
+require_relative 'helper'
 
-class TestClubs < MiniTest::Test
+
+class TestClubs < Minitest::Test
 
   Club = Sports::Club
 

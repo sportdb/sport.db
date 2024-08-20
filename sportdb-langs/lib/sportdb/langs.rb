@@ -1,6 +1,3 @@
-# encoding: utf-8
-
-
 ## 3rd party libs/gems
 require 'logutils'     ## note: requires (stdlibs) pp, yaml, etc.
 

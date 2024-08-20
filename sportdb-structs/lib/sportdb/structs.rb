@@ -1,39 +1,29 @@
 ## 3rd party gems
 require 'alphabets'       # downcase_i18n, unaccent, variants, ...
-require 'date/formats'    # DateFormats.parse, find!, ...
 require 'season/formats'  # Season.parse, ...
 require 'score/formats'
-require 'csvreader'
-
-
-def read_csv( path, sep:             nil,
-                    symbolize_names: nil )
-  opts = {}
-  opts[:sep]               = sep         if sep
-  opts[:header_converters] = :symbol     if symbolize_names
-
-  CsvHash.read( path, **opts )
-end
-
-def parse_csv( txt, sep:             nil,
-                    symbolize_names: nil )
-  opts = {}
-  opts[:sep]               = sep         if sep
-  opts[:header_converters] = :symbol     if symbolize_names
-
-  CsvHash.parse( txt, **opts )
-end
 
 
 
-## more sportdb libs/gems
-require 'sportdb/langs'
+require 'logutils'     ## note: requires (stdlibs) pp, yaml, etc.
 
 
-## todo/fix: move shortcut up to sportdb/langs!!!
+## note -  add cocos (code commons)
+##
+##  pulls in read_csv & parse_csv etc.
+require 'cocos'
+
+
+
+
+
 module SportDb
-  Logging = LogUtils::Logging     ## logging machinery shortcut; use LogUtils for now
+  ## logging machinery shortcut; use LogUtils for now
+  Logging = LogUtils::Logging
 end
+
+
+
 
 ## let's put test configuration in its own namespace / module
 module SportDb
@@ -48,38 +38,35 @@ module SportDb
 end   # module SportDb
 
 
-## todo/check: move up config to langs too - why? why not?
-
-
 
 
 ###
 # our own code
-require 'sportdb/structs/version' # let version always go first
-require 'sportdb/structs/config'  # let "global" config "framework" go next - why? why not?
+require_relative 'structs/version' # let version always go first
+require_relative 'structs/config'  # let "global" config "framework" go next - why? why not?
 
 
-require 'sportdb/structs/name_helper'
+require_relative 'structs/name_helper'
 
-require 'sportdb/structs/structs/country'
-require 'sportdb/structs/structs/league'
-require 'sportdb/structs/structs/team'
-require 'sportdb/structs/structs/round'
-require 'sportdb/structs/structs/group'
-require 'sportdb/structs/structs/goal'
-require 'sportdb/structs/structs/match'
-require 'sportdb/structs/structs/matchlist'
-require 'sportdb/structs/structs/standings'
-require 'sportdb/structs/structs/team_usage'
+require_relative 'structs/structs/country'
+require_relative 'structs/structs/league'
+require_relative 'structs/structs/team'
+require_relative 'structs/structs/round'
+require_relative 'structs/structs/group'
+require_relative 'structs/structs/goal'
+require_relative 'structs/structs/match'
+require_relative 'structs/structs/matchlist'
+require_relative 'structs/structs/standings'
+require_relative 'structs/structs/team_usage'
 
-require 'sportdb/structs/structs/ground'
+require_relative 'structs/structs/ground'
 
 
 ##
 ## todo/fix  - move "inline" player to structs/player file !!!!
 
 module Sports
-### note - own classes for National(Squad)Player and 
+### note - own classes for National(Squad)Player and
 ##                        Club(Squad)Player and such in use
 
 class Player
@@ -94,7 +81,7 @@ class Player
 
 def initialize( name:,
                 pos:    nil,
-                nat:    nil,  
+                nat:    nil,
                 height: nil,
                 birthdate: nil,
                 birthplace: nil )
@@ -112,9 +99,9 @@ end  # module Sports
 
 
 
-require 'sportdb/structs/match_status_parser'
-require 'sportdb/structs/match_parser_csv'
-require 'sportdb/structs/goal_parser_csv'
+require_relative 'structs/match_status_parser'
+require_relative 'structs/match_parser_csv'
+require_relative 'structs/goal_parser_csv'
 
 
 
@@ -142,14 +129,17 @@ end # module Sports
 
 
 
+
+
+
 module Sports
   ## lets you use
   ##   Sports.configure do |config|
-  ##      config.lang = 'it'
+  ##      config.catalog_path = './catalog.db'
   ##   end
 
   ## note: just forward to SportDb::Import configuration!!!!!
-  ##  keep Sports module / namespace "clean"
+  ##  keep Sports module / namespace "clean" - why? why not?
   ##    that is, only include data structures (e.g. Match,League,etc) for now - why? why not?
   def self.configure()  yield( config ); end
   def self.config()  SportDb::Import.config; end
@@ -167,5 +157,4 @@ Football = Sports
 
 
 puts SportDb::Module::Structs.banner   # say hello
-
 

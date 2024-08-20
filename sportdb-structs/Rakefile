@@ -21,11 +21,10 @@ Hoe.spec 'sportdb-structs' do
 
   self.extra_deps = [
     ['alphabets',      '>= 1.0.0'],
-    ['date-formats',   '>= 1.0.2'],
     ['score-formats',  '>= 0.1.1'],
     ['season-formats', '>= 0.0.1'],
-    ['csvreader',      '>= 1.2.4'],
-    ['sportdb-langs',  '>= 0.1.1'],
+    ['cocos',          '>= 0.4.0'],
+    ['logutils',       '>= 0.6.1'],
   ]
 
   self.spec_extras = {

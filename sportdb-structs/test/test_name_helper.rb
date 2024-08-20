@@ -3,10 +3,10 @@
 #     ruby -I ./lib -I ./test test/test_name_helper.rb
 
 
-require 'helper'
+require_relative 'helper'
 
 
-class TestNameHelper < MiniTest::Test
+class TestNameHelper < Minitest::Test
 
   include SportDb::NameHelper
 

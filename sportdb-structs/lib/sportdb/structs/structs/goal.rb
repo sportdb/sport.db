@@ -244,7 +244,8 @@ class Goal  ### nested (non-freestanding) inside match (match is parent)
 
   def pretty_print( printer )
     buf = String.new
-    buf << "<Goal: #{@score1}-#{@score2} #{@name} #{@minute}"
+    buf << "<Goal: #{@score1 ? @score1 : '?'}-#{@score2 ? @score2 : '?'}"
+    buf << " #{@player} #{@minute}"
     buf << "+#{@offset}"    if @offset && @offset > 0
     buf << "'"
     buf << " (o.g.)"  if @owngoal

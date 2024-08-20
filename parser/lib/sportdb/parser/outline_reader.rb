@@ -1,8 +1,4 @@
 
-###
-## todo/fix -  move to sportdb-parser - why? why not? !!!!!!
-##
-
 
 module SportDb
 
@@ -10,7 +6,7 @@ class OutlineReader
 
   def self.debug=(value) @@debug = value; end
   def self.debug?() @@debug ||= false; end
-  def debug?()  self.class.debug?; end   
+  def debug?()  self.class.debug?; end
 
 
 

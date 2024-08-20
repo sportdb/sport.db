@@ -1,8 +1,11 @@
 ## 3rd party gems
 require 'sportdb/structs'
+require 'sportdb/parser'
 
 
 require 'zip'     ## todo/check: if zip is alreay included in a required module
+
+
 
 
 
@@ -11,15 +14,10 @@ require 'zip'     ## todo/check: if zip is alreay included in a required module
 # our own code
 require_relative 'formats/version' # let version always go first
 
-require_relative 'formats/outline_reader'
 require_relative 'formats/datafile'
 require_relative 'formats/datafile_package'
 require_relative 'formats/package'
 
-
-require_relative 'formats/parser_helper'
-
-require_relative 'formats/lines_reader'
 
 
 ###
@@ -170,11 +168,6 @@ end   # module SportDb
 
 require_relative 'formats/ground/ground_reader'
 
-
-
-
-### add new parser machinery !!!
-require 'sportdb/parser'
 
 
 puts SportDb::Module::Formats.banner   # say hello

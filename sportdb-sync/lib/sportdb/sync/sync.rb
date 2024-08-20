@@ -250,11 +250,11 @@ module SportDb
           if goals && goals.size > 0
             goals.each do |goal|
                person_rec = Model::Person.find_by(
-                                           name: goal.name )
+                                           name: goal.player )
                if person_rec.nil?
                  person_rec = Model::Person.create!(
-                                key:  goal.name.downcase.gsub( /[^a-z]/, '' ),
-                                name: goal.name
+                                key:  goal.player.downcase.gsub( /[^a-z]/, '' ),
+                                name: goal.player
                  )
                end
                Model::Goal.create!(
@@ -264,8 +264,8 @@ module SportDb
                                             : rec.team2.id,
                   minute:    goal.minute,
                   offset:    goal.offset || 0,
-                  penalty:   goal.penalty || false,
-                  owngoal:   goal.owngoal || false,
+                  penalty:   goal.penalty,
+                  owngoal:   goal.owngoal,
                )
             end
           end

@@ -79,6 +79,7 @@ class MatchParser    ## simple match parser for team match schedules
     @last_round   = nil
     @last_group   = nil
 
+    ## last_goals - rename to (longer) @last_team_goals or such - why? why not?
     @last_goals   = 1    ## toggle between 1|2  - hacky (quick & dirty) support for multi-line goals, fix soon!
 
     @teams   = Hash.new(0)   ## track counts (only) for now for (interal) team stats - why? why not?
@@ -514,23 +515,25 @@ class GoalStruct
 
     goals = []
     goals1.each do |rec|
-      goal = GoalStruct.new
-      goal.name    = rec[:name]
-      goal.team    = 1
-      goal.minute  = rec[:minute]
-      goal.offset  = rec[:offset]   if rec[:offset]
-      goal.penalty = rec[:pen]      if rec[:pen]
-      goal.owngoal = rec[:og]       if rec[:og]
+      goal = Import::Goal.new(
+                  player: rec[:name],
+                  team:   1,
+                  minute:  rec[:minute],
+                  offset:  rec[:offset],
+                  penalty: rec[:pen] || false, #  note: pass along/use false NOT nil
+                  owngoal: rec[:og] || false
+                )
       goals << goal
     end
     goals2.each do |rec|
-      goal = GoalStruct.new
-      goal.name    = rec[:name]
-      goal.team    = 2
-      goal.minute  = rec[:minute]
-      goal.offset  = rec[:offset]   if rec[:offset]
-      goal.penalty = rec[:pen]      if rec[:pen]
-      goal.owngoal = rec[:og]       if rec[:og]
+      goal = Import::Goal.new(
+                  player: rec[:name],
+                  team:   2,
+                  minute:  rec[:minute],
+                  offset:  rec[:offset],
+                  penalty: rec[:pen] || false, #  note: pass along/use false NOT nil
+                  owngoal: rec[:og] || false
+                )
       goals << goal
     end
 

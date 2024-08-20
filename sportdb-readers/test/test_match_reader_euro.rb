@@ -144,8 +144,7 @@ Final
 TXT
 
 
-    ## SportDb::MatchReader.parse( txt )
-    SportDb::MatchReaderV2.parse( txt )
+    SportDb::MatchReader.parse( txt )
   end
 end  # class TestMatchReaderEuro
 

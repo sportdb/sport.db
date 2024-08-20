@@ -7,7 +7,6 @@ require 'sportdb/sync'
 require_relative 'readers/version' # let version always go first
 require_relative 'readers/conf_reader'
 require_relative 'readers/match_reader'
-require_relative 'readers/match_reader_v2'
 require_relative 'readers/package'
 
 

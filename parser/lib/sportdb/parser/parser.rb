@@ -1,24 +1,24 @@
-module SportDb 
+module SportDb
 class Parser
-    
+
 
 ## transforms
 ##
 ##  Netherlands  1-2 (1-1)   England
-##   =>  text => team  
-##       score|vs  
+##   =>  text => team
+##       score|vs
 ##       text => team
 
 
 ## token iter/find better name
 ##  e.g. TokenBuffer/Scanner or such ??
-class Tokens  
+class Tokens
     def initialize( tokens )
         @tokens = tokens
         @pos = 0
     end
 
-    def pos()  @pos; end  
+    def pos()  @pos; end
     def eos?() @pos >= @tokens.size; end
 
 
@@ -47,17 +47,17 @@ class Tokens
     ## return token type  (e.g. :text, :num, etc.)
     def cur()           peek(0); end
     ## return content (assumed to be text)
-    def text(offset=0)  
+    def text(offset=0)
         ## raise error - why? why not?
         ##   return nil?
         if peek( offset ) != :text
             raise ArgumentError, "text(#{offset}) - token not a text type"
         end
-        @tokens[@pos+offset][1]  
+        @tokens[@pos+offset][1]
     end
 
 
-    def peek(offset=1)  
+    def peek(offset=1)
         ## return nil if eos
         if @pos+offset >= @tokens.size
             nil
@@ -66,7 +66,7 @@ class Tokens
         end
     end
 
-    ## note - returns complete token 
+    ## note - returns complete token
     def next
        # if @pos >= @tokens.size
        #     raise ArgumentError, "end of array - #{@pos} >= #{@tokens.size}"
@@ -81,7 +81,7 @@ class Tokens
     def collect( &blk )
         tokens = []
         loop do
-          break if eos?  
+          break if eos?
           tokens <<  if block_given?
                         blk.call( self.next )
                      else
@@ -106,7 +106,7 @@ def parse_with_errors( line, debug: false )
     errors += token_errors
 
 #############
-## pass 1 
+## pass 1
 ##   replace all texts with keyword matches (e.g. group, round, leg, etc.)
      tokens = tokens.map do |t|
                       if t[0] == :text
@@ -129,24 +129,40 @@ def parse_with_errors( line, debug: false )
     ## puts "tokens:"
     ## pp tokens
 
-## transform tokens into (parse tree/ast) nodes    
+## transform tokens into (parse tree/ast) nodes
     nodes = []
-    
+
     buf = Tokens.new( tokens )
     ## pp buf
 
 
-    loop do 
-          if buf.pos == 0   
-            ## check for 
-            ##    group def or round def 
-            if buf.match?( :round, :'|' )    ## assume round def (change round to round_def)
+    loop do
+          break if buf.eos?
+
+          ## simplify - remove separator for round + leg pair
+          ##     e.g.  Round of 16, 1st Leg
+          ##     allow Round of 16 - 1st Leg  too - why? why not?
+          if buf.match?( :round, [:',', :'|',
+                                    :'-',
+                                    :vs,   ### fix - change parser to issue :'-' only for (-) not :vs!!!
+                                    ], :leg )
+                    nodes << [:round, buf.next[1]]
+                    buf.next  ## swallow separator
+                    nodes << [:leg, buf.next[1]]
+                    next
+          end
+
+
+          if buf.pos == 0   ## MUST start line
+            ## check for
+            ##    group def or round def
+            if buf.match?( :round, :'|', [:date, :duration] )    ## assume round def (change round to round_def)
                       nodes << [:round_def, buf.next[1]]
                       buf.next ## swallow pipe
                       nodes += buf.collect
                       break
             end
-            if buf.match?( :group, :'|' )    ## assume group def (change group to group_def)
+            if buf.match?( :group, :'|', :text )    ## assume group def (change group to group_def)
                       nodes << [:group_def, buf.next[1]]
                       buf.next ## swallow pipe
                       ## change all text to team
@@ -154,11 +170,15 @@ def parse_with_errors( line, debug: false )
                                 t[0] == :text ? [:team, t[1]] : t
                                }
                       break
-            end  
+            end
           end
 
 
-          if buf.match?( :text, [:score, :vs], :text )
+          if buf.match?( :text, :'-', :text )  ## hacky? convert "generic" :- to :vs
+             nodes << [:team, buf.next[1]]     ##    keep this rule/option - why? why not?
+             nodes << [:vs]
+             nodes << [:team, buf.next[1]]
+          elsif buf.match?( :text, [:score, :vs], :text )
              nodes << [:team, buf.next[1]]
              nodes << buf.next
              nodes << [:team, buf.next[1]]
@@ -170,14 +190,12 @@ def parse_with_errors( line, debug: false )
                ##   only change text to geo
               nodes += buf.collect  { |t|
                            t[0] == :text ? [:geo, t[1]] : t
-                            } 
+                            }
               break
           else
              ## pass through
              nodes << buf.next
           end
-
-          break if buf.eos?
     end
 
     [nodes,errors]
@@ -192,5 +210,5 @@ end
 
 
 end #  class Parser
-end  # module SportDb 
-    
+end  # module SportDb
+

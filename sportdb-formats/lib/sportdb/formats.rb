@@ -94,12 +94,7 @@ end     # module SportDb
 require_relative 'formats/goals'
 
 
-
-require_relative 'formats/match/mapper'
-require_relative 'formats/match/mapper_teams'
 require_relative 'formats/match/match_parser'
-require_relative 'formats/match/match_parser_v2'
-require_relative 'formats/match/match_parser_auto_conf'
 require_relative 'formats/match/conf_parser'
 
 

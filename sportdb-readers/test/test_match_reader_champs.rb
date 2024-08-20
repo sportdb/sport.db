@@ -358,15 +358,15 @@ Group H
            [Llorente 20' Son Heung-min 37' N'Koudou 80']
 TXT
 
-    # SportDb::MatchReader.parse( txt )
-    SportDb::MatchReaderV2.parse( txt )
+    SportDb::MatchReader.parse( txt )
   end
 
-  def xxx_test_read_finals
+
+  def test_read_finals
 txt =<<TXT
 = UEFA Champions League 2017/18
 
-Round of 16 - 1st Leg
+Round of 16, 1st Leg
 
 [Tue Feb/13]
   20.45  Juventus             2-2  Tottenham Hotspur    @ Juventus Stadium, Turin
@@ -387,12 +387,12 @@ Round of 16 - 1st Leg
            [Willian 62'; Messi 75']
 
 [Wed Feb/21]
-  20.45  Shakhtar Donetsk     2-1  Roma                 @ Metalist Stadium, Kharkiv  [†]
+  20.45  Shakhtar Donetsk     2-1  Roma                 @ Metalist Stadium, Kharkiv    ## [†]
            [Ferreyra 52' Fred 71'; Ünder 41']
   20.45  Sevilla              0-0  Manchester United    @ Ramón Sánchez Pizjuán, Seville
 
 
-Round of 16 - 2nd Leg
+Round of 16, 2nd Leg
 
 [Tue Mar/6]
   20.45  Liverpool            0-0  Porto                @ Anfield, Liverpool
@@ -418,7 +418,7 @@ Round of 16 - 2nd Leg
            [Vágner Love 59'; Thiago 18' Gönül 46' (o.g.) Wagner 84']
 
 
-Quarter-finals - 1st Leg
+Quarter-finals,  1st Leg
 
 [Tue Apr/3]
   20.45  Juventus             0-3  Real Madrid          @ Juventus Stadium, Turin
@@ -433,7 +433,7 @@ Quarter-finals - 1st Leg
            [Salah 12' Oxlade-Chamberlain 21' Mané 31']
 
 
-Quarter-finals - 2nd Leg
+Quarter-finals, 2nd Leg
 
 [Tue Apr/10]
   20.45  Roma                 3-0  Barcelona            @ Stadio Olimpico, Rome
@@ -448,7 +448,7 @@ Quarter-finals - 2nd Leg
 
 
 
-Semi-finals - 1st Leg
+Semi-finals, 1st Leg
 
 [Tue Apr/24]
   20.45  Liverpool            5-2  Roma                 @ Anfield, Liverpool
@@ -459,7 +459,7 @@ Semi-finals - 1st Leg
            [Kimmich 28'; Marcelo 44' Asensio 57']
 
 
-Semi-finals - 2nd Leg
+Semi-finals, 2nd Leg
 
 [Tue May/1]
   20.45  Real Madrid          2-2  Bayern München       @ Santiago Bernabéu, Madrid

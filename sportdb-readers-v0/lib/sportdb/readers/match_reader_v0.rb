@@ -1,7 +1,7 @@
 
 module SportDb
 
-class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why? why not?
+class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? why not?
 
   def self.read( path, season: nil )   ## use - rename to read_file or from_file etc. - why? why not?
     txt = File.open( path, 'r:utf-8' ) {|f| f.read }
@@ -23,11 +23,36 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
     secs = LeagueOutlineReader.parse( @txt, season: season )
     pp secs
 
+
+    ###
+    ## todo/check/fix:  move to LeagueOutlineReader for (re)use - why? why not?
+    ##                    use sec[:lang] or something?
+    langs = {    ## map country keys to lang codes
+      'de' => 'de', ## de - Deutsch (German)
+      'at' => 'de',
+      'ch' => 'de',
+      'fr' => 'fr', ## fr - French
+      'it' => 'it', ## it - Italian
+      'es' => 'es', ## es - Español (Spanish)
+      'mx' => 'es',
+      'ar' => 'es', ## Argentina
+      'pt' => 'pt', ## pt -  Português (Portuguese)
+      'br' => 'pt',
+    }
+
     secs.each do |sec|   ## sec(tion)s
       season = sec[:season]
       league = sec[:league]
       stage  = sec[:stage]
       lines  = sec[:lines]
+
+      ## hack for now: switch lang
+      ## todo/fix: set lang for now depending on league country!!!
+      if league.intl?   ## todo/fix: add intl? to ActiveRecord league!!!
+        Import.config.lang = 'en'
+      else  ## assume national/domestic
+        Import.config.lang = langs[ league.country.key ] || 'en'
+      end
 
       ### check if event info availabe - use start_date;
       ##    otherwise we have to guess (use a "synthetic" start_date)
@@ -45,20 +70,13 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
               end
 
 
-      parser = MatchParserV2.new( lines,
-                                  start )   ## note: keep season start_at date for now (no need for more specific stage date need for now)
-
-      auto_conf_teams,  matches, rounds, groups = parser.parse
-
-      puts ">>> #{auto_conf_teams.size} teams:"
-      pp auto_conf_teams
-      puts ">>> #{matches.size} matches:"
-      pp matches
-      puts ">>> #{rounds.size} rounds:"
-      pp rounds
-      puts ">>> #{groups.size} groups:"
-      pp groups
-
+      ### todo/check: make sure team include teams from group def too!!!!!
+      ###
+      ###             note - only use teams and grounds for now
+      auto_conf_teams,
+      _rounds, _groups, _round_defs, _group_defs,
+      auto_conf_grounds,
+      _  = AutoConfParser.parse( lines, start: start )
 
 
       ## step 1: map/find teams
@@ -66,23 +84,14 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       ## note: loop over keys (holding the names); values hold the usage counter!! e.g. 'Arsenal' => 2, etc.
       mods = nil
       if league.clubs? && league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
-
-        ## quick hack - use "dynamic" keys for keys
-          uefa_el_q = catalog.leagues.match_by( code: 'uefa.el.quali' )[0]
-          uefa_cl_q = catalog.leagues.match_by( code: 'uefa.cl.quali' )[0]
-          uefa_cl   = catalog.leagues.match_by( code: 'uefa.cl' )[0]
-          uefa_el   = catalog.leagues.match_by( code: 'uefa.el' )[0]
-
-          pp [uefa_el_q, uefa_cl_q, uefa_cl, uefa_el]
-
                 ### quick hack mods for popular/known ambigious club names
                 ##    todo/fix: make more generic / reuseable!!!!
                 mods = {}
                 ## europa league uses same mods as champions league
-                mods[ uefa_el_q.key ] =
-                mods[ uefa_cl_q.key ] =
-                mods[ uefa_el.key ] =
-                mods[ uefa_cl.key ] = catalog.clubs.build_mods(
+                mods[ 'uefa.el.quali' ] =
+                mods[ 'uefa.cl.quali' ] =
+                mods[ 'uefa.el' ] =
+                mods[ 'uefa.cl' ] = catalog.clubs.build_mods(
                   { 'Liverpool | Liverpool FC' => 'Liverpool FC, ENG',
                     'Arsenal  | Arsenal FC'    => 'Arsenal FC, ENG',
                     'Barcelona'                => 'FC Barcelona, ESP',
@@ -93,51 +102,29 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
        # pp auto_conf_teams
 
 
- ## todo/fix
- ##  ** !!! ERROR - too many matches (2) for club >Barcelona<:
- ## [<Club: FC Barcelona (ESP)>, <Club: Barcelona Guayaquil (ECU)>]
-
-       puts "league:"
-       pp league
-
-       teams = catalog.teams.find_by!( name:   auto_conf_teams,
+       teams = catalog.teams.find_by!( name:   auto_conf_teams.keys,
                                        league: league,
                                        mods:   mods )
 
-       puts " [debug] teams:"
-       pp teams
-
+       # puts " [debug] teams:"
+       # pp teams
 
        ## build mapping - name => team struct record
-       team_mapping =  auto_conf_teams.zip( teams ).to_h
+       team_mapping =  auto_conf_teams.keys.zip( teams ).to_h
 
-       puts " [debug] team_mapping:"
-       pp team_mapping
+       # puts " [debug] team_mapping:"
+       # pp team_mapping
 
 
-        ## quick (and dirty) hack
-        ##   update all team strings with mapped records
-        matches.each do |match|
-            match.update( team1: team_mapping[ match.team1 ] )
-            match.update( team2: team_mapping[ match.team2 ] )
-        end
 
-        ## quick hack cont.
-        ##  rebuild groups with all team strings with mapped records
-        groups = groups.map do |old_group|
-                                group = Import::Group.new(
-                                          name: old_group.name,
-                                          teams: old_group.teams.map {|team| team_mapping[team] }
-                                        )
-                                group
-                            end
-        puts "groups:"
-        pp groups
+      parser = MatchParser.new( lines,
+                                team_mapping,
+                                start )   ## note: keep season start_at date for now (no need for more specific stage date need for now)
 
-## fix
-##  !! ERROR - no (cached) team rec found for team in group >Group A<
-##   for >#<Sports::Club:0x000002c7e1686040><
-###    update sync group to check for records (use .name) !!!
+      matches, rounds, groups = parser.parse
+
+      pp rounds
+      pp groups
 
 
      ######################################################
@@ -179,10 +166,10 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
         ##   e.g. group.teams assumes an array of team names e.g.
         ##      ["Spain", "Czech Republic", "Turkey", "Croatia"]
         group_team_ids = []
-        group.teams.each do |team|
-          team_rec = cache_team_recs[ team.name ]
+        group.teams.each do |team_name|
+          team_rec = cache_team_recs[ team_name ]
           if team_rec.nil? ## assume team MUST always be present/known in mapping (via autoconfig parser)
-            puts "!! ERROR - no (cached) team rec found for team in group >#{group.name}< for >#{team}<"
+            puts "!! ERROR - no (cached) team rec found for team in group >#{group.name}< for >#{team_name}<"
             exit 1
           end
           group_team_ids << team_rec.id
@@ -194,7 +181,6 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
       rounds.each do |round|
         round_rec = Sync::Round.find_or_create( round, event: event_rec )  ## check: use/rename to EventRound why? why not?
       end
-
 
       matches.each do |match|
         ## note: pass along stage (if present): stage  - optional from heading!!!!
@@ -212,5 +198,5 @@ class MatchReaderV2    ## todo/check: rename to MatchReaderV2 (use plural?) why?
 
   def catalog() Import.catalog; end
 
-end # class MatchReaderV2
+end # class MatchReader
 end # module SportDb

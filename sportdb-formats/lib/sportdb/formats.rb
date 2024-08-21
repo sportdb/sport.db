@@ -6,6 +6,17 @@ require 'sportdb/parser'
 require 'zip'     ## todo/check: if zip is alreay included in a required module
 
 
+## note -  add cocos (code commons)
+##
+##  pulls in read_csv & parse_csv etc.
+require 'cocos'
+
+
+require 'logutils'
+module SportDb
+  ## logging machinery shortcut; use LogUtils for now
+  Logging = LogUtils::Logging
+end
 
 
 
@@ -18,6 +29,22 @@ require_relative 'formats/datafile'
 require_relative 'formats/datafile_package'
 require_relative 'formats/package'
 
+require_relative 'formats/name_helper'
+
+
+
+## let's put test configuration in its own namespace / module
+module SportDb
+  class Test    ## todo/check: works with module too? use a module - why? why not?
+
+    ####
+    #  todo/fix:  find a better way to configure shared test datasets - why? why not?
+    #    note: use one-up (..) directory for now as default - why? why not?
+    def self.data_dir()        @data_dir ||= '../test'; end
+    def self.data_dir=( path ) @data_dir = path; end
+  end
+end   # module SportDb
+
 
 
 ###
@@ -27,13 +54,10 @@ module SportDb
 module Import
 
 class Configuration
-  ## note: add more configs (open class), see sportdb-structs for original config!!!
-
-  ## add
   def world()        @world ||= WorldSearch.new( countries: DummyCountrySearch.new ); end
   def world=(world)  @world = world; end
 
-  ## tood/fix - add/move catalog here from   sportdb-catalogs!!!
+  ## todo/fix - add/move catalog here from   sportdb-catalogs!!!
   ## def catalog()         @catalog ||= Catalog.new;  end
   ## def catalog(catalog)  @catalog = catalog; end
 end # class Configuration
@@ -41,12 +65,63 @@ end # class Configuration
   ##  e.g. use config.catalog  -- keep Import.catalog as a shortcut (for "read-only" access)
   ## def self.catalog() config.catalog;  end
   def self.world()   config.world;    end
+
+  ## lets you use
+  ##   SportDb::Import.configure do |config|
+  ##      config.catalog_path = './catalog.db'
+  ##   end
+def self.configure()  yield( config ); end
+def self.config()  @config ||= Configuration.new;  end
 end   # module Import
 end   # module SportDb
+
 
 require_relative 'formats/search/world'
 require_relative 'formats/search/sport'
 require_relative 'formats/search/structs'
+
+
+
+module Sports
+  ## note: just forward to SportDb::Import configuration!!!!!
+  ##  keep Sports module / namespace "clean" - why? why not?
+  ##    that is, only include data structures (e.g. Match,League,etc) for now - why? why not?
+  def self.configure()  yield( config ); end
+  def self.config()  SportDb::Import.config; end
+end   # module Sports
+
+
+###
+#  csv (tabular dataset) support / machinery
+require_relative 'formats/csv/match_status_parser'
+require_relative 'formats/csv/goal'
+require_relative 'formats/csv/goal_parser_csv'
+require_relative 'formats/csv/match_parser_csv'
+
+
+### add convenience shortcut helpers
+module Sports
+  class Match
+    def self.read_csv( path, headers: nil, filters: nil, converters: nil, sep: nil )
+       SportDb::CsvMatchParser.read( path,
+                                       headers:    headers,
+                                       filters:    filters,
+                                       converters: converters,
+                                       sep:        sep )
+    end
+
+    def self.parse_csv( txt, headers: nil, filters: nil, converters: nil, sep: nil )
+       SportDb::CsvMatchParser.parse( txt,
+                                        headers:    headers,
+                                        filters:    filters,
+                                        converters: converters,
+                                        sep:        sep )
+    end
+  end # class Match
+end # module Sports
+
+
+
 
 
 

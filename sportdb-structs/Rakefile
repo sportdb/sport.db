@@ -23,8 +23,8 @@ Hoe.spec 'sportdb-structs' do
     ['alphabets',      '>= 1.0.0'],
     ['score-formats',  '>= 0.1.1'],
     ['season-formats', '>= 0.0.1'],
-    ['cocos',          '>= 0.4.0'],
-    ['logutils',       '>= 0.6.1'],
+ #   ['cocos',          '>= 0.4.0'],  -- move(d) upstream to sportdb-formats!!
+ #   ['logutils',       '>= 0.6.1'],
   ]
 
   self.spec_extras = {

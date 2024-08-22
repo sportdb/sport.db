@@ -50,15 +50,14 @@ Matchday 1
 ...
 ```
 
-(Source: [england/2015-16/1-premierleague-i.txt](https://github.com/openfootball/england/blob/master/2015-16/1-premierleague-i.txt))
+(Source: [england/2015-16/1-premierleague.txt](https://github.com/openfootball/england/blob/master/2015-16/1-premierleague.txt))
 
 and let's try:
 
 ``` ruby
 ## assumes football.db datasets for England in ./england directory
 ##   see github.com/openfootball/england
-SportDb.read( './england/2015-16/1-premierleague-i.txt' )
-SportDb.read( './england/2015-16/1-premierleague-ii.txt' )
+SportDb.read( './england/2015-16/1-premierleague.txt' )
 
 ## let's try another season
 SportDb.read( './england/2019-20/1-premierleague.txt' )
@@ -136,7 +135,7 @@ Round, Date,              Team 1,               FT,  HT,  Team 2
 ```
 (Source: [england/2019-20/eng.1.csv](https://github.com/footballcsv/england/blob/master/2010s/2019-20/eng.1.csv))
 
-Yes, you can. See the [sportdb-importers library / gem »](https://github.com/sportdb/sport.db/tree/master/sportdb-importers) 
+Yes, you can. See the [sportdb-importers library / gem »](https://github.com/sportdb/sport.db/tree/master/sportdb-importers)
 
 
 

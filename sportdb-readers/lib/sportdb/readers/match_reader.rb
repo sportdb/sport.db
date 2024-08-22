@@ -35,6 +35,10 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
                                            league: league )
 
       start = if event_info && event_info.start_date
+                  puts "event info found:"
+                  puts "  using start date from event: "
+                  pp event_info
+                  pp event_info.start_date
                   event_info.start_date
               else
                 if season.year?
@@ -53,7 +57,7 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
       puts ">>> #{auto_conf_teams.size} teams:"
       pp auto_conf_teams
       puts ">>> #{matches.size} matches:"
-      pp matches
+      ## pp matches
       puts ">>> #{rounds.size} rounds:"
       pp rounds
       puts ">>> #{groups.size} groups:"
@@ -86,7 +90,9 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
                   { 'Liverpool | Liverpool FC' => 'Liverpool FC, ENG',
                     'Arsenal  | Arsenal FC'    => 'Arsenal FC, ENG',
                     'Barcelona'                => 'FC Barcelona, ESP',
-                    'Valencia'                 => 'Valencia CF, ESP'  })
+                    'Valencia'                 => 'Valencia CF, ESP',
+                    'Rangers FC'               => 'Rangers FC, SCO',
+                  })
        end
 
        # puts " [debug] auto_conf_teams:"

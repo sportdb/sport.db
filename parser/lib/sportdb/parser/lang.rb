@@ -15,7 +15,7 @@ class Parser
 
 GROUP_RE = %r{^
                 Group [ ]
-                   (?<key>[a-z0-9]+)                   
+                   (?<key>[a-z0-9]+)
               $}ix
 def is_group?( text )
    ## use regex for match
@@ -28,42 +28,68 @@ end
 ROUND_RE = %r{^(
 
    # round  - note - requiers number e.g. round 1,2, etc.
+   #   note - use 1-9 regex (cannot start with 0) - why? why not?
+   #             make week 01 or round 01 or matchday 01 possible?
       (?: (?: Round |
               Matchday |
               Week
            )
-           [ ] [0-9]+
+           [ ] [1-9][0-9]*
       )
        |
+   ##  starting with qual(ification)
+   ## Qual. Round 1 / Qual. Round 2 / Qual. Round 3
+     (?:  Qual \. [ ]
+          Round
+           [ ] [1-9][0-9]*
+      )
+       |
+   ## 1. Round / 2. Round / 3. Round / etc.
+   ##  Play-off Round
+      (?:
+           (?: [1-9][0-9]* \.
+                |
+                Play-?off
+           )
+             [ ] Round
+       )
+       |
+  ## starting with preliminary
+     (?:  Preliminary  [ ]
+           (?:  Semi-?finals |
+                Final
+           )
+     )
+     |
    # more (kockout) rounds
    # playoffs  - playoff, play-off, play-offs
-        (?: Play-?offs? 
+        (?: Play-?offs?
            (?: [ ]for[ ]quarter-?finals )?
         )
-        |    
+        |
    # round32
-        (?: Round[ ]of[ ]32 | 
+        (?: Round[ ]of[ ]32 |
             Last[ ]32 )
           |
-   # round16   
+   # round16
         (?: Round[ ]of[ ]16 |
-            Last[ ]16 | 
+            Last[ ]16 |
             8th[ ]finals )
            |
    # fifthplace
          (?:
-             (?: (Fifth|5th)[ -]place 
+             (?: (Fifth|5th)[ -]place
                   (?: [ ] (?: match|play-?off|final ))?
               ) |
              (?: Match[ ]for[ ](?: fifth|5th )[ -]place )
          )
           |
    # thirdplace
-          (?: 
-              (?: (Third|3rd)[ -]place 
-                     (?: [ ] (?: match|play-?off|final ))? 
+          (?:
+              (?: (Third|3rd)[ -]place
+                     (?: [ ] (?: match|play-?off|final ))?
                ) |
-              (?: Match[ ]for[ ](?: third|3rd )[ -]place ) 
+              (?: Match[ ]for[ ](?: third|3rd )[ -]place )
            )
            |
    # quarterfinals
@@ -72,18 +98,24 @@ ROUND_RE = %r{^(
               Quarters |
               Last[ ]8
           )
-          |     
+          |
    # semifinals
-        (?:   
+        (?:
              Semi-?finals? |
              Semis |
              Last[ ]4
         )
         |
    # final
-         Finals? 
-       
-        )$}ix
+         Finals?
+         |
+    ## add replays
+    ##  Final Replay
+     (?:
+        Final
+        [ ] Replay
+      )
+)$}ix
 
 
 def is_round?( text )
@@ -95,9 +127,9 @@ end
 ##
 LEG_RE = %r{^
   # leg1
-     (?: 1st|First)[ ]leg 
+     (?: 1st|First)[ ]leg
      |
-  # leg2 
+  # leg2
      (?: 2nd|Second)[ ]leg
 $}ix
 

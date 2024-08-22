@@ -276,6 +276,14 @@ class MatchParser    ## simple match parser for team match schedules
 
   def _build_date( m:, d:, y:, start:  )
 
+
+## quick debug hack
+   if m == 2 && d == 29
+      puts "quick check  feb/29 dates"
+      pp [d,m,y]
+      pp start
+   end
+
     if y.nil?   ## try to calculate year
       y =  if  m > start.month ||
                (m == start.month && d >= start.day)
@@ -286,6 +294,8 @@ class MatchParser    ## simple match parser for team match schedules
                 start.year+1
            end
     end
+
+
 
       Date.new( y,m,d )  ## y,m,d
   end
@@ -594,10 +604,10 @@ class GoalStruct
              et = node[2][:et] || [nil,nil]
              p  = node[2][:p]  || [nil,nil]
              values = [*ht, *ft, *et, *p]
-             pp values
+             ## pp values
 
              score = Score.new( *values )
-             pp score
+             ## pp score
         elsif node_type == :vs
            ## skip; do nothing
 ##

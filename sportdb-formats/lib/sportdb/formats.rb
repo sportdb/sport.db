@@ -1,6 +1,7 @@
 ## 3rd party gems
 require 'sportdb/structs'
 require 'sportdb/parser'
+require 'date/formats'
 
 
 require 'zip'     ## todo/check: if zip is alreay included in a required module

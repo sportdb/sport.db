@@ -3,7 +3,7 @@ require './lib/sportdb/readers/version.rb'
 
 Hoe.spec 'sportdb-readers' do
 
-  self.version = SportDb::Readers::VERSION
+  self.version = SportDb::Module::Readers::VERSION
 
   self.summary = "sportdb-readers - sport.db readers for leagues, seasons, clubs, match schedules and results, and more"
   self.description = summary
@@ -20,7 +20,9 @@ Hoe.spec 'sportdb-readers' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-sync',    '>= 1.2.2'],
+    ['sportdb-formats',   '>= 2.0.0'],
+    ['sportdb-catalogs',  '>= 1.2.1'],
+    ['sportdb-models',    '>= 2.1.0'],
   ]
 
   self.spec_extras = {

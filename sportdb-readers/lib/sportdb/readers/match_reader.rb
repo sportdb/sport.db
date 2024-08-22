@@ -1,7 +1,17 @@
 
 module SportDb
-
 class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? why not?
+
+
+  ### fix - remove catalog reference!!!
+  ##     use classes with "augmented" static methods
+  ##       e.g. Club.match_by etc.
+  def catalog
+     puts "[deprecated] do NOT use catalog reference; use classes with enhanced search static methods!"
+    Import.catalog
+  end
+
+
 
   def self.read( path, season: nil )   ## use - rename to read_file or from_file etc. - why? why not?
     txt = File.open( path, 'r:utf-8' ) {|f| f.read }
@@ -72,10 +82,10 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
       if league.clubs? && league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
 
         ## quick hack - use "dynamic" keys for keys
-          uefa_el_q = catalog.leagues.match_by( code: 'uefa.el.quali' )[0]
-          uefa_cl_q = catalog.leagues.match_by( code: 'uefa.cl.quali' )[0]
-          uefa_cl   = catalog.leagues.match_by( code: 'uefa.cl' )[0]
-          uefa_el   = catalog.leagues.match_by( code: 'uefa.el' )[0]
+          uefa_el_q = Import::League.match_by( code: 'uefa.el.quali' )[0]
+          uefa_cl_q = Import::League.match_by( code: 'uefa.cl.quali' )[0]
+          uefa_cl   = Import::League.match_by( code: 'uefa.cl' )[0]
+          uefa_el   = Import::League.match_by( code: 'uefa.el' )[0]
 
           pp [uefa_el_q, uefa_cl_q, uefa_cl, uefa_el]
 
@@ -212,11 +222,6 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
     true   ## success/ok
   end # method parse
 
-
-  ######################
-  # (convenience) helpers
-
-  def catalog() Import.catalog; end
 
 end # class MatchReader
 end # module SportDb

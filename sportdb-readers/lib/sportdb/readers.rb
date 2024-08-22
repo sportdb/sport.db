@@ -1,14 +1,25 @@
-
-require 'sportdb/sync'
+require 'sportdb/formats'
+require 'sportdb/catalogs'
+require 'sportdb/models'
 
 
 ###
 # our own code
 require_relative 'readers/version' # let version always go first
+
+## add sync stuff
+require_relative 'readers/sync/country'
+require_relative 'readers/sync/league'
+require_relative 'readers/sync/season'
+require_relative 'readers/sync/event'
+require_relative 'readers/sync/club'
+require_relative 'readers/sync/more'
+require_relative 'readers/sync/match'  ## note  - let match sync go last
+
+## add readers & friends
 require_relative 'readers/conf_reader'
 require_relative 'readers/match_reader'
 require_relative 'readers/package'
-
 
 
 
@@ -57,4 +68,4 @@ end # module SportDb
 
 
 
-puts SportDb::Readers.banner   # say hello
+puts SportDb::Module::Readers.banner   # say hello

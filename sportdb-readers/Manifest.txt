@@ -7,4 +7,11 @@ lib/sportdb/readers.rb
 lib/sportdb/readers/conf_reader.rb
 lib/sportdb/readers/match_reader.rb
 lib/sportdb/readers/package.rb
+lib/sportdb/readers/sync/club.rb
+lib/sportdb/readers/sync/country.rb
+lib/sportdb/readers/sync/event.rb
+lib/sportdb/readers/sync/league.rb
+lib/sportdb/readers/sync/match.rb
+lib/sportdb/readers/sync/more.rb
+lib/sportdb/readers/sync/season.rb
 lib/sportdb/readers/version.rb

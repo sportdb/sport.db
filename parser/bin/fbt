@@ -11,7 +11,7 @@ require 'sportdb/parser'
 require 'optparse'
 
 ##
-## read textfile 
+## read textfile
 ##   and dump tokens
 ##
 ##   fbt  ../openfootball/.../euro.txt
@@ -32,7 +32,7 @@ require 'optparse'
 
 
   parser.on( "--verbose", "--debug",
-               "turn on verbose / debug output (default: #{opts[:debug]} )" ) do |debug|
+               "turn on verbose / debug output (default: #{opts[:debug]})" ) do |debug|
     opts[:debug] = debug
   end
 
@@ -53,9 +53,6 @@ p args
 
 
 
-
-
-
 paths =  if args.empty?
             [
               '../../../openfootball/euro/2020--europe/euro.txt',
@@ -64,7 +61,7 @@ paths =  if args.empty?
          else
             ## check for directories
             ##   and auto-expand
-             
+
             SportDb::Parser::Opts.expand_args( args )
          end
 
@@ -86,8 +83,10 @@ end
 if errors.size > 0
     puts
     pp errors
+    puts
     puts "!!   #{errors.size} parse error(s) in #{paths.size} datafiles(s)"
 else
+    puts
     puts "OK   no parse errors found in #{paths.size} datafile(s)"
 end
 

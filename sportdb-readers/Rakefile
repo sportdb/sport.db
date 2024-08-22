@@ -20,11 +20,11 @@ Hoe.spec 'sportdb-readers' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-sync',    '>= 1.2.0'],
+    ['sportdb-sync',    '>= 1.2.2'],
   ]
 
   self.spec_extras = {
-   required_ruby_version: '>= 2.2.2'
+   required_ruby_version: '>= 3.1.0'
   }
 
 end

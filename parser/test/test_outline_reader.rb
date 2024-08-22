@@ -1,13 +1,11 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_outline_reader.rb
+#     ruby test/test_outline_reader.rb
 
 
-require 'helper'
+require_relative  'helper'
 
-class TestOutlineReader < MiniTest::Test
+class TestOutlineReader < Minitest::Test
 
   def test_parse
     outline = SportDb::OutlineReader.parse( <<TXT )

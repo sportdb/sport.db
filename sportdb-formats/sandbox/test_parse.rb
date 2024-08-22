@@ -73,9 +73,9 @@ lines = txt
 start = Date.new( 2024, 6, 1 )
 
 
-SportDb::MatchParserV2.debug = true
+SportDb::MatchParser.debug = true
 
-parser = SportDb::MatchParserV2.new( lines, start )
+parser = SportDb::MatchParser.new( lines, start )
 pp parser
 
 pp parser.parse

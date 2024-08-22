@@ -21,11 +21,11 @@ Hoe.spec 'sportdb-parser' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-       ['cocos'],
+       ['cocos', '>= 0.4.0'],
        ['season-formats'],
   ]
 
   self.spec_extras = {
-    required_ruby_version: '>= 2.2.2'
+    required_ruby_version: '>= 3.1.0'
   }
 end

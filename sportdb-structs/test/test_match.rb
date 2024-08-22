@@ -1,13 +1,12 @@
-# encoding: utf-8
-
 ###
 #  to run use
 #     ruby -I ./lib -I ./test test/test_match.rb
 
 
-require 'helper'
+require_relative 'helper'
 
-class TestMatch < MiniTest::Test
+
+class TestMatch < Minitest::Test
 
   Match = Sports::Match
 

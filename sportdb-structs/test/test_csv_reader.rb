@@ -6,7 +6,7 @@
 require 'helper'
 
 
-class TestCsvReader < MiniTest::Test
+class TestCsvReader < Minitest::Test
 
   def test_parse
     recs = parse_csv( <<TXT )

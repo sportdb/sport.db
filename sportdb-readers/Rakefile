@@ -20,7 +20,7 @@ Hoe.spec 'sportdb-readers' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-formats',   '>= 2.0.0'],
+    ['sportdb-formats',   '>= 2.0.1'],
     ['sportdb-models',    '>= 2.1.0'],
   ]
 

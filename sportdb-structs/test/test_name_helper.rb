@@ -1,6 +1,6 @@
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_name_helper.rb
+#     ruby  test/test_name_helper.rb
 
 
 require_relative 'helper'

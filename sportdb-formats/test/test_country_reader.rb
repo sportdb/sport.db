@@ -1,9 +1,9 @@
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_country_reader.rb
+#     ruby test/test_country_reader.rb
 
 
-require 'helper'
+require_relative  'helper'
 
 class TestCountryReader < Minitest::Test
 
@@ -72,13 +72,13 @@ TXT
     assert_equal 4, recs.size
     assert_equal 'Czechoslovakia (-1992)', recs[0].name
     assert_equal 'TCH',                    recs[0].code
-    assert_equal 'czechoslovakia',         recs[0].key
+    assert_equal 'tch',                    recs[0].key
     assert_equal [],                       recs[0].alt_names
     assert_equal [],                       recs[0].tags
 
     assert_equal 'East Germany (-1989)',   recs[3].name
     assert_equal 'GDR',                    recs[3].code
-    assert_equal 'eastgermany',            recs[3].key
+    assert_equal 'gdr',                    recs[3].key
     assert_equal [],                       recs[3].alt_names
     assert_equal [],                       recs[3].tags
   end

@@ -4,12 +4,14 @@ README.md
 Rakefile
 lib/sportdb/structs.rb
 lib/sportdb/structs/country.rb
+lib/sportdb/structs/event_info.rb
 lib/sportdb/structs/goal.rb
 lib/sportdb/structs/ground.rb
 lib/sportdb/structs/group.rb
 lib/sportdb/structs/league.rb
 lib/sportdb/structs/match.rb
 lib/sportdb/structs/matchlist.rb
+lib/sportdb/structs/name_helper.rb
 lib/sportdb/structs/round.rb
 lib/sportdb/structs/standings.rb
 lib/sportdb/structs/team.rb

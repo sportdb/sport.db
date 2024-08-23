@@ -16,7 +16,6 @@ lib/sportdb/formats/league/league_outline_reader.rb
 lib/sportdb/formats/league/league_reader.rb
 lib/sportdb/formats/match/conf_parser.rb
 lib/sportdb/formats/match/match_parser.rb
-lib/sportdb/formats/name_helper.rb
 lib/sportdb/formats/package.rb
 lib/sportdb/formats/search/sport.rb
 lib/sportdb/formats/search/structs.rb

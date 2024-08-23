@@ -1,11 +1,8 @@
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
 $LOAD_PATH.unshift( File.expand_path( './lib' ))
 
 require 'sportdb/catalogs'
 
-## add for now for EventInfo
-require 'sportdb/formats'
 
 
 Country      = CatalogDb::Metal::Country
@@ -19,11 +16,10 @@ EventInfo    = CatalogDb::Metal::EventInfo
 Ground       = CatalogDb::Metal::Ground
 
 
+CatalogDb::Metal.tables  ## table stats (before)
+CatalogDb::Metal::Record.database = '../catalog/grounds.db'
+CatalogDb::Metal.tables  ## table stats (after)
 
-SportDb::Import.config.catalog_path = '../catalog/grounds.db'
-
-CITIES  = SportDb::Import.world.cities
-GROUNDS = SportDb::Import.catalog.grounds
 
 pp Country.count
 pp City.count
@@ -34,6 +30,7 @@ pp Club.count
 pp EventInfo.count
 
 pp Ground.count
+
 
 
 require 'cocos'
@@ -68,7 +65,7 @@ recs = parse_data( <<TXT )
   Leipzig Stadion, Leipzig
   Munich Football Arena, Munich
   Waldstadion, Frankfurt
- 
+
   # euro 2020
   # 12 statiums
   Stadio Olimpico, Rome
@@ -83,8 +80,8 @@ recs = parse_data( <<TXT )
    Puskás Aréna, Budapest
    Allianz Arena, Munich
    Estadio de La Cartuja, Seville
-  
-  
+
+
 
 TXT
 
@@ -94,45 +91,44 @@ TXT
 ##
 ## check for cities first
 recs.each do |_,name|
-  m = CITIES.match_by( name: name )
-                    
+  m = City.match_by( name: name )
+
   if m.size == 1
     city = m[0]
     print "    "
     print "%-30s" % "#{name}"
-    if name != city.name 
+    if name != city.name
       print " => #{city.name}, #{city.country.name}"
     end
     print "\n"
   else
     puts "!!  #{name}"
-  end                      
+  end
 end
 
 
-puts 
+puts
 puts
 
 recs.each do |name,city|
-  m = GROUNDS.match_by( name: name, 
+  m = Ground.match_by( name: name,
                         city: city )
-                    
+
   if m.size == 1
     ground = m[0]
     print "    "
     print "%-30s" % "#{name}, #{city}"
-    if name != ground.name || 
+    if name != ground.name ||
        city != ground.city.name
       print " => #{ground.name} @ #{ground.city.name}, #{ground.country.name}"
     end
     print "\n"
   else
     puts "!!  #{name}, #{city}"
-  end                      
+  end
 end
-                    
-puts "bye"
 
+puts "bye"
 
 
 

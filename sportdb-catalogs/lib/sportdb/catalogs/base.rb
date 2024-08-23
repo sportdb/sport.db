@@ -8,29 +8,29 @@ module Metal
 
 
 class BaseRecord   ## or just use Base or such - why? why not?
- 
-      def self.execute( sql ) 
+
+      def self.execute( sql )
          ## puts "==> sql query [#{self.name}]"
          ## puts sql
-         database.execute( sql ) 
+         database.execute( sql )
       end
- 
+
       def self.tablename=(name) @tablename = name; end
       def self.tablename() @tablename; end
- 
-      def self.columns=(names) 
+
+      def self.columns=(names)
          ## note: auto-add table name to qualify
-         @columns = names.map {|name| "#{self.tablename}.#{name}" } 
+         @columns = names.map {|name| "#{self.tablename}.#{name}" }
          @columns
       end
       def self.columns() @columns; end
- 
+
       def self.count
          sql = "SELECT count(*) FROM #{self.tablename}"
          rows = execute( sql )
          rows[0][0]    # e.g. returns [[241]]
       end
- 
+
   ## helpers from country - use a helper module for includes (share with clubs etc.) - why? why not?
   # include NameHelper
   extend SportDb::NameHelper
@@ -48,7 +48,7 @@ class BaseRecord   ## or just use Base or such - why? why not?
        ## use TypeError - why? why not? or if exits ValueError?
        raise ArgumentError, "0 or 1 expected for bool in sqlite; got #{value}"
      end
-   end             
+   end
 
 
    ##
@@ -58,7 +58,7 @@ class BaseRecord   ## or just use Base or such - why? why not?
       if country.is_a?( String ) || country.is_a?( Symbol )
         # note: query/find country via catalog db
         rec = Country.find_by_code( country )
-        rec = Country.find_by_name( country )  if rec.nil?  
+        rec = Country.find_by_name( country )  if rec.nil?
         if rec.nil?
           puts "** !!! ERROR !!! - unknown country >#{country}< - no match found, sorry - add to world/countries.txt in config"
           exit 1
@@ -72,41 +72,50 @@ end  # class BaseRecord
 
 
 class PlayerRecord  < BaseRecord
+
+      ## lets you query if datbase setup
+      def self.database?() defined?( @@db ); end
+
       def self.database
          ### note: only one database for all derived records/tables!!!
          ##   thus MUST use @@ and not @!!!!!
          ##  todo - change later to built-in database
          ##   or download on request???
-         @@db ||= SQLite3::Database.new( './players.db' ) 
+         @@db ||= SQLite3::Database.new( './players.db', readonly: true )
          @@db
       end
- 
+
       def self.database=(path)
          puts "==> setting (internal) players db to: >#{path}<"
-         @@db = SQLite3::Database.new( path )
+         @@db = SQLite3::Database.new( path, readonly: true )
          pp @@db
          @@db
-      end 
+      end
 end   # class PlayerRecord
 
 
 
 ##############
 ### todo (fix) / rename to CatalogRecord - why? why not?
-class Record  < BaseRecord    
+class Record  < BaseRecord
     ## add db alias why? why not?
+
+     ## lets you query if datbase setup
+     def self.database?() defined?( @@db ); end
+
      def self.database
         ### note: only one database for all derived records/tables!!!
         ##   thus MUST use @@ and not @!!!!!
         ##
         ##  default to built-in via footballdb-data gem for now!!!
-        @@db ||= SQLite3::Database.new( './catalog.db' ) 
+        @@db ||= SQLite3::Database.new( "#{FootballDb::Data.data_dir}/catalog.db",
+                                        readonly: true )
         @@db
      end
 
      def self.database=(path)
         puts "==> setting (internal) catalog db to: >#{path}<"
-        @@db = SQLite3::Database.new( path )
+        @@db = SQLite3::Database.new( path, readonly: true )
         pp @@db
         @@db
      end
@@ -118,14 +127,14 @@ def self._to_league( key )
    League._record( key )
 end
 
-def self._to_country( key ) 
+def self._to_country( key )
    # note: use cached record or (faster) key lookup on fallback
-   Country._record( key )   
+   Country._record( key )
 end
 
 def self._to_city( key )   ### rename; use find_by_key / find_by( key: )
    # note: use cached record or (faster) key lookup on fallback
-   City._record( key )   
+   City._record( key )
 end
 
 

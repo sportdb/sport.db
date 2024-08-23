@@ -30,8 +30,6 @@ require_relative 'formats/datafile'
 require_relative 'formats/datafile_package'
 require_relative 'formats/package'
 
-require_relative 'formats/name_helper'
-
 
 
 ## let's put test configuration in its own namespace / module
@@ -151,6 +149,8 @@ module SportDb
 
     Player       = ::Sports::Player
 
+    EventInfo    = ::Sports::EventInfo
+
 
     class Team
       ## add convenience lookup helper / method for name by season for now
@@ -240,6 +240,77 @@ end   # module SportDb
 
 
 require_relative 'formats/ground/ground_reader'
+
+
+
+
+
+### auto-configure builtin lookups via catalog.db(s)
+require 'sportdb/catalogs'
+
+
+module SportDb
+module Import
+
+class Configuration
+  ## note: add more configs (open class), see sportdb-structs for original config!!!
+
+  ###
+  #  find a better name for setting - why? why not?
+  #     how about catalogdb or ???
+  attr_reader   :catalog_path
+  def catalog_path=(path)
+      @catalog_path = path
+      ########
+      # reset database here to new path
+      CatalogDb::Metal::Record.database = path
+
+      ##  plus automagically set world search too (to use CatalogDb)
+      self.world = WorldSearch.new(
+                          countries: CatalogDb::Metal::Country,
+                          cities:    CatalogDb::Metal::City,
+                        )
+
+      @catalog_path
+  end
+
+  def catalog
+       @catalog ||= SportSearch.new(
+                           leagues:        CatalogDb::Metal::League,
+                           national_teams: CatalogDb::Metal::NationalTeam,
+                           clubs:          CatalogDb::Metal::Club,
+                           grounds:        CatalogDb::Metal::Ground,
+                           events:         CatalogDb::Metal::EventInfo,
+                           players:        CatalogDb::Metal::Player,    # note - via players.db !!!
+                        )
+  end
+
+  ###
+  #  find a better name for setting - why? why not?
+  #     how about playersdb or ???
+  attr_reader   :players_path
+  def players_path=(path)
+      @players_path = path
+      ########
+      # reset database here to new path
+      CatalogDb::Metal::PlayerRecord.database = path
+
+      @players_path
+  end
+end # class Configuration
+
+
+  ##  e.g. use config.catalog  -- keep Import.catalog as a shortcut (for "read-only" access)
+  def self.catalog() config.catalog;  end
+end   # module Import
+end   # module SportDb
+
+
+###
+## add default/built-in catalog here - why? why not?
+##  todo/fix  - set catalog_path on demand
+##   note:  for now required for world search setup etc.
+SportDb::Import.config.catalog_path = "#{FootballDb::Data.data_dir}/catalog.db"
 
 
 

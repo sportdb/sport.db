@@ -1,11 +1,8 @@
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
 $LOAD_PATH.unshift( File.expand_path( './lib' ))
 
 require 'sportdb/catalogs'
 
-## add for now for EventInfo
-require 'sportdb/formats'
 
 
 Country      = CatalogDb::Metal::Country
@@ -17,7 +14,9 @@ EventInfo    = CatalogDb::Metal::EventInfo
 Ground       = CatalogDb::Metal::Ground
 
 
-SportDb::Import.config.catalog_path = "../catalog/catalog.db"
+CatalogDb::Metal.tables  ## table stats (before)
+CatalogDb::Metal::Record.database = "../catalog/catalog.db"
+CatalogDb::Metal.tables  ## table stats (after)
 
 
 pp Country.count

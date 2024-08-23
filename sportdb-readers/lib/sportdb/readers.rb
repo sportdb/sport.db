@@ -1,5 +1,4 @@
 require 'sportdb/formats'
-require 'sportdb/catalogs'
 require 'sportdb/models'
 
 

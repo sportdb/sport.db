@@ -8,29 +8,30 @@ require_relative 'helper'
 
 class TestNationalTeams < Minitest::Test
 
-  NATIONAL_TEAMS = SportDb::Import.catalog.national_teams
+
+  NationalTeam = CatalogDb::Metal::NationalTeam
 
 
   def test_find
-    t = NATIONAL_TEAMS.find( 'AUT' )
+    t = NationalTeam.find( 'AUT' )
     assert_equal 'Austria', t.name
     assert_equal 'aut',     t.key
     assert_equal 'AUT',     t.code
 
 
-    t = NATIONAL_TEAMS.find( 'England' )
+    t = NationalTeam.find( 'England' )
     assert_equal 'England', t.name
     assert_equal 'eng',     t.key
     assert_equal 'ENG',     t.code
 
     ## note: all dots (.) get always removed
-    t = NATIONAL_TEAMS.find( '...e.n.g.l.a.n.d...' )
+    t = NationalTeam.find( '...e.n.g.l.a.n.d...' )
     assert_equal 'England', t.name
     assert_equal 'eng',     t.key
     assert_equal 'ENG',     t.code
 
     ## note: all spaces and dashes (-) get always removed
-    t = NATIONAL_TEAMS.find( '--- e n g l a n d ---' )
+    t = NationalTeam.find( '--- e n g l a n d ---' )
     assert_equal 'England', t.name
     assert_equal 'eng',     t.key
     assert_equal 'ENG',     t.code

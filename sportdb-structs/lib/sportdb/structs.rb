@@ -21,6 +21,12 @@ require_relative 'structs/matchlist'
 require_relative 'structs/standings'
 require_relative 'structs/team_usage'
 
+require_relative 'structs/event_info'
+
+
+## shared support helpers/machinery
+require_relative 'structs/name_helper'
+
 
 ##
 ## todo/fix  - move "inline" player to structs/player file !!!!

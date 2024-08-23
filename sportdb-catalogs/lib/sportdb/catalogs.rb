@@ -1,16 +1,4 @@
-### our own sportdb libs / gems
-###  try min. dependencies  - change to structs only (NOT formats) - why? why not?
-## require 'sportdb/structs'
-
-
-##
-### todo / fix - yes!!!
-##    make sportdb-catalogs only dependend on sportdb/structs!!!
-##     move tie code  to sportdb formats!!!
-##         and make sportdb-catalogs a dependency of sportdb-formats!!!
-
-
-require 'sportdb/formats'
+require 'sportdb/structs'
 
 require 'sqlite3'
 
@@ -35,66 +23,6 @@ require_relative 'catalogs/player'
 
 
 
-module SportDb
-module Import
-
-class Configuration
-  ## note: add more configs (open class), see sportdb-structs for original config!!!
-
-  ###
-  #  find a better name for setting - why? why not?
-  #     how about catalogdb or ???
-  attr_reader   :catalog_path
-  def catalog_path=(path)
-      @catalog_path = path
-      ########
-      # reset database here to new path
-      CatalogDb::Metal::Record.database = path
-
-      ##  plus automagically set world search too (to use CatalogDb)
-      self.world = WorldSearch.new(
-                          countries: CatalogDb::Metal::Country,
-                          cities:    CatalogDb::Metal::City,
-                        )
-
-      @catalog_path
-  end
-
-  def catalog
-       @catalog ||= SportSearch.new(
-                           leagues:        CatalogDb::Metal::League,
-                           national_teams: CatalogDb::Metal::NationalTeam,
-                           clubs:          CatalogDb::Metal::Club,
-                           grounds:        CatalogDb::Metal::Ground,
-                           events:         CatalogDb::Metal::EventInfo,
-                           players:        CatalogDb::Metal::Player,    # note - via players.db !!!
-                        )
-  end
-
-  ###
-  #  find a better name for setting - why? why not?
-  #     how about playersdb or ???
-  attr_reader   :players_path
-  def players_path=(path)
-      @players_path = path
-      ########
-      # reset database here to new path
-      CatalogDb::Metal::PlayerRecord.database = path
-
-      @players_path
-  end
-end # class Configuration
-
-
-  ##  e.g. use config.catalog  -- keep Import.catalog as a shortcut (for "read-only" access)
-  def self.catalog() config.catalog;  end
-end   # module Import
-end   # module SportDb
-
-
-
-
-
 ###
 # add status
 module CatalogDb
@@ -103,28 +31,42 @@ module Metal
 def self.tables
 
   puts "==> table stats"
-  catalog_path = SportDb::Import.config.catalog_path
-  if catalog_path
-    puts "  #{File.basename(catalog_path)} in (#{File.dirname(catalog_path)})"
+  if Record.database?
+    db = Record.database
+    filename = db.filename
+    if filename  # note - nil for memory or tempary db?
+      puts "  #{File.basename(filename)} in (#{File.dirname(filename)})"
+    else
+      puts  "no filename; memory or temporary db?"
+    end
+
+    ## pp Record.database
+    ## puts
     puts "    #{Country.count} countries / #{City.count} cities"
     puts "    #{NationalTeam.count} national teams"
     puts "    #{League.count} leagues"
     puts "    #{Club.count} clubs"
     puts "    #{Ground.count} grounds"
       ## add more
-
   else
     puts "  - no catalog.db set - "
   end
 
-  ## todo/fix:
-  ##   check if players_path configured???
-  players_path = SportDb::Import.config.players_path
-  if players_path
-    puts "  #{File.basename(players_path)} in (#{File.dirname(players_path)})"
+
+  if PlayerRecord.database?
+    db = PlayerRecord.database
+    filename = db.filename
+    if filename  # note - nil for memory or tempary db?
+      puts "  #{File.basename(filename)} in (#{File.dirname(filename)})"
+    else
+      puts  "no filename; memory or temporary db?"
+    end
+
+    ## pp PlayerRecord.database
+    ## puts
     puts "    #{Player.count} players"
   else
-    puts " - no players.db set -"
+    puts "  - no players.db set -"
   end
 end
 
@@ -177,14 +119,7 @@ end
 
 
 
-
 require 'footballdb/data'   ## pull in catalog.db (built-in/default data/db)
-
-###
-## add default/built-in catalog here - why? why not?
-##  todo/fix  - set catalog_path on demand
-##   note:  for now required for world search setup etc.
-SportDb::Import.config.catalog_path = "#{FootballDb::Data.data_dir}/catalog.db"
 
 
 

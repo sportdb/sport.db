@@ -55,7 +55,7 @@ p args
 
 paths =  if args.empty?
             [
-              '../../../openfootball/euro/2020--europe/euro.txt',
+              '../../../openfootball/euro/2021--europe/euro.txt',
               '../../../openfootball/euro/2024--germany/euro.txt',
             ]
          else

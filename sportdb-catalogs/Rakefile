@@ -22,7 +22,7 @@ Hoe.spec 'sportdb-catalogs' do
   self.extra_deps = [
     ['sportdb-structs', '>= 0.3.1'],
     ['sqlite3'],          ## add sqlite for "metal" use (no activerecord etc.)
-    ['footballdb-data']   ## add builtin default db
+    ['footballdb-data', '>= 2024.8.23']   ## add builtin default db
   ]
 
   self.spec_extras = {

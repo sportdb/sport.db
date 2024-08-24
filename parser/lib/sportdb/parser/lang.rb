@@ -27,6 +27,12 @@ end
 
 ROUND_RE = %r{^(
 
+   ## add special case for group play-off rounds!
+   ##  group 2 play-off   (e.g. worldcup 1954, 1958)
+     (?:   Group [ ] [a-z0-9]+ [ ]
+           Play-?offs?
+     )
+        |
    # round  - note - requiers number e.g. round 1,2, etc.
    #   note - use 1-9 regex (cannot start with 0) - why? why not?
    #             make week 01 or round 01 or matchday 01 possible?
@@ -46,17 +52,23 @@ ROUND_RE = %r{^(
        |
    ## 1. Round / 2. Round / 3. Round / etc.
    ##  Play-off Round
+   ##  First Round
+   ##  Final Round   (e.g. Worldcup 1950)
       (?:
-           (?: [1-9][0-9]* \.
-                |
-                Play-?off
+           (?: [1-9][0-9]* \.  |
+                Play-?off   |
+                1st | First   |
+                2nd | Second  |
+                Final
            )
              [ ] Round
        )
        |
   ## starting with preliminary
+  #   e.g.  Preliminary round
      (?:  Preliminary  [ ]
-           (?:  Semi-?finals |
+           (?:  Round |
+                Semi-?finals |
                 Final
            )
      )
@@ -110,10 +122,15 @@ ROUND_RE = %r{^(
          Finals?
          |
     ## add replays
-    ##  Final Replay
+    ##  e.g. Final Replay
+    ##       Quarter-finals replays
+    ##       First round replays
      (?:
-        Final
-        [ ] Replay
+        (?: First [ ] Round |
+            Quarter-?finals? |
+            Finals?
+         )
+        [ ] Replays?
       )
 )$}ix
 

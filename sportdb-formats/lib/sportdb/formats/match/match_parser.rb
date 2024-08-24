@@ -617,9 +617,11 @@ class GoalStruct
 
         elsif node_type == :'@' ||
               node_type == :',' ||
-              node_type == :geo
+              node_type == :geo ||
+              node_type == :timezone
          ## e.g.
          ## [:"@"], [:geo, "Stade de France"], [:","], [:geo, "Saint-Denis"]]
+         ## [:"@"], [:geo, "Arena de São Paulo"], [:","], [:geo, "São Paulo"], [:timezone, "(UTC-3)"]
             more << node[1]  if node_type == :geo
         else
             puts "!! PARSE ERROR - unexpected node type #{node_type} in match line; got:"

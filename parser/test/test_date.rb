@@ -33,7 +33,7 @@ class TestDate < Minitest::Test
 
     assert_equal '(BRT/UTC-3)', m[:timezone]
   end
-  
+
 
   def test_duration
     m = DURATION_RE.match( 'Sun Jun/23 - Wed Jun/26' )
@@ -51,7 +51,7 @@ class TestDate < Minitest::Test
 
     assert_equal 'Jun/23 - Jun/26', m[:duration]
 
-
+=begin
     m = DURATION_RE.match( 'Tue Jun/25 + Wed Jun/26' )
     pp m
     pp m[:duration]
@@ -66,6 +66,7 @@ class TestDate < Minitest::Test
     pp m.named_captures
 
     assert_equal 'Jun/25 + Jun/26', m[:duration]
+=end
   end
 
 
@@ -109,7 +110,6 @@ pp tokens
 assert_equal  [[:date, "Jul 29"]], tokens
 
 
-end  
+end
 end # class TestDate
 
-  

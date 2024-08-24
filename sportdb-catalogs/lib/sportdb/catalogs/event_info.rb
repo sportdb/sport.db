@@ -16,7 +16,10 @@ class EventInfo < Record
      def self._build_event_info( row )
         ## note: cache structs by key (do NOT rebuild duplicates; reuse)
         @cache ||= Hash.new
-        @cache[ row[0] ] ||= Sports::EventInfo.new(
+        ## note cache key MUST be unique!
+        ##   use league PLUS season   (row[0] season only will NOT work)
+        key = "#{row[0]}_#{row[1]}"
+        @cache[ key ] ||= Sports::EventInfo.new(
                                 league: _to_league( row[0] ),
                                 season: Season.parse(row[1]),
                                 teams: row[2],
@@ -29,8 +32,7 @@ class EventInfo < Record
 
 
     def self.seasons( league )
-      league_key = league.is_a?( String ) ? League.find!( league ).key
-                                          : league.key
+      league_key = _league( league ).key
 
              rows =  execute( <<-SQL )
         SELECT #{self.columns.join(', ')}
@@ -43,8 +45,7 @@ SQL
 
 
     def self.find_by( league:, season: )
-      league_key = league.is_a?( String ) ? League.find!( league ).key
-                                          : league.key
+      league_key = _league( league ).key
       season_key = season.is_a?( String ) ? Season.parse(season).key
                                           : season.key
 

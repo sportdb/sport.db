@@ -155,6 +155,29 @@ def self._city( city )
      city  ## (re)use city struct - no need to run lookup again
    end
 end
+
+
+def self._league( league )
+   if league.is_a?( String ) || league.is_a?( Symbol )
+     # note: query/find country via catalog db
+     ##   only query by code - why? why not?
+     recs = League.match_by_name_or_code( league )
+     if recs.empty?
+       puts "** !!! ERROR !!! - unknown league >#{league}< - no match found, sorry"
+       exit 1
+     elsif recs.size > 1
+       puts "** !!! ERROR !!! - league >#{league}< - too many matches found (#{recs.size}), sorry"
+       pp recs
+       exit 1
+     end
+     recs[0]
+   else   ## assume league struct
+     league  ## (re)use league struct - no need to run lookup again
+   end
+end
+
+
+
 end  # class Record
 
 

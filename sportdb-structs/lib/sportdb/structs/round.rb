@@ -18,18 +18,19 @@ module Sports
         @auto       = auto        # auto-created (inline reference/header without proper definition before)
       end
 
-      def pretty_print( printer ) 
-        ## todo/check - how to display/format key - use () or not - why? why not? 
+      def pretty_print( printer )
+        ## todo/check - how to display/format key - use () or not - why? why not?
         buf = String.new
         buf << "<Round: "
         buf << "(#{@num}) "  if @num
         buf << "#{@name}, "
-        buf << "#{@start_date} - #{@end_date}"
+        buf << "#{@start_date}"
+        buf << " - #{@end_date}"  if @start_date != @end_date
         buf << "  (knockout)" if @knockout
         buf << "  (auto)"     if @auto
         buf << ">"
-    
-        printer.text( buf ) 
+
+        printer.text( buf )
       end
 end  # class Round
 end # module Sports

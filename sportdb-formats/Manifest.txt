@@ -2,6 +2,7 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
+bin/fbx
 lib/sportdb/formats.rb
 lib/sportdb/formats/country/country_reader.rb
 lib/sportdb/formats/csv/goal.rb

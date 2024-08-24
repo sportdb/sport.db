@@ -1,6 +1,6 @@
-module SportDb 
+module SportDb
 class Parser
-   
+
 
 
 def self.parse_names( txt )
@@ -47,8 +47,8 @@ def self.build_map( lines, downcase: false )
   ##   "may" => 5,
   ##   "june" => 6,     "jun" => 6, ...
   lines.each_with_index.reduce( {} ) do |h,(line,i)|
-    line.each do |name| 
-       h[ downcase ? name.downcase : name ] = i+1 
+    line.each do |name|
+       h[ downcase ? name.downcase : name ] = i+1
     end  ## note: start mapping with 1 (and NOT zero-based, that is, 0)
     h
   end
@@ -109,28 +109,56 @@ DAY_MAP   = build_map( DAY_LINES, downcase: true )
 ## todo - add more date variants !!!!
 
 # e.g. Fri Aug/9  or Fri Aug 9
-DATE_RE = %r{
+DATE_I_RE = %r{
 (?<date>
   \b
      ## optional day name
      ((?<day_name>#{DAY_NAMES})
           [ ]
-     )?    
+     )?
      (?<month_name>#{MONTH_NAMES})
          (?: \/|[ ] )
      (?<day>\d{1,2})
      ## optional year
      (  [ ]
         (?<year>\d{4})
-     )?   
-  \b   
+     )?
+  \b
 )}ix
 
 
+# e.g. 3 June  or 10 June
+DATE_II_RE = %r{
+(?<date>
+  \b
+     ## optional day name
+     ((?<day_name>#{DAY_NAMES})
+          [ ]
+     )?
+     (?<day>\d{1,2})
+         [ ]
+     (?<month_name>#{MONTH_NAMES})
+     ## optional year
+     (  [ ]
+        (?<year>\d{4})
+     )?
+  \b
+)}ix
+
+
+#############################################
+# map tables
+#  note: order matters; first come-first matched/served
+DATE_RE = Regexp.union(
+   DATE_I_RE,
+   DATE_II_RE
+)
+
+
 ###
-#  date duration  
+#  date duration
 #   use - or + as separator
-#    in theory plus( +) only if dates 
+#    in theory plus( +) only if dates
 #     are two days next to each other
 #
 #   otherwise  define new dates type in the future? why? why not?
@@ -147,7 +175,7 @@ DATE_RE = %r{
 #  Jun/25 .. 26        - why? why not???
 #  Jun/25 to 26        - why? why not???
 #  Jun/25 + 26        - add - why? why not???
-#  Sun-Wed Jun/23-26  -  add - why? why not??? 
+#  Sun-Wed Jun/23-26  -  add - why? why not???
 #  Wed+Thu Jun/26+27 2024  -  add - why? why not???
 #
 #  maybe use comman and plus for list of dates
@@ -157,39 +185,89 @@ DATE_RE = %r{
 #   add back optional comma (before) year - why? why not?
 
 
-DURATION_RE =  %r{
+##
+#   todo add plus later on - why? why not?
+
+DURATION_I_RE =  %r{
 (?<duration>
     \b
    ## optional day name
    ((?<day_name1>#{DAY_NAMES})
       [ ]
-   )?    
+   )?
    (?<month_name1>#{MONTH_NAMES})
       (?: \/|[ ] )
    (?<day1>\d{1,2})
    ## optional year
    ( [ ]
       (?<year1>\d{4})
-   )?   
+   )?
 
    ## support + and -  (add .. or such - why??)
-   [ ]*[+-][ ]*   
-  
+   [ ]*[-][ ]*
+
    ## optional day name
    ((?<day_name2>#{DAY_NAMES})
       [ ]
-   )?    
+   )?
    (?<month_name2>#{MONTH_NAMES})
       (?: \/|[ ] )
    (?<day2>\d{1,2})
    ## optional year
    ( [ ]
       (?<year2>\d{4})
-   )?   
-   \b   
+   )?
+   \b
 )}ix
 
 
+###
+#   variant ii
+# e.g. 26 July - 27 July
+
+DURATION_II_RE =  %r{
+(?<duration>
+    \b
+   ## optional day name
+   ((?<day_name1>#{DAY_NAMES})
+      [ ]
+   )?
+   (?<day1>\d{1,2})
+      [ ]
+   (?<month_name1>#{MONTH_NAMES})
+   ## optional year
+   ( [ ]
+      (?<year1>\d{4})
+   )?
+
+   ## support + and -  (add .. or such - why??)
+   [ ]*[-][ ]*
+
+   ## optional day name
+   ((?<day_name2>#{DAY_NAMES})
+      [ ]
+   )?
+   (?<day2>\d{1,2})
+      [ ]
+   (?<month_name2>#{MONTH_NAMES})
+   ## optional year
+   ( [ ]
+      (?<year2>\d{4})
+   )?
+   \b
+)}ix
+
+
+#############################################
+# map tables
+#  note: order matters; first come-first matched/served
+DURATION_RE = Regexp.union(
+   DURATION_I_RE,
+   DURATION_II_RE
+)
+
+
+
 end  #   class Parser
-end  # module SportDb 
-   
+end  # module SportDb
+

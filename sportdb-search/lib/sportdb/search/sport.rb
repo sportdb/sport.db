@@ -6,11 +6,6 @@
 
 class SportSearch
 
-class Search    ## base search service - use/keep - why? why not?
-  def initialize( service ) @service = service; end
-end  # class Search
-
-
 class PlayerSearch < Search
   ###################
   ## core required delegates  - use delegate generator - why? why not?
@@ -325,48 +320,4 @@ class TeamSearch
       end
     end # method _find_by!
   end  # class TeamSearch
-
-
-
-   def initialize( leagues:,
-                   national_teams:,
-                   clubs:,
-                   grounds:,
-                   events:,
-                   players:
-                   )
-       @leagues        = LeagueSearch.new( leagues )
-       @national_teams = NationalTeamSearch.new( national_teams )
-       @clubs          = ClubSearch.new( clubs )
-       @events         = EventSearch.new( events )
-
-       @grounds        = GroundSearch.new( grounds )
-
-       @players        = PlayerSearch.new( players )
-
-       ## virtual deriv ("composite") search services
-       @teams          = TeamSearch.new( clubs:          @clubs,
-                                         national_teams: @national_teams )
-       @event_seasons  = EventSeasonSearch.new( events: @events )
-
-   end
-
-    def countries
-        puts
-        puts "[WARN] do NOT use catalog.countries, deprecated!!!"
-        puts "   please, switch to new world.countries search service"
-        puts
-        exit 1
-    end
-
- def leagues()        @leagues; end
- def national_teams() @national_teams; end
- def clubs()          @clubs; end
- def events()         @events; end
- def grounds()         @grounds; end
-
- def players()        @players; end
-
- def teams()          @teams; end         ## note - virtual table
- def seasons()        @event_seasons; end ## note - virtual table
 end  # class SportSearch

@@ -8,9 +8,7 @@
 
 class WorldSearch
 
-class CitySearch
-  def initialize( service ) @service = service; end
-
+class CitySearch < Search
   ###################
   ## core required delegates  - use delegate generator - why? why not?
   def match_by( name: )
@@ -19,9 +17,7 @@ class CitySearch
 end  # class CitySearch
 
 
-class CountrySearch
-  def initialize( service ) @service = service; end
-
+class CountrySearch < Search
     ###################
     ## core required delegates  - use delegate generator - why? why not?
     def find_by_code( code )
@@ -124,34 +120,8 @@ class CountrySearch
    country
  end # method parse
 end  # class CountrySearch
-
-
-    def initialize( countries:, cities: )
-        ## change service to country_service or such - why? why not?
-        ##  add city_service and such later
-        @countries = CountrySearch.new( countries )
-        @cities    = CitySearch.new( cities )
-    end
-
-    ####
-    #  note: for now setup only for countries
-    def countries() @countries;  end
-    def cities()    @cities;  end
 end  # class WorldSearch
 
 
-
-
-
-class DummyCountrySearch
-    def find_by_code( code )
-        puts "[WARN] no world search configured; cannot find country by code"
-        nil
-    end
-    def find_by_name( name )
-        puts "[WARN] no world search configured; cannot find country by name"
-        nil
-    end
-end  # class DummyCountrySearch
 
 

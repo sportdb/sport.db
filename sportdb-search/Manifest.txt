@@ -1,0 +1,9 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/sportdb/search.rb
+lib/sportdb/search/sport.rb
+lib/sportdb/search/structs.rb
+lib/sportdb/search/version.rb
+lib/sportdb/search/world.rb

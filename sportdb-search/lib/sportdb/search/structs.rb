@@ -65,7 +65,9 @@ class League
        _search.match_by( name: name, code: code,
                          country: country )
     end
-    def self.match( q ) _search.match( q ); end
+    def self.match( q, country: nil )
+        _search.match( q, country: country )
+    end
 
     def self.find!( q ) _search.find!( q ); end
     def self.find( q )  _search_find( q ); end
@@ -80,6 +82,7 @@ class NationalTeam
     def self.find( q )   _search.find( q ); end
     def self.find!( q )  _search_find!( q ); end
 end # class NationalTeam
+
 
 
 class Club
@@ -113,4 +116,17 @@ class Club
        _search_build_mods( mods )
     end
   end # class Club
+
+
+  class Ground
+    def self._search
+        SportDb::Import.catalog.grounds
+    end
+
+    def self.match_by( name:, country: nil, city: nil )
+      _search.match_by( name:    name,
+                        country: country,
+                        city:    city )
+    end
+  end # class Ground
 end   # module Sports

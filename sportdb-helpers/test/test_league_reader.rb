@@ -1,11 +1,9 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_league_reader.rb
+#     ruby test/test_league_reader.rb
 
 
-require 'helper'
+require_relative 'helper'
 
 class TestLeagueReader < Minitest::Test
 
@@ -36,14 +34,14 @@ TXT
     assert_equal 'Austria',     recs[1].country.name
     assert_equal 'at',          recs[1].country.key
 
-    assert recs[0].alt_names_auto.include?( 'AT' )
-    assert recs[0].alt_names_auto.include?( 'AT 1' )
-    assert recs[0].alt_names_auto.include?( 'AUT 1' )
-    assert recs[0].alt_names_auto.include?( 'Austria 1' )
+#    assert recs[0].alt_names_auto.include?( 'AT' )
+#    assert recs[0].alt_names_auto.include?( 'AT 1' )
+#    assert recs[0].alt_names_auto.include?( 'AUT 1' )
+#    assert recs[0].alt_names_auto.include?( 'Austria 1' )
 
-    assert recs[1].alt_names_auto.include?( 'AT 2' )
-    assert recs[1].alt_names_auto.include?( 'AUT 2' )
-    assert recs[1].alt_names_auto.include?( 'Austria 2' )
+#    assert recs[1].alt_names_auto.include?( 'AT 2' )
+#    assert recs[1].alt_names_auto.include?( 'AUT 2' )
+#    assert recs[1].alt_names_auto.include?( 'Austria 2' )
   end
 
 

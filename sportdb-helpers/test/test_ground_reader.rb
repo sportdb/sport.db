@@ -1,9 +1,9 @@
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_ground_reader.rb
+#     ruby test/test_ground_reader.rb
 
 
-require 'helper'
+require_relative 'helper'
 
 class TestGroundReader < Minitest::Test
 
@@ -11,13 +11,13 @@ class TestGroundReader < Minitest::Test
     recs = SportDb::Import::GroundReader.parse( <<TXT )
 
 ============================================
-= Germany 
+= Germany
 
 == Berlin ==
 
 Olympiastadion,   74_176, 1936, Berlin            # Hertha BSC
    | Olympiastadion Berlin     ## (always) auto-add city to canonical name - why? why not?
-   Olympischer Platz 3 // 14053 Berlin    
+   Olympischer Platz 3 // 14053 Berlin
 
 Alte Försterei, 21_738, 1920, Berlin              # 1. FC Union Berlin
   | Stadion An der Alten Försterei
@@ -42,7 +42,7 @@ $Allianz$ Arena, 66_016, 2005,  München             # FC Bayern München
   | München Fußball Arena       # euro 2024 name
   | Fußball Arena München       # euro 2024 name
   | Munich Football Arena [en]  # euro 2024 name
-  Werner-Heisenberg-Allee 25 // 80939 München   
+  Werner-Heisenberg-Allee 25 // 80939 München
 TXT
 
     pp recs

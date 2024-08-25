@@ -1,6 +1,3 @@
-# encoding: utf-8
-
-
 module SportDb
 module Import
 

@@ -7,8 +7,8 @@ require_relative  'helper'
 
 class TestCountryReader < Minitest::Test
 
-  def xxx_test_read
-    recs = SportDb::Import::CountryReader.read( "#{SportDb::Test.data_dir}/world/countries.txt" )
+  def test_read
+    recs = SportDb::Import::CountryReader.read( "./test/world/countries.txt" )
     pp recs
 
     assert_equal 232, recs.size

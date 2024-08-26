@@ -1,0 +1,32 @@
+require 'hoe'
+require './lib/sportdb/helpers/version.rb'
+
+Hoe.spec 'sportdb-helpers' do
+
+  self.version = SportDb::Module::Helpers::VERSION
+
+  self.summary = "sportdb-helpers - parsers & readers and more  for structs incl. countries, leagues, clubs, grounds, et al"
+  self.description = summary
+
+  self.urls = { home: 'https://github.com/sportdb/sport.db' }
+
+  self.author = 'Gerald Bauer'
+  self.email = 'gerald.bauer@gmail.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.licenses = ['Public Domain']
+
+  self.extra_deps = [
+    ['sportdb-search',   '>= 0.0.1'],
+    ['date-formats',     '>= 1.0.2'],
+    ['cocos',            '>= 0.4.0'],
+    ['logutils',         '>= 0.6.1'],   ## move upstream to search - why? why not?
+  ]
+
+  self.spec_extras = {
+   required_ruby_version: '>= 3.1.0'
+  }
+end

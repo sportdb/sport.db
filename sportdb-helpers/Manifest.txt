@@ -1,0 +1,14 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/sportdb/helpers.rb
+lib/sportdb/helpers/club_reader.rb
+lib/sportdb/helpers/club_reader_history.rb
+lib/sportdb/helpers/club_reader_props.rb
+lib/sportdb/helpers/country_reader.rb
+lib/sportdb/helpers/event_reader.rb
+lib/sportdb/helpers/ground_reader.rb
+lib/sportdb/helpers/league_reader.rb
+lib/sportdb/helpers/version.rb
+lib/sportdb/helpers/wiki_reader.rb

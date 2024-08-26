@@ -2,8 +2,6 @@
 module SportDb
 module Import
   class EventInfoReader
-    def catalog() Import.catalog; end
-
 
     def self.read( path )
       txt = File.open( path, 'r:utf-8') {|f| f.read }
@@ -27,7 +25,7 @@ module Import
         dates_col  = row['Dates']
 
         season = Season.parse( season_col )
-        league = catalog.leagues.find!( league_col )
+        league = League.find!( league_col )
 
 
         dates = []

@@ -12,8 +12,6 @@ module Import
 
 class GroundReader
 
-  def world() Import.world; end
-
 
 def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
   txt = File.open( path, 'r:utf-8' ) { |f| f.read }
@@ -74,7 +72,7 @@ def parse
             ##   Österreich • Austria
             ##   Austria
             ##   Deutschland (de) • Germany
-            country = world.countries.parse( heading )
+            country = Country.parse_heading( heading )
             ## check country code - MUST exist for now!!!!
             if country.nil?
               puts "!!! error [ground reader] - unknown country >#{heading}< - sorry - add country to config to fix"
@@ -214,7 +212,9 @@ def parse
 
         ## 1) add country if present
         if headings.size > 0 && headings[0]
-          country = world.countries.find( headings[0] )
+          ##  todo - change to Country.find_by( code: )
+          ##          headings always country code /key - why? why not?
+          country = Country.find( headings[0] )
           rec.country = country
         else
           ## make it an error - why? why not?
@@ -270,7 +270,7 @@ def split_geo( str )
   geos
 end
 
-## norm(alize) helper  - squish (spaces) 
+## norm(alize) helper  - squish (spaces)
 ##                      and remove dollars ($$$)
 ##                      and remove leading and trailing spaces
 def _norm( str )

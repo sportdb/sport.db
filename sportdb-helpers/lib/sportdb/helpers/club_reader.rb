@@ -1,12 +1,8 @@
-
 module SportDb
 module Import
 
 
 class ClubReader
-
-  def world() Import.world; end
-
 
 
 def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
@@ -78,7 +74,7 @@ def parse
             ##   Österreich • Austria
             ##   Austria
             ##   Deutschland (de) • Germany
-            country = world.countries.parse( heading )
+            country = Country.parse_heading( heading )
             ## check country code - MUST exist for now!!!!
             if country.nil?
               puts "!!! error [club reader] - unknown country >#{heading}< - sorry - add country to config to fix"
@@ -117,7 +113,7 @@ def parse
         values = line[1..-1].split( '|' )   # team names - allow/use pipe(|)
         values = values.map {|value| _norm(value) }  ## squish/strip etc.
 
-        last_rec.alt_names += values 
+        last_rec.alt_names += values
 
       ## check for b (child) team / club marker e.g.
       ##    (ii) or ii) or ii.) or (ii.)
@@ -242,7 +238,7 @@ def parse
 
         ## 1) add country if present
         if headings.size > 0 && headings[0]
-          country = world.countries.find( headings[0] )
+          country = Country.find( headings[0] )
           rec.country = country
         else
           ## make it an error - why? why not?
@@ -289,8 +285,8 @@ def split_geo( str )
   ## assume city / geo tree
   ##  strip and squish (white)spaces
   #   e.g. León     › Guanajuato     => León › Guanajuato
-  str = _squish( str ) 
-  
+  str = _squish( str )
+
   ## split into geo tree
   geos = str.split( /[<>‹›]/ )   ## note: allow > < or › ‹
   geos = geos.map { |geo| geo.strip }   ## remove all whitespaces
@@ -298,7 +294,7 @@ def split_geo( str )
 end
 
 
-## norm(alize) helper  - squish (spaces) 
+## norm(alize) helper  - squish (spaces)
 ##                      and remove dollars ($$$)
 ##                      and remove leading and trailing spaces
 def _norm( str )

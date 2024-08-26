@@ -1,14 +1,9 @@
-# encoding: utf-8
-
 
 module SportDb
 module Import
 
 
 class ClubPropsReader
-
-  def catalog() Import.catalog; end
-
 
   def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
     txt = File.open( path, 'r:utf-8' ) {|f| f.read }
@@ -35,7 +30,7 @@ class ClubPropsReader
       end
 
       ## find / match club by (canocial) name
-      m = catalog.clubs.match( name )
+      m = Club.match( name )
       if m.size > 1
         puts "** !!! WARN !!! ambigious (multiple) club matches (#{m.size}) for name >#{name}< in props row:"
         pp rec

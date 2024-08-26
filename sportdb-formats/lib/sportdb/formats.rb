@@ -26,9 +26,8 @@ end
 # our own code
 require_relative 'formats/version' # let version always go first
 
-require_relative 'formats/datafile'
-require_relative 'formats/datafile_package'
 require_relative 'formats/package'
+require_relative 'formats/datafile_package'
 
 
 
@@ -77,81 +76,13 @@ end # module Sports
 
 
 
-require_relative 'formats/match/match_parser'
-require_relative 'formats/match/conf_parser'
+require_relative 'formats/txt/league_outline_reader'
+require_relative 'formats/txt/match_parser'
+require_relative 'formats/txt/conf_parser'
 
 
-
-require_relative 'formats/country/country_reader'
-
-
-## add convenience helper
-module SportDb
-module Import
-class Country
-  def self.read( path )  CountryReader.read( path ); end
-  def self.parse( txt )  CountryReader.parse( txt ); end
-end   # class Country
-end   # module Import
-end   # module SportDb
-
-
-require_relative 'formats/league/league_reader'
-require_relative 'formats/league/league_outline_reader'
-
-##
-## add convenience helper / short-cuts
-module SportDb
-module Import
-class League
-  def self.read( path ) LeagueReader.read( path ); end
-  def self.parse( txt ) LeagueReader.parse( txt ); end
-end   # class League
-end   # module Import
-end   # module SportDb
-
-
-require_relative 'formats/team/club_reader'
-require_relative 'formats/team/club_reader_props'
-require_relative 'formats/team/wiki_reader'
-
-require_relative 'formats/team/club_reader_history'
-require_relative 'formats/team/club_index_history'
-
-
-###
-# add convenience helpers / shortcuts
-module SportDb
-  module Import
-
-class Club
-  def self.read( path )  ClubReader.read( path ); end
-  def self.parse( txt )  ClubReader.parse( txt ); end
-
-  def self.read_props( path )  ClubPropsReader.read( path ); end
-  def self.parse_props( txt )  ClubPropsReader.parse( txt ); end
-  ##  todo/check: use ClubProps.read and ClubProps.parse convenience alternate shortcuts - why? why not?
-end # class Club
-
-end   # module Import
-end   # module SportDb
-
-
-require_relative 'formats/event/event_reader'
-
-## add convenience helper
-module SportDb
-module Import
-class EventInfo
-  def self.read( path )  EventInfoReader.read( path ); end
-  def self.parse( txt )  EventInfoReader.parse( txt ); end
-end   # class EventInfo
-end   # module Import
-end   # module SportDb
-
-
-
-require_relative 'formats/ground/ground_reader'
+# require_relative 'formats/team/club_reader_history'
+# require_relative 'formats/team/club_index_history'
 
 
 

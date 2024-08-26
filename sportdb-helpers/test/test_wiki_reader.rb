@@ -1,13 +1,11 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_wiki_reader.rb
+#     ruby test/test_wiki_reader.rb
 
 
-require 'helper'
+require_relative 'helper'
 
-class TestWikiReader < MiniTest::Test
+class TestWikiReader < Minitest::Test
 
   def test_parse_at
     recs = SportDb::Import::WikiReader.parse( <<TXT )

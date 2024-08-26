@@ -5,8 +5,6 @@ module Import
 
 class LeagueReader
 
-  def world() Import.world; end
-
 
 def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
   txt = File.open( path, 'r:utf-8' ) { |f| f.read }
@@ -62,7 +60,7 @@ def parse
           ##   Österreich • Austria
           ##   Austria
           ##   Deutschland (de) • Germany
-          country = world.countries.parse( heading )
+          country = Country.parse_heading( heading )
           intl    = false
           clubs   = true
 
@@ -133,7 +131,7 @@ end # method parse
 #######################
 ###  helpers
 
-## norm(alize) helper  - squish (spaces) 
+## norm(alize) helper  - squish (spaces)
 ##                      and remove dollars ($$$)
 ##                      and remove leading and trailing spaces
 def _norm( str )

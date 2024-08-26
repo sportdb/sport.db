@@ -1,14 +1,12 @@
-# encoding: utf-8
-
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_club_reader_history.rb
+#     ruby test/test_club_reader_history.rb
 
 
-require 'helper'
+require_relative 'helper'
 
 
-class TestClubHistoryReader < MiniTest::Test
+class TestClubHistoryReader < Minitest::Test
 
   def test_parse_eng
     txt =<<TXT

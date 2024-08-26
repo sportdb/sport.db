@@ -1,13 +1,8 @@
-# encoding: utf-8
-
-
 module SportDb
 module Import
 
 
 class ClubHistoryReader
-
-  def world() Import.world; end
 
 
 
@@ -68,7 +63,7 @@ def parse
             ##   Österreich • Austria
             ##   Austria
             ##   Deutschland (de) • Germany
-            country = world.countries.parse( heading )
+            country = Country.parse_heading( heading )
             ## check country code - MUST exist for now!!!!
             if country.nil?
               puts "!!! error [club history reader] - unknown country >#{heading}< - sorry - add country to config to fix"

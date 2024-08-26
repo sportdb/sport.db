@@ -1,6 +1,3 @@
-# encoding: utf-8
-
-
 module SportDb
 module Import
 
@@ -14,8 +11,6 @@ class WikiReader    ## todo/check: rename to WikiClubReader - why? why not?
     end
   end  # (nested) class WikiClub
 
-
-  def world() Import.world; end
 
 
 def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
@@ -72,7 +67,7 @@ def parse
       ##   Österreich • Austria
       ##   Austria
       ##   Deutschland (de) • Germany
-      country = world.countries.parse( heading )
+      country = Country.parse_heading( heading )
       ## check country code - MUST exist for now!!!!
       if country.nil?
         puts "!!! error [wiki reader] - unknown country >#{heading}< - sorry - add country to config to fix"

@@ -4,8 +4,9 @@ require 'cocos'
 require 'active_record'   ## todo: add sqlite3? etc.
 
 require 'sportdb/structs'
-require 'sportdb/catalogs'
-require 'sportdb/formats'
+require 'sportdb/search'
+require 'sportdb/helpers'  ## pulls in search
+## require 'sportdb/formats'
 
 
 ## our own code
@@ -39,14 +40,14 @@ class Configuration
     def city?()  defined?(@city) ? @city : true; end
     def city=(value) @city = value; end
 end # class Configuration
-   
+
 ## lets you use
 ##   CatalogtDb.configure do |config|
 ##      config.city = false
 ##   end
 def self.configure()  yield( config ); end
 def self.config()  @config ||= Configuration.new;  end
-  
+
 
 
 
@@ -76,7 +77,7 @@ def self.open( path='./catalog.db' )
         CreateDb.new.up
     end
 
-    ##  quick hack???  
+    ##  quick hack???
     ## note: set "system" catalog to use this db too
     ##   required for all non-country indexers!!!!!
 
@@ -84,8 +85,8 @@ def self.open( path='./catalog.db' )
     ##   can share connection to memory db? how?
     SportDb::Import.config.catalog_path = path
     ## check records counts
-    puts "  #{Metal::Country.count} countries" 
-    puts "  #{Metal::League.count} leagues" 
+    puts "  #{Metal::Country.count} countries"
+    puts "  #{Metal::League.count} leagues"
 end
 end    # module CatalogDb
 

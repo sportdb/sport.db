@@ -2,9 +2,14 @@
 
 ## tip: to test run:
 ##   ruby -I ./lib bin/fbt
+##     -or-
+##   ruby -I ../parser/lib -I ./lib bin/fbt
+##     -or-
+##   ruby -I ../parser/lib -I ../sportdb-structs/lib -I ./lib bin/fbt
+
 
 ## our own code
-require 'sportdb/parser'
+require 'sportdb/quick'
 
 
 
@@ -21,7 +26,8 @@ require 'optparse'
 
  args = ARGV
  opts = { debug: false,
-          metal: false }
+          metal: false,
+          quick: false }
 
  parser = OptionParser.new do |parser|
   parser.banner = "Usage: #{$PROGRAM_NAME} [options]"
@@ -40,6 +46,12 @@ require 'optparse'
                  "turn off typed parse tree; show to the metal tokens"+
                    " (default: #{opts[:metal]})" ) do |metal|
     opts[:metal] = metal
+  end
+
+  parser.on( "--quick",
+                "use quick match reader; output matches in json"+
+                   " (default: #{opts[:quick]})" ) do |quick|
+     opts[:quick] = quick
   end
 end
 parser.parse!( args )
@@ -62,33 +74,48 @@ paths =  if args.empty?
             ## check for directories
             ##   and auto-expand
 
-            SportDb::Parser::Opts.expand_args( args )
+            SportDb::Quick::Opts.expand_args( args )
          end
 
 
+if opts[:quick]
 
-SportDb::Parser::Linter.debug = true    if opts[:debug]
+  paths.each_with_index do |path,i|
+    puts "==> [#{i+1}/#{paths.size}] reading >#{path}<..."
 
-linter = SportDb::Parser::Linter.new
+    matches = SportDb::QuickMatchReader.read( path )
+    ## pp matches
+    ##  try json for matches
+    data = matches.map {|match| match.as_json }
+    pp data
+    puts
+    puts "  #{data.size} match(es)"
+  end
+else
+  SportDb::Quick::Linter.debug = true    if opts[:debug]
 
-errors = []
+  linter = SportDb::Quick::Linter.new
 
-paths.each_with_index do |path,i|
+  errors = []
+
+  paths.each_with_index do |path,i|
     puts "==> [#{i+1}/#{paths.size}] reading >#{path}<..."
     linter.read( path, parse: !opts[:metal] )
 
     errors += linter.errors    if linter.errors?
-end
+  end
 
-if errors.size > 0
+  if errors.size > 0
     puts
     pp errors
     puts
     puts "!!   #{errors.size} parse error(s) in #{paths.size} datafiles(s)"
-else
+  else
     puts
     puts "OK   no parse errors found in #{paths.size} datafile(s)"
+  end
 end
+
 
 puts "bye"
 

@@ -1,6 +1,6 @@
 
 module SportDb
-class Parser
+module Quick
 
 ###
 ## note - Opts Helpers for now nested inside Parser - keep here? why? why not?
@@ -29,9 +29,9 @@ def self.find( path )
     ##    change all backslash to slash for now
     ## path = path.gsub( "\\", '/' )
     path = File.expand_path( path )
-    
+
     ## check all txt files
-    ## note: incl. files starting with dot (.)) as candidates 
+    ## note: incl. files starting with dot (.)) as candidates
     ##     (normally excluded with just *)
     candidates = Dir.glob( "#{path}/**/{*,.*}.txt" )
     ## pp candidates
@@ -66,5 +66,5 @@ end
 end  # class Opts
 
 
-end   # class Parser
+end   # module Quick
 end   # module SportDb

@@ -76,7 +76,7 @@ class LeagueOutlineReader   ## todo/check - rename to LeaguePageReader / LeagueP
     ## pass 3 - check & map; replace inline (string with data struct record)
     secs.each do |sec|
       sec[:season] = Season.parse( sec[:season ] )
-      sec[:league] = catalog.leagues.find!( sec[:league] )
+      sec[:league] = Import::League.find!( sec[:league] )
 
       check_stage( sec[:stage] )   if sec[:stage]   ## note: only check for now (no remapping etc.)
     end
@@ -84,9 +84,6 @@ class LeagueOutlineReader   ## todo/check - rename to LeaguePageReader / LeagueP
     secs
   end # method parse
 
-
-
-  def catalog() Import.catalog; end    ## shortcut convenience helper
 
   ## split into league + season
   ##  e.g. Österr. Bundesliga 2015/16   ## or 2015-16

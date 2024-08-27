@@ -2,29 +2,14 @@
 # test search (struct convenience) helpers/methods
 
 ## note: use the local version of gems
-$LOAD_PATH.unshift( File.expand_path( '../date-formats/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../score-formats/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-langs/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
-$LOAD_PATH.unshift( File.expand_path( './lib' ))
-
 $LOAD_PATH.unshift( File.expand_path( '../parser/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../score-formats/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
+$LOAD_PATH.unshift( File.expand_path( './lib' ))
 
 
 ## our own code
-require 'sportdb/formats'
-
-
-require 'sportdb/catalogs'
-
-SportDb::Import.config.catalog_path = '../catalog/catalog.db'
-
-
-Country      = Sports::Country
-League       = Sports::League
-NationalTeam = Sports::NationalTeam
-Club         = Sports::Club
+require 'sportdb/quick'
 
 
 txt = <<TXT
@@ -78,6 +63,14 @@ SportDb::MatchParser.debug = true
 parser = SportDb::MatchParser.new( lines, start )
 pp parser
 
-pp parser.parse
+teams, matches, rounds, groups = parser.parse
+
+pp [teams, matches, rounds, groups]
+
+puts
+puts "  try json for matches:"
+
+data = matches.map {|match| match.as_json }
+pp data
 
 puts "bye"

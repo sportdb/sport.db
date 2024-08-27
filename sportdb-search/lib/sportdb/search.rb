@@ -170,30 +170,6 @@ require_relative 'search/structs_world'
 
 module SportDb
   module Import
-    Season = ::Season   ## add a convenience alias for top-level Season class
-
-    ## add "old" convenience aliases for structs - why? why not?
-    ##   todo/check: just use include Sports !!!!
-    Country      = ::Sports::Country
-    League       = ::Sports::League
-    Group        = ::Sports::Group
-    Round        = ::Sports::Round
-    Match        = ::Sports::Match
-    Matchlist    = ::Sports::Matchlist
-    Goal         = ::Sports::Goal
-    Team         = ::Sports::Team
-    NationalTeam = ::Sports::NationalTeam
-    Club         = ::Sports::Club
-    Standings    = ::Sports::Standings
-    TeamUsage    = ::Sports::TeamUsage
-
-    Ground       = ::Sports::Ground
-
-    Player       = ::Sports::Player
-
-    EventInfo    = ::Sports::EventInfo
-
-
     class Team
       ## add convenience lookup helper / method for name by season for now
       ##   use clubs history - for now kept separate from struct - why? why not?
@@ -202,7 +178,6 @@ module SportDb
         SportDb::Import.catalog.clubs_history.find_name_by( name: name, season: season ) || name
       end
     end  # class Team
-
   end   # module Import
 end     # module SportDb
 

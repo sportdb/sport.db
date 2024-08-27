@@ -178,8 +178,59 @@ class Match
   # def scorei_str    # pretty print (half time) scores; convenience method
   #  "#{@score1i}-#{@score2i}"
   # end
-end  # class Match
 
+
+def as_json
+  ##
+  data = {}
+
+  ## check round
+  if @round
+    data[:round ] = if round.is_a?( Integer )
+                      "Matchday #{@round}"
+                    else ## assume string
+                      @round
+                    end
+  end
+
+
+  data[:num] = @num    if @num
+  if @date
+    ## assume 2020-09-19 date format!!
+    data[:date]  = @date.is_a?( String ) ? @date : @date.strftime('%Y-%m-%d')
+
+    data[:time] = @time  if @time
+  end
+
+  data[:team1] =  @team1.is_a?( String ) ? @team1 : @team1.name
+  data[:team2] =  @team2.is_a?( String ) ? @team2 : @team2.name
+
+  data[:score] = {}
+
+  data[:score][:ht] = [@score1i,   @score2i]     if @score1i && @score2i
+  data[:score][:ft] = [@score1,    @score2]      if @score1 && @score2
+  data[:score][:et] = [@score1et,  @score2et]    if @score1et && @score2et
+  data[:score][:p]  = [@score1p,   @score2p]     if @score1p && @score2p
+
+  data[:group]  = @group   if @group
+
+=begin
+      "round": "Spieltag 1",
+      "date": "2020-09-19",
+      "team1": "Eintracht Frankfurt",
+      "team2": "Arminia Bielefeld",
+      "score": {
+        "ft": [
+          1,
+          1
+        ]
+      }
+=end
+  data
+end
+
+
+end  # class Match
 end # module Sports
 
 

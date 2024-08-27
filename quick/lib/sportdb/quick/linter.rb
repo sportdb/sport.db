@@ -1,15 +1,15 @@
 
 module SportDb
-class Parser
+module Quick
 
 ###
 ## note - Linter for now nested inside Parser - keep? why? why not?
 class Linter
-   
+
 def self.debug=(value) @@debug = value; end
 def self.debug?() @@debug ||= false; end  ## note: default is FALSE
-def debug?()  self.class.debug?; end   
-    
+def debug?()  self.class.debug?; end
+
 
 
 attr_reader :errors
@@ -35,7 +35,7 @@ def errors?() @errors.size > 0; end
   ##   Group B:   - remove colon
   ##    or lookup first
 
-  ATTRIB_RE = %r{^  
+  ATTRIB_RE = %r{^
                    [ ]*?     # slurp leading spaces
                 (?<key>[^:|\]\[()\/; -]
                        [^:|\]\[()\/;]{0,30}
@@ -50,12 +50,12 @@ def errors?() @errors.size > 0; end
 
 #########
 ## parse - false (default) - tokenize (only)
-##       - true            - tokenize & parse                
+##       - true            - tokenize & parse
 def read( path, parse: false )
   ## note: every (new) read call - resets errors list to empty
   @errors = []
 
-  nodes = OutlineReader.read( path ) 
+  nodes = OutlineReader.read( path )
 
   ##  process nodes
   h1 = nil
@@ -66,7 +66,7 @@ def read( path, parse: false )
 
   nodes.each do |node|
     type = node[0]
-    
+
     if type == :h1
         h1 = node[1]  ## get heading text
         puts
@@ -74,14 +74,14 @@ def read( path, parse: false )
     elsif type == :p
 
        if h1.nil?
-         orphans += 1    ## only warn once 
+         orphans += 1    ## only warn once
          puts "!! WARN - no heading for #{orphans} text paragraph(s); skipping parse"
          next
        end
 
        lines = node[1]
 
-       tree = [] 
+       tree = []
        lines.each_with_index do |line,i|
 
         if debug?
@@ -91,10 +91,10 @@ def read( path, parse: false )
 
 
         ## skip new (experimental attrib syntax)
-        if attrib_found == false && 
+        if attrib_found == false &&
             ATTRIB_RE.match?( line )
           ## note: check attrib regex AFTER group def e.g.:
-          ##         Group A: 
+          ##         Group A:
           ##         Group B:  etc.
           ##     todo/fix - change Group A: to Group A etc.
           ##                       Group B: to Group B
@@ -107,17 +107,17 @@ def read( path, parse: false )
           ## check if line ends with dot
           ##  if not slurp up lines to the next do!!!
           ## logger.debug "skipping key/value line - >#{line}<"
-          attrib_found = false   if line.end_with?( '.' ) 
+          attrib_found = false   if line.end_with?( '.' )
               # logger.debug "skipping key/value line (cont.) - >#{line}<"
               next
-        end    
-    
+        end
+
         t, error_messages  =  if parse
                                   @parser.parse_with_errors( line )
                               else
-                                  @parser.tokenize_with_errors( line )                   
+                                  @parser.tokenize_with_errors( line )
                               end
-         
+
 
          if error_messages.size > 0
             ## add to "global" error list
@@ -134,7 +134,7 @@ def read( path, parse: false )
 
          tree << t
        end
-       
+
        ## pp tree
     else
         pp node
@@ -145,5 +145,5 @@ end  # read
 end  # class Linter
 
 
-end   # class Parser
+end   # module Quick
 end   # module SportDb

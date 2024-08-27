@@ -5,11 +5,11 @@ require 'minitest/autorun'
 $LOAD_PATH.unshift( './lib' )
 
 ## our own code
-require  'sportdb/parser'   
+require  'sportdb/parser'
 
 
 
-module Minitest 
+module Minitest
 class Test
 
 
@@ -26,7 +26,7 @@ class Test
 
  def tokenize( line )
     parser.tokenize( line )
- end  
+ end
 
 
 

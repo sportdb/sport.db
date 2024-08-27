@@ -65,12 +65,44 @@ end  # module Sports
 
 
 
+
+
+##
+##  add all structs in SportDb::Import namespace too
+module SportDb
+  module Import
+    Season = ::Season   ## add a convenience alias for top-level Season class
+
+    ## add "old" convenience aliases for structs - why? why not?
+    ##   todo/check: just use include Sports !!!!
+    Country      = ::Sports::Country
+    League       = ::Sports::League
+    Group        = ::Sports::Group
+    Round        = ::Sports::Round
+    Match        = ::Sports::Match
+    Matchlist    = ::Sports::Matchlist
+    Goal         = ::Sports::Goal
+    Team         = ::Sports::Team
+    NationalTeam = ::Sports::NationalTeam
+    Club         = ::Sports::Club
+    Standings    = ::Sports::Standings
+    TeamUsage    = ::Sports::TeamUsage
+
+    Ground       = ::Sports::Ground
+
+    Player       = ::Sports::Player
+
+    EventInfo    = ::Sports::EventInfo
+  end   # module Import
+end     # module SportDb
+
+
+
+
 #####
 # note: add Sport and Football convenience alias - why? why not?
 Sport    = Sports
 Football = Sports
-
-
 
 
 puts SportDb::Module::Structs.banner   # say hello

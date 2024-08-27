@@ -155,6 +155,35 @@ DATE_RE = Regexp.union(
 )
 
 
+##
+##  add a date parser helper
+def self.parse_date( str, start: )
+    if m=DATE_RE.match( str )
+
+      year    = m[:year].to_i(10)  if m[:year]
+      month   = MONTH_MAP[ m[:month_name].downcase ]   if m[:month_name]
+      day     = m[:day].to_i(10)   if m[:day]
+      wday    = DAY_MAP[ m[:day_name].downcase ]   if m[:day_name]
+
+      if year.nil?   ## try to calculate year
+        year =  if  month > start.month ||
+                   (month == start.month && day >= start.day)
+                  # assume same year as start_at event (e.g. 2013 for 2013/14 season)
+                  start.year
+                else
+                  # assume year+1 as start_at event (e.g. 2014 for 2013/14 season)
+                  start.year+1
+                end
+      end
+      Date.new( year,month,day )
+    else
+      puts "!! ERROR - unexpected date format; cannot parse >#{str}<"
+      exit 1
+    end
+end
+
+
+
 ###
 #  date duration
 #   use - or + as separator

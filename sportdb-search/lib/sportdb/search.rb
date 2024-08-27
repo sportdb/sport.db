@@ -7,22 +7,17 @@ require 'sportdb/catalogs'
 ###  shared basics for search
 class SportSearch
   class Search    ## base search service - use/keep - why? why not?
+    attr_reader :service
     def initialize( service ) @service = service; end
   end  # class Search
 end
 
-class WorldSearch
-  class Search    ## base search service - use/keep - why? why not?
-    def initialize( service ) @service = service; end
-  end  # class Search
-end
 
 
 
 ## our own code
 require_relative 'search/version'
 require_relative 'search/sport'
-require_relative 'search/world'
 
 
 ########
@@ -76,8 +71,9 @@ class WorldSearch
     def initialize( countries:, cities: )
         ## change service to country_service or such - why? why not?
         ##  add city_service and such later
-        @countries = CountrySearch.new( countries )
-        @cities    = CitySearch.new( cities )
+
+        @countries =  countries
+        @cities    =  cities
     end
 
     ####
@@ -168,6 +164,7 @@ end   # module Sports
 ###
 ##   add/augment core classes with search services
 require_relative 'search/structs'
+require_relative 'search/structs_world'
 
 
 

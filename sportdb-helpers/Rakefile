@@ -20,8 +20,8 @@ Hoe.spec 'sportdb-helpers' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
+    ['sportdb-parser'],  ## pulled-in for parse_date & read_outline
     ['sportdb-search',   '>= 0.0.1'],
-    ['date-formats',     '>= 1.0.2'],
     ['cocos',            '>= 0.4.0'],
     ['logutils',         '>= 0.6.1'],   ## move upstream to search - why? why not?
   ]

@@ -45,16 +45,20 @@ module Import
           parts = dates_col.split( /[ ]*[–-][ ]*/ )
           if parts.size == 1
             pp parts
-            dates << DateFormats.parse( parts[0], start: Date.new( season.start_year, 1, 1 ), lang: 'en' )
+            ## dates << DateFormats.parse( parts[0], start: Date.new( season.start_year, 1, 1 ), lang: 'en' )
+            dates  << SportDb::Parser.parse_date( parts[0], start: Date.new( season.start_year, 1, 1 ) )
             pp dates
           elsif parts.size == 2
             pp parts
-            dates << DateFormats.parse( parts[0], start: Date.new( season.start_year, 1, 1 ), lang: 'en' )
-            dates << DateFormats.parse( parts[1], start: Date.new( season.end_year ? season.end_year : season.start_year, 1, 1 ), lang: 'en' )
+            ## dates << DateFormats.parse( parts[0], start: Date.new( season.start_year, 1, 1 ), lang: 'en' )
+            ## dates << DateFormats.parse( parts[1], start: Date.new( season.end_year ? season.end_year : season.start_year, 1, 1 ), lang: 'en' )
+            dates  << SportDb::Parser.parse_date( parts[0], start: Date.new( season.start_year, 1, 1 ) )
+            dates  << SportDb::Parser.parse_date( parts[1], start: Date.new( season.end_year ? season.end_year : season.start_year, 1, 1 ) )
             pp dates
 
             ## assert/check if period is less than 365 days for now
-            diff = dates[1].to_date.jd - dates[0].to_date.jd
+            ## diff = dates[1].to_date.jd - dates[0].to_date.jd
+            diff = dates[1].jd - dates[0].jd
             puts "#{diff}d"
             if diff > 365
               puts "!! ERROR - date range / period assertion failed; expected diff < 365 days"

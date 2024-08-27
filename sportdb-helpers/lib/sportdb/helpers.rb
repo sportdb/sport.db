@@ -2,14 +2,14 @@
 ##                    sportdb/search  (pulls in structs et al)
 require 'sportdb/search'
 
-require 'date/formats'   ## remove? - see use in event info
-                         ##  or add upstream - why? why not?
-
 
 ##
 ## todo/fix - move  OutlineReader to cocos!!
 ##                  use read_outline/parse_outline - why? why not?
 ###   now in sportdb/parser
+##   note - keep for now
+##     added SportDb::Parser.parse_date( str, start: ) helper!!!
+##      to replace DateFormats
 require 'sportdb/parser'
 
 
@@ -44,32 +44,30 @@ require_relative 'helpers/event_reader'
 
 ###
 ## add convenience helper / short-cuts
-module SportDb
-module Import
+module Sports
   class Country
-    def self.read( path )  CountryReader.read( path ); end
-    def self.parse( txt )  CountryReader.parse( txt ); end
+    def self.read( path )  SportDb::Import::CountryReader.read( path ); end
+    def self.parse( txt )  SportDb::Import::CountryReader.parse( txt ); end
   end   # class Country
 
   class League
-    def self.read( path )  LeagueReader.read( path ); end
-    def self.parse( txt )  LeagueReader.parse( txt ); end
+    def self.read( path )  SportDb::Import::LeagueReader.read( path ); end
+    def self.parse( txt )  SportDb::Import::LeagueReader.parse( txt ); end
   end   # class League
 
   class Club
-    def self.read( path )  ClubReader.read( path ); end
-    def self.parse( txt )  ClubReader.parse( txt ); end
+    def self.read( path )  SportDb::Import::ClubReader.read( path ); end
+    def self.parse( txt )  SportDb::Import::ClubReader.parse( txt ); end
 
-    def self.read_props( path )  ClubPropsReader.read( path ); end
-    def self.parse_props( txt )  ClubPropsReader.parse( txt ); end
+    def self.read_props( path )  SportDb::Import::ClubPropsReader.read( path ); end
+    def self.parse_props( txt )  SportDb::Import::ClubPropsReader.parse( txt ); end
     ##  todo/check: use ClubProps.read and ClubProps.parse convenience alternate shortcuts - why? why not?
   end # class Club
 
   class EventInfo
-    def self.read( path )  EventInfoReader.read( path ); end
-    def self.parse( txt )  EventInfoReader.parse( txt ); end
+    def self.read( path )  SportDb::Import::EventInfoReader.read( path ); end
+    def self.parse( txt )  SportDb::Import::EventInfoReader.parse( txt ); end
   end   # class EventInfo
-end   # module Import
 end   # module SportDb
 
 

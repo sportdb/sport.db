@@ -1,9 +1,0 @@
-CHANGELOG.md
-Manifest.txt
-README.md
-Rakefile
-lib/footballdb.rb
-lib/footballdb/models/person.rb
-lib/footballdb/models/stats/player_stat.rb
-lib/footballdb/schema.rb
-lib/footballdb/version.rb

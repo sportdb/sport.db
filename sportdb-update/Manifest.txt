@@ -1,7 +1,0 @@
-HISTORY.md
-Manifest.txt
-README.md
-Rakefile
-lib/sportdb/update.rb
-lib/sportdb/update/updater.rb
-lib/sportdb/update/version.rb

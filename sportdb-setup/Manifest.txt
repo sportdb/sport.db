@@ -1,6 +1,0 @@
-CHANGELOG.md
-Manifest.txt
-README.md
-Rakefile
-lib/sportdb/setup.rb
-lib/sportdb/setup/version.rb

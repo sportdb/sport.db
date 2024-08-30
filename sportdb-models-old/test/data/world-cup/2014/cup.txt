@@ -1,5 +1,0 @@
-############################
-# World Cup 2014 Brazil
-
-# note: empty just for testing squads
-

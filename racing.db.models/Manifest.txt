@@ -1,6 +1,0 @@
-CHANGELOG.md
-Manifest.txt
-README.md
-Rakefile
-lib/racingdb.rb
-lib/racingdb/version.rb

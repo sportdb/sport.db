@@ -1,5 +1,0 @@
-######################
-# builtin seed data
-
-seasons
-

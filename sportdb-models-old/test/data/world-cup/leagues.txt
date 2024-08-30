@@ -1,5 +1,0 @@
-####################
-# Leagues
-
-world,   World Cup
-

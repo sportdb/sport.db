@@ -1,8 +1,0 @@
-HISTORY.md
-Manifest.txt
-README.md
-Rakefile
-lib/sportdb/keys.rb
-lib/sportdb/keys/keys.rb
-lib/sportdb/keys/models.rb
-lib/sportdb/keys/version.rb

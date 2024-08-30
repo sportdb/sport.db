@@ -1,33 +1,5 @@
 # TODOs
 
-
-## Gems / libs to push publish
-
-- [x] date-formats   - v1.0.2
-  - up comments
-- [x] score-formats   - v0.1.1
-  - new!
-- [x] sportdb-langs
-  - up pt.yml
-- [x] sportdb-structs - v0.1.1
-   -
-- [x] sportdb-formats  - v1.1.5
-  - up clubs props reader; break out score-formats!!!
-- [x] sportdb-catalogs
-  - add club history
-- [x] sportdb-models
-  - up match status
-- [x] sportdb-sync  - v1.1.3
-  - up match update
-- [x] sportdb-readers
-  - fix br - is pt!
-  - up add teams to group
-- [x] sportdb
-  - add clubs-dir and leagues-dir options
-
-
-
-
 ## More
 
 [ ] remove warning for event w/o defined fixtures

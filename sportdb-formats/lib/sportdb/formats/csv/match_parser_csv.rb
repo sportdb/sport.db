@@ -248,7 +248,7 @@ module SportDb
           date_fmt = '%d/%m/%Y'   # e.g. 17/08/2002
         elsif col =~ /^\d{2}\/\d{2}\/\d{2}$/
           date_fmt = '%d/%m/%y'   # e.g. 17/08/02
-        elsif col =~ /^\d{4}-\d{2}-\d{2}$/      ## "standard" / default date format
+        elsif col =~ /^\d{4}-\d{1,2}-\d{1,2}$/      ## "standard" / default date format
           date_fmt = '%Y-%m-%d'   # e.g. 1995-08-04
         elsif col =~ /^\d{1,2} \w{3} \d{4}$/
           date_fmt = '%d %b %Y'   # e.g. 8 Jul 2017

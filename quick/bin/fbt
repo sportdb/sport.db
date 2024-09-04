@@ -27,7 +27,7 @@ require 'optparse'
  args = ARGV
  opts = { debug: false,
           metal: false,
-          quick: false }
+          quick: true }
 
  parser = OptionParser.new do |parser|
   parser.banner = "Usage: #{$PROGRAM_NAME} [options]"
@@ -92,9 +92,9 @@ if opts[:quick]
     puts "  #{data.size} match(es)"
   end
 else
-  SportDb::Quick::Linter.debug = true    if opts[:debug]
+  SportDb::Parser::Linter.debug = true    if opts[:debug]
 
-  linter = SportDb::Quick::Linter.new
+  linter = SportDb::Parser::Linter.new
 
   errors = []
 

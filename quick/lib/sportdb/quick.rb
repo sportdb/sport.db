@@ -17,8 +17,10 @@ end
 ## our own code
 require_relative 'quick/version'
 require_relative 'quick/opts'
-require_relative 'quick/linter'
-require_relative 'quick/outline_reader'
+
+# require_relative 'quick/linter'
+# require_relative 'quick/outline_reader'
+
 
 require_relative 'quick/match_parser'
 

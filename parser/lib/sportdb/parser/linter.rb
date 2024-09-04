@@ -1,6 +1,6 @@
 
 module SportDb
-module Quick
+class Parser
 
 ###
 ## note - Linter for now nested inside Parser - keep? why? why not?
@@ -145,5 +145,5 @@ end  # read
 end  # class Linter
 
 
-end   # module Quick
+end   # class Parser
 end   # module SportDb

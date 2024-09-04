@@ -2,8 +2,11 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
+bin/fbtok
 lib/sportdb/parser.rb
 lib/sportdb/parser/lang.rb
+lib/sportdb/parser/linter.rb
+lib/sportdb/parser/outline_reader.rb
 lib/sportdb/parser/parser.rb
 lib/sportdb/parser/token-date.rb
 lib/sportdb/parser/token-score.rb

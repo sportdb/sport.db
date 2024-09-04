@@ -24,6 +24,11 @@ require_relative 'parser/lang'
 require_relative 'parser/parser'
 
 
+####
+##  todo/check - move outline reader upstream to cocos - why? why not?
+##       use  read_outline(), parse_outline()  - why? why not?
+require_relative 'parser/outline_reader'
+require_relative 'parser/linter'
 
 ###
 #  make parser api (easily) available - why? why not?

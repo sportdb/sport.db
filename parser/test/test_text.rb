@@ -33,7 +33,7 @@ def test_text
    '   1. FC Köln vs. '   =>  '1. FC Köln',
    '   1. FC Köln - '   =>  '1. FC Köln',
    ## variants with trailing (A) or (YYYY-YYYY)
-   
+
    #########
    ##   todo/fix/check - remove (A) - keep only (U21), (U7) etc. ??
    ##      keep (A) reserved for single letter country codes - why? why not?
@@ -43,11 +43,10 @@ def test_text
    ##     most b teams use 2 or II or Reserve or ???
    ##              no need for special case (A)!!!!!
 
-   '   1. FC Köln (A)  '           =>  '1. FC Köln (A)',
-   '   1. FC Köln (U21)  '           =>  '1. FC Köln (U21)',
+   '   1. FC Köln A  '           =>  '1. FC Köln A',
+   '   1. FC Köln U21  '           =>  '1. FC Köln U21',
    '   1. FC Köln (1910-2020)  '   =>  '1. FC Köln (1910-2020)',
-   ##  edge case with both 
-   '   1. FC Köln (A) (1910-2020)  '   =>  '1. FC Köln (A) (1910-2020)',
+   '   1. FC Köln A (1910-2020)  '   =>  '1. FC Köln A (1910-2020)',
 
    '    Schalke 04   '     =>  'Schalke 04',
    ## try edge case with hour (18:30)
@@ -73,4 +72,3 @@ end
 
 end # class TestText
 
-  

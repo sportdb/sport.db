@@ -3,6 +3,10 @@ require 'cocos'
 require 'season/formats'  # e.g. Season() support machinery
 
 
+## more stdlibs
+require 'optparse'   ## check - already auto-required in cocos? keep? why? why not?
+
+
 
 ####
 # try a (simple) tokenizer/parser with regex
@@ -28,7 +32,12 @@ require_relative 'parser/parser'
 ##  todo/check - move outline reader upstream to cocos - why? why not?
 ##       use  read_outline(), parse_outline()  - why? why not?
 require_relative 'parser/outline_reader'
+
+
+require_relative 'parser/opts'
 require_relative 'parser/linter'
+require_relative 'parser/fbtok/main'
+
 
 ###
 #  make parser api (easily) available - why? why not?

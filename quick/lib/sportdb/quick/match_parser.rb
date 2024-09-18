@@ -3,6 +3,12 @@ module SportDb
 
 class MatchParser    ## simple match parser for team match schedules
 
+  def self.debug=(value) @@debug = value; end
+  def self.debug?() @@debug ||= false; end  ## note: default is FALSE
+  def debug?()  self.class.debug?; end
+
+  include Logging         ## e.g. logger#debug, logger#info, etc.
+
 
   def self.parse( lines, start: )
     ##  todo/fix: add support for txt and lines
@@ -13,11 +19,7 @@ class MatchParser    ## simple match parser for team match schedules
   end
 
 
-  include Logging         ## e.g. logger#debug, logger#info, etc.
 
-  def self.debug=(value) @@debug = value; end
-  def self.debug?() @@debug ||= false; end  ## note: default is FALSE
-  def debug?()  self.class.debug?; end
 
   def _read_lines( txt )   ## todo/check:  add alias preproc_lines or build_lines or prep_lines etc. - why? why not?
     ## returns an array of lines with comments and empty lines striped / removed
@@ -70,10 +72,17 @@ class MatchParser    ## simple match parser for team match schedules
                     _read_lines( lines ) : lines
 
     @start        = start
+    @errors = []
   end
 
 
+  attr_reader :errors
+  def errors?() @errors.size > 0; end
+
   def parse
+    ## note: every (new) read call - resets errors list to empty
+    @errors = []
+
     @last_date    = nil
     @last_time    = nil
     @last_round   = nil
@@ -92,8 +101,6 @@ class MatchParser    ## simple match parser for team match schedules
 
 
     @parser = Parser.new
-
-    @errors = []
     @tree   = []
 
     attrib_found = false
@@ -509,7 +516,7 @@ class MatchParser    ## simple match parser for team match schedules
         end
     end
 
-    pp [goals1,goals2]
+    pp [goals1,goals2]     if debug?
 
 ## wrap in struct andd add/append to match
 =begin
@@ -547,7 +554,7 @@ class GoalStruct
       goals << goal
     end
 
-    pp goals
+    pp goals   if debug?
 
     ## quick & dirty - auto add goals to last match
     ##   note - for hacky (quick& dirty) multi-line support
@@ -629,7 +636,9 @@ class GoalStruct
         else
             puts "!! PARSE ERROR - unexpected node type #{node_type} in match line; got:"
             pp node
-            exit 1
+            ## exit 1
+            @errors << ["PARSE ERROR - unexpected node type #{node_type} in match line; got: #{node.inspect}"]
+            return
         end
     end
 
@@ -637,7 +646,9 @@ class GoalStruct
     if teams.size != 2
       puts "!! PARSE ERROR - expected two teams; got #{teams.size}:"
       pp teams
-      exit 1
+      ## exit 1
+      @errors << ["PARSE ERROR - expected two teams; got #{teams.size}: #{teams.inspect}"]
+      return
     end
 
     team1 = teams[0]

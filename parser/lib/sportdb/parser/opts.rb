@@ -1,6 +1,7 @@
 
 module SportDb
-module Quick
+class Parser
+
 
 ###
 ## note - Opts Helpers for now nested inside Parser - keep here? why? why not?
@@ -22,13 +23,20 @@ class Opts
                 }x
 
 
-def self.find( path )
+def self.find( path, dir: nil )
+    ## check - rename dir
+    ##          use root_dir or work_dir or cd or such - why? why not?
+
     datafiles = []
 
     ## note: normalize path - use File.expand_path ??
     ##    change all backslash to slash for now
     ## path = path.gsub( "\\", '/' )
-    path = File.expand_path( path )
+    path =  if dir
+              File.expand_path( path, File.expand_path( dir ))
+            else
+              File.expand_path( path )
+            end
 
     ## check all txt files
     ## note: incl. files starting with dot (.)) as candidates
@@ -66,5 +74,5 @@ end
 end  # class Opts
 
 
-end   # module Quick
+end   # class Parser
 end   # module SportDb

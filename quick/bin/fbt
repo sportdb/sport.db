@@ -26,8 +26,9 @@ require 'optparse'
 
  args = ARGV
  opts = { debug: false,
-          metal: false,
-          quick: true }
+          json:  false,
+          file:  nil,
+        }
 
  parser = OptionParser.new do |parser|
   parser.banner = "Usage: #{$PROGRAM_NAME} [options]"
@@ -35,24 +36,19 @@ require 'optparse'
 ##
 ## check if git has a offline option?? (use same)
 ##             check for other tools - why? why not?
+    parser.on( "-q", "--quiet",
+                 "less debug output/messages - default is (#{!opts[:debug]})" ) do |debug|
+      opts[:debug] = false
+    end
+  # parser.on( "--verbose", "--debug",
+  #             "turn on verbose / debug output (default: #{opts[:debug]})" ) do |debug|
+  #  opts[:debug] = true
+  # end
 
-
-  parser.on( "--verbose", "--debug",
-               "turn on verbose / debug output (default: #{opts[:debug]})" ) do |debug|
-    opts[:debug] = true
-  end
-
-  parser.on( "--metal",
-                 "turn off typed parse tree; show to the metal tokens"+
-                   " (default: #{opts[:metal]})" ) do |metal|
-    opts[:metal] = true
-  end
-
-  parser.on( "--quick",
-                "use quick match reader; output matches in json"+
-                   " (default: #{opts[:quick]})" ) do |quick|
-     opts[:quick] = true
-  end
+     parser.on( "-j", "--json",
+                 "print out in .json - default is (#{opts[:json]})" ) do |json|
+      opts[:json] = true
+    end
 end
 parser.parse!( args )
 
@@ -62,59 +58,78 @@ puts "ARGV:"
 p args
 
 
+    ## todo/check - use packs or projects or such
+    ##                instead of specs - why? why not?
+    specs = []
+    if opts[:file]
+          recs = read_csv( opts[:file] )
+          pp recs
+          ##  note - make pathspecs relative to passed in file arg!!!
+          basedir = File.dirname( opts[:file] )
+          recs.each do |rec|
+             paths = SportDb::Parser::Opts.find( rec['path'], dir: basedir )
+             specs << [paths, rec]
+          end
+    else
+       paths = if args.empty?
+                 [
+                   '../../../openfootball/euro/2021--europe/euro.txt',
+                   '../../../openfootball/euro/2024--germany/euro.txt',
+                 ]
+              else
+                ## check for directories
+                ##   and auto-expand
+                SportDb::Parser::Opts.expand_args( args )
+              end
+        specs << [paths, {}]
+    end
 
 
-
-paths =  if args.empty?
-            [
-              '../../../openfootball/euro/2021--europe/euro.txt',
-              '../../../openfootball/euro/2024--germany/euro.txt',
-            ]
-         else
-            ## check for directories
-            ##   and auto-expand
-
-            SportDb::Quick::Opts.expand_args( args )
-         end
-
-
-if opts[:quick]
-
-  paths.each_with_index do |path,i|
-    puts "==> [#{i+1}/#{paths.size}] reading >#{path}<..."
-
-    matches = SportDb::QuickMatchReader.read( path )
-    ## pp matches
-    ##  try json for matches
-    data = matches.map {|match| match.as_json }
-    pp data
-    puts
-    puts "  #{data.size} match(es)"
-  end
+if opts[:debug]
+   SportDb::QuickMatchReader.debug = true
+   SportDb::MatchParser.debug      = true
 else
-  SportDb::Parser::Linter.debug = true    if opts[:debug]
-
-  linter = SportDb::Parser::Linter.new
-
-  errors = []
-
-  paths.each_with_index do |path,i|
-    puts "==> [#{i+1}/#{paths.size}] reading >#{path}<..."
-    linter.read( path, parse: !opts[:metal] )
-
-    errors += linter.errors    if linter.errors?
-  end
-
-  if errors.size > 0
-    puts
-    pp errors
-    puts
-    puts "!!   #{errors.size} parse error(s) in #{paths.size} datafiles(s)"
-  else
-    puts
-    puts "OK   no parse errors found in #{paths.size} datafile(s)"
-  end
+   SportDb::QuickMatchReader.debug = false
+   SportDb::MatchParser.debug      = false
+   LogUtils::Logger.root.level = :info
 end
+
+
+  specs.each_with_index do |(paths, rec),i|
+    errors = []
+    paths.each_with_index do |path,j|
+      puts "==> [#{j+1}/#{paths.size}] reading >#{path}<..."
+      quick = SportDb::QuickMatchReader.new( read_text( path ) )
+      matches = quick.parse
+
+      if quick.errors?
+        puts "!! #{quick.errors.size} error(s):"
+        pp quick.errors
+
+        quick.errors.each do |err|
+          errors << [ path, *err ]   # note: use splat (*) to add extra values (starting with msg)
+        end
+      end
+
+      ## pp matches
+      ##  try json for matches
+      if opts[:json]
+        data = matches.map {|match| match.as_json }
+        pp data
+      end
+      puts "  #{matches.size} match(es)"
+    end
+
+    if errors.size > 0
+      puts
+      puts "!! #{errors.size} PARSE ERRORS in #{paths.size} datafile(s)"
+      pp errors
+    else
+      puts
+      puts "  OK - no parse errors in #{paths.size} datafile(s)"
+    end
+
+  end
 
 
 puts "bye"

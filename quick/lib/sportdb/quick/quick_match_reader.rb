@@ -4,6 +4,12 @@
 module SportDb
 class QuickMatchReader
 
+  def self.debug=(value) @@debug = value; end
+  def self.debug?() @@debug ||= false; end  ## note: default is FALSE
+  def debug?()  self.class.debug?; end
+
+
+
   def self.read( path )   ## use - rename to read_file or from_file etc. - why? why not?
     txt = File.open( path, 'r:utf-8' ) {|f| f.read }
     parse( txt )
@@ -17,16 +23,23 @@ class QuickMatchReader
   include Logging
 
   def initialize( txt )
+    @errors = []
     @txt = txt
   end
 
+  attr_reader :errors
+  def errors?() @errors.size > 0; end
+
   def parse
+    ## note: every (new) read call - resets errors list to empty
+    @errors = []
+
     data = {}   # return data hash with leagues
                 #    and seasons
                 #   for now merge stage into matches
 
     secs = QuickLeagueOutlineReader.parse( @txt )
-    pp secs
+    pp secs    if debug?
 
     secs.each do |sec|   ## sec(tion)s
       season = Season.parse( sec[:season] )   ## convert (str) to season obj!!!
@@ -46,14 +59,20 @@ class QuickMatchReader
 
       auto_conf_teams,  matches, rounds, groups = parser.parse
 
-      puts ">>> #{auto_conf_teams.size} teams:"
-      pp auto_conf_teams
-      puts ">>> #{matches.size} matches:"
-      ## pp matches
-      puts ">>> #{rounds.size} rounds:"
-      pp rounds
-      puts ">>> #{groups.size} groups:"
-      pp groups
+      ## auto-add "upstream" errors from parser
+      @errors += parser.errors  if parser.errors?
+
+
+      if debug?
+        puts ">>> #{auto_conf_teams.size} teams:"
+        pp auto_conf_teams
+        puts ">>> #{matches.size} matches:"
+        ## pp matches
+        puts ">>> #{rounds.size} rounds:"
+        pp rounds
+        puts ">>> #{groups.size} groups:"
+        pp groups
+      end
 
       ## note: pass along stage (if present): stage  - optional from heading!!!!
       if stage

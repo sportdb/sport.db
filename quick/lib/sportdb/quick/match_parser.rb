@@ -566,12 +566,13 @@ class GoalStruct
     logger.debug( "parse match: >#{nodes}<" )
 
     ## collect (possible) nodes by type
-    num   = nil
-    date  = nil
-    time  = nil
-    teams = []
-    score = nil
-    more  = []
+    num    = nil
+    date   = nil
+    time   = nil
+    teams  = []
+    score  = nil
+    more   = []
+    status = nil
 
     while !nodes.empty?
         node = nodes.shift
@@ -608,6 +609,8 @@ class GoalStruct
 
              score = Score.new( *values )
              ## pp score
+        elsif node_type == :status  # e.g. awarded, canceled, postponed, etc.
+             status = node[1]
         elsif node_type == :vs
            ## skip; do nothing
 ##
@@ -711,7 +714,6 @@ class GoalStruct
     time_str = time    if date && time
 
 
-    status = nil
     ground = nil
 
     @matches << Import::Match.new( num:     num,

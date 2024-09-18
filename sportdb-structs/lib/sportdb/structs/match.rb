@@ -212,7 +212,10 @@ def as_json
   data[:score][:et] = [@score1et,  @score2et]    if @score1et && @score2et
   data[:score][:p]  = [@score1p,   @score2p]     if @score1p && @score2p
 
+  data[:status] = @status  if @status
+
   data[:group]  = @group   if @group
+  data[:stage]  = @stage   if @stage
 
 =begin
       "round": "Spieltag 1",

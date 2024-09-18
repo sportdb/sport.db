@@ -22,13 +22,13 @@ parser = OptionParser.new do |parser|
 
   parser.on( "--verbose", "--debug",
                "turn on verbose / debug output (default: #{opts[:debug]})" ) do |debug|
-    opts[:debug] = debug
+    opts[:debug] = true
   end
 
   parser.on( "--metal",
                  "turn off typed parse tree; show to the metal tokens"+
                    " (default: #{opts[:metal]})" ) do |metal|
-    opts[:metal] = metal
+    opts[:metal] = true
   end
 end
 parser.parse!( args )

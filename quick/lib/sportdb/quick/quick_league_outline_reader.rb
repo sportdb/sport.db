@@ -41,6 +41,15 @@ class QuickLeagueOutlineReader
           pp heading
           exit 1
         end
+      elsif node[0] == :h2
+         ## todo/check - make sure parsed h1 first
+         heading = node[1]
+         ## reuse league, season from h1
+         secs << { league: secs[-1][:league],
+                   season: secs[-1][:season],
+                   stage:  heading,
+                   lines:  []
+                 }
       elsif node[0] == :p   ## paragraph with (text) lines
         lines = node[1]
         ## note: skip lines if no heading seen

@@ -64,6 +64,9 @@ ROUND_RE = %r{^(
              [ ] Round
        )
        |
+  ## Playoff Round 1
+     (?:  Play-?off [ ] Round [ ] [1-9][0-9]* )
+       |
   ## starting with preliminary
   #   e.g.  Preliminary round
      (?:  Preliminary  [ ]

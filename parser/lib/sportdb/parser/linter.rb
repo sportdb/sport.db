@@ -59,6 +59,7 @@ def read( path, parse: false )
 
   ##  process nodes
   h1 = nil
+  h2 = nil
   orphans = 0    ## track paragraphs's with no heading
 
   attrib_found = false
@@ -69,8 +70,14 @@ def read( path, parse: false )
 
     if type == :h1
         h1 = node[1]  ## get heading text
-        puts
         puts "  = Heading 1 >#{node[1]}<"
+    elsif type == :h2
+        if h1.nil?
+          puts "!! WARN - no heading for subheading; skipping parse"
+          next
+        end
+        h2 = node[1]  ## get heading text
+        puts "  == Heading 2 >#{node[1]}<"
     elsif type == :p
 
        if h1.nil?

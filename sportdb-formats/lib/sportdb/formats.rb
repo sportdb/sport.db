@@ -1,15 +1,11 @@
 ## 3rd party gems
-require 'sportdb/structs'
-require 'sportdb/parser'
+# require 'sportdb/structs'
+# require 'sportdb/parser'
+require 'sportdb/quick'
 
 
 require 'zip'     ## todo/check: if zip is alreay included in a required module
 
-
-## note -  add cocos (code commons)
-##
-##  pulls in read_csv & parse_csv etc.
-require 'cocos'
 
 
 require 'logutils'
@@ -29,7 +25,6 @@ require_relative 'formats/package'
 require_relative 'formats/datafile_package'
 
 
-
 ## let's put test configuration in its own namespace / module
 module SportDb
   class Test    ## todo/check: works with module too? use a module - why? why not?
@@ -46,6 +41,7 @@ end   # module SportDb
 
 require_relative 'formats/txt/league_outline_reader'
 require_relative 'formats/txt/conf_parser'
+require_relative 'formats/txt/quick_match_linter'
 
 
 # require_relative 'formats/team/club_reader_history'

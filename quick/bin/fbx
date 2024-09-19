@@ -3,9 +3,15 @@
 ## tip: to test run:
 ##   ruby -I ./lib -I ../parser/lib bin/fbx
 
+##
+## todo/fix - use for testing
+#                reads textfile and dumps results in json
+#
+#  check - keep fbx name or find a differnt name - why? why not?
+
 
 ## our own code
-require 'sportdb/formats'
+require 'sportdb/quick'
 
 
 

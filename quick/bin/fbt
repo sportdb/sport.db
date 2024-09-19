@@ -26,7 +26,6 @@ require 'optparse'
 
  args = ARGV
  opts = { debug: false,
-          json:  false,
           file:  nil,
         }
 
@@ -36,19 +35,21 @@ require 'optparse'
 ##
 ## check if git has a offline option?? (use same)
 ##             check for other tools - why? why not?
-    parser.on( "-q", "--quiet",
-                 "less debug output/messages - default is (#{!opts[:debug]})" ) do |debug|
-      opts[:debug] = false
-    end
-  # parser.on( "--verbose", "--debug",
-  #             "turn on verbose / debug output (default: #{opts[:debug]})" ) do |debug|
-  #  opts[:debug] = true
-  # end
+#    parser.on( "-q", "--quiet",
+#                 "less debug output/messages - default is (#{!opts[:debug]})" ) do |debug|
+#      opts[:debug] = false
+#    end
+   parser.on( "--verbose", "--debug",
+               "turn on verbose / debug output (default: #{opts[:debug]})" ) do |debug|
+     opts[:debug] = true
+   end
 
-     parser.on( "-j", "--json",
-                 "print out in .json - default is (#{opts[:json]})" ) do |json|
-      opts[:json] = true
+    parser.on( "-f FILE", "--file FILE",
+                    "read datafiles (pathspecs) via .csv file") do |file|
+      opts[:file] = file
     end
+
+
 end
 parser.parse!( args )
 
@@ -110,13 +111,6 @@ end
           errors << [ path, *err ]   # note: use splat (*) to add extra values (starting with msg)
         end
       end
-
-      ## pp matches
-      ##  try json for matches
-      if opts[:json]
-        data = matches.map {|match| match.as_json }
-        pp data
-      end
       puts "  #{matches.size} match(es)"
     end
 
@@ -129,7 +123,47 @@ end
       puts "  OK - no parse errors in #{paths.size} datafile(s)"
     end
 
+     ## add errors to rec via rec['errors'] to allow
+     ##   for further processing/reporting
+     rec['errors'] = errors
   end
+
+
+
+###
+## generate a report if --file option used
+if opts[:file]
+
+  buf = String.new
+
+  buf << "# fbt summary report - #{specs.size} dataset(s)\n\n"
+
+  specs.each_with_index do |(paths, rec),i|
+     errors = rec['errors']
+
+     if errors.size > 0
+       buf << "!! #{errors.size} ERROR(S)  "
+     else
+       buf << "   OK          "
+     end
+     buf << "%-20s" % rec['path']
+     buf << " - #{paths.size} datafile(s)"
+     buf << "\n"
+
+     if errors.size > 0
+         buf << errors.pretty_inspect
+         buf << "\n"
+     end
+ end
+
+  puts
+  puts "SUMMARY:"
+  puts buf
+
+  #  maybe write out in the future?
+  # basedir  = File.dirname( opts[:file] )
+  # basename = File.basename( opts[:file], File.extname( opts[:file] ))
+end
 
 
 puts "bye"

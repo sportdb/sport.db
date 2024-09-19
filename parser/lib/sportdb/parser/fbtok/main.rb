@@ -3,7 +3,7 @@ module Fbtok
 def self.main( args=ARGV )
 
     opts = {
-        debug: true,
+        debug: false,
         metal: false,
         file:  nil,
     }
@@ -12,14 +12,14 @@ def self.main( args=ARGV )
       parser.banner = "Usage: #{$PROGRAM_NAME} [options]"
 
 
-      parser.on( "-q", "--quiet",
-                 "less debug output/messages - default is (#{!opts[:debug]})" ) do |debug|
-        opts[:debug] = false
-      end
-#      parser.on( "--verbose", "--debug",
-#                   "turn on verbose / debug output (default: #{opts[:debug]})" ) do |debug|
-#        opts[:debug] = true
+#      parser.on( "-q", "--quiet",
+#                 "less debug output/messages - default is (#{!opts[:debug]})" ) do |debug|
+#        opts[:debug] = false
 #      end
+     parser.on( "--verbose", "--debug",
+                   "turn on verbose / debug output (default: #{opts[:debug]})" ) do |debug|
+        opts[:debug] = true
+     end
 
       parser.on( "--metal",
                      "turn off typed parse tree; show to the metal tokens"+

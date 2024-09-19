@@ -1,0 +1,80 @@
+#!/usr/bin/env ruby
+
+## tip: to test run:
+##   ruby -I ./lib bin/fbtxt2json
+
+
+## our own code
+require 'sportdb/quick'
+
+
+
+require 'optparse'
+
+
+
+ args = ARGV
+ opts = { debug: false,
+        }
+
+ parser = OptionParser.new do |parser|
+  parser.banner = "Usage: #{$PROGRAM_NAME} [options]"
+
+##
+## check if git has a offline option?? (use same)
+##             check for other tools - why? why not?
+#    parser.on( "-q", "--quiet",
+#                 "less debug output/messages - default is (#{!opts[:debug]})" ) do |debug|
+#      opts[:debug] = false
+#    end
+
+   parser.on( "--verbose", "--debug",
+               "turn on verbose / debug output (default: #{opts[:debug]})" ) do |debug|
+     opts[:debug] = true
+   end
+end
+parser.parse!( args )
+
+puts "OPTS:"
+p opts
+puts "ARGV:"
+p args
+
+
+path = if args.empty?
+          '../../../openfootball/euro/2021--europe/euro.txt'
+       elsif args.size == 1
+           args[0]
+       else
+          puts "!! wrong number of args, got #{args.size} - #{args.inspect} - only one arg supported/expected"
+          exit 1
+       end
+
+
+if opts[:debug]
+   SportDb::QuickMatchReader.debug = true
+   SportDb::MatchParser.debug      = true
+else
+   SportDb::QuickMatchReader.debug = false
+   SportDb::MatchParser.debug      = false
+   LogUtils::Logger.root.level = :info
+end
+
+
+      puts "==> reading >#{path}<..."
+      quick = SportDb::QuickMatchReader.new( read_text( path ) )
+      matches = quick.parse
+
+      data = matches.map {|match| match.as_json }
+      pp data
+      puts
+      puts "  #{matches.size} match(es)"
+
+      if quick.errors?
+        puts "!! #{quick.errors.size} parse error(s):"
+        pp quick.errors
+      end
+
+
+puts "bye"
+

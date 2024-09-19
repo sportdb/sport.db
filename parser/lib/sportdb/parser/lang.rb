@@ -26,11 +26,13 @@ end
 
 
 ROUND_RE = %r{^(
-
    ## add special case for group play-off rounds!
    ##  group 2 play-off   (e.g. worldcup 1954, 1958)
-     (?:   Group [ ] [a-z0-9]+ [ ]
-           Play-?offs?
+   ##
+   ### note - allow Group ("stand-alone") as "generic" round for now
+   ##      BUT do NOT allow Group 1, Group 2, Group A, Group B, etc.
+     (?: Group [ ] [A-Z0-9]+ [ ] Play-?offs?  |
+         Group
      )
         |
    # round  - note - requiers number e.g. round 1,2, etc.
@@ -44,28 +46,29 @@ ROUND_RE = %r{^(
       )
        |
    ##  starting with qual(ification)
-   ## Qual. Round 1 / Qual. Round 2 / Qual. Round 3
-     (?:  Qual \. [ ]
-          Round
-           [ ] [1-9][0-9]*
-      )
+   ##   Qual. Round 1 / Qual. Round 2 / Qual. Round 3
+   ##  or
+   ##  Playoff Round 1
+   ##  Play-in Round 1
+     (?:  (?: Qual \. |
+              Play-?off |
+              Play-?in
+          )
+           [ ] Round [ ] [1-9][0-9]* )
        |
    ## 1. Round / 2. Round / 3. Round / etc.
-   ##  Play-off Round
    ##  First Round
+   ##  Play-off Round
    ##  Final Round   (e.g. Worldcup 1950)
       (?:
            (?: [1-9][0-9]* \.  |
-                Play-?off   |
                 1st | First   |
                 2nd | Second  |
+                Play-?off   |
                 Final
            )
              [ ] Round
        )
-       |
-  ## Playoff Round 1
-     (?:  Play-?off [ ] Round [ ] [1-9][0-9]* )
        |
   ## starting with preliminary
   #   e.g.  Preliminary round
@@ -135,6 +138,11 @@ ROUND_RE = %r{^(
          )
         [ ] Replays?
       )
+     |
+  ## more
+     (?:
+          Reclassification
+     )
 )$}ix
 
 

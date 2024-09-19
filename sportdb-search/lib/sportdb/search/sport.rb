@@ -302,7 +302,40 @@ class TeamSearch
     end
 
 
+    ###
+    #  note:  missing teams will get
+    ##            auto-created if possible
+    ##         only ambigious results (too many matches) raise expection!!!
     def _find_by!( name:, league:, mods: nil )
+      if mods && mods[ league.key ] && mods[ league.key ][ name ]
+        mods[ league.key ][ name ]
+      else
+        if league.clubs?
+          if league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
+            @clubs.find!( name )
+          else  ## assume clubs in domestic/national league tournament
+             ## note - search by league countries (may incl. more than one country
+             ##             e.g. us incl. ca, fr incl. mc, ch incl. li, etc.
+            rec = @clubs.find_by( name: name, league: league )
+            if rec.nil?
+                puts "auto-create (missing) club #{name}"
+                ##  todo/fix: add auto flag!!!!
+                ###              like in rounds!!!
+                ##   to track auto-created clubs
+                rec = SportDb::Import::Club.new( name: name )
+                rec.country = league.country  ## fix: country kwarg not yet supported!!
+                pp rec
+            end
+            rec
+          end
+        else   ## assume national teams (not clubs)
+          @national_teams.find!( name )
+        end
+      end
+    end # method _find_by!
+
+
+    def _find_by_v0!( name:, league:, mods: nil )
       if mods && mods[ league.key ] && mods[ league.key ][ name ]
         mods[ league.key ][ name ]
       else

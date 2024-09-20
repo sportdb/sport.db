@@ -12,6 +12,14 @@ require 'optparse'
 
 
 
+## local hack
+##   if exists up-to-date catalog db (use local version NOT built-in)
+catalog_path = '../catalog/catalog.db'
+if File.exist?( catalog_path )
+  SportDb::Import.config.catalog_path = catalog_path
+end
+
+
  args = ARGV
  opts = { debug: false,
           file:  nil,

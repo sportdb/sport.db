@@ -31,6 +31,19 @@ class QuickMatchLinter
   attr_reader :errors
   def errors?() @errors.size > 0; end
 
+
+
+  CLUB_NAME_RE =  %r{^
+          (?<name>[^()]+?)     ## non-greedy
+          (?:
+             \s+
+             \(
+               (?<code>[A-Z][A-Za-z]{2,3})    ## optional (country) code; support single code e.g. (A) - why? why not?
+             \)
+          )?
+        $}x   ## note - allow (URU) and (Uru) - why? why not
+
+
   def parse
     ## note: every (new) read call - resets errors list to empty
     @errors = []
@@ -102,7 +115,26 @@ class QuickMatchLinter
       recs =  if league_rec && !league_rec.intl?
                  Import::Club.match_by( name: team, league: league_rec )
               else
-                 Import::Club.match_by( name: team )
+                 ###
+                 ##  get country code from name
+                 ##    e.g. Liverpool FC (ENG) or
+                 ##         Liverpool FC (URU) etc.
+
+                 ## check for country code
+                 if m=CLUB_NAME_RE.match( team )
+                   if m[:code]
+                     Import::Club.match_by( name:    m[:name],
+                                            country: m[:code] )
+                   else
+                      msg = "PARSE ERROR - country code missing for club name in int'l tournament; may not be unique >#{team}<"
+                      @errors << [msg]
+                      Import::Club.match_by( name: team )
+                    end
+                 else
+                   msg = "PARSE ERROR - invalid club name; cannot match with CLUB_NAME_RE >#{team}<"
+                   @errors << [msg]
+                   []
+                 end
               end
         team_rec = nil
         if recs.size == 1

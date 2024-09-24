@@ -4,11 +4,16 @@ $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-search/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-helpers/lib' ))
-# $LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
 $LOAD_PATH.unshift( File.expand_path( './lib' ))
 
 
 require 'sportdb/indexers'
+
+## todo/fix
+##  move Package from format down for (re)use
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
+require 'sportdb/formats'
+
 
 ## add/use fifa for index countries
 require 'fifa'
@@ -24,7 +29,8 @@ CatalogDb.open( './catalog.db' )
 
 
 
-countries = Fifa.countries
+## note: use world countries (incl. historic and non-members)!!!
+countries = Fifa.world.countries
 puts "  #{countries.size} countries"
 #=> 241 countries
 

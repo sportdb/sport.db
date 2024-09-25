@@ -86,7 +86,8 @@ class QuickLeagueOutlineReader
     ##  => Österr. Bundesliga 2018/19, Regular Season
     ##  => Österr. Bundesliga 2018/19, Championship Round
     ##  etc.
-    values = str.split( /[,<>‹›]/ )  ## note: allow , > < or › ‹ for now
+    ## note limit split to two parts only!!!!
+    values = str.split( /[,<>‹›]/, 2 )  ## note: allow , > < or › ‹ for now
     values = values.map { |value| value.strip }   ## remove all whitespaces
     values
   end

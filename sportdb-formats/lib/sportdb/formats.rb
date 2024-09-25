@@ -39,9 +39,7 @@ end   # module SportDb
 
 
 
-require_relative 'formats/txt/league_outline_reader'
-require_relative 'formats/txt/conf_parser'
-require_relative 'formats/txt/quick_match_linter'
+require_relative 'formats/quick_match_linter'
 
 
 # require_relative 'formats/team/club_reader_history'

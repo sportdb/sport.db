@@ -1,3 +1,9 @@
+###
+# todo/fix:
+#    add optional stage to
+#           group, round to make uniquie
+#     same group or round name is different (record) if differant stage !!!!
+
 
 module SportDb
 class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? why not?
@@ -29,17 +35,43 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
     @txt = txt
   end
 
-  def parse( season: nil )
-    secs = LeagueOutlineReader.parse( @txt, season: season )
-    pp secs
 
+
+  def parse( season: nil )
+    secs =  QuickLeagueOutlineReader.parse( @txt )
+    ## pp secs
+
+########
+#  step 1 - prepare secs
+    # -- filter seasons if filter present
+   secs = filter_secs( sec, season: season )   if season
+
+    ## -- check & map; replace inline (string with data struct record)
+    secs.each do |sec|
+      sec[:season] = Season.parse( sec[:season ] )
+      sec[:league] = Import::League.find!( sec[:league] )
+
+ ##
+ ## quick hack - assume "Regular" or "Regular Season"
+ ##    as default stage (thus, no stage)
+     if sec[:stage]
+       sec[:stage] = nil   if ['Regular',
+                               'Regular Season',
+                               'Regular Stage',
+                              ].include?( sec[:stage] )
+      end
+    end
+
+
+###
+#  step 2 - handle secs
     secs.each do |sec|   ## sec(tion)s
       season = sec[:season]
       league = sec[:league]
       stage  = sec[:stage]
       lines  = sec[:lines]
 
-      ### check if event info availabe - use start_date;
+      ### check if event info available - use start_date;
       ##    otherwise we have to guess (use a "synthetic" start_date)
       event_info = catalog.events.find_by( season: season,
                                            league: league )
@@ -74,51 +106,18 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
       pp groups
 
 
-
+      ##################################
       ## step 1: map/find teams
 
       ## note: loop over keys (holding the names); values hold the usage counter!! e.g. 'Arsenal' => 2, etc.
-      mods = nil
-      if league.clubs? && league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
-
-        ## quick hack - use "dynamic" keys for keys
-          uefa_el_q = Import::League.match_by( code: 'uefa.el.quali' )[0]
-          uefa_cl_q = Import::League.match_by( code: 'uefa.cl.quali' )[0]
-          uefa_cl   = Import::League.match_by( code: 'uefa.cl' )[0]
-          uefa_el   = Import::League.match_by( code: 'uefa.el' )[0]
-
-          pp [uefa_el_q, uefa_cl_q, uefa_cl, uefa_el]
-
-                ### quick hack mods for popular/known ambigious club names
-                ##    todo/fix: make more generic / reuseable!!!!
-                mods = {}
-                ## europa league uses same mods as champions league
-                mods[ uefa_el_q.key ] =
-                mods[ uefa_cl_q.key ] =
-                mods[ uefa_el.key ] =
-                mods[ uefa_cl.key ] = catalog.clubs.build_mods(
-                  { 'Liverpool | Liverpool FC' => 'Liverpool FC, ENG',
-                    'Arsenal  | Arsenal FC'    => 'Arsenal FC, ENG',
-                    'Barcelona'                => 'FC Barcelona, ESP',
-                    'Valencia'                 => 'Valencia CF, ESP',
-                    'Rangers FC'               => 'Rangers FC, SCO',
-                  })
-       end
-
        # puts " [debug] auto_conf_teams:"
        # pp auto_conf_teams
-
-
- ## todo/fix
- ##  ** !!! ERROR - too many matches (2) for club >Barcelona<:
- ## [<Club: FC Barcelona (ESP)>, <Club: Barcelona Guayaquil (ECU)>]
 
        puts "league:"
        pp league
 
        teams = catalog.teams.find_by!( name:   auto_conf_teams,
-                                       league: league,
-                                       mods:   mods )
+                                       league: league )
 
        puts " [debug] teams:"
        pp teams
@@ -223,5 +222,34 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
   end # method parse
 
 
+
+
+
+#####
+#  filter by season helpers
+  def filter_secs( secs, season: )
+    filtered_secs = []
+    filter = norm_seasons( season )
+    secs.each do |sec|
+      if filter.include?( Season.parse( sec[:season] ).key )
+        filtered_secs << sec
+      else
+        puts "  skipping season >#{sec[:season]}< NOT matched by filter"
+      end
+    end
+    filtered_secs
+  end
+
+  def norm_seasons( season_or_seasons )     ## todo/check: add alias norm_seasons - why? why not?
+      seasons = if season_or_seasons.is_a?( Array )  # is it an array already
+                  season_or_seasons
+                elsif season_or_seasons.is_a?( Range )  # e.g. Season(1999)..Season(2001) or such
+                  season_or_seasons.to_a
+                else  ## assume - single entry - wrap in array
+                  [season_or_seasons]
+                end
+
+      seasons.map { |season| Season( season ).key }
+  end
 end # class MatchReader
 end # module SportDb

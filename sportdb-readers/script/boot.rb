@@ -4,13 +4,13 @@ $LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-search/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-models/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-sync/lib' ))
-$LOAD_PATH.unshift( './lib' )
 
 $LOAD_PATH.unshift( File.expand_path( '../parser/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../quick/lib' ))
 
 
 ## our own code
+$LOAD_PATH.unshift( './lib' )
 require 'sportdb/readers'
 
 

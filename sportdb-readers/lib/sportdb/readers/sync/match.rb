@@ -20,6 +20,8 @@ module Sync
        ##  and lookup by name AND stage??
 
 
+
+
        round_rec = if match.round
                      ## query for round - allow string or round rec
                      round_name  = match.round.is_a?( String ) ? match.round : match.round.name
@@ -57,8 +59,8 @@ module Sync
                    end
 
        ### todo/check: what happens if there's more than one match? exception raised??
-       rec = if ['N. N.'].include?( team1_name ) && ## some special cases - always assume new record for now (to avoid ambigious update conflict)
-                ['N. N.'].include?( team2_name )
+       rec = if ['N. N.', 'N.N.'].include?( team1_name ) && ## some special cases - always assume new record for now (to avoid ambigious update conflict)
+                ['N. N.', 'N.N.'].include?( team2_name )
                ## always assume new record for now
                ##   check for date or such - why? why not?
                nil
@@ -137,6 +139,10 @@ module Sync
        else
          # update - todo
          puts "!! ERROR - match updates not yet supported (only inserts); sorry"
+         pp match
+         puts "---"
+         puts "found match record:"
+         pp rec
          exit 1
        end
        rec

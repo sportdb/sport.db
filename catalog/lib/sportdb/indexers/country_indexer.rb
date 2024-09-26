@@ -7,6 +7,10 @@ module CatalogDb
 class CountryIndexer  < Indexer
 
 
+##
+###  todo/fix
+##    move more codes upstream to fifa gem/library !!!
+
   ######################
   # hack - add more alternate country codes
   #   vehicle (int'l) licene plate (e.g. A, D, E)
@@ -27,14 +31,14 @@ class CountryIndexer  < Indexer
     Norway,       N
     Portugal,     P
     Sweden,       S
-    Vatican City, V 
+    Vatican City, V
 
     ## note - Great Britain (and UK) same record for now - keep - why?
     ##  add alternate codes (default is uk / GBR)
     Great Britain,  GB
 
     ## alternate fifa et al codes
-    Monaco,  MON             
+    Monaco,  MON
 
     ## old/historic fifa et al codes
     Romania, 	ROM                ## fifa code is ROU
@@ -42,11 +46,13 @@ class CountryIndexer  < Indexer
     ## more codes (iso? ioc? alt?)
     Slovenia,               SLO     ## fifa code is SVN
     Bosnia and Herzegovina, BOS     ## fifa code is BIH
- 
+
     Northern Ireland,       NIRL    ## fifa code is NIR
     Serbia,                 SER     ## fifa code is SRB
     Serbia,                 SERB    ## fifa code is SRB
-    Kosovo,                 KOS     ## old fifa code is KVX??
+
+    Kosovo,                 KVX     ## old fifa code is KVX??
+    Kosovo,                 XK
 
     Latvia,                 LAT     ## fifa code is LVA
     Lithuania,              LIT     ## fifa code is LTU
@@ -54,7 +60,7 @@ class CountryIndexer  < Indexer
     Burundi,                BUR      ## fifa code is BDI
     Tanzania,               TZA      ## fifa code is TAN
     Myanmar,                MMR      ## fifa code is MYA
-      
+
     Taiwan,                 TWN      ## fifa code is TPE
     Turkmenistan,           TURK     ## fifa code is TKM
     Tajikistan,             TAJ      ## fifa code is TJK
@@ -63,22 +69,22 @@ class CountryIndexer  < Indexer
     Saudi Arabia,           SAUD     ## fifa code is KSA
     Saudi Arabia,           SAU      ## - SAU is iso code???
     Iran,                   IRI      ## fifa code is IRN
-      
+
     ##  BAH in use by Bahmas!!! cannot use for Bahrain - sorry
     ## Bahrain,                BAH      ## fifa code is BHR
 
     ## asia & et al
-    ##  do NOT use for now 
+    ##  do NOT use for now
     ##   C (Cuba), G (Gabun), Q (Qatar),
-    ##   K (Kambodscha), 
+    ##   K (Kambodscha),
     ##   T (Thailand), Z (Zambia) - why? why not?
     Japan, J
 
     ## more quirky codes
-    Sudan,     SUD   #   fifa code is SDN 
-    Mongolia,  MGL   #   fifa code is MNG  
+    Sudan,     SUD   #   fifa code is SDN
+    Mongolia,  MGL   #   fifa code is MNG
 
-    ## add more??? 
+    ## add more???
     ##  todo/fix - add upstream to new alt_codes attribute - why? why not?
     ##  for more see
     ##  - note - kosovo has kos alt code in alt name already
@@ -97,13 +103,13 @@ TXT
 
 
 
-  def add( rec_or_recs )  
+  def add( rec_or_recs )
     recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]   ## wrap (single) rec in array
     ###########################################
     ## auto-fill countries
     ## pp recs
     recs.each do |rec|
-      ## rec e.g. { key:'af', code:'AFG', name:'Afghanistan'}     
+      ## rec e.g. { key:'af', code:'AFG', name:'Afghanistan'}
 
       ## todo/check: use rec.attributes or such - why? why not?
 
@@ -114,22 +120,22 @@ TXT
               ## use comma for alt names too - why? why not?
               alt_names: rec.alt_names ? rec.alt_names.join( ' | ' ) : nil,
               tags:      rec.tags      ? rec.tags.join( ', ' ) : nil,
-       ) 
+       )
        pp country
-       
+
        ## add codes lookups - key, code, ...
        ##   note - add code (only) if different from key
        codes = [rec.key]
        codes << rec.code   if rec.key != rec.code.downcase
        codes += COUNTRY_ALT_CODES[ rec.name] || []
-       
-       codes = codes.map { |code| code.downcase }  ## make sure all codes are downcased 
+
+       codes = codes.map { |code| code.downcase }  ## make sure all codes are downcased
        codes.each do |code|
 
         ## uncomment for debugging if db constraint error
 =begin
          cc = Model::CountryCode.find_by( code: code )
-         if cc 
+         if cc
           puts "!! code #{code} already in use by:"
           pp cc
           puts "---"
@@ -138,11 +144,11 @@ TXT
          end
 =end
 
-         Model::CountryCode.create!( key:  country.key, 
+         Model::CountryCode.create!( key:  country.key,
                                      code: code )
        end
 
-             
+
       ##  add all names (canonical name + alt names
       names = [rec.name] + rec.alt_names
       more_names = []
@@ -179,7 +185,7 @@ TXT
       norms = norms.uniq
 
       norms.each do |norm|
-        Model::CountryName.create!( key:  country.key, 
+        Model::CountryName.create!( key:  country.key,
                                     name: norm )
       end
     end  ## each record

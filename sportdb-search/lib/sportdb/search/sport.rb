@@ -302,6 +302,18 @@ class TeamSearch
     end
 
 
+
+  CLUB_NAME_RE =  %r{^
+          (?<name>[^()]+?)     ## non-greedy
+          (?:
+             \s+
+             \(
+               (?<code>[A-Z][A-Za-z]{2,3})    ## optional (country) code; support single code e.g. (A) - why? why not?
+             \)
+          )?
+        $}x   ## note - allow (URU) and (Uru) - why? why not
+
+
     ###
     #  note:  missing teams will get
     ##            auto-created if possible
@@ -312,7 +324,23 @@ class TeamSearch
       else
         if league.clubs?
           if league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
-            @clubs.find!( name )
+                 ###
+                 ##  get country code from name
+                 ##    e.g. Liverpool FC (ENG) or
+                 ##         Liverpool FC (URU) etc.
+
+                 ## check for country code
+                 if m=CLUB_NAME_RE.match( name )
+                   if m[:code]
+                     @clubs.find_by!( name: m[:name],
+                                            country: m[:code] )
+                   else
+                      @clubs.find!( name )
+                   end
+                 else
+                   puts "!! PARSE ERROR - invalid club name; cannot match with CLUB_NAME_RE >#{team}<"
+                   exit 1
+                 end
           else  ## assume clubs in domestic/national league tournament
              ## note - search by league countries (may incl. more than one country
              ##             e.g. us incl. ca, fr incl. mc, ch incl. li, etc.

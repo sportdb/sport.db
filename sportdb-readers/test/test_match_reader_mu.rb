@@ -3,9 +3,6 @@
 #     ruby test/test_match_reader_mu.rb
 
 
-#
-# todo/fix -  club and league indexer moved out to new indexer(s) gem for now!!!
-#                   check back later to use new db-backed lookup tables
 
 
 require_relative 'helper'
@@ -21,48 +18,6 @@ class TestMatchReaderMu < Minitest::Test
 
 
   def test_read_mauritius
-leagues_txt =<<TXT
-= Mauritius =
-
-1      Mauritius Premier League
-cup    Mauritius Cup
-TXT
-
-
-clubs_txt =<<TXT
-= Mauritius =
-
-Cercle de Joachim | Cercle de Joachim SC | Joachim
-Chamarel SC | Chamarel | Chamarel Sport Club
-Curepipe Starlight | Curepipe Starlight SC
-Entente Boulet Rouge | Entente Boulet Rouge SC | Entente Boulet Rouge-Riche Mare Rovers
-La Cure Sylvester | La Cure Sylvester SC | La Cure
-Pamplemousses | Pamplemousses SC
-Petite Rivière Noire | Petite Rivière Noire SC | Petite Rivière
-AS Port-Louis 2000 | ASPL 2000 | Port-Louis 2000 |Association Sportive Port-Louis 2000
-AS Quatre Bornes | ASQB | Quatre Bornes
-Rivière du Rempart | AS Rivière du Rempart
-Pointe-aux-Sables Mates
-Savanne SC | Savanne Sporting Club
-TXT
-
-    recs = SportDb::Import::LeagueReader.parse( leagues_txt )
-    SportDb::Import.catalog.leagues.add( recs )
-
-    recs = SportDb::Import::ClubReader.parse( clubs_txt )
-    SportDb::Import.catalog.clubs.add( recs )
-
-    pp recs
-
-    country = SportDb::Import.catalog.countries.find( 'Mauritius' )
-    pp country
-
-    clubs = SportDb::Import.catalog.clubs.match( 'Chamarel SC' )
-    pp clubs
-    club = SportDb::Import.catalog.clubs.find_by( name: 'Chamarel SC',
-                                                  country: country )
-    pp club
-
 txt =<<TXT
 = Mauritius Premier League 2014/15 =
 

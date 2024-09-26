@@ -4,7 +4,6 @@ NOTES.md
 README.md
 Rakefile
 lib/sportdb/readers.rb
-lib/sportdb/readers/conf_reader.rb
 lib/sportdb/readers/match_reader.rb
 lib/sportdb/readers/package.rb
 lib/sportdb/readers/sync/club.rb

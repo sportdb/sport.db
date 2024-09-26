@@ -8,6 +8,9 @@ require 'zip'     ## todo/check: if zip is alreay included in a required module
 
 
 
+## todo/check
+##  - logutils already added via quick!!
+
 require 'logutils'
 module SportDb
   ## logging machinery shortcut; use LogUtils for now

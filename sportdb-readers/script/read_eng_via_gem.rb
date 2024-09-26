@@ -1,6 +1,6 @@
 ##
 #  use
-#   $ ruby script/read_eng.rb
+#   $ ruby script/read_eng_via_gem.rb
 
 
 

@@ -30,11 +30,31 @@ class QuickMatchReader
   attr_reader :errors
   def errors?() @errors.size > 0; end
 
+
+  ###
+  #  helpers get matches & more after parse; all stored in data
+  #
+  ## change/rename to event - why? why not?
+  def league_name
+     league = @data.keys[0]
+     season = @data[ league ].keys[0]
+
+     "#{league} #{season}"
+  end
+
+  def matches
+    league = @data.keys[0]
+    season = @data[ league ].keys[0]
+    @data[league][season]
+  end
+
+
+
   def parse
     ## note: every (new) read call - resets errors list to empty
     @errors = []
 
-    data = {}   # return data hash with leagues
+    @data = {}   # return data hash with leagues
                 #    and seasons
                 #   for now merge stage into matches
 
@@ -81,10 +101,10 @@ class QuickMatchReader
         end
       end
 
-      data[ league ] ||= {}
-      data[ league ][ season.key ] ||= []
+      @data[ league ] ||= {}
+      @data[ league ][ season.key ] ||= []
 
-      data[ league ][ season.key ] += matches
+      @data[ league ][ season.key ] += matches
       ## note - skip teams, rounds, and groups for now
     end
 
@@ -92,21 +112,21 @@ class QuickMatchReader
 ##             allowed in quick style
 
 
-    leagues = data.keys
+    leagues = @data.keys
     if leagues.size != 1
         puts "!! (QUICK) PARSE ERROR - expected one league only; got #{leagues.size}:"
         pp leagues
         exit 1
     end
 
-    seasons = data[ leagues[0] ].keys
+    seasons = @data[ leagues[0] ].keys
     if seasons.size != 1
         puts "!! (QUICK) PARSE ERROR - expected one #{leagues[0]} season only; got #{seasons.size}:"
         pp seasons
         exit 1
     end
 
-    data[ leagues[0] ][ seasons[0] ]
+    @data[ leagues[0] ][ seasons[0] ]
   end # method parse
 
 end # class QuickMatchReader

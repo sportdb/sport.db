@@ -15,10 +15,11 @@ require 'optparse'
 
  args = ARGV
  opts = { debug: false,
+          output: nil,
         }
 
  parser = OptionParser.new do |parser|
-  parser.banner = "Usage: #{$PROGRAM_NAME} [options]"
+  parser.banner = "Usage: #{$PROGRAM_NAME} [options] PATH"
 
 ##
 ## check if git has a offline option?? (use same)
@@ -31,6 +32,11 @@ require 'optparse'
    parser.on( "--verbose", "--debug",
                "turn on verbose / debug output (default: #{opts[:debug]})" ) do |debug|
      opts[:debug] = true
+   end
+
+   parser.on( "-o PATH", "--output PATH",
+                  "output to file" ) do |output|
+     opts[:output] = output
    end
 end
 parser.parse!( args )
@@ -64,8 +70,10 @@ end
       puts "==> reading >#{path}<..."
       quick = SportDb::QuickMatchReader.new( read_text( path ) )
       matches = quick.parse
+      name    = quick.league_name   ## quick hack - get league+season via league_name
 
-      data = matches.map {|match| match.as_json }
+      data = { 'name'    => name,
+               'matches' => matches.map {|match| match.as_json }}
       pp data
       puts
       puts "  #{matches.size} match(es)"
@@ -73,6 +81,12 @@ end
       if quick.errors?
         puts "!! #{quick.errors.size} parse error(s):"
         pp quick.errors
+        exit 1
+      end
+
+      if opts[:output]
+         puts "==> writing matches to #{opts[:output]}"
+         write_json( opts[:output], data )
       end
 
 

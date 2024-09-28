@@ -3,7 +3,6 @@ Manifest.txt
 README.md
 Rakefile
 bin/fbt
-bin/fbtxt2json
 lib/sportdb/quick.rb
 lib/sportdb/quick/csv/goal.rb
 lib/sportdb/quick/csv/goal_parser_csv.rb

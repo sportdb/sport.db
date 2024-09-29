@@ -10,17 +10,17 @@ class TestMisc < Minitest::Test
 
   def test_status
     lines = {
-        'cancelled'   => [[:status, "cancelled"]],
+       # 'cancelled'   => [[:status, "cancelled"]],
         '[cancelled]' => [[:status, "cancelled"]],
-        'canceled'    => [[:status, "canceled"]],
+       # 'canceled'    => [[:status, "canceled"]],
         '[canceled]'  => [[:status, "canceled"]],
-        'abandoned'   => [[:status, "abandoned"]],
+       # 'abandoned'   => [[:status, "abandoned"]],
         '[abandoned]' => [[:status, "abandoned"]],
-        'postponed'   => [[:status, "postponed"]],
+       # 'postponed'   => [[:status, "postponed"]],
         '[postponed]' => [[:status, "postponed"]],
-        'awarded'     => [[:status, "awarded"]],
+       # 'awarded'     => [[:status, "awarded"]],
         '[awarded]'   => [[:status, "awarded"]],
-        'awd.'        => [[:status, "awd."]],
+       # 'awd.'        => [[:status, "awd."]],
         '[awd.]'      => [[:status, "awd."]],
       }
 
@@ -80,7 +80,7 @@ lines = {
     [:text, "München 1860"],
     [:score, "3-2"],
     [:time, "12.30"],
-    [:"@"], [:text, "Waldstadion"], [:","], [:text, "Frankfurt"]],  
+    [:"@"], [:text, "Waldstadion"], [:","], [:text, "Frankfurt"]],
  " 18.30   21:30  Brighton & Hove Albion F.C.  0-0  Arsenal F.C.   3-2 (1-0)" =>
   [[:time, "18.30"],
    [:time, "21:30"],
@@ -89,10 +89,10 @@ lines = {
    [:text, "Arsenal F.C."],
    [:score, "3-2 (1-0)"]],
 
-   "  [-; Kane 21]" => 
+   "  [-; Kane 21]" =>
   [[:none, "-"], [:";"], [:text, "Kane 21"]],
   "- ; Kane 21' 27+4'" =>
-  [[:none, "-"], [:";"], 
+  [[:none, "-"], [:";"],
    [:text, "Kane"], [:minute, "21'"], [:minute, "27+4'"]],
   " $$$$   !!!   §§§  " =>
     [],

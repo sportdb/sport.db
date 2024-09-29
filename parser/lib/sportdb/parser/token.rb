@@ -100,33 +100,6 @@ MINUTE_RE = %r{
 }ix
 
 
-##  (match) status
-##    note: english usage - cancelled (in UK), canceled (in US)
-##
-##  add more variants - why? why not?
-
-STATUS_RE = %r{
-     (?<status>
-         \b
-         (?:
-            cancelled|canceled|can\.
-               |
-            abandoned|abd\.
-               |
-            postponed
-               |
-            awarded|awd\.
-               |
-            replay
-         )
-   (?=[ \]]|$)
-     )}ix
-
-## todo/check:  remove loakahead assertion here - why require space?
-## note: \b works only after non-alphanum
-##          to make it work with awd. (dot) "custom" lookahead neeeded
-
-
 ##   goal types
 # (pen.) or (pen) or (p.) or (p)
 ## (o.g.) or (og)
@@ -146,8 +119,8 @@ GOAL_OG_RE = %r{
 
 
 
-RE = Regexp.union(   STATUS_RE,
-                     TIMEZONE_RE,
+RE = Regexp.union( STATUS_RE,
+                    TIMEZONE_RE,
                      TIME_RE,
                      DURATION_RE,  # note - duration MUST match before date
                     DATE_RE,
@@ -216,7 +189,11 @@ def tokenize_with_errors( line, typed: false,
         elsif m[:text]
           [:text, m[:text]]   ## keep pos - why? why not?
         elsif m[:status]   ## (match) status e.g. cancelled, awarded, etc.
-          [:status, m[:status]]
+          if m[:status_note]   ## includes note? e.g.  awarded; originally 2-0
+             [:status, m[:status], {note:m[:status_note]}]
+          else
+             [:status, m[:status]]
+          end
         elsif m[:time]
           if typed
               ## unify to iso-format

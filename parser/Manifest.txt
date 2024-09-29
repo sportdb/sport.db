@@ -12,6 +12,7 @@ lib/sportdb/parser/outline_reader.rb
 lib/sportdb/parser/parser.rb
 lib/sportdb/parser/token-date.rb
 lib/sportdb/parser/token-score.rb
+lib/sportdb/parser/token-status.rb
 lib/sportdb/parser/token-text.rb
 lib/sportdb/parser/token.rb
 lib/sportdb/parser/version.rb

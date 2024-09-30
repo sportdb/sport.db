@@ -1,4 +1,4 @@
-# footballdb-data - built-in (default) football data incl. leagues & cups, clubs, grounds, and more 
+# footballdb-data - built-in (default) football data incl. leagues & cups, clubs, grounds, and more
 
 
 * home  :: [github.com/sportdb/sport.db](https://github.com/sportdb/sport.db)
@@ -11,6 +11,12 @@
 ## Usage
 
 See the footballdb-clubs, footballdb-leagues et al gems.
+
+track size on updates? - why? why not?
+
+- v2024.8.23  -  1 957 888  -  catalog.db
+- v2024.9.30  -  1 966 080  -  catalog.db
+
 
 
 

@@ -47,14 +47,11 @@ puts "ARGV:"
 p args
 
 
-path = if args.empty?
-          '../../../openfootball/euro/2021--europe/euro.txt'
-       elsif args.size == 1
-           args[0]
-       else
-          puts "!! wrong number of args, got #{args.size} - #{args.inspect} - only one arg supported/expected"
-          exit 1
-       end
+paths = if args.empty?
+          ['../../../openfootball/euro/2021--europe/euro.txt']
+        else
+          args
+        end
 
 
 if opts[:debug]
@@ -67,8 +64,16 @@ else
 end
 
 
-      puts "==> reading >#{path}<..."
-      quick = SportDb::QuickMatchReader.new( read_text( path ) )
+## step 1 - concat(enate) all text files into one
+txt = String.new
+paths.each_with_index do |path,i|
+   puts "==> reading [#{i+1}/#{paths.size}] >#{path}<..."
+   txt += "\n\n"   if i > 0
+   txt += read_text( path )
+end
+
+## step 2 - parse (matches) in the football.txt format
+      quick = SportDb::QuickMatchReader.new( txt )
       matches = quick.parse
       name    = quick.league_name   ## quick hack - get league+season via league_name
 

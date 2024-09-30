@@ -3,23 +3,23 @@ module Fbtok
 def self.main( args=ARGV )
 
     opts = {
-        debug: false,
+        debug: true,
         metal: false,
         file:  nil,
     }
 
     parser = OptionParser.new do |parser|
-      parser.banner = "Usage: #{$PROGRAM_NAME} [options]"
+      parser.banner = "Usage: #{$PROGRAM_NAME} [options] PATH"
 
 
-#      parser.on( "-q", "--quiet",
-#                 "less debug output/messages - default is (#{!opts[:debug]})" ) do |debug|
-#        opts[:debug] = false
-#      end
-     parser.on( "--verbose", "--debug",
+      parser.on( "-q", "--quiet",
+                 "less debug output/messages - default is (#{!opts[:debug]})" ) do |debug|
+        opts[:debug] = false
+      end
+      parser.on( "--verbose", "--debug",
                    "turn on verbose / debug output (default: #{opts[:debug]})" ) do |debug|
         opts[:debug] = true
-     end
+      end
 
       parser.on( "--metal",
                      "turn off typed parse tree; show to the metal tokens"+
@@ -30,6 +30,8 @@ def self.main( args=ARGV )
       parser.on( "-f FILE", "--file FILE",
                     "read datafiles (pathspecs) via .csv file") do |file|
         opts[:file] = file
+        ## note: for batch (massive) processing auto-set debug (verbose output) to false (as default)
+        opts[:debug] = false
       end
     end
     parser.parse!( args )

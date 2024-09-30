@@ -9,16 +9,6 @@ module SportDb
 class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? why not?
 
 
-  ### fix - remove catalog reference!!!
-  ##     use classes with "augmented" static methods
-  ##       e.g. Club.match_by etc.
-  def catalog
-     puts "[deprecated] do NOT use catalog reference; use classes with enhanced search static methods!"
-    Import.catalog
-  end
-
-
-
   def self.read( path, season: nil )   ## use - rename to read_file or from_file etc. - why? why not?
     txt = File.open( path, 'r:utf-8' ) {|f| f.read }
     parse( txt, season: season )
@@ -73,8 +63,8 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
 
       ### check if event info available - use start_date;
       ##    otherwise we have to guess (use a "synthetic" start_date)
-      event_info = catalog.events.find_by( season: season,
-                                           league: league )
+      event_info = Import::EventInfo.find_by( season: season,
+                                              league: league )
 
       start = if event_info && event_info.start_date
                   puts "event info found:"
@@ -116,8 +106,8 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
        puts "league:"
        pp league
 
-       teams = catalog.teams.find_by!( name:   auto_conf_teams,
-                                       league: league )
+       teams = Import::Team.find_by!( name:   auto_conf_teams,
+                                      league: league )
 
        puts " [debug] teams:"
        pp teams

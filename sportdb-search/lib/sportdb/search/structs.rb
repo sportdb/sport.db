@@ -72,9 +72,36 @@ class Club
     end
 
    def self.build_mods( mods )
-       _search_build_mods( mods )
+       _search.build_mods( mods )
     end
   end # class Club
+
+
+  class Team
+    def self._search
+        SportDb::Import.catalog.teams
+    end
+
+    ## todo/check: rename to/use map_by! for array version - why? why not?
+    def self.find_by!( name:, league:, mods: nil )
+        _search.find_by!( name: name,
+                          league: league,
+                          mods: mods )
+    end
+  end # class Team
+
+
+  class EventInfo
+    def self._search
+        SportDb::Import.catalog.events
+    end
+
+    def self.find_by( league:, season: )
+        _search.find_by( league: league,
+                         season: season )
+    end
+  end # class EventInfo
+
 
 
   class Ground

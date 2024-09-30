@@ -2,7 +2,10 @@ module SportDb
 module Sync
 
   class Match
-    def self.create!( match, event: )
+    ### todo/fix: rename to create!!   (add update support later) !!!!
+    ##    use update_by_round  or update_by_date or update_by_teams or such
+    ##      NO easy (unique always auto-id match) possible!!!!!!
+    def self.create_or_update( match, event: )
        ## note: MUST find round, thus, use bang (!)
 
        ## todo/check: allow strings too - why? why not?
@@ -33,10 +36,9 @@ module Sync
        ##    || Team.find_or_create( team1 )  -- note: does NOT work for string (only recs) - what to do?
        ##    || Model::Team.find_by!( name: team1_name )
        team1_name   = match.team1.is_a?( String ) ? match.team1 : match.team1.name
-       team2_name   = match.team2.is_a?( String ) ? match.team2 : match.team2.name
        team1_rec    = Team.cache[ team1_name ]
+       team2_name   = match.team2.is_a?( String ) ? match.team2 : match.team2.name
        team2_rec    = Team.cache[ team2_name ]
-
 
        ## check optional group (e.g. Group A, etc.)
        group_rec = if match.group
@@ -56,10 +58,30 @@ module Sync
                      nil
                    end
 
+       ### todo/check: what happens if there's more than one match? exception raised??
+       rec = if ['N. N.', 'N.N.'].include?( team1_name ) && ## some special cases - always assume new record for now (to avoid ambigious update conflict)
+                ['N. N.', 'N.N.'].include?( team2_name )
+               ## always assume new record for now
+               ##   check for date or such - why? why not?
+               nil
+             elsif round_rec
+               ## add match status too? allows [abandoned] and [replay] in same round
+               find_attributes = { round_id: round_rec.id,
+                                   team1_id: team1_rec.id,
+                                   team2_id: team2_rec.id }
 
-        rec = nil   ## match record
+               ## add stage if present to query
+               find_attributes[ :stage_id] = stage_rec.id   if stage_rec
 
-         ## find last pos - check if it can be nil?  yes, is nil if no records found
+               Model::Match.find_by( find_attributes )
+             else
+               ## always assume new record for now
+               ##   check for date or such - why? why not?
+               nil
+             end
+
+       if rec.nil?
+        ## find last pos - check if it can be nil?  yes, is nil if no records found
          max_pos = Model::Match.where( event_id: event.id ).maximum( 'pos' )
          max_pos = max_pos ? max_pos+1 : 1
 
@@ -68,6 +90,7 @@ module Sync
                      team2_id: team2_rec.id,
                      pos:      max_pos,
                      num:      match.num,   ## note - might be nil (not nil for euro, world cup, etc.)
+                     # date:     match.date.to_date,  ## todo/fix: split and add date & time!!!!
                      date:     match.date,  # assume iso format as string e.g. 2021-07-10 !!!
                      time:     match.time,  # assume iso format as string e.g. 21:00 !!!
                      score1:   match.score1,
@@ -113,8 +136,16 @@ module Sync
                )
             end
           end
-
-        rec
+       else
+         # update - todo
+         puts "!! ERROR - match updates not yet supported (only inserts); sorry"
+         pp match
+         puts "---"
+         puts "found match record:"
+         pp rec
+         exit 1
+       end
+       rec
     end
   end # class Match
 

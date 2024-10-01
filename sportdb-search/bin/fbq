@@ -1,0 +1,119 @@
+#!/usr/bin/env ruby
+
+## tip: to test run:
+##   ruby -I ./lib bin/fbq
+
+## our own code
+require 'sportdb/search'
+
+
+
+require 'optparse'
+
+
+
+## local hack
+##   if exists up-to-date catalog db (use local version NOT built-in)
+catalog_path = '../catalog/catalog.db'
+if File.exist?( catalog_path )
+  SportDb::Import.config.catalog_path = catalog_path
+end
+
+
+ args = ARGV
+ opts = { debug: false,
+        }
+
+ parser = OptionParser.new do |parser|
+  parser.banner = "Usage: #{$PROGRAM_NAME} [options] QUERY"
+
+##
+## check if git has a offline option?? (use same)
+##             check for other tools - why? why not?
+#    parser.on( "-q", "--quiet",
+#                 "less debug output/messages - default is (#{!opts[:debug]})" ) do |debug|
+#      opts[:debug] = false
+#    end
+   parser.on( "--verbose", "--debug",
+               "turn on verbose / debug output (default: #{opts[:debug]})" ) do |debug|
+     opts[:debug] = true
+   end
+end
+parser.parse!( args )
+
+puts "OPTS:"
+p opts
+puts "ARGV:"
+p args
+
+
+## add convenience shortcuts
+Club    = Sports::Club
+League  = Sports::League
+Ground  = Sports::Ground
+
+City    = Sports::City
+Country = Sports::Country
+
+
+queries = args
+queries.each_with_index do |query,i|
+  puts "==> [#{i+1}/#{queries.size}] >>>  #{query}  <<< ..."
+
+  ## check for clubs
+  m = Club.match_by( name: query )
+  if m.size > 0
+     puts "  #{m.size} CLUB match(es):"
+     print "    "
+     print m.pretty_inspect
+  end
+
+  ## check for leagues
+  m = League.match_by( code: query )
+  if m.size > 0
+    puts "  #{m.size} LEAGUE (by code) match(es):"
+    print "    "
+    print m.pretty_inspect
+  end
+  m = League.match_by( name: query )
+  if m.size > 0
+    puts "  #{m.size} LEAGUE (by name) match(es):"
+    print "    "
+    print m.pretty_inspect
+  end
+
+  ## check for grounds/stadiums
+  m = Ground.match_by( name: query )
+  if m.size > 0
+    puts "  #{m.size} GROUND match(es):"
+    print "    "
+    print m.pretty_inspect
+  end
+
+
+  ####
+  #  check geos
+  #   note - country for now must be unique match (thus, find)
+  rec = Country.find_by( code: query )
+  if rec
+    puts "  1 COUNTRY (by code) match / found:"
+    print "    "
+    print rec.pretty_inspect
+  end
+  rec = Country.find_by( name: query )
+  if rec
+    puts "  1 COUNTRY (by name) match / found:"
+    print "    "
+    print rec.pretty_inspect
+  end
+
+  m = City.match_by( name: query )
+  if m.size > 0
+    puts "  #{m.size} CITY match(es):"
+    print "    "
+    print m.pretty_inspect
+  end
+end
+
+
+puts "bye"

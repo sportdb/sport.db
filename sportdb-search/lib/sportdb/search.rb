@@ -3,110 +3,21 @@ require 'sportdb/catalogs'
 
 
 
-## move to base?
-###  shared basics for search
-class SportSearch
-  class Search    ## base search service - use/keep - why? why not?
-    attr_reader :service
-    def initialize( service ) @service = service; end
-  end  # class Search
-end
-
-
-
-
 ## our own code
 require_relative 'search/version'
+
+###
+##   add/augment core classes with search services
 require_relative 'search/sport'
+require_relative 'search/world'
 
-
-########
-###  setup sport search apis
-class SportSearch
-   def initialize( leagues:,
-                   national_teams:,
-                   clubs:,
-                   grounds:,
-                   events:,
-                   players:
-                   )
-       @leagues        = LeagueSearch.new( leagues )
-       @national_teams = NationalTeamSearch.new( national_teams )
-       @clubs          = ClubSearch.new( clubs )
-       @events         = EventSearch.new( events )
-
-       @grounds        = GroundSearch.new( grounds )
-
-       @players        = PlayerSearch.new( players )
-
-       ## virtual deriv ("composite") search services
-       @teams          = TeamSearch.new( clubs:          @clubs,
-                                         national_teams: @national_teams )
-       @event_seasons  = EventSeasonSearch.new( events: @events )
-
-   end
-
- def leagues()        @leagues; end
- def national_teams() @national_teams; end
- def clubs()          @clubs; end
- def events()         @events; end
- def grounds()         @grounds; end
-
- def players()        @players; end
-
- def teams()          @teams; end         ## note - virtual table
- def seasons()        @event_seasons; end ## note - virtual table
-
- def countries
-    puts
-    puts "[WARN] do NOT use catalog.countries, deprecated!!!"
-    puts "   please, switch to new world.countries search service"
-    puts
-    exit 1
- end
-end # class SportSearch
-
-
-class WorldSearch
-    def initialize( countries:, cities: )
-        ## change service to country_service or such - why? why not?
-        ##  add city_service and such later
-
-        @countries =  countries
-        @cities    =  cities
-    end
-
-    ####
-    #  note: for now setup only for countries & cities
-    def countries() @countries;  end
-    def cities()    @cities;  end
-end  # class WorldSearch
 
 
 #######
 ## add configuration
-
 module SportDb
 module Import
 class Configuration
-  def world
-    @world ||= WorldSearch.new(
-                      countries: CatalogDb::Metal::Country,
-                      cities:    CatalogDb::Metal::City,
-                   )
-  end
-
-  def catalog
-    @catalog ||= SportSearch.new(
-                        leagues:        CatalogDb::Metal::League,
-                        national_teams: CatalogDb::Metal::NationalTeam,
-                        clubs:          CatalogDb::Metal::Club,
-                        grounds:        CatalogDb::Metal::Ground,
-                        events:         CatalogDb::Metal::EventInfo,
-                        players:        CatalogDb::Metal::Player,    # note - via players.db !!!
-                     )
-  end
-
   ###
   #  find a better name for setting - why? why not?
   #     how about catalogdb or ???
@@ -135,9 +46,6 @@ class Configuration
 
 end # class Configuration
 
-    ##  e.g. use config.catalog  -- keep Import.catalog as a shortcut (for "read-only" access)
-    def self.world()   config.world;    end
-    def self.catalog() config.catalog;  end
 
       ## lets you use
       ##   SportDb::Import.configure do |config|
@@ -159,13 +67,8 @@ end   # module Sports
 
 
 
-
-
 ###
-##   add/augment core classes with search services
-require_relative 'search/structs'
-require_relative 'search/structs_world'
-
+# more to be done
 
 
 module SportDb

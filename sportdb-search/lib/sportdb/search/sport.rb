@@ -1,54 +1,46 @@
 ###
-#  sport search service api for leagues, clubs and more
+#  note - extend all structs for with search api
 #
-# core api is:
+#  todo - add more helpers!!!!
+#
+#
+#  todo - fix - move all non-core search functionality/machinery
+#                  over here - why? why not?
 
 
-class SportSearch
-
-class PlayerSearch < Search
-  ###################
-  ## core required delegates  - use delegate generator - why? why not?
-  def match_by( name:, country: nil, year: nil )
-    @service.match_by( name:    name,
-                       country: country,
-                       year:    year )
-  end
-
-  ###############
-  ### more deriv support functions / helpers
-  def match( name ) match_by( name: name ); end
-  ## add more here - why? why not?
-end   # class PlayerSearch
+module Sports
+###
+## todo/fix - add find_by( code: ), find_by( name: )
+##                   split - why? why not?
 
 
-class LeagueSearch < Search
+class League
+    def self._search() CatalogDb::Metal::League; end
 
   ###################
   ## core required delegates  - use delegate generator - why? why not?
-  def match_by( name: nil, code: nil, country: nil )
-     ## todo/fix upstream - remove "generic" match_by() - why? why not?
-     ###
-     if code && name.nil?
-      @service.match_by_code( code, country: country )
-    elsif name && code.nil?
-      @service.match_by_name( name, country: country )
-    else
-      raise ArgumentError, "LeagueSearch#match_by - one (and only one arg) required - code: or name:"
-    end
-    ## @service.match_by( name: name,
-    ##                   country: country )
-  end
+  def self.match_by( name: nil, code: nil, country: nil )
+    ## todo/fix upstream - remove "generic" match_by() - why? why not?
+    ###
+    if code && name.nil?
+     _search.match_by_code( code, country: country )
+   elsif name && code.nil?
+     _search.match_by_name( name, country: country )
+   else
+     raise ArgumentError, "LeagueSearch#match_by - one (and only one arg) required - code: or name:"
+   end
+   ## @service.match_by( name: name,
+   ##                   country: country )
+ end
 
-  ## all-in-one query (name or code)
-  def match( q, country: nil )
-     @service.match_by_name_or_code( q, country: country )
-  end
-
+ ## all-in-one query (name or code)
+ def self.match( q, country: nil )
+    _search.match_by_name_or_code( q, country: country )
+ end
 
   ###############
   ### more deriv support functions / helpers
-  def find!( q )
+  def self.find!( q )
     league = find( q )
     if league.nil?
       puts "** !!! ERROR - no league match found for >#{q}<, add to leagues table; sorry"
@@ -57,7 +49,7 @@ class LeagueSearch < Search
     league
   end
 
-  def find( q )
+  def self.find( q )
     league = nil
     recs = match( q )
     # pp m
@@ -74,45 +66,31 @@ class LeagueSearch < Search
 
     league
   end
-end # class LeagueSearch
+end # class League
 
 
+class NationalTeam
+    def self._search() CatalogDb::Metal::NationalTeam; end
 
-class GroundSearch  < Search
-  ###################
-  ## core required delegates  - use delegate generator - why? why not?
-  def match_by( name:, country: nil, city: nil )
-    @service.match_by( name:    name,
-                       country: country,
-                       city:    city )
-  end
-
-  ###############
-  ### more deriv support functions / helpers
-  def match( name ) match_by( name: name ); end
-  ## add more here - why? why not?
-end  # class GroundSearch
-
-
-
-class NationalTeamSearch  < Search
   ###################
   ## core required delegates  - use delegate generator - why? why not?
 
   ## changle core api to match( q ) only - why? why not?
   ##   and make find and find! derivs???
-  def find( q )    @service.find( q ); end
-  def find!( q )   @service.find!( q ); end
-end # class NationalTeamSearch
+  def self.find( q )    _search.find( q ); end
+  def self.find!( q )   _search.find!( q ); end
+end # class NationalTeam
 
 
-class ClubSearch  < Search
+
+class Club
+    def self._search() CatalogDb::Metal::Club; end
+
   ###################
   ## core required delegates  - use delegate generator - why? why not?
 
   ## add mods here - why? why not?
-
-  def match_by( name:, country: nil,
+  def self.match_by( name:, country: nil,
                        league:  nil,
                        mods:    nil )
     ## for now assume "global" mods  - checks only for name
@@ -135,10 +113,10 @@ class ClubSearch  < Search
         ### uses "global" func in sports-catalogs for now
         ##   move code here - why? why not?
         country = find_countries_for_league( league )
-        @service.match_by( name:    name,
+        _search.match_by( name:    name,
                            country: country )
     else
-        @service.match_by( name:    name,
+        _search.match_by( name:    name,
                            country: country )
     end
   end
@@ -154,18 +132,18 @@ class ClubSearch  < Search
 
   ###############
   ### more deriv support functions / helpers
-  def match( name ) match_by( name: name ); end
+  def self.match( name ) match_by( name: name ); end
 
   ##########
   #  "legacy" finders - return zero or one club
   ##    (if more than one match, exit/raise error/exception)
-  def find( name )   find_by( name: name ); end
-  def find!( name )  find_by!( name: name ); end
+  def self.find( name )   find_by( name: name ); end
+  def self.find!( name )  find_by!( name: name ); end
 
   ## find - always returns a single record / match or nil
   ##   if there is more than one match than find aborts / fails
-  def find_by!( name:, country: nil,
-                       league:  nil )    ## todo/fix: add international or league flag?
+  def self.find_by!( name:, country: nil,
+                            league:  nil )    ## todo/fix: add international or league flag?
     club = find_by( name:    name,
                     country: country,
                     league:  league )
@@ -179,7 +157,7 @@ class ClubSearch  < Search
   end
 
 
-  def find_by( name:, country: nil,
+  def self.find_by( name:, country: nil,
                       league:  nil )    ## todo/fix: add international or league flag?
     ## note: allow passing in of country key too (auto-counvert)
     ##       and country struct too
@@ -205,7 +183,7 @@ class ClubSearch  < Search
 
 #######
 # more support methods
-  def build_mods( mods )
+  def self.build_mods( mods )
     ## e.g.
     ##  { 'Arsenal   | Arsenal FC'    => 'Arsenal, ENG',
     ##    'Liverpool | Liverpool FC'  => 'Liverpool, ENG',
@@ -230,155 +208,134 @@ class ClubSearch  < Search
       h
     end
   end
-end # class ClubSearch
+  end # class Club
 
 
 
-## todo/check - change to EventInfoSearch - why? why not?
-class EventSearch < Search
-  ##
-  ## todo - eventinfo search still open / up for change
+  class Team
+    ## note: "virtual" index lets you search clubs and/or national_teams (don't care)
+
+        ## todo/check: rename to/use map_by! for array version - why? why not?
+        def self.find_by!( name:, league:, mods: nil )
+          if name.is_a?( Array )
+            recs = []
+            name.each do |q|
+              recs << _find_by!( name: q, league: league, mods: mods )
+            end
+            recs
+          else  ## assume single name
+            _find_by!( name: name, league: league, mods: mods )
+          end
+        end
+
+
+      CLUB_NAME_RE =  %r{^
+              (?<name>[^()]+?)     ## non-greedy
+              (?:
+                 \s+
+                 \(
+                   (?<code>[A-Z][A-Za-z]{2,3})    ## optional (country) code; support single code e.g. (A) - why? why not?
+                 \)
+              )?
+            $}x   ## note - allow (URU) and (Uru) - why? why not
+
+
+        ###
+        #  note:  missing teams will get
+        ##            auto-created if possible
+        ##         only ambigious results (too many matches) raise expection!!!
+        def self._find_by!( name:, league:, mods: nil )
+          if mods && mods[ league.key ] && mods[ league.key ][ name ]
+            mods[ league.key ][ name ]
+          else
+            if league.clubs?
+              if league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
+                     ###
+                     ##  get country code from name
+                     ##    e.g. Liverpool FC (ENG) or
+                     ##         Liverpool FC (URU) etc.
+
+                     ## check for country code
+                     if m=CLUB_NAME_RE.match( name )
+                       if m[:code]
+                         Club.find_by!( name: m[:name],
+                                                country: m[:code] )
+                       else
+                          Club.find!( name )
+                       end
+                     else
+                       puts "!! PARSE ERROR - invalid club name; cannot match with CLUB_NAME_RE >#{team}<"
+                       exit 1
+                     end
+              else  ## assume clubs in domestic/national league tournament
+                 ## note - search by league countries (may incl. more than one country
+                 ##             e.g. us incl. ca, fr incl. mc, ch incl. li, etc.
+                rec = Club.find_by( name: name, league: league )
+                if rec.nil?
+                    puts "auto-create (missing) club #{name}"
+                    ##  todo/fix: add auto flag!!!!
+                    ###              like in rounds!!!
+                    ##   to track auto-created clubs
+                    rec = Club.new( name: name )
+                    rec.country = league.country  ## fix: country kwarg not yet supported!!
+                    pp rec
+                end
+                rec
+              end
+            else   ## assume national teams (not clubs)
+              NationalTeam.find!( name )
+            end
+          end
+        end # method _find_by!
+  end # class Team
+
+
+
+  class EventInfo
+    def self._search() CatalogDb::Metal::EventInfo; end
+
+    def self.find_by( league:, season: )
+        _search.find_by( league: league,
+                         season: season )
+    end
+  end # class EventInfo
+
+
+
+  class Ground
+    def self._search() CatalogDb::Metal::Ground; end
 
   ###################
   ## core required delegates  - use delegate generator - why? why not?
-  def seasons( league )
-      @service.seasons( league )
+  def self.match_by( name:, country: nil, city: nil )
+    _search.match_by( name:    name,
+                       country: country,
+                       city:    city )
   end
-  def find_by( league:, season: )
-      @service.find_by( league: league,
-                        season: season )
-  end
-end # class EventSearch
-
-
-####
-## virtual table for season lookup
-##   note - use EventSeaon  to avoid name conflict with (global) Season class
-##      find a better name SeasonInfo or SeasonFinder or SeasonStore
-##                       or SeasonQ or ??
-class EventSeasonSearch
-    def initialize( events: )
-        @events = events
-    end
 
   ###############
-  ## todo/fix:  find a better algo to guess season for date!!!
-  ##
-  def find_by( date:, league: )
-    date = Date.strptime( date, '%Y-%m-%d' )   if date.is_a?( String )
-
-    infos = @events.seasons( league )
-
-    infos.each do |info|
-       return info.season   if info.include?( date )
-    end
-    nil
-  end
-end # class EventSeasonSearch
+  ### more deriv support functions / helpers
+  def self.match( name ) match_by( name: name ); end
+  ## add more here - why? why not?
+  end # class Ground
 
 
-######
-### add virtual team search ( clubs + national teams)
-##   note: no record base!!!!!
-class TeamSearch
-    ## note: "virtual" index lets you search clubs and/or national_teams (don't care)
 
-  def initialize( clubs:, national_teams: )
-    @clubs          = clubs
-    @national_teams = national_teams
+  class Player
+    def self._search() CatalogDb::Metal::Player; end
+
+  ###################
+  ## core required delegates  - use delegate generator - why? why not?
+  def self.match_by( name:, country: nil, year: nil )
+    _search.match_by( name:    name,
+                       country: country,
+                       year:    year )
   end
 
-    ## todo/check: rename to/use map_by! for array version - why? why not?
-    def find_by!( name:, league:, mods: nil )
-      if name.is_a?( Array )
-        recs = []
-        name.each do |q|
-          recs << _find_by!( name: q, league: league, mods: mods )
-        end
-        recs
-      else  ## assume single name
-        _find_by!( name: name, league: league, mods: mods )
-      end
-    end
+  ###############
+  ### more deriv support functions / helpers
+  def self.match( name ) match_by( name: name ); end
+  ## add more here - why? why not?
+  end   # class Player
 
-
-
-  CLUB_NAME_RE =  %r{^
-          (?<name>[^()]+?)     ## non-greedy
-          (?:
-             \s+
-             \(
-               (?<code>[A-Z][A-Za-z]{2,3})    ## optional (country) code; support single code e.g. (A) - why? why not?
-             \)
-          )?
-        $}x   ## note - allow (URU) and (Uru) - why? why not
-
-
-    ###
-    #  note:  missing teams will get
-    ##            auto-created if possible
-    ##         only ambigious results (too many matches) raise expection!!!
-    def _find_by!( name:, league:, mods: nil )
-      if mods && mods[ league.key ] && mods[ league.key ][ name ]
-        mods[ league.key ][ name ]
-      else
-        if league.clubs?
-          if league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
-                 ###
-                 ##  get country code from name
-                 ##    e.g. Liverpool FC (ENG) or
-                 ##         Liverpool FC (URU) etc.
-
-                 ## check for country code
-                 if m=CLUB_NAME_RE.match( name )
-                   if m[:code]
-                     @clubs.find_by!( name: m[:name],
-                                            country: m[:code] )
-                   else
-                      @clubs.find!( name )
-                   end
-                 else
-                   puts "!! PARSE ERROR - invalid club name; cannot match with CLUB_NAME_RE >#{team}<"
-                   exit 1
-                 end
-          else  ## assume clubs in domestic/national league tournament
-             ## note - search by league countries (may incl. more than one country
-             ##             e.g. us incl. ca, fr incl. mc, ch incl. li, etc.
-            rec = @clubs.find_by( name: name, league: league )
-            if rec.nil?
-                puts "auto-create (missing) club #{name}"
-                ##  todo/fix: add auto flag!!!!
-                ###              like in rounds!!!
-                ##   to track auto-created clubs
-                rec = SportDb::Import::Club.new( name: name )
-                rec.country = league.country  ## fix: country kwarg not yet supported!!
-                pp rec
-            end
-            rec
-          end
-        else   ## assume national teams (not clubs)
-          @national_teams.find!( name )
-        end
-      end
-    end # method _find_by!
-
-
-    def _find_by_v0!( name:, league:, mods: nil )
-      if mods && mods[ league.key ] && mods[ league.key ][ name ]
-        mods[ league.key ][ name ]
-      else
-        if league.clubs?
-          if league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
-            @clubs.find!( name )
-          else  ## assume clubs in domestic/national league tournament
-             ## note - search by league countries (may incl. more than one country
-             ##             e.g. us incl. ca, fr incl. mc, ch incl. li, etc.
-            @clubs.find_by!( name: name, league: league )
-          end
-        else   ## assume national teams (not clubs)
-          @national_teams.find!( name )
-        end
-      end
-    end # method _find_by!
-  end  # class TeamSearch
-end  # class SportSearch
+end   # module Sports

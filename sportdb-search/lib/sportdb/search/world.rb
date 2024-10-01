@@ -1,9 +1,8 @@
 module Sports
 
+
 class City
-    def self._search #### use service/api or such - why? why not?
-        SportDb::Import.world.cities
-    end
+    def self._search() CatalogDb::Metal::City; end
 
     def self.match_by( name: )
        _search.match_by( name: name )
@@ -12,9 +11,7 @@ end   # class City
 
 
 class Country
-    def self._search #### use service/api or such - why? why not?
-        SportDb::Import.world.countries
-    end
+    def self._search() CatalogDb::Metal::Country; end
 
     def self.find_by( code: nil, name: nil )
         ## todo/fix upstream - change to find_by( code:, name:, ) too - why? why not?
@@ -23,7 +20,7 @@ class Country
         elsif name && code.nil?
           _search.find_by_name( name )
         else
-          raise ArgumentError, "CountrySearch#find_by - one (and only one arg) required - code: or name:"
+          raise ArgumentError, "Country#find_by - one (and only one arg) required - code: or name:"
         end
     end
 

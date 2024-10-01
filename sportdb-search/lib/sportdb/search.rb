@@ -8,9 +8,15 @@ require_relative 'search/version'
 
 ###
 ##   add/augment core classes with search services
-require_relative 'search/sport'
 require_relative 'search/world'
+require_relative 'search/sport-leagues'
+require_relative 'search/sport-clubs'
+require_relative 'search/sport-teams'
+require_relative 'search/sport-events'
+require_relative 'search/sport-more'
 
+##
+##  require_relative 'search/sport-history'  ## to be done
 
 
 #######
@@ -42,15 +48,12 @@ class Configuration
 
       @players_path
   end
-
-
 end # class Configuration
 
-
-      ## lets you use
-      ##   SportDb::Import.configure do |config|
-      ##      config.catalog_path = './catalog.db'
-      ##   end
+    ## lets you use
+    ##   SportDb::Import.configure do |config|
+    ##      config.catalog_path = './catalog.db'
+    ##   end
     def self.configure()  yield( config ); end
     def self.config()  @config ||= Configuration.new;  end
 end   # module Import
@@ -66,23 +69,6 @@ module Sports
 end   # module Sports
 
 
-
-###
-# more to be done
-
-
-module SportDb
-  module Import
-    class Team
-      ## add convenience lookup helper / method for name by season for now
-      ##   use clubs history - for now kept separate from struct - why? why not?
-      def name_by_season( season )
-        ## note: returns / fallback to "regular" name if no records found in history
-        SportDb::Import.catalog.clubs_history.find_name_by( name: name, season: season ) || name
-      end
-    end  # class Team
-  end   # module Import
-end     # module SportDb
 
 
 ###

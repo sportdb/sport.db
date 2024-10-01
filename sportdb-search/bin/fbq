@@ -48,9 +48,10 @@ p args
 
 
 ## add convenience shortcuts
-Club    = Sports::Club
-League  = Sports::League
-Ground  = Sports::Ground
+Club          = Sports::Club
+NationalTeam  = Sports::NationalTeam
+League        = Sports::League
+Ground        = Sports::Ground
 
 City    = Sports::City
 Country = Sports::Country
@@ -90,6 +91,14 @@ queries.each_with_index do |query,i|
     print m.pretty_inspect
   end
 
+
+  ### check for national team
+  rec = NationalTeam.find( query )
+  if rec
+    puts "  1 NATIONAL_TEAM match / found:"
+    print "    "
+    print rec.pretty_inspect
+  end
 
   ####
   #  check geos

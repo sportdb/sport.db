@@ -2,8 +2,13 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
+bin/fbq
 lib/sportdb/search.rb
-lib/sportdb/search/sport.rb
-lib/sportdb/search/structs.rb
-lib/sportdb/search/structs_world.rb
+lib/sportdb/search/sport-clubs.rb
+lib/sportdb/search/sport-events.rb
+lib/sportdb/search/sport-history.rb
+lib/sportdb/search/sport-leagues.rb
+lib/sportdb/search/sport-more.rb
+lib/sportdb/search/sport-teams.rb
 lib/sportdb/search/version.rb
+lib/sportdb/search/world.rb

@@ -1,30 +1,22 @@
-###
-#  sport search service api for leagues, clubs and more
-#
-# core api is:
+module Sports
 
-###################################
-## todo/fix - move to attic!!!!
-###################################
+class EventInfo
+  def self._search() CatalogDb::Metal::EventInfo; end
 
-
-class SportSearch
-
-## todo/check - change to EventInfoSearch - why? why not?
-class EventSearch < Search
-  ##
-  ## todo - eventinfo search still open / up for change
-
-  ###################
-  ## core required delegates  - use delegate generator - why? why not?
-  def seasons( league )
-      @service.seasons( league )
+  def self.find_by( league:, season: )
+        _search.find_by( league: league,
+                         season: season )
   end
-  def find_by( league:, season: )
-      @service.find_by( league: league,
-                        season: season )
+
+  def self.seasons( league )
+        _search.seasons( league )
   end
-end # class EventSearch
+end # class EventInfo
+
+end  # module Sports
+
+
+__END__
 
 
 ####

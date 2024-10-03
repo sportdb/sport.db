@@ -65,8 +65,18 @@ end # class NationalTeam
                      ## check for country code
                      if m=CLUB_NAME_RE.match( name )
                        if m[:code]
-                         Club.find_by!( name: m[:name],
-                                                country: m[:code] )
+                         rec =  Club.find_by( name: m[:name],
+                                              country: m[:code] )
+                         if rec.nil?
+                           puts "auto-create (missing) club #{name}"
+                           ##  todo/fix: add auto flag!!!!
+                           ###              like in rounds!!!
+                           ##   to track auto-created clubs
+                           rec = Club.new( name: m[:name] )
+                           rec.country = Country.find_by( code: m[:code] )   ## fix: country kwarg not yet supported!!
+                           pp rec
+                         end
+                         rec
                        else
                           Club.find!( name )
                        end

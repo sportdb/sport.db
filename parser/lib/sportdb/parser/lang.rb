@@ -32,7 +32,8 @@ ROUND_RE = %r{^(
    ### note - allow Group ("stand-alone") as "generic" round for now
    ##      BUT do NOT allow Group 1, Group 2, Group A, Group B, etc.
      (?: Group [ ] [A-Z0-9]+ [ ] Play-?offs?  |
-         Group
+         Group (?: [ ] phase)?  |
+         League (?: [ ] phase)?
      )
         |
    # round  - note - requiers number e.g. round 1,2, etc.
@@ -126,6 +127,9 @@ ROUND_RE = %r{^(
         |
    # final
          Finals?
+         |
+   # decider e.g. Entscheidungsspiel
+         Decider
          |
     ## add replays
     ##  e.g. Final Replay

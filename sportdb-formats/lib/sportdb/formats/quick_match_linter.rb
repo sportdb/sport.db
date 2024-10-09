@@ -23,10 +23,16 @@ class QuickMatchLinter
 
   include Logging
 
-  def initialize( txt )
+  def initialize( txt,
+                  check_teams: true )
     @errors = []
     @txt = txt
+    @check_teams = check_teams
   end
+
+  def check_teams?() @check_teams; end
+
+
 
   attr_reader :errors
   def errors?() @errors.size > 0; end
@@ -70,11 +76,13 @@ class QuickMatchLinter
 ###
 ##      db check - check league
 ##       fix/fix - add season to match_by   !!!!!!!
-      recs =  Import::League.match_by( name: league )
+##        note - changed to match (incl. code) from match_by(name:) only!!!
+      recs =  Import::League.match( league )
       league_rec = nil
       if recs.size == 1
         league_rec = recs[0]
-        puts "     OK #{league} => #{league_rec.name}"
+        ## note - use pp (pretty_inspect) instead of league_rec.name
+        puts "     OK #{league} => #{league_rec.pretty_inspect}"
       elsif recs.size == 0
         msg = "NAME ERROR - no league match found for >#{league}<"
         @errors << [msg]
@@ -111,6 +119,7 @@ class QuickMatchLinter
 ##     only clubs for now
 ##       fix add better support for champs etc
 ##               and national teams!!!
+  if check_teams?
     auto_conf_teams.each do |team|
       recs =  if league_rec && !league_rec.intl?
                  Import::Club.match_by( name: team, league: league_rec )
@@ -139,7 +148,7 @@ class QuickMatchLinter
         team_rec = nil
         if recs.size == 1
           team_rec = recs[0]
-          puts "     OK #{team} => #{team_rec.name}, #{team_rec.country.name}"
+          puts "     OK #{team} => #{team_rec.pretty_inspect}"
         elsif recs.size == 0
           msg = "NAME ERROR - no team match found for >#{team}<"
           @errors << [msg]
@@ -150,9 +159,7 @@ class QuickMatchLinter
           puts "!! #{msg}"
         end
     end
-
-
-
+  end
 
 
       ## note: pass along stage (if present): stage  - optional from heading!!!!

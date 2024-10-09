@@ -23,6 +23,7 @@ end
  args = ARGV
  opts = { debug: false,
           file:  nil,
+          teams: true,   ## check/lint teams (name errros etc.)
         }
 
  parser = OptionParser.new do |parser|
@@ -45,9 +46,13 @@ end
       opts[:file] = file
     end
 
-
+    parser.on( "--[no-]teams",
+                  "turn on/off team name checks (default: #{opts[:teams]})") do |teams|
+      opts[:teams] = teams
+    end
 end
 parser.parse!( args )
+
 
 puts "OPTS:"
 p opts
@@ -95,8 +100,10 @@ end
     errors = []
     paths.each_with_index do |path,j|
       puts "==> [#{j+1}/#{paths.size}] reading >#{path}<..."
-      quick = SportDb::QuickMatchLinter.new( read_text( path ) )
+      quick = SportDb::QuickMatchLinter.new( read_text( path ),
+                                              check_teams: opts[:teams] )
       matches = quick.parse
+
 
       if quick.errors?
         puts "!! #{quick.errors.size} error(s):"

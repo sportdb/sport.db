@@ -17,9 +17,12 @@ class Opts
 
     ## note: if pattern includes directory add here
     ##     (otherwise move to more "generic" datafile) - why? why not?
+    ##   update - note include/allow dot (.) too
+    ##               e.g. 2024-25/at.1.txt
+    ##                        change to at_1 or uefa_cl or such - why? why not?
     MATCH_RE = %r{ (?: ^|/ )      # beginning (^) or beginning of path (/)
                        #{SEASON}
-                     /[a-z0-9_-]+\.txt$  ## txt e.g /1-premierleague.txt
+                     /[a-z0-9_.-]+\.txt$  ## txt e.g /1-premierleague.txt
                 }x
 
 

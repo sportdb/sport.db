@@ -150,8 +150,50 @@ ROUND_RE = %r{^(
 )$}ix
 
 
+####
+#  add more round names in different languages
+#    via txt files
+#
+#  for now must match case - maybe make caseinsensitive later - why? why not?
+def self.read_names( path )
+     txt = read_text( path )
+     names = [] # array of lines (with words)
+     txt.each_line do |line|
+       line = line.strip
+
+       next if line.empty?
+       next if line.start_with?( '#' )   ## skip comments too
+
+       ## strip inline (until end-of-line) comments too
+       ##   e.g. Janvier  Janv  Jan  ## check janv in use??
+       ##   =>   Janvier  Janv  Jan
+
+       line = line.sub( /#.*/, '' ).strip
+       ## pp line
+
+       names << line
+     end
+     names
+end
+
+
+def self.more_round_names
+   @more_round_name ||= begin
+                           names = []
+                           langs = ['de', 'es', 'pt', 'en', 'misc' ]
+                           ## sort names by length??
+                           langs.each do |lang|
+                             path = "#{SportDb::Module::Parser.root}/config/rounds_#{lang}.txt"
+                             names += read_names( path )
+                           end
+                           names
+                        end
+end
+
+
 def is_round?( text )
-    ROUND_RE.match?( text )
+    ROUND_RE.match?( text ) ||
+    self.class.more_round_names.include?( text )
 end
 
 ##

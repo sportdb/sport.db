@@ -1,0 +1,16 @@
+##########
+#  note - english rounds here
+#    only get used for testing
+#      see regex all available rounds (& variants)
+#   remove if added to regex!!!
+
+Play-in round
+Quarterfinal
+First semifinal
+Second semifinal
+Final
+
+Conference Semifinals
+Conference Finals
+Wildcard
+

@@ -5,7 +5,7 @@
 
 require 'helper'
 
-class TestFormats < MiniTest::Test
+class TestFormats < Minitest::Test
 
   def test_de
     ScoreFormats.lang = :de

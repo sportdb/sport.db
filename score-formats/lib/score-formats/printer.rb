@@ -14,9 +14,10 @@ class Score
   def format_en( format=:default )
     ## note: format gets ignored for now (only one available)
 
-    buf = String.new('')
-    ## note: also allow (minimal) scores only with a.e.t. (and no full time)
-    if ft? || et?
+    buf = String.new
+    ## note:  allow (minimal) scores only with a.e.t. (and no full time)
+    ###       allow (minimal) score only with pen. too
+    if ft? || et? || p?
       if p?
         buf << "#{@score1p}-#{@score2p} pen."
       end

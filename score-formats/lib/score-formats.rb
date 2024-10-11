@@ -5,7 +5,7 @@ require 'time'
 
 ###
 # our own code
-require 'score-formats/version' # let version always go first
+require_relative 'score-formats/version' # let version always go first
 
 ## todo/fix: make logging class configurable - lets you use logutils etc.
 module ScoreFormats
@@ -20,10 +20,10 @@ end # module ScoreFormats
 
 
 
-require 'score-formats/score'
-require 'score-formats/formats'
-require 'score-formats/parser'
-require 'score-formats/printer'
+require_relative 'score-formats/score'
+require_relative 'score-formats/formats'
+require_relative 'score-formats/parser'
+require_relative 'score-formats/printer'
 
 
 

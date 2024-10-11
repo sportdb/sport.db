@@ -5,7 +5,7 @@
 
 require 'helper'
 
-class TestPrinter < MiniTest::Test
+class TestPrinter < Minitest::Test
 
   def test_en
      [['0-0',                   [nil,nil, 0, 0]],

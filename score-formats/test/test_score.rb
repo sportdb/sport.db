@@ -5,7 +5,7 @@
 
 require 'helper'
 
-class TestScore < MiniTest::Test
+class TestScore < Minitest::Test
 
   def test_split
     assert_equal [], Score.split( '' )

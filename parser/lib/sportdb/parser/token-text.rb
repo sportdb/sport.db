@@ -47,6 +47,10 @@ TEXT_RE = %r{
                       [ ]?   ## make space optional too  - why? why not?
                              ##  yes - eg. 1st, 2nd, 5th etc.
                        \p{L}+
+                  |
+                ## opt 3 - add weirdo case
+                ##   e.g. 5.-8. Platz Playoffs  - keep - why? why not?
+                    \d+\.-\d+\.  [ ]? \p{L}+
                )
 
               (?:(?:  (?:[ ]
@@ -57,13 +61,18 @@ TEXT_RE = %r{
                   )?
                 (?:
                   \p{L} |
-                  [&/']
+                  [&/'°]
                     |
                  (?:
                    \d+
-                   (?![0-9.:h'/+-])
+                   (?!
+                     [0-9h'+-] |    ## protected break on 12h / 12' / 1-1
+                                    ##  check usege for 3+4 - possible? where ? why?
+                     (?:[.:]\d)     ## protected/exclude/break on 12.03 / 12:03
+                    )
                    ## negative lookahead for numbers
                    ##   note - include digits itself!!!
+                   ##   note - remove / (slash) e.g. allows UDI'19/Beter Bed
                  )|
                  \.
                )

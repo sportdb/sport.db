@@ -11,14 +11,14 @@ parser = SportDb::Parser.new
 
 
 puts "group:"
-pp parser.is_group?( 'Group' )      #=> false!!!
+pp parser.is_group?( 'Group' )      #=> false!!!!!!!!!!!!!!
 pp parser.is_group?( 'Group A' )
 pp parser.is_group?( 'Group HEX' )
 pp parser.is_group?( 'Group 1' )
 
 puts
 puts "round:"
-pp parser.is_round?( 'Round' )     #=>  false!!!!
+pp parser.is_round?( 'Round' )     #=>  false!!!!!!!!!!!
 pp parser.is_round?( 'Round 11' )
 pp parser.is_round?( 'Matchday 1' )
 pp parser.is_round?( 'Week 1' )
@@ -61,6 +61,33 @@ names = [
  'Qual. Round 3',
 
  'Final Replay',
+
+ ###
+ # more
+ 'First semifinal',
+ 'Second semifinal',
+ 'Conference Semifinals',
+ 'Conference Finals',
+ 'Wildcard',
+
+
+#####
+### try more languages
+  'Entscheidung Zone B',
+  '1. Aufstieg',
+  '1. Aufstieg Zone A',
+  '1. Aufstieg Zone B',
+  '2. Aufstieg Zone A',
+  '2. Aufstieg Zone B',
+  '2. Aufstieg 1. Phase',
+  '2. Aufstieg 2. Phase',
+  '2. Aufstieg 3. Phase',
+  'Direkter Aufstieg',
+  'Direkter Abstieg',
+  'Zwischenrunde Gr. B',   ## move to group  why? why not?
+  '5. Platz',
+
+
 ].each do |name|
     pp parser.is_round?( name )
 end

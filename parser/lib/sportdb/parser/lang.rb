@@ -180,7 +180,7 @@ end
 def self.more_round_names
    @more_round_name ||= begin
                            names = []
-                           langs = ['de', 'es', 'pt', 'en', 'misc' ]
+                           langs = ['en', 'de', 'es', 'pt', 'misc']
                            ## sort names by length??
                            langs.each do |lang|
                              path = "#{SportDb::Module::Parser.root}/config/rounds_#{lang}.txt"

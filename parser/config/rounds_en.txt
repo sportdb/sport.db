@@ -1,16 +1,22 @@
 ##########
-#  note - english rounds here
-#    only get used for testing
-#      see regex all available rounds (& variants)
-#   remove if added to regex!!!
+#  note - more english rounds here
+#    remove here if added to regex!!!
 
 Play-in round
-Quarterfinal
 First semifinal
 Second semifinal
-Final
 
 Conference Semifinals
 Conference Finals
 Wildcard
+
+Elimination Final
+Quadrangular
+
+Major Semi-Final
+Minor Semi-Final
+
+
+## keep weirdo matchday ??
+Matchday 0    ## in 2003-04/az.1.txt
 

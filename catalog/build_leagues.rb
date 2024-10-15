@@ -1,9 +1,13 @@
 ### note: make sure to load latest sportdb/structs !!!  (allow key with numbers!)
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-helpers/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-search/lib' ))
 $LOAD_PATH.unshift( File.expand_path( './lib' ))
 
+# add formats for SportDb::Package
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-formats/lib' ))
+require 'sportdb/formats'
 
 
 require 'sportdb/indexers'
@@ -29,8 +33,28 @@ end
 
 
 CatalogDb::LeagueDb.open( './leagues.db' )
-CatalogDb::LeagueIndexer.read( '../../../openfootball/leagues' )
 
+# CatalogDb::LeagueIndexer.read( '../../../openfootball/leagues' )
+
+recs = []
+
+path = '../../../openfootball/leagues/europe/england/eng.leagues.txt'
+more_recs = SportDb::Import::LeagueReader.read( path )
+pp more_recs
+recs += more_recs
+
+path = '../../../openfootball/leagues/europe/austria/at.leagues.txt'
+more_recs = SportDb::Import::LeagueReader.read( path )
+pp more_recs
+recs += more_recs
+
+path = '../../../openfootball/leagues/europe/germany/de.leagues.txt'
+more_recs = SportDb::Import::LeagueReader.read( path )
+pp more_recs
+recs += more_recs
+
+
+CatalogDb::LeagueIndexer.add( recs )
 
 ## change EventIndexer to LeagueSeason(s)Indexer  - why? why not?
 # CatalogDb::EventIndexer.read( '../../../openfootball/leagues' )

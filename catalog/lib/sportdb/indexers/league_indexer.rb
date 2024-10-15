@@ -40,24 +40,11 @@ IS_CODE_RE           = %r{^
       ## pp rec
       ### step 1) add canonical name
 
-      ##
-      # note - use auto key and reuse "old" key as code
-      ##  e.g. eng_premierleague etc.
-      ##       at_bundesliga
-      ##       worldcup
-      ## note: auto-generate key "on-the-fly" if missing for now - why? why not?
-      ## note: quick hack - auto-generate key, that is, remove all non-ascii chars and downcase
-      auto_key  = unaccent( rec.name ).downcase.gsub( /[^0-9a-z]/, '' )
-      auto_key  = rec.country.key + '_' + auto_key     unless rec.intl?
-
-      ## reorg - add "old" key to alt names
-      alt_names = rec.alt_names + [rec.key]
-
       ## todo/check: use/add a codes attribute/column - why? why not?
 
-      league = Model::League.create!( key:        auto_key,
+      league = Model::League.create!( key:        rec.key,
                                       name:       rec.name,
-                                      alt_names:  alt_names.join( ' | ' ),
+                                      alt_names:  rec.alt_names.empty? ? nil : rec.alt_names.join( ' | ' ),
                                       clubs:      rec.clubs?,
                                       intl:       rec.intl?,
                                       country_key:  rec.country ? rec.country.key : nil
@@ -78,16 +65,16 @@ IS_CODE_RE           = %r{^
 
     ###
     ## split names into names AND codes
-        mixed  = rec.alt_names
-        names = [rec.name]
-        codes = [rec.key]
+        mixed      = rec.alt_names
+        names      = [rec.name]
+        more_codes = []
 
         mixed.each do |name|
           if IS_CODE_N_NAME_RE.match?( name )
             names << name
-            codes << name
+            more_codes << name    ## downcase here (or "automagic" with normalize later?)
           elsif IS_CODE_RE.match?( name )
-            codes << name
+            more_codes << name
           else
             ## assume name
             names << name
@@ -115,9 +102,24 @@ IS_CODE_RE           = %r{^
       ##  note - must be league for clubs and not intl!!!
       ##   maybe later add continent (e.g. Europe / Asia etc.)
       if rec.country
-        country_norm =  normalize( unaccent( rec.country.name ))
+        prefixes = []
+        prefixes << rec.country.name
 
-        norms += norms.map { |norm| country_norm + norm }
+        ## todo/check - first alt names? e.g. incl. alt codes? or such?
+        prefixes += rec.country.alt_names
+
+        prefixes += COUNTRY_ADJ[ rec.country.key ]   if COUNTRY_ADJ[ rec.country.key ]
+
+        # puts "qname (country) prefixes:"
+        # pp prefixes
+
+        prefixes = prefixes.map {|prefix| normalize( unaccent( strip_lang(prefix))) }
+        prefixes = prefixes.uniq
+        # pp prefixes
+
+        prefixes.each do |prefix|
+          norms += norms.map { |norm| prefix + norm }
+        end
 
         ## auto-add Austria 1 or such - why? why not?
         ##  alt_names_auto << "#{country.name} #{league_key}"
@@ -129,11 +131,22 @@ IS_CODE_RE           = %r{^
                                      name:    norm )
       end
 
-      ####
-      ##  auto add more (alternate) codes
-      alt_codes_auto = gen_alt_codes( rec )
 
-      codes += alt_codes_auto
+      ####
+      ##  auto add codes
+
+     ## get codes via (league) periods
+     codes = rec.periods.map { |period| period.key }
+     codes = codes.uniq
+
+     if rec.country
+       codes.each do |code|
+         alt_codes_auto = gen_alt_codes( code, country: rec.country )
+         codes += alt_codes_auto
+       end
+     end
+
+     codes += more_codes
 
       ##  todo/fix:
       ## use a special normalize formula for codes??
@@ -141,8 +154,12 @@ IS_CODE_RE           = %r{^
       ##    only downcase (and strip dot(.) etc.)
       ##    allow ö or ö1 or such - why? why not?
       ##  without translit to o and o1??
-      norms = codes.map { |code| normalize( unaccent( code )) }
+      norms = codes.map { |code| normalize( code ) }
       norms = norms.uniq
+
+      puts "codes:"
+      pp norms
+
       norms.each do |norm|
           Model::LeagueCode.create!( key:     league.key,
                                      code:    norm )
@@ -152,16 +169,15 @@ IS_CODE_RE           = %r{^
 
 
 
-  def gen_alt_codes( rec )
+  def gen_alt_codes( code, country: )
 
-    alt_codes_auto = []
+      alt_codes_auto = []
 
-    if rec.country
-      country                = rec.country
       ## note: split key into country + league key on FIRST dot !!!
-      dot = rec.key.index( '.' )
-      country_key = rec.key[0..dot-1]
-      league_key  = rec.key[dot+1..-1]
+      dot = code.index( '.' )
+      if dot   ## note - skip if not using dot format (e.g. at.1 etc.)
+        country_key = code[0..dot-1]
+        league_key  = code[dot+1..-1]
 
       ## todo/check: add "hack" for cl (chile) and exclude?
       ##             add a list of (auto-)excluded country codes with conflicts? why? why not?

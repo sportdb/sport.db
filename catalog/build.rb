@@ -1,3 +1,16 @@
+###
+#
+#  todo/fix - what to do with event info?
+#    change to tier_key for lookup - why? why not?
+#
+#    ** !!! ERROR - too many matches (2) for league ENG 1:
+# [<League CLUBS: eng_championship - Championship, England (ENG)>,
+#  <League CLUBS: eng_premierleague - Premier League, England (ENG)>]
+
+
+
+
+
 ### note: make sure to load latest sportdb/structs !!!  (allow key with numbers!)
 $LOAD_PATH.unshift( File.expand_path( '../parser/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
@@ -55,8 +68,7 @@ CatalogDb::LeagueIndexer.read( '../../../openfootball/leagues' )
 
 ## change EventIndexer to LeagueSeason(s)Indexer  - why? why not?
 
-
-CatalogDb::EventIndexer.read( '../../../openfootball/leagues' )
+## CatalogDb::EventIndexer.read( '../../../openfootball/leagues' )
 
 
 ## note: grounds before clubs (clubs may reference grounds!!)

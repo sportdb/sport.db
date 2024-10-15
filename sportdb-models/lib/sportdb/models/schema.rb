@@ -214,7 +214,7 @@ create_table :matches do |t|
   ## t.time      :time
   t.string    :time
 
-  
+
   t.boolean    :postponed, null: false, default: false
   ## t.date   :date2   # optional old date (when postponed)
   ## t.date   :date3   # optional old date (when postponed twice)

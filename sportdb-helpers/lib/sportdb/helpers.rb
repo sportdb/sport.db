@@ -28,6 +28,9 @@ module SportDb
 end
 
 
+require_relative 'helpers/country_adjectives'
+
+
 
 ## our own code
 require_relative 'helpers/version'

@@ -68,10 +68,17 @@ end
 class League < CatalogRecord
     belongs_to  :country, foreign_key: 'country_key', primary_key: 'key'
 
+    has_many :league_periods, foreign_key: 'key',        primary_key: 'key'
     has_many :league_names, foreign_key: 'key',        primary_key: 'key'
     has_many :league_codes, foreign_key: 'key',        primary_key: 'key'
 
     has_many :event_infos,  foreign_key: 'league_key', primary_key: 'key'
+end
+
+
+## change/rename to LeagueHistory - why? why not?
+class LeaguePeriod  < CatalogRecord
+    belongs_to :league, foreign_key: 'key', primary_key: 'key'
 end
 
 class LeagueName  < CatalogRecord

@@ -43,8 +43,15 @@ SEASON_RE =  %r{^  (?<start_season> \d{4} (?: / \d{1,4})?
 QNAMES = [
   'ÖFB Cup',
   'DFB Pokal',
+
   'Coppa Italia',
+  'Coppa Italia Serie C',
+  'Supercoppa Italiana',
+
   'Liechtensteiner Pokal',
+  'Türkiye Kupasi',
+  'Beker van Belgie',
+
 
   'Brasileiro Série A',
   'Brasileiro Série B',
@@ -57,10 +64,22 @@ QNAMES = [
    'Campeonato Paranaense',
    'Campeonato Paulista',
 
+   'Copa Chile',
+   'Copa Colombia',
+   'Copa Venezuela',
+
    'Liga MX',
    'Liga de Expansión MX',
    'Ascenso MX',
+
+    'Major League Soccer',
+    'MLS is Back Tournament',
+    'United Soccer League Championship',
+    'United Soccer League One',
+    'United Soccer League Two',
+    'US Open Cup',
 ]
+
 
 QNAMES_BY_COUNTRY = {
   'es' => {

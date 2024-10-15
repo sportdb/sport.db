@@ -164,6 +164,21 @@ IS_CODE_RE           = %r{^
           Model::LeagueCode.create!( key:     league.key,
                                      code:    norm )
       end
+
+
+      #########################
+      ### add league periods
+      rec.periods.each do |period|
+        pp period
+        period_rec = Model::LeaguePeriod.create!( key:          league.key,
+                                                  tier_key:     period.key,
+                                                  name:         period.name,
+                                                  qname:        period.qname,
+                                                  slug:         period.slug,
+                                                  prev_name:    period.prev_name,
+                                                  start_season: period.start_season ? period.start_season.to_s : nil,
+                                                  end_season:   period.end_season ? period.end_season.to_s : nil )
+      end
     end
   end # method add
 

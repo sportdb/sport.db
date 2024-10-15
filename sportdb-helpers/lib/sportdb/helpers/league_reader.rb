@@ -37,6 +37,40 @@ SEASON_RE =  %r{^  (?<start_season> \d{4} (?: / \d{1,4})?
                $}x
 
 
+###
+# quick hack
+#    names listed here are assumed qnames (no need to add prefix)
+QNAMES = [
+  'ÖFB Cup',
+  'DFB Pokal',
+  'Coppa Italia',
+  'Liechtensteiner Pokal',
+
+  'Brasileiro Série A',
+  'Brasileiro Série B',
+  'Brasileiro Série C',
+  'Brasileiro Série D',
+  'Copa do Brasil',
+   'Campeonato Carioca',
+   'Campeonato Gaúcho',
+   'Campeonato Mineiro',
+   'Campeonato Paranaense',
+   'Campeonato Paulista',
+
+   'Liga MX',
+   'Liga de Expansión MX',
+   'Ascenso MX',
+]
+
+QNAMES_BY_COUNTRY = {
+  'es' => {
+    'Primera División' => 'Primera División de España',
+    'Segunda División' => 'Segunda División de España',
+    'Copa del Rey'     => 'Copa del Rey de España',
+  }
+}
+
+
 
 def parse
   recs = []
@@ -177,11 +211,19 @@ def parse
             auto_key  = "#{country.key}_#{auto_key}"
             key       = "#{country.key}.#{key}"
 
-            #### check for adjective (use first in list/array)
-            ##     fallback to country name for qualifier prefix
-            prefix = (COUNTRY_ADJ[ country.key ] || [country.name])[0]
 
-            qname     = "#{prefix} #{names[0]}"
+            qnames = QNAMES_BY_COUNTRY[ country.key ] || {}
+            if qnames[ names[0] ]   ## quick hack - country specific custom mapping
+              qname = qnames[ names[0] ]
+            elsif QNAMES.include?( names[0] )   ## quick hack for known qnames
+              qname = names[0]
+            else
+              #### check for adjective (use first in list/array)
+              ##     fallback to country name for qualifier prefix
+              prefix = (COUNTRY_ADJ[ country.key ] || [country.name])[0]
+
+              qname     = "#{prefix} #{names[0]}"
+            end
           else
             qname = names[0]
           end

@@ -12,5 +12,6 @@ leagues.db
 clubs.db
 
 # more
-/tmp/
+tmp/
+tmp2/
 o/

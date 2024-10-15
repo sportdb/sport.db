@@ -10,10 +10,24 @@
 ##     https://en.wikipedia.org/wiki/List_of_adjectival_and_demonymic_forms_for_countries_and_nations
 
 
+
 COUNTRY_ADJ = {
   'at'  => ['Österr.', 'Austrian'],
   'de'  => ['Deutsche', 'German'],
   'eng' => ['English'],
+  'sco' => ['Scottish'],
+  'wal' => ['Welsh'],
+  'nir' => ['Northern Irish'],
+  'ie'  => ['Irish'],
+
+  'it'  => ['Italian'],
+  'sm'  => ['San Marinese'],
+  'fr'  => ['French'],
+  'hu'  => ['Hungarian'],
+  'gr'  => ['Greek'],
+  'pt'  => ['Portuguese'],
+  'ch'  => ['Swiss'],
+  'tr'  => ['Turkish'],
 }
 
 

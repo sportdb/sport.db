@@ -76,6 +76,25 @@ add_index :league_codes, [:key,:code], unique: true
 
 
 
+create_table :league_periods, id: false do |t|
+  t.string :key,      null: false    # was t.references :leagues
+  t.string :tier_key, null: false     ## change to tier (eng.1, eng.cup, uefa.cl, etc.)
+                                     ##    to more generic code
+
+  t.string :name,  null: false
+  t.string :qname, null: false   ## qualified name (with prefix/country)
+                                 ##   English Premier Leauge etc.
+  t.string :slug,  null: false    ## e.g. 1-premierleague
+
+  ## keep optional prev(ious) name
+  t.string :prev_name   ## e.g. Division 1 => Championship etc.
+
+  t.string :start_season
+  t.string :end_season
+end
+
+
+
 =begin
 ################
 # more/extra tables

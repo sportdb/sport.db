@@ -8,6 +8,9 @@ require 'score/formats'
 # our own code
 require_relative 'structs/version' # let version always go first
 
+## shared support helpers/machinery
+require_relative 'structs/name_helper'
+
 require_relative 'structs/country'
 require_relative 'structs/league'
 require_relative 'structs/team'
@@ -23,9 +26,6 @@ require_relative 'structs/team_usage'
 
 require_relative 'structs/event_info'
 
-
-## shared support helpers/machinery
-require_relative 'structs/name_helper'
 
 
 ##
@@ -76,7 +76,10 @@ module SportDb
     ## add "old" convenience aliases for structs - why? why not?
     ##   todo/check: just use include Sports !!!!
     Country      = ::Sports::Country
+    City         = ::Sports::City
+
     League       = ::Sports::League
+    LeaguePeriod = ::Sports::LeaguePeriod
     Group        = ::Sports::Group
     Round        = ::Sports::Round
     Match        = ::Sports::Match

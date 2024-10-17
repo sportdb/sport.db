@@ -81,14 +81,6 @@ QNAMES = [
 ]
 
 
-QNAMES_BY_COUNTRY = {
-  'es' => {
-    'Primera División' => 'Primera División de España',
-    'Segunda División' => 'Segunda División de España',
-    'Copa del Rey'     => 'Copa del Rey de España',
-  }
-}
-
 
 
 def parse
@@ -231,15 +223,12 @@ def parse
             key       = "#{country.key}.#{key}"
 
 
-            qnames = QNAMES_BY_COUNTRY[ country.key ] || {}
-            if qnames[ names[0] ]   ## quick hack - country specific custom mapping
-              qname = qnames[ names[0] ]
-            elsif QNAMES.include?( names[0] )   ## quick hack for known qnames
+            if QNAMES.include?( names[0] )   ## quick hack for known qnames
               qname = names[0]
             else
               #### check for adjective (use first in list/array)
               ##     fallback to country name for qualifier prefix
-              prefix = (COUNTRY_ADJ[ country.key ] || [country.name])[0]
+              prefix = country.adj || country.name
 
               qname     = "#{prefix} #{names[0]}"
             end

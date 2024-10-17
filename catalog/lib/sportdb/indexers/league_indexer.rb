@@ -103,17 +103,13 @@ IS_CODE_RE           = %r{^
       ##   maybe later add continent (e.g. Europe / Asia etc.)
       if rec.country
         prefixes = []
-        prefixes << rec.country.name
-
-        ## todo/check - first alt names? e.g. incl. alt codes? or such?
-        prefixes += rec.country.alt_names
-
-        prefixes += COUNTRY_ADJ[ rec.country.key ]   if COUNTRY_ADJ[ rec.country.key ]
+        prefixes += rec.country.names
+        prefixes += rec.country.adjs    # adjectives
 
         # puts "qname (country) prefixes:"
         # pp prefixes
 
-        prefixes = prefixes.map {|prefix| normalize( unaccent( strip_lang(prefix))) }
+        prefixes = prefixes.map {|prefix| normalize( unaccent( prefix )) }
         prefixes = prefixes.uniq
         # pp prefixes
 
@@ -185,7 +181,10 @@ IS_CODE_RE           = %r{^
 
 
   def gen_alt_codes( code, country: )
+     self.class.gen_alt_codes( code, country: country )
+  end
 
+  def self.gen_alt_codes( code, country: )
       alt_codes_auto = []
 
       ## note: split key into country + league key on FIRST dot !!!
@@ -194,24 +193,25 @@ IS_CODE_RE           = %r{^
         country_key = code[0..dot-1]
         league_key  = code[dot+1..-1]
 
-      ## todo/check: add "hack" for cl (chile) and exclude?
-      ##             add a list of (auto-)excluded country codes with conflicts? why? why not?
-      ##                 cl - a) Chile  b) Champions League
+        codes = country.codes
+        ## double check/assert that code is a matching country code
+        if !codes.include?( country_key )
+           puts "!! ASSERT ERROR - no matching country code found for #{code}"
+           pp country
+           exit 1
+        end
 
-      ##
-      ## todo/fix:
-      ##   get all country codes
-      ##      use "hack" to check alt_names for codes too
-      ##          if name is all upcase incl.
+        ## add shortcut for top level 1 (just country key)
+        if league_key == '1'
+          alt_codes_auto += codes
+        end
 
-      ## add shortcut for top level 1 (just country key)
-      alt_codes_auto <<   country.key    if league_key == '1'
-
-      if country.key != country.code.downcase
-        alt_codes_auto << "#{country.code} #{league_key}"
-        alt_codes_auto <<  country.code    if league_key == '1'   ## add shortcut for top level 1 (just country key)
+        codes.each do |alt_code|
+          if country_key != alt_code
+            alt_codes_auto << "#{alt_code} #{league_key}"
+          end
+        end
       end
-    end
 
     ## pp alt_codes_auto
     alt_codes_auto

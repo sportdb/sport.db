@@ -26,15 +26,10 @@ class CountryIndexer  < Indexer
        )
        pp country
 
+
        ## add codes lookups - key, code, ...
        ##   note - add code (only) if different from key
-       codes = [rec.key]
-       codes << rec.code   if rec.key != rec.code.downcase
-       codes += COUNTRY_ALT_CODES[ rec.name] || []
-
-       codes = codes.map { |code| code.downcase }  ## make sure all codes are downcased
-       codes.each do |code|
-
+       rec.codes.each do |code|
         ## uncomment for debugging if db constraint error
 =begin
          cc = Model::CountryCode.find_by( code: code )
@@ -53,7 +48,7 @@ class CountryIndexer  < Indexer
 
 
       ##  add all names (canonical name + alt names
-      names = [rec.name] + rec.alt_names
+      names = rec.names
       more_names = []
       ## check "hand-typed" names for year (auto-add)
       ## check for year(s) e.g. (1887-1911), (-2013),

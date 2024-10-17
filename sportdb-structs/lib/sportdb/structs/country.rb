@@ -23,6 +23,7 @@ class City
 end  # class City
 
 
+
 class Country
 
   ## note: is read-only/immutable for now - why? why not?
@@ -54,6 +55,9 @@ class Country
   ##               incl. key, code and alt_codes in alt_names)
   ##    2) names  (returns uniq array of all names - with language tags stripped)
   ##
+  ##    3a) adjective/adj   - might be nil??
+  ##     b) adjectives/adjs
+
   ##  note - alt_names - returns all-in-one alt names (& codes)
 
 ## note: split names into names AND codes
@@ -104,7 +108,40 @@ IS_CODE_RE           = %r{^
     names.uniq
   end
 
+## country adjectives  - quick hack for now inline here
+##
+##  todo - add language marker - why? why not`
+##          e.g.   Österr.   => Österr. [de]
+##                 Deutsche` => Deutsche [de]
+##
+##
+## todo/fix - add more - see
+##     https://en.wikipedia.org/wiki/List_of_adjectival_and_demonymic_forms_for_countries_and_nations
+ADJ = {
+  'at'  => ['Österr.', 'Austrian'],
+  'de'  => ['Deutsche', 'German'],
+  'eng' => ['English'],
+  'sco' => ['Scottish'],
+  'wal' => ['Welsh'],
+  'nir' => ['Northern Irish'],
+  'ie'  => ['Irish'],
 
+  'it'  => ['Italian'],
+  'sm'  => ['San Marinese'],
+  'fr'  => ['French'],
+  'hu'  => ['Hungarian'],
+  'gr'  => ['Greek'],
+  'pt'  => ['Portuguese'],
+  'ch'  => ['Swiss'],
+  'tr'  => ['Turkish'],
+}
+
+  ## note - adjective might be nil!!!
+  def adjective()  adjectives[0]; end
+  def adjectives() ADJ[@key] || []; end
+
+  alias_method :adj, :adjective
+  alias_method :adjs, :adjectives
 
   def pretty_print( printer )
     buf = String.new

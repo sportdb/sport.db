@@ -13,7 +13,6 @@ class TestLeagues < Minitest::Test
     m = League.match_by_name( 'English Premier League' )
     pp m
     assert_equal 'Premier League',         m[0].name
-    # assert_equal 'eng.1',                  m[0].key
     assert_equal 'England',                m[0].country.name
     assert_equal 'eng',                    m[0].country.key
     assert                                 m[0].clubs?
@@ -24,7 +23,6 @@ class TestLeagues < Minitest::Test
     m = League.match_by_name( 'Euro' )
     pp m
     assert_equal 'Euro',                   m[0].name
-    # assert_equal 'euro',                   m[0].key
     assert                                 m[0].national_teams?
     assert                                 m[0].intl?
     assert_equal false,                    m[0].clubs?

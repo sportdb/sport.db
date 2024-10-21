@@ -17,20 +17,6 @@ class LeagueIndexer < Indexer
   end
 
 
-## note: split names into names AND codes
-##      1)  key plus all lower case names are codes
-##      2)    all upper case names are names AND codes
-##      3)    all other names are names
-
-## only allow asci a to z (why? why not?)
-##  excludes Ö1 or such (what else?)
-IS_CODE_N_NAME_RE = %r{^
-                           [\p{Lu}0-9. ]+
-                       $}x
-## add space (or /) - why? why not?
-IS_CODE_RE           = %r{^
-                            [\p{Ll}0-9.]+
-                        $}x
 
   def add( rec_or_recs )   ## add club record / alt_names
     recs = rec_or_recs.is_a?( Array ) ? rec_or_recs : [rec_or_recs]      ## wrap (single) rec in array
@@ -50,40 +36,7 @@ IS_CODE_RE           = %r{^
                                       country_key:  rec.country ? rec.country.key : nil
                                     )
 
-      ## step 2) add all names (canonical name + alt names + alt names (auto))
-      names = [rec.name] + rec.alt_names
-      ## check for duplicates - simple check for now - fix/improve
-      ## todo/fix: (auto)remove duplicates - why? why not?
-      count      = names.size
-      count_uniq = names.uniq.size
-      if count != count_uniq
-        puts "** !!! ERROR !!! - #{count-count_uniq} duplicate name(s):"
-        pp names
-        pp rec
-        exit 1
-      end
-
-    ###
-    ## split names into names AND codes
-        mixed      = rec.alt_names
-        names      = [rec.name]
-        more_codes = []
-
-        mixed.each do |name|
-          if IS_CODE_N_NAME_RE.match?( name )
-            names << name
-            more_codes << name    ## downcase here (or "automagic" with normalize later?)
-          elsif IS_CODE_RE.match?( name )
-            more_codes << name
-          else
-            ## assume name
-            names << name
-          end
-        end
-
-
-
-      norms = names.map do |name|
+      norms = rec.names.map do |name|
         ## check lang codes e.g. [en], [fr], etc.
         ##  todo/check/fix:  move strip_lang up in the chain - check for duplicates (e.g. only lang code marker different etc.) - why? why not?
         norm = strip_lang( name )
@@ -131,7 +84,7 @@ IS_CODE_RE           = %r{^
       ####
       ##  auto add codes
 
-     ## get codes via (league) periods
+     ## get (tier/canonical) codes via (league) periods
      codes = rec.periods.map { |period| period.key }
      codes = codes.uniq
 
@@ -142,6 +95,8 @@ IS_CODE_RE           = %r{^
        end
      end
 
+     ## gat (more/alt optional) codes via League#codes
+     more_codes = rec.codes
      codes += more_codes
 
       ##  todo/fix:
@@ -174,11 +129,76 @@ IS_CODE_RE           = %r{^
                                                   prev_name:    period.prev_name,
                                                   start_season: period.start_season ? period.start_season.to_s : nil,
                                                   end_season:   period.end_season ? period.end_season.to_s : nil )
+
+        start_yyyymm, end_yyyymm = calc_yyyyymm( period )
+
+        codes = [period.key]
+        ## lookup helpers for codes & names
+        if rec.country
+            alt_codes_auto = gen_alt_codes( period.key, country: rec.country )
+            codes += alt_codes_auto
+        end
+
+        norms = codes.map { |code| normalize( code ) }
+        norms = norms.uniq
+
+        puts "period codes:"
+        pp norms
+
+        norms.each do |norm|
+            Model::LeaguePeriodCode.create!( league_period_id: period_rec.id,
+                                             code:    norm,
+                                             start_yyyymm: start_yyyymm,
+                                             end_yyyymm:   end_yyyymm )
+        end
+
+
+        ## add names - for now only qname!!
+        ##   fix - add all alt names PLUS alt codes - update league reader!!!!
+        names = [period.qname]
+        norms = names.map do |name|
+          ## check lang codes e.g. [en], [fr], etc.
+          ##  todo/check/fix:  move strip_lang up in the chain - check for duplicates (e.g. only lang code marker different etc.) - why? why not?
+          norm = strip_lang( name )
+          norm = unaccent( norm )
+          norm = normalize( norm )
+          norm
+        end
+        norms = norms.uniq
+
+        norms.each do |norm|
+          Model::LeaguePeriodName.create!( league_period_id: period_rec.id,
+                                           name:    norm,
+                                           start_yyyymm: start_yyyymm,
+                                           end_yyyymm:   end_yyyymm )
+        end
       end
     end
   end # method add
 
 
+  def calc_yyyyymm( period )
+       start_yyyymm = if period.start_season
+                           if period.start_season.calendar?
+                              "#{period.start_season.start_year}01".to_i
+                           else
+                              "#{period.start_season.start_year}07".to_i
+                           end
+                       else
+                         0
+                       end
+        end_yyyymm   = if period.end_season
+                           if period.end_season.calendar?
+                              "#{period.end_season.end_year}12".to_i
+                           else
+                              "#{period.end_season.end_year}06".to_i
+                           end
+                       else
+                         999999
+                       end
+
+      [start_yyyymm, end_yyyymm]
+  end
 
   def gen_alt_codes( code, country: )
      self.class.gen_alt_codes( code, country: country )

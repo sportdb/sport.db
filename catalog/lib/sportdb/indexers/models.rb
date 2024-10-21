@@ -75,12 +75,6 @@ class League < CatalogRecord
     has_many :event_infos,  foreign_key: 'league_key', primary_key: 'key'
 end
 
-
-## change/rename to LeagueHistory - why? why not?
-class LeaguePeriod  < CatalogRecord
-    belongs_to :league, foreign_key: 'key', primary_key: 'key'
-end
-
 class LeagueName  < CatalogRecord
     belongs_to :league, foreign_key: 'key', primary_key: 'key'
 end
@@ -88,6 +82,26 @@ end
 class LeagueCode  < CatalogRecord
     belongs_to :league, foreign_key: 'key', primary_key: 'key'
 end
+
+
+## change/rename to LeagueHistory - why? why not?
+class LeaguePeriod  < CatalogRecord
+    belongs_to :league, foreign_key: 'key', primary_key: 'key'
+
+    has_many :league_period_names
+    has_many :league_period_codes
+end
+
+class LeaguePeriodName  < CatalogRecord
+    belongs_to :league_period
+end
+
+class LeaguePeriodCode  < CatalogRecord
+    belongs_to :league_period
+end
+
+
+
 
 
 class Ground < CatalogRecord

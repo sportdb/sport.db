@@ -15,6 +15,7 @@ require_relative 'catalogs/city'
 require_relative 'catalogs/club'
 require_relative 'catalogs/national_team'
 require_relative 'catalogs/league'
+require_relative 'catalogs/league_period'
 require_relative 'catalogs/event_info'
 require_relative 'catalogs/ground'
 
@@ -44,7 +45,7 @@ def self.tables
     ## puts
     puts "    #{Country.count} countries / #{City.count} cities"
     puts "    #{NationalTeam.count} national teams"
-    puts "    #{League.count} leagues"
+    puts "    #{League.count} leagues / #{LeaguePeriod.count} periods"
     puts "    #{Club.count} clubs"
     puts "    #{Ground.count} grounds"
       ## add more

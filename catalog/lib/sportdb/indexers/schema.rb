@@ -148,28 +148,6 @@ end
 add_index :leagues, :key, unique: true
 
 
-create_table :league_periods, id: false do |t|
-  t.string :key,      null: false    # was t.references :leagues
-  t.string :tier_key, null: false     ## change to tier (eng.1, eng.cup, uefa.cl, etc.)
-                                     ##    to more generic code
-
-  t.string :name,  null: false
-  t.string :qname, null: false   ## qualified name (with prefix/country)
-                                 ##   English Premier Leauge etc.
-  t.string :slug,  null: false    ## e.g. 1-premierleague
-
-  ## keep optional prev(ious) name
-  t.string :prev_name   ## e.g. Division 1 => Championship etc.
-
-  t.string :start_season
-  t.string :end_season
-end
-
-
-
-
-
-
 create_table :league_names, id: false do |t|
   t.string :key,  null: false    # was t.references :leagues
   t.string :name, null: false     ## normalized (lowercase)!!!
@@ -187,6 +165,56 @@ create_table :league_codes, id: false do |t|
   # t.timestamps  ## (auto)add - why? why not?
 end
 add_index :league_codes, [:key,:code], unique: true
+
+
+
+
+create_table :league_periods do |t|
+  t.string :key,      null: false    # was t.references :leagues
+  t.string :tier_key, null: false     ## change to tier (eng.1, eng.cup, uefa.cl, etc.)
+                                     ##    to more generic code
+
+  t.string :name,  null: false
+  t.string :qname, null: false   ## qualified name (with prefix/country)
+                                 ##   English Premier Leauge etc.
+  t.string :slug,  null: false    ## e.g. 1-premierleague
+
+  ## keep optional prev(ious) name
+  t.string :prev_name   ## e.g. Division 1 => Championship etc.
+
+  t.string :start_season
+  t.string :end_season
+end
+
+create_table :league_period_names, id: false do |t|
+  t.integer :league_period_id, null: false
+
+  t.string :name, null: false     ## normalized (lowercase)!!!
+
+  ## e.g. encode 1998/99  to 199807 for start
+  ##                      to 199906 for end !!!
+  ##      encode 1998     to 199901 for start
+  ##                      to 199912 for end !!!
+  t.integer :start_yyyymm, null: false, default: 0     ## eg. 000000
+  t.integer :end_yyyymm,   null: false, default: 999999
+  # t.timestamps  ## (auto)add - why? why not?
+  #  do NOT use; save space for now - auto-generated db is read-only
+end
+
+
+## note - allow sames codes for leagues - why? why not?
+##              e.g. en.1 (for premier league and first division??)
+create_table :league_period_codes, id: false do |t|
+  t.integer :league_period_id, null: false
+
+  t.string :code, null: false     ## normalized (lowercase)
+
+  t.integer :start_yyyymm, null: false, default: 0     ## eg. 000000
+  t.integer :end_yyyymm,   null: false, default: 999999
+
+  # t.timestamps  ## (auto)add - why? why not?
+end
+
 
 
 

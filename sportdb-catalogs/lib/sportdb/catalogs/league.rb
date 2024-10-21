@@ -50,7 +50,7 @@ SQL
         ###  todo/fix: allow special normalize formula for
         ##                 code - why? why not?
         ##              e.g. allow ö1 or ö or such - why? why not?
-        code = normalize( unaccent(code) )
+        code = normalize( code )
 
         rows = nil
         if country.nil?
@@ -120,7 +120,7 @@ SQL
      def self.match_by_name_or_code( q,
                                country: nil )
         name = normalize( unaccent(q) )
-        code = normalize( unaccent(q) )
+        code = normalize( q )
 
         rows = nil
         if country.nil?

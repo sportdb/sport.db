@@ -10,6 +10,7 @@ lib/sportdb/catalogs/country.rb
 lib/sportdb/catalogs/event_info.rb
 lib/sportdb/catalogs/ground.rb
 lib/sportdb/catalogs/league.rb
+lib/sportdb/catalogs/league_period.rb
 lib/sportdb/catalogs/national_team.rb
 lib/sportdb/catalogs/player.rb
 lib/sportdb/catalogs/version.rb

@@ -51,12 +51,12 @@ pp League.match( 'Premier League',  country: 'eng' )
 
 ###
 #   try (league) periods  (require season)
-pp LeaguePeriod.find( 'eng.1', season: '2024/25' )
-pp LeaguePeriod.find( 'eng.1', season: '1991/92' )
-pp LeaguePeriod.find( 'eng.1', season: '1888/89' )
+pp LeaguePeriod.find_by( code: 'eng.1', season: '2024/25' )
+pp LeaguePeriod.find_by( code: 'eng.1', season: '1991/92' )
+pp LeaguePeriod.find_by( code: 'eng.1', season: '1888/89' )
 
-pp LeaguePeriod.find( 'English Premier League', season: '2024/25' )
-pp LeaguePeriod.find( 'Österr. Bundesliga', season: '2024/25' )
+pp LeaguePeriod.find_by( name: 'English Premier League', season: '2024/25' )
+pp LeaguePeriod.find_by( name: 'Österr. Bundesliga', season: '2024/25' )
 
 
 puts "bye"

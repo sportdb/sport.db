@@ -3,6 +3,14 @@
 ## tip: to test run:
 ##   ruby -I ./lib bin/fbchk
 
+
+## local hack for debugging
+##   use local versions if present
+# $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
+# $LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
+# $LOAD_PATH.unshift( File.expand_path( '../sportdb-search/lib' ))
+
+
 ## our own code
 require 'sportdb/formats'
 

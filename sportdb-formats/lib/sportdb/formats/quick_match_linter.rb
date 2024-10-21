@@ -73,25 +73,41 @@ class QuickMatchLinter
                   Date.new( season.start_year, 7, 1 )
                 end
 
-###
-##      db check - check league
-##       fix/fix - add season to match_by   !!!!!!!
-##        note - changed to match (incl. code) from match_by(name:) only!!!
-      recs =  Import::League.match( league )
-      league_rec = nil
-      if recs.size == 1
-        league_rec = recs[0]
-        ## note - use pp (pretty_inspect) instead of league_rec.name
-        puts "     OK #{league} => #{league_rec.pretty_inspect}"
-      elsif recs.size == 0
-        msg = "NAME ERROR - no league match found for >#{league}<"
-        @errors << [msg]
-        puts "!! #{msg}"
-    else
-        msg = "NAME ERROR - ambigous; too many league matches (#{recs.size}) found for >#{league}<"
-        @errors << [msg]
-        puts "!! #{msg}"
-    end
+       league_rec = nil
+
+
+   ##   if all upcase or digits - assume/try code first
+   ##    todo/fix - change to find_by( code:  ) !!!!
+       period = Import::LeaguePeriod.find_by( code: league, season: season )
+       if period
+          ## find league by qname (assumed to be unique!!)
+          ##    todo/fix - use League.find_by!( name: ) !!!!
+          ##      make more specifi
+          league_rec == Import::League.find!( period.qname )
+          puts "        #{period.pretty_inspect}"
+          puts "     OK #{league}+#{season} => #{league_rec.pretty_inspect}"
+       else
+          ## try "generic" match by name (& more alt codes)
+          ###
+          ##      db check - check league
+          ##       fix/fix - add season to match_by   !!!!!!!
+          ##        note - changed to match (incl. code) from match_by(name:) only!!!
+        recs =  Import::League.match( league )
+        if recs.size == 1
+          league_rec = recs[0]
+          ## note - use pp (pretty_inspect) instead of league_rec.name
+          puts "     OK #{league} => #{league_rec.pretty_inspect}"
+        elsif recs.size == 0
+          msg = "NAME ERROR - no league match found for >#{league}<"
+          @errors << [msg]
+          puts "!! #{msg}"
+       else
+          msg = "NAME ERROR - ambigous; too many league matches (#{recs.size}) found for >#{league}<"
+          @errors << [msg]
+          puts "!! #{msg}"
+       end
+      end
+
 
 
       parser = MatchParser.new( lines,

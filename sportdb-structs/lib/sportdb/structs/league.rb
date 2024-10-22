@@ -16,6 +16,24 @@ class LeaguePeriod
     @start_season = start_season
     @end_season  = end_season
   end
+
+
+  def pretty_print( printer )
+    buf = String.new
+    buf << "<LeaguePeriod"
+    buf << " #{@key}"
+    buf << " (#{@start_season}-#{@end_season})"  if @start_season || @end_season
+    buf << " -"
+    buf << " #{@name}"
+    if @name != @qname
+       buf << " | #{@qname}"
+    else
+       buf << "*"
+    end
+    buf << ">"
+
+    printer.text( buf )
+  end
 end # class LeaguePeriod
 
 
@@ -153,7 +171,7 @@ IS_CODE_RE           = %r{^
              else
                  " NATIONAL TEAMS"
              end
-    buf << ": #{@key} - #{@name}"
+    buf << ": #{@name}"
 
     if @alt_names && !@alt_names.empty?
       buf << "|"
@@ -170,10 +188,7 @@ IS_CODE_RE           = %r{^
 
     printer.text( buf )
   end
-
-
-
-
 end   # class League
+
 
 end   # module Sports

@@ -6,9 +6,9 @@
 
 ## local hack for debugging
 ##   use local versions if present
-# $LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
-# $LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
-# $LOAD_PATH.unshift( File.expand_path( '../sportdb-search/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-catalogs/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-search/lib' ))
 
 
 ## our own code

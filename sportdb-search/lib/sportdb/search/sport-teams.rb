@@ -72,7 +72,7 @@ end # class NationalTeam
                            ##  todo/fix: add auto flag!!!!
                            ###              like in rounds!!!
                            ##   to track auto-created clubs
-                           rec = Club.new( name: m[:name] )
+                           rec = Club.new( name: m[:name], auto: true )
                            rec.country = Country.find_by( code: m[:code] )   ## fix: country kwarg not yet supported!!
                            pp rec
                          end
@@ -93,7 +93,7 @@ end # class NationalTeam
                     ##  todo/fix: add auto flag!!!!
                     ###              like in rounds!!!
                     ##   to track auto-created clubs
-                    rec = Club.new( name: name )
+                    rec = Club.new( name: name, auto: true )
                     rec.country = league.country  ## fix: country kwarg not yet supported!!
                     pp rec
                 end

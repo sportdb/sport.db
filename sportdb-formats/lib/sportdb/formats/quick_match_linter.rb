@@ -83,7 +83,7 @@ class QuickMatchLinter
           ## find league by qname (assumed to be unique!!)
           ##    todo/fix - use League.find_by!( name: ) !!!!
           ##      make more specifi
-          league_rec == Import::League.find!( period.qname )
+          league_rec = Import::League.find!( period.qname )
           puts "        #{period.pretty_inspect}"
           puts "     OK #{league}+#{season} => #{league_rec.pretty_inspect}"
        else

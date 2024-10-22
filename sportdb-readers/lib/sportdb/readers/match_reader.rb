@@ -31,15 +31,32 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
     secs =  QuickLeagueOutlineReader.parse( @txt )
     ## pp secs
 
-########
-#  step 1 - prepare secs
+    ########
+    #  step 1 - prepare secs
     # -- filter seasons if filter present
-   secs = filter_secs( sec, season: season )   if season
+    secs = filter_secs( sec, season: season )   if season
 
     ## -- check & map; replace inline (string with data struct record)
     secs.each do |sec|
       sec[:season] = Season.parse( sec[:season ] )
-      sec[:league] = Import::League.find!( sec[:league] )
+
+      ####
+      ## find leage_rec
+      league = nil
+
+      ## first try by period
+      period = Import::LeaguePeriod.find_by( code: sec[:league],
+                                             season: sec[:season ] )
+      if period
+         ## find league by qname (assumed to be unique!!)
+         ##    todo/fix - use League.find_by!( name: ) !!!!
+         ##      make more specifi
+         league = Import::League.find!( period.qname )
+      else
+         league = Import::League.find!( sec[:league] )
+      end
+      sec[:league] = league
+
 
  ##
  ## quick hack - assume "Regular" or "Regular Season"

@@ -64,7 +64,7 @@ class Team   # shared base for clubs AND natinal_teams
 
   def initialize( **kwargs )
     @alt_names      = []
- 
+
     update( **kwargs )  unless kwargs.empty?
   end
 
@@ -89,14 +89,14 @@ class NationalTeam < Team
     self   ## note - MUST return self for chaining
   end
 
-  def pretty_print( printer ) 
+  def pretty_print( printer )
     buf = String.new
     buf << "<NationalTeam: #{@name}"
     ## use code from country or from team ???
-    buf << " (#{@code})"  
+    buf << " (#{@code})"
     buf << ">"
 
-    printer.text( buf ) 
+    printer.text( buf )
   end
 end  # class NationalTeam
 
@@ -121,8 +121,9 @@ class Club < Team
   def geos()      @a == nil ?  @geos     : @a.geos;     end
 
 
-  def initialize( **kwargs )
-    super
+  def initialize( auto: false, **kwargs )
+    @auto = auto
+    super( **kwargs )   ## todo/check - use super only or super() - must it always come first?
   end
 
   def update( **kwargs )
@@ -135,13 +136,15 @@ class Club < Team
   end
 
 
-  def pretty_print( printer ) 
+  def pretty_print( printer )
     buf = String.new
-    buf << "<Club: #{@name}"
+    buf << "<Club"
+    buf << " AUTO"   if @auto
+    buf << ": #{@name}"
     buf << " (#{@country.code})"    if @country
     buf << ">"
 
-    printer.text( buf ) 
+    printer.text( buf )
   end
 end # class Club
 

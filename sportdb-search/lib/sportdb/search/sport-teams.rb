@@ -56,7 +56,12 @@ end # class NationalTeam
             mods[ league.key ][ name ]
           else
             if league.clubs?
-              if league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
+
+             ## check for placeholder/global dummy clubs first
+             if ['N.N.', 'N. N.'].include?( name )
+                 Club.find!( name )
+             else
+               if league.intl?    ## todo/fix: add intl? to ActiveRecord league!!!
                      ###
                      ##  get country code from name
                      ##    e.g. Liverpool FC (ENG) or
@@ -98,6 +103,7 @@ end # class NationalTeam
                     pp rec
                 end
                 rec
+                end
               end
             else   ## assume national teams (not clubs)
               NationalTeam.find!( name )

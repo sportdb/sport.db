@@ -29,6 +29,9 @@ WFB_PATH   = "../../../cache.wfb.txt"
 # SportDb::MatchReader.read( "#{WFB_PATH}/2023-24/mx.3.a.txt" )
 # SportDb::MatchReader.read( "#{WFB_PATH}/2023-24/mx.3.b.txt" )
 
+# SportDb::MatchReader.read( "#{WFB_PATH}/2005/copa.l.txt" )
+
+
 
 # path = WFB_PATH
 # pack = SportDb::Package.new( path )

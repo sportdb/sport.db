@@ -55,6 +55,11 @@ end # class NationalTeam
           if mods && mods[ league.key ] && mods[ league.key ][ name ]
             mods[ league.key ][ name ]
           else
+            ### quick hack
+            ##    rename more placeholder teams to N.N.
+            name = 'N.N.'  if ['Verlierer HF 1',
+                               'Verlierer HF 2'].include?(name)
+
             if league.clubs?
 
              ## check for placeholder/global dummy clubs first

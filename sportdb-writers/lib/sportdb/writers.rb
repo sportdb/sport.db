@@ -26,21 +26,6 @@ end   # module Writer
 ###
 # our own code
 require_relative 'writers/version'
-
-## setup  leagues (info) table
-require_relative 'writers/league_config'
-
-module Writer
-  LEAGUES = SportDb::LeagueConfig.new
-
-  ['leagues',
-  ].each do |name|
-    recs = read_csv( "#{SportDb::Module::Writers.root}/config/#{name}.csv" )
-    LEAGUES.add( recs )
-  end
-end  # module Writer
-
-
 require_relative 'writers/goals'
 require_relative 'writers/txt_writer'
 

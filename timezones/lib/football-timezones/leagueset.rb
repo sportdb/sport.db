@@ -6,12 +6,12 @@
 #    Leagueset/LeagueSet, LeagueSheet/Leaguesheet  
 #    or Leagues (only)??
 #    or League Book, League Setup, ??
-#
+#    or Workset, Worksheet, Workbook, ...
 #
 #   move league config over here from sportdb-writers too!!!!!
 
 
-module Datasets
+module Leagueset
 def self.parse_args( args )
     ### split args in datasets with leagues and seasons
     datasets = []
@@ -69,5 +69,5 @@ end
 def self.read( path )
     parse( read_text( path ))
 end
-end  # module Datasets
+end  # module Leagueset
 

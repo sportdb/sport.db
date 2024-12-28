@@ -1,6 +1,6 @@
 
 module SportDb
-class LeagueConfig
+class LeagueConfig   
 
 def self.read( path )
    recs = read_csv( path )

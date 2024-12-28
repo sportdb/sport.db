@@ -13,13 +13,13 @@ require 'optparse'
 
 
 
- args = ARGV
- opts = { debug: false,
+args = ARGV
+opts = { debug:  false,
           output: nil,
-        }
+       }
 
- parser = OptionParser.new do |parser|
-  parser.banner = "Usage: #{$PROGRAM_NAME} [options] PATH"
+parser = OptionParser.new do |parser|
+parser.banner = "Usage: #{$PROGRAM_NAME} [options] PATH"
 
 ##
 ## check if git has a offline option?? (use same)
@@ -73,27 +73,26 @@ paths.each_with_index do |path,i|
 end
 
 ## step 2 - parse (matches) in the football.txt format
-      quick = SportDb::QuickMatchReader.new( txt )
-      matches = quick.parse
-      name    = quick.league_name   ## quick hack - get league+season via league_name
+quick = SportDb::QuickMatchReader.new( txt )
+matches = quick.parse
+name    = quick.league_name   ## quick hack - get league+season via league_name
 
-      data = { 'name'    => name,
-               'matches' => matches.map {|match| match.as_json }}
-      pp data
-      puts
-      puts "  #{matches.size} match(es)"
+data = { 'name'    => name,
+         'matches' => matches.map {|match| match.as_json }}
+pp data
+puts
+puts "  #{matches.size} match(es)"
 
-      if quick.errors?
-        puts "!! #{quick.errors.size} parse error(s):"
-        pp quick.errors
-        exit 1
-      end
+if quick.errors?
+   puts "!! #{quick.errors.size} parse error(s):"
+   pp quick.errors
+   exit 1
+end
 
-      if opts[:output]
-         puts "==> writing matches to #{opts[:output]}"
-         write_json( opts[:output], data )
-      end
-
+if opts[:output]
+   puts "==> writing matches to #{opts[:output]}"
+   write_json( opts[:output], data )
+end
 
 puts "bye"
 

@@ -1,0 +1,30 @@
+require 'hoe'
+require './lib/sportdb/writers/version.rb'
+
+Hoe.spec 'sportdb-writers' do
+
+  self.version = SportDb::Module::Writers::VERSION
+
+  self.summary = 'sportdb-writers - sport.db writers for match schedules and results, and more'
+  self.description = summary
+
+  self.urls = { home: 'https://github.com/sportdb/sport.db' }
+
+  self.author = 'Gerald Bauer'
+  self.email  = 'gerald.bauer@gmail.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.extra_deps = [
+    ['football-timezones'],
+    ['sportdb-quick'],
+  ]
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+   required_ruby_version: '>= 3.1.0'
+  }
+end

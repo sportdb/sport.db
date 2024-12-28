@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+## tip: to test run:
+##   ruby -I ./lib bin/fbgen
+
+
+require 'sportdb/writers'
+
+
+Fbgen.main( ARGV )
+
+
+puts "bye"

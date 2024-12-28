@@ -1,0 +1,226 @@
+key,     name,                      basename,       start_season, end_season, comments
+
+
+###
+# Austria
+#  - (at.2)  Erste Liga renamed to (=>) 2. Liga  starting 2018/19
+
+
+at.1,     Österr. Bundesliga,        1-bundesliga,,,
+at.2,     Österr. 2. Liga,           2-liga2,        2018/19,,
+at.2,     Österr. Erste Liga,        2-liga1,               , 2017/18,
+at.3.o,   Österr. Regionalliga Ost,   3-regionalliga-ost,,,
+at.3.m,   Österr. Regionalliga Mitte, 3-regionalliga-mitte,,,
+at.cup,   ÖFB Cup,                   cup,,,
+
+
+de.1,         Deutsche Bundesliga,           1-bundesliga,,,
+de.2,         Deutsche 2. Bundesliga,        2-bundesliga2,,,
+de.3,         Deutsche 3. Liga,              3-liga3,,,
+de.4.bayern,  Deutsche Regionalliga Bayern,  4-regionalliga-bayern,,,
+## de.4.n,       Deutsche Regionalliga Nord,    4-regionalliga-nord,,,
+## de.4.no,      Deutsche Regionalliga Nordost, 4-regionalliga-nordost,,,
+## de.4.w,       Deutsche Regionalliga West,    4-regionalliga-west,,,
+## de.4.sw,      Deutsche Regionalliga Südwest, 4-regionalliga-suedwest,,,
+de.cup,       DFB Pokal,                     cup,,,
+
+
+
+it.1,     Italian Serie A,           1-seriea,,,
+it.2,     Italian Serie B,           2-serieb,,,
+it.cup,   Coppa Italia,              cup,,,
+
+
+es.1,     Primera División de España,  1-liga,,,
+es.2,     Segunda División de España,  2-liga2,,,
+es.cup,   Copa del Rey de España,      cup,,,
+
+
+fr.1,     French Ligue 1,              1-ligue1,,,
+fr.2,     French Ligue 2,              2-ligue2,,,
+
+
+##
+## note - starting with the 2004/05 season
+#     the Football League's Division 1, Division 2 and Division 3
+##    changed to Championship, League One and League Two.
+##
+##  - (eng.1)  Premier League starting in 1992/93
+##  - (eng.2)  Division One renamed to (=>) Championship starting in 2004/05
+##  - (eng.3)  Division Two renamed to (=>) League One in 2004/05
+##  - (eng.4)  Division Three renamed to (=>) League Two in 2004/05
+
+
+eng.2,    English Championship,      2-championship,   2004/05,,            ## rebranding divsion 1 => championship
+eng.3,    English League One,        3-league1,        2004/05,,
+eng.4,    English League Two,        4-league2,        2004/05,,
+
+eng.1,    English Premier League,    1-premierleague,  1992/93,,
+eng.2,    English Division One,      2-division1,      1992/93,  2003/04,   ## start of premier league
+eng.3,    English Division Two,      3-division2,      1992/93,  2003/04,
+eng.4,    English Division Three,    4-division3,      1992/93,  2003/04,
+eng.5,    English National League,   5-nationalleague, 1992/93,,
+
+eng.1,    English Division One,      1-division1,      1892/93,  1991/92,   ## start of division 1 & 2
+eng.2,    English Division Two,      2-division2,      1892/93,  1991/92,   ## or use English Football League Second Division ???
+eng.3,    English Division Three,    3-division3,             ,  1991/92,
+
+eng.1,    English Football League,   1-footballleague, 1888/89,  1891/92,   ## single league (no divisions)
+
+
+eng.cup,  English FA Cup,            facup,,,
+
+wal.1,    Welsh Premier League,         1-premierleague,,,
+nir.1,    Northern Irish Premiership,   1-premiership,,,
+
+hu.1,     Hungarian NB I,             1-nbi,,,
+
+gr.1,     Super League Greece,        1-superleague,,,
+
+pt.1,     Portuguese Primeira Liga,   1-primeiraliga,,,
+pt.2,     Portuguese Segunda Liga,    2-segundaliga,,,
+
+ch.1,     Swiss Super League,         1-superleague,,,
+ch.2,     Swiss Challenge League,     2-challengeleague,,,
+ch.cup,   Swiss Cup,                  cup,,,
+
+
+tr.1,     Turkish Süper Lig,          1-superlig,,,
+tr.2,     Turkish 1. Lig,             2-lig1,,,
+
+is.1,     Iceland Urvalsdeild,        1-urvalsdeild,,,
+
+sco.1,    Scottish Premiership,       1-premiership,,,
+
+ie.1,     Irish Premier Division,     1-premierdivision,,,
+
+fi.1,     Finland Veikkausliiga,      1-veikkausliiga,,,
+
+se.1,     Sweden Allsvenskan,         1-allsvenskan,,,
+se.2,     Sweden Superettan,          2-superettan,,,
+
+no.1,     Norwegian Eliteserien,       1-eliteserien,,,
+dk.1,     Denmark Superligaen,         1-superligaen,,,
+
+lu.1,     Luxembourger First Division,   1-nationaldivision,,,
+
+be.1,     Belgian First Division A,   1-firstdivisiona,,,
+
+nl.1,     Dutch Eredivisie,    1-eredivisie,,,
+
+cz.1,    Czech First League,    1-firstleague,,,
+sk.1,    Slovakia First League,  1-superliga,,,
+hr.1,    Croatia 1. HNL,          1-hnl,,,
+
+pl.1,    Poland Ekstraklasa,    1-ekstraklasa,,,
+
+ro.1,    Romanian Liga 1,     1-liga1,,,
+
+ua.1,    Ukraine Premier League,  1-premierleague,,,
+
+ru.1,    Russian Premier League,   1-premierliga,,,
+ru.2,    Russian 1. Division,      2-division1,,,
+
+by.1,    Belarusian Premier League,  1-premierleague,,,
+
+al.1,    Albanian Super League,       1-superleague,,,
+ad.1,    Andorran Premier Division,   1-premierdisvision,,,
+
+ba.1,    Bosnian-Herzegovinian Premier League,   1-premierleague,,,
+bg.1,    Bulgarian A League,        1-aleague,,,
+
+cy.1,    Cypriot First Division,    1-firstdivision,,,
+
+ee.1,    Estonian First League,     1-firstleague,,,
+lv.1,    Latvian First Division,    1-firstdivision,,,
+lt.1,    Lithuanian First Division, 1-firstdivision,,,
+
+li.cup,  Liechtensteiner Cup,       cup,,,
+
+mk.1,    Macedonian First League,   1-firstleague,,,
+mt.1,    Macedonian First League,   1-firstleague,,,
+md.1,    Moldovan First Division,   1-firstdivision,,,
+me.1,    Montenegrin First League,  1-firstleague,,,
+
+sm.1,   San Marinese Championship,  1-championship,,,
+rs.1,   Serbian Super League,       1-superleague,,,
+si.1,   Slovene First League,       1-firstleague,,,
+
+kos.1,  Kosovan Superliga,    1-superliga,,,
+## xk.1,   Kosovan Superliga,    1-superliga,,,
+
+am.1,   Armenian Premier League,   1-premierleague,,,
+az.1,   Azerbaijani Premier League,  1-premierleague,,,
+ge.1,   Georgian Premier League,     1-premierleague,,,
+
+fo.1,   Faroese Premier Division,      1-premierdivision,,,
+gi.1,   Gibraltarian Premier League,    1-premierleague,,,
+
+
+
+##  use uefa.1 - why? why not?
+##      uefa.2,
+##      uefa.3
+
+##
+## note - UEFA Champions League branding starting in 1992/93
+##         (originally adopted only in the group stage in 1991/92).
+uefa.cl,      UEFA Champions League,    cl,     1992/93,,     ### use champs or such?
+## uefa.champs,  UEFA Champions League,    champs, 1992/93,,
+
+## commonly known as  European Cup
+euro.champs,  European Champion Clubs' Cup, champs, 1955/56, 1991/92,
+
+
+##
+## By 1968, all UEFA member nations had set up domestic cup competitions
+## due to the success of the Cup Winners' Cup. UEFA regarded it as
+## the second most prestigious competition,
+## behind the European Cup (later the UEFA Champions League)
+## and ahead of the Fairs Cup (later the UEFA Cup).
+## Therefore, a team qualified for both the European Cup
+## and the Cup Winners' Cup would play in the European Cup,
+## whereas a team qualified for both the UEFA Cup and the Cup Winners' Cup
+## would play in the Cup Winners' Cup.
+## Nevertheless, many commentators and fans regarded the Cup Winners' Cup
+## as weaker than the UEFA Cup, which had more and better teams
+## from the stronger European leagues.
+
+## old "2-nd" tier cup (merged into uefa cup)
+##    renamed the UEFA Cup Winners' Cup in 1994/95
+euro.cup,     European Cup Winners' Cup,   cupwinners, 1960/61, 1998/99,
+
+# uefa europa league starting in 2009/10
+uefa.el,      UEFA Europa League,       el,     2009/10,,     ### use europa?
+## uefa.europa,  UEFA Europa League,       europa, 2009/10,,
+
+## uefa cup changed to europa league in 2009/10
+##  note - The UEFA Cup was preceded by the Inter-Cities Fairs Cup,
+##  which was a European football competition played between 1955 and 1971.
+uefa.cup,     UEFA Cup,                 cup,   1971/72, 2008/09,
+
+## uefa conference league starting in 2021/22
+##    naming history
+##    2021/22 - 2023/24 -   UEFA Europa Conference League
+##    2024/25 -             UEFA Conference League   (dropping Europa)
+uefa.conf,    UEFA Conference League,   conf, 2021/22,,   ###  use con (conf - confusion with config files?)
+## uefa.con,     UEFA Conference League,   con,  2021/22,,
+
+
+## note - official name was originally the Super Competition,
+##  and later the European Super Cup.
+##  It was renamed the UEFA Super Cup in 1995.
+##   note - use calendar year for season!!!
+uefa.super,   UEFA Super Cup,           super, 1972,,
+
+
+### note - nations league starting in 2018/19
+uefa.nl,      UEFA Nations League,      nl, 2018/19,,
+
+
+##   euro starting in 1960 (every four years)
+#      2020 in 2021 (!!)
+## naming history
+##   1960, 1964 -  European Nations' Cup
+##   1968 -        European Championship
+euro,         Euro,   euro, 1960,,

@@ -1,0 +1,23 @@
+key,     name,                      basename,       start_season, end_season, comments
+
+cn.1,    Chinese Super League,      1-superleague,,,
+jp.1,    Japan J1 League,           1-j1league,,,
+
+
+
+kz.1,    Kazakh Premier League,    1-premierleague,,,
+
+
+il.1,    Israeli Premier League,   1-premierleague,,,
+
+
+eg.1,   Egypt Premiership,     1-premiership,,,
+ma.1,   Morocco Botola Pro 1,  1-botolapro1,,,
+dz.1,   Algeria Ligue 1,       1-ligue1,,,
+
+afl,     African Football League,   afl,,,
+caf.cl,       CAF Champions League,     cl,,,
+##  caf.champs,   CAF Champions League,     champs,,,   ## use alternate code - why? why not?
+
+
+world,   World Cup,                 cup,,,

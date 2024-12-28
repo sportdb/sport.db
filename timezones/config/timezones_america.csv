@@ -1,0 +1,34 @@
+key,   zone
+
+
+us,     America/New_York
+ca,     America/Toronto
+
+mx,     America/Mexico_City
+
+
+cr,    America/Costa_Rica
+gt,    America/Guatemala
+hn,    America/Tegucigalpa
+sv,    America/El_Salvador
+ni,    America/Managua
+
+concacaf,       America/Mexico_City     ### use mx time - why? why not?
+concacaf.cl,    America/Mexico_City
+
+
+uy,    America/Montevideo
+pe,    America/Lima
+ec,    America/Guayaquil
+bo,    America/La_Paz
+cl,    America/Santiago
+py,    America/Asuncion
+ve,    America/Caracas
+
+br,    America/Sao_Paulo
+ar,    America/Argentina/Buenos_Aires
+co,    America/Bogota
+
+
+copa.l,         America/Sao_Paulo       ### use brazil time - why? why not?
+

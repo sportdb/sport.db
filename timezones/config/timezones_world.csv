@@ -1,0 +1,19 @@
+key,   zone
+
+
+## todo/check - allow/use country ref
+##            e.g.  world+1998,  fr
+##                  world+2006,  de
+##        and lookup timezone fr instead - why? why not?
+
+
+world+2022,    Asia/Qatar            # Qatar
+world+2018,    Europe/Moscow         # Russia
+world+2014,    America/Sao_Paulo     # Brazil
+world+2010,    Africa/Johannesburg   # South Africa
+world+2006,    Europe/Berlin         # Germany
+world+2002,    Asia/Tokyo            # Japan & South Korea
+world+1998,    Europe/Paris          # France
+
+
+

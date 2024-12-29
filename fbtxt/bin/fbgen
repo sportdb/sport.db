@@ -63,9 +63,9 @@ p args
 
 
 datasets =   if opts[:file]
-                  read_datasets( opts[:file] )
+                  read_leagueset( opts[:file] )
              else
-                  parse_datasets_args( args )
+                  parse_leagueset_args( args )
              end
 
 puts "datasets:"

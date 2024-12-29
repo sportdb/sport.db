@@ -2,7 +2,7 @@ require 'hoe'
 
 
 Hoe.spec 'fbtxt' do
-  self.version = '0.1.1'
+  self.version = '0.1.2'
 
   self.summary = "fbtxt - convert football match schedules & more in tabular comma-separated values (csv) format to (future-proof & evergreen) football.txt"
   self.description = summary

@@ -2,9 +2,6 @@
 require 'sportdb/quick'
 
 
-require 'optparse'    ## command-line processing; check if included updstream?
-
-
 
 module Writer
   class Configuration
@@ -31,11 +28,8 @@ require_relative 'writers/txt_writer'
 
 
 ###
-#  fbtxt tool
+#  fbtxt & friends tools   - remove in future - why? why not?
 require 'football/timezones'    ## pulls in read_datasets, etc.
-
-require_relative 'fbgen/main'
-
 
 
 

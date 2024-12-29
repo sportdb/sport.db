@@ -15,7 +15,7 @@
 require 'sportdb/writers'
 
 
-require 'optparse'
+require 'optparse'   ## check if included in cocos prelude?
 
 
 

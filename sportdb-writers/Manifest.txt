@@ -2,13 +2,7 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
-bin/fbgen
-bin/fbtxt
-config/leagues.csv
-lib/sportdb/fbgen/main.rb
-lib/sportdb/fbtxt/main.rb
 lib/sportdb/writers.rb
 lib/sportdb/writers/goals.rb
-lib/sportdb/writers/league_config.rb
 lib/sportdb/writers/txt_writer.rb
 lib/sportdb/writers/version.rb

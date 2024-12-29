@@ -7,6 +7,10 @@
 require 'sportdb/writers'
 
 
+require 'optparse'   ## check if included in cocos prelude?
+
+
+
 args = ARGV
 opts = {
   source_path: [],

@@ -90,6 +90,8 @@ end
 
 ### use a function for (re)use
 ###   note - may add seasons in place!! (if seasons is empty)
+##
+##   todo/check - change source_path to (simply) path - why? why not?
 def validate!( source_path: ['.'] )
     each do |league_key, seasons|
   
@@ -132,6 +134,32 @@ end
   
 
 
+## todo/check: find a better name for helper?
+##   find_all_datasets, filter_datatsets - add alias(es???
+##  queries (lik ARGV) e.g. ['at'] or ['eng', 'de'] etc. list of strings
+def filter( queries=[] )
+  ## find all matching leagues (that is, league keys)
+  if queries.empty?  ## no filter - get all league keys
+    self
+  else
+    recs = @recs.find_all do |league_key, seasons|
+                               found = false
+                              ## note: normalize league key 
+                              ##        (remove dot and downcase)
+                              norm_key = league_key.gsub( '.', '' )
+                              queries.each do |query|
+                                 q = query.gsub( '.', '' ).downcase
+                                 if norm_key.start_with?( q )
+                                   found = true
+                                   break
+                                 end
+                              end
+                              found
+                           end
+    ## return new typed leagueset
+    self.class.new( recs )
+  end
+end
 
 
 def pretty_print( printer )

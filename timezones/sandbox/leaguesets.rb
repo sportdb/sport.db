@@ -58,5 +58,9 @@ pp datasets
 datasets.validate!( source_path: ['/sports/cache.api.fbdat'] )
 pp datasets
 
+pp datasets.filter( ['eng'] )
+pp datasets.filter( ['eng', 'fr'] )
+pp datasets.filter( ['xxx'] )
+
 
 puts "bye"

@@ -43,4 +43,20 @@ TXT
 
 
 
+################################
+### check validate! and more
+
+datasets = parse_leagueset( <<TXT )
+league,   seasons
+eng.1,     2024/25
+de.1,      2024/25 
+fr.1,
+TXT
+
+
+pp datasets
+datasets.validate!( source_path: ['/sports/cache.api.fbdat'] )
+pp datasets
+
+
 puts "bye"

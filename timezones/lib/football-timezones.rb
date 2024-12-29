@@ -43,11 +43,14 @@ require_relative 'football-timezones/leagueset'
 #### add alias - why? why not?
 LeagueSet = Leagueset    
 
-###
-### note - make read_leagueset & friends public/global by default - why? why not?
-def read_leagueset( path )       Leagueset.read( path ); end
-def parse_leagueset( txt )       Leagueset.parse( txt ); end
-def parse_leagueset_args( args ) Leagueset.parse_args( args ); end
+
+module LeaguesetHelper
+  ###
+  ### note - make read_leagueset & friends public/global by default - why? why not?
+  def read_leagueset( path )       Leagueset.read( path ); end
+  def parse_leagueset( txt )       Leagueset.parse( txt ); end
+  def parse_leagueset_args( args ) Leagueset.parse_args( args ); end
+end
 
 
 
@@ -68,16 +71,11 @@ end
 ####
 ### note - make find_zone! public/global by default - why? why not?
 module Kernel
+   include FileHelper
    include TimezoneHelper
    include LeagueInfoHelper
-   include FileHelper
+   include LeaguesetHelper
 end
-
-
-
-
-####
-#  todo -  add validate_leagueset here from fbgen!!!
 
 
 

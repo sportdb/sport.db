@@ -2,6 +2,7 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
+config/leagues.csv
 config/timezones_africa.csv
 config/timezones_america.csv
 config/timezones_asia.csv
@@ -10,7 +11,8 @@ config/timezones_middle_east.csv
 config/timezones_pacific.csv
 config/timezones_world.csv
 lib/football-timezones.rb
-lib/football-timezones/datasets.rb
+lib/football-timezones/league_config.rb
+lib/football-timezones/leagueset.rb
 lib/football-timezones/timezones.rb
 lib/football-timezones/version.rb
 lib/football/timezones.rb

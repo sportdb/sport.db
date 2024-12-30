@@ -144,7 +144,7 @@ def self._build_batch( matches, rounds: true )
             match.round =~ /^[0-9]+$/   ## all numbers/digits
              ## default "class format
              ##   e.g. Runde 1, Spieltag 1, Matchday 1, Week 1
-             buf << "Round #{match.round}"
+             buf << "Matchday #{match.round}"
          else ## use as is from match
            ## note: for now assume english names
             if match.round.nil?

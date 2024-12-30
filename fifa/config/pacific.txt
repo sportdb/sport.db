@@ -1,0 +1,49 @@
+==============================================
+==  Pacific      ## Oceania & Australia
+
+au   Australia,            AUS,  fifa › afc › aff   # formerly a member of OFC (1966–2006)
+
+### Melanesia
+pg   Papua New Guinea,     PNG,  fifa › ofc
+      | Papua N.G.
+fj   Fiji,                 FIJ,  fifa › ofc
+sb   Solomon Islands,      SOL,  fifa › ofc
+      | Solomon Isl.
+vu   Vanuatu,              VAN,  fifa › ofc
+
+
+### Micronesia
+pw   Palau,       PLW             # note: NOT fifa member, NOT ofc member
+                                  #  Listed as associate member of the OFC in 2002 and again in 2006. It is unclear whether Palau is still associated with the confederation
+fm   Micronesia,  FSM             # note: NOT fifa member, NOT ofc member
+      | Federated States of Micronesia
+ki   Kiribati,    KIR,   ofc      # note: NOT fifa member
+
+
+### Polynesia
+nz   New Zealand,     NZL,  fifa › ofc   # was formerly a member of AFC (1964–1966)
+ws   Samoa,           SAM,  fifa › ofc
+to   Tonga,           TGA,  fifa › ofc
+tv   Tuvalu,          TUV,         ofc  # note: NOT fifa member
+
+
+
+# Territories & Dependencies
+
+pf   Tahiti        › FR,   TAH,   fifa › ofc      # todo/check: use French Polynesia (FR) as name - why? why not?
+      | French Polynesia     # note: Tahiti, which is located within the Society Islands, is the most populous island, having close to 69% of the population of French Polynesia as of 2017.
+nc   New Caledonia › FR,   NCL,   fifa › ofc
+
+as   American Samoa           › US,  ASA, fifa › ofc
+      | Am. Samoa
+gu   Guam                     › US,  GUM, fifa › afc › eaff
+mp   Northern Mariana Islands › US,  NMI,        afc › eaff  # note: NOT fifa member  -- was formerly a member of OFC (2005–2009)
+
+ck   Cook Islands › NZ,    COK,   fifa › ofc
+nu   Niue         › NZ,    NIU,          ofc  # note: NOT fifa member
+
+
+## More Irregular FIFA codes
+# - Marshall Islands
+# - Nauru
+

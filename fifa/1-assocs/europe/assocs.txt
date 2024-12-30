@@ -1,0 +1,75 @@
+#######################
+# Europe
+
+# note: uefa members Israel listed in Middle East n Kazakhstan listed in Asia
+
+
+############
+# UEFA (Union of European Football Associations)
+# - 54 members
+
+
+aut, Österreichischer Fußball-Bund,     at, fifa|uefa  ## Austria
+bel, Koninklijke Belgische Voetbalbond, be, fifa|uefa  ## Belgium
+cyp, Cyprus Football Association,       cy, fifa|uefa  ## Cyprus
+ger, Deutscher Fußball-Bund,           de, fifa|uefa    ## Germany
+est, Eesti Jalgpalli Liit,           ee, fifa|uefa  ## Estonia
+esp, Real Federación Española de Fútbol,   es, fifa|uefa   ## Spain
+fin, Suomen Palloliitto,          fi, fifa|uefa   ## Finland
+fra, Fédération Française de Football,   fr, fifa|uefa  ## France
+gre, Hellenic Football Federation,           gr, fifa|uefa  ## Greece
+irl, Football Association of Ireland,        ie, fifa|uefa  ## Ireland
+ita, Federazione Italiana Giuoco Calcio,     it, fifa|uefa  ## Italy
+lux, Fédération Luxembourgeoise de Football, lu, fifa|uefa  ## Luxembourg
+mlt, Malta Football Association,             mt, fifa|uefa   ## Malta
+ned, Koninklijke Nederlandse Voetbalbond,    nl, fifa|uefa   ## Netherlands
+por, Federação Portuguesa de Futebol,        pt, fifa|uefa   ## Portugal
+svk, Slovenský Futbalový Zväz,          sk, fifa|uefa   ## Slovakia
+svn, Nogometna Zveza Slovenije,         si, fifa|uefa   ## Slovenia
+bul, Bulgarian Football Union,    bg, fifa|uefa    ## Bulgaria
+den, Dansk Boldspil-Union,   dk, fifa|uefa   ## Denmark
+lva, Latvijas Futbola Federācija,   lv, fifa|uefa   ## Latvija|Latvia
+ltu, Lietuvos Futbolo Federacija,   lt, fifa|uefa   ## Lithuania
+pol, Polski Związek Piłki Nożnej,   pl, fifa|uefa   ## Poland
+rou, Federaţia Română de Fotbal,    ro, fifa|uefa   ## Romania
+swe, Svenska Fotbollförbundet,      se, fifa|uefa   ## Sweden
+cze, Fotbalová Asociace České Republiky,   cz, fifa|uefa  ## Czech Republic
+hun, Magyar Labdarúgó Szövetség,           hu, fifa|uefa   ## Hungary
+
+
+and, Federació Andorrana de Futbol,    ad, fifa|uefa   ## Andorra
+alb, Federata Shqiptare e Futbollit,   al, fifa|uefa   ## Albania
+blr, Football Federation of Belarus,   by, fifa|uefa   ## Belarus
+sui, Association Suisse de Football,   ch, fifa|uefa   ## Switzerland
+cro, Hrvatski Nogometni Savez,      hr, fifa|uefa   ## Croatia
+srb, Fudbalski Savez Srbije,       rs, fifa|uefa   ## Serbia
+rus, Russian Football Union,       ru, fifa|uefa   ## Russia
+tur, Türkiye Futbol Federasyonu,   tr, fifa|uefa   ## Turkey
+ukr, Football Federation of Ukraine,   ua, fifa|uefa   ## Ukraine
+mkd, Fudbalska Federacija na Makedonija,  mk, fifa|uefa  ## Macedonia
+nor, Norges Fotballforbund,       no, fifa|uefa     ## Norway
+isl, Knattspyrnusamband Íslands,  is, fifa|uefa   ## Iceland
+
+bih, Nogometni/Fudbalski Savez Bosne i Hercegovine, ba, fifa|uefa   ## Bosnia-Herzegovina
+lie, Liechtensteiner Fußballverband,          li, fifa|uefa    ## Liechtenstein
+mne, Fudbalski Savez Crne Gore,               me, fifa|uefa    ## Montenegro
+mda, Federaţia Moldovenească de Fotbal,       md, fifa|uefa    ## Moldova
+smr, Federazione Sammarinese Giuoco Calcio,   sm, fifa|uefa    ## San Marino
+
+geo, Georgian Football Federation,    ge, fifa|uefa   ## Georgia
+arm, Football Federation of Armenia,  am, fifa|uefa   ## Armenia
+aze, Azərbaycan Futbol Federasiyaları Assosiasiyası,   az, fifa|uefa  ## Azerbaijan
+
+###
+# note: use three-letter country codes e.g. use eng,wal,nir,sco,etc.!!!
+
+eng, The Football Association,    eng, fifa|uefa  ## England
+sco, Scottish Football Association,  sco, fifa|uefa  ## Scotland
+wal, Football Association of Wales,  wal, fifa|uefa  ## Wales
+nir, Irish Football Association,     nir, fifa|uefa   ## Northern Ireland
+
+
+fro, Fótbóltssamband Føroya,  fo, fifa|uefa  ## Faroe Islands
+
+
+gib, Gibraltar Football Association,  gi, uefa   # Gibraltar - note: not a FIFA member

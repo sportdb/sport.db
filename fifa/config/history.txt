@@ -1,0 +1,46 @@
+===============================
+==  History
+
+###########################################
+# Former national teams
+#   with former FIFA country codes etc.
+#
+# see also https://en.wikipedia.org/wiki/List_of_FIFA_country_codes#Obsolete_country_codes
+
+
+# the state was called the Federal Republic of Yugoslavia,
+# until February 2003, when the name of the country was changed to
+# Serbia and Montenegro.
+# In 2006, Montenegro declared its independence from Serbia,
+# with the result that the country's football team was renamed
+# as the Serbia national football team on 28 June 2006
+# with the Montenegro national football team created to represent
+# the renewed state of Montenegro, with the Serbian national team
+# inheriting the history and records of Serbia and Montenegro's national team.
+-2006   Serbia and Montenegro, SCG  ⇒  Serbia
+         | Serbia & Montenegro
+
+# note:
+#  Federal Republic of Yugoslavia (1992-2003)
+#  Socialist Federal Republic of Yugoslavia (-1992)
+-2003   Yugoslavia,     YUG      ⇒  Serbia and Montenegro
+
+# today - Congo DR (COD)  formerly called Zaire (1971–1997)
+-1997   Zaire, ZAI               ⇒  Congo DR
+
+
+# note:
+#  can only add to one country - add slovakia too?
+#    or use "neutral"  unclassified/other country?
+-1992   Czechoslovakia, TCH      ⇒  Czech Republic
+
+-1991   Soviet Union,   URS      ⇒  Russia
+
+-1989   West Germany,   FRG      ⇒  Germany
+-1989   East Germany,   GDR      ⇒  Germany
+
+
+
+# note: before independence in 1945 (now called Indonesia)
+-1945   Dutch East Indies,  DEI  ⇒  Indonesia
+

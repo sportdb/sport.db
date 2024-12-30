@@ -1,0 +1,241 @@
+
+[fifa]
+  Fédération Internationale de Football Association (FIFA), 1904
+  World
+  www.fifa.com
+  en.wikipedia: FIFA
+  # Zürich, Switzerland
+  # 209 members
+  #  see www.fifa.com/aboutfifa/organisation/associations.html
+
+  # note: 13 teams are members or associate members
+  #  of one of the FIFA affiliated continental confederations,
+  # but who are not members of FIFA
+  # - Northern Mariana Islands (Asia)
+  # - Réunion (Africa)
+  # - Zanzibar (Africa)
+  # - French Guiana (Southamerica /CONCACAF)
+  # - Bonaire  (Caribbean / CONCACAF)
+  # - Guadeloupe (Caribbean / CONCACAF)
+  # - Martinique (Caribbean / CONCACAF)
+  # - Saint-Martin (Caribbean / CONCACAF)
+  # - Sint Maarten (Caribbean / CONCACAF)
+  # - Kiribati (Pacific)
+  # - Niue (Pacific)
+  # - Tuvalu (Pacific)
+  # - Gibraltar (Europe)
+
+
+  # note: 7 unaffiliated sovereign states (not fifa or confederation)
+  # - Federated States of Micronesia
+  # - Nauru
+  # - Palau
+  # - Marshall Islands (only state w/ no national football team) 
+  # - United Kingdom  (only for olympics otherwise england, walles,etc.)
+  # - Monaco
+  # - Vatican City
+
+
+## assume all upcase is Abbreviation
+## assume all downcase w/ only [a-z] is parent assoc (e.g. fifa)
+
+
+[uefa]
+  Union of European Football Associations (UEFA), 1954
+  Europe
+  www.uefa.com
+  en.wikipedia:UEFA
+  fifa    #  parent org - find better style?  use header line for all? use [uefa/fifa]? why? why not?
+  # Nyon, Switzerland
+  # 54 members
+
+# note: incl. Israel, Kazakhstan (from Asia)
+
+
+[conmebol]
+  Confederación Sudamericana de Fútbol (CONMEBOL), 1916
+  South America
+  www.conmebol.com
+  en.wikipedia:CONMEBOL
+  fifa
+  # Asunción, Paraguay  (Luque)
+  # 10 members
+
+
+[concacaf]
+  Confederation of North\, Central American and Caribbean Association Football (CONCACAF), 1961
+  North America\, Central America & Caribbean Islands
+  www.concacaf.com
+  en.wikipedia:CONCACAF
+  fifa
+  # Miami, Florida, United States
+  # 41 members
+  # - 31 from the Caribbean
+  # - 7 from Central America
+  # - 3 from North America
+
+# note: incl. French Guiana, Guyana and Suriname members (from South America) 
+
+
+[caf]
+  Confédération Africaine de Football (CAF), 1957 
+  Africa
+  www.cafonline.com
+  en.wikipedia:Confederation_of_African_Football
+  fifa
+  # Cairo, Egypt (6th of October City)
+  # 56 members
+
+[afc]
+  Asian Football Confederation (AFC), 1954
+  Asia      # incl. Middle East, Australia
+  www.the-afc.com
+  en.wikipedia:Asian_Football_Confederation
+  fifa
+  # Kuala Lumpur, Malaysia
+  # 46+1 members
+
+# note: incl. Australia member since 2006 (from Pacific/Oceania)
+
+
+[ofc]
+  Oceania Football Confederation (OFC), 1966
+  Pacific   # Oceania
+  www.oceaniafootball.com
+  en.wikipedia:Oceania_Football_Confederation
+  fifa
+  # Auckland, New Zealand
+  # 14 members (11 full)
+
+
+############################
+# more sub confederations
+
+
+#####
+# CONCACAF - 3 regions
+
+[nafu]
+  North American Football Union (NAFU) / North American Zone
+  # 3 members
+  en.wikipedia:North_American_Football_Union
+  concacaf
+  # note: has no org structure (just "informal"); no longer any competions
+ 
+
+[uncaf]
+  Unión Centroamericana de Fútbol (UNCAF) / Central American Zone
+  www.uncafut.com
+  en.wikipedia:Central_American_Football_Union
+  concacaf
+  # 7 members
+
+[cfu]
+  Caribbean Football Union (CFU) / Caribbean Zone
+  www.cfufootball.org
+  en.wikipedia:Caribbean_Football_Union
+  concacaf
+  # 31 members
+
+#########
+# CAF (Africa) - 5 regions
+
+[cecafa]
+  Council for East and Central Africa Football Associations (CECAFA)
+  Eastern Africa
+  www.cecafafootball.org
+  en.wikipedia:Council_for_East_and_Central_Africa_Football_Associations
+  caf
+  # 12 members
+  # East Africa and some nations of Central Africa
+
+
+[cosafa]
+  Council of Southern Africa Football Associations (COSAFA)
+  Southern Africa
+  www.cosafa.com
+  en.wikipedia:Council_of_Southern_Africa_Football_Associations
+  caf
+  # 14 members
+  # Southern Africa plus island states off the coast of Southern Africa
+
+[wafu]
+  West African Football Union (WAFU)
+  Western Africa
+  en.wikipedia:West_Africa_Football_Union
+  caf
+  # Zone A - 9 members
+  # Zone B - 7 members
+
+
+[unaf]
+  Union of North African Federations (UNAF)
+  Northern Africa
+  en.wikipedia:Union_of_North_African_Football_Federations
+  caf
+  # Tunis, Tunisia
+  # 5 members
+
+
+[uniffac]
+  Union des Fédérations du Football de l'Afrique Centrale (UNIFFAC)
+  Central Africa
+  en.wikipedia:Central_African_Football_Federations'_Union
+  caf
+  # 8 members
+
+############
+# AFC / Asia
+#
+# - AFC is subdivided into four sub-federations
+
+[waff]
+  West Asian Football Federation (WAFF), 2001
+  West Asia (Middle East)
+  www.the-waff.com
+  en.wikipedia:West_Asian_Football_Federation
+  afc
+  # 13 members
+  # represents nations at the western extremity of the continent
+
+[eaff]  
+  East Asian Football Federation (EAFF), 2002
+  East Asia
+  www.eaff.com
+  en.wikipedia:East_Asian_Football_Federation
+  afc
+  # Tokyo, Japan
+  # 10 members
+  # represents nations in Northeast Asia, plus Guam and Northern Mariana Islands
+
+[csaff]
+  Central and South Asian Football Federation (CSAFF)
+  Central and South Asia
+  en.wikipedia:Central_and_South_Asian_Football_Federation
+  afc
+  # 12 members
+  # represents nations in Central Asia and South Asia
+
+[aff]
+  Association of South East Asian Nations Football Federation (AFF), 1984
+  Southeast Asia & Australia
+  www.aseanfootball.org
+  en.wikipedia:ASEAN_Football_Federation
+  afc
+  # Petaling Jaya, Selangor, Malaysia
+  # 12 members
+  # represents nations in Southeast Asia, plus Australia
+
+
+#######################
+# inter-continental
+
+[uafa]
+  Union of Arab Football Associations (UAFA), 1974
+  Arab League / League of Arab States
+  www.uafaonline.com
+  en.wikipedia:Union_of_Arab_Football_Associations
+  # Riyadh, Saudi Arabia
+  # 22 members
+  #  AFC members (asia/middle east) + CAF (africa) members
+  # use two parents e.g. afc|caf  or keep it w/o parent org?

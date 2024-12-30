@@ -1,0 +1,13 @@
+==================================
+==  Central America
+
+bz   Belize,               BLZ,  fifa › concacaf › uncaf
+gt   Guatemala,            GUA,  fifa › concacaf › uncaf
+cr   Costa Rica,           CRC,  fifa › concacaf › uncaf
+hn   Honduras,             HON,  fifa › concacaf › uncaf
+sv   El Salvador,          SLV,  fifa › concacaf › uncaf
+ni   Nicaragua,            NCA,  fifa › concacaf › uncaf
+      | nic
+pa   Panama,               PAN,  fifa › concacaf › uncaf
+      | Panamá [es]
+

@@ -1,0 +1,28 @@
+==================================
+==  South America
+
+ar   Argentina,            ARG,  fifa › conmebol
+       | Argentinien [de]
+bo   Bolivia,              BOL,  fifa › conmebol
+       | Bolivien [de]
+br   Brazil,               BRA,  fifa › conmebol
+       | Brasilien [de]
+       | Brasil [pt]
+cl   Chile,                CHI,  fifa › conmebol
+co   Colombia,             COL,  fifa › conmebol
+       | Kolumbien [de]
+ec   Ecuador,              ECU,  fifa › conmebol
+py   Paraguay,             PAR,  fifa › conmebol
+pe   Peru,                 PER,  fifa › conmebol
+uy   Uruguay,              URU,  fifa › conmebol
+ve   Venezuela,            VEN,  fifa › conmebol
+
+
+# NB: guyana, suriname n french guiana
+#  are part of north/central & caribbean according to fifa/concacaf
+
+gy   Guyana,               GUY,  fifa › concacaf › cfu
+sr   Suriname,             SUR,  fifa › concacaf › cfu
+
+gf   French Guiana › FR,  GUF,  concacaf › cfu     # note: NOT fifa member
+       ## todo: check alternative (old?) code GYF for French Guiana ??

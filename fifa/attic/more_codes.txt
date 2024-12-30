@@ -1,0 +1,80 @@
+
+  ######################
+  # hack - add more alternate country codes
+  #   vehicle (int'l) license plate (e.g. A, D, E)
+  #
+  # note - do NOT use Ö for now (gets auto-changed to O on normailization)
+
+    ## europe
+    Austria,   A
+    Belgium,   B
+    Germany,   D
+    Spain,     E
+    France,     F
+    Hungary,      H
+    Italy,      I
+    Luxembourg,   L
+    Malta,        M
+    Norway,       N
+    Portugal,     P
+    Sweden,       S
+    Vatican City, V
+
+    ## note - Great Britain (and UK) same record for now - keep - why?
+    ##  add alternate codes (default is uk / GBR)
+    Great Britain,  GB
+
+    ## alternate fifa et al codes
+    Monaco,  MON
+
+    ## old/historic fifa et al codes
+    Romania, 	ROM                ## fifa code is ROU
+
+    ## more codes (iso? ioc? alt?)
+    Slovenia,               SLO     ## fifa code is SVN
+    Bosnia and Herzegovina, BOS     ## fifa code is BIH
+
+    Northern Ireland,       NIRL    ## fifa code is NIR
+    Serbia,                 SER     ## fifa code is SRB
+    Serbia,                 SERB    ## fifa code is SRB
+
+    Kosovo,                 KVX     ## old fifa code is KVX??
+    Kosovo,                 XK
+
+    Latvia,                 LAT     ## fifa code is LVA
+    Lithuania,              LIT     ## fifa code is LTU
+
+    Burundi,                BUR      ## fifa code is BDI
+    Tanzania,               TZA      ## fifa code is TAN
+    Myanmar,                MMR      ## fifa code is MYA
+
+    Taiwan,                 TWN      ## fifa code is TPE
+    Turkmenistan,           TURK     ## fifa code is TKM
+    Tajikistan,             TAJ      ## fifa code is TJK
+
+    Nicaragua,              NIC      ## fifa code is NCA
+    Saudi Arabia,           SAUD     ## fifa code is KSA
+    Saudi Arabia,           SAU      ## - SAU is iso code???
+    Iran,                   IRI      ## fifa code is IRN
+
+    ##  BAH in use by Bahmas!!! cannot use for Bahrain - sorry
+    ## Bahrain,                BAH      ## fifa code is BHR
+
+    ## asia & et al
+    ##  do NOT use for now
+    ##   C (Cuba), G (Gabun), Q (Qatar),
+    ##   K (Kambodscha),
+    ##   T (Thailand), Z (Zambia) - why? why not?
+    Japan, J
+
+    ## more quirky codes
+    Sudan,     SUD   #   fifa code is SDN
+    Mongolia,  MGL   #   fifa code is MNG
+
+    ## add more???
+    ##  todo/fix - add upstream to new alt_codes attribute - why? why not?
+    ##  for more see
+    ##  - note - kosovo has kos alt code in alt name already
+    ##             use all upcase alt names as alt codes - why? why not?
+    ##
+    ##     https://en.wikipedia.org/wiki/Comparison_of_alphabetic_country_codes

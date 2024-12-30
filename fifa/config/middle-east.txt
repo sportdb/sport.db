@@ -1,0 +1,33 @@
+==========================================
+==  Middle East
+
+# note: israel is listed here (uefa member)
+
+
+### Arabian Peninsula
+bh   Bahrain,              BHR,  fifa › afc › waff
+kw   Kuwait,               KUW,  fifa › afc › waff
+om   Oman,                 OMA,  fifa › afc › waff
+qa   Qatar,                QAT,  fifa › afc › waff
+sa   Saudi Arabia,         KSA,  fifa › afc › waff
+      | sau | saud
+ae   United Arab Emirates, UAE,  fifa › afc › waff
+      | UA Emirates | UAE
+ye   Yemen,                YEM,  fifa › afc › waff
+
+
+### Fertile Crescent
+iq   Iraq,                 IRQ,  fifa › afc › waff
+il   Israel,               ISR,  fifa › uefa         # note: was formerly a member of AFC (1954–1974); joined UEFA in 1994
+jo   Jordan,               JOR,  fifa › afc › waff
+lb   Lebanon,              LIB,  fifa › afc › waff
+ps   Palestine,            PLE,  fifa › afc › waff
+      | Palestinian Territories
+sy   Syria,                SYR,  fifa › afc › waff
+
+
+### Iranian Plateau
+ir   Iran,                 IRN,  fifa › afc › cafa   # note: NOT waff member
+      | IR Iran | Islamic Republic of Iran
+      | iri
+

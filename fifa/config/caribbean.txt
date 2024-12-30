@@ -1,0 +1,60 @@
+===============================================
+==  Caribbean        ## Caribbean Islands
+
+# note members Guyana, Suriname, French Guiana listed in south america
+# note members Bermuda listed in north america
+
+cu   Cuba,                 CUB,  fifa › concacaf › cfu
+jm   Jamaica,              JAM,  fifa › concacaf › cfu
+       | Jamaika [de]
+do   Dominican Republic,   DOM,  fifa › concacaf › cfu
+       | Dom. Republik [de]
+ht   Haiti,                HAI,  fifa › concacaf › cfu
+
+
+ag   Antigua and Barbuda,  ATG,  fifa › concacaf › cfu
+      | Antigua/Barb. | Antigua & Barbuda
+bs   Bahamas,              BAH,  fifa › concacaf › cfu
+bb   Barbados,             BRB,  fifa › concacaf › cfu
+dm   Dominica,             DMA,  fifa › concacaf › cfu
+gd   Grenada,              GRN,  fifa › concacaf › cfu
+kn   Saint Kitts and Nevis,  SKN, fifa › concacaf › cfu
+      | St. Kitts/N. | St. Kitts & Nevis
+lc   Saint Lucia,          LCA,  fifa › concacaf › cfu
+vc   Saint Vincent and the Grenadines,  VIN, fifa › concacaf › cfu
+      | St. Vincent/G. | St. Vincent & The Grenadines
+tt   Trinidad and Tobago,  TRI, fifa › concacaf › cfu
+      | Trinidad/Tob.  | Trinidad & Tobago
+
+# Territories & Dependencies
+pr   Puerto Rico       › US,  PUR,  fifa › concacaf › cfu
+vi   US Virgin Islands › US,  VIR,  fifa › concacaf › cfu      # Virgin Islands (U.S.)
+      | United States Virgin Islands | US Virgin I.
+
+aw   Aruba › NL,           ARU,    fifa › concacaf › cfu
+     ## check alt code  ABW - in use??
+cw   Curaçao › NL,         CUW,    fifa › concacaf › cfu
+
+ai   Anguilla › UK,        AIA,    fifa › concacaf › cfu
+ky   Cayman Islands › UK,  CAY,    fifa › concacaf › cfu
+      | Cayman Isl.
+ms   Montserrat › UK,      MSR,    fifa › concacaf › cfu
+tc   Turks and Caicos Islands › UK,  TCA,    fifa › concacaf › cfu
+      | Turks & Caicos Islands
+vg   British Virgin Islands › UK,  VGB,    fifa › concacaf › cfu
+
+
+
+## Non-FIFA member codes
+
+gp   Guadeloupe    › FR,  GLP,     concacaf › cfu   # note: NOT fifa member
+       ## check alternative code GPE for Guadeloupe ???
+mq   Martinique    › FR,  MTQ,     concacaf › cfu   # note: NOT fifa member
+mf   Saint Martin  › FR,  SMN,     concacaf › cfu   # note: NOT fifa member
+      | Saint Martin (French part)
+      ## check alternative code SMT or MAF? for Saint Martin in use ???
+sx   Sint Maarten  › NL,  SMA,     concacaf › cfu   # note: NOT fifa member
+      | Sint Maarten (Dutch part)
+      ## check alternative code SXM for Sint Maarten in use ???
+bq   Bonaire       › NL,  BOE,     concacaf › cfu   # note: NOT fifa member
+       ## check alternative (old?) code BON for Bonaire - in use ???

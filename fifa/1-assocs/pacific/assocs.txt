@@ -1,0 +1,44 @@
+###############################
+# Oceania w/ Australia
+
+
+aus, Football Federation Australia,  au, fifa|afc|aff    ## Australia
+gum, Guam Football Association,      gu, fifa|afc|eaff   ## Guam
+mnp, Northern Mariana Islands Football Association, mp,  afc|eaff   # Northern Mariana Islands - note: not a FIFA member
+
+
+### plw, Palau, PLW, pw    # note: not a FIFA member and AFC membership pending
+
+
+#########################################
+# OFC (Oceania Football Confederation)
+# - 14 members (11 full)
+
+asm, Football Federation American Samoa,   as,  fifa|ofc   ##  American Samoa
+cok, Cook Islands Football Association,    ck,  fifa|ofc   ##  Cook Islands
+fij, Fiji Football Association,            fj,  fifa|ofc   ##  Fiji
+ncl, Fédération Calédonienne de Football,  nc,  fifa|ofc   ##  New Caledonia
+nzl, New Zealand Football,                 nz,  fifa|ofc   ##  New Zealand
+png, Papua New Guinea Football Association, pg,  fifa|ofc  ##  Papua New Guinea
+sam, Football Federation Samoa,             ws,  fifa|ofc  ##  Samoa
+sol, Solomon Islands Football Federation,   sb,  fifa|ofc  ##  Solomon Islands
+# NB: pf = stands for Polynésie Française in french
+tah, Fédération Tahitienne de Football,     pf,  fifa|ofc  ##  Tahiti
+tga, Tonga Football Association,            to,  fifa|ofc  ##  Tonga
+van, Vanuatu Football Federation,           vu,  fifa|ofc  ##  Vanuatu
+
+
+####
+# not FIFA members
+
+###
+## todo: check if ofc tag will not get mixed up as three-letter country code?
+##  assume tag if last entry and three-letters? possible?
+## or add dummy letters (e.g) get trimmer e.g. ofc__ or __ofc - hack?
+##   better check for known three letter country code in db (if match)
+#     use country code if no match pass throug to tags!
+
+kir, Kiribati Islands Football Association, ki,  ofc  ## Kiribati
+niu, Niue Soccer Federation,                nu,  ofc  ## Niue
+tuv, Tuvalu National Football Association,  tv,  ofc  ## Tuvalu
+

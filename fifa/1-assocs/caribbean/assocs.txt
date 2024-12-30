@@ -1,0 +1,46 @@
+############################
+# Caribbean Islands
+
+
+# CONCACAF / CFU (Caribbean Football Union)
+# - 31 members (Caribbean Zone)
+
+# note members Guyana, Suriname, French Guiana listed in south america
+
+
+aia, Anguilla Football Association,   ai,  fifa|concacaf|cfu  ## Anguilla
+atg, Antigua and Barbuda Football Association, ag,  fifa|concacaf|cfu  ## Antigua and Barbuda
+abw, Arubaanse Voetbal Bond,   aw,  fifa|concacaf|cfu  ## Aruba
+bah, Bahamas Football Association,  bs,  fifa|concacaf|cfu  ## Bahamas
+brb, Barbados Football Association, bb,  fifa|concacaf|cfu  ## Barbados
+bmu, Bermuda Football Association,  bm,  fifa|concacaf|cfu  ## Bermuda
+vgb, British Virgin Islands Football Association, vg,  fifa|concacaf|cfu  ## British Virgin Islands
+cym, Cayman Islands Football Association,  ky,  fifa|concacaf|cfu   ## Cayman Islands
+cub, Asociación de Fútbol de Cuba,           cu,  fifa|concacaf|cfu  ## Cuba
+cuw, Curaçao Football Federation,  cw,  fifa|concacaf|cfu   ## Curaçao
+dma, Dominica Football Association,  dm,  fifa|concacaf|cfu  ## Dominica
+dom, Federación Dominicana de Fútbol, do,  fifa|concacaf|cfu  ## Dominican Republic
+grn, Grenada Football Association,  gd,  fifa|concacaf|cfu   ## Grenada
+hai, Fédération Haïtienne de Football,  ht,  fifa|concacaf|cfu  ## Haiti
+jam, Jamaica Football Federation,       jm,  fifa|concacaf|cfu  ## Jamaica
+msr, Montserrat Football Association,     ms,  fifa|concacaf|cfu  ## Montserrat
+pur, Federación Puertorriqueña de Fútbol,  pr,  fifa|concacaf|cfu  ## Puerto Rico
+skn, Saint Kitts and Nevis Football Association,  kn,  fifa|concacaf|cfu  ## Saint Kitts and Nevis
+lca, Saint Lucia Football Association,  lc,  fifa|concacaf|cfu  ## Saint Lucia
+vin, Saint Vincent and the Grenadines Football Federation,  vc,  fifa|concacaf|cfu  ## Saint Vincent and the Grenadines
+tri, Trinidad and Tobago Football Federation,  tt,  fifa|concacaf|cfu   ## Trinidad and Tobago
+tca, Turks and Caicos Islands Football Association, tc,  fifa|concacaf|cfu  ## Turks and Caicos Islands
+vir, U.S. Virgin Islands Soccer Federation,  vi,  fifa|concacaf|cfu   ## United States Virgin Islands
+
+
+####
+# not FIFA members
+
+bon, Bonaire Football Federation,     nl,  concacaf|cfu    #  Bonaire - note: not a FIFA member
+gpe, Ligue Guadeloupéenne de Football,  gp,  concacaf|cfu    #  Guadeloupe - note: not a FIFA member
+mtq, Ligue de Football de Martinique,  mq,  concacaf|cfu    #  Martinique - note: not a FIFA member 
+maf, Comité de Football des Îles du Nord, mf,   concacaf|cfu    # Saint Martin - note: not a FIFA member
+
+## fix:  use country .sx ?? check world.db to get it listed!!!
+sxm, Sint Maarten Soccer Association, nl,  concacaf|cfu     # Sint Maarten - note: not a FIFA member
+

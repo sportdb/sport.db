@@ -1,0 +1,27 @@
+#############################
+#  South America 
+
+
+# CONMEBOL (Confederación Sudamericana de Fútbol)
+# - 10 members
+#   see www.fifa.com/worldcup/preliminaries/southamerica/teams
+
+arg, Asociación del Fútbol Argentino,    ar, fifa|conmebol   ## Argentina
+bra, Confederação Brasileira de Futebol, br, fifa|conmebol   ## Brazil
+chi, Federación de Fútbol de Chile,      cl, fifa|conmebol   ## Chile
+par, Asociación Paraguaya de Fútbol,     py, fifa|conmebol   ## Paraguay
+uru, Asociación Uruguaya de Fútbol,      uy, fifa|conmebol   ## Uruguay
+col, Federación Colombiana de Fútbol,    co, fifa|conmebol   ## Colombia
+ecu, Federación Ecuatoriana de Fútbol,   ec, fifa|conmebol   ## Ecuador
+per, Federación Peruana de Fútbol,       pe, fifa|conmebol  ## Peru
+ven, Federación Venezolana de Fútbol,    ve, fifa|conmebol   ## Venezuela
+bol, Federación Boliviana de Fútbol,     bo, fifa|conmebol   ## Bolivia
+
+
+# NB: guyana, suriname n french guiana
+#  are part of north/central & caribbean according to fifa/concacaf
+
+guy, Guyana Football Federation,    gy,  fifa|concacaf|cfu   ## Guyana
+sur, Surinaamse Voetbal Bond,       sr,  fifa|concacaf|cfu   ## Suriname
+gyf, Ligue de Football de la Guyane, gf,  concacaf|cfu   # French Guiana - note: not a member of fifa
+

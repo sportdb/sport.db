@@ -1,0 +1,16 @@
+==================================
+==  North America
+
+ca   Canada,               CAN,  fifa › concacaf › nafu
+      | Kanada [de]
+      | cdn  # int'l vehicle (license) plate
+us   United States,        USA,  fifa › concacaf › nafu
+      | US | USA       ### note - incl. USA as name too - why? why not?
+mx   Mexico,               MEX,  fifa › concacaf › nafu
+      | México [es]
+      | Mexiko [de]
+
+# Territories & Dependencies
+bm   Bermuda › UK,         BER,  fifa › concacaf › cfu
+    ## check alt old? code BMU - in use??
+gl   Greenland › DK,       GRL

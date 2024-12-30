@@ -127,12 +127,6 @@ def self._build_batch( matches, rounds: true )
   ## note: make sure rounds is a bool, that is, true or false  (do NOT pass in strings etc.)
   raise ArgumentError, "rounds flag - bool expected; got: #{rounds.inspect}"    unless rounds.is_a?( TrueClass ) || rounds.is_a?( FalseClass )
 
-  ## note: for now always english
-  round              = 'Matchday'
-  format_date        = ->(date) { date.strftime( '%a %b/%-d' )  }
-  format_score       = ->(match) { match.score.to_s( lang: 'en' ) }
-  round_translations = ROUND_TRANSLATIONS
-
   buf = String.new
 
   last_round = nil
@@ -150,7 +144,7 @@ def self._build_batch( matches, rounds: true )
             match.round =~ /^[0-9]+$/   ## all numbers/digits
              ## default "class format
              ##   e.g. Runde 1, Spieltag 1, Matchday 1, Week 1
-             buf << "#{round} #{match.round}"
+             buf << "Round #{match.round}"
          else ## use as is from match
            ## note: for now assume english names
             if match.round.nil?
@@ -160,7 +154,7 @@ def self._build_batch( matches, rounds: true )
               exit 1
             end
 
-           buf << (round_translations[match.round] || match.round)
+           buf << (ROUND_TRANSLATIONS[match.round] || match.round)
          end
          ## note - reset last_date & last_time on every new round header
          last_date = nil
@@ -196,7 +190,7 @@ def self._build_batch( matches, rounds: true )
          if date_yyyymmdd != last_date
             ## note: add an extra leading blank line (if no round headings printed)
             buf << "\n"   unless rounds
-            buf << "[#{format_date.call( date )}]\n"
+            buf << "[#{date.strftime( '%a %b/%-d' )}]\n"
             last_time = nil
          end
      end
@@ -223,7 +217,8 @@ def self._build_batch( matches, rounds: true )
 
      line << "%-23s" % team1    ## note: use %-s for left-align
 
-     line << "  #{format_score.call( match )}  "  ## note: separate by at least two spaces for now
+     ## note: separate by at least two spaces for now
+     line << "  #{match.score.to_s( lang: 'en' )}  "  
 
      line << "%-23s" % team2
 
@@ -267,21 +262,6 @@ def self._build_batch( matches, rounds: true )
   end
   buf
 end
-
-
-def self.write( path, matches, name:, rounds: true)
-
-  buf = build( matches, rounds: rounds )
-
-  ## for convenience - make sure parent folders/directories exist
-  FileUtils.mkdir_p( File.dirname( path) )  unless Dir.exist?( File.dirname( path ))
-
-  puts "==> writing to >#{path}<..."
-  File.open( path, 'w:utf-8' ) do |f|
-    f.write( "= #{name}\n" )
-    f.write( buf )
-  end
-end # method self.write
 
 
 def self.build_goals( goals )

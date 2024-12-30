@@ -1,8 +1,10 @@
 
-require 'sportdb/quick'
+require 'sportdb/structs'
 
 
-
+##
+### todo/fix - add SportDb namespace for config? why? why not?
+##     check where used?
 module Writer
   class Configuration
      def out_dir()        @out_dir   || './tmp'; end
@@ -20,6 +22,7 @@ end   # module Writer
 
 
 
+
 ###
 # our own code
 require_relative 'writers/version'
@@ -27,9 +30,25 @@ require_relative 'writers/goals'
 require_relative 'writers/txt_writer'
 
 
-###
-#  fbtxt & friends tools   - remove in future - why? why not?
-require 'football/timezones'    ## pulls in read_datasets, etc.
+
+module SportDb
+class TxtMatchWriter
+  def self.write( path, matches, name:, rounds: true)
+
+    buf = build( matches, rounds: rounds )
+  
+    ## for convenience - make sure parent folders/directories exist
+    FileUtils.mkdir_p( File.dirname( path) )  unless Dir.exist?( File.dirname( path ))
+  
+    puts "==> writing to >#{path}<..."
+    File.open( path, 'w:utf-8' ) do |f|
+      f.write( "= #{name}\n" )
+      f.write( buf )
+    end
+  end # method self.write
+end  # class TxtMatchWriter
+end  # module SportDb
+
 
 
 

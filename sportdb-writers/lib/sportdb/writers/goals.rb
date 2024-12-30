@@ -1,6 +1,7 @@
 ######
 # goals helper
 #   todo/check/fix:  move upstream for (re)use  - why? why not?
+###   yes, fix - move to  csv in sportdb-structs!!!!
 
 
 module Writer

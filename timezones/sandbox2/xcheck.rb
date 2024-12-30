@@ -1,3 +1,8 @@
+###
+##  to run use:
+##    $ ruby sandbox2/xcheck.rb
+
+
 require 'cocos'
 
 

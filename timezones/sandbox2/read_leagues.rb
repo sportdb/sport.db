@@ -1,17 +1,17 @@
 ##########
 # to run use:
-#   $ ruby sandbox/read_leagues.rb
+#   $ ruby sandbox2/read_leagues.rb
 
 require 'cocos'
 require 'season-formats'
 
 
-require_relative '../lib/sportdb/writers/league_config'
+require_relative '../lib/football-timezones/league_config'
 
 
 
 leagues = SportDb::LeagueConfig.new
-leagues.add( read_csv( './config/leagues_europe.csv' ))
+leagues.add( read_csv( './config/leagues.csv' ))
 pp leagues
 
 

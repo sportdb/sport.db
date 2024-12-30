@@ -1,7 +1,7 @@
 ## note: use the local version of gems
-$LOAD_PATH.unshift( File.expand_path( '../date-formats/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../season-formats/lib' ))
 $LOAD_PATH.unshift( File.expand_path( '../score-formats/lib' ))
-$LOAD_PATH.unshift( File.expand_path( '../sports/lib' ))
+$LOAD_PATH.unshift( File.expand_path( '../sportdb-structs/lib' ))
 
 
 ## minitest setup
@@ -9,7 +9,7 @@ require 'minitest/autorun'
 
 
 ## our own code
-require 'sports'
+require 'sportdb/structs'
 
 
 
@@ -24,6 +24,6 @@ class Test    ## todo/check: works with module too? use a module - why? why not?
 end
 
 
-CsvMatchParser = Sports::CsvMatchParser
+CsvMatchParser = SportDb::CsvMatchParser
 
 

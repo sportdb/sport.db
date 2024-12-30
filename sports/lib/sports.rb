@@ -1,10 +1,10 @@
 ## 3rd party gems
-require 'sportdb/formats'
+require 'sportdb/structs'
 
 
 ###
 # our own code
-require 'sports/version'    # let version always go first
+require_relative 'sports/version'    # let version always go first
 
 
 # auto-include to "top-level" data struct(ures) / classes e.g.
@@ -13,4 +13,3 @@ include Sports
 
 
 puts SportDb::Module::Sports.banner   # say hello
-

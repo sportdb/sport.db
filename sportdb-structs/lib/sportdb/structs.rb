@@ -3,6 +3,8 @@ require 'alphabets'       # unaccent, downcase_i18n, variants, ...
 require 'season/formats'  # Season.parse, ...
 require 'score/formats'
 
+require 'cocos'    # pull-in for read_csv & more
+
 
 ###
 # our own code
@@ -98,6 +100,38 @@ module SportDb
     EventInfo    = ::Sports::EventInfo
   end   # module Import
 end     # module SportDb
+
+
+
+
+###
+#  csv (tabular dataset) support / machinery
+require_relative 'csv/match_status_parser'
+require_relative 'csv/goal'
+require_relative 'csv/goal_parser_csv'
+require_relative 'csv/match_parser_csv'
+
+
+### add convenience shortcut helpers
+module Sports
+  class Match
+    def self.read_csv( path, headers: nil, filters: nil, converters: nil, sep: nil )
+       SportDb::CsvMatchParser.read( path,
+                                       headers:    headers,
+                                       filters:    filters,
+                                       converters: converters,
+                                       sep:        sep )
+    end
+
+    def self.parse_csv( txt, headers: nil, filters: nil, converters: nil, sep: nil )
+       SportDb::CsvMatchParser.parse( txt,
+                                        headers:    headers,
+                                        filters:    filters,
+                                        converters: converters,
+                                        sep:        sep )
+    end
+  end # class Match
+end # module Sports
 
 
 

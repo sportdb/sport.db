@@ -181,12 +181,14 @@ class Match
 
 
 def as_json
-  ##
+  #####
+  ##  note - use string keys (NOT symbol for data keys)
+  ##            for easier json compatibility
   data = {}
 
   ## check round
   if @round
-    data[:round ] = if round.is_a?( Integer )
+    data['round'] = if round.is_a?( Integer )
                       "Matchday #{@round}"
                     else ## assume string
                       @round
@@ -194,28 +196,28 @@ def as_json
   end
 
 
-  data[:num] = @num    if @num
+  data['num'] = @num    if @num
   if @date
     ## assume 2020-09-19 date format!!
-    data[:date]  = @date.is_a?( String ) ? @date : @date.strftime('%Y-%m-%d')
+    data['date']  = @date.is_a?( String ) ? @date : @date.strftime('%Y-%m-%d')
 
-    data[:time] = @time  if @time
+    data['time'] = @time  if @time
   end
 
-  data[:team1] =  @team1.is_a?( String ) ? @team1 : @team1.name
-  data[:team2] =  @team2.is_a?( String ) ? @team2 : @team2.name
+  data['team1'] =  @team1.is_a?( String ) ? @team1 : @team1.name
+  data['team2'] =  @team2.is_a?( String ) ? @team2 : @team2.name
 
-  data[:score] = {}
+  data['score'] = {}
 
-  data[:score][:ht] = [@score1i,   @score2i]     if @score1i && @score2i
-  data[:score][:ft] = [@score1,    @score2]      if @score1 && @score2
-  data[:score][:et] = [@score1et,  @score2et]    if @score1et && @score2et
-  data[:score][:p]  = [@score1p,   @score2p]     if @score1p && @score2p
+  data['score']['ht'] = [@score1i,   @score2i]     if @score1i && @score2i
+  data['score']['ft'] = [@score1,    @score2]      if @score1 && @score2
+  data['score']['et'] = [@score1et,  @score2et]    if @score1et && @score2et
+  data['score']['p']  = [@score1p,   @score2p]     if @score1p && @score2p
 
-  data[:status] = @status  if @status
+  data['status'] = @status  if @status
 
-  data[:group]  = @group   if @group
-  data[:stage]  = @stage   if @stage
+  data['group']  = @group   if @group
+  data['stage']  = @stage   if @stage
 
 =begin
       "round": "Spieltag 1",

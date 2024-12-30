@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ###
 #  to run use
 #     ruby -I . test_csv_match_parser_utils.rb
@@ -7,7 +5,7 @@
 
 require 'helper'
 
-class TestCsvMatchParserUtils < MiniTest::Test
+class TestCsvMatchParserUtils < Minitest::Test
 
   def test_find_seasons
      pp = CsvMatchParser.find_seasons( "#{Test.data_dir}/dl/AUT.csv" )  ## defaults to col: 'Season', col_sep: ','

@@ -2,6 +2,10 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
+lib/sportdb/csv/goal.rb
+lib/sportdb/csv/goal_parser_csv.rb
+lib/sportdb/csv/match_parser_csv.rb
+lib/sportdb/csv/match_status_parser.rb
 lib/sportdb/structs.rb
 lib/sportdb/structs/country.rb
 lib/sportdb/structs/event_info.rb

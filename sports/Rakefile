@@ -8,10 +8,10 @@ Hoe.spec 'sports' do
   self.summary = "sports - sport data structures for matches, scores, leagues, seasons, rounds, groups, teams, clubs and more"
   self.description = summary
 
-  self.urls = ['https://github.com/sportdb/sport.db']
+  self.urls = { home: 'https://github.com/sportdb/sport.db' }
 
   self.author = 'Gerald Bauer'
-  self.email = 'opensport@googlegroups.com'
+  self.email = 'gerald.bauer@gmail.com'
 
   # switch extension to .markdown for gihub formatting
   self.readme_file  = 'README.md'
@@ -20,10 +20,10 @@ Hoe.spec 'sports' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-    ['sportdb-formats', '>= 1.1.4'],
+    ['sportdb-structs', '>= 0.5.0'],
   ]
 
   self.spec_extras = {
-    required_ruby_version: '>= 2.2.2'
+    required_ruby_version: '>= 3.1.0'
   }
 end

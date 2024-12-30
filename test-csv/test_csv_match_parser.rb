@@ -6,7 +6,7 @@
 require 'helper'
 
 
-class TestCsvMatchParser < MiniTest::Test
+class TestCsvMatchParser < Minitest::Test
 
 ##
 # Div,Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR,HTHG,HTAG,HTR,

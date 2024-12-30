@@ -2,13 +2,16 @@
 #  to run use:
 #     ruby samples/standings.rb
 
-require_relative 'boot'
+require_relative 'helper'
 
 
 
-matches = Match.read_csv( 'england/2010s/2019-20/eng.1.csv' )
+matches = Match.read_csv( '/sports/cache.api.fbdat/2024-25/eng.1.csv' )
 pp matches.size
 pp matches
+
+data = matches.map {|match| match.as_json }
+pp data
 
 
 standings = Standings.new( matches )

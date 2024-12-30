@@ -20,6 +20,7 @@ Hoe.spec 'sportdb-structs' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
+    ['cocos',          '>= 0.4.0'],
     ['alphabets',      '>= 1.0.2'],
     ['score-formats',  '>= 0.1.1'],
     ['season-formats', '>= 0.0.1'],

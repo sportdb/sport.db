@@ -1,6 +1,0 @@
-CHANGELOG.md
-Manifest.txt
-README.md
-Rakefile
-bin/fbgen
-bin/fbtxt

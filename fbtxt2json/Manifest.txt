@@ -1,5 +1,0 @@
-CHANGELOG.md
-Manifest.txt
-README.md
-Rakefile
-bin/fbtxt2json

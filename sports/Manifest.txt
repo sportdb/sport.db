@@ -1,6 +1,0 @@
-CHANGELOG.md
-Manifest.txt
-README.md
-Rakefile
-lib/sports.rb
-lib/sports/version.rb

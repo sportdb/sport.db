@@ -1,5 +1,0 @@
-CHANGELOG.md
-Manifest.txt
-README.md
-Rakefile
-lib/football.rb

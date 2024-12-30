@@ -3,11 +3,8 @@ Manifest.txt
 README.md
 Rakefile
 bin/fbt
+bin/fbx
 lib/sportdb/quick.rb
-lib/sportdb/quick/csv/goal.rb
-lib/sportdb/quick/csv/goal_parser_csv.rb
-lib/sportdb/quick/csv/match_parser_csv.rb
-lib/sportdb/quick/csv/match_status_parser.rb
 lib/sportdb/quick/match_parser.rb
 lib/sportdb/quick/quick_league_outline_reader.rb
 lib/sportdb/quick/quick_match_reader.rb

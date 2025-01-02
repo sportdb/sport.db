@@ -3,9 +3,6 @@ require 'cocos'
 require 'season/formats'  # e.g. Season() support machinery
 
 
-## more stdlibs
-require 'optparse'   ## check - already auto-required in cocos? keep? why? why not?
-
 
 
 ####
@@ -34,10 +31,6 @@ require_relative 'parser/parser'
 ##       use  read_outline(), parse_outline()  - why? why not?
 require_relative 'parser/outline_reader'
 
-
-require_relative 'parser/opts'
-require_relative 'parser/linter'
-require_relative 'parser/fbtok/main'
 
 
 ###

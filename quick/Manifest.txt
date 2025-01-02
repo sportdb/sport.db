@@ -2,8 +2,6 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
-bin/fbt
-bin/fbx
 lib/sportdb/quick.rb
 lib/sportdb/quick/match_parser.rb
 lib/sportdb/quick/quick_league_outline_reader.rb

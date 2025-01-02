@@ -21,7 +21,7 @@ Hoe.spec 'sportdb-quick' do
   self.licenses = ['Public Domain']
 
   self.extra_deps = [
-       ['sportdb-parser',  '>= 0.2.2'],
+       ['sportdb-parser',  '>= 0.4.0'],
        ['sportdb-structs', '>= 0.5.0'],
        ['logutils',        '>= 0.6.1'],
   ]

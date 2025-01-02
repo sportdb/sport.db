@@ -2,7 +2,6 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
-bin/fbchk
 lib/sportdb/formats.rb
 lib/sportdb/formats/datafile_package.rb
 lib/sportdb/formats/package.rb

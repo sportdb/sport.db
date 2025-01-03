@@ -1,7 +1,0 @@
-
-
-1  =>  superleague,  Greek Superleague
-
-
-[2005-06]    ## until (including) 2005-06 season
-1  =>  alphaethniki,  Greek Alpha Ethniki

@@ -1,9 +1,0 @@
-
-
-1  =>  ligue1, French Ligue 1
-2  =>  ligue2, French Ligue 2
-
-
-[2001-02]      ## until (including) 2001-02 season
-1  =>  division1,  ?     ## use championat or something? check official name
-2  =>  division2,  ?

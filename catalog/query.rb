@@ -25,6 +25,7 @@ puts "        #{CatalogDb::Model::LeagueName.count} league names"
 ###################
 ### check-up on (extra) event infos
 
+=begin
 puts "  #{CatalogDb::Model::EventInfo.count} event infos"
 
 at1 = CatalogDb::Model::League.find_by!( key: 'at.1' )
@@ -33,6 +34,8 @@ pp at1
 infos = at1.event_infos
 pp infos
 puts " #{infos.count} info(s)"
+=end
+
 
 
 ## debug

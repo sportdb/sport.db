@@ -163,6 +163,52 @@ SQL
       end
 
 
+
+##############################################
+#   try match by code and seaons (via league_periods)
+
+     def self._calc_yyyymm( season )
+        start_yyyymm =     if season.calendar?
+                              "#{season.start_year}01".to_i
+                           else
+                              "#{season.start_year}07".to_i
+                           end
+
+        end_yyyymm   =     if season.calendar?
+                              "#{season.end_year}12".to_i
+                           else
+                              "#{season.end_year}06".to_i
+                           end
+
+      [start_yyyymm, end_yyyymm]
+      end
+
+      ##  find a different name - why? why not?
+      #     change season kwarg to pos arg - why? why not?
+      def self.match_by_code_and_season( code, season: )
+        code = normalize( code )
+        season = Season( season )
+        start_yyyymm, end_yyyymm = _calc_yyyymm( season )
+
+        rows = nil
+        ## note: returns empty array if no match and NOT nil
+         rows =  execute( <<-SQL )
+    SELECT #{self.columns.join(', ')}
+    FROM leagues
+    WHERE leagues.key IN 
+    (SELECT league_periods.key
+      FROM league_periods
+      INNER JOIN league_period_codes ON league_periods.id = league_period_codes.league_period_id
+      WHERE league_period_codes.code = '#{code}' AND
+            league_period_codes.start_yyyymm <=  #{start_yyyymm} AND
+            league_period_codes.end_yyyymm  >= #{end_yyyymm}
+    )
+SQL
+
+     ## wrap results array into struct records
+     rows.map {|row| _build_league( row )}
+      end
+
 end  # class League
 end  # module Metal
 end  # module CatalogDb

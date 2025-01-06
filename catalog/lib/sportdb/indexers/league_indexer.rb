@@ -95,7 +95,7 @@ class LeagueIndexer < Indexer
        end
      end
 
-     ## gat (more/alt optional) codes via League#codes
+     ## get (more/alt optional) codes via League#codes
      more_codes = rec.codes
      codes += more_codes
 
@@ -121,6 +121,7 @@ class LeagueIndexer < Indexer
       ### add league periods
       rec.periods.each do |period|
         pp period
+ 
         period_rec = Model::LeaguePeriod.create!( key:          league.key,
                                                   tier_key:     period.key,
                                                   name:         period.name,
@@ -129,15 +130,18 @@ class LeagueIndexer < Indexer
                                                   prev_name:    period.prev_name,
                                                   start_season: period.start_season ? period.start_season.to_s : nil,
                                                   end_season:   period.end_season ? period.end_season.to_s : nil )
-
+                                                  
         start_yyyymm, end_yyyymm = calc_yyyyymm( period )
-
+ 
         codes = [period.key]
         ## lookup helpers for codes & names
         if rec.country
             alt_codes_auto = gen_alt_codes( period.key, country: rec.country )
             codes += alt_codes_auto
         end
+        
+        ## get (more/alt optional) codes via LeaguePeriod#codes
+        codes += period.codes
 
         norms = codes.map { |code| normalize( code ) }
         norms = norms.uniq

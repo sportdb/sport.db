@@ -186,6 +186,7 @@ create_table :league_periods do |t|
   t.string :end_season
 end
 
+
 create_table :league_period_names, id: false do |t|
   t.integer :league_period_id, null: false
 

@@ -85,7 +85,10 @@ QNAMES = [
 
 def parse
   recs = []
-  last_rec = nil
+
+  # note - track last league_period record too (for adding alt names to period and more)
+  last_rec    = nil  # rename to last_league or last_league_rec - why? why not?
+  last_period = nil   
 
   leagues  = {}   ## lookup leagues for adding periods
                   ##  note - gets reset for every section!!!
@@ -149,7 +152,8 @@ def parse
 
           logger.debug "alt_names: #{values.join( '|' )}"
 
-          last_rec.alt_names += values
+          last_rec.alt_names    += values
+          last_period.alt_names += values
       else
         ## assume "regular" line
         ##  check if starts with id  (todo/check: use a more "strict"/better regex capture pattern!!!)
@@ -173,7 +177,7 @@ def parse
                                [ ]{2,}
                              /x )
 
-        ## note - for now key is required (maybe make optional in future
+        ## note - for now (canonical period) key is required (maybe make optional in future
         ##                   and auto-gen)
         if !KEY_RE.match(values[0])
           puts "** !!! ERROR !!! missing (or invalid) key for (canonical) league name; got >#{values[0]}<"
@@ -275,7 +279,8 @@ def parse
           rec.periods << period
           pp rec
 
-          last_rec = rec
+          last_rec    = rec
+          last_period = period
       end
       end  # each line
     else

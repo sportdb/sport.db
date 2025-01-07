@@ -59,4 +59,19 @@ pp LeaguePeriod.find_by( name: 'English Premier League', season: '2024/25' )
 pp LeaguePeriod.find_by( name: 'Österr. Bundesliga', season: '2024/25' )
 
 
+
+####
+#  try new league (by code) with season lookup
+pp League.match_by( code: 'eng.1',  season: '2024/25' )
+pp League.match_by( code: 'eng.1',  season: '1991/92' )
+pp League.match_by( code: 'eng.1',  season: '1888/89' )
+
+pp League.match_by( code: 'eng.pl', season: '2024/25' )
+pp League.match_by( code: 'eng.pl', season: '1991/92' )
+
+pp League.match_by( code: 'eng.2', season: '2024/25' )
+pp League.match_by( code: 'at.1', season: '2024/25' )
+pp League.match_by( code: 'at.bl', season: '2024/25' )
+
+
 puts "bye"

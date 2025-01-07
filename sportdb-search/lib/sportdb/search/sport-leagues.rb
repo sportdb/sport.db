@@ -114,12 +114,25 @@ class League
 
   ###################
   ## core required delegates  - use delegate generator - why? why not?
-  def self.match_by( name: nil, code: nil, country: nil )
-    ## todo/fix upstream - remove "generic" match_by() - why? why not?
-    ###
-    if code && name.nil?
-     _search.match_by_code( code, country: country )
-   elsif name && code.nil?
+  def self.match_by( name: nil, code: nil, 
+                       country: nil,
+                       season:  nil )
+   ## todo/fix upstream - remove "generic" match_by() - why? why not?
+   ##
+   if code && name.nil? 
+    ### todo/fix -  simplify - why? why not?
+    ##   remove country from code match query
+    ##               assume use country prefixes or are unique
+    ##     e.g. Premier Leaguge  is eng.1 or eng.pl etc. not just pl
+    ##           Bundesliga      is de.1 or de.bl etc not just bl
+    ##          and so on 
+      if country
+        ## add deprecated warning - why? why not?
+        puts "[deprecated] do NOT use country param for League.match_by_code; will get reomved"
+      end
+     _search.match_by_code( code, country: country, 
+                                  season: season )
+   elsif name && code.nil? && season.nil?  # note - season only supported for code for now
      _search.match_by_name( name, country: country )
    else
      raise ArgumentError, "League.match_by - one (and only one arg) required - code: or name:"

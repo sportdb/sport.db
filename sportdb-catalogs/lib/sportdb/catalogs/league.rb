@@ -44,43 +44,77 @@ SQL
                              )
      end
 
+
+     def self._query_by_code( code: )
+      execute( <<-SQL )
+      SELECT #{self.columns.join(', ')}
+      FROM leagues
+      INNER JOIN league_codes ON leagues.key  = league_codes.key
+      WHERE league_codes.code = '#{code}'
+SQL
+     end
+
+     def self._query_by_code_and_country( code:, country: )
+      execute( <<-SQL )
+      SELECT #{self.columns.join(', ')}
+      FROM leagues
+      INNER JOIN league_codes ON leagues.key  = league_codes.key
+      WHERE league_codes.code = '#{code}' AND
+            leagues.country_key = '#{country}'                     
+SQL
+     end
+
+     def self._query_by_code_and_season( code:, start_yyyymm:,
+                                                end_yyyymm: )
+       execute( <<-SQL )
+       SELECT #{self.columns.join(', ')}
+       FROM leagues
+       WHERE leagues.key IN 
+       (SELECT league_periods.key
+        FROM league_periods
+        INNER JOIN league_period_codes ON league_periods.id = league_period_codes.league_period_id
+        WHERE league_period_codes.code = '#{code}' AND
+              league_period_codes.start_yyyymm <=  #{start_yyyymm} AND
+              league_period_codes.end_yyyymm  >= #{end_yyyymm}
+       )
+ SQL
+     end 
+
+
+
       def self.match_by_code( code,
-                               country: nil )
+                               country: nil,
+                               season:  nil )
         ## note: match must for now always include name
         ###  todo/fix: allow special normalize formula for
         ##                 code - why? why not?
         ##              e.g. allow ö1 or ö or such - why? why not?
         code = normalize( code )
 
-        rows = nil
-        if country.nil?
-            ## note: returns empty array if no match and NOT nil
-             rows =  execute( <<-SQL )
-        SELECT #{self.columns.join(', ')}
-        FROM leagues
-        INNER JOIN league_codes ON leagues.key  = league_codes.key
-        WHERE league_codes.code = '#{code}'
-SQL
-        else  ## filter by country
-          ## note: also skip international leagues & cups (e.g. champions league etc.) for now - why? why not?
+   
+        rows = if country.nil? && season.nil?
+                 ## note: returns empty array if no match and NOT nil
+                 _query_by_code( code: code )
+               elsif country && season.nil?   ## filter by country
+                 ## note: also skip international leagues & cups (e.g. champions league etc.) for now - why? why not?
 
-          ## note: country assumes / allows the country key or fifa code for now
-          ## note: allow passing in of country struct too
-          country_rec = _country( country )
-
-          rows = execute( <<-SQL )
-          SELECT #{self.columns.join(', ')}
-          FROM leagues
-          INNER JOIN league_codes ON leagues.key  = league_codes.key
-          WHERE league_codes.code = '#{code}' AND
-                leagues.country_key = '#{country_rec.key}'
-
-SQL
-        end
+                  ## note: country assumes / allows the country key or fifa code for now
+                  ## note: allow passing in of country struct too
+                  country_rec = _country( country )
+                  _query_by_code_and_country( code: code, country: country_rec.key )
+               elsif season && country.nil?               
+                  season = Season( season )
+                  start_yyyymm, end_yyyymm = _calc_yyyymm( season )
+                  _query_by_code_and_season( code: code, start_yyyymm: start_yyyymm,
+                                                         end_yyyymm: end_yyyymm )
+               else
+                   raise ArgumentError, "match_by_code - code and optional country or season expected"
+               end
 
          ## wrap results array into struct records
          rows.map {|row| _build_league( row )}
       end
+
 
       def self.match_by_name( name,
                                country: nil )
@@ -166,6 +200,7 @@ SQL
 
 ##############################################
 #   try match by code and seaons (via league_periods)
+##     todo/fix - move up for reuse (duplicated in league_period etc) - why? why not?
 
      def self._calc_yyyymm( season )
         start_yyyymm =     if season.calendar?
@@ -183,31 +218,6 @@ SQL
       [start_yyyymm, end_yyyymm]
       end
 
-      ##  find a different name - why? why not?
-      #     change season kwarg to pos arg - why? why not?
-      def self.match_by_code_and_season( code, season: )
-        code = normalize( code )
-        season = Season( season )
-        start_yyyymm, end_yyyymm = _calc_yyyymm( season )
-
-        rows = nil
-        ## note: returns empty array if no match and NOT nil
-         rows =  execute( <<-SQL )
-    SELECT #{self.columns.join(', ')}
-    FROM leagues
-    WHERE leagues.key IN 
-    (SELECT league_periods.key
-      FROM league_periods
-      INNER JOIN league_period_codes ON league_periods.id = league_period_codes.league_period_id
-      WHERE league_period_codes.code = '#{code}' AND
-            league_period_codes.start_yyyymm <=  #{start_yyyymm} AND
-            league_period_codes.end_yyyymm  >= #{end_yyyymm}
-    )
-SQL
-
-     ## wrap results array into struct records
-     rows.map {|row| _build_league( row )}
-      end
 
 end  # class League
 end  # module Metal

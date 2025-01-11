@@ -1,0 +1,74 @@
+grammar Arithmetic
+  rule expression
+    term (add_op term)*
+    {
+      def value
+        elements.inject(elements[0].value) do |result, element|
+          element.respond_to?(:value) ? element.value(result) : result
+        end
+      end
+    }
+  end
+
+  rule term
+    factor (mul_op factor)*
+    {
+      def value
+        elements.inject(elements[0].value) do |result, element|
+          element.respond_to?(:value) ? element.value(result) : result
+        end
+      end
+    }
+  end
+
+  rule factor
+    number / '(' expression ')'
+    {
+      def value
+        elements[0].respond_to?(:value) ? elements[0].value : elements[0].text_value.to_i
+      end
+    }
+  end
+
+  rule number
+    [0-9]+
+  end
+
+  rule add_op
+    space? ('+' / '-') space?
+    {
+      def value(left)
+        operator == '+' ? left + right.value : left - right.value
+      end
+
+      def operator
+        elements[1].text_value
+      end
+
+      def right
+        elements[2]
+      end
+    }
+  end
+
+  rule mul_op
+    space? ('*' / '/') space?
+    {
+      def value(left)
+        operator == '*' ? left * right.value : left / right.value
+      end
+
+      def operator
+        elements[1].text_value
+      end
+
+      def right
+        elements[2]
+      end
+    }
+  end
+
+  rule space
+    [ \t\r\n]+
+  end
+end

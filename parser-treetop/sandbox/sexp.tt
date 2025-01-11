@@ -1,0 +1,29 @@
+
+grammar Sexp
+
+   rule expression
+     space? '(' body ')' space? 
+   end
+
+   rule body
+    (expression / identifier / integer / string / space )* 
+   end
+
+
+
+  rule integer
+      ('+' / '-')? [0-9]+ 
+  end
+    
+   rule string
+     '"' ([^"\\] / "\\" . )* '"' 
+   end
+   
+   rule identifier
+     [a-zA-Z\=\*] [a-zA-Z0-9_\=\*]* 
+   end
+   
+   rule space
+     [\s]+
+   end
+end

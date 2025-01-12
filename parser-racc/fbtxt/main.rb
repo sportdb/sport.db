@@ -12,6 +12,23 @@ require_relative 'parser'
 
 
 class MatchParser
+
+
+
+GroupDef   = Struct.new( :name, :teams )
+RoundDef   = Struct.new( :name, :date, :duration )  
+DateHeader = Struct.new( :date ) 
+GroupHeader = Struct.new( :name )
+RoundHeader = Struct.new( :names )
+
+MatchLine   = Struct.new( :ord, :date, :time,
+                          :team1, :team2, :score, 
+                          :geo )   ## change to geos - why? why not?
+
+GoalLine    = Struct.new( :goals1, :goals2 )
+
+
+
 def initialize(input)
     puts "==> input:"
     puts input
@@ -29,10 +46,13 @@ def initialize(input)
 #      puts "Parse error on token: #{error_token_id}, value: #{error_value}"
 #  end  
 
-  def parse
-     puts "parse:" 
+  def parse    
+     puts "parse:"
+     @tree = [] 
      do_parse
+     @tree
   end
+
 
   def on_error(*args)
     puts "!! on error:"
@@ -234,6 +254,8 @@ Final
 TXT
 
 
+
+
 ###
 # test tokenize
 tok = SportDb::Tokenizer.new( txt )
@@ -248,14 +270,10 @@ puts "---"
 
 
 
-def parse( txt )
   parser = MatchParser.new( txt )
   tree = parser.parse
-  tree
-end
+  pp tree
 
-
-parse( txt ) 
 
 
 puts "bye"

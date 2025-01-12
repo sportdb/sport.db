@@ -25,70 +25,122 @@ class MatchParser
         ######  
         # e.g   Group A  |    Germany   Scotland     Hungary   Switzerland   
         group_def
-              :   GROUP '|'  team_values   NEWLINE
+              :   GROUP '|'  team_values   NEWLINE  
+                  {
+                      @tree << GroupDef.new( name:  val[0],
+                                             teams: val[2] )
+                  }
 
         team_values
-              :   TEXT
-              |   team_values TEXT
+              :   TEXT                       { 
+                                               result = val
+                                               ## e.g. val is ["Austria"] 
+                                             }
+              |   team_values TEXT           {
+                                               result.push( val[1] )
+                                             }
+
 
         #####
         # e.g.  Matchday 1  |  Fri Jun/14 - Tue Jun/18   
         round_def
              :  ROUND '|'  round_date_opts   NEWLINE
-    
-        round_date_opts  :   DATE | DURATION
+                  {
+                      kwargs = { name: val[0] }.merge( val[2] )
+                      @tree<< RoundDef.new( **kwargs )
+                  }
+
+
+        round_date_opts  :   DATE        { result = { date: val[0] } } 
+                         |  DURATION     { result = { duration: val[0] } }
 
 
         date_header
               :     DATE     NEWLINE
+                  {
+                     @tree <<  DateHeader.new( date: val[0] )  
+                  }
               | '[' DATE ']' NEWLINE      ## enclosed in []
-              { puts '  MATCH date line' }
+                  {
+                     @tree <<  DateHeader.new( date: val[1] )  
+                  }
  
 
+
          group_header :  GROUP  NEWLINE
+                 {
+                     @tree <<  GroupHeader.new( name: val[0] )  
+                  }
+ 
+
 
 ###
 ##  e.g. Quarter-finals - 1st Leg
 
          round_header :  round_values  NEWLINE
+                 {
+                     @tree <<  RoundHeader.new( names: val[0] )  
+                  }
           
-          round_values :  ROUND
-                       |  round_values round_sep ROUND
+          round_values :  ROUND    {  result = val }
+                       |  round_values round_sep ROUND  {   result.push( val[2] ) }
 
           round_sep    : '-' 
                        | ','
 
 
+
         match_line
               :   match_opts  match  more_match_opts 
+                    {
+                       puts "match:"
+                       pp val[1]
+                       puts "more match opts:"
+                       pp val[2]  
+
+                       kwargs = {}.merge( val[0], val[1], val[2] )
+                       @tree << MatchLine.new( **kwargs )
+                    }
               |   match  more_match_opts 
-                  { puts '  MATCH team_line' }
+                  { 
+                      kwargs = {}.merge( val[0], val[1] )
+                      @tree << MatchLine.new( **kwargs )
+                  }
 
         match_opts
-             :  ORD
-             |  ORD date_opts
-             |  date_opts
+             :  ORD             {   result = { ord: val[0] }  }
+             |  ORD date_opts   {   result = { ord: val[0] }.merge( val[1] ) }
+             |  date_opts       
  
+       date_opts
+             : DATE            {   result = { date: val[0]}  }
+             | DATE TIME       {   result = { date: val[0], time: val[1] } }
+             | TIME            {   result = { time: val[0]}  }
+
+
         more_match_opts
-             : geo_opts NEWLINE
-             | NEWLINE
+             : geo_opts NEWLINE      { result = { geo: val[0]} }
+             | NEWLINE               { result = {} }
 
         ## e.g.  @ Parc des Princes, Paris
         ##       @ München 
-        geo_opts : '@' geo_values
+        geo_opts : '@' geo_values  { result = val[1]  }
 
         geo_values
-               :  TEXT
-               |   geo_values ',' TEXT        
+               :  TEXT                    {  result = val }
+               |  geo_values ',' TEXT     {  result.push( val[2] )  }      
 
-        date_opts
-             : DATE
-             | DATE TIME
-             | TIME
-
+ 
         match :  TEXT  score_value  TEXT
+                    {
+                         result = { team1: val[0],
+                                    team2: val[2]
+                                  }.merge( val[1] )   
+                    }
 
-        score_value:  SCORE | VS  | '-'
+        score_value:  SCORE            {  result = { score: val[0] }  } 
+                   |   VS              {  result = {} }  
+                   |  '-'              {  result = {} }
 
 
         #######
@@ -104,12 +156,26 @@ class MatchParser
         #
 
         goal_lines : '['  goal_lines_body  ']' NEWLINE 
+                     {
+                       kwargs = val[1]
+                       @tree << GoalLine.new( **kwargs )
+                     }
                    | goal_lines_body NEWLINE
+                      {
+                         kwargs = val[0]
+                         @tree << GoalLine.new( **kwargs )
+                      }
 
 
-        goal_lines_body : goals 
-                        | '-' ';' goals 
-                        | goals goal_sep goals
+        goal_lines_body : goals                 {  result = { goals1: val[0],
+                                                              goals2: [] } 
+                                                }
+                        | '-' ';' goals         {  result = { goals1: [],
+                                                              goals2: val[2] } 
+                                                }
+                        | goals goal_sep goals  {  result = { goals1: val[0],
+                                                              goals2: val[2] }
+                                                }
       
         goal_sep    : ';'
                     | ';' NEWLINE
@@ -121,14 +187,14 @@ class MatchParser
         #  goals_break : goals
         #              | goals_break NEWLINE goals 
 
-         goals  :  goal
-                |  goals goal 
+         goals  :  goal               { result = val }
+                |  goals goal         { result.push( val[1])  }
    
        
          goal : TEXT  minutes      # PLAYER minutes    
             ## might start a new line
             ##  | NEWLINE TEXT minutes 
-              { puts '  MATCH goal (player w/ minutes)' }
+              {   result = val[0]   }
 
 
          minutes : minute

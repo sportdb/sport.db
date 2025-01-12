@@ -17,7 +17,8 @@ class MatchParser
           | round_header
           | group_def
           | round_def
-          | match_line  goal_lines  ## check - goal_lines MUST follow match_line - why? why not?
+          | match_line
+          | goal_lines   ## check - goal_lines MUST follow match_line - why? why not?
           | empty_line    
           
 
@@ -46,7 +47,16 @@ class MatchParser
 
          group_header :  GROUP  NEWLINE
 
-         round_header :  ROUND  NEWLINE
+###
+##  e.g. Quarter-finals - 1st Leg
+
+         round_header :  round_values  NEWLINE
+          
+          round_values :  ROUND
+                       |  round_values round_sep ROUND
+
+          round_sep    : '-' 
+                       | ','
 
 
         match_line
@@ -60,7 +70,7 @@ class MatchParser
              |  date_opts
  
         more_match_opts
-             : geo_opts
+             : geo_opts NEWLINE
              | NEWLINE
 
         ## e.g.  @ Parc des Princes, Paris
@@ -84,27 +94,46 @@ class MatchParser
         #######
         ## e.g. Wirtz 10' Musiala 19' Havertz 45+1' (pen.)  Füllkrug 68' Can 90+3';  
         ##      Rüdiger 87' (o.g.)
+        ##
+        ##    [Higuaín 2', 9' (pen.); Kane 35' Eriksen 71']
+ 
+        #
+        # todo/fix/check -  check how to allow (more) newlines
+        #                      between goals
+        #   for now possible only after ;
+        #
 
-        goal_lines : goals  NEWLINE
-                   | goal_opts goal_sep goals NEWLINE
-                  
-        goal_sep    :  ';' 
-                    |  ';'  NEWLINE   ## allow optional newline after ;
+        goal_lines : '['  goal_lines_body  ']' NEWLINE 
+                   | goal_lines_body NEWLINE
 
-        goal_opts     : '-' 
-                      | goals
+
+        goal_lines_body : goals 
+                        | '-' ';' goals 
+                        | goals goal_sep goals
+      
+        goal_sep    : ';'
+                    | ';' NEWLINE
+                       
+
+        # goal_opts     : '-' 
+        #               | goals
+        
+        #  goals_break : goals
+        #              | goals_break NEWLINE goals 
 
          goals  :  goal
-                |  goals NEWLINE goal  ## allow optional newline between goals
                 |  goals goal 
    
-
-         goal :   PLAYER minutes       # TEXT minutes
-            
+       
+         goal : TEXT  minutes      # PLAYER minutes    
+            ## might start a new line
+            ##  | NEWLINE TEXT minutes 
+              { puts '  MATCH goal (player w/ minutes)' }
 
 
          minutes : minute
                  |  minutes minute
+                 |  minutes ',' minute    ## optional comma separator
 
          minute :   MINUTE
                  |  MINUTE minute_opts

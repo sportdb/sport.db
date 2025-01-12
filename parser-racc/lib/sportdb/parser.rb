@@ -69,6 +69,24 @@ class Tokenizer
          tree << tokens
       end
  
+
+=begin   
+      ## quick hack
+      ##   turn all  text tokens followed by minute token
+      ##     into player tokens!!!
+      ##
+      ##   also auto-convert text tokens into team tokens - why? why not?
+      tree.each do |tokens|
+         tokens.each_with_index do |t0,idx|
+            t1 = tokens[idx+1]
+            if t1 && t1[0] == :minute && t0[0] == :text
+                 t0[0] = :player 
+            end
+         end
+      end
+=end
+
+
       ## flatten
       @tokens = []
       tree.each do |tokens|

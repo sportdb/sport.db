@@ -54,7 +54,7 @@ TEXT_RE = %r{
                )
 
               (?:(?:  (?:[ ]
-                     (?!vs?\.?[ ])    ## note - exclude (v[ ]/vs[ ]/v.[ ]/vs.[ ])
+                        (?!vs?[ ])    ## note - exclude (v[ ]/vs[ ])
                        )
                       |     # only single spaces allowed inline!!!
                      [-]

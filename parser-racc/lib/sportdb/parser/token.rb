@@ -68,6 +68,31 @@ BASICS_RE = %r{
     (?<vs>
        (?<=[ ])	# Positive lookbehind for space
        (?:
+          vs|v
+       )  
+           # not bigger match first e.g. vs than v etc.
+           # todo/fix - make vs|v case sensitive!!! only match v/vs - why? why not?
+       (?=[ ])   # positive lookahead for space
+    )
+       |
+    (?<spaces> [ ]{2,}) |
+    (?<space>  [ ])
+        |
+    (?<sym>[;,@|\[\]-])
+}ix
+
+
+## removed from basics
+=begin
+    (?<none>
+       (?<=[ \[]|^)	 # Positive lookbehind for space or [
+           -
+        (?=[ ]*;)   # positive lookahead for space
+    )
+       |
+   (?<vs>
+       (?<=[ ])	# Positive lookbehind for space
+       (?:
           vs\.?|   ## allow optional dot (eg. vs. v.)
           v\.?|
           -
@@ -75,17 +100,9 @@ BASICS_RE = %r{
        (?=[ ])   # positive lookahead for space
     )
        |
-    (?<none>
-       (?<=[ \[]|^)	 # Positive lookbehind for space or [
-           -
-        (?=[ ]*;)   # positive lookahead for space
-    )
-       |
-    (?<spaces> [ ]{2,}) |
-    (?<space>  [ ])
-        |
-    (?<sym>[;,@|\[\]])
-}ix
+ 
+    make - into a simple symbol !!!
+=end
 
 
 MINUTE_RE = %r{
@@ -300,12 +317,10 @@ def tokenize_with_errors( line, typed: false,
           typed  ?  [:pen] : [:pen, m[:pen]]
         elsif m[:vs]
           typed  ?  [:vs] : [:vs, m[:vs]]
-        elsif m[:none]
-          typed  ?  [:none] : [:none, m[:none]]
         elsif m[:sym]
           sym = m[:sym]
           ## return symbols "inline" as is - why? why not?
-          ## (?<sym>[;,@|\[\]])
+          ## (?<sym>[;,@|\[\]-])
  
           case sym
           when ',' then [:',']
@@ -314,6 +329,7 @@ def tokenize_with_errors( line, typed: false,
           when '|' then [:'|']
           when '[' then [:'[']
           when ']' then [:']']
+          when '-' then [:'-']
           else
             nil  ## ignore others (e.g. brackets [])
           end

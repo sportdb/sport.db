@@ -1,0 +1,125 @@
+###############
+#  rounds in deutsch (de) / german
+
+Vorrunde
+1. Vorrunde
+2. Vorrunde
+Gruppenphase
+Ligaphase
+Spiele            # in 2017/uy.1.txt -- double check if missing something
+                  # in 1960-61/it.1.txt
+
+
+10. Runde
+
+
+Zwischenrunde
+
+Sechzehntelfinale
+Platzierungsspiel
+
+Qualifikation
+Qualifikation Copa Lib.
+Qual. 3. Runde
+
+
+2. Aufstieg Halbfinale
+2. Aufstieg Finale
+
+
+Halbfinale Gruppe A
+Halbfinale Gruppe B
+
+Entscheidungsspiele Abstieg
+
+Trostrunde Finale
+Trostrunde Halbfinale
+
+
+Playoff-Runde
+Relegation
+Aufstieg
+Endrunde
+Aufstiegsrunde
+Aufstiegsrunde Zone A
+Entscheidung Zone B
+1. Aufstieg
+1. Aufstieg Zone A
+1. Aufstieg Zone B
+2. Aufstieg Zone A
+2. Aufstieg Zone B
+2. Aufstieg 1. Phase
+2. Aufstieg 2. Phase
+2. Aufstieg 3. Phase
+Direkter Aufstieg
+Direkter Abstieg
+3. Platz
+5. Platz
+7. Platz
+9. Platz
+11. Platz
+13. Platz
+
+5.-8. Platz Playoffs
+9.-12. Platz Playoffs
+13.-16. Platz Playoffs
+
+
+Entscheidung 1. Runde
+Entscheidung 2. Runde
+
+
+1. Runde Gruppe 1
+1. Runde Gruppe 2
+
+
+Zwischenrunde Gr. A   ## move to group_de - why? why not?
+Zwischenrunde Gr. B
+Zwischenrunde Gr. C
+Zwischenrunde Gr. D
+
+
+Vorrunde Gr. A
+Vorrunde Gr. B
+Vorrunde Gr. C
+Vorrunde Gr. D
+Vorrunde Gr. E
+Vorrunde Gr. F
+Vorrunde Gr. G
+Vorrunde Gr. H
+
+
+
+### todo/fix
+###   move to group - why? why not?
+Gruppe 1
+Gruppe 2
+Gruppe 3
+Gruppe 4
+Gruppe 5
+Gruppe 6
+Gruppe 7
+Gruppe 8
+Gruppe 9
+Gruppe 10
+Gruppe 11
+Gruppe 12
+Gruppe 13
+Gruppe 14
+Gruppe 15
+Gruppe 16
+
+
+Gruppe A
+Gruppe B
+Gruppe C
+Gruppe D
+Gruppe E
+Gruppe F
+Gruppe G
+Gruppe H
+Gruppe I
+Gruppe J
+Gruppe K
+Gruppe L
+

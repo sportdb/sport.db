@@ -1,0 +1,22 @@
+##########
+#  note - more english rounds here
+#    remove here if added to regex!!!
+
+Play-in round
+First semifinal
+Second semifinal
+
+Conference Semifinals
+Conference Finals
+Wildcard
+
+Elimination Final
+Quadrangular
+
+Major Semi-Final
+Minor Semi-Final
+
+
+## keep weirdo matchday ??
+Matchday 0    ## in 2003-04/az.1.txt
+

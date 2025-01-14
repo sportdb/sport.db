@@ -306,21 +306,21 @@ module_eval(<<'.,.,', 'parser.y', 48)
 
 module_eval(<<'.,.,', 'parser.y', 53)
   def _reduce_15(val, _values, result)
-     result = { date: val[0] }
+     result = { date: val[0][1] }
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 54)
   def _reduce_16(val, _values, result)
-     result = { duration: val[0] }
+     result = { duration: val[0][1] }
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 60)
   def _reduce_17(val, _values, result)
-                         @tree <<  DateHeader.new( date: val[0] )  
+                         @tree <<  DateHeader.new( date: val[0][1] )  
 
     result
   end
@@ -328,7 +328,7 @@ module_eval(<<'.,.,', 'parser.y', 60)
 
 module_eval(<<'.,.,', 'parser.y', 64)
   def _reduce_18(val, _values, result)
-                         @tree <<  DateHeader.new( date: val[1] )  
+                         @tree <<  DateHeader.new( date: val[1][1] )  
 
     result
   end
@@ -393,14 +393,14 @@ module_eval(<<'.,.,', 'parser.y', 105)
 
 module_eval(<<'.,.,', 'parser.y', 110)
   def _reduce_27(val, _values, result)
-       result = { ord: val[0] }
+       result = { ord: val[0][1][:value] }
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 111)
   def _reduce_28(val, _values, result)
-       result = { ord: val[0] }.merge( val[1] )
+       result = { ord: val[0][1][:value] }.merge( val[1] )
     result
   end
 .,.,
@@ -409,21 +409,21 @@ module_eval(<<'.,.,', 'parser.y', 111)
 
 module_eval(<<'.,.,', 'parser.y', 115)
   def _reduce_30(val, _values, result)
-       result = { date: val[0]}
+       result = { date: val[0][1]}
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 116)
   def _reduce_31(val, _values, result)
-       result = { date: val[0], time: val[1] }
+       result = { date: val[0][1], time: val[1][1] }
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 117)
   def _reduce_32(val, _values, result)
-       result = { time: val[0]}
+       result = { time: val[0][1]}
     result
   end
 .,.,
@@ -475,7 +475,7 @@ module_eval(<<'.,.,', 'parser.y', 135)
 
 module_eval(<<'.,.,', 'parser.y', 140)
   def _reduce_39(val, _values, result)
-      result = { score: val[0] }
+      result = { score: val[0][1] }
     result
   end
 .,.,
@@ -589,8 +589,8 @@ module_eval(<<'.,.,', 'parser.y', 204)
 
 module_eval(<<'.,.,', 'parser.y', 210)
   def _reduce_55(val, _values, result)
-                            ## todo/fix:  assume val[0] is a hash
-                        result = Minute.new( minute: val[0] )
+                            kwargs = {}.merge( val[0][1] )
+                        result = Minute.new( **kwargs )
 
     result
   end
@@ -598,7 +598,7 @@ module_eval(<<'.,.,', 'parser.y', 210)
 
 module_eval(<<'.,.,', 'parser.y', 215)
   def _reduce_56(val, _values, result)
-                            kwargs = { minute: val[0] }.merge( val[1] )
+                            kwargs = { }.merge( val[0][1] ).merge( val[1] )
                         result = Minute.new( **kwargs )
 
     result

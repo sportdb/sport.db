@@ -158,8 +158,7 @@ end
 
 
 
-def tokenize_with_errors( line, typed: false,
-                                debug: false )
+def tokenize_with_errors( line, debug: false )
   tokens = []
   errors = []   ## keep a list of errors - why? why not?
 
@@ -197,6 +196,10 @@ def tokenize_with_errors( line, typed: false,
 
     pp offsets   if debug
 
+    ##
+    ## note: racc requires pairs e.g. [:TOKEN, VAL]
+    ##         for VAL use "text" or ["text", { opts }]  array
+
     t = if m[:space]
            ## skip space
            nil
@@ -204,15 +207,17 @@ def tokenize_with_errors( line, typed: false,
            ## skip spaces
            nil
         elsif m[:text]
-          [:text, m[:text]]   ## keep pos - why? why not?
+          [:TEXT, m[:text]]   ## keep pos - why? why not?
         elsif m[:status]   ## (match) status e.g. cancelled, awarded, etc.
+          ## todo/check - add text (or status) 
+          #     to opts hash {} by default (for value)
           if m[:status_note]   ## includes note? e.g.  awarded; originally 2-0
-             [:status, m[:status], {note:m[:status_note]}]
+             [:STATUS, [m[:status], {status: m[:status], 
+                                     note:   m[:status_note]} ]]
           else
-             [:status, m[:status]]
+             [:STATUS, [m[:status], {status: m[:status] } ]]
           end
         elsif m[:time]
-          if typed
               ## unify to iso-format
               ###   12.40 => 12:40
               ##    12h40 => 12:40 etc.
@@ -225,15 +230,11 @@ def tokenize_with_errors( line, typed: false,
                  (minute >=0 && minute <= 59)
                ## note - for debugging keep (pass along) "literal" time
                ##   might use/add support for am/pm later
-               [:time, m[:time], {h:hour,m:minute}]
+               [:TIME, [m[:time], {h:hour,m:minute}]]
               else
                  raise ArgumentError, "parse error - time >#{m[:time]}< out-of-range"
               end
-          else
-            [:time, m[:time]]
-          end
         elsif m[:date]
-          if typed
             date = {}
 =begin
             ((?<day_name>#{DAY_NAMES})
@@ -254,14 +255,11 @@ def tokenize_with_errors( line, typed: false,
             date[:d]  = m[:day].to_i(10)   if m[:day]
             date[:wday] = DAY_MAP[ m[:day_name].downcase ]   if m[:day_name]
             ## note - for debugging keep (pass along) "literal" date
-            [:date, m[:date], date]
-          else
-            [:date, m[:date]]
-          end
+            [:DATE, [m[:date], date]]
         elsif m[:timezone]
-          [:timezone, m[:timezone]]
+          [:TIMEZONE, m[:timezone]]
         elsif m[:duration]
-          if typed
+            ## todo/check/fix - if end: works for kwargs!!!!!
             duration = { start: {}, end: {}}
             duration[:start][:y] = m[:year1].to_i(10)  if m[:year1]
             duration[:start][:m] = MONTH_MAP[ m[:month_name1].downcase ]   if m[:month_name1]
@@ -272,19 +270,11 @@ def tokenize_with_errors( line, typed: false,
             duration[:end][:d]  = m[:day2].to_i(10)   if m[:day2]
             duration[:end][:wday] = DAY_MAP[ m[:day_name2].downcase ]   if m[:day_name2]
             ## note - for debugging keep (pass along) "literal" duration
-            [:duration, m[:duration], duration]
-          else
-            [:duration, m[:duration]]
-          end
+            [:DURATION, [m[:duration], duration]]
         elsif m[:num]   ## fix - change to ord (for ordinal number!!!)
-          if typed
               ## note -  strip enclosing () and convert to integer
-             [:ord, m[:value].to_i(10)]
-          else
-             [:ord, m[:num]]
-          end
+             [:ORD, [m[:num], { value: m[:value].to_i(10) } ]]
         elsif m[:score]
-          if typed
               score = {}
               ## check for pen
               score[:p] = [m[:p1].to_i(10),
@@ -297,26 +287,19 @@ def tokenize_with_errors( line, typed: false,
                             m[:ht2].to_i(10)]  if m[:ht1] && m[:ht2]
 
             ## note - for debugging keep (pass along) "literal" score
-            [:score, m[:score], score]
-          else
-            [:score, m[:score]]
-          end
+            [:SCORE, [m[:score], score]]
         elsif m[:minute]
-          if typed
               minute = {}
               minute[:m]      = m[:value].to_i(10)
               minute[:offset] = m[:value2].to_i(10)   if m[:value2]
              ## note - for debugging keep (pass along) "literal" minute
-             [:minute, m[:minute], minute]
-          else
-             [:minute, m[:minute]]
-          end
+             [:MINUTE, [m[:minute], minute]]
         elsif m[:og]
-          typed  ?  [:og] : [:og, m[:og]]    ## for typed drop - string version/variants
+           [:OG, m[:og]]    ## for typed drop - string version/variants ??  why? why not?
         elsif m[:pen]
-          typed  ?  [:pen] : [:pen, m[:pen]]
+           [:PEN, m[:pen]]
         elsif m[:vs]
-          typed  ?  [:vs] : [:vs, m[:vs]]
+           [:VS, m[:vs]]
         elsif m[:sym]
           sym = m[:sym]
           ## return symbols "inline" as is - why? why not?
@@ -363,10 +346,8 @@ end
 
 
 ### convience helper - ignore errors by default
-def tokenize(  line, typed: false,
-                     debug: false )
-   tokens, _ = tokenize_with_errors( line, typed: typed,
-                                           debug: debug )
+def tokenize(  line, debug: false )
+   tokens, _ = tokenize_with_errors( line, debug: debug )
    tokens
 end
 

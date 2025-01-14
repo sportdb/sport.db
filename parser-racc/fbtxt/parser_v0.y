@@ -51,18 +51,18 @@ class MatchParser
                   }
 
 
-        round_date_opts  :   DATE        { result = { date: val[0][1] } } 
-                         |  DURATION     { result = { duration: val[0][1] } }
+        round_date_opts  :   DATE        { result = { date: val[0] } } 
+                         |  DURATION     { result = { duration: val[0] } }
 
 
         date_header
               :     DATE     NEWLINE
                   {
-                     @tree <<  DateHeader.new( date: val[0][1] )  
+                     @tree <<  DateHeader.new( date: val[0] )  
                   }
               | '[' DATE ']' NEWLINE      ## enclosed in []
                   {
-                     @tree <<  DateHeader.new( date: val[1][1] )  
+                     @tree <<  DateHeader.new( date: val[1] )  
                   }
  
 
@@ -108,14 +108,14 @@ class MatchParser
                   }
 
         match_opts
-             :  ORD             {   result = { ord: val[0][1][:value] }  }
-             |  ORD date_opts   {   result = { ord: val[0][1][:value] }.merge( val[1] ) }
+             :  ORD             {   result = { ord: val[0] }  }
+             |  ORD date_opts   {   result = { ord: val[0] }.merge( val[1] ) }
              |  date_opts       
  
        date_opts
-             : DATE            {   result = { date: val[0][1]}  }
-             | DATE TIME       {   result = { date: val[0][1], time: val[1][1] } }
-             | TIME            {   result = { time: val[0][1]}  }
+             : DATE            {   result = { date: val[0]}  }
+             | DATE TIME       {   result = { date: val[0], time: val[1] } }
+             | TIME            {   result = { time: val[0]}  }
 
 
         more_match_opts
@@ -138,7 +138,7 @@ class MatchParser
                                   }.merge( val[1] )   
                     }
 
-        score_value:  SCORE            {  result = { score: val[0][1] }  } 
+        score_value:  SCORE            {  result = { score: val[0] }  } 
                    |   VS              {  result = {} }  
                    |  '-'              {  result = {} }
 
@@ -208,12 +208,12 @@ class MatchParser
 
          minute :   MINUTE
                      {
-                        kwargs = {}.merge( val[0][1] )
-                        result = Minute.new( **kwargs )
+                        ## todo/fix:  assume val[0] is a hash
+                        result = Minute.new( minute: val[0] )
                      }
                  |  MINUTE minute_opts
                      {
-                        kwargs = { }.merge( val[0][1] ).merge( val[1] )
+                        kwargs = { minute: val[0] }.merge( val[1] )
                         result = Minute.new( **kwargs )
                      } 
 
@@ -227,4 +227,23 @@ class MatchParser
             
  
 end
+
+
+
+---- inner
+
+GroupDef   = Struct.new( :name, :teams )
+RoundDef   = Struct.new( :name, :date, :duration )  
+DateHeader = Struct.new( :date ) 
+GroupHeader = Struct.new( :name )
+RoundHeader = Struct.new( :names )
+
+MatchLine   = Struct.new( :ord, :date, :time,
+                          :team1, :team2, :score, 
+                          :geo )   ## change to geos - why? why not?
+
+GoalLine    = Struct.new( :goals1, :goals2 )
+Goal        = Struct.new( :player, :minutes )
+Minute      = Struct.new( :minute, :offset, :og, :pen )
+
 

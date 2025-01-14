@@ -93,7 +93,7 @@ class Tokenizer
       @tokens = []
       tree.each do |tokens|
          @tokens += tokens 
-         @tokens  << [:newline, "\n"]   ## auto-add newlines
+         @tokens  << [:NEWLINE, "\n"]   ## auto-add newlines
       end
  
       ## convert to racc format
@@ -104,18 +104,18 @@ class Tokenizer
  #############
  ## pass 1
  ##   replace all texts with keyword matches (e.g. group, round, leg, etc.)
-               if tok[0] == :text
+               if tok[0] == :TEXT
                   text = tok[1]
                   tok = if parser.is_group?( text )
-                          [:group, text]
+                          [:GROUP, text]
                         elsif parser.is_round?( text ) || parser.is_leg?( text )
-                          [:round, text]
+                          [:ROUND, text]
                         else
                           tok  ## pass through as-is (1:1)
                         end
                end
  ## pass 2
-        [tok[0].upcase.to_sym, tok[1]]
+              tok
        else
               raise ArgumentError, "tokens of size 1|2 expected; got #{tok.pretty_inspect}"
            end
@@ -123,6 +123,7 @@ class Tokenizer
    end
  
  
+
    def next_token
       @tokens.shift
    end

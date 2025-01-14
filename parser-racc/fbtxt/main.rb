@@ -26,7 +26,8 @@ MatchLine   = Struct.new( :ord, :date, :time,
                           :geo )   ## change to geos - why? why not?
 
 GoalLine    = Struct.new( :goals1, :goals2 )
-
+Goal        = Struct.new( :player, :minutes )
+Minute      = Struct.new( :minute, :offset, :og, :pen )
 
 
 def initialize(input)

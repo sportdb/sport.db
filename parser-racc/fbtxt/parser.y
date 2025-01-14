@@ -192,19 +192,34 @@ class MatchParser
    
        
          goal : TEXT  minutes      # PLAYER minutes    
+              {  
+                result = Goal.new( player:  val[0],
+                                   minutes: val[1] )   
+              }
             ## might start a new line
             ##  | NEWLINE TEXT minutes 
-              {   result = val[0]   }
 
 
-         minutes : minute
-                 |  minutes minute
-                 |  minutes ',' minute    ## optional comma separator
+         minutes : minute              { result = val }
+                 |  minutes minute     { result.push( val[1]) }
+                 |  minutes ',' minute { result.push( val[2]) }
+                                       ## optional comma separator
+                                       
 
          minute :   MINUTE
+                     {
+                        ## todo/fix:  assume val[0] is a hash
+                        result = Minute.new( minute: val[0] )
+                     }
                  |  MINUTE minute_opts
-         
-         minute_opts : OG | PEN     
+                     {
+                        kwargs = { minute: val[0] }.merge( val[1] )
+                        result = Minute.new( **kwargs )
+                     } 
+
+         minute_opts : OG     {  result = { og: true } } 
+                     | PEN    {  result = { pen: true } }
+
 
 
         empty_line: NEWLINE

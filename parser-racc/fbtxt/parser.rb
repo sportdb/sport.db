@@ -131,13 +131,13 @@ racc_reduce_table = [
   1, 45, :_reduce_49,
   2, 45, :_reduce_50,
   2, 47, :_reduce_51,
-  1, 48, :_reduce_none,
-  2, 48, :_reduce_none,
-  3, 48, :_reduce_none,
-  1, 49, :_reduce_none,
-  2, 49, :_reduce_none,
-  1, 50, :_reduce_none,
-  1, 50, :_reduce_none,
+  1, 48, :_reduce_52,
+  2, 48, :_reduce_53,
+  3, 48, :_reduce_54,
+  1, 49, :_reduce_55,
+  2, 49, :_reduce_56,
+  1, 50, :_reduce_57,
+  1, 50, :_reduce_58,
   1, 32, :_reduce_59 ]
 
 racc_reduce_n = 60
@@ -557,28 +557,69 @@ module_eval(<<'.,.,', 'parser.y', 190)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 196)
+module_eval(<<'.,.,', 'parser.y', 195)
   def _reduce_51(val, _values, result)
-       result = val[0]
+                    result = Goal.new( player:  val[0],
+                                   minutes: val[1] )   
+
     result
   end
 .,.,
 
-# reduce 52 omitted
+module_eval(<<'.,.,', 'parser.y', 202)
+  def _reduce_52(val, _values, result)
+     result = val
+    result
+  end
+.,.,
 
-# reduce 53 omitted
+module_eval(<<'.,.,', 'parser.y', 203)
+  def _reduce_53(val, _values, result)
+     result.push( val[1])
+    result
+  end
+.,.,
 
-# reduce 54 omitted
-
-# reduce 55 omitted
-
-# reduce 56 omitted
-
-# reduce 57 omitted
-
-# reduce 58 omitted
+module_eval(<<'.,.,', 'parser.y', 204)
+  def _reduce_54(val, _values, result)
+     result.push( val[2])
+    result
+  end
+.,.,
 
 module_eval(<<'.,.,', 'parser.y', 210)
+  def _reduce_55(val, _values, result)
+                            ## todo/fix:  assume val[0] is a hash
+                        result = Minute.new( minute: val[0] )
+
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.y', 215)
+  def _reduce_56(val, _values, result)
+                            kwargs = { minute: val[0] }.merge( val[1] )
+                        result = Minute.new( **kwargs )
+
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.y', 219)
+  def _reduce_57(val, _values, result)
+      result = { og: true }
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.y', 220)
+  def _reduce_58(val, _values, result)
+      result = { pen: true }
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.y', 225)
   def _reduce_59(val, _values, result)
      puts '  MATCH empty_line'
     result

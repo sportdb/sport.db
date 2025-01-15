@@ -88,6 +88,8 @@ class MatchParser    ## simple match parser for team match schedules
     @last_round   = nil
     @last_group   = nil
 
+    ## last_goals - rename to (longer) @last_team_goals or such - why? why not?
+    @last_goals   = 1    ## toggle between 1|2  - hacky (quick & dirty) support for multi-line goals, fix soon!
 
     @teams   = Hash.new(0)   ## track counts (only) for now for (interal) team stats - why? why not?
     @rounds  = {}
@@ -97,12 +99,12 @@ class MatchParser    ## simple match parser for team match schedules
     @warns        = []    ## track list of warnings (unmatched lines)  too - why? why not?
 
 
+
+    @parser = Parser.new
     @tree   = []
 
     attrib_found = false
 
-
-    lines = []
     @lines.each_with_index do |line,i|
 
          if debug?
@@ -132,9 +134,6 @@ class MatchParser    ## simple match parser for team match schedules
             next
           end
 
-          lines << line
-
-=begin
           t, error_messages  =  @parser.parse_with_errors( line )
 
 
@@ -152,13 +151,7 @@ class MatchParser    ## simple match parser for team match schedules
            pp t   if debug?
 
            @tree << t
-=end
     end  # each lines
-
-     txt = lines.join( "\n") + "\n"     
-     parser = RaccMatchParser.new( txt )   ## use own parser instance (not shared) - why? why not?
-     @tree = parser.parse
-     ## pp @tree
 
     ## pp @tree
 
@@ -166,33 +159,63 @@ class MatchParser    ## simple match parser for team match schedules
 
 
 
-    @tree.each do |node|
+    @tree.each do |nodes|
 
-       if node.is_a? RaccMatchParser::RoundDef
+        node_type = nodes[0][0]  ## get node type of first/head node
+
+       if node_type == :round_def
         ## todo/fix:  add round definition (w begin n end date)
         ## todo: do not patch rounds with definition (already assume begin/end date is good)
         ##  -- how to deal with matches that get rescheduled/postponed?
-          on_round_def( node )
-        elsif node.is_a? RaccMatchParser::GroupDef  ## NB: group goes after round (round may contain group marker too)
+        parse_round_def( nodes )
+       elsif node_type == :group_def  ## NB: group goes after round (round may contain group marker too)
         ### todo: add pipe (|) marker (required)
-          on_group_def( node )
-       elsif node.is_a? RaccMatchParser::GroupHeader
-          on_group_header( node )
-       elsif node.is_a? RaccMatchParser::RoundHeader
-          on_round_header( node )
-      elsif node.is_a? RaccMatchParser::DateHeader
-          on_date_header( node )
-      elsif node.is_a? RaccMatchParser::MatchLine
-          on_match_line( node )
-      elsif node.is_a? RaccMatchParser::GoalLine
-          on_goal_line( node )
-      else
-        ## report error
-        puts "!! ERROR - unknown node (parse tree type)"
-        pp node
-        exit 1
+        parse_group_def( nodes )
+
+       elsif node_type == :player  ||
+             node_type == :none  # e.g  [[:none], [:";"], [:player, "Xhaka"],...]
+        ## note - for now goals line MUST start with player!!
+        parse_goals( nodes )
+       else
+        ## try to be liberal/flexible
+        ##  eat-up nodes as we go
+        ##  assume match with group / round header
+        ##   etc. on its own line or not
+
+        ## preprocess possible before match nodes
+
+        while !nodes.empty? do
+             node_type = nodes[0][0]  ## get node type of first/head node
+             if node_type == :round
+                node = nodes.shift   ## eat-up
+                parse_round_header( node )
+             elsif node_type == :leg
+                 node = nodes.shift   ## eat-up
+                 ## ignore (round) leg for now - add later leg - 1|2|3 etc!!!
+                 ##   needs to get added to db/schema too!!!!
+                 ##    add @last_leg = nil  or 1|2|3 etc.
+            elsif node_type == :group
+                ##  -- lets you set group  e.g. Group A etc.
+                node = nodes.shift   ## eat-up
+                parse_group_header( node )
+            elsif node_type == :date
+                node = nodes.shift   ## eat-up
+                parse_date_header( node )
+            ## add time here too - why? why not?
+            ## add skip comma separator here too - why? why not?
+            ##  "slurp-up" in upstream parser?
+            ##  e.g.   round, group  or group, round ?
+            else
+                break
+            end
+        end
+        next if nodes.empty?
+
+        ## rename to try_parse_match - why? why not?
+        parse_match( nodes )
       end
-    end  # tree.each
+
+      end  # tree.each
 
     ## note - team keys are names and values are "internal" stats!!
     ##                      and NOT team/club/nat_team structs!!
@@ -201,8 +224,8 @@ class MatchParser    ## simple match parser for team match schedules
 
 
 
-  def on_group_header( node )
-    logger.debug "on group header: >#{node}<"
+  def parse_group_header( node )
+    logger.debug "parsing group header: >#{node}<"
 
     # note: group header resets (last) round  (allows, for example):
     #  e.g.
@@ -212,7 +235,7 @@ class MatchParser    ## simple match parser for team match schedules
     #    team1 team2 - match  (will get new auto-matchday! not last round)
     @last_round     = nil
 
-    name = node.name
+    name = node[1]
 
     group = @groups[ name ]
     if group.nil?
@@ -225,8 +248,8 @@ class MatchParser    ## simple match parser for team match schedules
   end
 
 
-  def on_group_def( node )
-    logger.debug "on group def: >#{node}<"
+  def parse_group_def( nodes )
+    logger.debug "parsing group def: >#{nodes}<"
 
    ## e.g
    ##  [:group_def, "Group A"],
@@ -235,15 +258,26 @@ class MatchParser    ## simple match parser for team match schedules
    ##   [:team, "Hungary"],
    ##   [:team, "Switzerland"]
 
-    node.teams.each do |team|
-          @teams[ team ] += 1
-    end
- 
-    ## todo/check/fix: add back group key - why? why not?
-    group = Import::Group.new( name:  node.name,
-                               teams: node.teams )
+    node = nodes[0]
+    name = node[1]   ## group name
 
-    @groups[ node.name ] = group
+    teams = nodes[1..-1].map do |node|
+                                  if node[0] == :team
+                                       team = node[1]
+                                       @teams[ team ] += 1
+                                       team
+                                  else
+                                     puts "!! PARSE ERROR - only teams expected in group def; got:"
+                                     pp nodes
+                                     exit 1
+                                  end
+                             end
+
+    ## todo/check/fix: add back group key - why? why not?
+    group = Import::Group.new( name:  name,
+                               teams: teams )
+
+    @groups[ name ] = group
   end
 
 
@@ -273,35 +307,37 @@ class MatchParser    ## simple match parser for team match schedules
       Date.new( y,m,d )  ## y,m,d
   end
 
-
-  def on_round_def( node )
-    logger.debug "on round def: >#{node}<"
+  def parse_round_def( nodes )
+    logger.debug "parsing round def: >#{nodes}<"
 
     ## e.g. [[:round_def, "Matchday 1"], [:duration, "Fri Jun/14 - Tue Jun/18"]]
     ##      [[:round_def, "Matchday 2"], [:duration, "Wed Jun/19 - Sat Jun/22"]]
     ##      [[:round_def, "Matchday 3"], [:duration, "Sun Jun/23 - Wed Jun/26"]]
 
-    name  = node.name
+    node = nodes[0]
+    name  = node[1]
     # NB: use extracted round name for knockout check
     # knockout_flag = is_knockout_round?( name )
 
-    if node.date
-        start_date = end_date = _build_date( m: node.date[:m],
-                                             d: node.date[:d],
-                                             y: node.date[:y],
+    node = nodes[1]
+    node_type = node[0]
+    if node_type == :date
+        start_date = end_date = _build_date( m: node[2][:m],
+                                             d: node[2][:d],
+                                             y: node[2][:y],
                                               start: @start)
-    elsif node.duration
-      start_date  = _build_date( m: node.duration[:start][:m],
-                                 d: node.duration[:start][:d],
-                                 y: node.duration[:start][:y],
+    elsif node_type == :duration
+      start_date  = _build_date( m: node[2][:start][:m],
+                                 d: node[2][:start][:d],
+                                 y: node[2][:start][:y],
                                    start: @start)
-      end_date    = _build_date( m: node.duration[:end][:m],
-                                 d: node.duration[:end][:d],
-                                 y: node.duration[:end][:y],
+      end_date    = _build_date( m: node[2][:end][:m],
+                                 d: node[2][:end][:d],
+                                 y: node[2][:end][:y],
                                    start: @start)
     else
        puts "!! PARSE ERROR - expected date or duration for round def; got:"
-       pp node
+       pp nodes
        exit 1
     end
 
@@ -339,11 +375,10 @@ class MatchParser    ## simple match parser for team match schedules
   end
 
 
-  def on_round_header( node )
-    logger.debug "on round header: >#{node}<"
+  def parse_round_header( node )
+    logger.debug "parsing round header: >#{node}<"
 
-    name = node.names[0]    ## ignore more names for now
-                           ## fix later - fix more names!!!
+    name = node[1]
 
     # name = name.sub( ROUND_EXTRA_WORDS_RE, '' )
     # name = name.strip
@@ -364,12 +399,12 @@ class MatchParser    ## simple match parser for team match schedules
     ##   reset date/time e.g. @last_date = nil !!!!
   end
 
-  def on_date_header( node )
+  def parse_date_header( node )
     logger.debug( "date header: >#{node}<")
 
-    date = _build_date( m: node.date[:m],
-                        d: node.date[:d],
-                        y: node.date[:y],
+    date = _build_date( m: node[2][:m],
+                        d: node[2][:d],
+                        y: node[2][:y],
                         start: @start )
 
     logger.debug( "    date: #{date} with start: #{@start}")
@@ -396,16 +431,92 @@ class MatchParser    ## simple match parser for team match schedules
 =end
   end
 
+  def parse_minutes( nodes )
+    ## parse goals by player
+    ##   may have multiple minutes!!
+    goals = []
 
-  def on_goal_line( node )
-    logger.debug "on goal line: >#{node}<"
+    node = nodes.shift  ## get player
+    name = node[1]
 
-    goals1 = node.goals1
-    goals2 = node.goals2
+    loop do
+      goal = {}
+      goal[:name]  = name
 
-   
+      node_type = nodes[0][0]
+      if node_type != :minute
+        puts "!! PARSE ERROR - minute expected to follow player (in goal); got #{node_type}:"
+        pp nodes
+        exit 1
+      end
+
+      node = nodes.shift
+      goal[:minute] =  node[2][:m]
+      goal[:offset] =  node[2][:offset]  if node[2][:offset]
+
+      ## check for own goal or penalty or such
+      if !nodes.empty?
+        node_type = nodes[0][0]
+        if node_type == :og
+         nodes.shift
+         goal[:og] = true
+        elsif node_type == :pen
+         nodes.shift
+         goal[:pen] = true
+        else
+          # do nothing
+        end
+      end
+
+      goals << goal
+
+      ## check if another minute ahead; otherwise break
+      break  if nodes.empty?
+
+      node_type = nodes[0][0]
+
+      ## Kane 39', 62', 67'
+      ## consume/eat-up (optional?) commas
+      if node_type == :','
+        nodes.shift
+        node_type = nodes[0][0]
+      end
+
+      break  if node_type != :minute
+    end
+
+
+    goals
+  end
+
+
+  def parse_goals( nodes )
+    logger.debug "parse goals: >#{nodes}<"
+
+    goals1 = []
+    goals2 = []
+
+    while !nodes.empty?
+        node_type = nodes[0][0]
+        if node_type == :player
+           more_goals = parse_minutes( nodes )
+           ## hacky multi-line support for goals
+           ##   using last_goal (1|2)
+           @last_goals == 2 ?  goals2 += more_goals :
+                               goals1 += more_goals
+        elsif node_type == :';'   ## team separator
+            nodes.shift  # eat-up
+            @last_goals = 2
+        elsif node_type == :none
+            nodes.shift  # eat-up
+        else
+          puts "!! PARSE ERROR - unexpected node type in goals;; got #{node_type}:"
+          pp nodes
+          exit 1
+        end
+    end
+
     pp [goals1,goals2]     if debug?
-
 
 ## wrap in struct andd add/append to match
 =begin
@@ -421,30 +532,26 @@ class GoalStruct
 
     goals = []
     goals1.each do |rec|
-      rec.minutes.each do |minute|
-        goal = Import::Goal.new(
-                  player: rec.player,
+      goal = Import::Goal.new(
+                  player: rec[:name],
                   team:   1,
-                  minute:  minute.m,
-                  offset:  minute.offset,
-                  penalty: minute.pen || false, #  note: pass along/use false NOT nil
-                  owngoal: minute.og || false
-                )
-        goals << goal
-      end
-    end
-    goals2.each do |rec|
-      rec.minutes.each do |minute|
-        goal = Import::Goal.new(
-                  player: rec.player,
-                  team:   2,
-                  minute:  minute.m,
-                  offset:  minute.offset,
-                  penalty: minute.pen || false, #  note: pass along/use false NOT nil
-                  owngoal: minute.og || false
+                  minute:  rec[:minute],
+                  offset:  rec[:offset],
+                  penalty: rec[:pen] || false, #  note: pass along/use false NOT nil
+                  owngoal: rec[:og] || false
                 )
       goals << goal
-      end
+    end
+    goals2.each do |rec|
+      goal = Import::Goal.new(
+                  player: rec[:name],
+                  team:   2,
+                  minute:  rec[:minute],
+                  offset:  rec[:offset],
+                  penalty: rec[:pen] || false, #  note: pass along/use false NOT nil
+                  owngoal: rec[:og] || false
+                )
+      goals << goal
     end
 
     pp goals   if debug?
@@ -462,65 +569,90 @@ class GoalStruct
   end
 
 
-  def on_match_line( node )
-    logger.debug( "on match: >#{node}<" )
+  def parse_match( nodes )
+    logger.debug( "parse match: >#{nodes}<" )
 
     ## collect (possible) nodes by type
     num    = nil
-    num = node.ord   if node.ord
-        
     date   = nil
-    date =  _build_date( m: node.date[:m],
-                         d: node.date[:d],
-                         y: node.date[:y],
-                         start: @start )   if node.date
-
-    ## note - there's no time (-only) type in ruby
-    ##  use string (e.g. '14:56', '1:44')
-    ##   use   01:44 or 1:44 ?
-    ##  check for 0:00 or 24:00  possible?                         
-    time   =  ('%d:%02d' % [node.time[:h], node.time[:m]])  if node.time
- 
-
-    ### todo/fix
-    ##    add keywords (e.g. ht, ft or such) to Score.new - why? why not?
-    ##     or use new Score.build( ht:, ft:, ) or such - why? why not?
-    ## pp score              
+    time   = nil
+    teams  = []
     score  = nil
-    if node.score
-      ht = node.score[:ht] || [nil,nil]
-      ft = node.score[:ft] || [nil,nil]
-      et = node.score[:et] || [nil,nil]
-      p  = node.score[:p]  || [nil,nil]
-      values = [*ht, *ft, *et, *p]
-      ## pp values
-      score = Score.new( *values )
-    end
- 
     more   = []
-
     status = nil
-    ## if node_type == :status  # e.g. awarded, canceled, postponed, etc.
-    ##  status = node[1]
 
+    while !nodes.empty?
+        node = nodes.shift
+        node_type = node[0]
 
- #
+        if node_type == :num
+            num = node[1]
+        elsif node_type == :date
+            ## note: date wipes out/clear time
+            ##   time MUST always come after date
+            time = nil
+            date = _build_date( m: node[2][:m],
+                                d: node[2][:d],
+                                y: node[2][:y],
+                                start: @start )
+        elsif node_type == :time
+            ## note - there's no time (-only) type in ruby
+            ##  use string (e.g. '14:56', '1:44')
+            ##   use   01:44 or 1:44 ?
+            ##  check for 0:00 or 24:00  possible?
+            time = '%d:%02d' % [node[2][:h], node[2][:m]]
+        elsif node_type == :team
+            teams << node[1]
+        elsif node_type == :score
+            ### todo/fix
+            ##    add keywords (e.g. ht, ft or such) to Score.new - why? why not?
+            ##     or use new Score.build( ht:, ft:, ) or such - why? why not?
+             ht = node[2][:ht] || [nil,nil]
+             ft = node[2][:ft] || [nil,nil]
+             et = node[2][:et] || [nil,nil]
+             p  = node[2][:p]  || [nil,nil]
+             values = [*ht, *ft, *et, *p]
+             ## pp values
+
+             score = Score.new( *values )
+             ## pp score
+        elsif node_type == :status  # e.g. awarded, canceled, postponed, etc.
+             status = node[1]
+        elsif node_type == :vs
+           ## skip; do nothing
+##
 ## todo - add    ## find (optional) match status e.g. [abandoned] or [replay] or [awarded]
 ##                                   or [cancelled] or [postponed] etc.
 ##    status = find_status!( line )   ## todo/check: allow match status also in geo part (e.g. after @) - why? why not?
-#
-#        elsif node_type == :'@' ||
-#              node_type == :',' ||
-#              node_type == :geo ||
-#              node_type == :timezone
+
+        elsif node_type == :'@' ||
+              node_type == :',' ||
+              node_type == :geo ||
+              node_type == :timezone
          ## e.g.
          ## [:"@"], [:geo, "Stade de France"], [:","], [:geo, "Saint-Denis"]]
          ## [:"@"], [:geo, "Arena de São Paulo"], [:","], [:geo, "São Paulo"], [:timezone, "(UTC-3)"]
-#            more << node[1]  if node_type == :geo
-  
+            more << node[1]  if node_type == :geo
+        else
+            puts "!! PARSE ERROR - unexpected node type #{node_type} in match line; got:"
+            pp node
+            ## exit 1
+            @errors << ["PARSE ERROR - unexpected node type #{node_type} in match line; got: #{node.inspect}"]
+            return
+        end
+    end
 
-    team1 = node.team1
-    team2 = node.team2
+
+    if teams.size != 2
+      puts "!! PARSE ERROR - expected two teams; got #{teams.size}:"
+      pp teams
+      ## exit 1
+      @errors << ["PARSE ERROR - expected two teams; got #{teams.size}: #{teams.inspect}"]
+      return
+    end
+
+    team1 = teams[0]
+    team2 = teams[1]
 
     @teams[ team1 ] += 1
     @teams[ team2 ] += 1
@@ -606,6 +738,10 @@ class GoalStruct
                                    status:  status,
                                    ground:  ground )
     ### todo: cache team lookups in hash?
+
+    ## hacky goals support
+    ### reset/toggle 1/2
+    @last_goals = 1
   end
 end # class MatchParser
 end # module SportDb

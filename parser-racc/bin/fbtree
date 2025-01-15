@@ -1,54 +1,15 @@
 ####
 #  to run use:
-#    $ ruby ./fbtok2.rb  (in /fbtxt)
+#    $ ruby ./fbtree.rb  (in /fbtxt)
 
 $LOAD_PATH.unshift( '../lib' )
 require 'sportdb/parser'
 
 
-require_relative 'parser'
-
-
-class MatchParser
-def initialize(input)
-    puts "==> input:"
-    puts input
-    @tokenizer = SportDb::Tokenizer.new(input)
-  end
-  
-
-  def next_token
-    tok = @tokenizer.next_token
-    puts "next_token => #{tok.pretty_inspect}"
-    tok
-  end
-  
-#  on_error do |error_token_id, error_value, value_stack|
-#      puts "Parse error on token: #{error_token_id}, value: #{error_value}"
-#  end  
-
-  def parse
-     puts "parse:" 
-     do_parse
-  end
-
-  def on_error(*args)
-    puts "!! on error:"
-    puts "args=#{args.pretty_inspect}"
-  end
-
-=begin
-on_error do |error_token_id, error_value, value_stack|
-    puts "Parse error on token: #{error_token_id}, value: #{error_value}"
-end
-=end
-end 
-
-
 
 ###
 ## note - Linter for now nested inside Parser - keep? why? why not?
-class Linter
+class RaccLinter
 
 def self.debug=(value) @@debug = value; end
 def self.debug?() @@debug ||= false; end  ## note: default is FALSE
@@ -170,20 +131,16 @@ def read( path )
       txt = txt.join
       pp txt   if debug?
 
-      parser = MatchParser.new( txt )   ## use own parser instance (not shared) - why? why not?
+      parser = RaccMatchParser.new( txt )   ## use own parser instance (not shared) - why? why not?
       tree = parser.parse
+      pp tree
     else
         pp node
         raise ArgumentError, "unsupported (node) type >#{type}<"
     end
   end  # each node
 end  # read
-end  # class Linter
-
-
-
-
-
+end  # class RaccLinter
 
 
 
@@ -238,7 +195,7 @@ p args
 
 
 errors = []
-linter = Linter.new
+linter = RaccLinter.new
 
 paths.each_with_index do |path,i|
 

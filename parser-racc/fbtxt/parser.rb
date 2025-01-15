@@ -5,7 +5,7 @@
 #
 
 require 'racc/parser.rb'
-class MatchParser < Racc::Parser
+class RaccMatchParser < Racc::Parser
 ##### State transition tables begin ###
 
 racc_action_table = [
@@ -269,7 +269,7 @@ Racc_debug_parser = false
 
 # reduce 10 omitted
 
-module_eval(<<'.,.,', 'parser.y', 29)
+module_eval(<<'.,.,', 'parser.y', 30)
   def _reduce_11(val, _values, result)
                           @tree << GroupDef.new( name:  val[0],
                                              teams: val[2] )
@@ -278,7 +278,7 @@ module_eval(<<'.,.,', 'parser.y', 29)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 35)
+module_eval(<<'.,.,', 'parser.y', 36)
   def _reduce_12(val, _values, result)
                                                    result = val
                                                ## e.g. val is ["Austria"] 
@@ -287,7 +287,7 @@ module_eval(<<'.,.,', 'parser.y', 35)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 39)
+module_eval(<<'.,.,', 'parser.y', 40)
   def _reduce_13(val, _values, result)
                                                    result.push( val[1] )
 
@@ -295,7 +295,7 @@ module_eval(<<'.,.,', 'parser.y', 39)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 48)
+module_eval(<<'.,.,', 'parser.y', 49)
   def _reduce_14(val, _values, result)
                           kwargs = { name: val[0] }.merge( val[2] )
                       @tree<< RoundDef.new( **kwargs )
@@ -304,21 +304,21 @@ module_eval(<<'.,.,', 'parser.y', 48)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 53)
+module_eval(<<'.,.,', 'parser.y', 54)
   def _reduce_15(val, _values, result)
      result = { date: val[0][1] }
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 54)
+module_eval(<<'.,.,', 'parser.y', 55)
   def _reduce_16(val, _values, result)
      result = { duration: val[0][1] }
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 60)
+module_eval(<<'.,.,', 'parser.y', 61)
   def _reduce_17(val, _values, result)
                          @tree <<  DateHeader.new( date: val[0][1] )  
 
@@ -326,7 +326,7 @@ module_eval(<<'.,.,', 'parser.y', 60)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 64)
+module_eval(<<'.,.,', 'parser.y', 65)
   def _reduce_18(val, _values, result)
                          @tree <<  DateHeader.new( date: val[1][1] )  
 
@@ -334,7 +334,7 @@ module_eval(<<'.,.,', 'parser.y', 64)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 71)
+module_eval(<<'.,.,', 'parser.y', 72)
   def _reduce_19(val, _values, result)
                          @tree <<  GroupHeader.new( name: val[0] )  
 
@@ -342,7 +342,7 @@ module_eval(<<'.,.,', 'parser.y', 71)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 81)
+module_eval(<<'.,.,', 'parser.y', 82)
   def _reduce_20(val, _values, result)
                          @tree <<  RoundHeader.new( names: val[0] )  
 
@@ -350,14 +350,14 @@ module_eval(<<'.,.,', 'parser.y', 81)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 84)
+module_eval(<<'.,.,', 'parser.y', 85)
   def _reduce_21(val, _values, result)
       result = val
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 85)
+module_eval(<<'.,.,', 'parser.y', 86)
   def _reduce_22(val, _values, result)
        result.push( val[2] )
     result
@@ -368,7 +368,7 @@ module_eval(<<'.,.,', 'parser.y', 85)
 
 # reduce 24 omitted
 
-module_eval(<<'.,.,', 'parser.y', 95)
+module_eval(<<'.,.,', 'parser.y', 97)
   def _reduce_25(val, _values, result)
                            puts "match:"
                        pp val[1]
@@ -382,7 +382,7 @@ module_eval(<<'.,.,', 'parser.y', 95)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 105)
+module_eval(<<'.,.,', 'parser.y', 107)
   def _reduce_26(val, _values, result)
                           kwargs = {}.merge( val[0], val[1] )
                       @tree << MatchLine.new( **kwargs )
@@ -391,14 +391,14 @@ module_eval(<<'.,.,', 'parser.y', 105)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 110)
+module_eval(<<'.,.,', 'parser.y', 112)
   def _reduce_27(val, _values, result)
        result = { ord: val[0][1][:value] }
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 111)
+module_eval(<<'.,.,', 'parser.y', 113)
   def _reduce_28(val, _values, result)
        result = { ord: val[0][1][:value] }.merge( val[1] )
     result
@@ -407,63 +407,63 @@ module_eval(<<'.,.,', 'parser.y', 111)
 
 # reduce 29 omitted
 
-module_eval(<<'.,.,', 'parser.y', 115)
+module_eval(<<'.,.,', 'parser.y', 117)
   def _reduce_30(val, _values, result)
        result = { date: val[0][1]}
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 116)
+module_eval(<<'.,.,', 'parser.y', 118)
   def _reduce_31(val, _values, result)
        result = { date: val[0][1], time: val[1][1] }
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 117)
+module_eval(<<'.,.,', 'parser.y', 119)
   def _reduce_32(val, _values, result)
        result = { time: val[0][1]}
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 121)
+module_eval(<<'.,.,', 'parser.y', 123)
   def _reduce_33(val, _values, result)
      result = { geo: val[0]}
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 122)
+module_eval(<<'.,.,', 'parser.y', 124)
   def _reduce_34(val, _values, result)
      result = {}
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 126)
+module_eval(<<'.,.,', 'parser.y', 128)
   def _reduce_35(val, _values, result)
      result = val[1]
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 129)
+module_eval(<<'.,.,', 'parser.y', 131)
   def _reduce_36(val, _values, result)
       result = val
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 130)
+module_eval(<<'.,.,', 'parser.y', 132)
   def _reduce_37(val, _values, result)
       result.push( val[2] )
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 135)
+module_eval(<<'.,.,', 'parser.y', 137)
   def _reduce_38(val, _values, result)
                              result = { team1: val[0],
                                     team2: val[2]
@@ -473,28 +473,28 @@ module_eval(<<'.,.,', 'parser.y', 135)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 140)
+module_eval(<<'.,.,', 'parser.y', 142)
   def _reduce_39(val, _values, result)
       result = { score: val[0][1] }
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 141)
+module_eval(<<'.,.,', 'parser.y', 143)
   def _reduce_40(val, _values, result)
       result = {}
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 142)
+module_eval(<<'.,.,', 'parser.y', 144)
   def _reduce_41(val, _values, result)
       result = {}
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 159)
+module_eval(<<'.,.,', 'parser.y', 161)
   def _reduce_42(val, _values, result)
                            kwargs = val[1]
                        @tree << GoalLine.new( **kwargs )
@@ -503,7 +503,7 @@ module_eval(<<'.,.,', 'parser.y', 159)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 164)
+module_eval(<<'.,.,', 'parser.y', 166)
   def _reduce_43(val, _values, result)
                              kwargs = val[0]
                          @tree << GoalLine.new( **kwargs )
@@ -512,7 +512,7 @@ module_eval(<<'.,.,', 'parser.y', 164)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 169)
+module_eval(<<'.,.,', 'parser.y', 171)
   def _reduce_44(val, _values, result)
       result = { goals1: val[0],
                                                               goals2: [] } 
@@ -521,7 +521,7 @@ module_eval(<<'.,.,', 'parser.y', 169)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 172)
+module_eval(<<'.,.,', 'parser.y', 174)
   def _reduce_45(val, _values, result)
       result = { goals1: [],
                                                               goals2: val[2] } 
@@ -530,7 +530,7 @@ module_eval(<<'.,.,', 'parser.y', 172)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 175)
+module_eval(<<'.,.,', 'parser.y', 177)
   def _reduce_46(val, _values, result)
       result = { goals1: val[0],
                                                               goals2: val[2] }
@@ -543,21 +543,21 @@ module_eval(<<'.,.,', 'parser.y', 175)
 
 # reduce 48 omitted
 
-module_eval(<<'.,.,', 'parser.y', 189)
+module_eval(<<'.,.,', 'parser.y', 191)
   def _reduce_49(val, _values, result)
      result = val
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 190)
+module_eval(<<'.,.,', 'parser.y', 192)
   def _reduce_50(val, _values, result)
      result.push( val[1])
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 195)
+module_eval(<<'.,.,', 'parser.y', 197)
   def _reduce_51(val, _values, result)
                     result = Goal.new( player:  val[0],
                                    minutes: val[1] )   
@@ -566,28 +566,28 @@ module_eval(<<'.,.,', 'parser.y', 195)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 202)
+module_eval(<<'.,.,', 'parser.y', 204)
   def _reduce_52(val, _values, result)
      result = val
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 203)
+module_eval(<<'.,.,', 'parser.y', 205)
   def _reduce_53(val, _values, result)
      result.push( val[1])
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 204)
+module_eval(<<'.,.,', 'parser.y', 206)
   def _reduce_54(val, _values, result)
      result.push( val[2])
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 210)
+module_eval(<<'.,.,', 'parser.y', 212)
   def _reduce_55(val, _values, result)
                             kwargs = {}.merge( val[0][1] )
                         result = Minute.new( **kwargs )
@@ -596,7 +596,7 @@ module_eval(<<'.,.,', 'parser.y', 210)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 215)
+module_eval(<<'.,.,', 'parser.y', 217)
   def _reduce_56(val, _values, result)
                             kwargs = { }.merge( val[0][1] ).merge( val[1] )
                         result = Minute.new( **kwargs )
@@ -605,21 +605,21 @@ module_eval(<<'.,.,', 'parser.y', 215)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 219)
+module_eval(<<'.,.,', 'parser.y', 221)
   def _reduce_57(val, _values, result)
       result = { og: true }
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 220)
+module_eval(<<'.,.,', 'parser.y', 222)
   def _reduce_58(val, _values, result)
       result = { pen: true }
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 225)
+module_eval(<<'.,.,', 'parser.y', 227)
   def _reduce_59(val, _values, result)
      puts '  MATCH empty_line'
     result
@@ -630,4 +630,4 @@ def _reduce_none(val, _values, result)
   val[0]
 end
 
-end   # class MatchParser
+end   # class RaccMatchParser

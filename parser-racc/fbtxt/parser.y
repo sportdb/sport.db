@@ -3,7 +3,7 @@
 ##    $ racc -o parser.rb parser.y
 
 
-class MatchParser
+class RaccMatchParser
 
 
      rule 
@@ -18,7 +18,8 @@ class MatchParser
           | group_def
           | round_def
           | match_line
-          | goal_lines   ## check - goal_lines MUST follow match_line - why? why not?
+          | goal_lines
+      ##    | goal_lines   ## check - goal_lines MUST follow match_line - why? why not?
           | empty_line    
           
 
@@ -89,6 +90,7 @@ class MatchParser
                        | ','
 
 
+         
 
         match_line
               :   match_opts  match  more_match_opts 
@@ -120,7 +122,7 @@ class MatchParser
 
         more_match_opts
              : geo_opts NEWLINE      { result = { geo: val[0]} }
-             | NEWLINE               { result = {} }
+             | NEWLINE              { result = {} }
 
         ## e.g.  @ Parc des Princes, Paris
         ##       @ München 

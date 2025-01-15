@@ -6,6 +6,8 @@ $LOAD_PATH.unshift( '../lib' )
 require 'sportdb/parser'
 
 
+require_relative 'opts'
+
 
 ###
 ## note - Linter for now nested inside Parser - keep? why? why not?

@@ -25,8 +25,6 @@ require_relative 'parser/token'
 require_relative 'parser/lang'
 require_relative 'parser/parser'
 
-require_relative 'parser/opts'
-
 
 ####
 ##  todo/check - move outline reader upstream to cocos - why? why not?

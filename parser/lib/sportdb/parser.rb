@@ -22,6 +22,8 @@ require_relative 'parser/token-date'
 require_relative 'parser/token-text'
 require_relative 'parser/token-status'
 require_relative 'parser/token'
+require_relative 'parser/tokenizer'
+
 require_relative 'parser/lang'
 require_relative 'parser/parser'
 

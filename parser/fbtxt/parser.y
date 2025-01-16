@@ -1,6 +1,7 @@
 ##
 ## to compile use
 ##    $ racc -o parser.rb parser.y
+##      racc -o ../lib/sportdb/parser/parser.rb parser.y
 
 
 class RaccMatchParser
@@ -21,7 +22,38 @@ class RaccMatchParser
           | goal_lines
       ##    | goal_lines   ## check - goal_lines MUST follow match_line - why? why not?
           | empty_line    
-          
+          | lineup_lines
+
+
+        ## change PROP to LINEUP_TEAM
+        ## change PROP_NAME to NAME or LINEUP_NAME
+       lineup_lines  : PROP lineup '.'
+
+       lineup :   lineup_name 
+              |   lineup lineup_sep lineup_name
+              |   lineup NEWLINE
+
+       lineup_sep  :  ','
+                     | ',' NEWLINE 
+                     | '-' 
+                     | ';'
+
+       lineup_name  :    PROP_NAME 
+                    |    PROP_NAME lineup_name_more
+
+       lineup_name_more : card 
+                        | card lineup_sub
+                        | lineup_sub 
+
+       lineup_sub   :   '(' MINUTE lineup_name ')'
+
+       card         :   '[' card_body ']'
+       
+       card_body    :     card_type 
+                    |     card_type MINUTE
+
+       card_type    :  YELLOW_CARD | RED_CARD 
+
 
         ######  
         # e.g   Group A  |    Germany   Scotland     Hungary   Switzerland   

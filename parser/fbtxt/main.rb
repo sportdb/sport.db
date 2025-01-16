@@ -8,8 +8,6 @@ $LOAD_PATH.unshift( '../lib' )
 require 'sportdb/parser'
 
 
-##  require_relative 'parser'
-
 
 txt = <<-TXT
 

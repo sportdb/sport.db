@@ -27,30 +27,75 @@ class RaccMatchParser
 
         ## change PROP to LINEUP_TEAM
         ## change PROP_NAME to NAME or LINEUP_NAME
-       lineup_lines  : PROP lineup '.'
+       lineup_lines  : PROP lineup '.' NEWLINE     ## fix add NEWLINE here too!!!
+                        {  @tree << LineupLine.new( team:    val[0],
+                                                    lineup:  val[1]
+                                                  ) 
+                        }
 
-       lineup :   lineup_name 
+
+       lineup :   lineup_name       
+                    { result = [[val[0]]] }
               |   lineup lineup_sep lineup_name
-              |   lineup NEWLINE
+                    {
+                       ## if lineup_sep is -  start a new sub array!!
+                       if val[1] == '-'
+                          result << [val[2]]
+                       else
+                          result[-1] << val[2]
+                       end
+                    }
+              |   lineup NEWLINE    
+                    { result = val[0] }
+
 
        lineup_sep  :  ','
-                     | ',' NEWLINE 
+                     | ',' NEWLINE  { result = val[0]   }
                      | '-' 
                      | ';'
 
        lineup_name  :    PROP_NAME 
+                           {
+                              result = Lineup.new( name: val[0] )
+                           }
                     |    PROP_NAME lineup_name_more
+                           {
+                              kwargs = { name: val[0] }.merge( val[1] )
+                              result = Lineup.new( **kwargs )
+                           }
 
        lineup_name_more : card 
+                            {
+                              result = { card: val[0] }
+                            }
                         | card lineup_sub
+                            {
+                              result = { card: val[0], sub: val[1] }
+                            }
                         | lineup_sub 
+                            {
+                              result = { sub: val[0] }
+                            }
 
-       lineup_sub   :   '(' MINUTE lineup_name ')'
+        ## todo/fix - use goal_minute and minute (w/o pen/og etc.)
+       lineup_sub   :  '(' minute lineup_name ')'    ## '(' MINUTE lineup_name ')'
+                          {
+                              result = Sub.new( minute: val[1], sub: val[2] )
+                          }
+
 
        card         :   '[' card_body ']'
+                          {
+                              kwargs = val[1]
+                              result = Card.new( **kwargs )
+                          }
        
-       card_body    :     card_type 
-                    |     card_type MINUTE
+       card_body    :     card_type
+                           { result = { name: val[0] } } 
+         ## todo/fix - use goal_minute and minute (w/o pen/og etc.)                          
+                    |     card_type minute
+                           { result = { name: val[0], minute: val[1] } }
+                     
 
        card_type    :  YELLOW_CARD | RED_CARD 
 

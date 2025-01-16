@@ -57,3 +57,21 @@ puts "---"
 
 
 puts "bye"
+
+__END__
+
+
+<LineupLine Germany lineup=[
+   [Neuer],
+   [Kimmich, Rüdiger, Tah card=Y, Mittelstädt],
+   [Andrich card=Y sub=(46' Groß), Kroos sub=(80' Can)],
+   [Musiala sub=(74' Müller), Gündogan, Wirtz sub=(63' Sane)],
+   [Havertz sub=(63' Füllkrug)]
+]>,
+
+<LineupLine Scotland lineup=[
+  [Gunn],
+  [Porteous card=R 44', Hendry, Tierney sub=(78' McKenna)],
+  [Ralston card=Y, McTominay, McGregor sub=(67' Gilmour), Robertson],
+  [Christie sub=(82' Shankland), Adams sub=(46' Hanley), McGinn sub=(67' McLean)]
+]>

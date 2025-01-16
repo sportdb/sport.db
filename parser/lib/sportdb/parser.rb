@@ -143,6 +143,53 @@ end # module SportDb
 
 class RaccMatchParser
 
+
+LineupLine = Struct.new( :team, :lineup ) do
+  def pretty_print( printer )
+    printer.text( "<LineupLine " )
+    printer.text( self.team )
+    printer.text( " lineup=" + self.lineup.pretty_inspect )
+    printer.text( ">" )
+  end
+end
+
+Lineup     = Struct.new( :name, :card, :sub ) do
+  def pretty_print( printer )
+    buf = String.new
+    buf <<  self.name 
+    buf << " card=" + self.card.pretty_inspect    if card
+    buf << " sub=" + self.sub.pretty_inspect      if sub
+    printer.text( buf ) 
+  end
+end
+
+
+Card       = Struct.new( :name, :minute ) do
+  def to_s
+    buf = String.new
+    buf << "#{self.name}"
+    buf << " #{self.minute.to_s}"   if self.minute
+    buf
+  end
+
+  def pretty_print( printer )
+    printer.text( to_s )
+  end  
+end
+
+
+Sub        = Struct.new( :minute, :sub )  do
+  def pretty_print( printer )
+    buf = String.new 
+    buf << "(#{self.minute.to_s} " 
+    buf << self.sub.pretty_inspect  
+    buf << ")"
+    printer.text( buf ) 
+  end
+end
+
+
+
 GroupDef   = Struct.new( :name, :teams ) do
   def pretty_print( printer )
     printer.text( "<GroupDef " )
@@ -229,6 +276,10 @@ Goal        = Struct.new( :player, :minutes ) do
 
 end
 
+
+##
+##  fix - move :og, :pen  to Goal if possible - why? why not?
+##  or change to GoalMinute ???
 Minute      = Struct.new( :m, :offset, :og, :pen )  do
     def to_s
       buf = String.new

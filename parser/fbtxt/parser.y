@@ -52,7 +52,9 @@ class RaccMatchParser
        lineup_sep  :  ','
                      | ',' NEWLINE  { result = val[0]   }
                      | '-' 
-                     | ';'
+                     | '-' NEWLINE  { result = val[0]   }
+                     ### | ';'  ## no longer support ; - why? why not?
+
 
        lineup_name  :    PROP_NAME 
                            {
@@ -198,8 +200,19 @@ class RaccMatchParser
 
 
         more_match_opts
-             : geo_opts NEWLINE      { result = { geo: val[0]} }
-             | NEWLINE              { result = {} }
+             : STATUS NEWLINE      ## note - for now status must be BEFORE geo_opts!!
+                 {
+                      ## todo - add possible status_notes too!!! 
+                      result = { status: val[0][1][:status] }
+                 }
+             | STATUS geo_opts NEWLINE      
+                 { 
+                     result = { status: val[0][1][:status], 
+                                geo:    val[1] } 
+                 }
+             | geo_opts NEWLINE             { result = { geo: val[0] } }
+             | NEWLINE                      { result = {} }
+
 
         ## e.g.  @ Parc des Princes, Paris
         ##       @ München 
@@ -216,9 +229,19 @@ class RaccMatchParser
                                     team2: val[2]
                                   }.merge( val[1] )   
                     }
-
+                 |  TEXT VS TEXT
+                      {  
+                         result = { team1: val[0], team2: val[2] }   
+                      }
+                 |  TEXT VS TEXT SCORE    ## new opt - allow score after match!!!
+                      {
+                         result = { team1: val[0], 
+                                    team2: val[2],
+                                    score: val[3][1] 
+                                  }
+                      }
+                                        
         score_value:  SCORE            {  result = { score: val[0][1] }  } 
-                   |   VS              {  result = {} }  
                    |  '-'              {  result = {} }
 
 

@@ -18,8 +18,8 @@ Group A
         [Wirtz 10' Musiala 19' Havertz 45+1' (pen.) Füllkrug 68' Can 90+3'; Rüdiger 87' (o.g.)]
 
   Germany:    Neuer - Kimmich, Rüdiger, Tah [Y], Mittelstädt - Andrich [Y] (46' Groß),
-              Kroos (80' Can) - Musiala (74' Müller), Gündogan,
-              Wirtz (63' Sane) - Havertz (63' Füllkrug).
+              Kroos (80' Can) - Musiala (74' Müller), Gündogan, Wirtz (63' Sane) - 
+              Havertz (63' Füllkrug).
   Scotland:   Gunn - Porteous [R 44'], Hendry, Tierney (78' McKenna) - Ralston [Y],
               McTominay, McGregor (67' Gilmour), Robertson - Christie (82' Shankland),
               Adams (46' Hanley), McGinn (67' McLean).
@@ -32,6 +32,19 @@ Group A
   Switzerland: Sommer - Schär, Akanji, Rodriguez - Widmer [Y] (68' Stergiou), Xhaka,
                Freuler [Y] (86' Sierro), Aebischer - Ndoye (86' Rieder), Duah (68' Amdouni),
                Vargas (73' Embolo).
+
+
+################
+#### more       
+Rapid Wien   0-1  Austria Wien
+Rapid Wien   0-2  Austria Wien    [awarded]
+
+Rapid Wien v Austria Wien
+Rapid Wien v Austria Wien 0-3   [awarded]
+Rapid Wien v Austria Wien 0-4     @ Gerhard-Hanappi-Stadion, Wien
+Rapid Wien v Austria Wien   [cancelled]   @ Gerhard-Hanappi-Stadion, Wien
+Rapid Wien - Austria Wien    
+
 
 TXT
 

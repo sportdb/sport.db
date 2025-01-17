@@ -234,7 +234,8 @@ RoundHeader = Struct.new( :names ) do
 end
 
 MatchLine   = Struct.new( :ord, :date, :time,
-                          :team1, :team2, :score, 
+                          :team1, :team2, :score,
+                          :status, 
                           :geo )  do   ## change to geos - why? why not?
 
   def pretty_print( printer )

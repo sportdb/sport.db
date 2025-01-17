@@ -1,15 +1,16 @@
-
+module SportDb
+class Parser
+  
 ##  (match) status
 ##    note: english usage - cancelled (in UK), canceled (in US)
 ##
 ##  add more variants - why? why not?
 
 
-
-
 STATUS_RE = %r{
-          \[
-           ### allow long forms with note/comment for some stati
+            \[
+      (?:    
+            ### opt 1 - allow long forms with note/comment for some stati
            (?: (?<status> awarded
                             |
                           annulled
@@ -19,7 +20,8 @@ STATUS_RE = %r{
                  [ ]*
             )
             |
-            ## short from only (no note/comments)
+        
+            ## opt 2 - short from only (no note/comments)
             (?<status>
                cancelled|canceled|can\.
                  |
@@ -33,6 +35,11 @@ STATUS_RE = %r{
                  |
                annulled
             )
-      \]
-     }ix
+      )
+    \]
+}ix
 
+
+end  #  class Parser
+end  # module SportDb
+  

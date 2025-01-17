@@ -63,12 +63,14 @@ class Tokenizer
       lines = txt.split( "\n" )
       lines.each_with_index do |line,i|
           next if line.strip.empty? || line.strip.start_with?( '#' )
+          ##   support for inline (end-of-line) comments
+          line = line.sub(  /#.*/, '' ).strip
+
+          puts "line >#{line}<"
+          tokens = parser.tokenize( line )
+          pp tokens
       
-         puts "line >#{line}<"
-         tokens = parser.tokenize( line )
-         pp tokens
-      
-         tree << tokens
+          tree << tokens
       end
  
 
@@ -325,9 +327,12 @@ def initialize(input)
 
 
   def on_error(*args)
-    puts "!! on error:"
+    puts
+    puts "!! on parse error:"
     puts "args=#{args.pretty_inspect}"
+    exit 1  ##   exit for now  -  get and print more info about context etc.!!
   end
+
 
 =begin
 on_error do |error_token_id, error_value, value_stack|

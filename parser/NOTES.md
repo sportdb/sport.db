@@ -1,6 +1,51 @@
 #  Parser (World Service) Experiments  w/ racc 
 
 
+## todos
+
+- [ ]  split parser into def sections (e.g. group def/rouund def) 
+           and  body - why? why not?
+
+
+- [ ]   rework minutes rule;
+        break into goal_minutes and "classic" minutes (for reuse),
+          that is, no o.g. or pen. etc.
+
+- [ ]   cards - check options for yellow-red card
+           use YR or such - why? why not? or Y/R or ???
+
+- [ ]  add a new match NAME_WITH_MINUTE regex
+         to switch into GOALS mode!!
+           break out with end-of-line / newline!
+       allow continuation with , if last token in line!!
+
+- [ ]  use same "trick" of , if last token in line!!
+         for current goal_line
+
+- [ ]  change goal_line tokens to PLAYER/NAME !!!
+- [ ]  change generic TEXT vs TEXT tokens in match 
+         to TEAM vs TEAM!!!
+
+- [ ]  lineup - maybe change too to "auto-magic" 
+           line coninuations with , if last token in line!!
+            and remove the dot end of lineup marker requirement;
+             use simple NEWLINE instead!!
+
+
+## "Hard Problems"
+
+Matchday 1    and Messi 24
+
+-  name with minute   or text ?
+    how to tell the difference if no minute marker e.g. `24'`??? 
+
+
+## open (format) questions - discuss
+
+- [ ]   use `()` to auto-switch into name mode (for goals/etc) - why? why not?
+
+
+
 ## What's News? / What's Different?
 
 

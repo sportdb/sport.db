@@ -20,7 +20,7 @@ txt = <<TXT
 
 Round of 16 - 1st Leg
 Round of 16, 1st Leg
-Round of 16 | 1st Leg
+## Round of 16 | 1st Leg
 ### or use pipe (|)  - usually used for round defs - handle new case with text - why? why not?
 
 
@@ -44,7 +44,7 @@ Round of 16 | 1st Leg
            [Willian 62'; Messi 75']
 
 [Wed Feb/21]
-  20.45  Shakhtar Donetsk     2-1  Roma                 @ Metalist Stadium, Kharkiv  ## [†]
+  20.45  Shakhtar Donetsk     2-1  Roma                 @ Metalist Stadium, Kharkiv 
            [Ferreyra 52' Fred 71'; Ünder 41']
   20.45  Sevilla              0-0  Manchester United    @ Ramón Sánchez Pizjuán, Seville
 
@@ -138,22 +138,11 @@ puts txt
 puts
 
 
-parser = SportDb::Parser.new
+parser = RaccMatchParser.new( txt )
 
-tree = []
+tree = parser.parse
 
-lines = txt.split( "\n" )
-lines.each_with_index do |line,i|
-    next if line.strip.empty? || line.strip.start_with?( '#' )
-
-   puts "line >#{line}<"
-   nodes = parser.parse( line )
-   pp nodes
-
-   tree << nodes
-end
-
-
+puts
 puts "(parse) tree:"
 pp tree
 

@@ -16,4 +16,5 @@ lib/sportdb/parser/token-score.rb
 lib/sportdb/parser/token-status.rb
 lib/sportdb/parser/token-text.rb
 lib/sportdb/parser/token.rb
+lib/sportdb/parser/tokenizer.rb
 lib/sportdb/parser/version.rb

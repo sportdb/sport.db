@@ -16,6 +16,8 @@ OPENFOOTBALL_PATH = '../../../openfootball'
 
 
 ## SportDb::MatchParser.debug = true
+SportDb::MatchParser.debug = true
+SportDb::QuickMatchReader.debug = true
 
 
 # path =  "#{OPENFOOTBALL_PATH}/champions-league/2024-25/cl.txt"

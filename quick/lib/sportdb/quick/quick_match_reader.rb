@@ -73,6 +73,14 @@ class QuickMatchReader
                   Date.new( season.start_year, 7, 1 )
                 end
 
+     # if debug?
+     #   puts "  (sec) lines:"
+     #   pp lines
+     # end
+
+      ### note - skip section if no lines !!!!!
+      next if lines.empty?     ## or use lines.size == 0
+
 
       parser = MatchParser.new( lines,
                                 start )   ## note: keep season start_at date for now (no need for more specific stage date need for now)

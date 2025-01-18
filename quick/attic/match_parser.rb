@@ -1,83 +1,7 @@
 
-module SportDb
 
 class MatchParser    ## simple match parser for team match schedules
 
-  def self.debug=(value) @@debug = value; end
-  def self.debug?() @@debug ||= false; end  ## note: default is FALSE
-  def debug?()  self.class.debug?; end
-
-  include Logging         ## e.g. logger#debug, logger#info, etc.
-
-
-  def self.parse( lines, start: )
-    ##  todo/fix: add support for txt and lines
-    ##    check if lines_or_txt is an array or just a string
-    ##   use teams: like start:  why? why not?
-    parser = new( lines, start )
-    parser.parse
-  end
-
-
-
-
-  def _read_lines( txt )   ## todo/check:  add alias preproc_lines or build_lines or prep_lines etc. - why? why not?
-    ## returns an array of lines with comments and empty lines striped / removed
-    lines = []
-    txt.each_line do |line|    ## preprocess
-       line = line.strip
-
-       next if line.empty? || line.start_with?('#')   ###  skip empty lines and comments
-       line = line.sub( /#.*/, '' ).strip             ###  cut-off end-of line comments too
-       lines << line
-    end
-    lines
-  end
-
-
-  ## note:  colon (:) MUST be followed by one (or more) spaces
-  ##      make sure mon feb 12 18:10 will not match
-  ##        allow 1. FC Köln etc.
-  ##               Mainz 05:
-  ##           limit to 30 chars max
-  ##          only allow  chars incl. intl buut (NOT ()[]/;)
-  ##
-  ##   Group A:
-  ##   Group B:   - remove colon
-  ##    or lookup first
-
-  ATTRIB_RE = %r{^
-                   [ ]*?     # slurp leading spaces
-                (?<key>[^:|\]\[()\/; -]
-                       [^:|\]\[()\/;]{0,30}
-                 )
-                   [ ]*?     # slurp trailing spaces
-                   :[ ]+
-                (?<value>.+)
-                    [ ]*?   # slurp trailing spaces
-                   $
-                }ix
-
-  #
-  # todo/fix: change start to start: too!!!
-  #       might be optional in the future!! - why? why not?
-
-  def initialize( lines, start )
-    # for convenience split string into lines
-    ##    note: removes/strips empty lines
-    ## todo/check: change to text instead of array of lines - why? why not?
-
-    ## note - wrap in enumerator/iterator a.k.a lines reader
-    @lines = lines.is_a?( String ) ?
-                    _read_lines( lines ) : lines
-
-    @start        = start
-    @errors = []
-  end
-
-
-  attr_reader :errors
-  def errors?() @errors.size > 0; end
 
   def parse
     ## note: every (new) read call - resets errors list to empty
@@ -103,8 +27,6 @@ class MatchParser    ## simple match parser for team match schedules
     @parser = Parser.new
     @tree   = []
 
-    attrib_found = false
-
     @lines.each_with_index do |line,i|
 
          if debug?
@@ -112,29 +34,7 @@ class MatchParser    ## simple match parser for team match schedules
            puts "line >#{line}<"
          end
 
-          ## skip new (experimental attrib syntax)
-          if attrib_found == false &&
-              ATTRIB_RE.match?( line )
-            ## note: check attrib regex AFTER group def e.g.:
-            ##         Group A:
-            ##         Group B:  etc.
-            ##     todo/fix - change Group A: to Group A etc.
-            ##                       Group B: to Group B
-             attrib_found = true
-             ## logger.debug "skipping key/value line - >#{line}<"
-             next
-          end
-
-          if attrib_found
-            ## check if line ends with dot
-            ##  if not slurp up lines to the next do!!!
-            ## logger.debug "skipping key/value line - >#{line}<"
-            attrib_found = false   if line.end_with?( '.' )
-                # logger.debug "skipping key/value line (cont.) - >#{line}<"
-            next
-          end
-
-          t, error_messages  =  @parser.parse_with_errors( line )
+         t, error_messages  =  @parser.parse_with_errors( line )
 
 
            if error_messages.size > 0

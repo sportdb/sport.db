@@ -9,7 +9,19 @@ class MatchParser    ## simple match parser for team match schedules
 
   include Logging         ## e.g. logger#debug, logger#info, etc.
 
+  def log( msg )
+    ## append msg to ./logs.txt
+    ##     use ./errors.txt - why? why not?
+    File.open( './logs.txt', 'a:utf-8' ) do |f|
+      f.write( msg )
+      f.write( "\n" )
+    end
+  end
+ 
 
+
+
+  
   def self.parse( lines, start: )
     ##  todo/fix: add support for txt and lines
     ##    check if lines_or_txt is an array or just a string
@@ -26,8 +38,8 @@ class MatchParser    ## simple match parser for team match schedules
     lines = []
     txt.each_line do |line|    ## preprocess
        line = line.strip
-
        next if line.empty? || line.start_with?('#')   ###  skip empty lines and comments
+       
        line = line.sub( /#.*/, '' ).strip             ###  cut-off end-of line comments too
        lines << line
     end
@@ -35,29 +47,7 @@ class MatchParser    ## simple match parser for team match schedules
   end
 
 
-  ## note:  colon (:) MUST be followed by one (or more) spaces
-  ##      make sure mon feb 12 18:10 will not match
-  ##        allow 1. FC Köln etc.
-  ##               Mainz 05:
-  ##           limit to 30 chars max
-  ##          only allow  chars incl. intl buut (NOT ()[]/;)
-  ##
-  ##   Group A:
-  ##   Group B:   - remove colon
-  ##    or lookup first
-
-  ATTRIB_RE = %r{^
-                   [ ]*?     # slurp leading spaces
-                (?<key>[^:|\]\[()\/; -]
-                       [^:|\]\[()\/;]{0,30}
-                 )
-                   [ ]*?     # slurp trailing spaces
-                   :[ ]+
-                (?<value>.+)
-                    [ ]*?   # slurp trailing spaces
-                   $
-                }ix
-
+ 
   #
   # todo/fix: change start to start: too!!!
   #       might be optional in the future!! - why? why not?
@@ -99,40 +89,19 @@ class MatchParser    ## simple match parser for team match schedules
 
     @tree   = []
 
-    attrib_found = false
 
-
-    lines = []
-    @lines.each_with_index do |line,i|
-
+       ## flatten lines
+       txt  = []
+       @lines.each_with_index do |line,i|
+          txt << line
+          txt << "\n"
+       end
+       txt = txt.join
+ 
          if debug?
-           puts
-           puts "line >#{line}<"
+           puts "lines:"
+           pp txt
          end
-
-          ## skip new (experimental attrib syntax)
-          if attrib_found == false &&
-              ATTRIB_RE.match?( line )
-            ## note: check attrib regex AFTER group def e.g.:
-            ##         Group A:
-            ##         Group B:  etc.
-            ##     todo/fix - change Group A: to Group A etc.
-            ##                       Group B: to Group B
-             attrib_found = true
-             ## logger.debug "skipping key/value line - >#{line}<"
-             next
-          end
-
-          if attrib_found
-            ## check if line ends with dot
-            ##  if not slurp up lines to the next do!!!
-            ## logger.debug "skipping key/value line - >#{line}<"
-            attrib_found = false   if line.end_with?( '.' )
-                # logger.debug "skipping key/value line (cont.) - >#{line}<"
-            next
-          end
-
-          lines << line
 
 =begin
           t, error_messages  =  @parser.parse_with_errors( line )
@@ -153,14 +122,10 @@ class MatchParser    ## simple match parser for team match schedules
 
            @tree << t
 =end
-    end  # each lines
 
-     txt = lines.join( "\n") + "\n"     
      parser = RaccMatchParser.new( txt )   ## use own parser instance (not shared) - why? why not?
      @tree = parser.parse
      ## pp @tree
-
-    ## pp @tree
 
     ## report parse errors here - why? why not?
 
@@ -188,9 +153,13 @@ class MatchParser    ## simple match parser for team match schedules
           on_goal_line( node )
       else
         ## report error
-        puts "!! ERROR - unknown node (parse tree type)"
+        msg = "!! WARN - unknown node (parse tree type) - #{node.class.name}" 
+        puts msg
         pp node
-        exit 1
+
+        log( msg )
+        log( node.pretty_inspect )
+        ## exit 1
       end
     end  # tree.each
 
@@ -478,7 +447,8 @@ class GoalStruct
     ## note - there's no time (-only) type in ruby
     ##  use string (e.g. '14:56', '1:44')
     ##   use   01:44 or 1:44 ?
-    ##  check for 0:00 or 24:00  possible?                         
+    ##  check for 0:00 or 24:00  possible?  
+    time   = nil                       
     time   =  ('%d:%02d' % [node.time[:h], node.time[:m]])  if node.time
  
 
@@ -497,17 +467,20 @@ class GoalStruct
       score = Score.new( *values )
     end
  
-    more   = []
 
     status = nil
+    status =  node.status   if node.status   ### assume text for now             
     ## if node_type == :status  # e.g. awarded, canceled, postponed, etc.
     ##  status = node[1]
+    #
+    ## todo - add    ## find (optional) match status e.g. [abandoned] or [replay] or [awarded]
+    ##                                   or [cancelled] or [postponed] etc.
+    ##    status = find_status!( line )   ## todo/check: allow match status also in geo part (e.g. after @) - why? why not?
 
-
- #
-## todo - add    ## find (optional) match status e.g. [abandoned] or [replay] or [awarded]
-##                                   or [cancelled] or [postponed] etc.
-##    status = find_status!( line )   ## todo/check: allow match status also in geo part (e.g. after @) - why? why not?
+    
+    ###############
+    #  add more for ground (and timezone!!!)
+    more   = []
 #
 #        elsif node_type == :'@' ||
 #              node_type == :',' ||

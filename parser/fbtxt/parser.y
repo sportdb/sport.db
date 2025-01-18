@@ -172,13 +172,8 @@ class RaccMatchParser
          
 
         match_line
-              :   match_opts  match  more_match_opts 
-                    {
-                       puts "match:"
-                       pp val[1]
-                       puts "more match opts:"
-                       pp val[2]  
-
+              :   match_opts  match  more_match_opts
+                    {     
                        kwargs = {}.merge( val[0], val[1], val[2] )
                        @tree << MatchLine.new( **kwargs )
                     }
@@ -187,6 +182,44 @@ class RaccMatchParser
                       kwargs = {}.merge( val[0], val[1] )
                       @tree << MatchLine.new( **kwargs )
                   }
+              ##   "compact" formats for match fixtures ONLY (no scores, no geo, no status)
+              ##      try to change  match_opts to date_opts only!!!
+              ##        for now result in shift/reduce conflict!!
+              |  match_opts  match_fixture ',' more_match_fixtures  NEWLINE 
+                    {
+                      kwargs = {}.merge( val[0], val[1] )
+                      @tree << MatchLine.new( **kwargs )
+                     
+                      ## add more match fixtures
+                      val[3].each do |kwargs|
+                         @tree << MatchLine.new( **kwargs)
+                      end
+                    }
+              |  match_fixture ',' more_match_fixtures NEWLINE
+                    {
+                      kwargs = val[0]
+                      @tree << MatchLine.new( **kwargs )
+ 
+                      ## add more match fixtures
+                      val[2].each do |kwargs|
+                         @tree << MatchLine.new( **kwargs)
+                      end
+                    }
+ 
+
+   
+
+         more_match_fixtures :   match_fixture
+                                  {
+                                    puts "  REDUCE => more_match_fixtures : match_fixture" 
+                                    result = val
+                                  }
+                             |   more_match_fixtures ',' match_fixture
+                                  {
+                                     puts "  REDUCE => more_match_fixtures : more_match_fixtures ',' match_fixture " 
+                                     result.push( val[2] )
+                                  }
+
 
         match_opts
              :  ORD             {   result = { ord: val[0][1][:value] }  }
@@ -222,29 +255,45 @@ class RaccMatchParser
                :  TEXT                    {  result = val }
                |  geo_values ',' TEXT     {  result.push( val[2] )  }      
 
- 
-        match :  TEXT  score_value  TEXT
-                    {
+
+         match  :   match_result
+                |   match_fixture 
+                    
+         match_fixture :  TEXT match_sep TEXT
+                           {
+                               puts "  match MATCH_FIXTURE"
+                               result = { team1: val[0],
+                                          team2: val[2] }   
+                           }
+
+         match_sep :  '-' | VS
+            ## note - does NOT include SCORE; use SCORE terminal "in-place" if needed
+  
+
+        match_result :  TEXT  SCORE  TEXT
+                     {
+                         puts "  match TEXT  SCORE  TEXT"
                          result = { team1: val[0],
-                                    team2: val[2]
-                                  }.merge( val[1] )   
+                                    team2: val[2],
+                                    score: val[1][1]
+                                  }   
                     }
-                 |  TEXT VS TEXT
-                      {  
-                         result = { team1: val[0], team2: val[2] }   
-                      }
-                 |  TEXT VS TEXT SCORE    ## new opt - allow score after match!!!
+              #   |  TEXT match_sep TEXT
+              #        {  
+              #           puts "  match TEXT match_sep TEXT"
+              #           result = { team1: val[0], team2: val[2] }   
+              #        }
+              ##   use match_fixture SCORE if possible - why? why not? ??
+                 |  TEXT match_sep TEXT SCORE    ## new opt - allow score after match!!!
                       {
+                         puts "  match TEXT match_sep TEXT SCORE"
                          result = { team1: val[0], 
                                     team2: val[2],
                                     score: val[3][1] 
                                   }
                       }
                                         
-        score_value:  SCORE            {  result = { score: val[0][1] }  } 
-                   |  '-'              {  result = {} }
-
-
+   
         #######
         ## e.g. Wirtz 10' Musiala 19' Havertz 45+1' (pen.)  Füllkrug 68' Can 90+3';  
         ##      Rüdiger 87' (o.g.)

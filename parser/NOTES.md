@@ -3,9 +3,16 @@
 
 ## todos
 
+- [ ]  use "old" tokenizer pattern match
+         and 1) change  text vs text  to  team vs team
+         and 2) change  text minute   to  player minute!!!!
+
+
 - [ ]  split parser into def sections (e.g. group def/rouund def) 
            and  body - why? why not?
 
+- [ ]   merge o.g. and pen. into goal_minutes regex
+          AND handle in tokenizer (as one terminal) - why? why not?
 
 - [ ]   rework minutes rule;
         break into goal_minutes and "classic" minutes (for reuse),

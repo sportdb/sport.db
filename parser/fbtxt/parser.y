@@ -185,7 +185,7 @@ class RaccMatchParser
               ##   "compact" formats for match fixtures ONLY (no scores, no geo, no status)
               ##      try to change  match_opts to date_opts only!!!
               ##        for now result in shift/reduce conflict!!
-              |  match_opts  match_fixture ',' more_match_fixtures  NEWLINE 
+              |  match_opts  match ',' more_matches  NEWLINE 
                     {
                       kwargs = {}.merge( val[0], val[1] )
                       @tree << MatchLine.new( **kwargs )
@@ -195,7 +195,7 @@ class RaccMatchParser
                          @tree << MatchLine.new( **kwargs)
                       end
                     }
-              |  match_fixture ',' more_match_fixtures NEWLINE
+              |  match ',' more_matches NEWLINE
                     {
                       kwargs = val[0]
                       @tree << MatchLine.new( **kwargs )
@@ -209,12 +209,12 @@ class RaccMatchParser
 
    
 
-         more_match_fixtures :   match_fixture
+         more_matches :   match
                                   {
                                     puts "  REDUCE => more_match_fixtures : match_fixture" 
                                     result = val
                                   }
-                             |   more_match_fixtures ',' match_fixture
+                     |   more_matches ',' match
                                   {
                                      puts "  REDUCE => more_match_fixtures : more_match_fixtures ',' match_fixture " 
                                      result.push( val[2] )
@@ -262,7 +262,7 @@ class RaccMatchParser
                     
          match_fixture :  TEXT match_sep TEXT
                            {
-                               puts "  match MATCH_FIXTURE"
+                               puts "  RECUDE match_fixture"
                                result = { team1: val[0],
                                           team2: val[2] }   
                            }
@@ -272,27 +272,18 @@ class RaccMatchParser
   
 
         match_result :  TEXT  SCORE  TEXT
-                     {
-                         puts "  match TEXT  SCORE  TEXT"
-                         result = { team1: val[0],
-                                    team2: val[2],
-                                    score: val[1][1]
-                                  }   
-                    }
-              #   |  TEXT match_sep TEXT
-              #        {  
-              #           puts "  match TEXT match_sep TEXT"
-              #           result = { team1: val[0], team2: val[2] }   
-              #        }
-              ##   use match_fixture SCORE if possible - why? why not? ??
-                 |  TEXT match_sep TEXT SCORE    ## new opt - allow score after match!!!
-                      {
-                         puts "  match TEXT match_sep TEXT SCORE"
-                         result = { team1: val[0], 
-                                    team2: val[2],
-                                    score: val[3][1] 
-                                  }
-                      }
+                         {
+                           puts "  REDUCE => match_result : TEXT  SCORE  TEXT"
+                           result = { team1: val[0],
+                                      team2: val[2],
+                                      score: val[1][1]
+                                    }   
+                        }
+                     |  match_fixture SCORE
+                        {
+                          puts "  REDUCE  => match_result : match_fixture SCORE"
+                          result = { score: val[1][1] }.merge( val[0] )  
+                        }
                                         
    
         #######

@@ -42,9 +42,10 @@ Matchday 5
 Fr Sept/24 18:00  Rapid - Austria,  GAK v Sturm,   Wolfsbrug v Innsbruck
 
 
-## note -  continuation only works for fixtures (no match results!!!)
-##              maybe allow results too (but no geo) - why? why not?
-##  Sevilla 2-1 Bilbao,  Madrid v Barcelona    
+Sevilla 2-1 Bilbao,  Madrid v Barcelona    
+Sevilla v Bilbao 2-1,  Madrid v Barcelona
+Sevilla - Bilbao 2-1,  Madrid - Barcelona 1-5 (0-2), Elche - Getafe   
+
 
 
 ###

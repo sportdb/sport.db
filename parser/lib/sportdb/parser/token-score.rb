@@ -25,7 +25,7 @@ class Parser
              )?             # note: make penalty (P) score optional for now
             (?<et1>\d{1,2}) - (?<et2>\d{1,2})
                [ ]* #{ET_EN}
-               (?=[ \]]|$)
+               (?=[ ,\]]|$)
         )}ix
                 ## todo/check:  remove loakahead assertion here - why require space?
                 ## note: \b works only after non-alphanum e.g. )
@@ -38,7 +38,7 @@ class Parser
            \b
               (?<p1>\d{1,2}) - (?<p2>\d{1,2})
                 [ ]* #{P_EN}
-                (?=[ \]]|$)
+                (?=[ ,\]]|$)
          )}ix
                 ## todo/check:  remove loakahead assertion here - why require space?
                 ## note: \b works only after non-alphanum e.g. )
@@ -71,7 +71,7 @@ class Parser
                     )?
                 )?              # note: make half time (HT) score optional for now
               \)
-             (?=[ \]]|$)
+             (?=[ ,\]]|$)
             )}ix       ## todo/check:  remove loakahead assertion here - why require space?
                                ## note: \b works only after non-alphanum e.g. )
 
@@ -94,7 +94,7 @@ class Parser
          )?
      )?              # note: make half time (HT) score optional for now
    \)
-  (?=[ \]]|$)
+  (?=[ ,\]]|$)
     )}ix    ## todo/check:  remove loakahead assertion here - why require space?
             ## note: \b works only after non-alphanum e.g. )
 
@@ -112,7 +112,7 @@ class Parser
                 (?<ht1>\d{1,2}) - (?<ht2>\d{1,2})
                    [ ]* \)
                )?   # note: make half time (HT) score optional for now
-             (?=[ \]]|$)
+             (?=[ ,\]]|$)
              )}ix    ## todo/check:  remove loakahead assertion here - why require space?
                     ## note: \b works only after non-alphanum e.g. )
 

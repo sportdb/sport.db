@@ -860,37 +860,37 @@ module_eval(<<'.,.,', 'parser.y', 342)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 347)
+module_eval(<<'.,.,', 'parser.y', 356)
   def _reduce_81(val, _values, result)
-                    result = Goal.new( player:  val[0],
-                                   minutes: val[1] )   
+                      result = Goal.new( player:  val[0],
+                                     minutes: val[1] )   
 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 354)
+module_eval(<<'.,.,', 'parser.y', 368)
   def _reduce_82(val, _values, result)
      result = val
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 355)
+module_eval(<<'.,.,', 'parser.y', 369)
   def _reduce_83(val, _values, result)
      result.push( val[1])
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 356)
+module_eval(<<'.,.,', 'parser.y', 370)
   def _reduce_84(val, _values, result)
      result.push( val[2])
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 362)
+module_eval(<<'.,.,', 'parser.y', 376)
   def _reduce_85(val, _values, result)
                             kwargs = {}.merge( val[0][1] )
                         result = Minute.new( **kwargs )
@@ -899,7 +899,7 @@ module_eval(<<'.,.,', 'parser.y', 362)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 367)
+module_eval(<<'.,.,', 'parser.y', 381)
   def _reduce_86(val, _values, result)
                             kwargs = { }.merge( val[0][1] ).merge( val[1] )
                         result = Minute.new( **kwargs )
@@ -908,21 +908,21 @@ module_eval(<<'.,.,', 'parser.y', 367)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 371)
+module_eval(<<'.,.,', 'parser.y', 385)
   def _reduce_87(val, _values, result)
       result = { og: true }
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 372)
+module_eval(<<'.,.,', 'parser.y', 386)
   def _reduce_88(val, _values, result)
       result = { pen: true }
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 377)
+module_eval(<<'.,.,', 'parser.y', 391)
   def _reduce_89(val, _values, result)
      puts '  MATCH empty_line'
     result

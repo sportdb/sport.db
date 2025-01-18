@@ -341,13 +341,29 @@ class RaccMatchParser
 
          goals  :  goal               { result = val }
                 |  goals goal         { result.push( val[1])  }
-   
-       
+                ## allow optional comma separator too - why? why not?
+                ##   results in shift/reduce conflict 
+                ##      retry/rework later 
+                ##    for now added (optinal tamgling comma to goal)
+                ## |  goals ',' goal     { result.push( val[2])  }
+         
+         ## check if changes with PLAXER (instead of TEXT!!!!
+         ## goals  :  TEXT minutes   
+         ##       |  goals TEXT minutes
+         ##       |  goals TEXT minutes ','
+         ##  note - if NOT working out fix in match schedule!!
+         ##                  and remove commas between goals!!!
+
          goal : TEXT  minutes      # PLAYER minutes    
-              {  
-                result = Goal.new( player:  val[0],
-                                   minutes: val[1] )   
-              }
+                {  
+                  result = Goal.new( player:  val[0],
+                                     minutes: val[1] )   
+                }
+#              | TEXT  minutes  ','    
+#                {  
+#                  result = Goal.new( player:  val[0],
+#                                     minutes: val[1] )   
+#                }
             ## might start a new line
             ##  | NEWLINE TEXT minutes 
 

@@ -190,6 +190,23 @@ Final
            [Benzema 51' Bale 64', 83'; Mané 55']
 
 
+(29) Sat Jun/23 15:00          Belgium   5-2 (3-1)   Tunisia    @ Spartak Stadium, Moscow (UTC+3)
+  [Batshuayi 90']
+  [R. Lukaku 16' Batshuayi 90']          
+  [R. Lukaku 45+3' Batshuayi 90']          
+  [R. Lukaku 16', 45+3' Batshuayi 90']          
+  [R. Lukaku 16' 45+3' Batshuayi 90']          
+  [E. Hazard 6' (pen.), 51' R. Lukaku 16', 45+3' Batshuayi 90'; Bronn 18' Khazri 90+3']
+  [E. Hazard 6' (pen.) 51' R. Lukaku 16' 45+3' Batshuayi 90'; Bronn 18' Khazri 90+3']
+
+  ### todo/fix
+  ##    add/allow optional commas between players - why? why not? 
+#  [R. Lukaku 16', Batshuayi 90']          
+#  [R. Lukaku 16', 45+3', Batshuayi 90']  
+#  [E. Hazard 6' (pen.), 51', R. Lukaku 16', 45+3', Batshuayi 90'; 
+#    Bronn 18', Khazri 90+3']
+        
+
 TXT
 
 

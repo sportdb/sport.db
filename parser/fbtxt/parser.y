@@ -240,16 +240,17 @@ class RaccMatchParser
                  }
              | STATUS geo_opts NEWLINE      
                  { 
-                     result = { status: val[0][1][:status], 
-                                geo:    val[1] } 
+                     result = { status: val[0][1][:status] }.merge( val[1] ) 
                  }
-             | geo_opts NEWLINE             { result = { geo: val[0] } }
+             | geo_opts NEWLINE             { result = {}.merge( val[0] ) }
              | NEWLINE                      { result = {} }
 
 
         ## e.g.  @ Parc des Princes, Paris
         ##       @ München 
-        geo_opts : '@' geo_values  { result = val[1]  }
+        ##       @ Luzhniki Stadium, Moscow (UTC+3)
+        geo_opts : '@' geo_values           { result = { geo: val[1] } }
+                 | '@' geo_values TIMEZONE  { result = { geo: val[1], timezone: val[2] } }
 
         geo_values
                :  TEXT                    {  result = val }

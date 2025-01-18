@@ -9,7 +9,6 @@ require 'sportdb/parser'
 
 parser = SportDb::Parser.new
 
-
 puts "group:"
 pp parser.is_group?( 'Group' )      #=> false!!!!!!!!!!!!!!
 pp parser.is_group?( 'Group A' )

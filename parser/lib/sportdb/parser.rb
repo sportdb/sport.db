@@ -17,6 +17,9 @@ require 'season/formats'  # e.g. Season() support machinery
 
 
 require_relative 'parser/version'
+
+require_relative 'parser/lang'
+
 require_relative 'parser/token-score'
 require_relative 'parser/token-date'
 require_relative 'parser/token-text'
@@ -24,7 +27,6 @@ require_relative 'parser/token-status'
 require_relative 'parser/token'
 require_relative 'parser/tokenizer'
 
-require_relative 'parser/lang'
 require_relative 'parser/parser'
 
 
@@ -51,6 +53,19 @@ end  # module SportDb
 
 
 module SportDb
+
+
+
+class Parser
+  ## keep "old" access to checking for group, round & friends
+  ##    for now for compatibility
+  def is_group?( text )  Lang.is_group?( text ); end
+  def is_round?( text )  Lang.is_round?( text ); end
+  def is_leg?( text )    Lang.is_leg?( text ); end
+end
+
+
+
 class Tokenizer  
     
    attr_reader :tokens
@@ -236,7 +251,8 @@ end
 MatchLine   = Struct.new( :ord, :date, :time,
                           :team1, :team2, :score,
                           :status, 
-                          :geo )  do   ## change to geos - why? why not?
+                          :geo,
+                          :timezone )  do   ## change to geos - why? why not?
 
   def pretty_print( printer )
     printer.text( "<MatchLine " )

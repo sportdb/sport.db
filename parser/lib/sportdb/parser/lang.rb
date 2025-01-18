@@ -4,7 +4,12 @@
 
 
 module SportDb
-class Parser
+
+## use module or class for Lang namespace??
+##   start with module for now
+
+
+module Lang
 
 ## Group A-Z
 ## Group 1-99
@@ -17,7 +22,7 @@ GROUP_RE = %r{^
                 Group [ ]
                    (?<key>[a-z0-9]+)
               $}ix
-def is_group?( text )
+def self.is_group?( text )
    ## use regex for match
    GROUP_RE.match?( text )
 end
@@ -191,9 +196,8 @@ def self.more_round_names
 end
 
 
-def is_round?( text )
-    ROUND_RE.match?( text ) ||
-    self.class.more_round_names.include?( text )
+def self.is_round?( text )
+    ROUND_RE.match?( text ) || more_round_names.include?( text )
 end
 
 ##
@@ -208,10 +212,10 @@ LEG_RE = %r{^
 $}ix
 
 ### Pair matches/games if marked with leg1 n leg2
-def is_leg?( text )
+def self.is_leg?( text )
    LEG_RE.match?( text )
 end
 
 
-end  # class Parser
+end  # module Lang
 end  # module SportDb

@@ -47,6 +47,15 @@ Fr Sept/24 18:00  Rapid - Austria,  GAK v Sturm,   Wolfsbrug v Innsbruck
 ##  Sevilla 2-1 Bilbao,  Madrid v Barcelona    
 
 
+###
+#  try geo with timezone
+
+ Denmark  0-0  France   @ Arena Amazônia, Manaus  
+ Denmark  0-0  France   @ Arena Amazônia, Manaus (UTC-4)
+ Denmark  0-0  France   @ Arena Amazônia (UTC-4)
+ Denmark  0-0  France   @ Manaus (UTC-4)
+ Denmark v France   @ Manaus (UTC-4)
+ 
 TXT
 
 

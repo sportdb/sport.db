@@ -1,4 +1,4 @@
-### 0.5.2
+### 0.5.3
 ### 0.0.1 / 2024-07-12
 
 * Everything is new. First release.

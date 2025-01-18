@@ -2,6 +2,64 @@
 
 module SportDb
 
+###
+#  add a simple Outline convenience class
+#            for processing OUtlines with OUtlineReader
+
+class QuickMatchOutline
+   def self.read( path )
+       nodes = OutlineReader.read( path )
+       new( nodes )
+   end      
+
+   def initialize( nodes )
+      @nodes = nodes
+   end
+
+   def each_para( &blk )
+     ## note: every (new) read call - resets errors list to empty
+     ### @errors = []
+
+     ##  process nodes
+     h1 = nil
+     h2 = nil
+     orphans = 0    ## track paragraphs's with no heading
+
+     @nodes.each do |node|
+        type = node[0]
+
+        if type == :h1
+           h1 = node[1]  ## get heading text
+           puts "  = Heading 1 >#{node[1]}<"
+        elsif type == :h2
+           if h1.nil?
+             puts "!! WARN - no heading for subheading; skipping processing"
+             next
+           end
+           h2 = node[1]  ## get heading text
+           puts "  == Heading 2 >#{node[1]}<"
+        elsif type == :p
+           if h1.nil?
+             orphans += 1    ## only warn once
+             puts "!! WARN - no heading for #{orphans} text paragraph(s); skipping parse"
+             next
+           end
+
+           lines = node[1]
+           blk.call( lines )
+        else
+          pp node
+          raise ArgumentError, "unsupported (node) type >#{type}<"
+        end
+     end  # each node
+   end  # each_para
+   alias_method :each_paragraph, :each_para
+   alias_method :each_p,         :each_para
+end   # class QuickMatchOutline
+
+
+
+
 class OutlineReader
 
   def self.debug=(value) @@debug = value; end

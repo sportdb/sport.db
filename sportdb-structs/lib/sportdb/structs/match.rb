@@ -216,6 +216,28 @@ def as_json
   data['score']['et'] = [@score1et,  @score2et]    if @score1et && @score2et
   data['score']['p']  = [@score1p,   @score2p]     if @score1p && @score2p
 
+  ### check for goals
+  if @goals && @goals.size > 0
+    data['goals1'] = []
+    data['goals2'] = []
+
+    @goals.each do |goal|
+          node = {}
+          node['name']    = goal.player
+          node['minute']  = goal.minute
+          node['offset']  = goal.offset  if goal.offset
+          node['owngoal'] = true         if goal.owngoal
+          node['penalty'] = true         if goal.penalty
+          
+          if goal.team == 1
+            data['goals1']  << node   
+          else  ## assume 2
+            data['goals2']  << node
+          end
+     end  # each goal
+  end
+
+
   data['status'] = @status  if @status
 
   data['group']  = @group   if @group
@@ -227,20 +249,7 @@ def as_json
        data['ground']['name']      = @ground
        data['ground']['timezone']  = @timezone   if @timezone
   end
-
   
-=begin
-      "round": "Spieltag 1",
-      "date": "2020-09-19",
-      "team1": "Eintracht Frankfurt",
-      "team2": "Arminia Bielefeld",
-      "score": {
-        "ft": [
-          1,
-          1
-        ]
-      }
-=end
   data
 end
 

@@ -22,8 +22,7 @@ Hoe.spec 'sportdb-parser' do
 
   self.extra_deps = [
        ['cocos', '>= 0.4.0'],
-       ['season-formats'],
-       ['racc'],
+       ['racc'],   ## maybe inline runtime later if possible - why? why not?
   ]
 
   self.spec_extras = {

@@ -4,6 +4,8 @@ README.md
 Rakefile
 lib/sportdb/quick.rb
 lib/sportdb/quick/match_parser.rb
-lib/sportdb/quick/quick_league_outline_reader.rb
+lib/sportdb/quick/outline.rb
+lib/sportdb/quick/outline_reader.rb
+lib/sportdb/quick/quick_league_outline.rb
 lib/sportdb/quick/quick_match_reader.rb
 lib/sportdb/quick/version.rb

@@ -1,8 +1,5 @@
 ## pulls in
 require 'cocos'
-require 'season/formats'  # e.g. Season() support machinery
-
-
 
 
 ####

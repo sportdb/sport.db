@@ -30,12 +30,6 @@ require_relative 'parser/tokenizer'
 require_relative 'parser/parser'
 
 
-####
-##  todo/check - move outline reader upstream to cocos - why? why not?
-##       use  read_outline(), parse_outline()  - why? why not?
-require_relative 'parser/outline_reader'
-
-
 
 ###
 #  make parser api (easily) available - why? why not?

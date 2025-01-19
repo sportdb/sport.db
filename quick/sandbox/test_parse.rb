@@ -46,7 +46,7 @@ Tu July/9 2024
 
 Final
 Sunday Jul 14 2024
-(51)   21.00   Spain  -  England         @ Berlin
+(51)   21.00   Spain  -  England         @ Berlin (UTC+1)
 
 TXT
 

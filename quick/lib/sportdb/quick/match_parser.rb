@@ -32,22 +32,36 @@ class MatchParser    ## simple match parser for team match schedules
 
 
 
+  def _prep_lines( lines )   ## todo/check:  add alias preproc_lines or build_lines or prep_lines etc. - why? why not?
 
-  def _read_lines( txt )   ## todo/check:  add alias preproc_lines or build_lines or prep_lines etc. - why? why not?
-    ## returns an array of lines with comments and empty lines striped / removed
-    lines = []
+    ## todo/fix - rework and make simpler
+    ##             no need to double join array of string to txt etc.
+
+    txt =  if lines.is_a?( Array )
+               ## join together with newline
+                lines.reduce( String.new ) do |mem,line|
+                                               mem << line; mem << "\n"; mem
+                                           end
+             else  ## assume single-all-in-one txt
+                lines
+             end
+
+    ##  preprocess automagically - why? why not?
+    ##   strip lines with comments and empty lines striped / removed
+    txt_new = String.new
     txt.each_line do |line|    ## preprocess
        line = line.strip
        next if line.empty? || line.start_with?('#')   ###  skip empty lines and comments
        
        line = line.sub( /#.*/, '' ).strip             ###  cut-off end-of line comments too
-       lines << line
+       
+       txt_new << line
+       txt_new << "\n"
     end
-    lines
+    txt_new
   end
 
 
- 
   #
   # todo/fix: change start to start: too!!!
   #       might be optional in the future!! - why? why not?
@@ -58,9 +72,10 @@ class MatchParser    ## simple match parser for team match schedules
     ## todo/check: change to text instead of array of lines - why? why not?
 
     ## note - wrap in enumerator/iterator a.k.a lines reader
-    @lines = lines.is_a?( String ) ?
-                    _read_lines( lines ) : lines
+    ## @lines = lines.is_a?( String ) ?
+    ##                _read_lines( lines ) : lines
 
+    @txt          = _prep_lines( lines )    
     @start        = start
     @errors = []
   end
@@ -90,17 +105,9 @@ class MatchParser    ## simple match parser for team match schedules
     @tree   = []
 
 
-       ## flatten lines
-       txt  = []
-       @lines.each_with_index do |line,i|
-          txt << line
-          txt << "\n"
-       end
-       txt = txt.join
- 
          if debug?
            puts "lines:"
-           pp txt
+           pp @txt
          end
 
 =begin
@@ -123,7 +130,7 @@ class MatchParser    ## simple match parser for team match schedules
            @tree << t
 =end
 
-     parser = RaccMatchParser.new( txt )   ## use own parser instance (not shared) - why? why not?
+     parser = RaccMatchParser.new( @txt )   ## use own parser instance (not shared) - why? why not?
      @tree = parser.parse
      ## pp @tree
 
@@ -151,6 +158,8 @@ class MatchParser    ## simple match parser for team match schedules
           on_match_line( node )
       elsif node.is_a? RaccMatchParser::GoalLine
           on_goal_line( node )
+      elsif node.is_a? RaccMatchParser::LineupLine
+           ## skip lineup for now
       else
         ## report error
         msg = "!! WARN - unknown node (parse tree type) - #{node.class.name}" 
@@ -159,7 +168,6 @@ class MatchParser    ## simple match parser for team match schedules
 
         log( msg )
         log( node.pretty_inspect )
-        ## exit 1
       end
     end  # tree.each
 
@@ -566,18 +574,26 @@ class GoalStruct
     time_str = time    if date && time
 
 
-    ground = nil
+    ground   = nil
+    timezone = nil
+    if node.geo
+       ground = node.geo
+       ## note: only add/check for timezone if geo (aka ground) is present - why? why not?
+       timezone = node.timezone   if node.timezone
+    end
 
-    @matches << Import::Match.new( num:     num,
-                                   date:    date_str,
-                                   time:    time_str,
-                                   team1:   team1,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team1.name)
-                                   team2:   team2,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team2.name)
-                                   score:   score,
-                                   round:   round       ? round.name       : nil,   ## note: for now always use string (assume unique canonical name for event)
-                                   group:   @last_group ? @last_group.name : nil,   ## note: for now always use string (assume unique canonical name for event)
-                                   status:  status,
-                                   ground:  ground )
+
+    @matches << Import::Match.new( num:      num,
+                                   date:     date_str,
+                                   time:     time_str,
+                                   team1:    team1,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team1.name)
+                                   team2:    team2,  ## note: for now always use mapping value e.g. rec (NOT string e.g. team2.name)
+                                   score:    score,
+                                   round:    round       ? round.name       : nil,   ## note: for now always use string (assume unique canonical name for event)
+                                   group:    @last_group ? @last_group.name : nil,   ## note: for now always use string (assume unique canonical name for event)
+                                   status:   status,
+                                   ground:   ground,
+                                   timezone: timezone )
     ### todo: cache team lookups in hash?
   end
 end # class MatchParser

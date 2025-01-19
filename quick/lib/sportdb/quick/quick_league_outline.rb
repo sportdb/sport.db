@@ -3,39 +3,66 @@
 module SportDb
 
 ## shared "higher-level" outline reader
-###   quick version WITHOUT any validation/mapping !!!
+###   quick version WITHOUT any (database) validation/mapping/normalization !!!
 
-class QuickLeagueOutlineReader
+
+class QuickLeagueOutline
 
   def self.read( path )
-    txt = File.open( path, 'r:utf-8' ) {|f| f.read }
-    parse( txt )
-  end
+    nodes = OutlineReader.read( path ) 
+    new( nodes )
+  end    
 
   def self.parse( txt )
-    new( txt ).parse
+    nodes = OutlineReader.parse( txt )
+    new( nodes )
   end
 
 
-  def initialize( txt )
-    @txt = txt
+
+  def initialize( nodes )
+    @nodes = nodes
   end
 
-  def parse
+
+  ###
+  # use Section struct for easier access - why? why not?
+  ##     e.g. sec.league instead of sec[:league] etc.
+
+  Section = Struct.new( :league, :season, :stage, :lines )  do
+     def text  ## for alternate line access (all-in-text string)
+        txt = lines.reduce( String.new ) do |mem,line| 
+                 mem << line; mem << "\n"; mem 
+              end
+        txt
+     end
+  end
+
+  def each_sec( &blk )
+     @secs ||= _parse
+
+     @secs.each do |sec|
+        blk.call( sec )
+     end 
+  end
+  alias_method :each_section, :each_sec
+
+
+  def _parse
     secs=[]     # sec(tion)s
-    OutlineReader.parse( @txt ).each do |node|
+    @nodes.each do |node|
       if node[0] == :h1
         ## check for league (and stage) and season
         heading = node[1]
-        values = split_league( heading )
+        values = _split_league( heading )
         if m=values[0].match( LEAGUE_SEASON_HEADING_RE )
           puts "league >#{m[:league]}<, season >#{m[:season]}<"
 
-           secs << { league: m[:league],
-                     season: m[:season],
-                     stage:  values[1],     ## note: defaults to nil if not present
-                     lines:  []
-                   }
+           secs << Section.new( league: m[:league],
+                                season: m[:season],
+                                stage:  values[1],   ## note: defaults to nil if not present
+                                lines:  [] 
+                              )
         else
           puts "** !!! ERROR - cannot match league and season in heading; season missing?"
           pp heading
@@ -44,12 +71,12 @@ class QuickLeagueOutlineReader
       elsif node[0] == :h2
          ## todo/check - make sure parsed h1 first
          heading = node[1]
-         ## reuse league, season from h1
-         secs << { league: secs[-1][:league],
-                   season: secs[-1][:season],
-                   stage:  heading,
-                   lines:  []
-                 }
+         ## note - reuse league, season from h1
+         secs << Section.new( league: secs[-1].league,
+                              season: secs[-1].season,
+                              stage:  heading,
+                              lines:  [] 
+                            )
       elsif node[0] == :p   ## paragraph with (text) lines
         lines = node[1]
         ## note: skip lines if no heading seen
@@ -58,7 +85,8 @@ class QuickLeagueOutlineReader
           pp lines
         else
           ## todo/check: unroll paragraphs into lines or pass along paragraphs - why? why not?
-          secs[-1][:lines] += lines
+          ##    add paragraphs not unrolled lines - why? why not?
+          secs[-1].lines += lines
         end
       else
         puts "** !!! ERROR - unknown line type; for now only heading 1 for leagues supported; sorry:"
@@ -67,7 +95,7 @@ class QuickLeagueOutlineReader
       end
     end
     secs
-  end # method parse
+  end # method _parse
 
 
   ## split into league + season
@@ -81,7 +109,7 @@ class QuickLeagueOutlineReader
          )
             $}x
 
-  def split_league( str )   ## todo/check: rename to parse_league(s) - why? why not?
+  def _split_league( str )   ## todo/check: rename to parse_league(s) - why? why not?
     ## split into league / stage / ... e.g.
     ##  => Österr. Bundesliga 2018/19, Regular Season
     ##  => Österr. Bundesliga 2018/19, Championship Round
@@ -91,5 +119,5 @@ class QuickLeagueOutlineReader
     values = values.map { |value| value.strip }   ## remove all whitespaces
     values
   end
- end # class QuickLeagueOutlineReader
+ end # class QuickLeagueOutline
 end # module SportDb

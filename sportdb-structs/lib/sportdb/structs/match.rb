@@ -23,7 +23,8 @@ class Match
               :country1, :country2,    ## special case for champions league etc. - uses FIFA country code
               :comments,
               :league,      ## (optinal) added as text for now (use struct?)
-              :ground       ## (optional) add as text line for now (incl. city, timezone etc.)
+              :ground,       ## (optional) add as text line for now (incl. city, timezone etc.)
+              :timezone      ## (optional) as a string
 
   attr_accessor :goals  ## todo/fix: make goals like all other attribs!!
 
@@ -66,6 +67,7 @@ class Match
 
     @league   = kwargs[:league]   if kwargs.has_key?( :league )
     @ground   = kwargs[:ground]   if kwargs.has_key?( :ground )
+    @timezone = kwargs[:timezone] if kwargs.has_key?( :timezone )
 
 
     if kwargs.has_key?( :score )   ## check all-in-one score struct for convenience!!!
@@ -219,6 +221,14 @@ def as_json
   data['group']  = @group   if @group
   data['stage']  = @stage   if @stage
 
+  if @ground
+       ## note: might be array of string e.g. ['Wembley', 'London']
+       data['ground'] = {}
+       data['ground']['name']      = @ground
+       data['ground']['timezone']  = @timezone   if @timezone
+  end
+
+  
 =begin
       "round": "Spieltag 1",
       "date": "2020-09-19",

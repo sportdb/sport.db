@@ -24,7 +24,7 @@ class QuickMatchReader
 
   def initialize( txt )
     @errors = []
-    @txt = txt
+    @outline = QuickLeagueOutline.parse( txt )
   end
 
   attr_reader :errors
@@ -55,17 +55,15 @@ class QuickMatchReader
     @errors = []
 
     @data = {}   # return data hash with leagues
-                #    and seasons
-                #   for now merge stage into matches
+                 #    and seasons
+                 #   for now merge stage into matches
 
-    secs = QuickLeagueOutlineReader.parse( @txt )
-    pp secs    if debug?
-
-    secs.each do |sec|   ## sec(tion)s
-      season = Season.parse( sec[:season] )   ## convert (str) to season obj!!!
-      league = sec[:league]
-      stage  = sec[:stage]
-      lines  = sec[:lines]
+    @outline.each_sec do |sec|   ## sec(tion)s
+      ### move season parse into outline upstream - why? why not?
+      season = Season.parse( sec.season )   ## convert (str) to season obj!!!
+      league = sec.league
+      stage  = sec.stage
+      lines  = sec.lines
 
       start =  if season.year?
                   Date.new( season.start_year, 1, 1 )

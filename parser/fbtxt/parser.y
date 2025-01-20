@@ -105,18 +105,18 @@ class RaccMatchParser
         ######  
         # e.g   Group A  |    Germany   Scotland     Hungary   Switzerland   
         group_def
-              :   GROUP '|'  team_values   NEWLINE  
+              :   GROUP_DEF '|'  team_values   NEWLINE  
                   {
                       @tree << GroupDef.new( name:  val[0],
                                              teams: val[2] )
                   }
 
         team_values
-              :   TEXT                       { 
+              :   TEAM                       { 
                                                result = val
                                                ## e.g. val is ["Austria"] 
                                              }
-              |   team_values TEXT           {
+              |   team_values TEAM           {
                                                result.push( val[1] )
                                              }
 
@@ -124,7 +124,7 @@ class RaccMatchParser
         #####
         # e.g.  Matchday 1  |  Fri Jun/14 - Tue Jun/18   
         round_def
-             :  ROUND '|'  round_date_opts   NEWLINE
+             :  ROUND_DEF '|'  round_date_opts   NEWLINE
                   {
                       kwargs = { name: val[0] }.merge( val[2] )
                       @tree<< RoundDef.new( **kwargs )
@@ -260,7 +260,7 @@ class RaccMatchParser
          match  :   match_result
                 |   match_fixture 
                     
-         match_fixture :  TEXT match_sep TEXT
+         match_fixture :  TEAM match_sep TEAM
                            {
                                puts "  RECUDE match_fixture"
                                result = { team1: val[0],
@@ -271,7 +271,7 @@ class RaccMatchParser
             ## note - does NOT include SCORE; use SCORE terminal "in-place" if needed
   
 
-        match_result :  TEXT  SCORE  TEXT
+        match_result :  TEAM  SCORE  TEAM
                          {
                            puts "  REDUCE => match_result : TEXT  SCORE  TEXT"
                            result = { team1: val[0],
@@ -345,18 +345,18 @@ class RaccMatchParser
          ##  note - if NOT working out fix in match schedule!!
          ##                  and remove commas between goals!!!
 
-         goal : TEXT  minutes      # PLAYER minutes    
+         goal : PLAYER  minutes          
                 {  
                   result = Goal.new( player:  val[0],
                                      minutes: val[1] )   
                 }
-#              | TEXT  minutes  ','    
+#              | PLAYER  minutes  ','    
 #                {  
 #                  result = Goal.new( player:  val[0],
 #                                     minutes: val[1] )   
 #                }
             ## might start a new line
-            ##  | NEWLINE TEXT minutes 
+            ##  | NEWLINE PLAYER minutes 
 
 
          minutes : minute              { result = val }

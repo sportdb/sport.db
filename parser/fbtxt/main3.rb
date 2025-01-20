@@ -60,19 +60,6 @@ Sevilla - Bilbao 2-1,  Madrid - Barcelona 1-5 (0-2), Elche - Getafe
 TXT
 
 
-###
-# test tokenize
-tok = SportDb::Tokenizer.new( txt )
-pp tok.next_token
-pp tok.next_token
-pp tok.next_token
-pp tok.next_token
-pp tok.next_token
-pp tok.next_token
-
-puts "---"
-
-
 
   parser = RaccMatchParser.new( txt )
   tree = parser.parse

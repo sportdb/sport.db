@@ -10,6 +10,8 @@ config/rounds_pt.txt
 lib/sportdb/parser.rb
 lib/sportdb/parser/lang.rb
 lib/sportdb/parser/parser.rb
+lib/sportdb/parser/racc_parser.rb
+lib/sportdb/parser/racc_tree.rb
 lib/sportdb/parser/token-date.rb
 lib/sportdb/parser/token-score.rb
 lib/sportdb/parser/token-status.rb

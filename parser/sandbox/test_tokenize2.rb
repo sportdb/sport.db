@@ -37,23 +37,7 @@ puts
 
 
 parser = SportDb::Parser.new
-
-tree = []
-
-lines = txt.split( "\n" )
-lines.each_with_index do |line,i|
-    next if line.strip.empty? || line.strip.start_with?( '#' )
-
-   puts "line >#{line}<"
-   tokens = parser.tokenize( line )
-   pp tokens
-
-#    tree << tokens
-end
-
-
-
-# puts "(parse) tree:"
-# pp tree
+tokens = parser.tokenize( txt )
+pp tokens
 
 puts "bye"

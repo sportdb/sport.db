@@ -14,8 +14,239 @@ def log( msg )
 end
 
 
+## transforms
+##
+##  Netherlands  1-2 (1-1)   England
+##   =>  text => team
+##       score|vs
+##       text => team
 
-def tokenize_with_errors( line, debug: false )
+
+## token iter/find better name
+##  e.g. TokenBuffer/Scanner or such ??
+class Tokens
+  def initialize( tokens )
+      @tokens = tokens
+      @pos = 0
+  end
+
+  def pos()  @pos; end
+  def eos?() @pos >= @tokens.size; end
+
+
+  def include?( *types )
+      pos = @pos
+      ## puts "  starting include? #{types.inspect} @ #{pos}"
+      while pos < @tokens.size do
+          return true   if types.include?( @tokens[pos][0] )
+          pos +=1
+      end
+      false
+  end
+
+  ## pattern e.g. [:TEXT, [:VS,:SCORE], :TEXT]
+  def match?( *pattern )
+      ## puts "  starting match? #{pattern.inspect} @ #{@pos}"
+      pattern.each_with_index do |types,offset|
+          ## if single symbol wrap in array
+          types = types.is_a?(Array) ? types : [types]
+          return false  unless types.include?( peek(offset) )
+      end
+      true
+  end
+
+
+  ## return token type  (e.g. :TEXT, :NUM, etc.)
+  def cur()           peek(0); end
+  ## return content (assumed to be text)
+  def text(offset=0)
+      ## raise error - why? why not?
+      ##   return nil?
+      if peek( offset ) != :text
+          raise ArgumentError, "text(#{offset}) - token not a text type"
+      end
+      @tokens[@pos+offset][1]
+  end
+
+
+  def peek(offset=1)
+      ## return nil if eos
+      if @pos+offset >= @tokens.size
+          nil
+      else
+         @tokens[@pos+offset][0]
+      end
+  end
+
+  ## note - returns complete token
+  def next
+     # if @pos >= @tokens.size
+     #     raise ArgumentError, "end of array - #{@pos} >= #{@tokens.size}"
+     # end
+     #   throw (standard) end of iteration here why? why not?
+
+      t = @tokens[@pos]
+      @pos += 1
+      t
+  end
+
+  def collect( &blk )
+      tokens = []
+      loop do
+        break if eos?
+        tokens <<  if block_given?
+                      blk.call( self.next )
+                   else
+                      self.next
+                   end
+      end
+      tokens
+  end
+end  # class Tokens
+
+
+
+
+### convience helper - ignore errors by default
+def tokenize( lines, debug: false )
+  tokens, _ = tokenize_with_errors( lines, debug: debug )
+  tokens
+end
+
+def tokenize_with_errors( lines, debug: false )
+
+##
+##  note - for convenience - add support
+##         comments (incl. inline end-of-line comments) and empty lines here
+##             why? why not?
+##         why?  keeps handling "centralized" here in one place
+
+   ## todo/fix - rework and make simpler
+    ##             no need to double join array of string to txt etc.
+
+    txt_pre =  if lines.is_a?( Array )
+               ## join together with newline
+                 lines.reduce( String.new ) do |mem,line|
+                                               mem << line; mem << "\n"; mem
+                                            end
+               else  ## assume single-all-in-one txt
+                 lines
+               end
+
+    ##  preprocess automagically - why? why not?
+    ##   strip lines with comments and empty lines striped / removed
+    ##      keep empty lines? why? why not?
+    ##      keep leading spaces (indent) - why?
+    txt = String.new
+    txt_pre.each_line do |line|    ## preprocess
+       line = line.strip
+       next if line.empty? || line.start_with?('#')   ###  skip empty lines and comments
+       
+       line = line.sub( /#.*/, '' ).strip             ###  cut-off end-of line comments too
+       
+       txt << line
+       txt << "\n"
+    end
+    
+
+    tokens_by_line = []   ## note: add tokens line-by-line (flatten later)
+    errors         = []   ## keep a list of errors - why? why not?
+  
+    txt.each_line do |line|
+        line = line.rstrip   ## note - MUST remove/strip trailing newline (spaces optional)!!!
+ 
+        more_tokens, more_errors = _tokenize_line( line, debug: debug )
+        
+        tokens_by_line  << more_tokens   
+        errors          += more_errors
+    end # each line
+
+
+
+
+    tokens_by_line = tokens_by_line.map do |tokens|
+        #############
+        ## pass 1
+        ##   replace all texts with keyword matches
+        ##     (e.g. group, round, leg, etc.)
+        tokens = tokens.map do |t|        
+                    if t[0] == :TEXT
+                       text = t[1]
+                       t = if is_group?( text )
+                               [:GROUP, text]
+                             elsif is_round?( text ) || is_leg?( text )
+                               [:ROUND, text]
+                             else
+                               t  ## pass through as-is (1:1)
+                             end
+                    end
+                   t
+                 end
+
+        #################
+        ## pass 2                  
+        ##    transform tokens (using simple patterns) 
+        ##      to help along the (racc look ahead 1 - LA1) parser       
+        nodes = []
+
+        buf = Tokens.new( tokens )
+        ## pp buf
+
+
+    loop do
+          break if buf.eos?
+
+          if buf.pos == 0   ## MUST start line
+            ## check for
+            ##    group def or round def
+            if buf.match?( :ROUND, :'|' )    ## assume round def (change round to round_def)
+                      nodes << [:ROUND_DEF, buf.next[1]]
+                      nodes << buf.next 
+                      nodes += buf.collect
+                      break
+            end
+            if buf.match?( :GROUP, :'|' )    ## assume group def (change group to group_def)
+                      nodes << [:GROUP_DEF, buf.next[1]]
+                      nodes << buf.next 
+                      ## change all text to team - why? why not?
+                      nodes += buf.collect { |t|
+                                t[0] == :TEXT ? [:TEAM, t[1]] : t
+                               }
+                      break
+            end
+          end
+
+
+          if buf.match?( :TEXT, [:SCORE, :VS, :'-'], :TEXT )
+             nodes << [:TEAM, buf.next[1]]
+             nodes << buf.next
+             nodes << [:TEAM, buf.next[1]]
+          elsif buf.match?( :TEXT, :MINUTE )
+             nodes << [:PLAYER, buf.next[1]]
+             nodes << buf.next
+          else
+             ## pass through
+             nodes << buf.next
+          end
+    end  # loop
+    nodes  
+  end  # map tokens_by_line
+
+
+
+    ## flatten tokens
+    tokens = []
+    tokens_by_line.each do |tok|
+         tokens  += tok 
+         tokens  << [:NEWLINE, "\n"]   ## auto-add newlines
+    end
+
+    [tokens,errors]
+end   # method tokenize_with_errors
+
+
+
+def _tokenize_line( line, debug: false )
   tokens = []
   errors = []   ## keep a list of errors - why? why not?
 
@@ -251,12 +482,6 @@ def tokenize_with_errors( line, debug: false )
   [tokens,errors]
 end
 
-
-### convience helper - ignore errors by default
-def tokenize(  line, debug: false )
-   tokens, _ = tokenize_with_errors( line, debug: debug )
-   tokens
-end
 
 end  # class Parser
 end # module SportDb

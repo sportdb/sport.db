@@ -49,19 +49,6 @@ Rapid Wien - Austria Wien
 TXT
 
 
-###
-# test tokenize
-tok = SportDb::Tokenizer.new( txt )
-pp tok.next_token
-pp tok.next_token
-pp tok.next_token
-pp tok.next_token
-pp tok.next_token
-pp tok.next_token
-
-puts "---"
-
-
 
   parser = RaccMatchParser.new( txt )
   tree = parser.parse

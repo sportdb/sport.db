@@ -58,14 +58,12 @@ class QuickMatchLinter
                 #    and seasons
                 #   for now merge stage into matches
 
-    secs = QuickLeagueOutlineReader.parse( @txt )
-    pp secs    if debug?
-
-    secs.each do |sec|   ## sec(tion)s
-      season = Season.parse( sec[:season] )   ## convert (str) to season obj!!!
-      league = sec[:league]
-      stage  = sec[:stage]
-      lines  = sec[:lines]
+    outline = QuickLeagueOutline.parse( @txt )
+    outline.each_sec do |sec|   ## sec(tion)s
+      season = Season.parse( sec.season )   ## convert (str) to season obj!!!
+      league = sec.league
+      stage  = sec.stage
+      lines  = sec.lines
 
       start =  if season.year?
                   Date.new( season.start_year, 1, 1 )

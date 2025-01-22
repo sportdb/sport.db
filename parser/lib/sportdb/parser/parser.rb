@@ -647,7 +647,7 @@ module_eval(<<'.,.,', 'parser.y', 199)
 
 module_eval(<<'.,.,', 'parser.y', 213)
   def _reduce_49(val, _values, result)
-                                        puts "  REDUCE => more_match_fixtures : match_fixture" 
+                                        trace( "REDUCE => more_matches : match" ) 
                                     result = val
 
     result
@@ -656,7 +656,7 @@ module_eval(<<'.,.,', 'parser.y', 213)
 
 module_eval(<<'.,.,', 'parser.y', 218)
   def _reduce_50(val, _values, result)
-                                         puts "  REDUCE => more_match_fixtures : more_match_fixtures ',' match_fixture " 
+                                         trace( "REDUCE => more_matches : more_matches ',' match" ) 
                                      result.push( val[2] )
 
     result
@@ -765,7 +765,7 @@ module_eval(<<'.,.,', 'parser.y', 256)
 
 module_eval(<<'.,.,', 'parser.y', 264)
   def _reduce_67(val, _values, result)
-                                   puts "  RECUDE match_fixture"
+                                   trace( "RECUDE match_fixture" )
                                result = { team1: val[0],
                                           team2: val[2] }   
 
@@ -779,7 +779,7 @@ module_eval(<<'.,.,', 'parser.y', 264)
 
 module_eval(<<'.,.,', 'parser.y', 275)
   def _reduce_70(val, _values, result)
-                               puts "  REDUCE => match_result : TEXT  SCORE  TEXT"
+                               trace( "REDUCE => match_result : TEXT  SCORE  TEXT" )
                            result = { team1: val[0],
                                       team2: val[2],
                                       score: val[1][1]
@@ -791,7 +791,7 @@ module_eval(<<'.,.,', 'parser.y', 275)
 
 module_eval(<<'.,.,', 'parser.y', 283)
   def _reduce_71(val, _values, result)
-                              puts "  REDUCE  => match_result : match_fixture SCORE"
+                              trace( "REDUCE  => match_result : match_fixture SCORE" )
                           result = { score: val[1][1] }.merge( val[0] )  
 
     result
@@ -925,7 +925,7 @@ module_eval(<<'.,.,', 'parser.y', 379)
 
 module_eval(<<'.,.,', 'parser.y', 384)
   def _reduce_89(val, _values, result)
-     puts '  MATCH empty_line'
+     trace( "REDUCE empty_line" )
     result
   end
 .,.,

@@ -66,7 +66,7 @@ RoundDef   = Struct.new( :name, :date, :duration )  do
     printer.text( "<RoundDef " )
     printer.text( self.name )
     printer.text( " date=" + self.date.pretty_inspect ) if date
-    printer.text( " durattion=" + self.duration.pretty_inspect ) if duration
+    printer.text( " duration=" + self.duration.pretty_inspect ) if duration
     printer.text( ">" )
   end
 end

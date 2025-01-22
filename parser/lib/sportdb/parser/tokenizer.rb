@@ -331,7 +331,7 @@ def _tokenize_line( line, debug: false )
             when '-' then [:'-']
             when '.' then 
                 ## switch back to top-level mode!!
-                puts "  LEAVE PROP_RE MODE, BACK TO TOP_LEVEL/RE"
+                puts "  LEAVE PROP_RE MODE, BACK TO TOP_LEVEL/RE"  if debug
                 @re = RE 
                 [:'.']
             else
@@ -352,7 +352,7 @@ def _tokenize_line( line, debug: false )
         elsif m[:prop_key]
            ##  switch context  to PROP_RE
            @re = PROP_RE
-           puts "  ENTER PROP_RE MODE"
+           puts "  ENTER PROP_RE MODE"  if debug
            [:PROP, m[:key]]
         elsif m[:text]
           [:TEXT, m[:text]]   ## keep pos - why? why not?

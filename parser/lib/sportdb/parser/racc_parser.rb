@@ -5,11 +5,15 @@
 class RaccMatchParser
 
 
-def initialize( txt )
+def initialize( txt,  debug: false )
     ## puts "==> txt:"
     ## puts txt
    
     parser = SportDb::Parser.new
+    ### todo:
+    ##  -  pass along debug flag
+    ##  -   use tokenize_with_errors and add/collect tokenize errors
+
     @tokens = parser.tokenize( txt )
     ## pp @tokens
     
@@ -22,11 +26,22 @@ def initialize( txt )
                  end
                end
   end
-  
+
+
+  def debug( value ) @debug = value; end
+  def debug?()  @debug == true; end
+
+  ## debug - trace / print message
+  def trace( msg )
+     puts "  [parse] " + msg    if debug?
+  end
+
+
+
 
   def next_token
     tok = @tokens.shift
-    puts "next_token => #{tok.pretty_inspect}"
+    trace( "next_token => #{tok.pretty_inspect}" )
     tok
   end
   
@@ -35,7 +50,7 @@ def initialize( txt )
 #  end  
 
   def parse    
-     puts "parse:"
+     trace( "start parse:" )
      @tree = [] 
      do_parse
      @tree

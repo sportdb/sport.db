@@ -211,12 +211,12 @@ class RaccMatchParser
 
          more_matches :   match
                                   {
-                                    puts "  REDUCE => more_match_fixtures : match_fixture" 
+                                    trace( "REDUCE => more_matches : match" ) 
                                     result = val
                                   }
                      |   more_matches ',' match
                                   {
-                                     puts "  REDUCE => more_match_fixtures : more_match_fixtures ',' match_fixture " 
+                                     trace( "REDUCE => more_matches : more_matches ',' match" ) 
                                      result.push( val[2] )
                                   }
 
@@ -262,7 +262,7 @@ class RaccMatchParser
                     
          match_fixture :  TEAM match_sep TEAM
                            {
-                               puts "  RECUDE match_fixture"
+                               trace( "RECUDE match_fixture" )
                                result = { team1: val[0],
                                           team2: val[2] }   
                            }
@@ -273,7 +273,7 @@ class RaccMatchParser
 
         match_result :  TEAM  SCORE  TEAM
                          {
-                           puts "  REDUCE => match_result : TEXT  SCORE  TEXT"
+                           trace( "REDUCE => match_result : TEXT  SCORE  TEXT" )
                            result = { team1: val[0],
                                       team2: val[2],
                                       score: val[1][1]
@@ -281,7 +281,7 @@ class RaccMatchParser
                         }
                      |  match_fixture SCORE
                         {
-                          puts "  REDUCE  => match_result : match_fixture SCORE"
+                          trace( "REDUCE  => match_result : match_fixture SCORE" )
                           result = { score: val[1][1] }.merge( val[0] )  
                         }
                                         
@@ -382,7 +382,7 @@ class RaccMatchParser
 
 
         empty_line: NEWLINE
-                    { puts '  MATCH empty_line' }
+                    { trace( "REDUCE empty_line" ) }
             
  
 end

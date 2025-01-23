@@ -106,6 +106,8 @@ class QuickMatchLinter
        end
       end
 
+      ### note - skip section if no lines !!!!!
+      next if lines.empty?     ## or use lines.size == 0
 
 
       parser = MatchParser.new( lines,

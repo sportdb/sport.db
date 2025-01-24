@@ -214,6 +214,13 @@ TXT
   tree = parser.parse
   pp tree
 
+  if parser.errors?
+    puts "-- #{parser.errors.size} parse error(s):"
+    pp parser.errors
+  else
+    puts "--  OK - no parse errors found"
+  end
+  
 
 
 puts "bye"

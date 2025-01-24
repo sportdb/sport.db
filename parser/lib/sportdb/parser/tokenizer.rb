@@ -274,10 +274,10 @@ def _tokenize_line( line, debug: false )
     if offsets[0] != pos
       ## match NOT starting at start/begin position!!!
       ##  report parse error!!!
-      msg =  "!! WARN - parse error - skipping >#{line[pos..(offsets[0]-1)]}< @#{offsets[0]},#{offsets[1]} in line >#{line}<"
+      msg =  "!! WARN - parse error (tokenize) - skipping >#{line[pos..(offsets[0]-1)]}< @#{offsets[0]},#{offsets[1]} in line >#{line}<"
       puts msg
 
-      errors << "parse error - skipping >#{line[pos..(offsets[0]-1)]}< @#{offsets[0]},#{offsets[1]}"
+      errors << "parse error (tokenize) - skipping >#{line[pos..(offsets[0]-1)]}< @#{offsets[0]},#{offsets[1]} in line >#{line}<"
       log( msg )
     end
 
@@ -475,11 +475,29 @@ def _tokenize_line( line, debug: false )
     puts msg
     log( msg )
 
-    errors << "parse error - skipping >#{line[offsets[1]..-1]}< @#{offsets[1]},#{line.size}"
+    errors << "parse error (tokenize) - skipping >#{line[offsets[1]..-1]}< @#{offsets[1]},#{line.size} in line >#{line}<"
   end
 
 
   [tokens,errors]
+end
+
+
+####
+#  "default" parser  (wraps RaccMatchParser)
+
+### convience helper - ignore errors by default
+def parse( lines, debug: false )
+    tree, _ = parse_with_errors( lines, debug: debug )
+    tree
+end
+
+def parse_with_errors( lines, debug: false )
+    ## todo/check - if lines needs to chack for array of lines and such
+    ##                        or handled by tokenizer???
+    parser = RaccMatchParser.new( lines )
+    tree, errors = parser.parse_with_errors
+    [tree, errors]
 end
 
 

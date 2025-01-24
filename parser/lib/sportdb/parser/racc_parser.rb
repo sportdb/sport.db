@@ -8,13 +8,15 @@ class RaccMatchParser
 def initialize( txt,  debug: false )
     ## puts "==> txt:"
     ## puts txt
-   
+ 
+    @tree   = [] 
+    @errors = []
+
     parser = SportDb::Parser.new
     ### todo:
     ##  -  pass along debug flag
-    ##  -   use tokenize_with_errors and add/collect tokenize errors
-
-    @tokens = parser.tokenize( txt )
+    ##  note - use tokenize_with_errors and add/collect tokenize errors
+    @tokens, @errors = parser.tokenize_with_errors( txt )
     ## pp @tokens
     
     ## quick hack - convert to racc format single char literal tokens e.g. '@' etc.
@@ -49,19 +51,30 @@ def initialize( txt,  debug: false )
 #      puts "Parse error on token: #{error_token_id}, value: #{error_value}"
 #  end  
 
-  def parse    
+  def parse_with_errors    
      trace( "start parse:" )
-     @tree = [] 
      do_parse
-     @tree
+     [@tree, @errors]
+  end
+
+  def parse  ## convenience shortcut (ignores errors)
+    tree, _ = parse_with_errors
+    tree 
   end
 
 
-  def on_error(*args)
+  attr_reader :errors
+  def errors?()   @errors.size > 0; end
+
+
+  def on_error(error_token_id, error_value, value_stack)
+    args = [error_token_id, error_value, value_stack]
     puts
     puts "!! on parse error:"
     puts "args=#{args.pretty_inspect}"
-    exit 1  ##   exit for now  -  get and print more info about context etc.!!
+
+    @errors << "parse error on token: #{error_token_id} with value: #{error_value}, stack: #{value_stack.pretty_inspect}"
+    ## exit 1  ##   exit for now  -  get and print more info about context etc.!!
   end
 
 

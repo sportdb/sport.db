@@ -6,13 +6,16 @@
 
 class RaccMatchParser
 
-
      rule 
-       statements 
-          : statement
-          | statements statement
+       document :  # allow empty documents - why? why not?
+                | elements
+
+       elements : element 
+                | elements element
+               
+                
         
-        statement
+       element
           : date_header 
           | group_header
           | round_header
@@ -23,6 +26,12 @@ class RaccMatchParser
       ##    | goal_lines   ## check - goal_lines MUST follow match_line - why? why not?
           | empty_line    
           | lineup_lines
+          | error      ## todo/check - move error sync up to elements - why? why not?
+              { puts "!! skipping invalid content (trying to recover from parse error):"
+                pp val[0] 
+                @errors << "parser error (recover) - skipping #{val[0].pretty_inspect}"
+              }
+ 
 
 
         ## change PROP to LINEUP_TEAM

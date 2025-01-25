@@ -1,5 +1,5 @@
 module SportDb
-class Parser
+class Lexer
 
 
 ##  note - do NOT allow single alpha text for now
@@ -129,5 +129,5 @@ TEXT_RE = %r{
 }ix
 
 
-end # class Parser
+end # class Lexer
 end # module SportDb

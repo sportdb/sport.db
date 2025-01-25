@@ -4,6 +4,15 @@
 ##      racc -o ../lib/sportdb/parser/parser.rb parser.y
 
 
+
+#
+#
+# todo/try/check:
+#    use/add empty production to 
+#     match_pre and match_post options to simplify production if possible?
+
+
+
 class RaccMatchParser
 
      rule 

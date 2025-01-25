@@ -1,7 +1,7 @@
 
 
 module SportDb
-class Parser
+class Lexer
 
 
 ##
@@ -265,5 +265,5 @@ RE = Regexp.union(  PROP_KEY_RE, ##  start with prop key (match will/should swit
                      TEXT_RE )
 
 
-end  # class Parser
+end  # class Lexer
 end # module SportDb

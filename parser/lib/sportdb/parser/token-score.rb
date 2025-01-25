@@ -1,5 +1,5 @@
 module SportDb
-class Parser
+class Lexer
 
 
     ## todo/check: use ‹› (unicode chars) to mark optional parts in regex constant name - why? why not?
@@ -130,5 +130,5 @@ SCORE_RE = Regexp.union(
   SCORE__FT_HT__RE,        # e.g. 1-1 (1-0) or 1-1  -- note - must go last!!!
 )
 
-end  #  class Parser
+end  #  class Lexer
 end  # module SportDb

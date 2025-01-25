@@ -1,6 +1,6 @@
 
 module SportDb
-class Parser
+class Lexer
 
 
 
@@ -12,6 +12,20 @@ def log( msg )
      f.write( "\n" )
    end
 end
+
+
+  ###
+  ##  todo/fix -   use LangHelper or such
+  ##   e.g.     class Lexer
+  ##                include LangHelper
+  ##            end
+  ##
+  ##  merge back Lang into Lexer - why? why not?
+  ## keep "old" access to checking for group, round & friends
+  ##    for now for compatibility
+  def is_group?( text )  Lang.is_group?( text ); end
+  def is_round?( text )  Lang.is_round?( text ); end
+  def is_leg?( text )    Lang.is_leg?( text ); end
 
 
 ## transforms
@@ -107,15 +121,11 @@ end  # class Tokens
 
 
 
-### convience helper - ignore errors by default
-def tokenize( lines, debug: false )
-  tokens, _ = tokenize_with_errors( lines, debug: debug )
-  tokens
-end
+def debug?()  @debug == true; end
 
-def tokenize_with_errors( lines, debug: false )
+def initialize( lines, debug: false )
+   @debug = debug
 
-##
 ##  note - for convenience - add support
 ##         comments (incl. inline end-of-line comments) and empty lines here
 ##             why? why not?
@@ -137,32 +147,32 @@ def tokenize_with_errors( lines, debug: false )
     ##   strip lines with comments and empty lines striped / removed
     ##      keep empty lines? why? why not?
     ##      keep leading spaces (indent) - why?
-    txt = String.new
+    @txt = String.new
     txt_pre.each_line do |line|    ## preprocess
        line = line.strip
        next if line.empty? || line.start_with?('#')   ###  skip empty lines and comments
        
        line = line.sub( /#.*/, '' ).strip             ###  cut-off end-of line comments too
        
-       txt << line
-       txt << "\n"
+       @txt << line
+       @txt << "\n"
     end
-    
+end
 
+
+
+def tokenize_with_errors
     tokens_by_line = []   ## note: add tokens line-by-line (flatten later)
     errors         = []   ## keep a list of errors - why? why not?
   
-    txt.each_line do |line|
+    @txt.each_line do |line|
         line = line.rstrip   ## note - MUST remove/strip trailing newline (spaces optional)!!!
  
-        more_tokens, more_errors = _tokenize_line( line, debug: debug )
+        more_tokens, more_errors = _tokenize_line( line )
         
         tokens_by_line  << more_tokens   
         errors          += more_errors
     end # each line
-
-
-
 
     tokens_by_line = tokens_by_line.map do |tokens|
         #############
@@ -246,11 +256,11 @@ end   # method tokenize_with_errors
 
 
 
-def _tokenize_line( line, debug: false )
+def _tokenize_line( line )
   tokens = []
   errors = []   ## keep a list of errors - why? why not?
 
-  puts ">#{line}<"    if debug
+  puts ">#{line}<"    if debug?
 
   pos = 0
   ## track last offsets - to report error on no match
@@ -265,7 +275,7 @@ def _tokenize_line( line, debug: false )
 
 
   while m = @re.match( line, pos )
-    if debug
+    if debug?
       pp m
       puts "pos: #{pos}"
     end
@@ -288,7 +298,7 @@ def _tokenize_line( line, debug: false )
 
     pos = offsets[1]
 
-    pp offsets   if debug
+    pp offsets   if debug?
 
     ##
     ## note: racc requires pairs e.g. [:TOKEN, VAL]
@@ -331,7 +341,7 @@ def _tokenize_line( line, debug: false )
             when '-' then [:'-']
             when '.' then 
                 ## switch back to top-level mode!!
-                puts "  LEAVE PROP_RE MODE, BACK TO TOP_LEVEL/RE"  if debug
+                puts "  LEAVE PROP_RE MODE, BACK TO TOP_LEVEL/RE"  if debug?
                 @re = RE 
                 [:'.']
             else
@@ -352,7 +362,7 @@ def _tokenize_line( line, debug: false )
         elsif m[:prop_key]
            ##  switch context  to PROP_RE
            @re = PROP_RE
-           puts "  ENTER PROP_RE MODE"  if debug
+           puts "  ENTER PROP_RE MODE"  if debug?
            [:PROP, m[:key]]
         elsif m[:text]
           [:TEXT, m[:text]]   ## keep pos - why? why not?
@@ -462,7 +472,7 @@ def _tokenize_line( line, debug: false )
 
     tokens << t    if t
 
-    if debug
+    if debug?
       print ">"
       print "*" * pos
       puts "#{line[pos..-1]}<"
@@ -482,24 +492,5 @@ def _tokenize_line( line, debug: false )
   [tokens,errors]
 end
 
-
-####
-#  "default" parser  (wraps RaccMatchParser)
-
-### convience helper - ignore errors by default
-def parse( lines, debug: false )
-    tree, _ = parse_with_errors( lines, debug: debug )
-    tree
-end
-
-def parse_with_errors( lines, debug: false )
-    ## todo/check - if lines needs to chack for array of lines and such
-    ##                        or handled by tokenizer???
-    parser = RaccMatchParser.new( lines )
-    tree, errors = parser.parse_with_errors
-    [tree, errors]
-end
-
-
-end  # class Parser
+end  # class Lexer
 end # module SportDb

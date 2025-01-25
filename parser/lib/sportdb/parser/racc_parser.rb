@@ -12,11 +12,11 @@ def initialize( txt,  debug: false )
     @tree   = [] 
     @errors = []
 
-    parser = SportDb::Parser.new
     ### todo:
     ##  -  pass along debug flag
+    lexer = SportDb::Lexer.new( txt )
     ##  note - use tokenize_with_errors and add/collect tokenize errors
-    @tokens, @errors = parser.tokenize_with_errors( txt )
+    @tokens, @errors = lexer.tokenize_with_errors
     ## pp @tokens
     
     ## quick hack - convert to racc format single char literal tokens e.g. '@' etc.

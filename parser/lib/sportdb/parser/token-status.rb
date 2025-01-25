@@ -1,5 +1,5 @@
 module SportDb
-class Parser
+class Lexer
   
 ##  (match) status
 ##    note: english usage - cancelled (in UK), canceled (in US)
@@ -40,6 +40,6 @@ STATUS_RE = %r{
 }ix
 
 
-end  #  class Parser
+end  #  class Lexer
 end  # module SportDb
   

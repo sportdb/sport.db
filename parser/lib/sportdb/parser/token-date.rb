@@ -1,5 +1,5 @@
 module SportDb
-class Parser
+class Lexer
 
 
 
@@ -297,6 +297,6 @@ DURATION_RE = Regexp.union(
 
 
 
-end  #   class Parser
+end  #   class Lexer
 end  # module SportDb
 

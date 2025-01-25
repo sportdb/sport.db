@@ -7,41 +7,41 @@ $LOAD_PATH.unshift( './lib' )
 require 'sportdb/parser'
 
 
-parser = SportDb::Parser.new
+lexer = SportDb::Lexer.new( '' )
 
 puts "group:"
-pp parser.is_group?( 'Group' )      #=> false!!!!!!!!!!!!!!
-pp parser.is_group?( 'Group A' )
-pp parser.is_group?( 'Group HEX' )
-pp parser.is_group?( 'Group 1' )
+pp lexer.is_group?( 'Group' )      #=> false!!!!!!!!!!!!!!
+pp lexer.is_group?( 'Group A' )
+pp lexer.is_group?( 'Group HEX' )
+pp lexer.is_group?( 'Group 1' )
 
 puts
 puts "round:"
-pp parser.is_round?( 'Round' )     #=>  false!!!!!!!!!!!
-pp parser.is_round?( 'Round 11' )
-pp parser.is_round?( 'Matchday 1' )
-pp parser.is_round?( 'Week 1' )
+pp lexer.is_round?( 'Round' )     #=>  false!!!!!!!!!!!
+pp lexer.is_round?( 'Round 11' )
+pp lexer.is_round?( 'Matchday 1' )
+pp lexer.is_round?( 'Week 1' )
 
-pp parser.is_round?( 'Play-offs for quarter-finals' )
-pp parser.is_round?( 'Playoffs for quarterfinals' )
+pp lexer.is_round?( 'Play-offs for quarter-finals' )
+pp lexer.is_round?( 'Playoffs for quarterfinals' )
 
-pp parser.is_round?( 'Round of 16' )
-pp parser.is_round?( 'Finals' )
-pp parser.is_round?( 'Final' )
+pp lexer.is_round?( 'Round of 16' )
+pp lexer.is_round?( 'Finals' )
+pp lexer.is_round?( 'Final' )
 
-pp parser.is_round?( 'Match for 5th place' )
-pp parser.is_round?( '5th place final' )
-pp parser.is_round?( '3rd place match' )
-pp parser.is_round?( '3rd place final' )
-pp parser.is_round?( 'Third place play-off' )
+pp lexer.is_round?( 'Match for 5th place' )
+pp lexer.is_round?( '5th place final' )
+pp lexer.is_round?( '3rd place match' )
+pp lexer.is_round?( '3rd place final' )
+pp lexer.is_round?( 'Third place play-off' )
 
-pp parser.is_round?( 'Last 32' )
-pp parser.is_round?( 'Last 16' )
-pp parser.is_round?( 'Last 8' )
-pp parser.is_round?( 'Last 4' )
-pp parser.is_round?( 'Quarters' )
-pp parser.is_round?( 'Quarter-finals' )
-pp parser.is_round?( 'Quarterfinal' )
+pp lexer.is_round?( 'Last 32' )
+pp lexer.is_round?( 'Last 16' )
+pp lexer.is_round?( 'Last 8' )
+pp lexer.is_round?( 'Last 4' )
+pp lexer.is_round?( 'Quarters' )
+pp lexer.is_round?( 'Quarter-finals' )
+pp lexer.is_round?( 'Quarterfinal' )
 
 puts "---"
 
@@ -88,7 +88,7 @@ names = [
 
 
 ].each do |name|
-    pp parser.is_round?( name )
+    pp lexer.is_round?( name )
 end
 
 
@@ -98,9 +98,9 @@ end
 
 puts
 puts "legs:"
-pp parser.is_leg?( '1st leg' )
-pp parser.is_leg?( '2nd leg' )
-pp parser.is_leg?( 'Second leg' )
+pp lexer.is_leg?( '1st leg' )
+pp lexer.is_leg?( '2nd leg' )
+pp lexer.is_leg?( 'Second leg' )
 
 
 

@@ -6,7 +6,7 @@
 $LOAD_PATH.unshift( './lib' )
 require 'sportdb/parser'
 
-STATUS_RE  = SportDb::Parser::STATUS_RE
+STATUS_RE  = SportDb::Lexer::STATUS_RE
 
 
 texts = [## try status

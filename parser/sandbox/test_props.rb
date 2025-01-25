@@ -7,8 +7,8 @@ $LOAD_PATH.unshift( './lib' )
 require 'sportdb/parser'
 
 
-PROP_KEY_RE  = SportDb::Parser::PROP_KEY_RE
-PROP_NAME_RE = SportDb::Parser::PROP_NAME_RE
+PROP_KEY_RE  = SportDb::Lexer::PROP_KEY_RE
+PROP_NAME_RE = SportDb::Lexer::PROP_NAME_RE
 
 
 texts = [## try teams

@@ -28,7 +28,8 @@ Group A
            [Varga 66'; Duah 12' Aebischer 45' Embolo 90+3']
 
   Hungary:     Gulacsi - Lang (46' Bolla [Y]), Orban, Szalai [Y] (79' Dardai) - Fiola,
-               Nagy (67' Kleinheisler), Schäfer, Kerkez (79' Adam) - Sallai, Varga, Szoboszlai.
+               Nagy (67' Kleinheisler), Schäfer, Kerkez (79' Adam) - 
+               Sallai, Varga, Szoboszlai.
   Switzerland: Sommer - Schär, Akanji, Rodriguez - Widmer [Y] (68' Stergiou), Xhaka,
                Freuler [Y] (86' Sierro), Aebischer - Ndoye (86' Rieder), Duah (68' Amdouni),
                Vargas (73' Embolo).

@@ -53,9 +53,11 @@ TEXT_RE = %r{
                     \d+\.-\d+\.  [ ]? \p{L}+
                )
 
-              (?:(?:  (?:[ ]
-                        (?!vs?[ ])    ## note - exclude (v[ ]/vs[ ])
-                       )
+              (?:(?:  (?:[ ] 
+                        (?! (?-i: vs?[ ])
+                          )    ## note - exclude (v[ ]/vs[ ])
+                               ##    AND switch to case-sensitive (via -i!!!)
+                      )
                       |     # only single spaces allowed inline!!!
                      [-]
                   )?

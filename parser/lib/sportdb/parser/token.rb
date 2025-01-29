@@ -63,15 +63,15 @@ TIMEZONE_RE = %r{
 
 BASICS_RE = %r{
     ## e.g. (51) or (1) etc.  - limit digits of number???
+    ##  todo/fix - change num  to ord (for ordinal number)!!!!!
     (?<num> \(  (?<value>\d+) \) )
        |
     (?<vs>
-       (?<=[ ])	# Positive lookbehind for space
-       (?:
-          vs|v
-       )  
-           # not bigger match first e.g. vs than v etc.
-           # todo/fix - make vs|v case sensitive!!! only match v/vs - why? why not?
+       (?<=[ ])	# positive lookbehind for space
+       (?-i: 
+         vs|v 
+       )        # note - only match case sensitive (downcased letters)!!!
+                # note -  bigger match first e.g. vs than v etc.
        (?=[ ])   # positive lookahead for space
     )
        |

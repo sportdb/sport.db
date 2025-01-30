@@ -78,7 +78,7 @@ BASICS_RE = %r{
     (?<spaces> [ ]{2,}) |
     (?<space>  [ ])
         |
-    (?<sym>[;,@|\[\]-])
+    (?<sym>[;,/@|\[\]-])
 }ix
 
 
@@ -252,6 +252,38 @@ PROP_RE = Regexp.union(
 )
 
 
+## add wday / stand-alone week day - as separate regex or 
+##          use TEXT with is_wday? check or such with
+##                requirement of beginning of line (anchored to line) only??
+##       - why? why not?
+
+WDAY_RE = %r{
+(?<wday>
+  \b     # note - alternation (|) is lowest precedence (such 
+         #    parathenes required around \b()\b !!!
+    ## note - NOT case sensitive!!!    
+     (?-i:
+       (?<day_name>
+         Mon|Mo|
+         Tue|Tu|
+         Wed|We|
+         Thu|Th|
+         Fri|Fr|
+         Sat|Sa|
+         Sun|Su
+     ))
+  \b     ## todo/check - must be followed by two spaces or space + [( etc.
+         ##   to allow words starting with weekday abbrevations - why? why not?
+         ##     check if any names (teams, rounds, etc) come up in practice 
+         ##   or maybe remove three letter abbrevations Mon/Tue
+         ##    and keep only Mo/Tu/We etc. - why? why not?
+)}x    
+
+
+
+
+
+
 
 RE = Regexp.union(  PROP_KEY_RE, ##  start with prop key (match will/should switch into prop mode!!!)
                     STATUS_RE,
@@ -259,6 +291,7 @@ RE = Regexp.union(  PROP_KEY_RE, ##  start with prop key (match will/should swit
                      TIME_RE,
                      DURATION_RE,  # note - duration MUST match before date
                     DATE_RE,
+                    WDAY_RE,   # allow standalone weekday name (e.g. Mo/Tu/etc.) - why? why not?
                     SCORE_RE,
                     BASICS_RE, MINUTE_RE,
                     GOAL_OG_RE, GOAL_PEN_RE,

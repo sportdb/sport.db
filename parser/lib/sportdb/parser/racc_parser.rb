@@ -14,7 +14,7 @@ def initialize( txt,  debug: false )
 
     ### todo:
     ##  -  pass along debug flag
-    lexer = SportDb::Lexer.new( txt )
+    lexer = SportDb::Lexer.new( txt, debug: debug )
     ##  note - use tokenize_with_errors and add/collect tokenize errors
     @tokens, @errors = lexer.tokenize_with_errors
     ## pp @tokens

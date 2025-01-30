@@ -24,6 +24,13 @@ class Lexer
 #  allow Cote'd Ivoir or such
 ##   e.g. add '
 
+## note:
+##  make sure these do NOT match!!!
+## TEXT  =>  "Matchday 1 / Group A"
+## TEXT  =>  "Matchday 2 / Group A"
+## TEXT  =>  "Matchday 3 / Group A"
+
+
 
 TEXT_RE = %r{
     ## must start with alpha (allow unicode letters!!)
@@ -59,11 +66,11 @@ TEXT_RE = %r{
                                ##    AND switch to case-sensitive (via -i!!!)
                       )
                       |     # only single spaces allowed inline!!!
-                     [-]
+                     [-/]
                   )?
                 (?:
                   \p{L} |
-                  [&/'°]
+                  [&'°]
                     |
                  (?:
                    \d+

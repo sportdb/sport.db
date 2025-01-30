@@ -154,15 +154,26 @@ class RaccMatchParser
 
 
         date_header
-              :     DATE     NEWLINE
+              :     date_header_body   NEWLINE
                   {
-                     @tree <<  DateHeader.new( date: val[0][1] )  
+                     kwargs = {}.merge( val[0] )
+                     @tree <<  DateHeader.new( **kwargs )  
                   }
-              | '[' DATE ']' NEWLINE      ## enclosed in []
+              | '[' date_header_body ']' NEWLINE       ## note - enclosed in []
                   {
-                     @tree <<  DateHeader.new( date: val[1][1] )  
+                     kwargs = {}.merge( val[1] )
+                     @tree <<  DateHeader.new( **kwargs )  
                   }
- 
+
+         date_header_body  
+               : date_header_date            
+               | date_header_date geo_opts   {  result = {}.merge( val[0], val[1] ) }
+
+        date_header_date     ## note - only two option allowed (no TIME, or WDAY etc.)
+               : DATE            {   result = { date: val[0][1]}  }
+               | DATE TIME       {   result = { date: val[0][1], time: val[1][1] } }
+
+
 
 
          group_header :  GROUP  NEWLINE
@@ -175,16 +186,20 @@ class RaccMatchParser
 ###
 ##  e.g. Quarter-finals - 1st Leg
 
-         round_header :  round_values  NEWLINE
-                 {
+         round_header 
+               :  round_values  NEWLINE
+                   {
                      @tree <<  RoundHeader.new( names: val[0] )  
-                  }
-          
+                   }
+               |  round_values round_sep GROUP  NEWLINE    ## allow round with trailing group
+                   {
+                    @tree <<  RoundHeader.new( names: val[0], group: val[2] )  
+                   }                             
+
           round_values :  ROUND    {  result = val }
                        |  round_values round_sep ROUND  {   result.push( val[2] ) }
 
-          round_sep    : '-' 
-                       | ','
+          round_sep    : '-' | ',' | '/'
 
 
          
@@ -248,6 +263,8 @@ class RaccMatchParser
              : DATE            {   result = { date: val[0][1]}  }
              | DATE TIME       {   result = { date: val[0][1], time: val[1][1] } }
              | TIME            {   result = { time: val[0][1]}  }
+             | WDAY            {   result = { wday: val[0][1]} }
+             | WDAY TIME       {   result = { wday: val[0][1], time: val[1][1] } }
 
 
         more_match_opts

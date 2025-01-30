@@ -146,12 +146,29 @@ DATE_II_RE = %r{
 )}ix
 
 
+# e.g. iso-date  -  2011-08-25     
+##    todo/check - allow  2011-8-25  or 2011-8-3 / 2011-08-03 etc. - why? why not?
+DATE_III_RE = %r{
+(?<date>
+  \b
+   (?<year>\d{4})
+       -
+   (?<month>\d{2})
+       -
+   (?<day>\d{2})
+  \b
+)}ix
+
+
+
+
 #############################################
 # map tables
 #  note: order matters; first come-first matched/served
 DATE_RE = Regexp.union(
    DATE_I_RE,
-   DATE_II_RE
+   DATE_II_RE,
+   DATE_III_RE,
 )
 
 

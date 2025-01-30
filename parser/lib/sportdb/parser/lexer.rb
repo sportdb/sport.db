@@ -247,6 +247,11 @@ def tokenize_with_errors
     ## flatten tokens
     tokens = []
     tokens_by_line.each do |tok|
+
+         if debug?
+           pp tok
+         end
+
          tokens  += tok 
          tokens  << [:NEWLINE, "\n"]   ## auto-add newlines
     end
@@ -260,7 +265,7 @@ def _tokenize_line( line )
   tokens = []
   errors = []   ## keep a list of errors - why? why not?
 
-  puts ">#{line}<"    if debug?
+  puts "line: >#{line}<"    if debug?
 
   pos = 0
   ## track last offsets - to report error on no match
@@ -275,10 +280,10 @@ def _tokenize_line( line )
 
 
   while m = @re.match( line, pos )
-    if debug?
-      pp m
-      puts "pos: #{pos}"
-    end
+#    if debug?
+#      pp m
+#      puts "pos: #{pos}"
+#    end
     offsets = [m.begin(0), m.end(0)]
 
     if offsets[0] != pos
@@ -298,7 +303,7 @@ def _tokenize_line( line )
 
     pos = offsets[1]
 
-    pp offsets   if debug?
+#    pp offsets   if debug?
 
     ##
     ## note: racc requires pairs e.g. [:TOKEN, VAL]
@@ -397,6 +402,7 @@ def _tokenize_line( line )
  ## map month names
  ## note - allow any/upcase JULY/JUL etc. thus ALWAYS downcase for lookup
             date[:y] = m[:year].to_i(10)  if m[:year]
+            date[:m] = m[:month].to_i(10)  if m[:month]
             date[:m] = MONTH_MAP[ m[:month_name].downcase ]   if m[:month_name]
             date[:d]  = m[:day].to_i(10)   if m[:day]
             date[:wday] = DAY_MAP[ m[:day_name].downcase ]   if m[:day_name]
@@ -417,6 +423,8 @@ def _tokenize_line( line )
             duration[:end][:wday] = DAY_MAP[ m[:day_name2].downcase ]   if m[:day_name2]
             ## note - for debugging keep (pass along) "literal" duration
             [:DURATION, [m[:duration], duration]]
+        elsif m[:wday]    ## standalone weekday e.g. Mo/Tu/We/etc.
+             [:WDAY, [m[:wday], { wday: DAY_MAP[ m[:day_name].downcase ] } ]]
         elsif m[:num]   ## fix - change to ord (for ordinal number!!!)
               ## note -  strip enclosing () and convert to integer
              [:ORD, [m[:num], { value: m[:value].to_i(10) } ]]
@@ -454,6 +462,7 @@ def _tokenize_line( line )
           case sym
           when ',' then [:',']
           when ';' then [:';']
+          when '/' then [:'/']
           when '@' then [:'@']
           when '|' then [:'|']
           when '[' then [:'[']
@@ -472,11 +481,11 @@ def _tokenize_line( line )
 
     tokens << t    if t
 
-    if debug?
-      print ">"
-      print "*" * pos
-      puts "#{line[pos..-1]}<"
-    end
+#    if debug?
+#      print ">"
+#      print "*" * pos
+#      puts "#{line[pos..-1]}<"
+#    end
   end
 
   ## check if no match in end of string

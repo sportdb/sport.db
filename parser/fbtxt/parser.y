@@ -45,12 +45,11 @@ class RaccMatchParser
 
         ## change PROP to LINEUP_TEAM
         ## change PROP_NAME to NAME or LINEUP_NAME
-       lineup_lines  : PROP lineup '.' NEWLINE     ## fix add NEWLINE here too!!!
+       lineup_lines  : PROP lineup PROP_END NEWLINE     ## fix add NEWLINE here too!!!
                         {  @tree << LineupLine.new( team:    val[0],
                                                     lineup:  val[1]
                                                   ) 
                         }
-
 
        lineup :   lineup_name       
                     { result = [[val[0]]] }
@@ -63,28 +62,21 @@ class RaccMatchParser
                           result[-1] << val[2]
                        end
                     }
-              |   lineup NEWLINE    
-                    { result = val[0] }
 
 
        lineup_sep  :  ','
                      | ',' NEWLINE  { result = val[0]   }
                      | '-' 
                      | '-' NEWLINE  { result = val[0]   }
-                     ### | ';'  ## no longer support ; - why? why not?
 
-
-       lineup_name  :    PROP_NAME 
-                           {
-                              result = Lineup.new( name: val[0] )
-                           }
-                    |    PROP_NAME lineup_name_more
+      lineup_name    :    PROP_NAME lineup_name_opts
                            {
                               kwargs = { name: val[0] }.merge( val[1] )
                               result = Lineup.new( **kwargs )
                            }
 
-       lineup_name_more : card 
+       lineup_name_opts : /* empty */   { result = {} }
+                        | card 
                             {
                               result = { card: val[0] }
                             }
@@ -96,11 +88,20 @@ class RaccMatchParser
                             {
                               result = { sub: val[0] }
                             }
-
+                
         ## todo/fix - use goal_minute and minute (w/o pen/og etc.)
-       lineup_sub   :  '(' minute lineup_name ')'    ## '(' MINUTE lineup_name ')'
+       lineup_sub   :  '(' lineup_name MINUTE ')'    
                           {
-                              result = Sub.new( minute: val[1], sub: val[2] )
+                              result = Sub.new( sub:    val[1],
+                                                minute: Minute.new(val[2][1]) 
+                                              )
+                          }
+                   ## allow both styles? minute first or last? keep - why? why not?
+                    |   '(' MINUTE lineup_name ')'    
+                          {
+                              result = Sub.new( sub:    val[2],
+                                                minute: Minute.new(val[1][1]) 
+                                              )
                           }
 
 
@@ -113,11 +114,14 @@ class RaccMatchParser
        card_body    :     card_type
                            { result = { name: val[0] } } 
          ## todo/fix - use goal_minute and minute (w/o pen/og etc.)                          
-                    |     card_type minute
-                           { result = { name: val[0], minute: val[1] } }
+                    |     card_type MINUTE
+                           { result = { name: val[0],
+                                        minute: Minute.new(val[1][1]) } 
+                           }
                      
 
        card_type    :  YELLOW_CARD | RED_CARD 
+
 
 
         ######  

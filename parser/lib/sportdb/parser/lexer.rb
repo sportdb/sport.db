@@ -311,12 +311,8 @@ def _tokenize_line( line )
 
 
   t = if @re == PROP_RE
-         if m[:space]
-              ## skip space
-              nil
-         elsif m[:spaces]
-              ## skip spaces
-              nil
+         if m[:space] || m[:spaces]
+              nil    ## skip space(s)
          elsif m[:prop_name]
                if m[:name] == 'Y'
                  [:YELLOW_CARD, m[:name]]
@@ -344,11 +340,11 @@ def _tokenize_line( line )
             when '(' then [:'(']
             when ')' then [:')']
             when '-' then [:'-']
-            when '.' then 
-                ## switch back to top-level mode!!
-                puts "  LEAVE PROP_RE MODE, BACK TO TOP_LEVEL/RE"  if debug?
-                @re = RE 
-                [:'.']
+           # when '.' then 
+           #     ## switch back to top-level mode!!
+           #     puts "  LEAVE PROP_RE MODE, BACK TO TOP_LEVEL/RE"  if debug?
+           #     @re = RE 
+           #     [:'.']
             else
               nil  ## ignore others (e.g. brackets [])
             end
@@ -358,12 +354,8 @@ def _tokenize_line( line )
              nil 
          end
       else  ## assume TOP_LEVEL (a.k.a. RE) machinery
-        if m[:space]
-           ## skip space
-           nil
-        elsif m[:spaces]
-           ## skip spaces
-           nil
+        if m[:space] || m[:spaces]
+           nil   ## skip space(s)
         elsif m[:prop_key]
            ##  switch context  to PROP_RE
            @re = PROP_RE
@@ -498,6 +490,24 @@ def _tokenize_line( line )
   end
 
 
+   ##
+   ## if in prop mode continue if   last token is [,-]
+   ##        otherwise change back to "standard" mode
+   if @re == PROP_RE
+     if [:',', :'-'].include?( tokens[-1][0] )
+        ## continue/stay in PROP_RE mode
+        ##  todo/check - auto-add PROP_CONT token or such
+        ##                to help parser with possible NEWLINE
+        ##                  conflicts  - why? why not?
+     else
+        ## switch back to top-level mode!!
+        puts "  LEAVE PROP_RE MODE, BACK TO TOP_LEVEL/RE"  if debug?
+        @re = RE 
+        ## note - auto-add PROP_END (<PROP_END>)
+        tokens << [:PROP_END, "<PROP_END>"]    
+     end
+   end
+  
   [tokens,errors]
 end
 

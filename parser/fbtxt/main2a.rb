@@ -1,6 +1,6 @@
 ####
 #  to run use:
-#    $ ruby ./main2.rb  (in /fbtxt)
+#    $ ruby ./main2a.rb  (in /fbtxt)
 
 
 
@@ -33,18 +33,6 @@ Group A
   Switzerland: Sommer - Schär, Akanji, Rodriguez - Widmer [Y] (68' Stergiou), Xhaka,
                Freuler [Y] (86' Sierro), Aebischer - Ndoye (86' Rieder), Duah (68' Amdouni),
                Vargas (73' Embolo)
-
-
-################
-#### more       
-Rapid Wien   0-1  Austria Wien
-Rapid Wien   0-2  Austria Wien    [awarded]
-
-Rapid Wien v Austria Wien
-Rapid Wien v Austria Wien 0-3   [awarded]
-Rapid Wien v Austria Wien 0-4     @ Gerhard-Hanappi-Stadion, Wien
-Rapid Wien v Austria Wien   [cancelled]   @ Gerhard-Hanappi-Stadion, Wien
-Rapid Wien - Austria Wien    
 
 
 TXT

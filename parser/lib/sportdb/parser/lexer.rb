@@ -193,6 +193,18 @@ def tokenize_with_errors
                    t
                  end
 
+        ### check for "section" starters e.g. Teams or such
+        t = tokens[0] 
+        if t[0] == :TEXT
+            text = t[1]
+            if text =~ /^teams$/i
+               t[0] = :TEAMS
+            elsif text =~  /^blank$/i   ### todo/fix -- remove!!! add real blanks!!
+               t[0] = :BLANK
+            else
+            end
+        end
+
         #################
         ## pass 2                  
         ##    transform tokens (using simple patterns) 
@@ -459,7 +471,10 @@ def _tokenize_line( line )
           when '|' then [:'|']
           when '[' then [:'[']
           when ']' then [:']']
-          when '-' then [:'-']
+          when '-' then [:'-']        # level 1 OR (classic) dash
+          when '--'   then [:'--']    # level 2
+          when '---'  then [:'---']   # level 3
+          when '----' then [:'----']  # level 4
           else
             nil  ## ignore others (e.g. brackets [])
           end

@@ -111,7 +111,15 @@ BASICS_RE = %r{
     (?<spaces> [ ]{2,}) |
     (?<space>  [ ])
         |
-    (?<sym>[;,/@|\[\]-])
+    (?<sym>  (?<=^|[ ])  ## positive lookahead 
+                  (?: ----|
+                      ---|
+                      --
+                  )
+             (?=[ ])   ## positive lookahead
+    )
+        |
+    (?<sym> [;,/@|\[\]-] )
 }ix
 
 

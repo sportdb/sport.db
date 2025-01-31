@@ -70,18 +70,80 @@ Matchday 2 / Group A    #  August 23-25, 2011
 
 Matchday 3 / Group A    #  September 13-15, 2011
 
-# -- check with comma-separated
-
-Matchday 1, Group A    #  August 16-18, 2011
-
-Matchday 2, Group A    #  August 23-25, 2011
-
-Matchday 3, Group A    #  September 13-15, 2011
-
 
 ## check with more than one round name
 Semifinal - 1st Leg,  Group A    
 Semifinal - 2nd Leg,  Group A
+
+
+
+#####
+#  try date durations
+Matchday 1  |  August 16-18, 2011       
+Matchday 2  |  September 13-15, 2011
+Matchday 3  |  October 18-20, 2011
+Matchday 4  |  March/6-8, 2012
+Matchday 5  |  March 6-8 2012
+Matchday 6  |  March 6-8 
+
+Matchday 7   |  July 31-August 2, 2012
+Matchday 8   |  July 31-August 2 2012
+Matchday 9   |  July 31-August 2
+Matchday 10  |  Sun Jun 23 - Wed Jun 26, 2020
+Matchday 11  |  Dec 11, 2024 - Jan 10, 2025
+Matchday 12  |  Dec/11 2024-Jan/10 2025
+
+
+
+##
+#  try team listing
+
+##
+##  for (list/div/sec) level marker use?  -/--/--- or >/>>/>>> or ~/~~/~~~
+##               or        */**/*** or ???
+##               or     |/||/|||
+##   or  1)2)3)/a)b)c)/ etc.
+
+Teams 
+- North America         # 9 teams
+-- Mexico (MEX)            #   4 teams
+     tigres
+     santos
+     chivas
+     monterrey
+-- United States (USA)   #  4 teams
+     galaxy
+     seattle
+     houston
+     saltlake
+-- Canada (CAN)          # 1
+     toronto
+- Central America    # 12 teams
+-- El Salvador       #    3 teams
+     metapan
+     aguila
+     fas
+-- Costa Rica        # 2 teams
+     alajuelense
+     herediano
+-- Honduras          # 2 teams
+     olimpia
+     marathon
+-- Guatemala     # 2 teams
+     municipal
+     xelaju
+-- Panama    # 2 teams
+     chorrillo
+     tauro
+-- Nicaragua   # 1 team
+     esteli
+- Caribbean    # 2 teams
+-- Trinidad and Tobago   # 2 team
+     caledonia
+     wconnection
+-- Puerto Rico    # 1 team
+      puertorico
+BLANK   # hack for now 
 
 
 TXT

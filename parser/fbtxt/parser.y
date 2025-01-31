@@ -33,14 +33,27 @@ class RaccMatchParser
           | match_line
           | goal_lines
       ##    | goal_lines   ## check - goal_lines MUST follow match_line - why? why not?
-          | empty_line    
+          | empty_line       ## fix change to BLANK!!!
+          | teams_list
           | lineup_lines
           | error      ## todo/check - move error sync up to elements - why? why not?
               { puts "!! skipping invalid content (trying to recover from parse error):"
                 pp val[0] 
                 @errors << "parser error (recover) - skipping #{val[0].pretty_inspect}"
               }
- 
+         ### use   error NEWLINE - why? why not?
+         ##           will (re)sync on NEWLINE?
+
+        teams_list :   TEAMS NEWLINE  list   BLANK
+
+        list   :   list_item
+               |   list  list_item
+
+        ### todo/fix - make    list_item_body more flexible (not just single TEXT)!!!
+        list_item :   '---'  TEXT  NEWLINE   {  puts "level 3" }
+                  |   '--'   TEXT  NEWLINE   {  puts "level 2 #{val[1]}" } 
+                  |   '-'    TEXT  NEWLINE   {  puts "level 1 #{val[1]}" }
+                  |   TEXT NEWLINE
 
 
         ## change PROP to LINEUP_TEAM
@@ -195,18 +208,20 @@ class RaccMatchParser
                    {
                      @tree <<  RoundHeader.new( names: val[0] )  
                    }
-               |  round_values round_sep GROUP  NEWLINE    ## allow round with trailing group
+               |  round_values group_sep GROUP  NEWLINE    ## allow round with trailing group
                    {
                     @tree <<  RoundHeader.new( names: val[0], group: val[2] )  
-                   }                             
+                   }    
+
+          group_sep    : '/'  | ','  ## note - do NOT allow dash (-) for now - why? why not?                        
 
           round_values :  ROUND    {  result = val }
                        |  round_values round_sep ROUND  {   result.push( val[2] ) }
 
-          round_sep    : '-' | ',' | '/'
+          round_sep    : '-' | ','   ## todo/check - allow mixing?
+                                     ##   or only one style at a time - why? why not?
 
 
-         
 
         match_line
               :   match_opts  match  more_match_opts

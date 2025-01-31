@@ -3,6 +3,11 @@
 
 ## todos
 
+- [ ]  add a new BLANK token for blank lines (instead of NEWLINE)!!!
+         make sure empty / blank lines get passed through (by outline parser!!)
+         and always RESET tokenize_line to "standard" (regex) mode on BLANK!!!  
+
+
 - [ ]  use "old" tokenizer pattern match
          and 1) change  text vs text  to  team vs team
          and 2) change  text minute   to  player minute!!!!

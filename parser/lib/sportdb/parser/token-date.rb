@@ -147,15 +147,15 @@ DATE_II_RE = %r{
 
 
 # e.g. iso-date  -  2011-08-25     
-##    todo/check - allow  2011-8-25  or 2011-8-3 / 2011-08-03 etc. - why? why not?
+##   note - allow/support ("shortcuts") e.g 2011-8-25  or 2011-8-3 / 2011-08-03 etc. 
 DATE_III_RE = %r{
 (?<date>
   \b
    (?<year>\d{4})
        -
-   (?<month>\d{2})
+   (?<month>\d{1,2})
        -
-   (?<day>\d{2})
+   (?<day>\d{1,2})
   \b
 )}ix
 

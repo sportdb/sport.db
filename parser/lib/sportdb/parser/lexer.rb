@@ -239,13 +239,22 @@ def tokenize_with_errors
           end
 
 
-          if buf.match?( :TEXT, [:SCORE, :VS, :'-'], :TEXT )
+          if buf.match?( :TEXT, [:SCORE, :SCORE_MORE, :VS, :'-'], :TEXT )
              nodes << [:TEAM, buf.next[1]]
              nodes << buf.next
              nodes << [:TEAM, buf.next[1]]
           elsif buf.match?( :TEXT, :MINUTE )
              nodes << [:PLAYER, buf.next[1]]
              nodes << buf.next
+          elsif buf.match?( :DATE, :TIME )   ## merge DATE TIME into DATETIME
+               date = buf.next[1]
+               time = buf.next[1]
+               ## puts "DATETIME:"
+               ## pp date, time
+               val =  [date[0] + ' ' + time[0],  ## concat string of two tokens
+                        { date: date[1], time: time[1] }
+                      ]
+               nodes << [:DATETIME, val]
           else
              ## pass through
              nodes << buf.next
@@ -432,7 +441,7 @@ def _tokenize_line( line )
         elsif m[:num]   ## fix - change to ord (for ordinal number!!!)
               ## note -  strip enclosing () and convert to integer
              [:ORD, [m[:num], { value: m[:value].to_i(10) } ]]
-        elsif m[:score]
+        elsif m[:score_more]
               score = {}
               ## check for pen
               score[:p] = [m[:p1].to_i(10),
@@ -445,8 +454,15 @@ def _tokenize_line( line )
                             m[:ht2].to_i(10)]  if m[:ht1] && m[:ht2]
 
             ## note - for debugging keep (pass along) "literal" score
-            [:SCORE, [m[:score], score]]
-        elsif m[:minute]
+            [:SCORE_MORE, [m[:score_more], score]]
+        elsif m[:score]
+            score = {}
+            ## must always have ft for now e.g. 1-1 or such
+            score[:ft] = [m[:ft1].to_i(10),
+                          m[:ft2].to_i(10)]  
+          ## note - for debugging keep (pass along) "literal" score
+          [:SCORE, [m[:score], score]]
+      elsif m[:minute]
               minute = {}
               minute[:m]      = m[:value].to_i(10)
               minute[:offset] = m[:value2].to_i(10)   if m[:value2]

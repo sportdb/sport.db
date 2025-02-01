@@ -132,7 +132,8 @@ RE = Regexp.union(  PROP_KEY_RE, ##  start with prop key (match will/should swit
                      DURATION_RE,  # note - duration MUST match before date
                     DATE_RE,
                     WDAY_RE,   # allow standalone weekday name (e.g. Mo/Tu/etc.) - why? why not?
-                    SCORE_RE,
+                    SCORE_MORE_RE, 
+                    SCORE_RE,   ## note basic score e.g. 1-1 must go after SCORE_MORE_RE!!!
                     BASICS_RE, 
                     MINUTE_RE,
                     GOAL_OG_RE, GOAL_PEN_RE,

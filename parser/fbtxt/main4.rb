@@ -18,6 +18,10 @@ txt = <<-TXT
 2011-08-25  Los Angeles Galaxy  2-0  Alajuelense
 2011-08-25  Monarcas Morelia    4-0  Motagua
 
+2011-8-3   Los Angeles Galaxy  2-0  Alajuelense
+2011-8-25   Monarcas Morelia    4-0  Motagua
+
+
 ###
 #  try standalone weekday names
 
@@ -65,10 +69,13 @@ Sun Jul 14   @ Olympiastadion
 #  try matchday/round with group combo
 
 Matchday 1 / Group A    #  August 16-18, 2011
-
 Matchday 2 / Group A    #  August 23-25, 2011
-
 Matchday 3 / Group A    #  September 13-15, 2011
+
+Matchday 1, Group A    
+Matchday 2, Group A    
+Matchday 3, Group A    
+
 
 
 ## check with more than one round name
@@ -144,6 +151,13 @@ Teams
 -- Puerto Rico    # 1 team
       puertorico
 BLANK   # hack for now 
+
+
+
+######
+#  try alternate goal format
+  Austria - Rapid  3-1
+   1-0 Player 4'  2-0 Player 45+1' (pen.)  2-1 Player 50'  3-1 Player 55' (o.g.) 
 
 
 TXT

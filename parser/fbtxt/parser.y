@@ -33,6 +33,7 @@ class RaccMatchParser
           | match_line
           | goal_lines
       ##    | goal_lines   ## check - goal_lines MUST follow match_line - why? why not?
+          | goal_lines_alt   ## allow differnt style/variant 
           | empty_line       ## fix change to BLANK!!!
           | teams_list
           | lineup_lines
@@ -50,6 +51,8 @@ class RaccMatchParser
                |   list  list_item
 
         ### todo/fix - make    list_item_body more flexible (not just single TEXT)!!!
+        ###   todo/check - maybe start with level two e.g. --/---/etc.
+        ##                                      and not single -/--/---  - why? why not?
         list_item :   '---'  TEXT  NEWLINE   {  puts "level 3" }
                   |   '--'   TEXT  NEWLINE   {  puts "level 2 #{val[1]}" } 
                   |   '-'    TEXT  NEWLINE   {  puts "level 1 #{val[1]}" }
@@ -188,7 +191,7 @@ class RaccMatchParser
 
         date_header_date     ## note - only two option allowed (no TIME, or WDAY etc.)
                : DATE            {   result = { date: val[0][1]}  }
-               | DATE TIME       {   result = { date: val[0][1], time: val[1][1] } }
+               | DATETIME        {   result = {}.merge( val[0][1] ) }
 
 
 
@@ -280,7 +283,7 @@ class RaccMatchParser
  
        date_opts
              : DATE            {   result = { date: val[0][1]}  }
-             | DATE TIME       {   result = { date: val[0][1], time: val[1][1] } }
+             | DATETIME        {   result = {}.merge( val[0][1] )  }
              | TIME            {   result = { time: val[0][1]}  }
              | WDAY            {   result = { wday: val[0][1]} }
              | WDAY TIME       {   result = { wday: val[0][1], time: val[1][1] } }
@@ -325,17 +328,20 @@ class RaccMatchParser
             ## note - does NOT include SCORE; use SCORE terminal "in-place" if needed
   
 
-        match_result :  TEAM  SCORE  TEAM
+         score:    SCORE | SCORE_MORE     ## support basic e.g 1-1
+                                          ##   and "more" format  1-1 (0-1) or 2-1 a.e.t. etc.
+
+        match_result :  TEAM  score  TEAM
                          {
-                           trace( "REDUCE => match_result : TEXT  SCORE  TEXT" )
+                           trace( "REDUCE => match_result : TEAM score TEAM" )
                            result = { team1: val[0],
                                       team2: val[2],
                                       score: val[1][1]
                                     }   
                         }
-                     |  match_fixture SCORE
+                     |  match_fixture  score
                         {
-                          trace( "REDUCE  => match_result : match_fixture SCORE" )
+                          trace( "REDUCE  => match_result : match_fixture score" )
                           result = { score: val[1][1] }.merge( val[0] )  
                         }
                                         
@@ -351,6 +357,19 @@ class RaccMatchParser
         #                      between goals
         #   for now possible only after ;
         #
+
+
+        ###
+        #  todo - add tree nodes for goal_lines_alt!!!!
+
+        goal_lines_alt : goals_alt NEWLINE
+
+        goals_alt   :  goal_alt
+                    |  goals_alt goal_alt
+
+        goal_alt    :  SCORE PLAYER minute
+
+
 
         goal_lines : '['  goal_lines_body  ']' NEWLINE 
                      {

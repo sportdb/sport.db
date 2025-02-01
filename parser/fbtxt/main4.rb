@@ -150,7 +150,7 @@ Teams
      wconnection
 -- Puerto Rico    # 1 team
       puertorico
-BLANK   # hack for now 
+
 
 
 

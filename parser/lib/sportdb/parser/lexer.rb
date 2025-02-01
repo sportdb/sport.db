@@ -147,12 +147,15 @@ def initialize( lines, debug: false )
     ##   strip lines with comments and empty lines striped / removed
     ##      keep empty lines? why? why not?
     ##      keep leading spaces (indent) - why?
+    ##
+    ##  note - KEEP empty lines (get turned into BLANK token!!!!)
+
     @txt = String.new
     txt_pre.each_line do |line|    ## preprocess
        line = line.strip
-       next if line.empty? || line.start_with?('#')   ###  skip empty lines and comments
+       next if line.start_with?('#')   ###  skip comments
        
-       line = line.sub( /#.*/, '' ).strip             ###  cut-off end-of line comments too
+       line = line.sub( /#.*/, '' ).strip   ###  cut-off end-of line comments too
        
        @txt << line
        @txt << "\n"
@@ -274,7 +277,8 @@ def tokenize_with_errors
          end
 
          tokens  += tok 
-         tokens  << [:NEWLINE, "\n"]   ## auto-add newlines
+         ## auto-add newlines  (unless BLANK!!)
+         tokens  << [:NEWLINE, "\n"]   unless tok[0][0] == :BLANK
     end
 
     [tokens,errors]
@@ -287,6 +291,17 @@ def _tokenize_line( line )
   errors = []   ## keep a list of errors - why? why not?
 
   puts "line: >#{line}<"    if debug?
+
+
+   ### special case for empty line (aka BLANK)
+   if line.empty?
+       ## note - blank always resets parser mode to std/top-level!!!
+       @re = RE
+
+       tokens << [:BLANK, '<|BLANK|>']
+       return [tokens, errors]
+   end
+
 
   pos = 0
   ## track last offsets - to report error on no match
@@ -535,7 +550,7 @@ def _tokenize_line( line )
         puts "  LEAVE PROP_RE MODE, BACK TO TOP_LEVEL/RE"  if debug?
         @re = RE 
         ## note - auto-add PROP_END (<PROP_END>)
-        tokens << [:PROP_END, "<PROP_END>"]    
+        tokens << [:PROP_END, "<|PROP_END|>"]    
      end
    end
   

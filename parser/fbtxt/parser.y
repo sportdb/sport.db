@@ -34,7 +34,8 @@ class RaccMatchParser
           | goal_lines
       ##    | goal_lines   ## check - goal_lines MUST follow match_line - why? why not?
           | goal_lines_alt   ## allow differnt style/variant 
-          | empty_line       ## fix change to BLANK!!!
+          | BLANK        ##  was empty_line
+             { trace( "REDUCE BLANK" ) } 
           | teams_list
           | lineup_lines
           | error      ## todo/check - move error sync up to elements - why? why not?
@@ -451,12 +452,7 @@ class RaccMatchParser
 
          minute_opts : OG     {  result = { og: true } } 
                      | PEN    {  result = { pen: true } }
-
-
-
-        empty_line: NEWLINE
-                    { trace( "REDUCE empty_line" ) }
-            
+                                
  
 end
 

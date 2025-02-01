@@ -68,12 +68,14 @@ def initialize( txt,  debug: false )
 
 
   def on_error(error_token_id, error_value, value_stack)
-    args = [error_token_id, error_value, value_stack]
+    ## auto-add error_token (as string)
+    error_token = Racc_token_to_s_table[error_token_id] 
+    args = [error_token, error_token_id, error_value, value_stack]
     puts
     puts "!! on parse error:"
     puts "args=#{args.pretty_inspect}"
 
-    @errors << "parse error on token: #{error_token_id} with value: #{error_value}, stack: #{value_stack.pretty_inspect}"
+    @errors << "parse error on token: #{error_token} (#{error_token_id}) with value: #{error_value}, stack: #{value_stack.pretty_inspect}" 
     ## exit 1  ##   exit for now  -  get and print more info about context etc.!!
   end
 

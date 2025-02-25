@@ -22,7 +22,7 @@ txt = <<-TXT
 [Sat Jun 3]
   Republic of St. Pauli - Gibraltar  1-2   @ Hamburg, Germany
   Northern Cyprus - Zanzibar  0-0   @ Hamburg, Germany    [Northern Cyprus wins on penalties]
-     Wirtz 0' Musiala ??' Havertz 45+1' (pen.) Füllkrug 68' Can 90+3'; 
+     Wirtz 0' Musiala ??' Havertz 45+1' (pen.) Wu Xi 54' Sun Ke 68'; 
      Rüdiger 87' (o.g.)
 
 

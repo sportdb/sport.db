@@ -1,7 +1,18 @@
 #  Parser (World Service) Experiments  w/ racc 
 
-
 ## todos
+
+- [ ] name starts with weekday e.g. Sun  (example from asian cup) - what to do?
+       move "standalone" weekday down the regex AFTER  text!!!!
+
+```
+    Wu Xi 54' Sun Ke 68'
+```
+
+
+
+
+## more todos
 
 - [ ]  add a new BLANK token for blank lines (instead of NEWLINE)!!!
          make sure empty / blank lines get passed through (by outline parser!!)

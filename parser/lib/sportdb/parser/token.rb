@@ -132,14 +132,16 @@ RE = Regexp.union(  PROP_KEY_RE, ##  start with prop key (match will/should swit
                      TIME_RE,
                      DURATION_RE,  # note - duration MUST match before date
                     DATE_RE,
-                    WDAY_RE,   # allow standalone weekday name (e.g. Mo/Tu/etc.) - why? why not?
                     SCORE_MORE_RE, 
                     SCORE_RE,   ## note basic score e.g. 1-1 must go after SCORE_MORE_RE!!!
                     BASICS_RE, 
                     MINUTE_RE,
                     MINUTE_NA_RE,   ## note - add/allow not/available (n/a,na) minutes hack for now
                     GOAL_OG_RE, GOAL_PEN_RE,
-                     TEXT_RE )
+                     TEXT_RE,
+                     WDAY_RE,  # allow standalone weekday name (e.g. Mo/Tu/etc.) - why? why not?
+                               #    note - wday MUST be after text e.g. Sun Ke 68' is Sun Ke (NOT Sun) etc.
+                      )
 
 
 end  # class Lexer

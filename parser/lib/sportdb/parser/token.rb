@@ -127,6 +127,7 @@ BASICS_RE = %r{
 
 RE = Regexp.union(  PROP_KEY_RE, ##  start with prop key (match will/should switch into prop mode!!!)
                     STATUS_RE,
+                    NOTE_RE,
                     TIMEZONE_RE,
                      TIME_RE,
                      DURATION_RE,  # note - duration MUST match before date
@@ -136,6 +137,7 @@ RE = Regexp.union(  PROP_KEY_RE, ##  start with prop key (match will/should swit
                     SCORE_RE,   ## note basic score e.g. 1-1 must go after SCORE_MORE_RE!!!
                     BASICS_RE, 
                     MINUTE_RE,
+                    MINUTE_NA_RE,   ## note - add/allow not/available (n/a,na) minutes hack for now
                     GOAL_OG_RE, GOAL_PEN_RE,
                      TEXT_RE )
 

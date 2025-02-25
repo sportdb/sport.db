@@ -389,7 +389,9 @@ def _tokenize_line( line )
              puts "!!! TOKENIZE ERROR (PROP_RE) - no match found"
              nil 
          end
-      else  ## assume TOP_LEVEL (a.k.a. RE) machinery
+      ###################################################
+      ## assume TOP_LEVEL (a.k.a. RE) machinery
+      else  
         if m[:space] || m[:spaces]
            nil   ## skip space(s)
         elsif m[:prop_key]
@@ -408,6 +410,11 @@ def _tokenize_line( line )
           else
              [:STATUS, [m[:status], {status: m[:status] } ]]
           end
+        elsif m[:note]
+            ###  todo/check:
+            ##      use value hash - why? why not? or simplify to:
+            ##  [:NOTE, m[:note]] 
+             [:NOTE, [m[:note], {note: m[:note] } ]]
         elsif m[:time]
               ## unify to iso-format
               ###   12.40 => 12:40

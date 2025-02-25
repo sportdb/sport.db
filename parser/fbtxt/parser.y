@@ -290,6 +290,14 @@ class RaccMatchParser
              | WDAY TIME       {   result = { wday: val[0][1], time: val[1][1] } }
 
 
+        ##
+        ## todo/fix - NOTE is ignored for now; add to parse tree!!!
+        ##    assume NOTE is always (MUST BE) LAST option for now 
+        ##      AND  you cannot use both STATUS and NOTE - why? why not?
+        ##
+        ##   allow/add lines with NOTE only - why? why not?
+        ##        e.g. [nb: xxxxxx] or such
+
         more_match_opts
              : STATUS NEWLINE      ## note - for now status must be BEFORE geo_opts!!
                  {
@@ -301,6 +309,8 @@ class RaccMatchParser
                      result = { status: val[0][1][:status] }.merge( val[1] ) 
                  }
              | geo_opts NEWLINE             { result = {}.merge( val[0] ) }
+             | geo_opts NOTE NEWLINE        { result = {}.merge( val[0] ) }
+             | NOTE NEWLINE                 { result = {} }
              | NEWLINE                      { result = {} }
 
 

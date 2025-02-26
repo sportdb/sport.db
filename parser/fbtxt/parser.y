@@ -403,7 +403,9 @@ class RaccMatchParser
                         | goals goal_sep goals  {  result = { goals1: val[0],
                                                               goals2: val[2] }
                                                 }
-      
+
+     
+
         goal_sep    : ';'
                     | ';' NEWLINE
                        

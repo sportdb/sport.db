@@ -246,9 +246,10 @@ def tokenize_with_errors
              nodes << [:TEAM, buf.next[1]]
              nodes << buf.next
              nodes << [:TEAM, buf.next[1]]
-          elsif buf.match?( :TEXT, :MINUTE )
-             nodes << [:PLAYER, buf.next[1]]
-             nodes << buf.next
+   #   note - now handled (upstream) with GOAL_RE mode!!!
+   #       elsif buf.match?( :TEXT, :MINUTE )
+   #          nodes << [:PLAYER, buf.next[1]]
+   #          nodes << buf.next
           elsif buf.match?( :DATE, :TIME )   ## merge DATE TIME into DATETIME
                date = buf.next[1]
                time = buf.next[1]
@@ -315,11 +316,64 @@ def _tokenize_line( line )
   @re  ||= RE     ## note - switch between RE & INSIDE_RE
 
 
+  if @re == RE  ## top-level
+    ### check for modes once (per line) here to speed-up parsing
+    ###   for now goals only possible for start of line!!
+    ###        fix - remove optional [] - why? why not?  
+  
+    ##  start with prop key (match will switch into prop mode!!!)
+    ##   - fix - remove leading spaces in regex (upstream) - why? why not?
+    m = PROP_KEY_RE.match( line )
+    if m
+      ###  switch into new mode
+      ##  switch context  to PROP_RE
+        @re = PROP_RE
+        puts "  ENTER PROP_RE MODE"   if debug?
+        tokens << [:PROP, m[:key]]
+
+        offsets = [m.begin(0), m.end(0)]
+        pos = offsets[1]    ## update pos
+    end
+    
+    m = PLAYER_WITH_MINUTE_RE.match( line )
+    if m
+      ##  switch context to GOAL_RE (goalline(s)
+      ##   split token (automagically) into two!! - player AND minute!!!
+      @re = GOAL_RE
+      puts "  ENTER GOAL_RE MODE"   if debug?
+
+      ## check for optional open_bracket
+      tokens << [:'[']     if m[:open_bracket]
+
+      ## check for  -;  (none with separator)
+      ##    todo - find a better way? how possible?
+      if m[:dash] && m[:semicolon]
+         tokens << [:'-']
+         tokens << [:';']
+      end
+
+
+      ## auto-add player token first
+      tokens << [:PLAYER, m[:name]]
+      ## minute props
+      minute = {}
+      minute[:m]      = m[:value].to_i(10)
+      minute[:offset] = m[:value2].to_i(10)   if m[:value2]
+      ##  t is minute only
+      tokens << [:MINUTE, [m[:minute], minute]]
+
+      offsets = [m.begin(0), m.end(0)]
+      pos = offsets[1]    ## update pos
+    end
+  end
+
+
+
   while m = @re.match( line, pos )
-#    if debug?
-#      pp m
-#      puts "pos: #{pos}"
-#    end
+    # if debug?
+    #  pp m
+    #  puts "pos: #{pos}"
+    # end
     offsets = [m.begin(0), m.end(0)]
 
     if offsets[0] != pos
@@ -389,16 +443,44 @@ def _tokenize_line( line )
              puts "!!! TOKENIZE ERROR (PROP_RE) - no match found"
              nil 
          end
+      elsif @re == GOAL_RE
+         if m[:space] || m[:spaces]
+              nil    ## skip space(s)
+         elsif m[:prop_name]    ## note - change prop_name to player
+             [:PLAYER, m[:name]] 
+         elsif m[:minute]
+              minute = {}
+              minute[:m]      = m[:value].to_i(10)
+              minute[:offset] = m[:value2].to_i(10)   if m[:value2]
+             ## note - for debugging keep (pass along) "literal" minute
+             [:MINUTE, [m[:minute], minute]]
+         elsif m[:og]
+             [:OG, m[:og]]    ## for typed drop - string version/variants ??  why? why not?
+         elsif m[:pen]
+             [:PEN, m[:pen]]
+         elsif m[:sym]
+            sym = m[:sym]
+            ## return symbols "inline" as is - why? why not?
+            ## (?<sym>[;,@|\[\]-])
+ 
+            case sym
+            when ',' then [:',']
+            when ';' then [:';']
+            when '[' then [:'[']
+            when ']' then [:']']
+            else
+              nil  ## ignore others (e.g. brackets [])
+            end
+         else
+            ## report error
+            puts "!!! TOKENIZE ERROR (GOAL_RE) - no match found"
+            nil 
+         end
       ###################################################
       ## assume TOP_LEVEL (a.k.a. RE) machinery
       else  
         if m[:space] || m[:spaces]
            nil   ## skip space(s)
-        elsif m[:prop_key]
-           ##  switch context  to PROP_RE
-           @re = PROP_RE
-           puts "  ENTER PROP_RE MODE"  if debug?
-           [:PROP, m[:key]]
         elsif m[:text]
           [:TEXT, m[:text]]   ## keep pos - why? why not?
         elsif m[:status]   ## (match) status e.g. cancelled, awarded, etc.
@@ -490,10 +572,6 @@ def _tokenize_line( line )
               minute[:offset] = m[:value2].to_i(10)   if m[:value2]
              ## note - for debugging keep (pass along) "literal" minute
              [:MINUTE, [m[:minute], minute]]
-        elsif m[:og]
-           [:OG, m[:og]]    ## for typed drop - string version/variants ??  why? why not?
-        elsif m[:pen]
-           [:PEN, m[:pen]]
         elsif m[:vs]
            [:VS, m[:vs]]
         elsif m[:sym]
@@ -514,6 +592,7 @@ def _tokenize_line( line )
           when '---'  then [:'---']   # level 3
           when '----' then [:'----']  # level 4
           else
+            puts "!!! TOKENIZE ERROR - ignore sym >#{sym}<"
             nil  ## ignore others (e.g. brackets [])
           end
         else
@@ -559,6 +638,12 @@ def _tokenize_line( line )
         ## note - auto-add PROP_END (<PROP_END>)
         tokens << [:PROP_END, "<|PROP_END|>"]    
      end
+   end
+
+
+   if @re == GOAL_RE   ### ALWAYS switch back to top level mode
+     puts "  LEAVE GOAL_RE MODE, BACK TO TOP_LEVEL/RE"  if debug?
+     @re = RE 
    end
   
   [tokens,errors]

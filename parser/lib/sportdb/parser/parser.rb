@@ -1068,21 +1068,21 @@ module_eval(<<'.,.,', 'parser.y', 402)
 
 # reduce 107 omitted
 
-module_eval(<<'.,.,', 'parser.y', 416)
+module_eval(<<'.,.,', 'parser.y', 418)
   def _reduce_108(val, _values, result)
      result = val
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 417)
+module_eval(<<'.,.,', 'parser.y', 419)
   def _reduce_109(val, _values, result)
      result.push( val[1])
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 433)
+module_eval(<<'.,.,', 'parser.y', 435)
   def _reduce_110(val, _values, result)
                       result = Goal.new( player:  val[0],
                                      minutes: val[1] )   
@@ -1091,28 +1091,28 @@ module_eval(<<'.,.,', 'parser.y', 433)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 445)
+module_eval(<<'.,.,', 'parser.y', 447)
   def _reduce_111(val, _values, result)
      result = val
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 446)
+module_eval(<<'.,.,', 'parser.y', 448)
   def _reduce_112(val, _values, result)
      result.push( val[1])
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 447)
+module_eval(<<'.,.,', 'parser.y', 449)
   def _reduce_113(val, _values, result)
      result.push( val[2])
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 453)
+module_eval(<<'.,.,', 'parser.y', 455)
   def _reduce_114(val, _values, result)
                             kwargs = {}.merge( val[0][1] )
                         result = Minute.new( **kwargs )
@@ -1121,7 +1121,7 @@ module_eval(<<'.,.,', 'parser.y', 453)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 458)
+module_eval(<<'.,.,', 'parser.y', 460)
   def _reduce_115(val, _values, result)
                             kwargs = { }.merge( val[0][1] ).merge( val[1] )
                         result = Minute.new( **kwargs )
@@ -1130,14 +1130,14 @@ module_eval(<<'.,.,', 'parser.y', 458)
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 462)
+module_eval(<<'.,.,', 'parser.y', 464)
   def _reduce_116(val, _values, result)
       result = { og: true }
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 463)
+module_eval(<<'.,.,', 'parser.y', 465)
   def _reduce_117(val, _values, result)
       result = { pen: true }
     result

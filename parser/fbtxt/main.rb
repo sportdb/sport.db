@@ -210,7 +210,7 @@ Final
 TXT
 
 
-  parser = RaccMatchParser.new( txt )
+  parser = RaccMatchParser.new( txt, debug: true )
   tree = parser.parse
   pp tree
 

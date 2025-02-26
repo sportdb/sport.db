@@ -125,7 +125,8 @@ BASICS_RE = %r{
 
 
 
-RE = Regexp.union(  PROP_KEY_RE, ##  start with prop key (match will/should switch into prop mode!!!)
+RE = Regexp.union(
+                 ##   PROP_KEY_RE,           ##  start with prop key (match will switch into prop mode!!!)
                     STATUS_RE,
                     NOTE_RE,
                     TIMEZONE_RE,
@@ -135,13 +136,35 @@ RE = Regexp.union(  PROP_KEY_RE, ##  start with prop key (match will/should swit
                     SCORE_MORE_RE, 
                     SCORE_RE,   ## note basic score e.g. 1-1 must go after SCORE_MORE_RE!!!
                     BASICS_RE, 
-                    MINUTE_RE,
-                    MINUTE_NA_RE,   ## note - add/allow not/available (n/a,na) minutes hack for now
-                    GOAL_OG_RE, GOAL_PEN_RE,
-                     TEXT_RE,
+                 ##   PLAYER_WITH_MINUTE_RE, ## (goes befor test), match will switch into goal(lines) mode!!!
+                    TEXT_RE,
                      WDAY_RE,  # allow standalone weekday name (e.g. Mo/Tu/etc.) - why? why not?
                                #    note - wday MUST be after text e.g. Sun Ke 68' is Sun Ke (NOT Sun) etc.
                       )
+
+
+
+######################################################
+## goal mode (switched to by PLAYER_WITH_MINUTE_RE)   
+
+GOAL_BASICS_RE = %r{
+    (?<spaces> [ ]{2,}) |
+    (?<space>  [ ])
+        |
+    (?<sym>  
+        [;,\[\]]   ## add (-) dash too - why? why not?   
+    )   
+}ix
+
+
+GOAL_RE = Regexp.union(
+    GOAL_BASICS_RE,
+    MINUTE_RE,
+    MINUTE_NA_RE,   ## note - add/allow not/available (n/a,na) minutes hack for now
+    GOAL_OG_RE, GOAL_PEN_RE,
+    PROP_NAME_RE,    ## note - (re)use prop name for now for (player) name
+)
+
 
 
 end  # class Lexer

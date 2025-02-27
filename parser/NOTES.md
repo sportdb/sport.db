@@ -2,13 +2,9 @@
 
 ## todos
 
-- [ ] name starts with weekday e.g. Sun  (example from asian cup) - what to do?
-       move "standalone" weekday down the regex AFTER  text!!!!
-
-```
-    Wu Xi 54' Sun Ke 68'
-```
-
+- [ ]  change SCORE result value for parse tree to plain array with two num values [0,1]!!!
+        why? might not be full-time score;
+        only use hash { ft: [], ht: []} for SCORE_MORE !!!
 
 
 

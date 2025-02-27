@@ -159,6 +159,25 @@ DATE_III_RE = %r{
   \b
 )}ix
 
+## allow (short)"european" style  8.8. 
+##   note - assume day/month!!!
+DATE_IIII_RE = %r{
+(?<date>
+  \b
+   (?<day>\d{1,2})
+       \.
+   (?<month>\d{1,2})
+       \.
+   (?: (?: 
+          (?<year>\d{4})        ## optional year 2025 (yyyy)
+              |
+          (?<yy>\d{2})           ## optional year 25 (yy)
+       )
+        \b
+   )?
+)
+}ix
+
 
 
 
@@ -169,6 +188,7 @@ DATE_RE = Regexp.union(
    DATE_I_RE,
    DATE_II_RE,
    DATE_III_RE,
+   DATE_IIII_RE,    ## e.g. 8.8. or 8.13.79 or 08.14.1973 
 )
 
 

@@ -113,6 +113,10 @@ class RaccMatchParser
                                                 minute: Minute.new(val[2][1]) 
                                               )
                           }
+                    |  '(' lineup_name ')'    ## allow subs without minutes too
+                          {
+                              result = Sub.new( sub:    val[1] )
+                          }      
                    ## allow both styles? minute first or last? keep - why? why not?
                     |   '(' MINUTE lineup_name ')'    
                           {
@@ -371,16 +375,42 @@ class RaccMatchParser
 
 
         ###
-        #  todo - add tree nodes for goal_lines_alt!!!!
-
+        ##   todo/fix add multi-line too!!
+        ##
+        ##  fix - for optional WITHOUT minutes
+        #             make possible (og) and (pen) too!!! - missing fo now
         goal_lines_alt : goals_alt NEWLINE
+                           {
+                             @tree << GoalLineAlt.new( goals: val[0] )
+                           }
 
         goals_alt   :  goal_alt
+                        { result = val }
+                    |  goals_alt goal_alt_sep goal_alt  ## allow optional comma sep
+                        { result.push( val[2])  } 
                     |  goals_alt goal_alt
+                        { result.push( val[1])  }
+                 
+        goal_alt_sep :  ','
+                     |  ',' NEWLINE    ## allow multiline goallines!!!
 
-        goal_alt    :  SCORE PLAYER minute
+
+        goal_alt    :  SCORE PLAYER     ## note - minute is optinal in alt goalline style!!!
+                        {
+                           result = GoalAlt.new( score:   val[0],
+                                                 player:  val[1] )
+                        }   
+                    |  SCORE PLAYER minute
+                        {
+                           result = GoalAlt.new( score:  val[0],
+                                                 player: val[1],
+                                                 minute: val[2] )
+                        }   
 
 
+       ####
+       # todo/check - change optional comma from between minutes 
+       #                   to between players - why? why not?
 
         goal_lines : '['  goal_lines_body  ']' NEWLINE 
                      {
@@ -397,8 +427,8 @@ class RaccMatchParser
         goal_lines_body : goals                 {  result = { goals1: val[0],
                                                               goals2: [] } 
                                                 }
-                        | '-' ';' goals         {  result = { goals1: [],
-                                                              goals2: val[2] } 
+                        | NONE  goals           {  result = { goals1: [],
+                                                              goals2: val[1] } 
                                                 }
                         | goals goal_sep goals  {  result = { goals1: val[0],
                                                               goals2: val[2] }

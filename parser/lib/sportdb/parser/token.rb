@@ -84,7 +84,8 @@ WDAY_RE = %r{
           Sat|Sa|
           Sun|Su
        ))
-  \b     ## todo/check - must be followed by two spaces or space + [( etc.
+       (?=[ ]{2})   # positive lookahead for two space  
+       ## todo/check - must be followed by two spaces or space + [( etc.
          ##   to allow words starting with weekday abbrevations - why? why not?
          ##     check if any names (teams, rounds, etc) come up in practice 
          ##   or maybe remove three letter abbrevations Mon/Tue
@@ -123,23 +124,27 @@ BASICS_RE = %r{
 }ix
 
 
+## general catch-all  (RECOMMENDED (ALWAYS) use as last entry in union)
+##   to avoid advance of pos match!!!
+ANY_RE = %r{
+               (?<any> .)
+          }ix
 
 
 RE = Regexp.union(
-                 ##   PROP_KEY_RE,           ##  start with prop key (match will switch into prop mode!!!)
                     STATUS_RE,
                     NOTE_RE,
                     TIMEZONE_RE,
+                    DURATION_RE,  # note - duration MUST match before date
+                    DATE_RE,  ## note - date must go before time (e.g. 12.12. vs 12.12)
                      TIME_RE,
-                     DURATION_RE,  # note - duration MUST match before date
-                    DATE_RE,
                     SCORE_MORE_RE, 
                     SCORE_RE,   ## note basic score e.g. 1-1 must go after SCORE_MORE_RE!!!
                     BASICS_RE, 
-                 ##   PLAYER_WITH_MINUTE_RE, ## (goes befor test), match will switch into goal(lines) mode!!!
-                    TEXT_RE,
-                     WDAY_RE,  # allow standalone weekday name (e.g. Mo/Tu/etc.) - why? why not?
-                               #    note - wday MUST be after text e.g. Sun Ke 68' is Sun Ke (NOT Sun) etc.
+                    WDAY_RE,  # allow standalone weekday name (e.g. Mo/Tu/etc.) - why? why not?
+                              #    note - wday MUST be after text e.g. Sun Ke 68' is Sun Ke (NOT Sun) etc.
+                   TEXT_RE,
+                   ANY_RE,
                       )
 
 
@@ -162,6 +167,7 @@ GOAL_RE = Regexp.union(
     MINUTE_RE,
     MINUTE_NA_RE,   ## note - add/allow not/available (n/a,na) minutes hack for now
     GOAL_OG_RE, GOAL_PEN_RE,
+    SCORE_RE,
     PROP_NAME_RE,    ## note - (re)use prop name for now for (player) name
 )
 

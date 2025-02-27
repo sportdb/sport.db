@@ -78,18 +78,10 @@ PLAYER_WITH_MINUTE_RE = %r{
                 (?<open_bracket> \[ )
                 [ ]*
              )?
-             (?:      # optional  -;   - what todo here?
-                  (?<dash> - )    ## find better name?
-                 [ ]*
-                  (?<semicolon> ; )
-                 [ ]*
+             (?:     # optional none a.k.a. -;   - what todo here?
+               (?<none>  - [ ]* ; [ ]* )
              )?
    (?<player_with_minute>
-                   ## \b
-                    ## always use begin of line - why? why not?
-                    ##    spaces eaten-up and pos will advance for match
-                     # ^   ## start of match buffer (use \A) - why? why not?
-                     #  \G     ## \G blocks in union of regex??
                    (?<name>
                       \p{L}+       
                         \.?    ## optional dot
@@ -104,7 +96,7 @@ PLAYER_WITH_MINUTE_RE = %r{
                                   |
                               (?:
                                 (?<=\p{L})   ## use lookbehind
-                                 [/'-]   ## must be surrounded by letters
+                                 ['-]   ## must be surrounded by letters
                                        ## e.g. One/Two NOT
                                        ##      One/ Two or One / Two or One /Two etc.
                                 (?=\p{L})      ## use lookahead        
@@ -151,27 +143,29 @@ PLAYER_WITH_MINUTE_RE = %r{
 }ix
 
 
-
-
-## blocks/hangs union regex - why?
-XXX_OLD_PLAYER_WITH_MINUTE_RE = %r{
-#### (player) name  (see prop_name)
-####
-   (?<player_with_minute>
-                    ## \b
-                    ## always use begin of line - why? why not?
-                    ##    spaces eaten-up and pos will advance for match
-                     # ^   ## start of match buffer (use \A) - why? why not?
-                      \G     ## \G blocks in union of regex??
+PLAYER_WITH_SCORE_RE = %r{
+           ^    ### note - MUST start line; leading spaces optional (eat-up)
+           [ ]*
+   (?<player_with_score>
+                   (?<score>
+                     (?<ft1>\d{1,2}) - (?<ft2>\d{1,2})
+                   )
+                      [ ]+
                    (?<name>
                       \p{L}+       
                         \.?    ## optional dot
-                      (?: 
-                          [ ]?    # only single spaces allowed inline!!!
+       
                           (?:
+                              ## rule for space; only one single space allowed inline!!!
+                              (?:
+                                (?<![ ])  ## use negative lookbehind                             
+                                  [ ] 
+                                (?=\p{L}|')      ## use lookahead        
+                              )
+                                  |
                               (?:
                                 (?<=\p{L})   ## use lookbehind
-                                 [/'-]   ## must be surrounded by letters
+                                 ['-]   ## must be surrounded by letters
                                        ## e.g. One/Two NOT
                                        ##      One/ Two or One / Two or One /Two etc.
                                 (?=\p{L})      ## use lookahead        
@@ -194,30 +188,11 @@ XXX_OLD_PLAYER_WITH_MINUTE_RE = %r{
                               (?: \p{L}+
                                     \.?  ## optional dot
                               )
-                          )+
-                     )*
-                   )
-#### spaces
-     (?: [ ]+)
-#### minute (see above)
-#####   use MINUTE_RE.source or such - for inline (reference) use? do not copy
-     (?<minute>
-       (?<=[ (])	 # positive lookbehind for space or opening ( e.g. (61') required
-                     #    todo - add more lookbehinds e.g.  ,) etc. - why? why not?
-           (?: 
-              (?<value>\d{1,3})      ## constrain numbers to 0 to 999!!!
-                   (?: \+
-                     (?<value2>\d{1,3})   
-                   )?
-               |
-              (?<value> \?{2} | _{2} )  ## add support for n/a (not/available)
-           )           
-        '     ## must have minute marker!!!!
-     )
-   )
+                          )*
+                   )   ## name
+            ### check/todo - add lookahead  (e.g. must be space or ,$) why? why not?               
+    )  ## player_with_score 
 }ix
-
-
 
 
     

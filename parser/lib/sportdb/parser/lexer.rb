@@ -334,7 +334,30 @@ def _tokenize_line( line )
         offsets = [m.begin(0), m.end(0)]
         pos = offsets[1]    ## update pos
     end
-    
+
+    m = PLAYER_WITH_SCORE_RE.match( line )
+    if m
+      ##  switch context to GOAL_RE (goalline(s)
+      ##   split token (automagically) into two!! - player AND minute!!!
+      @re = GOAL_RE
+      puts "  ENTER GOAL_RE MODE"   if debug?
+
+      score = {}
+      ## must always have ft for now e.g. 1-1 or such
+      ###  change to (generic) score from ft -
+      ##     might be score a.e.t. or such - why? why not?
+      score[:ft] = [m[:ft1].to_i(10),
+                    m[:ft2].to_i(10)]  
+      ## note - for debugging keep (pass along) "literal" score
+      tokens << [:SCORE, [m[:score], score]]
+
+      ## auto-add player token 
+      tokens << [:PLAYER, m[:name]]
+  
+      offsets = [m.begin(0), m.end(0)]
+      pos = offsets[1]    ## update pos
+    end 
+
     m = PLAYER_WITH_MINUTE_RE.match( line )
     if m
       ##  switch context to GOAL_RE (goalline(s)
@@ -347,10 +370,8 @@ def _tokenize_line( line )
 
       ## check for  -;  (none with separator)
       ##    todo - find a better way? how possible?
-      if m[:dash] && m[:semicolon]
-         tokens << [:'-']
-         tokens << [:';']
-      end
+      tokens << [:NONE, "<|NONE|>"]   if m[:none]
+      
 
 
       ## auto-add player token first
@@ -454,6 +475,15 @@ def _tokenize_line( line )
               minute[:offset] = m[:value2].to_i(10)   if m[:value2]
              ## note - for debugging keep (pass along) "literal" minute
              [:MINUTE, [m[:minute], minute]]
+         elsif m[:score]
+              score = {}
+              ## must always have ft for now e.g. 1-1 or such
+              ###  change to (generic) score from ft -
+              ##     might be score a.e.t. or such - why? why not?
+              score[:ft] = [m[:ft1].to_i(10),
+                            m[:ft2].to_i(10)]  
+              ## note - for debugging keep (pass along) "literal" score
+              [:SCORE, [m[:score], score]]
          elsif m[:og]
              [:OG, m[:og]]    ## for typed drop - string version/variants ??  why? why not?
          elsif m[:pen]
@@ -518,7 +548,9 @@ def _tokenize_line( line )
             date = {}
  ## map month names
  ## note - allow any/upcase JULY/JUL etc. thus ALWAYS downcase for lookup
-            date[:y] = m[:year].to_i(10)  if m[:year]
+            date[:y]  = m[:year].to_i(10)  if m[:year]
+            ## check - use y too for two-digit year or keep separate - why? why not?
+            date[:yy] = m[:yy].to_i(10)    if m[:yy]    ## two digit year (e.g. 25 or 78 etc.)
             date[:m] = m[:month].to_i(10)  if m[:month]
             date[:m] = MONTH_MAP[ m[:month_name].downcase ]   if m[:month_name]
             date[:d]  = m[:day].to_i(10)   if m[:day]
@@ -562,6 +594,8 @@ def _tokenize_line( line )
         elsif m[:score]
             score = {}
             ## must always have ft for now e.g. 1-1 or such
+            ###  change to (generic) score from ft -
+            ##     might be score a.e.t. or such - why? why not?
             score[:ft] = [m[:ft1].to_i(10),
                           m[:ft2].to_i(10)]  
           ## note - for debugging keep (pass along) "literal" score
@@ -592,9 +626,13 @@ def _tokenize_line( line )
           when '---'  then [:'---']   # level 3
           when '----' then [:'----']  # level 4
           else
-            puts "!!! TOKENIZE ERROR - ignore sym >#{sym}<"
+            puts "!!! TOKENIZE ERROR (sym) - ignore sym >#{sym}<"
             nil  ## ignore others (e.g. brackets [])
           end
+        elsif m[:any]
+           ## todo/check log error
+           puts "!!! TOKENIZE ERROR (any) - no match found >#{m[:any]}<"
+           nil   
         else
           ## report error
            puts "!!! TOKENIZE ERROR - no match found"

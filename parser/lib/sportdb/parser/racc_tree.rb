@@ -122,6 +122,30 @@ MatchLine   = Struct.new( :ord, :date, :time, :wday,
 
 end
 
+## check - use a different name e.g. GoalLineScore or such - why? why not?
+GoalLineAlt = Struct.new( :goals ) do
+  def pretty_print( printer )
+    printer.text( "<GoalLineAlt " )
+    printer.text( "goals=" + self.goals.pretty_inspect + ">" )
+  end  
+end
+
+GoalAlt   = Struct.new( :score, :player, :minute ) do
+  def to_s
+    buf = String.new
+    buf << "#{score} "
+    buf << "#{self.player}"
+    buf << " #{self.minute}"  if self.minute
+    buf
+  end
+
+  def pretty_print( printer )
+    printer.text( to_s )
+  end  
+end
+
+
+
 GoalLine    = Struct.new( :goals1, :goals2 ) do
   def pretty_print( printer )
     printer.text( "<GoalLine " )

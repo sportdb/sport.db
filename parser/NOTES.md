@@ -2,11 +2,48 @@
 
 ## todos
 
+- [ ] try to add optional coach/trainer: at the end of lineup!!!!
+
+- [ ]  fix - turn any match into a reported error!!!
+
 - [ ]  change SCORE result value for parse tree to plain array with two num values [0,1]!!!
         why? might not be full-time score;
         only use hash { ft: [], ht: []} for SCORE_MORE !!!
 
+- [ ] special case 1/8 FINALS  (for Eight Finals)
+        - make match with text regex possible - why? why not?
+        - 1/8 not supported for dates, thus possible ???
+        - more candidates e.g. 1/4 final, 1/2 final
 
+- [ ]  geoname same as date e.g.  @ Bucuresti, 23 August
+  
+
+- [ ]  to props add enclosed_name  e.g. (Italy) or (ITA)
+      - change ord number to enclosed_num  e.g. (1) or (14,000)
+      -  find a better name for enclosed_name  (round_name?, round_num? or ???)
+
+
+- [ ]  use  ; to split (start) props in props - allows you to add "inline" props
+       e.g.     Referee: xxx; Attentance: xxx   or ref: xxx; att:
+        or        in lineup add optional ; trainer: Luiz Felipe Scolari    
+
+- [ ]  check if possible goal_alt_sep with NEWLINE only (no comma) - possible??
+
+```
+              1-0 Evair   65' (pen),   
+              1-1 Zapata  70' (pen),  
+              2-1 Oséas   76'         
+```
+
+
+- [ ]  for euro and others use asdet  (after sudden death extra time) - why? why not?
+
+```
+Germany             2-1 Czech Republic             ASDET
+        [Final tournament in England]
+2000    France              2-1 Italy                      ASDET
+        [Final tournament in Belgium and the Netherlands]
+```
 
 ## more todos
 

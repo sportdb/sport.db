@@ -171,6 +171,14 @@ GOAL_RE = Regexp.union(
     PROP_NAME_RE,    ## note - (re)use prop name for now for (player) name
 )
 
+PROP_GOAL_RE =  Regexp.union(
+    GOAL_BASICS_RE,
+    MINUTE_RE,
+    MINUTE_NA_RE,   ## note - add/allow not/available (n/a,na) minutes hack for now
+    GOAL_OG_RE, GOAL_PEN_RE,
+    SCORE_RE,
+    PROP_NAME_RE,    ## note - (re)use prop name for now for (player) name
+)
 
 
 end  # class Lexer

@@ -15,7 +15,7 @@ Final - First Leg
 
 Jun 14 2000    Boca Juniors  2-2  Palmeiras   @ Buenos Aires, ARG   ## (att: 50580)
 
-## Referee: Gustavo Méndez (URU) 
+Referee: Gustavo Méndez (URU) 
 
 BOCA JUNIORS: Oscar Córdoba - Hugo Ibarra, Jorge Bermúdez, Walter Samuel,
               Rodolfo Arruabarrena - Cristian Traverso, Sebastian Battaglia, 
@@ -25,13 +25,21 @@ BOCA JUNIORS: Oscar Córdoba - Hugo Ibarra, Jorge Bermúdez, Walter Samuel,
 PALMEIRAS: Marcos - Nenem, Roque Júnior, Argel, Júnior - Rogério, César Sampaio -
            Galeano, Alex (Tiago 87'), Pena (Marcelo Ramos 62'), Euller (Faustino Asprilla 85');
            Coach: Luis Felipe Scolari 
-## Goals:  Arruabarrena 22' Arruabarrena 61'; Pena 43' Euller 63' 
+
+Goals:  Arruabarrena 22' Arruabarrena 61'; Pena 43' Euller 63' 
+Goals:  Arruabarrena  Arruabarrena; Pena  Euller    ## without (optional) minutes 
+
+Goals:  Arruabarrena 45+1' Arruabarrena 61' (og); Pena 43' Euller 63' (pen) 
+
 
 Yellow cards: Giménez 8', Riquelme 59', Traverso 65', Guillermo Barros Schelotto 88';
               Roque Júnior 5', Argel 60', Nenem 64' 
 
 Yellow cards: Giménez, Riquelme, Traverso, Guillermo Barros Schelotto;
               Roque Júnior, Argel, Nenem 
+
+Referee:  Danny Makkelie (Netherlands)
+Referee:  Danny Makkelie 
 
 
 TXT

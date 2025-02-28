@@ -330,12 +330,20 @@ def _tokenize_line( line )
         puts "  ENTER PROP_RE MODE"   if debug?
         key = m[:key]
 
+
+        ### todo - add prop yellow/red cards too - why? why not?
         if ['sent off', 'red cards'].include?( key.downcase) 
           @re = PROP_CARDS_RE    ## use CARDS_RE ???
           tokens << [:PROP_REDCARDS, m[:key]]
         elsif ['yellow cards'].include?( key.downcase )
           @re = PROP_CARDS_RE  
           tokens << [:PROP_YELLOWCARDS, m[:key]]
+        elsif ['ref', 'referee'].include?( key.downcase )
+          @re = PROP_RE     ## (re)use prop setup for now - why? why not?
+          tokens << [:PROP_REFEREE, m[:key]]
+        elsif ['goals'].include?( key.downcase )
+          @re = PROP_GOAL_RE
+          tokens << [:PROP_GOALS, m[:key]]
         else   ## assume (team) line-up
           @re = PROP_RE           ## use LINEUP_RE ???
           tokens << [:PROP, m[:key]]
@@ -503,7 +511,7 @@ def _tokenize_line( line )
              puts "!!! TOKENIZE ERROR (PROP_RE) - no match found"
              nil 
          end
-      elsif @re == GOAL_RE
+      elsif @re == GOAL_RE || @re == PROP_GOAL_RE
          if m[:space] || m[:spaces]
               nil    ## skip space(s)
          elsif m[:prop_name]    ## note - change prop_name to player
@@ -702,7 +710,7 @@ def _tokenize_line( line )
    ##
    ## if in prop mode continue if   last token is [,-]
    ##        otherwise change back to "standard" mode
-   if @re == PROP_RE || @re == PROP_CARDS_RE
+   if @re == PROP_RE || @re == PROP_CARDS_RE || @re == PROP_GOAL_RE
      if [:',', :'-', :';'].include?( tokens[-1][0] )
         ## continue/stay in PROP_RE mode
         ##  todo/check - auto-add PROP_CONT token or such

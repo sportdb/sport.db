@@ -40,6 +40,7 @@ class RaccMatchParser
           | lineup_lines
           | yellowcard_lines   ## use _line only - why? why not?
           | redcard_lines
+          | referee_line
           | error      ## todo/check - move error sync up to elements - why? why not?
               { puts "!! skipping invalid content (trying to recover from parse error):"
                 pp val[0] 
@@ -62,20 +63,45 @@ class RaccMatchParser
                   |   TEXT NEWLINE
 
 
+        referee_line   :  PROP_REFEREE  referee  PROP_END NEWLINE
+                            {
+                               kwargs = val[1] 
+                               @tree << RefereeLine.new( **kwargs ) 
+                            }
+
+        ## todo/fix - replace ( PROP_NAME ) with ENCLOSED_NAME/PAREN_NAME??
+        ##          for now  ( Italy   ) or such is allowed!!! 
+        referee  :      PROP_NAME
+                         {  result = { name: val[0]} }
+                 |      PROP_NAME  '(' PROP_NAME  ')'
+                         {  result = { name: val[0], country: val[2] } }   
+                 
 
         yellowcard_lines : PROP_YELLOWCARDS card_body PROP_END NEWLINE 
+                             {
+                               @tree << CardsLine.new( type: 'Y', bookings: val[1] )                               
+                             }
         redcard_lines    : PROP_REDCARDS card_body PROP_END NEWLINE
+                             {
+                               @tree << CardsLine.new( type: 'R', bookings: val[1] )                    
+                             }
 
          ## use player_booking or such 
+         ##   note - ignores possible team separator (;) for now 
+         ##               returns/ builds all-in-one "flat" list/array
          card_body :  player_w_minute
+                        {   result = [val[0]]  }
                    |  card_body card_sep player_w_minute
+                        {  result << val[2]  }
 
          card_sep  :  ','
                    |  ';'
                    |  ';' NEWLINE  
 
          player_w_minute : PROP_NAME
+                              { result = Booking.new( name: val[0] )  }
                          | PROP_NAME MINUTE  
+                              { result = Booking.new( name: val[0], minute: val[1][1] )  }
 
 
 
@@ -448,6 +474,11 @@ class RaccMatchParser
                    | goal_lines_body NEWLINE
                       {
                          kwargs = val[0]
+                         @tree << GoalLine.new( **kwargs )
+                      }
+                   |  PROP_GOALS goal_lines_body PROP_END NEWLINE    ## prop version (starting with goals:)
+                      {
+                         kwargs = val[1]
                          @tree << GoalLine.new( **kwargs )
                       }
 

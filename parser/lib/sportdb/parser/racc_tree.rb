@@ -4,13 +4,46 @@
 
 class RaccMatchParser
 
+RefereeLine = Struct.new( :name, :country ) do 
+  def pretty_print( printer )
+    printer.text( "<RefereeLine " )
+    printer.text( self.name )
+    printer.text( " (#{self.country})" )  if self.country
+    printer.text( ">" )
+  end
+end
+
+##  find a better name for player (use bookings?) - note - red/yellow card for trainer possible
+CardsLine = Struct.new( :type, :bookings ) do   
+  def pretty_print( printer )
+    printer.text( "<CardsLine " )
+    printer.text( self.type )
+    printer.text( " bookings=" + self.bookings.pretty_inspect )
+    printer.text( ">" )
+  end
+end
+
+Booking = Struct.new( :name, :minute ) do
+  def to_s
+    buf = String.new
+    buf << "#{self.name}"
+    buf << " #{self.minute.to_s}"   if self.minute
+    buf
+  end
+
+  def pretty_print( printer )
+    printer.text( to_s )
+  end  
+end
+
+
 
 LineupLine = Struct.new( :team, :lineup, :coach ) do
   def pretty_print( printer )
     printer.text( "<LineupLine " )
     printer.text( self.team )
     printer.text( " lineup=" + self.lineup.pretty_inspect )
-    printer.text( " coach=" + self.coach )   if coach
+    printer.text( " coach=" + self.coach )   if self.coach
     printer.text( ">" )
   end
 end

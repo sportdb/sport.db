@@ -707,6 +707,11 @@ def _tokenize_line( line )
   end
 
 
+   if @re == GOAL_RE   ### ALWAYS switch back to top level mode
+     puts "  LEAVE GOAL_RE MODE, BACK TO TOP_LEVEL/RE"  if debug?
+     @re = RE 
+   end
+ 
    ##
    ## if in prop mode continue if   last token is [,-]
    ##        otherwise change back to "standard" mode
@@ -725,11 +730,6 @@ def _tokenize_line( line )
      end
    end
 
-
-   if @re == GOAL_RE   ### ALWAYS switch back to top level mode
-     puts "  LEAVE GOAL_RE MODE, BACK TO TOP_LEVEL/RE"  if debug?
-     @re = RE 
-   end
   
   [tokens,errors]
 end

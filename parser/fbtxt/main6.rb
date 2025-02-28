@@ -46,6 +46,10 @@ Goals:  Arruabarrena 22' Arruabarrena 61'; Pena 43' Euller 63'
 Goals:  Arruabarrena 45+1' Arruabarrena 61' (og); Pena 43' Euller 63' (pen) 
 
 
+Italy v  France  
+    Merih Demiral 53' (og) Ciro Immobile 66' Lorenzo Insigne 79'
+
+
 TXT
 
 

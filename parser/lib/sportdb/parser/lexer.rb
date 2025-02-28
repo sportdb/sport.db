@@ -327,9 +327,19 @@ def _tokenize_line( line )
     if m
       ###  switch into new mode
       ##  switch context  to PROP_RE
-        @re = PROP_RE
         puts "  ENTER PROP_RE MODE"   if debug?
-        tokens << [:PROP, m[:key]]
+        key = m[:key]
+
+        if ['sent off', 'red cards'].include?( key.downcase) 
+          @re = PROP_CARDS_RE    ## use CARDS_RE ???
+          tokens << [:PROP_REDCARDS, m[:key]]
+        elsif ['yellow cards'].include?( key.downcase )
+          @re = PROP_CARDS_RE  
+          tokens << [:PROP_YELLOWCARDS, m[:key]]
+        else   ## assume (team) line-up
+          @re = PROP_RE           ## use LINEUP_RE ???
+          tokens << [:PROP, m[:key]]
+        end
 
         offsets = [m.begin(0), m.end(0)]
         pos = offsets[1]    ## update pos
@@ -420,10 +430,44 @@ def _tokenize_line( line )
     ## note: racc requires pairs e.g. [:TOKEN, VAL]
     ##         for VAL use "text" or ["text", { opts }]  array
 
-
-  t = if @re == PROP_RE
+  t = if @re == PROP_CARDS_RE 
+        if m[:space] || m[:spaces]
+              nil    ## skip space(s)
+         elsif m[:prop_name]
+              [:PROP_NAME, m[:name]]
+         elsif m[:minute]
+              minute = {}
+              minute[:m]      = m[:value].to_i(10)
+              minute[:offset] = m[:value2].to_i(10)   if m[:value2]
+             ## note - for debugging keep (pass along) "literal" minute
+             [:MINUTE, [m[:minute], minute]]
+         elsif m[:sym]
+            sym = m[:sym]
+            case sym
+            when ',' then [:',']
+            when ';' then [:';']
+            when '-' then [:'-']
+            else
+              nil  ## ignore others (e.g. brackets [])
+            end
+         else
+            ## report error
+             puts "!!! TOKENIZE ERROR (PROP_CARDS_RE) - no match found"
+             nil 
+         end    
+      elsif @re == PROP_RE   ### todo/fix - change to LINEUP_RE !!!!
          if m[:space] || m[:spaces]
               nil    ## skip space(s)
+         elsif m[:prop_key]   ## check for inline prop keys
+              key = m[:key]   
+              ##  supported for now coach/trainer (add manager?)
+              if ['coach', 
+                  'trainer'].include?( key.downcase )
+                [:COACH, m[:key]]   ## use COACH_KEY or such - why? why not?
+              else
+                ## report error - for unknown (inline) prop key in lineup
+                nil
+              end
          elsif m[:prop_name]
                if m[:name] == 'Y'
                  [:YELLOW_CARD, m[:name]]
@@ -451,11 +495,6 @@ def _tokenize_line( line )
             when '(' then [:'(']
             when ')' then [:')']
             when '-' then [:'-']
-           # when '.' then 
-           #     ## switch back to top-level mode!!
-           #     puts "  LEAVE PROP_RE MODE, BACK TO TOP_LEVEL/RE"  if debug?
-           #     @re = RE 
-           #     [:'.']
             else
               nil  ## ignore others (e.g. brackets [])
             end
@@ -663,8 +702,8 @@ def _tokenize_line( line )
    ##
    ## if in prop mode continue if   last token is [,-]
    ##        otherwise change back to "standard" mode
-   if @re == PROP_RE
-     if [:',', :'-'].include?( tokens[-1][0] )
+   if @re == PROP_RE || @re == PROP_CARDS_RE
+     if [:',', :'-', :';'].include?( tokens[-1][0] )
         ## continue/stay in PROP_RE mode
         ##  todo/check - auto-add PROP_CONT token or such
         ##                to help parser with possible NEWLINE

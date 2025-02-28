@@ -38,6 +38,8 @@ class RaccMatchParser
              { trace( "REDUCE BLANK" ) } 
           | teams_list
           | lineup_lines
+          | yellowcard_lines   ## use _line only - why? why not?
+          | redcard_lines
           | error      ## todo/check - move error sync up to elements - why? why not?
               { puts "!! skipping invalid content (trying to recover from parse error):"
                 pp val[0] 
@@ -60,14 +62,39 @@ class RaccMatchParser
                   |   TEXT NEWLINE
 
 
+
+        yellowcard_lines : PROP_YELLOWCARDS card_body PROP_END NEWLINE 
+        redcard_lines    : PROP_REDCARDS card_body PROP_END NEWLINE
+
+         ## use player_booking or such 
+         card_body :  player_w_minute
+                   |  card_body card_sep player_w_minute
+
+         card_sep  :  ','
+                   |  ';'
+                   |  ';' NEWLINE  
+
+         player_w_minute : PROP_NAME
+                         | PROP_NAME MINUTE  
+
+
+
         ## change PROP to LINEUP_TEAM
         ## change PROP_NAME to NAME or LINEUP_NAME
-       lineup_lines  : PROP lineup PROP_END NEWLINE     ## fix add NEWLINE here too!!!
-                        {  @tree << LineupLine.new( team:    val[0],
-                                                    lineup:  val[1]
-                                                  ) 
+       lineup_lines  : PROP lineup coach_opt PROP_END NEWLINE     ## fix add NEWLINE here too!!!
+                        {  
+                          kwargs = { team:    val[0],
+                                     lineup:  val[1]  }.merge( val[2] ) 
+                          @tree << LineupLine.new( **kwargs ) 
                         }
 
+       coach_opt   : /* empty */   
+                           { result = {}  }
+                   | ';' COACH  PROP_NAME
+                           {  result = { coach: val[2] } }
+                   | ';' NEWLINE  COACH  PROP_NAME    ## note - allow newline break
+                           {  result = { coach: val[3] } }
+ 
        lineup :   lineup_name       
                     { result = [[val[0]]] }
               |   lineup lineup_sep lineup_name
@@ -85,6 +112,7 @@ class RaccMatchParser
                      | ',' NEWLINE  { result = val[0]   }
                      | '-' 
                      | '-' NEWLINE  { result = val[0]   }
+                     
 
       lineup_name    :    PROP_NAME lineup_name_opts
                            {

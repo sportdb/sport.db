@@ -121,6 +121,35 @@ PROP_NAME_RE = %r{
 
 
 
+################
+##     todo/check - use token for card short cuts?
+##                if m[:name] == 'Y'
+##                 [:YELLOW_CARD, m[:name]]
+##               elsif m[:name] == 'R'
+##                 [:RED_CARD, m[:name]]
+##           -  [Y], [R], [Y/R]  Yellow-Red Card 
+##    check if minutes possible inside [Y 46'] 
+##     add [c] for captain too
+
+
+
+### simple prop key for inline use e.g.
+###    Coach:  or Trainer:  or ...  add more here later
+
+  PROP_KEY_INLINE_RE = %r{ 
+                    \b  
+                 (?<prop_key>    ## note: use prop_key (NOT prop_key_inline or such)
+                   (?<key>
+                       \p{L}+
+                   )
+                    ## note - NO spaces allowed for key for now!!! 
+                     :
+                    (?=[ ]+)  ## possitive lookahead (must be followed by space!!)
+                   )
+                 }ix
+
+                 
+
 PROP_BASICS_RE = %r{
     (?<spaces> [ ]{2,}) |
     (?<space>  [ ])
@@ -133,8 +162,19 @@ PROP_BASICS_RE = %r{
 PROP_RE = Regexp.union(
    PROP_BASICS_RE, 
    MINUTE_RE,
+   PROP_KEY_INLINE_RE,
    PROP_NAME_RE,
+   ## todo/fix - add ANY_RE here too!!!
 )
+
+## note - no inline keys possible
+##         todo/fix - use custom (limited) prop basics too
+PROP_CARDS_RE =  Regexp.union(
+   PROP_BASICS_RE, 
+   MINUTE_RE,
+   PROP_NAME_RE,
+   ## todo/fix - add ANY_RE here too!!!
+) 
 
     
 end  # class Lexer

@@ -5,14 +5,16 @@
 class RaccMatchParser
 
 
-LineupLine = Struct.new( :team, :lineup ) do
+LineupLine = Struct.new( :team, :lineup, :coach ) do
   def pretty_print( printer )
     printer.text( "<LineupLine " )
     printer.text( self.team )
     printer.text( " lineup=" + self.lineup.pretty_inspect )
+    printer.text( " coach=" + self.coach )   if coach
     printer.text( ">" )
   end
 end
+
 
 Lineup     = Struct.new( :name, :card, :sub ) do
   def pretty_print( printer )
@@ -42,8 +44,8 @@ end
 Sub        = Struct.new( :minute, :sub )  do
   def pretty_print( printer )
     buf = String.new 
-    buf << "(#{self.minute.to_s} " 
-    buf << self.sub.pretty_inspect  
+    buf << "(#{self.sub.pretty_inspect}" 
+    buf << " #{self.minute.to_s}"   if self.minute  
     buf << ")"
     printer.text( buf ) 
   end

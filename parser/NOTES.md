@@ -24,7 +24,7 @@
 
 
 - [ ]  use  ; to split (start) props in props - allows you to add "inline" props
-       e.g.     Referee: xxx; Attentance: xxx   or ref: xxx; att:
+       e.g.     Referee: xxx; Attendance: xxx   or ref: xxx; att:
         or        in lineup add optional ; trainer: Luiz Felipe Scolari    
 
 - [ ]  check if possible goal_alt_sep with NEWLINE only (no comma) - possible??
@@ -33,6 +33,13 @@
               1-0 Evair   65' (pen),   
               1-1 Zapata  70' (pen),  
               2-1 Oséas   76'         
+```
+
+- [ ]   add "" or '' - why? why not? e.g.
+
+```
+!! WARN - parse error (tokenize) - skipping >'Jorginho'< @45,46 
+in line >Nicolò Barella, Jorge Frello Filho 'Jorginho',<
 ```
 
 

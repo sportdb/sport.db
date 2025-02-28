@@ -1,0 +1,52 @@
+####
+#  to run use:
+#    $ ruby ./main6_lex.rb  (in /fbtxt)
+
+
+
+$LOAD_PATH.unshift( '../lib' )
+require 'sportdb/parser'
+
+
+
+txt = <<-TXT
+
+Final - First Leg 
+
+Jun 14 2000    Boca Juniors  2-2  Palmeiras   @ Buenos Aires, ARG   ## (att: 50580)
+
+## Referee: Gustavo Méndez (URU) 
+
+BOCA JUNIORS: Oscar Córdoba - Hugo Ibarra, Jorge Bermúdez, Walter Samuel,
+              Rodolfo Arruabarrena - Cristian Traverso, Sebastian Battaglia, 
+              Juan Román Riquelme, Gustavo Barros Schelotto (César La Paglia 65'),
+              Christian Giménez (Martín Palermo 46'), 
+              Antonio Barijho (Guillermo Barros Schelotto 46'); Coach: Carlos Bianchi 
+PALMEIRAS: Marcos - Nenem, Roque Júnior, Argel, Júnior - Rogério, César Sampaio -
+           Galeano, Alex (Tiago 87'), Pena (Marcelo Ramos 62'), Euller (Faustino Asprilla 85');
+           Coach: Luis Felipe Scolari 
+## Goals:  Arruabarrena 22' Arruabarrena 61'; Pena 43' Euller 63' 
+
+Yellow cards: Giménez 8', Riquelme 59', Traverso 65', Guillermo Barros Schelotto 88';
+              Roque Júnior 5', Argel 60', Nenem 64' 
+
+Yellow cards: Giménez, Riquelme, Traverso, Guillermo Barros Schelotto;
+              Roque Júnior, Argel, Nenem 
+
+
+TXT
+
+
+     
+  lexer = SportDb::Lexer.new( txt, debug: true )
+  tokens, errors = lexer.tokenize_with_errors
+  pp tokens
+
+  if errors.size > 0
+     puts "!! #{errors.size} tokenize error(s):"
+     pp errors
+  end
+
+
+puts "bye"
+

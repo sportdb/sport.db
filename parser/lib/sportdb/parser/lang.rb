@@ -15,6 +15,7 @@ module Lang
 ## Group 1-99
 ## Group HEX  # used in concaf world cup quali
 ## Group 1A or A1, B1  - used anywhere
+##   yes - A1, A2, B1, C1, etc. used in UEFA Nations League for example!!
 ##
 ##  use "key" of group - why? why not?
 
@@ -197,7 +198,17 @@ end
 
 
 def self.is_round?( text )
-    ROUND_RE.match?( text ) || more_round_names.include?( text )
+    ### note - use check for case-insensitive 
+    ##   was:
+    ##       more_round_names.include?( text )
+    ##   change to:
+    ##       more_round_names.any?{ |str| str.casecmp( text )==0 }
+    ##
+    ##  todo/fix:
+    ##    maybe in the future use our own unaccent and downcase - wyh? why not?
+    ##      note - for now ROUND_RE is also case-insensitive!!
+
+    ROUND_RE.match?( text ) || more_round_names.any?{ |str| str.casecmp( text )==0 }
 end
 
 ##

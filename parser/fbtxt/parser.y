@@ -40,6 +40,7 @@ class RaccMatchParser
           | lineup_lines
           | yellowcard_lines   ## use _line only - why? why not?
           | redcard_lines
+          | penalties_lines   ## rename to penalties_line or ___ - why? why not? 
           | referee_line
           | error      ## todo/check - move error sync up to elements - why? why not?
               { puts "!! skipping invalid content (trying to recover from parse error):"
@@ -76,6 +77,42 @@ class RaccMatchParser
                  |      PROP_NAME  '(' PROP_NAME  ')'
                          {  result = { name: val[0], country: val[2] } }   
                  
+
+        penalties_lines : PROP_PENALTIES penalties_body PROP_END NEWLINE
+                            {
+                               @tree << PenaltiesLine.new( penalties: val[1] )                                                            
+                            }
+
+        penalties_body  :  penalty                             {  result = [val[0]]  }  
+                        |  penalties_body penalty_sep penalty  {  result << val[2]  }
+
+  
+        penalty_sep     :  ','
+                        |  ',' NEWLINE
+                        |  ';'
+                        |  ';' NEWLINE
+
+        penalty         :  SCORE PROP_NAME 
+                              {
+                                 result = Penalty.new( score: val[0][1],
+                                                       name: val[1] )
+                              }
+                        |  SCORE PROP_NAME ENCLOSED_NAME
+                               {
+                                 result = Penalty.new( score: val[0][1],
+                                                       name: val[1],
+                                                       note: val[2] )
+                               }
+                        | PROP_NAME
+                               {
+                                 result = Penalty.new( name: val[0] )                                
+                               }
+                        |  PROP_NAME ENCLOSED_NAME        ## e.g. (save), (post), etc
+                               {
+                                 result = Penalty.new( name: val[0],
+                                                       note: val[1] )                                
+                               }
+
 
         yellowcard_lines : PROP_YELLOWCARDS card_body PROP_END NEWLINE 
                              {

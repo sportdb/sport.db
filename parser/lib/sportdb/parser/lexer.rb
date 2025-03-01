@@ -344,6 +344,9 @@ def _tokenize_line( line )
         elsif ['goals'].include?( key.downcase )
           @re = PROP_GOAL_RE
           tokens << [:PROP_GOALS, m[:key]]
+        elsif ['penalties', 'penalty shootout'].include?( key.downcase )
+          @re = PROP_PENALTIES_RE
+          tokens << [:PROP_PENALTIES, m[:key]]
         else   ## assume (team) line-up
           @re = PROP_RE           ## use LINEUP_RE ???
           tokens << [:PROP, m[:key]]
@@ -510,6 +513,38 @@ def _tokenize_line( line )
             ## report error
              puts "!!! TOKENIZE ERROR (PROP_RE) - no match found"
              nil 
+         end
+      elsif @re == PROP_PENALTIES_RE
+        if m[:space] || m[:spaces]
+              nil    ## skip space(s)
+         elsif m[:prop_name]    ## note - change prop_name to player
+             [:PROP_NAME, m[:name]]    ### use PLAYER for token - why? why not?
+         elsif m[:enclosed_name]
+              ## use HOLD,SAVE,POST or such keys - why? why not?
+             [:ENCLOSED_NAME, m[:name]]
+         elsif m[:score]
+              score = {}
+              ## must always have ft for now e.g. 1-1 or such
+              ###  change to (generic) score from ft -
+              ##     might be score a.e.t. or such - why? why not?
+              score[:ft] = [m[:ft1].to_i(10),
+                            m[:ft2].to_i(10)]  
+              ## note - for debugging keep (pass along) "literal" score
+              [:SCORE, [m[:score], score]]
+         elsif m[:sym]
+            sym = m[:sym]
+            case sym
+            when ',' then [:',']
+            when ';' then [:';']
+            when '[' then [:'[']
+            when ']' then [:']']
+            else
+              nil  ## ignore others (e.g. brackets [])
+            end
+         else
+            ## report error
+            puts "!!! TOKENIZE ERROR (PROP_PENALTIES_RE) - no match found"
+            nil 
          end
       elsif @re == GOAL_RE || @re == PROP_GOAL_RE
          if m[:space] || m[:spaces]
@@ -715,7 +750,8 @@ def _tokenize_line( line )
    ##
    ## if in prop mode continue if   last token is [,-]
    ##        otherwise change back to "standard" mode
-   if @re == PROP_RE || @re == PROP_CARDS_RE || @re == PROP_GOAL_RE
+   if @re == PROP_RE       || @re == PROP_CARDS_RE ||
+      @re == PROP_GOAL_RE  || @re == PROP_PENALTIES_RE
      if [:',', :'-', :';'].include?( tokens[-1][0] )
         ## continue/stay in PROP_RE mode
         ##  todo/check - auto-add PROP_CONT token or such

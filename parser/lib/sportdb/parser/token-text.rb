@@ -56,8 +56,12 @@ TEXT_RE = %r{
                        \p{L}+
                   |
                 ## opt 3 - add weirdo case
+                ##   e.g.  1/8 Finals  1/4 1/2 ...
+                    1/ \d{1,2} [ ] \p{L}+
+                  |
+                ## opt 4 - add another weirdo case
                 ##   e.g. 5.-8. Platz Playoffs  - keep - why? why not?
-                    \d+\.-\d+\.  [ ]? \p{L}+
+                    \d+\.-\d+\.  [ ]? \p{L}+                 
                )
 
               (?:(?:  (?:[ ] 

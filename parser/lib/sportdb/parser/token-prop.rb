@@ -30,30 +30,30 @@ PROP_NAME_RE = %r{
                               (?:
                                 (?<![ ])  ## use negative lookbehind                             
                                   [ ] 
-                                (?=\p{L}|')      ## use lookahead        
+                                (?=\p{L}|['"])      ## use lookahead        
                               )
-                                  |                         
+                              ## support (inline) quoted name e.g. "Rodri" or such
+                                  |
+                                  (?:
+                                     (?<=[ ])  ## use positive lookbehind                             
+                                     " \p{L}+ " 
+                                      ## require space here too - why? why not?
+                                   )                      
+                                  |   
                              (?:
                                 (?<=\p{L})   ## use lookbehind
-                                 ['-]   ## must be surrounded by letters
+                                 [-]   ## must be surrounded by letters
                                        ## e.g. One/Two NOT
                                        ##      One/ Two or One / Two or One /Two etc.
                                 (?=\p{L})      ## use lookahead        
                               )
                                  |   
-                              (?:
-                                (?<=[ ])   ## use lookbehind  -- add letter (plus dot) or such - why? why not?
-                                 [']   ## must be surrounded by leading space and
-                                       ## traling letters  (e.g. UDI 'Beter Bed)
-                                (?=\p{L})      ## use lookahead        
-                              )   
-                                 |
-                              (?:
-                                (?<=\p{L})   ## use lookbehind
-                                 [']   ## must be surrounded by leading letter and
-                                       ## trailing space PLUS letter  (e.g. UDI' Beter Bed)
-                                (?=[ ]\p{L})      ## use lookahead (space WITH letter         
-                              )   
+                              (?:  ## flex rule for quote - allow any
+                                    ##  only check for double quotes e.g. cannot follow other ' for now - why? why not?
+                                    ##        allows  rodrigez 'rodri' for example
+                                (?<!')  ## use negative lookbehind                             
+                                   '         
+                              )      
                                  |   ## standard case with letter(s) and optinal dot
                               (?: \p{L}+
                                     \.?  ## optional dot
@@ -148,6 +148,23 @@ PROP_NAME_RE = %r{
                    )
                  }ix
 
+
+### todo/fix - allow more chars in enclosed name  - why? why not?
+##                     e.g.  (') - Cote D'Ivore etc.
+ENCLOSED_NAME_RE = %r{ 
+                 (?<enclosed_name>  
+                    \( 
+                   (?<name>   
+                       \p{L}+
+                       (?:
+                          [ ] 
+                            \p{L}+ 
+                       )*
+                   )
+                     \)
+                 )
+         }ix
+
                  
 
 PROP_BASICS_RE = %r{
@@ -160,21 +177,31 @@ PROP_BASICS_RE = %r{
 }ix
 
 PROP_RE = Regexp.union(
-   PROP_BASICS_RE, 
    MINUTE_RE,
    PROP_KEY_INLINE_RE,
    PROP_NAME_RE,
+   PROP_BASICS_RE, 
    ## todo/fix - add ANY_RE here too!!!
 )
 
 ## note - no inline keys possible
 ##         todo/fix - use custom (limited) prop basics too
 PROP_CARDS_RE =  Regexp.union(
-   PROP_BASICS_RE, 
    MINUTE_RE,
    PROP_NAME_RE,
+   PROP_BASICS_RE, 
    ## todo/fix - add ANY_RE here too!!!
 ) 
+
+
+PROP_PENALTIES_RE = Regexp.union(
+   SCORE_RE,               # e.g. 1-1 etc.
+   ENCLOSED_NAME_RE,       # e.g. (save), (post), etc.
+   PROP_NAME_RE,
+   PROP_BASICS_RE, 
+   ## todo/fix - add ANY_RE here too!!!
+) 
+
 
     
 end  # class Lexer

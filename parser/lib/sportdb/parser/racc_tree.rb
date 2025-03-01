@@ -13,6 +13,32 @@ RefereeLine = Struct.new( :name, :country ) do
   end
 end
 
+
+PenaltiesLine = Struct.new( :penalties ) do   
+  def pretty_print( printer )
+    printer.text( "<PenaltiesLine " )
+    printer.text( self.penalties.pretty_inspect )
+    printer.text( ">" )
+  end
+end
+
+Penalty = Struct.new( :name, :score, :note ) do
+  def to_s
+    buf = String.new
+    buf << "#{self.score} "   if self.score
+    buf <<  self.name
+    buf << " (#{self.note})"    if self.note 
+    buf
+  end
+
+  def pretty_print( printer )
+    printer.text( to_s )
+  end  
+end
+
+
+
+
 ##  find a better name for player (use bookings?) - note - red/yellow card for trainer possible
 CardsLine = Struct.new( :type, :bookings ) do   
   def pretty_print( printer )

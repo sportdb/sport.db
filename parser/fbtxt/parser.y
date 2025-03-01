@@ -142,8 +142,6 @@ class RaccMatchParser
 
       lineup_name    :    PROP_NAME  lineup_card_opts  lineup_sub_opts   
                            {
-                              puts "[debug] REDUCE lineup_name  #{val[0]} - #{val[2].pretty_inspect}"
-
                               kwargs = { name: val[0] }.merge( val[1] ).merge( val[2] )
                               result = Lineup.new( **kwargs )
                            }
@@ -169,8 +167,6 @@ class RaccMatchParser
          lineup_sub_opts : /* empty */   { result = {} }
                          | '(' PROP_NAME  lineup_card_opts  MINUTE  lineup_sub_opts ')'    
                           {
-                              ## puts "[debug] REDUCE lineup_sub MINUTE"
-
                               kwargs = { name: val[1] }.merge( val[2] ).merge( val[4] )
                               sub    = Sub.new( sub:    Lineup.new( **kwargs ),
                                                 minute: Minute.new(val[3][1]) 

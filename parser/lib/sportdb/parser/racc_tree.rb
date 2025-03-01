@@ -77,8 +77,9 @@ end
 Sub        = Struct.new( :minute, :sub )  do
   def pretty_print( printer )
     buf = String.new 
-    buf << "(#{self.sub.pretty_inspect}" 
-    buf << " #{self.minute.to_s}"   if self.minute  
+    buf << "("    ## note - possibly recursive (thus, let minute go first/print first/upfront)
+    buf << "#{self.minute.to_s} "   if self.minute  
+    buf << "#{self.sub.pretty_inspect}" 
     buf << ")"
     printer.text( buf ) 
   end

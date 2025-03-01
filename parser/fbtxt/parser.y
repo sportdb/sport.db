@@ -140,44 +140,57 @@ class RaccMatchParser
                      | '-' NEWLINE  { result = val[0]   }
                      
 
-      lineup_name    :    PROP_NAME lineup_name_opts
+      lineup_name    :    PROP_NAME  lineup_card_opts  lineup_sub_opts   
                            {
-                              kwargs = { name: val[0] }.merge( val[1] )
+                              puts "[debug] REDUCE lineup_name  #{val[0]} - #{val[2].pretty_inspect}"
+
+                              kwargs = { name: val[0] }.merge( val[1] ).merge( val[2] )
                               result = Lineup.new( **kwargs )
                            }
 
-       lineup_name_opts : /* empty */   { result = {} }
-                        | card 
-                            {
-                              result = { card: val[0] }
-                            }
-                        | card lineup_sub
-                            {
-                              result = { card: val[0], sub: val[1] }
-                            }
-                        | lineup_sub 
-                            {
-                              result = { sub: val[0] }
-                            }
-                
-        ## todo/fix - use goal_minute and minute (w/o pen/og etc.)
-       lineup_sub   :  '(' lineup_name MINUTE ')'    
+       lineup_card_opts      : /* empty */   { result = {} }
+                             |  card         { result = { card: val[0] } }
+
+
+        ##  allow nested subs e.g. 
+        ##     Clément Lenglet 
+        ##          (Kingsley Coman 46' 
+        ##             (Marcus Thuram 111'))
+        ##
+        ##  note -  lineup_name MINUTE is NOT working as expected, expects  
+        ##     Clément Lenglet 
+        ##          ( Kingsley Coman 
+        ##              ( Marcus Thuram 111' ) 
+        ##            46'
+        ##          ) 
+        ##   thus use a "special" hand-coded recursive rule
+
+
+         lineup_sub_opts : /* empty */   { result = {} }
+                         | '(' PROP_NAME  lineup_card_opts  MINUTE  lineup_sub_opts ')'    
                           {
-                              result = Sub.new( sub:    val[1],
-                                                minute: Minute.new(val[2][1]) 
+                              ## puts "[debug] REDUCE lineup_sub MINUTE"
+
+                              kwargs = { name: val[1] }.merge( val[2] ).merge( val[4] )
+                              sub    = Sub.new( sub:    Lineup.new( **kwargs ),
+                                                minute: Minute.new(val[3][1]) 
                                               )
+                              result = { sub: sub }
                           }
-                    |  '(' lineup_name ')'    ## allow subs without minutes too
-                          {
-                              result = Sub.new( sub:    val[1] )
-                          }      
-                   ## allow both styles? minute first or last? keep - why? why not?
+                       |  '(' lineup_name ')'    ## allow subs without minutes too
+                           {
+                              sub = Sub.new( sub: val[1] )
+                              result = { sub: sub }
+                           }      
+                  ## allow both styles? minute first or last? keep - why? why not?
                     |   '(' MINUTE lineup_name ')'    
                           {
-                              result = Sub.new( sub:    val[2],
-                                                minute: Minute.new(val[1][1]) 
-                                              )
+                              sub = Sub.new( sub:    val[2],
+                                             minute: Minute.new(val[1][1]) 
+                                            )
+                              result = { sub: sub }
                           }
+
 
 
        card         :   '[' card_body ']'

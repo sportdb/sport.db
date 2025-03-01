@@ -18,14 +18,14 @@ Jun 14 2000    Boca Juniors  2-2  Palmeiras   @ Buenos Aires, ARG   ## (att: 505
 Referee: Gustavo Méndez (URU) 
 
 PALMEIRAS: Marcos - Nenem, Roque Júnior, Argel, Júnior - Rogério, César Sampaio -
-           Galeano, Alex (Tiago 87'), Pena (Marcelo Ramos 62'), 
-           Euller (Faustino Asprilla 85');  Coach: Luis Felipe Scolari 
+           Galeano, Alex (Tiago), Pena (Marcelo Ramos), 
+           Euller (Faustino Asprilla);  Coach: Luis Felipe Scolari 
 
 BOCA JUNIORS: Oscar Córdoba - Hugo Ibarra, Jorge Bermúdez, Walter Samuel,
               Rodolfo Arruabarrena - Cristian Traverso, Sebastian Battaglia, 
-              Juan Román Riquelme, Gustavo Barros Schelotto (César La Paglia 65'),
-              Christian Giménez (Martín Palermo 46'), 
-              Antonio Barijho (Guillermo Barros Schelotto 46'); 
+              Juan Román Riquelme, Gustavo Barros Schelotto (César La Paglia),
+              Christian Giménez (Martín Palermo), 
+              Antonio Barijho (Guillermo Barros Schelotto); 
               Coach: Carlos Bianchi 
 
 
@@ -48,6 +48,29 @@ Goals:  Arruabarrena 45+1' Arruabarrena 61' (og); Pena 43' Euller 63' (pen)
 
 Italy v  France  
     Merih Demiral 53' (og) Ciro Immobile 66' Lorenzo Insigne 79'
+
+
+### try nested subs
+
+### todo/check for nested sub !!!
+##    e.g. Clément Lenglet (Kingsley Coman 46' (Marcus Thuram 111'))
+
+France:             Hugo Lloris - Benjamin Pavard, Raphaël Varane, 
+                    Clément Lenglet (46' Kingsley Coman (111' Marcus Thuram)),
+                    ## Clément Lenglet ( 46' Kingsley Coman ( 111' Marcus Thuram  )   )  , 
+                    Clément Lenglet ( Kingsley Coman 46' ( Marcus Thuram 111' ) )  , 
+                    Clément Lenglet (Kingsley Coman 45+2' (Marcus Thuram 112')), 
+                    Clément Lenglet [Y] (Kingsley Coman [Y] 45+2' (Marcus Thuram [R] 112')), 
+                    Clément Lenglet [Y 11'] (Kingsley Coman [Y 55'] 45+2' (Marcus Thuram [R 122'] 112')), 
+                    ## Clément Lenglet ( Kingsley Coman ( Marcus Thuram 111' ) 46' ) , 
+                    ## Clément Lenglet [Y] ( Kingsley Coman [Y] ( Marcus Thuram  ) )  , 
+                    ## Clément Lenglet (Kingsley Coman 46'), 
+                    Presnel Kimpembe, Adrien Rabiot -
+                    Paul Pogba, N'Golo Kanté, Antoine Griezmann (Moussa Sissoko) -
+                    Karim Benzema (Olivier Giroud), Kylian Mbappé;
+                    Coach: Didier Deschamps
+
+Referee:            Fernando Rapallini (Argentina)
 
 
 TXT

@@ -437,8 +437,8 @@ class RaccMatchParser
                  | '@' geo_values TIMEZONE  { result = { geo: val[1], timezone: val[2] } }
 
         geo_values
-               :  TEXT                    {  result = val }
-               |  geo_values ',' TEXT     {  result.push( val[2] )  }      
+               :  GEO                         {  result = val }
+               |  geo_values ',' GEO          {  result.push( val[2] )  }      
 
 
          match  :   match_result

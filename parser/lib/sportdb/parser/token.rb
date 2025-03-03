@@ -134,7 +134,6 @@ ANY_RE = %r{
 RE = Regexp.union(
                     STATUS_RE,
                     NOTE_RE,
-                    TIMEZONE_RE,
                     DURATION_RE,  # note - duration MUST match before date
                     DATE_RE,  ## note - date must go before time (e.g. 12.12. vs 12.12)
                      TIME_RE,
@@ -147,6 +146,21 @@ RE = Regexp.union(
                    ANY_RE,
                       )
 
+
+GEO_BASICS_RE = %r{
+    (?<spaces> [ ]{2,}) |
+    (?<space>  [ ])
+        |
+    (?<sym> [,\[] )
+}ix
+
+
+GEO_RE = Regexp.union(
+                    TIMEZONE_RE,
+                    GEO_BASICS_RE, 
+                    TEXT_RE,
+                    ANY_RE,
+                      )
 
 
 ######################################################

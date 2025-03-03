@@ -413,6 +413,7 @@ def _tokenize_line( line )
   end
 
 
+  old_pos = -1   ## allows to backtrack to old pos (used in geo)
 
   while m = @re.match( line, pos )
     # if debug?
@@ -431,12 +432,14 @@ def _tokenize_line( line )
       log( msg )
     end
 
+
     ##
     ## todo/fix - also check if possible
     ##   if no match but not yet end off string!!!!
     ##    report skipped text run too!!!
 
-    pos = offsets[1]
+    old_pos = pos
+    pos     = offsets[1]
 
 #    pp offsets   if debug?
 
@@ -444,7 +447,46 @@ def _tokenize_line( line )
     ## note: racc requires pairs e.g. [:TOKEN, VAL]
     ##         for VAL use "text" or ["text", { opts }]  array
 
-  t = if @re == PROP_CARDS_RE 
+  t = if @re == GEO_RE
+         ### note - possibly end inline geo on [ (and others?? in the future
+         if m[:space] || m[:spaces]
+            nil    ## skip space(s)
+         elsif m[:text]
+            [:GEO, m[:text]]   ## keep pos - why? why not?
+         elsif m[:timezone]
+            [:TIMEZONE, m[:timezone]]
+         elsif m[:sym]
+            sym = m[:sym]
+            ## return symbols "inline" as is - why? why not?
+            ## (?<sym>[;,@|\[\]-])
+   
+            case sym
+            when ',' then [:',']
+            when '[' then
+                 ## get out-off geo mode and backtrack (w/ next)
+                 puts "  LEAVE GEO_RE MODE, BACK TO TOP_LEVEL/RE"  if debug?
+                 @re = RE
+                 pos = old_pos
+                 next   ## backtrack (resume new loop step)                 
+            else
+              puts "!!! TOKENIZE ERROR (sym) - ignore sym >#{sym}<"
+              nil  ## ignore others (e.g. brackets [])
+            end
+          elsif m[:any]
+             ## todo/check log error
+             msg = "parse error (tokenize geo) - skipping any match>#{m[:any]}< @#{offsets[0]},#{offsets[1]} in line >#{line}<"
+             puts "!! WARN - #{msg}"
+  
+             errors << msg
+             log( "!! WARN - #{msg}" )
+       
+             nil   
+          else
+            ## report error/raise expection
+             puts "!!! TOKENIZE ERROR - no match found"
+             nil 
+          end
+      elsif @re == PROP_CARDS_RE 
         if m[:space] || m[:spaces]
               nil    ## skip space(s)
          elsif m[:prop_name]
@@ -701,8 +743,6 @@ def _tokenize_line( line )
             date[:wday] = DAY_MAP[ m[:day_name].downcase ]   if m[:day_name]
             ## note - for debugging keep (pass along) "literal" date
             [:DATE, [m[:date], date]]
-        elsif m[:timezone]
-          [:TIMEZONE, m[:timezone]]
         elsif m[:duration]
             ## todo/check/fix - if end: works for kwargs!!!!!
             duration = { start: {}, end: {}}
@@ -758,10 +798,13 @@ def _tokenize_line( line )
           ## (?<sym>[;,@|\[\]-])
  
           case sym
+          when '@'    ##  enter geo mode
+            puts "  ENTER GEO_RE MODE"  if debug?
+            @re = GEO_RE
+            [:'@']
           when ',' then [:',']
           when ';' then [:';']
           when '/' then [:'/']
-          when '@' then [:'@']
           when '|' then [:'|']
           when '[' then [:'[']
           when ']' then [:']']
@@ -814,6 +857,11 @@ def _tokenize_line( line )
      @re = RE 
    end
  
+   if @re == GEO_RE   ### ALWAYS switch back to top level mode
+     puts "  LEAVE GEO_RE MODE, BACK TO TOP_LEVEL/RE"  if debug?
+     @re = RE 
+   end
+
    ##
    ## if in prop mode continue if   last token is [,-]
    ##        otherwise change back to "standard" mode

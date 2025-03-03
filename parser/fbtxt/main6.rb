@@ -103,6 +103,14 @@ attendance:  123
 
 ref:  Fernando Rapallini (Argentina);  att: 28_099
 
+02.11.1958 @ Bucuresti, 23 August   
+
+## note - allow notes etc. after geo(s) - (auto-)switch back to top-level (mode) on bracket
+##                  report other symbols as errors/warns
+ITA v FRA  @ Bucuresti, 23 August    [nb: note here]
+
+
+QUALIFYING ROUND
 
 TXT
 

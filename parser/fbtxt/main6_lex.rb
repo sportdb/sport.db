@@ -50,6 +50,7 @@ att: 28_000
 
 attendance:  1234
 
+02.11.1958 @ Bucuresti, 23 August   
 
 
 TXT

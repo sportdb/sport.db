@@ -31,6 +31,15 @@ texts = [## try some
             '[win 5-3 on aggregate]',
             '[aet; ITA wins 4-3 on pens]',
             '[ITA wins 4-3 on pens]',
+
+            ### add more
+            ##   - allow WITHOUT win e.g. 2-4 on penalties ??
+            ##          use    2-4 pen          ??
+            ##          or     agg 2-2; 2-4 pen ??
+            '[2-2 on aggregate; wins 2-4 on penalties]',  ## todo - add to regex
+            ##  add won too!!!
+            '[Switzerland won 5-4 on penalties]',
+
          ]
 
 texts.each do |text|

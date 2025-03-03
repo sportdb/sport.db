@@ -339,8 +339,11 @@ def _tokenize_line( line )
           @re = PROP_CARDS_RE  
           tokens << [:PROP_YELLOWCARDS, m[:key]]
         elsif ['ref', 'referee'].include?( key.downcase )
-          @re = PROP_RE     ## (re)use prop setup for now - why? why not?
+          @re = PROP_REFEREE_RE     
           tokens << [:PROP_REFEREE, m[:key]]
+        elsif ['att', 'attn', 'attendance'].include?( key.downcase )
+          @re = PROP_ATTENDANCE_RE
+          tokens << [:PROP_ATTENDANCE, m[:key]]         
         elsif ['goals'].include?( key.downcase )
           @re = PROP_GOAL_RE
           tokens << [:PROP_GOALS, m[:key]]
@@ -514,6 +517,65 @@ def _tokenize_line( line )
              puts "!!! TOKENIZE ERROR (PROP_RE) - no match found"
              nil 
          end
+      elsif @re == PROP_ATTENDANCE_RE
+         if m[:space] || m[:spaces]
+              nil    ## skip space(s)
+         elsif m[:enclosed_name]
+              ## reserverd for use for sold out or such (in the future) - why? why not?
+             [:ENCLOSED_NAME, m[:name]]
+         elsif m[:num]
+             [:PROP_NUM, [m[:num], { value: m[:value].to_i(10) } ]]
+=begin             
+         elsif m[:sym]
+            sym = m[:sym]
+            case sym
+            when ',' then [:',']
+            when ';' then [:';']
+            # when '[' then [:'[']
+            # when ']' then [:']']
+            else
+              nil  ## ignore others (e.g. brackets [])
+            end
+=end
+         else
+            ## report error
+            puts "!!! TOKENIZE ERROR (PROP_ATTENDANCE_RE) - no match found"
+            nil 
+         end
+      elsif @re == PROP_REFEREE_RE
+         if m[:space] || m[:spaces]
+              nil    ## skip space(s)
+         elsif m[:prop_key]   ## check for inline prop keys
+              key = m[:key]   
+              ##  supported for now coach/trainer (add manager?)
+              if ['att', 'attn', 'attendance' ].include?( key.downcase )
+                [:ATTENDANCE, m[:key]]   ## use COACH_KEY or such - why? why not?
+              else
+                ## report error - for unknown (inline) prop key in lineup
+                nil
+              end
+         elsif m[:prop_name]    ## note - change prop_name to player
+             [:PROP_NAME, m[:name]]    ### use PLAYER for token - why? why not?
+         elsif m[:num]
+             [:PROP_NUM, [m[:num], { value: m[:value].to_i(10) } ]]
+         elsif m[:enclosed_name]
+              ## use HOLD,SAVE,POST or such keys - why? why not?
+             [:ENCLOSED_NAME, m[:name]]
+         elsif m[:sym]
+            sym = m[:sym]
+            case sym
+            when ',' then [:',']
+            when ';' then [:';']
+ #           when '[' then [:'[']
+ #           when ']' then [:']']
+            else
+              nil  ## ignore others (e.g. brackets [])
+            end
+         else
+            ## report error
+            puts "!!! TOKENIZE ERROR (PROP_REFEREE_RE) - no match found"
+            nil 
+         end       
       elsif @re == PROP_PENALTIES_RE
         if m[:space] || m[:spaces]
               nil    ## skip space(s)
@@ -713,7 +775,12 @@ def _tokenize_line( line )
           end
         elsif m[:any]
            ## todo/check log error
-           puts "!!! TOKENIZE ERROR (any) - no match found >#{m[:any]}<"
+           msg = "parse error (tokenize) - skipping any match>#{m[:any]}< @#{offsets[0]},#{offsets[1]} in line >#{line}<"
+           puts "!! WARN - #{msg}"
+
+           errors << msg
+           log( "!! WARN - #{msg}" )
+     
            nil   
         else
           ## report error
@@ -750,8 +817,9 @@ def _tokenize_line( line )
    ##
    ## if in prop mode continue if   last token is [,-]
    ##        otherwise change back to "standard" mode
-   if @re == PROP_RE       || @re == PROP_CARDS_RE ||
-      @re == PROP_GOAL_RE  || @re == PROP_PENALTIES_RE
+   if @re == PROP_RE            || @re == PROP_CARDS_RE ||
+      @re == PROP_GOAL_RE       || @re == PROP_PENALTIES_RE ||
+      @re == PROP_ATTENDANCE_RE || @re == PROP_REFEREE_RE
      if [:',', :'-', :';'].include?( tokens[-1][0] )
         ## continue/stay in PROP_RE mode
         ##  todo/check - auto-add PROP_CONT token or such

@@ -149,8 +149,24 @@ PROP_NAME_RE = %r{
                  }ix
 
 
+PROP_NUM_RE = %r{
+             \b
+              (?<num>
+                    ## note allow underscore inline or space e.g.
+                    ##  5_000
+                    ##  allow space inline (e.g. 5 000) - why? why not?
+                  (?<value> [1-9]
+                            (?: _? 
+                                [0-9]+
+                             )* 
+                  )
+              )
+             \b
+            }ix
+
 ### todo/fix - allow more chars in enclosed name  - why? why not?
 ##                     e.g.  (') - Cote D'Ivore etc.
+##  change to PAREN_NAME or PARENTHESIS or such - why? why not?
 ENCLOSED_NAME_RE = %r{ 
                  (?<enclosed_name>  
                     \( 
@@ -203,6 +219,21 @@ PROP_PENALTIES_RE = Regexp.union(
 ) 
 
 
+PROP_REFEREE_RE = Regexp.union(
+   ENCLOSED_NAME_RE,       # e.g. (sold out) etc.  why? why not?
+   PROP_NUM_RE,                 # e.g. 28 000 or 28_000  (NOT 28,000 is not valid!!!)
+   PROP_KEY_INLINE_RE,
+   PROP_NAME_RE,
+   PROP_BASICS_RE, 
+   ## todo/fix - add ANY_RE here too!!!
+)  
+
+PROP_ATTENDANCE_RE  = Regexp.union(
+   ENCLOSED_NAME_RE,       # e.g. (sold out) etc.  why? why not?
+   PROP_NUM_RE,                 # e.g. 28 000 or 28_000  (NOT 28,000 is not valid!!!)
+   PROP_BASICS_RE, 
+   ## todo/fix - add ANY_RE here too!!!
+)  
     
 end  # class Lexer
 end  # module SportDb

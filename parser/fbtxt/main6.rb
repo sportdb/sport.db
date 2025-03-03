@@ -97,6 +97,11 @@ Penalty shootout: 0-0 Zinho (held), 0-1 Dudamel;
 ## check special rounds starting with 1/8  1/4  1/2
 1/8 FINALS
 
+att: 28_000
+attn: 28001
+attendance:  123
+
+ref:  Fernando Rapallini (Argentina);  att: 28_099
 
 
 TXT

@@ -42,6 +42,7 @@ class RaccMatchParser
           | redcard_lines
           | penalties_lines   ## rename to penalties_line or ___ - why? why not? 
           | referee_line
+          | attendance_line
           | error      ## todo/check - move error sync up to elements - why? why not?
               { puts "!! skipping invalid content (trying to recover from parse error):"
                 pp val[0] 
@@ -64,18 +65,29 @@ class RaccMatchParser
                   |   TEXT NEWLINE
 
 
-        referee_line   :  PROP_REFEREE  referee  PROP_END NEWLINE
+        attendance_line  : PROP_ATTENDANCE  PROP_NUM  PROP_END NEWLINE
+                              {
+                                 @tree << AttendanceLine.new( att: val[1][1][:value] )
+                              }
+
+        ## note - allow inline attendance prop in same line
+        referee_line   :  PROP_REFEREE  referee  attendance_opt PROP_END NEWLINE
                             {
                                kwargs = val[1] 
                                @tree << RefereeLine.new( **kwargs ) 
                             }
 
-        ## todo/fix - replace ( PROP_NAME ) with ENCLOSED_NAME/PAREN_NAME??
-        ##          for now  ( Italy   ) or such is allowed!!! 
+       attendance_opt   : /* empty */   
+                        | ';' ATTENDANCE  PROP_NUM
+                           { 
+                                 @tree << AttendanceLine.new( att: val[2][1][:value] )
+                           }
+                  
+
         referee  :      PROP_NAME
                          {  result = { name: val[0]} }
-                 |      PROP_NAME  '(' PROP_NAME  ')'
-                         {  result = { name: val[0], country: val[2] } }   
+                 |      PROP_NAME  ENCLOSED_NAME  
+                         {  result = { name: val[0], country: val[1] } }   
                  
 
         penalties_lines : PROP_PENALTIES penalties_body PROP_END NEWLINE

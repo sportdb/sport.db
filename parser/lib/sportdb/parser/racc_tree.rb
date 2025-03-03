@@ -13,6 +13,13 @@ RefereeLine = Struct.new( :name, :country ) do
   end
 end
 
+AttendanceLine = Struct.new( :att ) do 
+  def pretty_print( printer )
+    printer.text( "<AttendanceLine #{self.att}>" )
+  end
+end
+
+
 
 PenaltiesLine = Struct.new( :penalties ) do   
   def pretty_print( printer )

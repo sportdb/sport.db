@@ -133,6 +133,7 @@ ANY_RE = %r{
 
 RE = Regexp.union(
                     STATUS_RE,
+                    SCORE_NOTE_RE,
                     NOTE_RE,
                     DURATION_RE,  # note - duration MUST match before date
                     DATE_RE,  ## note - date must go before time (e.g. 12.12. vs 12.12)

@@ -425,8 +425,10 @@ class RaccMatchParser
                      result = { status: val[0][1][:status] }.merge( val[1] ) 
                  }
              | geo_opts NEWLINE             { result = {}.merge( val[0] ) }
-             | geo_opts NOTE NEWLINE        { result = {}.merge( val[0] ) }
-             | NOTE NEWLINE                 { result = {} }
+             | geo_opts NOTE NEWLINE        { result = { note: val[1] }.merge( val[0] ) }
+             | NOTE NEWLINE                 { result = { note: val[0] } }
+#             | SCORE_NOTE NEWLNE            { result = { score_note: val[0]} }
+#             | SCORE_NOTE geo_opts NEWLINE  { result = { score_note: val[0] }.merge( val[1] ) }
              | NEWLINE                      { result = {} }
 
 
@@ -455,21 +457,27 @@ class RaccMatchParser
             ## note - does NOT include SCORE; use SCORE terminal "in-place" if needed
   
 
-         score:    SCORE | SCORE_MORE     ## support basic e.g 1-1
+         score  :  SCORE | SCORE_MORE     ## support basic e.g 1-1
                                           ##   and "more" format  1-1 (0-1) or 2-1 a.e.t. etc.
 
-        match_result :  TEAM  score  TEAM
+         score_note_opt  :  /* empty */   { result = {} }
+                         |  SCORE_NOTE    { result = { score_note: val[0] } }
+
+
+        match_result :  TEAM  score  TEAM   score_note_opt
                          {
                            trace( "REDUCE => match_result : TEAM score TEAM" )
                            result = { team1: val[0],
                                       team2: val[2],
                                       score: val[1][1]
-                                    }   
+                                    }.merge( val[3] )   
+                           pp result
                         }
-                     |  match_fixture  score
+                     |  match_fixture  score  score_note_opt
                         {
                           trace( "REDUCE  => match_result : match_fixture score" )
-                          result = { score: val[1][1] }.merge( val[0] )  
+                          result = { score: val[1][1] }.merge( val[0] ).merge( val[2] )  
+                          pp result
                         }
                                         
    

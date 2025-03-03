@@ -112,6 +112,33 @@ ITA v FRA  @ Bucuresti, 23 August    [nb: note here]
 
 QUALIFYING ROUND
 
+ITA - FRA  1-1  [aet]
+ITA - FRA  2-2  [aet; ITA wins 4-3 on pens]
+ITA - FRA  4-4  [aet; 4-3 pen]
+ITA - FRA  4-4  [aet, 4-3p]
+ITA - FRA  3-4  [3-2 pen]
+ITA - FRA  3-4  [3-2p]
+ITA - FRA  3-4  [agg 6-4]
+ITA - FRA  3-4  [agg 5-5; ITA wins on away goals]
+ITA - FRA  5-5  [ITA wins on pens]
+ITA - FRA  5-5  [ITA wins on penalties]
+
+
+ITA  1-1  FRA  [aet]
+ITA  2-2  FRA  [aet; ITA wins 4-3 on pens]
+ITA  4-4  FRA  [aet; 4-3 pen]
+ITA  4-4  FRA  [aet, 4-3p]
+ITA  3-4  FRA  [3-2 pen]
+ITA  3-4  FRA  [3-2p]
+ITA  3-4  FRA  [agg 6-4]
+ITA  3-4  FRA  [agg 5-5; ITA wins on away goals]
+ITA  5-5  FRA  [ITA wins on pens]
+ITA  5-5  FRA  [ITA wins on penalties]
+
+
+ITA  1-1  FRA  [aet]   @ Roma, Italy
+
+
 TXT
 
 

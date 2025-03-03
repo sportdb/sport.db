@@ -169,10 +169,12 @@ end
 
 
 MatchLine   = Struct.new( :ord, :date, :time, :wday,
-                          :team1, :team2, :score,
-                          :status, 
+                          :team1, :team2, 
+                          :score, :score_note,
+                          :status,  
                           :geo,
-                          :timezone )  do   ## change to geos - why? why not?
+                          :timezone,
+                          :note )  do   ## change to geos - why? why not?
 
   def pretty_print( printer )
     printer.text( "<MatchLine " )

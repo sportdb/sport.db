@@ -133,20 +133,93 @@ NOTE_RE = %r{
        ##      [in Estadio Victoria]
        ##      [in UD José Brindis]
        ##      [in Colomos Alfredo "Pistache" Torres stadium]
+       ##
+       ##  TODO/FIX
+       ##     remove in ?? - is same as @ Estadio Victoria and such - why? why not= 
      )
-       |
+   )
+   \] 
+}ix    
+
+
+
+SCORE_NOTE_RE = %r{
+    \[ 
+    (?<score_note>
+      (?:   # plain aet e.g. [aet]
+             aet | a\.e\.t\. |
+             after [ ] extra [ ] time
+       )
+      |
+       (?:  # plain penalties e.g. [3-2 pen]
+             \d{1,2}-\d{1,2}
+                [ ]* (?: p|pen )
+       )
+      |
+        (?:  # plain aet with penalties e.g. [aet; 4-3 pen] or [aet, 4-3p]
+              aet [ ]* [,;]
+                [ ]*
+              \d{1,2}-\d{1,2}
+                [ ]* (?: p|pen )
+         )
+      |
       (?:
          ## e.g. Spain wins on penalties
          ##       1860 München wins on penalties etc.
          ##   must start with digit 1-9 or letter
          ##     todo - add more special chars - why? why not?
-            [1-9\p{L}][0-9\p{L} .-]+?    
-            [ ]wins[ ]on[ ]penalties
-             [^\]]*?   ## use non-greedy
-      )
-   )
-   \] 
-}ix    
+         ##     
+               (?:
+                    aet [ ]*   ## allow space here - why? why not
+                       [,;][ ]
+                )?
+           
+              (?:
+              (?:  # opt 1 - no team listed/named - requires score
+                wins? [ ]     ## note - allow win or wins
+                (?:   ## score
+                   \d{1,2}-\d{1,2}
+                   [ ]
+                ) 
+                on [ ]  (?: pens | penalties |
+                          aggregate  )   
+               )
+              |
+              (?:  # opt 2 - team required; score optional
+                (?:  ## team required
+                      [1-9\p{L}][0-9\p{L} .-]+?    
+                     [ ]
+                 )
+                 wins [ ] 
+                 (?:   ## score optional
+                    \d{1,2}-\d{1,2}
+                    [ ]
+                  )?            
+                  on [ ] (?:  pens | penalties |
+                              aggregate  )
+             ###  [^\]]*?   ## allow more? use non-greedy
+          )
+        ))
+         |
+         (?:  ## e.g. agg 3-2 etc.
+             agg [ ] \d{1,2}-\d{1,2}
+         )
+         |
+         (?:   ## e.g. agg 4-4, Ajax win on away goals
+              (?:   ## agg 4-4, optional for now - why? why not? 
+                 agg [ ] \d{1,2}-\d{1,2} 
+                 [ ]*[,;][ ]
+               )?
+             (?:  ## team required
+                      [1-9\p{L}][0-9\p{L} .-]+?    
+                     [ ]
+              )
+              wins? [ ]
+              on [ ] away [ ] goals
+         )
+      )   # score_note ref
+    \]
+}ix
 
 
 end  #  class Lexer

@@ -1,7 +1,34 @@
 #  Parser (World Service) Experiments  w/ racc 
 
 
+
 ## todos
+
+- [ ] add  (4-4 agg.) SCORE_AGG ??  or such - why? why not?
+
+- [ ] change SCORE - ft: to (underscore) :'_' for now (for "undefined/unknown" if ft/et etc.) 
+
+- [ ] rethink how to store (basic) SCORE vs SCORE_MORE  and
+      how to add SCORE_NOTE 
+
+```
+"score": [0,0]
+"score_note": "aet, 4-4 on pens",
+"score_note": "ajax wins on away goals",
+"score_note": "ajax wins 5-4 on aggregate", 
+
+## turn 4-4 on pens  into      "pen": [4-4] - why? why not? 
+##   or 5-4 on aggregate into  "agg": [5-4] - why? why not?
+##   add winner (if present?)  "winner: "ajax" - why? why not?
+
+"score": { "_":  [0,0],        ### find a name/key for "_" - possible ???
+           "note":  "aet; 4-4 on pens",
+           "aet": true,
+           "pen": [4-4]
+         }
+
+....
+```
 
 - [ ] support   (agg. 4-3) or such - why? why not?
 

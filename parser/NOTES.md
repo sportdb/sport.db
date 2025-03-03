@@ -1,6 +1,17 @@
 #  Parser (World Service) Experiments  w/ racc 
 
+
 ## todos
+
+- [ ] support   (agg. 4-3) or such - why? why not?
+
+- [ ] make round , round possible?  e.g. Semifinals - 2nd Leg
+
+```
+ [:ROUND, "Semifinals"],
+ [:-],
+ [:ROUND, "2nd Leg"],
+```
 
 - [ ] try to add optional coach/trainer: at the end of lineup!!!!
 

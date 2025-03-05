@@ -39,7 +39,7 @@ ROUND_RE = %r{^
    ##
    ### note - allow Group ("stand-alone") as "generic" round for now
    ##      BUT do NOT allow Group 1, Group 2, Group A, Group B, etc.
-     (?: Group [ ] [A-Z0-9]+ [ ] Play-?offs?  |
+     (?: Group [ ] [a-z0-9]+ [ ] Play-?offs?  |
          Group (?: [ ] (?: phase|stage))?  |
          League (?: [ ] phase)?
      )
@@ -116,16 +116,28 @@ ROUND_RE = %r{^
         |
    # round32
         (?: Round[ ]of[ ]32 |
-            Last[ ]32 )
+            Last[ ]32 |
+            16th[ ]finals |
+            1/16[ ]finals  )
           |
    # round16
         (?: Round[ ]of[ ]16 |
-            Last[ ]16 )
+            Last[ ]16 |
+            8th[ ]finals |
+            1/8[ ]finals  )
            |
+   # round8 aka quarterfinals
+   #   note - allow quarter-finals/quarter finals/quarterfinals 
+         (?:  Round[ ]of[ ]8 |
+              Last[ ]8  |   
+              1/4[ ]finals  | 
+              Quarter[ -]?finals? |
+              Quarters  )
+          |
    # fifthplace
          (?:
              (?: (Fifth|5th)[ -]place
-                  (?: [ ] (?: match|play[ -]?off|final ))?
+                  (?: [ ] (?: match|final|play[ -]?off ))?
               ) |
              (?: Match[ ]for[ ](?: fifth|5th )[ -]place )
          )
@@ -133,33 +145,21 @@ ROUND_RE = %r{^
    # thirdplace
           (?:
               (?: (Third|3rd)[ -]place
-                     (?: [ ] (?: match|play[ -]?off|final ))?
+                     (?: [ ] (?: match|final|play[ -]?off ))?
                ) |
               (?: Match[ ]for[ ](?: third|3rd )[ -]place )
            )
            |
-   # quarterfinals
-         (?:
-              ## note - allow quarter-finals/quarter finals/quarterfinals
-              Quarter[ -]?finals? |
-              Quarters |
-              Last[ ]8 | 
-              8th[ ]finals |
-              1/8[ ]finals      ## check 1/8 finals is same as querter-finals?
-          )
-          |
-   # semifinals
+   # round4 aka semifinals
         (?:
+             Round[ ]of[ ]4 |
+             Last[ ]4 | 
              Semi[ -]?finals? |
-             Semis |
-             Last[ ]4 |
-             1/4[ ]finals    ## check 1/4 finals is same as semi-finals?
-        )
+             Semis )
         |
-   # final
+   # round2 aka final
          Finals?
-         |
-         |
+        |
     ## add replays
     ##  e.g. Final Replay
     ##       Quarter-finals replays
@@ -271,6 +271,7 @@ LEG_RE = %r{^
  #  leg 1 of 2 / leg 2 of 2   
  #  note - leg limited to ALWAY 1/2 of 2 for now - why? why not?
  #             for more use match 1/2/3 etc. 
+ ##  allow leg of three (e.g. leg 1 of 3) - why? why not?
      (?:  leg [ ] [12]     
           (?: [ ] of [ ] 2)?  )
      |

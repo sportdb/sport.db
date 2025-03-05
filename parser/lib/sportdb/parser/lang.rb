@@ -31,17 +31,20 @@ end
 
 
 
-ROUND_RE = %r{^(
-   ## add special case for group play-off rounds!
+ROUND_RE = %r{^
+  (?:
+  
+  ## add special case for group play-off rounds!
    ##  group 2 play-off   (e.g. worldcup 1954, 1958)
    ##
    ### note - allow Group ("stand-alone") as "generic" round for now
    ##      BUT do NOT allow Group 1, Group 2, Group A, Group B, etc.
      (?: Group [ ] [A-Z0-9]+ [ ] Play-?offs?  |
-         Group (?: [ ] phase)?  |
+         Group (?: [ ] (?: phase|stage))?  |
          League (?: [ ] phase)?
      )
         |
+
    # round  - note - requiers number e.g. round 1,2, etc.
    #   note - use 1-9 regex (cannot start with 0) - why? why not?
    #             make week 01 or round 01 or matchday 01 possible?
@@ -50,6 +53,9 @@ ROUND_RE = %r{^(
               Week
            )
            [ ] [1-9][0-9]*
+          (?:    ## note - add optional   Matchday 1 of 2 or such
+               [ ] of [1-9][0-9]*
+          )?
       )
        |
    ##  starting with qual(ification)
@@ -58,8 +64,8 @@ ROUND_RE = %r{^(
    ##  Playoff Round 1
    ##  Play-in Round 1
      (?:  (?: Qual \. |
-              Play-?off |
-              Play-?in
+              Play[ -]?off |
+              Play[ -]?in
           )
            [ ] Round [ ] [1-9][0-9]* )
        |
@@ -67,29 +73,45 @@ ROUND_RE = %r{^(
    ##  First Round
    ##  Play-off Round
    ##  Final Round   (e.g. Worldcup 1950)
-      (?:
-           (?: [1-9][0-9]* \.  |
-                1st | First   |
-                2nd | Second  |
-                Play-?off   |
-                Final
-           )
-             [ ] Round
+      (?:   (?:
+                Play[ -]?off  |
+                Final |
+                Wildcard |
+                Qualifying |
+                (?:
+                   (?:
+                     [1-9][0-9]* \.  |
+                     1st | First   |
+                     2nd | Second  |
+                     3rd | Third   |
+                     4th | Fourth  | 
+                     5th | Fifth
+                   ) 
+                   (?:   ## with optionals
+                     [ ] Qualifying
+                   )?
+                )
+            )
+            [ ] Round
        )
        |
   ## starting with preliminary
   #   e.g.  Preliminary round
      (?:  Preliminary  [ ]
            (?:  Round |
-                Semi-?finals |
-                Final
+                Semi[ -]?finals |
+                Final |
+                Qualifier
            )
      )
      |
    # more (kockout) rounds
-   # playoffs  - playoff, play-off, play-offs
-        (?: Play-?offs?
-           (?: [ ]for[ ]quarter-?finals )?
+   # playoffs  - playoff, play-off, play-offs  &
+   # playins
+        (?: 
+           Play[ -]?offs? (?: [ ]for[ ]quarter-?finals )?
+             |
+           Play[ -]?ins?
         )
         |
    # round32
@@ -98,13 +120,12 @@ ROUND_RE = %r{^(
           |
    # round16
         (?: Round[ ]of[ ]16 |
-            Last[ ]16 |
-            8th[ ]finals )
+            Last[ ]16 )
            |
    # fifthplace
          (?:
              (?: (Fifth|5th)[ -]place
-                  (?: [ ] (?: match|play-?off|final ))?
+                  (?: [ ] (?: match|play[ -]?off|final ))?
               ) |
              (?: Match[ ]for[ ](?: fifth|5th )[ -]place )
          )
@@ -112,38 +133,44 @@ ROUND_RE = %r{^(
    # thirdplace
           (?:
               (?: (Third|3rd)[ -]place
-                     (?: [ ] (?: match|play-?off|final ))?
+                     (?: [ ] (?: match|play[ -]?off|final ))?
                ) |
               (?: Match[ ]for[ ](?: third|3rd )[ -]place )
            )
            |
    # quarterfinals
          (?:
-              Quarter-?finals? |
+              ## note - allow quarter-finals/quarter finals/quarterfinals
+              Quarter[ -]?finals? |
               Quarters |
-              Last[ ]8
+              Last[ ]8 | 
+              8th[ ]finals |
+              1/8[ ]finals      ## check 1/8 finals is same as querter-finals?
           )
           |
    # semifinals
         (?:
-             Semi-?finals? |
+             Semi[ -]?finals? |
              Semis |
-             Last[ ]4
+             Last[ ]4 |
+             1/4[ ]finals    ## check 1/4 finals is same as semi-finals?
         )
         |
    # final
          Finals?
          |
-   # decider e.g. Entscheidungsspiel
-         Decider
          |
     ## add replays
     ##  e.g. Final Replay
     ##       Quarter-finals replays
     ##       First round replays
      (?:
-        (?: First [ ] Round |
-            Quarter-?finals? |
+        (?: (?: 1st | First |
+                2nd | Second | 
+                3rd | Third | 
+                4th | Fourth |
+                5th | Fifth ) [ ] Round |
+            Quarter[ -]?finals? |
             Finals?
          )
         [ ] Replays?
@@ -151,7 +178,8 @@ ROUND_RE = %r{^(
      |
   ## more
      (?:
-          Reclassification
+        Decider  |   # decider e.g. Entscheidungsspiel
+        Reclassification 
      )
 )$}ix
 
@@ -196,6 +224,19 @@ def self.more_round_names
                         end
 end
 
+def self.zone_names
+   @zone_name ||= begin
+                           names = []
+                           langs = ['en']
+                           ## sort names by length??
+                           langs.each do |lang|
+                             path = "#{SportDb::Module::Parser.root}/config/zones_#{lang}.txt"
+                             names += read_names( path )
+                           end
+                           names
+                        end
+end
+
 
 def self.is_round?( text )
     ### note - use check for case-insensitive 
@@ -208,19 +249,35 @@ def self.is_round?( text )
     ##    maybe in the future use our own unaccent and downcase - wyh? why not?
     ##      note - for now ROUND_RE is also case-insensitive!!
 
-    ROUND_RE.match?( text ) || more_round_names.any?{ |str| str.casecmp( text )==0 }
+    ROUND_RE.match?( text ) || 
+    more_round_names.any?{ |str| str.casecmp( text )==0 }
 end
+
+def self.is_zone?( text )
+     zone_names.any?{ |str| str.casecmp( text )==0 }
+end
+
 
 ##
 ## keep leg separate (from round) - why? why not?
 ##
 LEG_RE = %r{^
   # leg1
-     (?: 1st|First)[ ]leg
+     (?: 1st|First) [ ] leg
      |
   # leg2
-     (?: 2nd|Second)[ ]leg
+     (?: 2nd|Second) [ ] leg
+     |
+ #  leg 1 of 2 / leg 2 of 2   
+ #  note - leg limited to ALWAY 1/2 of 2 for now - why? why not?
+ #             for more use match 1/2/3 etc. 
+     (?:  leg [ ] [12]     
+          (?: [ ] of [ ] 2)?  )
+     |
+     (?:  match [ ] [1-9][0-9]* )
 $}ix
+
+
 
 ### Pair matches/games if marked with leg1 n leg2
 def self.is_leg?( text )

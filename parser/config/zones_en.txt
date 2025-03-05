@@ -1,0 +1,18 @@
+#####
+#  zone names in english
+
+
+Western Region
+Eastern Region
+
+Western Conference
+Eastern Conference  
+
+Northern Zone 
+Western Zone A 
+Western Zone B 
+Central Zone 
+Central & Eastern Zone 
+Southern Zone 
+
+

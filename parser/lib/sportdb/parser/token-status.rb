@@ -90,52 +90,20 @@ NOTE_RE = %r{
           # add "top-level" NB: version
           ##   with full (end-of) line note - why? why not?
           |
-          (?: originally[ ])? scheduled
-          ## e.g. [originally scheduled to play in Mexico City] 
-          |
           rescheduled
-          ## e.g.  [Rescheduled due to earthquake occurred in Mexico on September 19]
+          ## e.g.  [rescheduled due to earthquake occurred in Mexico on September 19]
+          |
+          declared
+          ## e.g.  [declared void]
           |
           remaining
           ## e.g. [remaining 79']   
           ##      [remaining 84'] 
           ##      [remaining 59']   
           ##      [remaining 5']
-          |
-          played  
-          ## e.g. [played in Macaé-RJ]
-          ##      [played in Caxias do Sul-RS]
-          ##      [played in Sete Lagoas-MG]
-          ##      [played in Uberlândia-MG]
-          ##      [played in Brasília-DF]
-          ##      [played in Vöcklabruck]
-          ##      [played in Pasching]
-          |
-          declared
-          ## e.g.  [declared void]
-          |
-          inter-group
-          ## e.g. [inter-group A-B]
-          ##      [inter-group C-D]
        )
       [ ]
       [^\]]+?    ## slurp all to next ] - (use non-greedy) 
-     )
-      |
-     (?:
-       ## starting with in  - do NOT allow digits
-       ##   name starting with in possible - why? why not?
-           in[ ]
-            [^0-9\]]+?
-       ## e.g. [In Estadio La Corregidora] 
-       ##      [in Unidad Deportiva Centenario]
-       ##      [in Estadio Olímpico Universitario]
-       ##      [in Estadio Victoria]
-       ##      [in UD José Brindis]
-       ##      [in Colomos Alfredo "Pistache" Torres stadium]
-       ##
-       ##  TODO/FIX
-       ##     remove in ?? - is same as @ Estadio Victoria and such - why? why not= 
      )
    )
    \] 
@@ -148,7 +116,7 @@ SCORE_NOTE_RE = %r{
     (?<score_note>
       (?:   # plain aet e.g. [aet]
              aet | a\.e\.t\. |
-             after [ ] extra [ ] time
+             after [ ] extra [ -] time
        )
       |
        (?:  # plain penalties e.g. [3-2 pen]
@@ -176,7 +144,7 @@ SCORE_NOTE_RE = %r{
            
               (?:
               (?:  # opt 1 - no team listed/named - requires score
-                wins? [ ]     ## note - allow win or wins
+                 (?: won|wins? ) [ ]     ## note - allow won,win or wins
                 (?:   ## score
                    \d{1,2}-\d{1,2}
                    [ ]
@@ -190,7 +158,7 @@ SCORE_NOTE_RE = %r{
                       [1-9\p{L}][0-9\p{L} .-]+?    
                      [ ]
                  )
-                 wins [ ] 
+                 (?: won|wins? ) [ ]     ## won/win/wins
                  (?:   ## score optional
                     \d{1,2}-\d{1,2}
                     [ ]
@@ -214,7 +182,7 @@ SCORE_NOTE_RE = %r{
                       [1-9\p{L}][0-9\p{L} .-]+?    
                      [ ]
               )
-              wins? [ ]
+              (?: won|wins? ) [ ]     # won/win/wins
               on [ ] away [ ] goals
          )
       )   # score_note ref

@@ -26,7 +26,7 @@ end
   def is_group?( text )  Lang.is_group?( text ); end
   def is_round?( text )  Lang.is_round?( text ); end
   def is_leg?( text )    Lang.is_leg?( text ); end
-
+  def is_zone?( text )   Lang.is_zone?( text ); end
 
 ## transforms
 ##
@@ -187,7 +187,7 @@ def tokenize_with_errors
                        text = t[1]
                        t = if is_group?( text )
                                [:GROUP, text]
-                             elsif is_round?( text ) || is_leg?( text )
+                             elsif is_round?( text ) || is_leg?( text ) || is_zone?( text )
                                [:ROUND, text]
                              else
                                t  ## pass through as-is (1:1)

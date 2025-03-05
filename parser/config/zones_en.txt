@@ -3,7 +3,9 @@
 
 
 Western Region
+West Region
 Eastern Region
+East Region
 
 Western Conference
 Eastern Conference  

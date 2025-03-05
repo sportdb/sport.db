@@ -54,9 +54,12 @@ ROUND_RE = %r{^
            )
            [ ] [1-9][0-9]*
           (?:    ## note - add optional   Matchday 1 of 2 or such
-               [ ] of [1-9][0-9]*
+               [ ] of [ ] [1-9][0-9]*
           )?
       )
+       |
+      (?:  Round [ ]  One
+       )
        |
    ##  starting with qual(ification)
    ##   Qual. Round 1 / Qual. Round 2 / Qual. Round 3
@@ -271,7 +274,7 @@ LEG_RE = %r{^
  #  leg 1 of 2 / leg 2 of 2   
  #  note - leg limited to ALWAY 1/2 of 2 for now - why? why not?
  #             for more use match 1/2/3 etc. 
- ##  allow leg of three (e.g. leg 1 of 3) - why? why not?
+ ##   allow leg of three (e.g. leg 1 of 3) - why? why not?
      (?:  leg [ ] [12]     
           (?: [ ] of [ ] 2)?  )
      |

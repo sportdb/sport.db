@@ -182,13 +182,16 @@ def tokenize_with_errors
         ## pass 1
         ##   replace all texts with keyword matches
         ##     (e.g. group, round, leg, etc.)
+        ##
+        ##   note - let is_round? get first (before is_group?)
+        ##            will match group stage  as round (NOT group)
         tokens = tokens.map do |t|        
                     if t[0] == :TEXT
                        text = t[1]
-                       t = if is_group?( text )
+                       t =  if is_round?( text ) || is_leg?( text ) || is_zone?( text )
+                               [:ROUND, text]   
+                            elsif is_group?( text )
                                [:GROUP, text]
-                             elsif is_round?( text ) || is_leg?( text ) || is_zone?( text )
-                               [:ROUND, text]
                              else
                                t  ## pass through as-is (1:1)
                              end

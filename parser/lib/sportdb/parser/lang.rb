@@ -17,12 +17,17 @@ module Lang
 ## Group 1A or A1, B1  - used anywhere
 ##   yes - A1, A2, B1, C1, etc. used in UEFA Nations League for example!!
 ##
+##     exlcude
 ##  use "key" of group - why? why not?
+##
+##  note - will include group stage too
+##           make sure is_round gets called before is_group for now!!!
 
 GROUP_RE = %r{^
                 Group [ ]
-                   (?<key>[a-z0-9]+)
+                   (?<key> [a-z0-9]+ )
               $}ix
+
 def self.is_group?( text )
    ## use regex for match
    GROUP_RE.match?( text )

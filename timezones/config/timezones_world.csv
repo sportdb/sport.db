@@ -16,4 +16,4 @@ world+2002,    Asia/Tokyo            # Japan & South Korea
 world+1998,    Europe/Paris          # France
 
 
-
+friendlies,    Europe/London      ##  use (generic) utc - why? why not?

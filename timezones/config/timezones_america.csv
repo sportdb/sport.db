@@ -2,6 +2,8 @@ key,   zone
 
 
 us,     America/New_York
+mls,    America/New_York
+
 ca,     America/Toronto
 
 mx,     America/Mexico_City
@@ -31,4 +33,9 @@ co,    America/Bogota
 
 
 copa.l,         America/Sao_Paulo       ### use brazil time - why? why not?
+copa.s,         America/Sao_Paulo
+
+
+southamerica,    America/Sao_Paulo     ## copa america  - use country specific by year - why? why not?
+
 

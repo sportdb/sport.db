@@ -43,6 +43,28 @@ class Lexer
                 ## todo/check:  remove loakahead assertion here - why require space?
                 ## note: \b works only after non-alphanum e.g. )
 
+   ####
+   ## support short all-in-one e.g.
+   ##  e.g.      3-4 pen. 2-2 a.e.t. (1-1, 1-1) becomes
+   ##   3-4 pen. (2-2, 1-1, 1-1)            
+         
+   SCORE__P_ET_FT_HT_V2__RE = %r{
+          (?<score_more>
+               \b
+                (?<p1>\d{1,2}) - (?<p2>\d{1,2})
+                   [ ]* #{P_EN} [ ]+       
+                   \(
+               (?<et1>\d{1,2}) - (?<et2>\d{1,2})
+                   [ ]*, [ ]*
+               (?<ft1>\d{1,2}) - (?<ft2>\d{1,2})
+                   [ ]*, [ ]*
+               (?<ht1>\d{1,2}) - (?<ht2>\d{1,2})
+                   [ ]*
+                \)
+               (?=[ ,\]]|$)
+            )}ix       ## todo/check:  remove loakahead assertion here - why require space?
+                               ## note: \b works only after non-alphanum e.g. )
+
 
     ## e.g. 3-4 pen. 2-2 a.e.t. (1-1, 1-1)  or
     ##      3-4p 2-2aet (1-1, )     or
@@ -128,7 +150,8 @@ class Lexer
 ## check - find a better name for SCORE_MORE - SCORE_EX, SCORE_BIG, or ___ - why? why not?
 
 SCORE_MORE_RE = Regexp.union(
-  SCORE__P_ET_FT_HT__RE,  # e.g. 5-1 pen. 2-2 a.e.t. (1-1, 1-0)
+  SCORE__P_ET_FT_HT_V2__RE,  # e.g. 5-1 pen. (2-2, 1-1, 1-0)  
+  SCORE__P_ET_FT_HT__RE,    # e.g. 5-1 pen. 2-2 a.e.t. (1-1, 1-0)
   SCORE__P_FT_HT__RE,     # e.g. 5-1 pen. (1-1)
   SCORE__P_ET__RE,        # e.g. 2-2 a.e.t.  or  5-1 pen. 2-2 a.e.t.
   SCORE__P__RE,           # e.g. 5-1 pen.

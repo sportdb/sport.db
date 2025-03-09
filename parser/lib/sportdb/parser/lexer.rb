@@ -290,6 +290,20 @@ end   # method tokenize_with_errors
 
 
 
+### add a QUICK_PLAYER_WITH_MINUTE  check
+QUICK_PLAYER_WITH_MINUTE_RE = %r{
+      \b
+         \d{1,3}      ## constrain numbers to 0 to 999!!!
+        (?: (?: 
+                \+\d{1,3}   
+            )?
+            |
+            (?: \?{2} | _{2} )  ## add support for n/a (not/available)
+        )           
+        '   ## must have minute marker!!!!
+}ix 
+ 
+
 def _tokenize_line( line )
   tokens = []
   errors = []   ## keep a list of errors - why? why not?
@@ -387,7 +401,12 @@ def _tokenize_line( line )
   
       offsets = [m.begin(0), m.end(0)]
       pos = offsets[1]    ## update pos
-    elsif (m = PLAYER_WITH_MINUTE_RE.match( line ))
+
+    ####  FIX/FIX/TODO
+    ### looks to hang in player with minute 
+    ###  FIX - improve / rework PLAYER_WITH_MINUTE_RE  regex!!!!
+    elsif (_quick = QUICK_PLAYER_WITH_MINUTE_RE.match(line) &&
+                m = PLAYER_WITH_MINUTE_RE.match( line ))
       ##  switch context to GOAL_RE (goalline(s)
       ##   split token (automagically) into two!! - player AND minute!!!
       @re = GOAL_RE
@@ -414,7 +433,7 @@ def _tokenize_line( line )
     end
   end
 
-  
+
 
   old_pos = -1   ## allows to backtrack to old pos (used in geo)
 

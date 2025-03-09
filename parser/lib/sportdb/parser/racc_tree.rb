@@ -168,6 +168,13 @@ RoundHeader = Struct.new( :names, :group ) do
 end
 
 
+RoundOutline = Struct.new( :outline ) do
+  def pretty_print( printer )
+    printer.text( "<RoundOutline #{self.outline}>" )
+  end
+end
+
+
 MatchLine   = Struct.new( :ord, :date, :time, :wday,
                           :team1, :team2, 
                           :score, :score_note,

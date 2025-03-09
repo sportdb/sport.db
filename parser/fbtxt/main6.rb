@@ -139,6 +139,18 @@ ITA  5-5  FRA  [ITA wins on penalties]
 ITA  1-1  FRA  [aet]   @ Roma, Italy
 
 
+### check  round outline   and geo with geo sep
+
+» 1st Round
+» 2nd Round
+
+» Regular Season - 1
+» Regular Season - 2
+
+
+Liverpool Montevideo (URU) v Universidad Catolica (ECU)   @ Parque Alfredo Víctor Viera › Montevideo
+Cesar Vallejo (PER) v Caracas FC (VEN)    @ Estadio Monumental › Lima
+
 TXT
 
 

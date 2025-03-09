@@ -28,6 +28,7 @@ class RaccMatchParser
           : date_header 
           | group_header
           | round_header
+          | round_outline   
           | group_def
           | round_def
           | match_line
@@ -320,9 +321,17 @@ class RaccMatchParser
  
 
 
-###
-##  e.g. Quarter-finals - 1st Leg
+####
+##   round ouline for now all-in-one line 
+##       todo - split-up in tokens
+         round_outline :    ROUND_OUTLINE NEWLINE
+                              { 
+                                  @tree << RoundOutline.new( outline: val[0] )
+                              }
 
+
+###
+##  e.g. Quarter-finals - 1st Leg         
          round_header 
                :  round_values  NEWLINE
                    {

@@ -152,7 +152,7 @@ GEO_BASICS_RE = %r{
     (?<spaces> [ ]{2,}) |
     (?<space>  [ ])
         |
-    (?<sym> [,\[] )
+    (?<sym> [,›>\[] )
 }ix
 
 
@@ -195,6 +195,23 @@ PROP_GOAL_RE =  Regexp.union(
     SCORE_RE,
     PROP_NAME_RE,    ## note - (re)use prop name for now for (player) name
 )
+
+
+####
+# 
+ROUND_OUTLINE_RE = %r{  ^
+                           [ ]*  ## ignore leading spaces (if any)
+                         (?: »|>> ) 
+                           [ ]+
+                            (?<round_outline>
+                               ## must start with letter - why? why not?
+                               ###   1st round
+                               ##  allow numbers e.g. Group A - 1 
+                               .+?   ## use non-greedy 
+                            )
+                           [ ]*  ## ignore trailing spaces (if any) 
+                         $
+                       }ix
 
 
 end  # class Lexer

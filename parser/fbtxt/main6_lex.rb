@@ -53,6 +53,17 @@ attendance:  1234
 02.11.1958 @ Bucuresti, 23 August   
 
 
+
+### check  round outline   and geo with geo sep
+
+» 1st Round
+» 2nd Round
+
+» Regular Season - 1
+» Regular Season - 2
+
+
+
 TXT
 
 

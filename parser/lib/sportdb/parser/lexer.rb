@@ -326,8 +326,7 @@ def _tokenize_line( line )
   
     ##  start with prop key (match will switch into prop mode!!!)
     ##   - fix - remove leading spaces in regex (upstream) - why? why not?
-    m = PROP_KEY_RE.match( line )
-    if m
+    if (m = PROP_KEY_RE.match( line ))
       ###  switch into new mode
       ##  switch context  to PROP_RE
         puts "  ENTER PROP_RE MODE"   if debug?
@@ -360,10 +359,15 @@ def _tokenize_line( line )
 
         offsets = [m.begin(0), m.end(0)]
         pos = offsets[1]    ## update pos
-    end
+    elsif (m = ROUND_OUTLINE_RE.match( line ))
+      puts "   ROUND_OUTLINE"  if debug?
 
-    m = PLAYER_WITH_SCORE_RE.match( line )
-    if m
+      tokens << [:ROUND_OUTLINE, m[:round_outline]]
+
+      ## note - eats-up line for now (change later to only eat-up marker e.g. »|>>)
+      offsets = [m.begin(0), m.end(0)]
+      pos = offsets[1]    ## update pos
+    elsif (m = PLAYER_WITH_SCORE_RE.match( line ))
       ##  switch context to GOAL_RE (goalline(s)
       ##   split token (automagically) into two!! - player AND minute!!!
       @re = GOAL_RE
@@ -383,10 +387,7 @@ def _tokenize_line( line )
   
       offsets = [m.begin(0), m.end(0)]
       pos = offsets[1]    ## update pos
-    end 
-
-    m = PLAYER_WITH_MINUTE_RE.match( line )
-    if m
+    elsif (m = PLAYER_WITH_MINUTE_RE.match( line ))
       ##  switch context to GOAL_RE (goalline(s)
       ##   split token (automagically) into two!! - player AND minute!!!
       @re = GOAL_RE
@@ -399,8 +400,6 @@ def _tokenize_line( line )
       ##    todo - find a better way? how possible?
       tokens << [:NONE, "<|NONE|>"]   if m[:none]
       
-
-
       ## auto-add player token first
       tokens << [:PLAYER, m[:name]]
       ## minute props
@@ -415,6 +414,7 @@ def _tokenize_line( line )
     end
   end
 
+  
 
   old_pos = -1   ## allows to backtrack to old pos (used in geo)
 
@@ -465,6 +465,8 @@ def _tokenize_line( line )
    
             case sym
             when ',' then [:',']
+            when '›' then [:',']  ## note - treat geo sep › (unicode) like comma for now!!!
+            when '>' then [:',']  ## note - treat geo sep > (ascii) like comma for now!!!
             when '[' then
                  ## get out-off geo mode and backtrack (w/ next)
                  puts "  LEAVE GEO_RE MODE, BACK TO TOP_LEVEL/RE"  if debug?

@@ -69,10 +69,12 @@ MINUTE_RE = %r{
 #                          or others with first matching position 
 #                          or if chars get eaten-up? 
 #                        let us know if \G is required here or not
+#
+##  note - use \A (instead of ^) - \A strictly matches the start of the string.
 
 
 PLAYER_WITH_MINUTE_RE = %r{
-           ^    ### note - MUST start line; leading spaces optional (eat-up)
+           \A    ### note - MUST start line; leading spaces optional (eat-up)
            [ ]*
              (?:      # optional open bracket ([) -- remove later
                 (?<open_bracket> \[ )
@@ -143,8 +145,11 @@ PLAYER_WITH_MINUTE_RE = %r{
 }ix
 
 
+
+##  note - use \A (instead of ^) - \A strictly matches the start of the string.
+
 PLAYER_WITH_SCORE_RE = %r{
-           ^    ### note - MUST start line; leading spaces optional (eat-up)
+           \A    ### note - MUST start line; leading spaces optional (eat-up)
            [ ]*
    (?<player_with_score>
                    (?<score>

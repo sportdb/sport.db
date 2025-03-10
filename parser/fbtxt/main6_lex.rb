@@ -63,6 +63,11 @@ attendance:  1234
 » Regular Season - 2
 
 
+## check on text errors
+      Gurten v Lustenau  4-0 (2-0)   @ Park-Arena Gurten › Gurten
+     Gurten v Lustenau  4-0 (2-0)   @ Park21-Arena Gurten › Gurten
+ 
+  Venezuela v Iceland  0-1 (0-0)   @ motion_invest Arena › Maria Enzersdorf
 
 TXT
 

@@ -199,7 +199,8 @@ PROP_GOAL_RE =  Regexp.union(
 
 ####
 # 
-ROUND_OUTLINE_RE = %r{  ^
+##  note - use \A (instead of ^) - \A strictly matches the start of the string.
+ROUND_OUTLINE_RE = %r{   \A
                            [ ]*  ## ignore leading spaces (if any)
                          (?: »|>> ) 
                            [ ]+

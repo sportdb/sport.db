@@ -60,6 +60,10 @@ TEXT_RE = %r{
                     1/ \d{1,2} [ ] \p{L}+
                   |
                 ## opt 4 - add another weirdo case
+                ##   e.g.   's Gravenwezel-Schilde
+                    '[s]
+                  |
+                ## opt 5 - add another weirdo case
                 ##   e.g. 5.-8. Platz Playoffs  - keep - why? why not?
                     \d+\.-\d+\.  [ ]? \p{L}+                 
                )
@@ -70,18 +74,27 @@ TEXT_RE = %r{
                                ##    AND switch to case-sensitive (via -i!!!)
                       )
                       |     # only single spaces allowed inline!!!
-                     [-/]
+                     [_/]
                   )?
                 (?:
-                  \p{L} |
+                  \p{L} 
+                     |
                   [&'°]
-                    |
+                     |
+                   (?:  (?<! [ ])   ## todo - check regex - make sure lookbehind is always first/before!!
+                      [-]  ### allow e.g. Sport-  if lookbehind is unicode letter or dot (.)
+                          ###       or    U.N.A.M.-Pumas
+                          ##         (?<= [\p{L}.] )
+                            ## try more flexible (use negative lookbehind - no space)   
+                    )
+                     |
                  (?:
                    \d+
                    (?!
-                     [0-9h'+-] |    ## protected break on 12h / 12' / 1-1
-                                    ##  check usege for 3+4 - possible? where ? why?
-                     (?:[.:]\d)     ## protected/exclude/break on 12.03 / 12:03
+                     [0-9h'+] |    ## protected break on 12h / 12' / 1-1
+                                    ##  check usege for 3+4 - possible? where ? why?     
+                     (?:[.:-]\d)     ## protected/exclude/break on 12.03 / 12:03 / 12-12
+                                     ##  BUT allow Park21-Arena for example e.g. 21-A :-)
                     )
                    ## negative lookahead for numbers
                    ##   note - include digits itself!!!

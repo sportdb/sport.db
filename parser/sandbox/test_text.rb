@@ -43,7 +43,27 @@ texts = [## try teams
          "5.-8. Platz Playoffs",
          "9.-12. Platz Playoffs",
          "13.-16. Platz Playoffs",
+
+         ## check more 
+         "Park21-Arena Gurten",
+         "motion_invest Arena",
+         "motion _ invest Arena",  ## FAIL -  allow "free-standing" underscore (_) - why?
+         "motion_ invest Arena",   ## FAIL
+         "Sport- und Freizeitzentrum Traiskirchen",
+         "K's Denki Stadium",
+
+         "'s Gravenwezel-Schilde",
+
+         ### check dash ( - )
+         "Final - First Leg",
+         "ITA - FRA",
+
+         ### check how to deal with Cheshire Silk 106.9 Stadium
+         "Cheshire Silk 106.9 Stadium",
+         "Cheshire Silk 106 9 Stadium",
+         "Cheshire Silk 106_9 Stadium",
          ]
+
 
 texts.each do |text|
   puts "==> #{text}"

@@ -40,6 +40,9 @@ texts = [## try some
             ##  add won too!!!
             '[Switzerland won 5-4 on penalties]',
 
+            ## check from internationsls
+            '[Iraq wins on penalties]',
+
          ]
 
 texts.each do |text|

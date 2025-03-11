@@ -151,6 +151,12 @@ ITA  1-1  FRA  [aet]   @ Roma, Italy
 Liverpool Montevideo (URU) v Universidad Catolica (ECU)   @ Parque Alfredo Víctor Viera › Montevideo
 Cesar Vallejo (PER) v Caracas FC (VEN)    @ Estadio Monumental › Lima
 
+
+### check internationals
+[Wed Mar 28]
+  Iraq - Qatar  1-1   @ Muscat, Oman   [Iraq wins on penalties]
+
+
 TXT
 
 

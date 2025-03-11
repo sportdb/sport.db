@@ -436,6 +436,10 @@ class RaccMatchParser
                  }
              | geo_opts NEWLINE             { result = {}.merge( val[0] ) }
              | geo_opts NOTE NEWLINE        { result = { note: val[1] }.merge( val[0] ) }
+             | geo_opts SCORE_NOTE NEWLINE                            ## note - allow score note after geo too for now 
+                 {
+                    result = { score_note: val[1] }.merge( val[0] )  
+                 }
              | NOTE NEWLINE                 { result = { note: val[0] } }
 #             | SCORE_NOTE NEWLNE            { result = { score_note: val[0]} }
 #             | SCORE_NOTE geo_opts NEWLINE  { result = { score_note: val[0] }.merge( val[1] ) }

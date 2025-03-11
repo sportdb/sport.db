@@ -1,13 +1,13 @@
 ####
 #  to run use:
-#    $ ruby sandbox/test_text.rb
+#    $ ruby sandbox/test_geo.rb
 
 
 $LOAD_PATH.unshift( './lib' )
 require 'sportdb/parser'
 
 
-TEXT_RE = SportDb::Lexer::TEXT_RE
+TEXT_RE = SportDb::Lexer::GEO_TEXT_RE
 
 
 texts = [## try teams
@@ -16,6 +16,8 @@ texts = [## try teams
          "UDI '19/Beter Bed",
          "One/Two",
          "One / Two",
+         "One-Two",
+         "One - Two",
          "V. Köln",
          "V Köln",
          "Naval 1° de Maio",
@@ -45,12 +47,24 @@ texts = [## try teams
          "9.-12. Platz Playoffs",
          "13.-16. Platz Playoffs",
 
-         ## check special starting with quote
+         ## check more 
+         "Park21-Arena Gurten",
+         "motion_invest Arena",
+         "motion _ invest Arena",  ## FAIL -  allow "free-standing" underscore (_) - why?
+         "motion_ invest Arena",   ## FAIL
+         "Sport- und Freizeitzentrum Traiskirchen",
+         "K's Denki Stadium",
+
          "'s Gravenwezel-Schilde",
 
-         ### check break on dash ( - )
+         ### check dash ( - )
          "Final - First Leg",
          "ITA - FRA",
+
+         ### check how to deal with Cheshire Silk 106.9 Stadium
+         "Cheshire Silk 106.9 Stadium",
+         "Cheshire Silk 106 9 Stadium",
+         "Cheshire Silk 106_9 Stadium",
          ]
 
 
@@ -60,7 +74,7 @@ texts.each do |text|
   print "  "
   pp m
 
-  if text != m[0]
+  if m.nil? || text != m[0]
      puts "!! text NOT matching"
   end
 end

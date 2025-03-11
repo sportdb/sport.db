@@ -69,6 +69,14 @@ attendance:  1234
  
   Venezuela v Iceland  0-1 (0-0)   @ motion_invest Arena › Maria Enzersdorf
 
+
+  ##  check for - time like 106.9  in geo name 
+  AA v BB  @ Cheshire Silk 106.9 Stadium
+  
+  ##  check for v / vs in geo name
+  AA v BB  @  Stadium v xyz
+  AA v BB  @  Stadium vs xyz
+
 TXT
 
 

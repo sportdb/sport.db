@@ -2,6 +2,17 @@ module SportDb
 class Lexer
 
 
+
+## todo - use ANY_RE  to token_commons or such - for shared by many?
+
+## general catch-all  (RECOMMENDED (ALWAYS) use as last entry in union)
+##   to avoid advance of pos match!!!
+ANY_RE = %r{
+               (?<any> .)
+          }ix
+
+
+
 ##  note - do NOT allow single alpha text for now
 ##   add later??      A - B    C - D  - why?
 ## opt 1) one alpha
@@ -68,25 +79,18 @@ TEXT_RE = %r{
                     \d+\.-\d+\.  [ ]? \p{L}+                 
                )
 
-              (?:(?:  (?:[ ] 
+              (?:(?:  (?:[ ]   # only single spaces allowed inline!!! 
                         (?! (?-i: vs?[ ])
                           )    ## note - exclude (v[ ]/vs[ ])
                                ##    AND switch to case-sensitive (via -i!!!)
                       )
-                      |     # only single spaces allowed inline!!!
-                     [_/]
+                      |     
+                     [/-]   ## must NOT be surrounded by spaces 
                   )?
                 (?:
                   \p{L} 
                      |
-                  [&'°]
-                     |
-                   (?:  (?<! [ ])   ## todo - check regex - make sure lookbehind is always first/before!!
-                      [-]  ### allow e.g. Sport-  if lookbehind is unicode letter or dot (.)
-                          ###       or    U.N.A.M.-Pumas
-                          ##         (?<= [\p{L}.] )
-                            ## try more flexible (use negative lookbehind - no space)   
-                    )
+                  [.&'°]
                      |
                  (?:
                    \d+
@@ -99,8 +103,7 @@ TEXT_RE = %r{
                    ## negative lookahead for numbers
                    ##   note - include digits itself!!!
                    ##   note - remove / (slash) e.g. allows UDI'19/Beter Bed
-                 )|
-                 \.
+                 )
                )
               )*  ## must NOT end with space or dash(-)
               ##  todo/fix - possible in regex here

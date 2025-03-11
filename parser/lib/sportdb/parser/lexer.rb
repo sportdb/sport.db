@@ -292,11 +292,17 @@ end   # method tokenize_with_errors
 
 ### add a QUICK_PLAYER_WITH_MINUTE  check
 QUICK_PLAYER_WITH_MINUTE_RE = %r{
-      \b
-         \d{1,3}      ## constrain numbers to 0 to 999!!!
-        (?: (?: 
-                \+\d{1,3}   
-            )?
+      ##  note - \b  NOT working for ? !!!
+      ##
+      ##  use positive lookbehind
+        (?<= [ ,;\(\)\[\]]|^)
+      
+        (?:
+            (?:
+                \d{1,3}      ## constrain numbers to 0 to 999!!! 
+                (?: \+\d{1,3}   
+                 )?
+            )
             |
             (?: \?{2} | _{2} )  ## add support for n/a (not/available)
         )           

@@ -46,8 +46,9 @@ class RaccMatchParser
           | attendance_line
           | error      ## todo/check - move error sync up to elements - why? why not?
               { puts "!! skipping invalid content (trying to recover from parse error):"
-                pp val[0] 
-                @errors << "parser error (recover) - skipping #{val[0].pretty_inspect}"
+                pp val[0]
+                ##  note - do NOT report recover errors for now 
+                ##  @errors << "parser error (recover) - skipping #{val[0].pretty_inspect}"
               }
          ### use   error NEWLINE - why? why not?
          ##           will (re)sync on NEWLINE?
@@ -480,13 +481,13 @@ class RaccMatchParser
                                       team2: val[2],
                                       score: val[1][1]
                                     }.merge( val[3] )   
-                           pp result
+                           ## pp result
                         }
                      |  match_fixture  score  score_note_opt
                         {
                           trace( "REDUCE  => match_result : match_fixture score" )
                           result = { score: val[1][1] }.merge( val[0] ).merge( val[2] )  
-                          pp result
+                          ## pp result
                         }
                                         
    

@@ -54,6 +54,8 @@ STATUS_RE = %r{
                  |
                awarded|awd\.
                  |
+               walkover|w/o      ## add o/w too - why? why not?
+                 |
                replay
                  |
                annulled

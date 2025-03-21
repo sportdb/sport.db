@@ -28,6 +28,7 @@ end   # module Writer
 require_relative 'writers/version'
 require_relative 'writers/goals'
 require_relative 'writers/txt_writer'
+require_relative 'writers/txt_writer_v2'
 
 
 
@@ -42,10 +43,26 @@ class TxtMatchWriter
   
     puts "==> writing to >#{path}<..."
     File.open( path, 'w:utf-8' ) do |f|
-      f.write( "= #{name}\n" )
+      f.write( "= #{name}\n\n" )
       f.write( buf )
     end
   end # method self.write
+
+  def self.write_v2( path, matches, name:, rounds: true)
+
+    buf = build_v2( matches, rounds: rounds )
+  
+    ## for convenience - make sure parent folders/directories exist
+    FileUtils.mkdir_p( File.dirname( path) )  unless Dir.exist?( File.dirname( path ))
+  
+    puts "==> writing to >#{path}<..."
+    File.open( path, 'w:utf-8' ) do |f|
+      f.write( "= #{name}\n\n" )
+      f.write( buf )
+    end
+  end # method self.write_v2
+
+
 end  # class TxtMatchWriter
 end  # module SportDb
 

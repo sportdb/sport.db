@@ -11,31 +11,40 @@ class TxtMatchWriter
    'Viertelfinale' => 'Quarterfinals',
    'Halbfinale'    => 'Semifinals',
    'Finale'        => 'Final',
+
+   'Gruppe A'      => 'Group A',
+   'Gruppe B'      => 'Group B',
+   'Gruppe C'      => 'Group C',
+   'Gruppe D'      => 'Group D',
+   'Gruppe E'      => 'Group E',
+   'Gruppe F'      => 'Group F',
  }
 
 
-## note: build returns buf - an (in-memory) string buf(fer)
-def self.build( matches, rounds: true )
-  ## note: make sure rounds is a bool, that is, true or false  (do NOT pass in strings etc.)
-  raise ArgumentError, "rounds flag - bool expected; got: #{rounds.inspect}"    unless rounds.is_a?( TrueClass ) || rounds.is_a?( FalseClass )
-
-
+##  helper - to calculate match stats e.g.
+##              how many stages, start and end dates, etc.
+def self._calc_stats( matches )
   ### check for stages & stats
-  stats = {  'stage' => Hash.new(0),
-             'date' =>  { 'start_date' => nil,
-                          'end_date'   => nil, },
-             'teams' => Hash.new(0),
-              }
+  stats = {  'stage'     => Hash.new(0),
+             'date'      =>  { 'start_date' => nil,
+                               'end_date'   => nil, },
+             'teams'     => Hash.new(0),
+             'matches'    => 0,
+             'use_stages' => false,
+          }
 
-## add matches played stats too??
+  ## add matches played stats too??
+  ##   for now only simply count used
+  stats['matches'] = matches.size
 
   matches.each do |match|
      stage = match.stage
      stage = 'Regular Season'   if stage.nil? || stage.empty?
      stats['stage'][ stage ] += 1
 
+     ## note - date for now optional (not required)!!!!
+     ##            only teams for match
      if match.date
-
       ## todo/fix - norm date (parse as Date)
       ##   check format etc.
       date = if match.date.is_a?( String )
@@ -48,52 +57,74 @@ def self.build( matches, rounds: true )
 
        stats['date']['start_date'] = date  if date < stats['date']['start_date']
        stats['date']['end_date']   = date  if date > stats['date']['end_date']
-      end
+     end
 
      [match.team1, match.team2].each do |team|
         stats['teams'][ team ] += 1    if team && !['N.N.'].include?( team )
      end
   end
+            
+  ## add & update use_stage flag
+  stats['use_stages']  =  if stats['stage'].size >= 2  ||
+                            (stats['stage'].size == 1  &&
+                             stats['stage'].keys[0] != 'Regular Season')
+                              true
+                         else
+                              false
+                         end
+  stats
+end
 
-  use_stages =  if stats['stage'].size >= 2  ||
-                   (stats['stage'].size == 1  &&
-                    stats['stage'].keys[0] != 'Regular Season')
-                  true
-                else
-                  false
-                end
+def self._build_stats( stats )
+ ### add comment header
+ buf = String.new
+ # e.g. 13 April – 25 September 2024
+ #  or  16 August 2024 – 25 May 2025
+ ## note - date is optional!!
+ if stats['date']['start_date']
+   buf << "# Date       "
+   start_date = stats['date']['start_date']
+   end_date   = stats['date']['end_date']
+   if start_date.year != end_date.year
+     buf << "#{start_date.strftime('%a %b/%-d %Y')} - #{end_date.strftime('%a %b/%-d %Y')}"
+   else
+     buf << "#{start_date.strftime('%a %b/%-d')} - #{end_date.strftime('%a %b/%-d %Y')}"
+   end
+   buf << " (#{end_date.jd-start_date.jd}d)"   ## add days
+   buf << "\n"
+ end
+
+ buf << "# Teams      #{stats['teams'].size}\n"
+ buf << "# Matches    #{stats['matches']}\n"
+
+ if stats['use_stages']
+   buf << "# Stages     "
+   stages = stats['stage'].map { |name,count| "#{name} (#{count})" }.join( '  ' )
+   buf << stages
+   buf << "\n"
+ end
+
+  buf 
+end
 
 
-   ### add comment header
-    buf = String.new
-    # e.g. 13 April – 25 September 2024
-    #  or  16 August 2024 – 25 May 2025
-    ## note - date is optional!!
-    if stats['date']['start_date']
-      buf << "# Date       "
-      start_date = stats['date']['start_date']
-      end_date   = stats['date']['end_date']
-      if start_date.year != end_date.year
-        buf << "#{start_date.strftime('%a %b/%-d %Y')} - #{end_date.strftime('%a %b/%-d %Y')}"
-      else
-        buf << "#{start_date.strftime('%a %b/%-d')} - #{end_date.strftime('%a %b/%-d %Y')}"
-      end
-      buf << " (#{end_date.jd-start_date.jd}d)"   ## add days
-      buf << "\n"
-    end
-
-    buf << "# Teams      #{stats['teams'].size}\n"
-    buf << "# Matches    #{matches.size}\n"
-
-    if use_stages
-      buf << "# Stages     "
-      stages = stats['stage'].map { |name,count| "#{name} (#{count})" }.join( '  ' )
-      buf << stages
-      buf << "\n"
-    end
-    buf << "\n\n"
+## note: build returns buf - an (in-memory) string buf(fer)
+def self.build( matches, rounds: true )
+  ## note: make sure rounds is a bool, that is, true or false  (do NOT pass in strings etc.)
+  raise ArgumentError, "rounds flag - bool expected; got: #{rounds.inspect}"    unless rounds.is_a?( TrueClass ) || rounds.is_a?( FalseClass )
 
 
+  ### calc stats and check for stages 
+  stats = _calc_stats( matches )
+
+  buf = String.new
+
+  ### add comment header
+  buf << _build_stats( stats )
+  buf << "\n\n"
+
+
+  use_stages = stats['use_stages' ]
   if use_stages
     ## split matches by stage
     matches_by_stage = {}

@@ -5,4 +5,5 @@ Rakefile
 lib/sportdb/writers.rb
 lib/sportdb/writers/goals.rb
 lib/sportdb/writers/txt_writer.rb
+lib/sportdb/writers/txt_writer_v2.rb
 lib/sportdb/writers/version.rb

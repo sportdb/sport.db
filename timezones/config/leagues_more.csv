@@ -1,0 +1,9 @@
+key,name,basename,start_season,end_season
+
+
+### quick hack - add more leagues "by hand"
+###    todo - add leagues upstream!!!
+
+
+mls,Major League Soccer,majorleaguesoccer,,
+mls.back,MLS is Back Tournament,mlsisbacktournament,,

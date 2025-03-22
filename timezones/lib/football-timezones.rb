@@ -20,6 +20,7 @@ module LeagueInfoHelper
     @_leagues ||= begin
                     leagues = SportDb::LeagueConfig.new
                     ['leagues',
+                     'leagues_more',
                     ].each do |name|
                       recs = read_csv( "#{SportDb::Module::Timezones.root}/config/#{name}.csv" )
                       leagues.add( recs )

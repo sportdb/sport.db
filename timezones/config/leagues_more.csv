@@ -7,3 +7,9 @@ key,name,basename,start_season,end_season
 
 mls,Major League Soccer,majorleaguesoccer,,
 mls.back,MLS is Back Tournament,mlsisbacktournament,,
+
+
+## first expansion season ->  2020/21 Apertura
+## last ascenso season    ->  2019/20 Clausura
+mx.2.ascenso,Ascenso MX,2-ascensomx,,2019/20
+mx.2.expansion,Liga de Expansión MX,2-ligaexpansionmx,2020/21,

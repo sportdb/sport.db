@@ -76,7 +76,14 @@ class MatchParser    ## simple match parser for team match schedules
     ##                _read_lines( lines ) : lines
 
     @txt          = _prep_lines( lines )    
+
+    ### todo/fix - FIX/FIX
+    ##     check start year from first date
+    ##    for now (auot-)update - @start with every date that incl. a year!!!
     @start        = start
+    @last_year    = nil
+
+
     @errors = []
   end
 
@@ -150,6 +157,8 @@ class MatchParser    ## simple match parser for team match schedules
           on_group_def( node )
        elsif node.is_a? RaccMatchParser::GroupHeader
           on_group_header( node )
+       elsif node.is_a? RaccMatchParser::RoundOutline
+          on_round_outline( node )
        elsif node.is_a? RaccMatchParser::RoundHeader
           on_round_header( node )
       elsif node.is_a? RaccMatchParser::DateHeader
@@ -234,22 +243,30 @@ class MatchParser    ## simple match parser for team match schedules
       pp start
    end
 
-    if y.nil?   ## try to calculate year
-      y =  if  m > start.month ||
-               (m == start.month && d >= start.day)
-                # assume same year as start_at event (e.g. 2013 for 2013/14 season)
-                start.year
-           else
-                 # assume year+1 as start_at event (e.g. 2014 for 2013/14 season)
-                start.year+1
-           end
-    end
 
+    if y.nil?   ## try to calculate year
+      if @last_year   ## use new formula
+         y = @last_year
+      else  ## fallback to "old" formula - FIX/FIX remove later
+         puts "[deprecated] WARN - do NOT use old year (date) auto-complete; add year to first date"
+         y =  if  m > start.month ||
+                 (m == start.month && d >= start.day)
+                  # assume same year as start_at event (e.g. 2013 for 2013/14 season)
+                  start.year
+              else
+                  # assume year+1 as start_at event (e.g. 2014 for 2013/14 season)
+                  start.year+1
+              end
+      end
+    else
+      ### note - reset @start to new date
+      ##            use @last_year
+      @last_year = y
+    end
 
 
       Date.new( y,m,d )  ## y,m,d
   end
-
 
   def on_round_def( node )
     logger.debug "on round def: >#{node}<"
@@ -316,14 +333,50 @@ class MatchParser    ## simple match parser for team match schedules
   end
 
 
+
+  
+  def on_round_outline( node )
+    logger.debug "on round outline: >#{node}<"
+ 
+    ## always reset dates - why? why not?
+    ##    note - needs last_date for year
+    ##         track last_year with extra variable
+    
+    name  = node.outline
+
+    round = @rounds[ name ]
+    if round.nil?    ## auto-add / create if missing
+      ## todo/check: add num (was pos) if present - why? why not?
+      round = Import::Round.new( name: name )
+      @rounds[ name ] = round
+    end
+
+    ## todo/check: if pos match (MUST always match for now)
+    @last_round = round
+    @last_group = nil   # note: reset group to no group - why? why not?
+
+    ## todo/fix/check
+    ##  make round a scope for date(time) - why? why not?
+    ##   reset date/time e.g. @last_date = nil !!!!
+  end
+
+
   def on_round_header( node )
     logger.debug "on round header: >#{node}<"
 
-    name = node.names[0]    ## ignore more names for now
-                           ## fix later - fix more names!!!
+    ### note - auto-add names with - for now (use comma)
+    ##            why? why not?
+    ### check - use ' - ' for separator - why? why not?
+    name = node.names.join( ', ' )   
+=begin
+    ## note: was node.names[0]    ## ignore more names for now
+                                  ## fix later - fix more names!!!
+=end
 
-    # name = name.sub( ROUND_EXTRA_WORDS_RE, '' )
+   # name = name.sub( ROUND_EXTRA_WORDS_RE, '' )
     # name = name.strip
+
+
 
     round = @rounds[ name ]
     if round.nil?    ## auto-add / create if missing

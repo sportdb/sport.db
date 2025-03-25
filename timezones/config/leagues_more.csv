@@ -13,3 +13,10 @@ mls.back,MLS is Back Tournament,mlsisbacktournament,,
 ## last ascenso season    ->  2019/20 Clausura
 mx.2.ascenso,Ascenso MX,2-ascensomx,,2019/20
 mx.2.expansion,Liga de Expansión MX,2-ligaexpansionmx,2020/21,
+
+
+### add alternate keys for de.4
+de.4.n,Deutsche Regionalliga Nord,4-regionalliga-nord,,
+de.4.no,Deutsche Regionalliga Nordost,4-regionalliga-nordost,,
+de.4.w,Deutsche Regionalliga West,4-regionalliga-west,,
+de.4.sw,Deutsche Regionalliga Südwest,4-regionalliga-suedwest,,

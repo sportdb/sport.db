@@ -3,6 +3,7 @@ Manifest.txt
 README.md
 Rakefile
 config/leagues.csv
+config/leagues_more.csv
 config/timezones_africa.csv
 config/timezones_america.csv
 config/timezones_asia.csv

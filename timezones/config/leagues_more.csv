@@ -27,3 +27,8 @@ de.4.sw,Deutsche Regionalliga Südwest,4-regionalliga_suedwest,,
 # it.3.a,Italian Serie C (North & Central West),3-seriec_a,,
 # it.3.b,Italian Serie C (North & Central East),3-seriec_b,,
 # it.3.c,Italian Serie C (South),3-seriec_c,,
+
+## england
+##  add alternate codes / keys
+eng.fa.cup,English FA Cup,facup,,
+eng.efl.cup,English EFL Cup,eflcup,,

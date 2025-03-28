@@ -2,10 +2,12 @@
 ==  Pacific      ## Oceania & Australia
 
 au   Australia,            AUS,  fifa › afc › aff   # formerly a member of OFC (1966–2006)
+      | Australien [de]
 
 ### Melanesia
 pg   Papua New Guinea,     PNG,  fifa › ofc
       | Papua N.G.
+      | Papua-Neuguinea [de]
 fj   Fiji,                 FIJ,  fifa › ofc
 sb   Solomon Islands,      SOL,  fifa › ofc
       | Solomon Isl.
@@ -22,6 +24,7 @@ ki   Kiribati,    KIR,   ofc      # note: NOT fifa member
 
 ### Polynesia
 nz   New Zealand,     NZL,  fifa › ofc   # was formerly a member of AFC (1964–1966)
+      | Neuseeland [de]
 ws   Samoa,           SAM,  fifa › ofc
 to   Tonga,           TGA,  fifa › ofc
 tv   Tuvalu,          TUV,         ofc  # note: NOT fifa member
@@ -33,6 +36,7 @@ tv   Tuvalu,          TUV,         ofc  # note: NOT fifa member
 pf   Tahiti        › FR,   TAH,   fifa › ofc      # todo/check: use French Polynesia (FR) as name - why? why not?
       | French Polynesia     # note: Tahiti, which is located within the Society Islands, is the most populous island, having close to 69% of the population of French Polynesia as of 2017.
 nc   New Caledonia › FR,   NCL,   fifa › ofc
+      | Neukaledonien [de]
 
 as   American Samoa           › US,  ASA, fifa › ofc
       | Am. Samoa

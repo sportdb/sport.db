@@ -9,10 +9,13 @@ bh   Bahrain,              BHR,  fifa › afc › waff
 kw   Kuwait,               KUW,  fifa › afc › waff
 om   Oman,                 OMA,  fifa › afc › waff
 qa   Qatar,                QAT,  fifa › afc › waff
+      | Katar [de]
 sa   Saudi Arabia,         KSA,  fifa › afc › waff
       | sau | saud
+      | Saudi-Arabien [de]
 ae   United Arab Emirates, UAE,  fifa › afc › waff
       | UA Emirates | UAE
+      | VA Emirate [de]     ## add VAE [de] too - why? why not?
 ye   Yemen,                YEM,  fifa › afc › waff
 
 

@@ -21,6 +21,7 @@ jp   Japan,                JPN,  fifa › afc › eaff
       | j
 kr   South Korea,          KOR,  fifa › afc › eaff
       | Korea Republic | Republic of Korea    ## use "Korea, Republic"
+      | Südkorea [de]
 kp   North Korea,          PRK,  fifa › afc › eaff
       | Korea DPR | Democratic People's Republic of Korea    ## use "Korea, DPR"
 cn   China,                CHN,  fifa › afc › eaff

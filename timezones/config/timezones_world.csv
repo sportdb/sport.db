@@ -17,3 +17,29 @@ world+1998,    Europe/Paris          # France
 
 
 friendlies,    Europe/London      ##  use (generic) utc - why? why not?
+
+
+
+## add club world cups
+
+world.clubs+2000,  America/Sao_Paulo    # Brazil 
+world.clubs+2005,  Asia/Tokyo      # Japan 
+world.clubs+2006,  Asia/Tokyo      # Japan
+world.clubs+2007,  Asia/Tokyo      # Japan
+world.clubs+2008,  Asia/Tokyo      # Japan
+world.clubs+2009,  Asia/Dubai      # UAE
+world.clubs+2010,  Asia/Dubai      # UAE
+world.clubs+2011,  Asia/Tokyo    # Japan
+world.clubs+2012,  Asia/Tokyo    # Japan
+world.clubs+2013,  Africa/Casablanca   # Morocco
+world.clubs+2014,  Africa/Casablanca   # Morocco
+world.clubs+2015,  Asia/Tokyo   # Japan
+world.clubs+2016,  Asia/Tokyo   # Japan
+world.clubs+2017,  Asia/Dubai   # UAE
+world.clubs+2018,  Asia/Dubai   # UAE
+world.clubs+2019,  Asia/Qatar   # Qatar
+world.clubs+2020,  Asia/Qatar   # Qatar
+world.clubs+2021,  Asia/Dubai   # UAE
+world.clubs+2022,  Africa/Casablanca    # Morocco
+world.clubs+2023,  Asia/Riyadh       # Saudi Arabia
+world.clubs+2025,  America/New_York    # United States

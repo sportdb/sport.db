@@ -32,3 +32,8 @@ de.4.sw,Deutsche Regionalliga Südwest,4-regionalliga_suedwest,,
 ##  add alternate codes / keys
 eng.fa.cup,English FA Cup,facup,,
 eng.efl.cup,English EFL Cup,eflcup,,
+
+
+### club world cup  - start with 2000 - why? why not?
+world.clubs,Club World Cup,clubworldcup,2000,
+

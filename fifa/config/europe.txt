@@ -20,6 +20,7 @@ be   Belgium,              BEL,    fifa › uefa
 
 ba   Bosnia and Herzegovina,  BIH,  fifa › uefa
       | Bosnia-Herzegovina | Bosnia | Bosnia-Herz.      # add Bosnia Herzegovina?
+      | Bosnia & Herzegovina
       | Bosnien-Herzegowina [de]
       | bos
 
@@ -89,8 +90,8 @@ lu   Luxembourg,           LUX,  fifa › uefa
 ##         keeps same fifa code - move Macedonia to history - why? why not?
 mk   North Macedonia,      MKD,  fifa › uefa
       | Republic of North Macedonia
-      | Macedonia | FYR Macedonia | Macedonia FYR
       | Nordmazedonien [de]
+      | Macedonia | FYR Macedonia | Macedonia FYR
 
 mt   Malta,                MLT,  fifa › uefa
        | m

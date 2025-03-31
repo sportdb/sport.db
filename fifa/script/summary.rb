@@ -1,3 +1,8 @@
+###
+## to run use:
+##   $ ruby script/summary.rb
+
+
 ## note: use the local version of gems
 $LOAD_PATH.unshift( File.expand_path( '../sport.db/sportdb-structs/lib'))
 $LOAD_PATH.unshift( File.expand_path( './lib'))
@@ -31,7 +36,9 @@ end
 
 puts buf
 
+## write_text( './tmp/SUMMARY_AZ.md', buf )
 write_text( './SUMMARY_AZ.md', buf )
+
 
 puts "bye"
 

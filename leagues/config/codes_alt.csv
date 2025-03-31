@@ -1,0 +1,61 @@
+code,alt,start_season,end_season,comments
+
+###
+## alt(ernate) codes for canonical league codess 
+##    e.g. aut.bl =>  at.1  etc.
+##
+##  note -  add optional start/end season - why? why not?
+##
+
+at.1,      aut.bl,,,    ## Bundesliga
+at.2,      aut.2,,,
+at.3.o,    aut.rlo,,,   ## Regionalliga Ost
+
+ch.1,      sui.sl,,,    ## Super League
+
+
+de.1,  ger.bl,,,    ## Bundesliga
+de.2,  ger.2,,,
+de.3,  ger.3,,,
+
+es.1,  esp.1,,,
+es.2,  esp.2,,,
+
+it.1,   ita.a,,,     ## Serie A
+it.2,   ita.b,,,     ## Serie B
+it.3.a, ita.c1a,,,
+it.3.b, ita.c1b,,,
+
+
+fr.1,   fra.1,,,
+fr.2,   fra.2,,,
+
+sco.1,      sco.ps,,,     ## Premiership
+eng.2,      eng.cs,,,     ## Championship
+eng.fa.cup, eng.fa,,,     ## FA Cup
+### note - CANNOT use eng.1  for Ligue 1 or eng.2 for Ligue 2
+##                 eng.1 and eng.2  are canonical tier codes 1|2|3 etc.
+
+be.1,  bel.1,,,
+
+pt.1,  por.1,,,
+pt.2,  por.2,,,
+
+pl.1,  pol.1,,,
+pl.2,  pol.2,,,
+
+cy.1,  cyp.1,,,
+gr.1,  gre.1,,,
+tr.1,  tur.1,,,
+tr.2,  tur.2,,,
+
+dk.1,  den.1,,,
+no.2,  nor.2,,,
+se.1,  swe.1,,,
+se.2,  swe.2,,,
+
+il.1,  isr.1,,,
+ro.1,  rou.1,,,
+
+br.1,  bra.1,,,
+

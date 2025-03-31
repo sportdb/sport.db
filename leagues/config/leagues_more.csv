@@ -1,0 +1,40 @@
+code,name,basename,start_season,end_season
+
+
+### quick hack - add more leagues "by hand"
+###    todo - add leagues upstream!!!
+
+
+mls,Major League Soccer,majorleaguesoccer,,
+mls.back,MLS is Back Tournament,mlsisbacktournament,,
+
+
+## first expansion season ->  2020/21 Apertura
+## last ascenso season    ->  2019/20 Clausura
+mx.2.expansion,Liga de Expansión MX,2-ligaexpansionmx,2020/21,
+mx.2.ascenso,Ascenso MX,2-ascensomx,,2019/20
+
+
+### add alternate keys for de.4
+de.4.n,Deutsche Regionalliga Nord,4-regionalliga_nord,,
+de.4.no,Deutsche Regionalliga Nordost,4-regionalliga_nordost,,
+de.4.w,Deutsche Regionalliga West,4-regionalliga_west,,
+de.4.sw,Deutsche Regionalliga Südwest,4-regionalliga_suedwest,,
+
+
+## italy - update upstream
+##   use seriec_a or seriec-a ???
+# it.3.a,Italian Serie C (North & Central West),3-seriec_a,,
+# it.3.b,Italian Serie C (North & Central East),3-seriec_b,,
+# it.3.c,Italian Serie C (South),3-seriec_c,,
+
+## england
+##  add alternate codes / keys
+eng.fa.cup,English FA Cup,facup,,
+eng.efl.cup,English EFL Cup,eflcup,,
+
+
+### club world cup  - start with 2000 - why? why not?
+###  fix - upstream uses world.club !!! 
+world.clubs,Club World Cup,clubworldcup,2000,
+

@@ -1,15 +1,3 @@
-require 'cocos'
-require 'season/formats'   ## add season support
-
-
-require 'tzinfo'
-
-
-## our own code
-require_relative 'football-timezones/version'
-require_relative 'football-timezones/timezones'
-
-
 
 ###################
 ## setup (quick) leagues (info) table
@@ -34,8 +22,6 @@ module LeagueInfoHelper
      _league_info[ league ]
   end
 end  # module LeagueInfoHelper
-
-
 
 
 
@@ -69,15 +55,20 @@ end
 
 
 
+
 ####
 ### note - make find_zone! public/global by default - why? why not?
 module Kernel
-   include FileHelper
-   include TimezoneHelper
-   include LeagueInfoHelper
-   include LeaguesetHelper
+    include FileHelper
+    include LeagueInfoHelper
+    include LeaguesetHelper
 end
 
 
 
-puts SportDb::Module::Timezones.banner   ## say hello
+
+
+
+
+
+

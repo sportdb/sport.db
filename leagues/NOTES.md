@@ -1,6 +1,12 @@
 # Notes
 
 
+biggie:
+- (re)use text files in /leagues; do NOT duplicate
+- workaround for now; export two .csv datasets
+- use a (sqlite) database AND use the structs in the sportdb-structs gem!!!
+
+
 
 ## TODOs
 

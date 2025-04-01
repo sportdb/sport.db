@@ -9,42 +9,41 @@ require 'leagues'
 ### check for seasons
 
 ## champions league starting in 1992/93
-league = find_league_info( 'uefa.cl' )
-pp league
-
+pp LeagueCodes.valid?( 'uefa.cl' )   # return true|false
 puts "- by season:"
-pp league.find_by_season( Season( '1991/92') )
-pp league.find_by_season( Season( '1992/93') )
-pp league.find_by_season( Season( '2024/25') )
+pp LeagueCodes.find_by( code: 'uefa.cl', season: '1991/92' )
+pp LeagueCodes.find_by( code: 'uefa.cl', season: '1992/93' ) 
+pp LeagueCodes.find_by( code: 'uefa.cl', season: '2024/25' ) 
 
 
 ## check different spelling
 puts "---"
-league = find_league_info( 'uefa cl' )
-pp league
+pp LeagueCodes.valid?( 'uefa cl' )
+pp LeagueCodes.valid?( 'UEFA CL' )
 
-league = find_league_info( 'UEFA CL' )
-pp league
 
 ## check alt codes
 puts "---"
-league = find_league_info( 'euro.champs' )
-pp league
-
-league = find_league_info( 'EURO CHAMPS' )
-pp league
-
+pp LeagueCodes.valid?( 'euro.champs' )
+pp LeagueCodes.valid?( 'EURO CHAMPS' )
 
 
 puts
 puts "==> eng.1"
-league = find_league_info( 'eng.1' )
-pp league
+pp LeagueCodes.valid?( 'eng.1' )
+pp LeagueCodes.find_by( code: 'eng.1', season: '2024/25' ) 
+pp LeagueCodes.find_by( code: 'eng.1', season: '1990/91' ) 
 
 puts
 puts "==> at.2"
-league = find_league_info( 'at.2' )
-pp league
+pp LeagueCodes.valid?( 'at.2' )
+pp LeagueCodes.find_by( code: 'at.2', season: '2010/11' ) 
+pp LeagueCodes.find_by( code: 'at.2', season: '2024/25' ) 
+
+puts
+puts "==> at.1"
+pp LeagueCodes.valid?( 'AUT BL' )
+pp LeagueCodes.find_by( code: 'AUT BL', season: '2024/25' ) 
 
 
 puts "bye"

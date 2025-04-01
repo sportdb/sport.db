@@ -1,0 +1,21 @@
+key,   zone
+
+eg,   Africa/Cairo
+
+dz,   Africa/Algiers
+ma,   Africa/Casablanca
+
+za,   Africa/Johannesburg
+
+
+ng,   Africa/Lagos
+
+ke,   Africa/Nairobi
+
+
+## note: use cairo time zone for int'l africa tournaments for now
+#                     why? why not?
+afl,       Africa/Cairo
+caf.cl,    Africa/Cairo
+caf,       Africa/Cairo
+

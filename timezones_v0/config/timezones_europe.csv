@@ -1,0 +1,98 @@
+key,   zone
+
+eng,    Europe/London
+sco,    Europe/London     ## check if entry or Edingburgh or such exits
+wal,    Europe/London
+nir,    Europe/London
+ie,     Europe/Dublin
+
+
+es,     Europe/Madrid
+pt,     Europe/Lisbon
+gi,     Europe/Gibraltar
+ad,	    Europe/Andorra
+
+fr,     Europe/Paris
+mc,	    Europe/Monaco
+
+it,     Europe/Rome
+sm,     Europe/San_Marino
+va,     Europe/Vatican
+
+
+
+gr,      Europe/Athens
+tr,     Europe/Istanbul
+cy,     Asia/Nicosia
+mt,     Europe/Malta
+
+
+ro,      Europe/Bucharest
+bg,      Europe/Sofia
+
+ua,     Europe/Kyiv
+by,     Europe/Minsk
+ru,     Europe/Moscow
+
+
+de,     Europe/Berlin
+at,     Europe/Vienna
+ch,     Europe/Zurich
+li,     Europe/Vaduz
+
+hu,     Europe/Budapest
+cz,    Europe/Prague
+sk,    Europe/Bratislava     # link to Prague !!!
+si,    Europe/Ljubljana
+pl,   Europe/Warsaw
+
+
+hr,   Europe/Zagreb    # link to Belgrade
+ba,   Europe/Sarajevo   # link to Belgrade
+rs,   Europe/Belgrade     # see en.wikipedia.org/wiki/Time_in_Serbia
+al,   Europe/Tirane
+me,	  Europe/Podgorica
+mk,	   Europe/Skopje
+md,    Europe/Chisinau
+
+kos,  Europe/Belgrade       #   en.wikipedia.org/wiki/Time_in_Kosovo
+xk,   Europe/Belgrade    # note - add both codes for now eg. xk & kos
+
+
+
+be,  Europe/Brussels
+lu,  Europe/Luxembourg      # link to Brussels !!!
+nl,  Europe/Amsterdam       # link to Brussels !!!
+
+
+dk,   Europe/Copenhagen    ## link to Berlin
+se,   Europe/Stockholm     ## link to Berlin
+no,   Europe/Oslo           # link to Berlin
+fi,   Europe/Helsinki
+
+lv,   Europe/Riga
+ee,   Europe/Tallinn
+lt,    Europe/Vilnius
+
+is,    Iceland
+fo,   Atlantic/Faroe
+
+
+
+am,  Asia/Yerevan      # en.wikipedia.org/wiki/Armenia_Time
+ge,  Asia/Tbilisi      # en.wikipedia.org/wiki/Georgia_Time
+az,  Asia/Baku
+
+
+
+uefa,          Europe/Paris
+uefa.cl,       Europe/Paris
+uefa.champs,   Europe/Paris  ## for champs default for now to cet (central european time) - why? why not?
+uefa.el,       Europe/Paris
+uefa.europa,   Europe/Paris
+uefa.conf,     Europe/Paris
+uefa.con,      Europe/Paris
+uefa.nl,       Europe/Paris
+uefa.nations,  Europe/Paris
+euro,          Europe/Paris
+

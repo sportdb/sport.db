@@ -131,7 +131,7 @@ end
 
 def find_zone( league:, season: )
    ## note: do NOT pass in league struct! pass in key (string)
-   raise ArgumentError, "league key as string|symbol expected"  unless league.is_a?(String) || league.is_a?(Symbol)
+   raise ArgumentError, "league code as string|symbol expected"  unless league.is_a?(String) || league.is_a?(Symbol)
 
    @zones ||= begin
                 zones = {}

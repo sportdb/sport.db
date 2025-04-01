@@ -9,48 +9,42 @@ require 'leagues'
 ### check for seasons
 
 ## champions league starting in 1992/93
-league = find_league_info( 'uefa.cl' )
-pp league
+pp LeagueCodes.valid?( 'uefa.cl' )
 
-pp league.find_by_season( Season( '1991/92') )
-pp league.find_by_season( Season( '1992/93') )
-pp league.find_by_season( Season( '2024/25') )
+pp LeagueCodes.find_by( code: 'uefa.cl', season: '1991/92' )
+pp LeagueCodes.find_by( code: 'uefa.cl', season: '1992/93' )
+pp LeagueCodes.find_by( code: 'uefa.cl', season: '2024/25' )
 
-league = find_league_info( 'euro.champs' )
+pp LeagueCodes.valid?( 'euro.champs' )
 puts
-pp league
-pp league.find_by_season( Season( '1991/92') )
-pp league.find_by_season( Season( '2024/25') )
+pp LeagueCodes.find_by( code: 'euro.champs', season: '1991/92' )
+pp LeagueCodes.find_by( code: 'euro.champs', season: '2024/25' )
 
-league = find_league_info( 'uefa.cup' )
+pp LeagueCodes.valid?( 'uefa.cup' )
 puts
-pp league
 
 
-league = find_league_info( 'uefa.el' )
+pp LeagueCodes.valid?( 'uefa.el' )
 puts
-pp league
-pp league.find_by_season( Season( '1992/93') )
-pp league.find_by_season( Season( '2008/09') )
-pp league.find_by_season( Season( '2009/10') )
-pp league.find_by_season( Season( '2024/25') )
+pp LeagueCodes.find_by( code: 'uefa.el', season: '1992/93' )
+pp LeagueCodes.find_by( code: 'uefa.el', season: '2008/09' )
+pp LeagueCodes.find_by( code: 'uefa.el', season: '2009/10' )
+pp LeagueCodes.find_by( code: 'uefa.el', season: '2024/25' )
 
 
-league = find_league_info( 'eng.1' )
+pp LeagueCodes.valid?( 'eng.1' )
 puts
-pp league
-pp league.find_by_season( Season( '1888/89') )
-pp league.find_by_season( Season( '1990/91') )
-pp league.find_by_season( Season( '1991/92') )
-pp league.find_by_season( Season( '1992/93') )
-pp league.find_by_season( Season( '2024/25') )
+pp LeagueCodes.find_by( code: 'eng.1', season: '1888/89' )
+pp LeagueCodes.find_by( code: 'eng.1', season: '1990/91' )
+pp LeagueCodes.find_by( code: 'eng.1', season: '1991/92' )
+pp LeagueCodes.find_by( code: 'eng.1', season: '1992/93' )
+pp LeagueCodes.find_by( code: 'eng.1', season: '2024/25' )
 
-league = find_league_info( 'eng.2' )
+pp LeagueCodes.valid?( 'eng.2' )
 puts
-pp league
-pp league.find_by_season( Season( '1990/91') )
-pp league.find_by_season( Season( '1992/93') )
-pp league.find_by_season( Season( '2024/25') )
+pp LeagueCodes.find_by( code: 'eng.2', season: '1990/91' )
+pp LeagueCodes.find_by( code: 'eng.2', season: '1992/93' )
+pp LeagueCodes.find_by( code: 'eng.2', season: '2024/25' )
 
 
 

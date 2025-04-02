@@ -28,10 +28,17 @@ LeagueSet = Leagueset
 module LeaguesetHelper
   ###
   ### note - make read_leagueset & friends public/global by default - why? why not?
-  def read_leagueset( path )       Leagueset.read( path ); end
-  def parse_leagueset( txt )       Leagueset.parse( txt ); end
-  def parse_leagueset_args( args ) Leagueset.parse_args( args ); end
+  def read_leagueset( path, autofill: nil )       
+      Leagueset.read( path, autofill: autofill )
+  end
+  def parse_leagueset( txt, autofill: nil )       
+      Leagueset.parse( txt, autofill: autofill )
+  end
+  def parse_leagueset_args( args, autofill: nil ) 
+      Leagueset.parse_args( args, autofill: autofill )
+  end
 end
+
 
 
 

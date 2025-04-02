@@ -1,5 +1,4 @@
 
-
 ##
 # use/find a better name
 #    League Set, League Sheet,
@@ -19,13 +18,43 @@
 module SportDb
 class Leagueset
 
-def self.parse_args( args )
+
+##  autofiller helper
+##  - simple heuristic to find current (latest) season
+##
+##   maybe move autofiller to fbup or such - why? why not?
+
+def self.autofiller( league_query, source_path: ['.'] )
+      [ Season('2024/25'), 
+        Season('2025') 
+      ].each do |season|
+           league_info = LeagueCodes.find_by( code: league_query, season: season )
+           league_code = league_info['code']
+           
+           filename = "#{season.to_path}/#{league_code}.csv"
+           path = find_file( filename, path: source_path )
+           if path
+              return season
+           end
+      end
+      nil  ## return nil if not found
+end
+
+
+
+
+###
+## note - requires autofill (for seasons)
+##         if league querykey without season/empty season
+def self.parse_args( args, autofill: nil )
     ### split args in datasets with leagues and seasons
+    ##   e.g.  at1 eng1    or
+    ##         at1 2024/25 br1 2025    etc.
     datasets = []
     args.each do |arg|
        if arg =~ %r{^[0-9/-]+$}   ##  season
            if datasets.empty?
-             puts "!! ERROR - league required before season arg; sorry"
+             puts "!! ERROR [leagueset.parse_args] - league required before season arg; sorry"
              exit 1
            end
 
@@ -36,11 +65,12 @@ def self.parse_args( args )
            datasets << [key, []]
        end
     end
-    new(datasets)
+
+    new(datasets, autofill: autofill)
 end
 
 
-def self.parse( txt )
+def self.parse( txt, autofill: nil )
     ### split args in datasets with leagues and seasons
     datasets = []
     recs = parse_csv( txt )
@@ -69,16 +99,71 @@ def self.parse( txt )
             end
         end
     end
-    new(datasets)
+
+    new(datasets, autofill: autofill)
 end
 
-def self.read( path ) parse( read_text( path )); end
-
-
-
-def initialize( recs )
-    @recs = recs
+def self.read( path, autofill: nil ) 
+   parse( read_text( path ), autofill: autofill )
 end
+
+
+
+def initialize( recs, autofill: nil )
+    ### @org_recs = recs    ## keep a record of orginal (MUST clone) - why? why not?
+
+    ##### check for empty seasons
+    recs      = _autofill( recs, autofill: autofill )
+    @recs     = _norm( recs )
+end
+
+
+def _norm( recs )
+  datasets = {}
+ 
+  recs.each do |league_query, seasons| 
+    unless LeagueCodes.valid?( league_query ) 
+      puts "!! ERROR - (leagueset) no league (config) found for code >#{league_query}<; sorry"
+      exit 1
+    end
+
+    seasons.each do |season|
+         ## check league code config too - why? why not?
+         league_info = LeagueCodes.find_by( code: league_query, season: season )
+         if league_info.nil?
+           puts "!! ERROR - (leagueset) no league config found for code #{league_query} AND season #{season}; sorry"
+           exit 1
+         end
+ 
+         rec = datasets[ league_info['code'] ] ||= []
+         rec << season
+    end
+  end # each record
+
+  datasets.to_a  ## convert hash to array
+end
+
+def _autofill( datasets, autofill: )
+  ##### check for empty seasons
+  datasets.each do |league_query, seasons|
+    ### try autofill
+    if seasons.empty? && autofill.is_a?(Proc)
+         season = autofill.call( league_query )
+         if season 
+              ## note - all season as string for autfiller too
+            seasons << Season(season)   
+         end 
+    end     
+        
+    if seasons.empty?
+      puts "!! ERROR [leagueset] - empty seasons; autofill found no latest season for #{league_query}; sorry"
+      exit 1
+    end
+  end
+end
+
+
+
 
 def size() @recs.size; end
 
@@ -89,35 +174,26 @@ def each( &blk )
 end
 
 
+
+
+
+
 ### use a function for (re)use
 ###   note - may add seasons in place!! (if seasons is empty)
 ##
 ##   todo/check - change source_path to (simply) path - why? why not?
+##
+##
+##  add a flag for allowing empty/auto-fill of seasons - why? why not?
+##     or make it a separate method e.g. complete/fix_seasons or such? - why? why not?
+
+
 def validate!( source_path: ['.'] )
     each do |league_key, seasons|
   
       unless LeagueCodes.valid?( league_key ) 
         puts "!! ERROR - (leagueset) no league (config) found for code >#{league_key}<; sorry"
         exit 1
-      end
-  
-  
-      if seasons.empty?
-        ## simple heuristic to find current season
-        [ Season( '2024/25'), Season( '2025') ].each do |season|
-           league_info = LeagueCodes.find_by( code: league_key, season: season )
-           filename = "#{season.to_path}/#{league_info['code']}.csv"
-           path = find_file( filename, path: source_path )
-           if path
-              seasons << season
-              break
-           end
-        end
-  
-        if seasons.empty?
-          puts "!! ERROR - (leagueset) no latest auto-season via source found for #{league_key}; sorry"
-          exit 1
-        end
       end
   
       ## check source path too upfront - why? why not?

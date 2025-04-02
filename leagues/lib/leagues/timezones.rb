@@ -159,11 +159,13 @@ def find_zone( league:, season: )
                  zones
               end
 
-
+   season      = Season( season )
+   league_code = league.to_s.downcase
+   
+=begin
    ###
    ##  map code here - why? why not?
    ##   or (always) require canoncial code???
-   season      = Season( season )
    league_info = LeagueCodes.find_by( code: league, season: season )
 
    league_code = if league_info
@@ -174,6 +176,7 @@ def find_zone( league:, season: )
                     ##    or report error in the future - why? why not?
                     league.to_s.downcase
                  end
+=end
 
 
    ##  e.g. world+2022, etc.

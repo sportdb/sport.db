@@ -6,6 +6,7 @@
 module SportDb
 class LeagueCodes 
     
+
 ####
 ## (public) api
 def self.valid?( code )   
@@ -134,6 +135,13 @@ def find_by( code:, season: )
       rec =  _find_by_season( recs, season )
     end
   end
+
+
+  if rec   ## (quick hack for now) auto-add timezone
+      ## use canoncial (league) code
+     rec['tz'] = find_zone!( league: rec['code'], season: season )
+  end
+
 
   rec   ## return nil if no code record/item found
 end

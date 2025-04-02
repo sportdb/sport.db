@@ -7,6 +7,12 @@ $LOAD_PATH.unshift( './lib' )
 require 'leagues'
 
 
+LATEST = {
+   'at.cup' => '2024/25',
+   'fr.1'   => '2024/25',
+}
+autofiller =->(league_query) { LATEST[league_query] }
+
 
 pp parse_leagueset( <<TXT )
 league,   seasons
@@ -26,7 +32,7 @@ args = ['at.1', '2024/25', '2023/24']
 pp parse_leagueset_args( args )
 
 args = ['at.cup']
-pp parse_leagueset_args( args )
+pp parse_leagueset_args( args, autofill: autofiller )
 
 args = ['br.1', '2024']
 pp parse_leagueset_args( args )
@@ -46,7 +52,7 @@ TXT
 ################################
 ### check validate! and more
 
-datasets = parse_leagueset( <<TXT )
+datasets = parse_leagueset( <<TXT, autofill: autofiller )
 league,   seasons
 eng.1,     2024/25
 de.1,      2024/25 

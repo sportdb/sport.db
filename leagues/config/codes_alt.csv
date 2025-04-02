@@ -8,6 +8,11 @@ code,alt,start_season,end_season,comments
 ##
 
 at.1,      aut.bl,,,    ## Bundesliga
+### todo/fix - allow multiple alt codes at once e.g.
+##         aut.bl | ö.1 etc.
+at.1,      ö.1,,,
+
+
 at.2,      aut.2,,,
 at.3.o,    aut.rlo,,,   ## Regionalliga Ost
 

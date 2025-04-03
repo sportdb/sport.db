@@ -18,6 +18,9 @@ ITALY_PATH         = "#{OPENFOOTBALL_PATH}/italy"
 ARGENTINA_PATH     = "#{OPENFOOTBALL_PATH}/south-america/argentina"
 BRAZIL_PATH        = "#{OPENFOOTBALL_PATH}/south-america/brazil"
 
+CHAMPS_PATH        = "#{OPENFOOTBALL_PATH}/champions-league"
+
+
 WORLDCUP_PATH      = "#{OPENFOOTBALL_PATH}/worldcup"
 
 ## add for debugging
@@ -25,7 +28,12 @@ WORLDCUP_PATH      = "#{OPENFOOTBALL_PATH}/worldcup"
 
 ## SportDb::MatchReader.read( "#{WORLDCUP_PATH}/1930--uruguay/cup.txt" )
 ## SportDb::MatchReader.read( "#{WORLDCUP_PATH}/1950--brazil/cup.txt" )
-SportDb::MatchReader.read( "#{ENGLAND_PATH}/2024-25/1-premierleague.txt" )
+
+SportDb::MatchReader.read( "#{ENGLAND_PATH}/2023-24/2-championship.txt" )
+## SportDb::MatchReader.read( "#{ENGLAND_PATH}/2024-25/1-premierleague.txt" )
+
+## SportDb::MatchReader.read( "#{CHAMPS_PATH}/2024-25/cl.txt" )
+
 
 ## samples with auto-create clubs
 # SportDb::MatchReader.read( "#{AUSTRIA_PATH}/2022-23/cup.txt" )

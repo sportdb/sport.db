@@ -19,70 +19,74 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
   end
 
 
+
   include Logging
 
   def initialize( txt )
-    @txt = txt
+    @errors = []
+    @outline = QuickLeagueOutline.parse( txt )
   end
 
+  attr_reader :errors
+  def errors?() @errors.size > 0; end
 
 
   def parse( season: nil )
-    secs =  QuickLeagueOutlineReader.parse( @txt )
-    ## pp secs
+    ## note: every (new) read call - resets errors list to empty
+    @errors = []
 
+    ### todo/fix - add back season filter - maybe upstream to outline - why? why not?
     ########
     #  step 1 - prepare secs
     # -- filter seasons if filter present
-    secs = filter_secs( sec, season: season )   if season
+    #
+    # secs = filter_secs( sec, season: season )   if season
 
-    ## -- check & map; replace inline (string with data struct record)
-    secs.each do |sec|
-      sec[:season] = Season.parse( sec[:season ] )
+
+    @outline.each_sec do |sec|   ## sec(tion)s
+      ### move season parse into outline upstream - why? why not?
+      season = Season.parse( sec.season )   ## convert (str) to season obj!!!
+      lines  = sec.lines
+
+      ## -- check & map; replace inline (string with data struct record)
 
       ####
       ## find leage_rec
-      league = nil
-
+  
       ## first try by period
-      period = Import::LeaguePeriod.find_by( code: sec[:league],
-                                             season: sec[:season ] )
-      if period
+      period = Import::LeaguePeriod.find_by( code:   sec.league,
+                                             season: season  )
+      league =  if period
          ## find league by qname (assumed to be unique!!)
          ##    todo/fix - use League.find_by!( name: ) !!!!
          ##      make more specifi
-         league = Import::League.find!( period.qname )
-      else
-         league = Import::League.find!( sec[:league] )
-      end
-      sec[:league] = league
-
-
+                   Import::League.find!( period.qname )
+                else
+                   Import::League.find!( sec.league )
+                end
  ##
  ## quick hack - assume "Regular" or "Regular Season"
  ##    as default stage (thus, no stage)
-     if sec[:stage]
-       sec[:stage] = nil   if ['Regular',
-                               'Regular Season',
-                               'Regular Stage',
-                              ].include?( sec[:stage] )
-      end
-    end
+      stage = sec.stage   ## check if returns nil or empty string?
+  
+       stage = nil   if stage && ['regular',
+                                  'regular season',
+                                  'regular stage',
+                                 ].include?( stage.downcase )
 
 
-###
-#  step 2 - handle secs
-    secs.each do |sec|   ## sec(tion)s
-      season = sec[:season]
-      league = sec[:league]
-      stage  = sec[:stage]
-      lines  = sec[:lines]
-
+      ### todo/fix - remove "legacy/old" requirement for start date!!!!
+        start = if season.year?
+                  Date.new( season.start_year, 1, 1 )
+                else
+                  Date.new( season.start_year, 7, 1 )
+                end
+              
       ### check if event info available - use start_date;
       ##    otherwise we have to guess (use a "synthetic" start_date)
-      event_info = Import::EventInfo.find_by( season: season,
-                                              league: league )
-
+      ## event_info = Import::EventInfo.find_by( season: season,
+      ##                                        league: league )
+=begin      
       start = if event_info && event_info.start_date
                   puts "event info found:"
                   puts "  using start date from event: "
@@ -96,12 +100,15 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
                   Date.new( season.start_year, 7, 1 )
                 end
               end
-
+=end
 
       parser = MatchParser.new( lines,
                                 start )   ## note: keep season start_at date for now (no need for more specific stage date need for now)
 
       auto_conf_teams,  matches, rounds, groups = parser.parse
+
+      ## auto-add "upstream" errors from parser
+      @errors += parser.errors  if parser.errors?
 
       puts ">>> #{auto_conf_teams.size} teams:"
       pp auto_conf_teams
@@ -112,6 +119,10 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
       puts ">>> #{groups.size} groups:"
       pp groups
 
+      puts "league:"
+      pp league
+
+    
 
       ##################################
       ## step 1: map/find teams
@@ -119,9 +130,6 @@ class MatchReader    ## todo/check: rename to MatchReaderV2 (use plural?) why? w
       ## note: loop over keys (holding the names); values hold the usage counter!! e.g. 'Arsenal' => 2, etc.
        # puts " [debug] auto_conf_teams:"
        # pp auto_conf_teams
-
-       puts "league:"
-       pp league
 
        teams = Import::Team.find_by!( name:   auto_conf_teams,
                                       league: league )

@@ -6,7 +6,7 @@ module SportDbV2
 
     def tables
       puts "  #{League.count} leagues"
-      puts "  #{Event.count} events (league+season recs)"
+      puts "  #{Event.count} events (league+season) / #{EventRound.count} event_rounds"
       puts "  #{Team.count} teams"
       puts "  #{Match.count} matches"
     end

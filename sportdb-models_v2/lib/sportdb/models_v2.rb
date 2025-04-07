@@ -13,6 +13,19 @@ require 'props/activerecord'      # includes ConfDb (ConfDb::Model::Prop, etc.)
 require 'logutils/activerecord'   # includes LogDb (LogDb::Model::Log, etc.)
 
 
+### pull-in  sportdb parser machinery
+require  'sportdb/quick'
+
+######
+## add V2 references (from "V1")
+module SportDbV2
+  Logging               = SportDb::Logging
+  QuickLeagueOutline    = SportDb::QuickLeagueOutline
+  MatchParser           = SportDb::MatchParser
+end  # module SportDbV2
+
+
+
 
 # our own code
 require_relative 'models_v2/version'    # let version always go first
@@ -51,7 +64,19 @@ require_relative 'models_v2/schema'       # note: requires sportdb/models (inclu
 require_relative 'models_v2/deleter'
 require_relative 'models_v2/stats'
 
+####
+#   pull in reader & friends
+require_relative 'models_v2/match_reader'
 
+
+require_relative 'models_v2/sync/league'
+require_relative 'models_v2/sync/event'
+require_relative 'models_v2/sync/match'
+
+
+
+####
+#  more db machinery
 
 module SportDbV2
 

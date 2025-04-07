@@ -28,7 +28,7 @@ austria    = Team.create!( name: "Austria" )
 bundesliga = League.create!( name: "Bundesliga" ) 
 
 at1  = Event.create!( league: bundesliga, season: '2024/25',
-                      name: "Austria | Bundesliga 2024/25" )
+                      name: "Austria | Bundesliga" )
 pp at1
 
 m1 = Match.create!( league: bundesliga,
@@ -44,5 +44,7 @@ pp m1.event
 
 puts "---"
 SportDbV2.tables
+
+
 
 puts "bye"

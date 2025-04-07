@@ -1,10 +1,24 @@
+require 'cocos'
+
+
+require 'props'           # see github.com/rubylibs/props
+require 'logutils'        # see github.com/rubylibs/logutils
+
+require 'active_record'   ## todo: add sqlite3? etc.
+
+## add more activerecords addons/utils
+##  -- require 'tagutils'
+require 'activerecord/utils'    ### check what used for what??
+require 'props/activerecord'      # includes ConfDb (ConfDb::Model::Prop, etc.)
+require 'logutils/activerecord'   # includes LogDb (LogDb::Model::Log, etc.)
+
+
 
 # our own code
 require_relative 'models_v2/version'    # let version always go first
 
 =begin
 require_relative 'models/formats'
-require_relative 'models/models/forward'
 
 require_relative 'models/models/world/city'
 require_relative 'models/models/world/country'
@@ -13,30 +27,30 @@ require_relative 'models/models/world/state'
 
 require_relative 'models/models/assoc'
 require_relative 'models/models/badge'
-require_relative 'models/models/event'
 require_relative 'models/models/goal'
 require_relative 'models/models/ground'
 require_relative 'models/models/group'
-require_relative 'models/models/league'
 require_relative 'models/models/lineup'
-require_relative 'models/models/match'
 require_relative 'models/models/person'
 require_relative 'models/models/round'
 require_relative 'models/models/season'
 require_relative 'models/models/stage'
-require_relative 'models/models/team'
-
-require_relative 'models/models/stats/alltime_standing'
-require_relative 'models/models/stats/event_standing'
-require_relative 'models/models/stats/group_standing'
-
-require_relative 'models/schema'       # note: requires sportdb/models (include SportDB::Models)
-
-require_relative 'models/utils'   # e.g. MatchCursor
-
-require_relative 'models/deleter'
-require_relative 'models/stats'
 =end
+
+
+require_relative 'models_v2/models/forward'
+require_relative 'models_v2/models/event'
+require_relative 'models_v2/models/league'
+require_relative 'models_v2/models/match'
+
+require_relative 'models_v2/models/team'
+
+require_relative 'models_v2/schema'       # note: requires sportdb/models (include SportDB::Models)
+
+
+require_relative 'models_v2/deleter'
+require_relative 'models_v2/stats'
+
 
 
 module SportDbV2

@@ -5,7 +5,7 @@ module SportDbV2
     ######
     # note: make models available in sportdb module by default with namespace
     #  e.g. lets you use Team instead of Model::Team
-    include Models
+    ## include Models
 
     def run
        puts "todo - add delete all tables here"

@@ -82,7 +82,7 @@ module SportDbV2
 
   def self.create
     CreateDb.new.up
-    ConfDb::Model::Prop.create!( key: 'db.schema.sport.version', value: VERSION )
+    ConfDb::Model::Prop.create!( key: 'db.schema.sport_v2.version', value: VERSION )
   end
 
   def self.create_all

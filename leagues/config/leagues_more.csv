@@ -38,3 +38,9 @@ eng.efl.cup,English EFL Cup,eflcup,,
 ###  fix - upstream uses world.club !!! 
 world.clubs,Club World Cup,clubworldcup,2000,
 
+
+### quick hack
+###   alternate codes (duplicates); use/settle on one canonical league code!!!
+br.cup,Copa do Brasil,cup,,      ## br.copa
+
+

@@ -2,6 +2,7 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
+bin/fbok
 config/codes_alt.csv
 config/leagues.csv
 config/leagues_more.csv

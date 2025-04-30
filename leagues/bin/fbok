@@ -1,0 +1,94 @@
+#!/usr/bin/env ruby
+
+## tip: to test run:
+##   ruby -I ./lib bin/fbok
+
+require 'leagues'
+
+
+def read_raw_leagueset( path )
+  ## no - normalize and autofill etc.  
+  datasets = []
+  recs = read_csv( path )
+  recs.each do |rec|
+        key     = rec['league']
+        seasons =  SportDb::Leagueset._parse_seasons( rec['seasons'] )
+
+        datasets << [key, seasons]
+  end 
+  datasets
+end
+
+args = ARGV
+
+args = ['/sports/tmp/classic.csv' ]    if args.size == 0
+
+
+
+def check_leagueset( path )
+    datasets = read_raw_leagueset( path )
+    pp datasets    
+
+    puts "==> #{path} - #{datasets.size} record(s)"
+    
+    ## pass 1 - league code quick check
+    errors = []
+    datasets.each do |league_query, _|
+        if LeagueCodes.valid?( league_query )
+            puts "OK #{league_query}"
+        else
+            puts "!! #{league_query}"
+            errors << "league code #{league_query} NOT valid"
+        end
+    end
+
+    if errors.size > 0
+        puts "#{errors.size} error(s):"
+        pp errors
+        exit 1
+    end
+
+    ## pass 2 - league code check by season
+    datasets.each_with_index do |(league_query, seasons),i|
+        puts "-- [#{i+1}/#{datasets.size}] #{league_query}, #{seasons.size} seasons(s)"
+
+        last_league_info = nil
+        seasons.each_with_index do |season,j|
+          league_info = LeagueCodes.find_by( code: league_query, season: season )
+          
+          if league_info.nil?
+             puts "!! #{season}"
+             errors << "no league info for #{league_query} #{season} found"
+             next
+          end
+
+          ## only print league info (if changed from last season)
+          if last_league_info.nil? || 
+             last_league_info['code'] != league_info['code'] || 
+             last_league_info['name'] != league_info['name'] ||
+             last_league_info['tz']   != league_info['tz']  
+             print "\n"   if j != 0    ## if new league info MUST start new line
+             pp league_info
+          end
+          print "  #{season}"
+
+          last_league_info = league_info
+        end
+        print "\n"
+    end
+
+    if errors.size > 0
+        puts "#{errors.size} error(s):"
+        pp errors
+    else
+        puts
+        puts "OK  no error(s) found"
+    end
+end
+
+
+
+path = args[0]
+check_leagueset( path )
+
+puts 'bye'

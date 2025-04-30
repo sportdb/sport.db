@@ -139,6 +139,9 @@ def find_by( code:, season: )
 
   if rec   ## (quick hack for now) auto-add timezone
       ## use canoncial (league) code
+      ##   note - if timezone changes MUST auto-create a NEW record
+      ##              thus, for now always create a new copy (via dup)!!!
+     rec = rec.dup  
      rec['tz'] = find_zone!( league: rec['code'], season: season )
   end
 

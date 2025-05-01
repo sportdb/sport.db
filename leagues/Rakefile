@@ -18,8 +18,8 @@ Hoe.spec 'leagues' do
   self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
-    ['tzinfo'],
-    ['season-formats'],
+    ['tzinfo'],    ## note - check if tzinfo-data or such is required too???
+    ['season-formats', '>= 0.1.0'],
     ['cocos'],
   ]
 

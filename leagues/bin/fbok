@@ -12,7 +12,7 @@ def read_raw_leagueset( path )
   recs = read_csv( path )
   recs.each do |rec|
         key     = rec['league']
-        seasons =  SportDb::Leagueset._parse_seasons( rec['seasons'] )
+        seasons =  Season.parse_line( rec['seasons'] )
 
         datasets << [key, seasons]
   end 

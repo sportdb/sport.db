@@ -41,7 +41,9 @@ end
 
 
 
-
+##
+## todo/check
+##  note - move FileHelper upstream to cocos (code commons) - why? why not?
 module FileHelper
   def find_file( filename, path: )
     path.each do |src_dir|
@@ -53,6 +55,7 @@ module FileHelper
     nil  ## not found - raise filenot found error - why? why not?
   end
 end
+
 
 
 

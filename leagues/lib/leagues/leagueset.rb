@@ -70,38 +70,6 @@ def self.parse_args( args, autofill: nil )
 end
 
 
-#  todo/fix - (maybe) move "upstream" later
-#     e.g.  Season.parse_list or parse_lst
-#                             or parse_line  or ???
-#                             or parse_multi(ple) - why? why not?
-def self._parse_seasons( str )   
-   ## helper to parse seasons string/column
-   ##   note: ALWAYS returns an array of seaons (even if only one)
-   result  = []
-   seasons = str.split( /[ ]+/ )
-
-   seasons.each do |season_str|
-       ## note - add support for ranges e.g. 2001/02..2010/11
-       if season_str.index( '..' )
-               fst,snd = season_str.split( '..' )
-               # pp [fst,snd]
-               fst = Season.parse( fst )
-               snd = Season.parse( snd )
-               if fst < snd && fst.year? == snd.year?
-                   result += (fst..snd).to_a
-               else
-                  raise ArgumentError, "parse error - invalid season range >#{season_str}<, 1) two seasons required, 2) first < second, 3) same (year/academic) type"
-               end
-       else
-          season = Season.parse( season_str )  ## check season
-          result << season
-       end
-   end
-
-   result
-end
-
-
 
 def self.parse( txt, autofill: nil )
     ### split args in datasets with leagues and seasons
@@ -111,7 +79,7 @@ def self.parse( txt, autofill: nil )
         key = rec['league'].downcase
   
         seasons_str = rec['seasons']
-        seasons =  _parse_seasons( seasons_str )
+        seasons =  Season.parse_line( seasons_str )
 
         datasets << [key, seasons]
   end 

@@ -3,9 +3,9 @@
 #     ruby -I ./lib -I ./test test/test_season.rb
 
 
-require 'helper'
+require_relative 'helper'
 
-class TestSeason < MiniTest::Test
+class TestSeason < Minitest::Test
 
 
   def test_to_path

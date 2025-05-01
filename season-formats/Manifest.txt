@@ -1,11 +1,9 @@
 CHANGELOG.md
 Manifest.txt
 README.md
-Rakefile
 lib/season-formats.rb
 lib/season-formats/season.rb
+lib/season-formats/season_more.rb
 lib/season-formats/version.rb
 lib/season.rb
 lib/season/formats.rb
-test/helper.rb
-test/test_season.rb

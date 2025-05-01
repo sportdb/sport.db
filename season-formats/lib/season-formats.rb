@@ -5,9 +5,9 @@ require 'time'
 
 
 ## our own code
-require 'season-formats/version'   ## let version go first
-require 'season-formats/season'
-
+require_relative 'season-formats/version'   ## let version go first
+require_relative 'season-formats/season'
+require_relative 'season-formats/season_more'
 
 
 

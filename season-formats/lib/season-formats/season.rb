@@ -107,7 +107,7 @@ class Season
   alias_method :calendar?, :calendar_year?
   alias_method :year?,     :calendar_year?
 
-  def academic_year?() !calenar_year?; end
+  def academic_year?() !calendar_year?; end
   alias_method :academic?, :academic_year?
 
 

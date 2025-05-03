@@ -1,423 +1,478 @@
-code,name,basename,start_season,end_season
-caf.cl,CAF Champions League,cl,,
-caf.conf,CAF Confederations Cup,cafconfederationscup,,
-afl,African Football League,afl,,
-eg.1,Egypt Premiership,1-premiership,,
-eg.cup,Egypt Cup,cup,,
-eg.super,Egypt Supercup,supercup,,
-tn.1,Tunisia Ligue 1,ligue1,,
-ma.1,Morocco Botola,1-botola,,
-dz.1,Algeria Ligue 1,1-ligue1,,
-za.1,South Africa Premier League,premierleague,,
-za.2,South Africa National First Division,nationalfirstdivision,,
-za.cup,South Africa Cup,cup,,
-za.cup.l,South Africa Knockout,knockout,,
-ng.1,Nigeria Professional League,professionalleague,,
-ke.1,Kenya Premier League,premierleague,,
-zm.1,Zambia Super League,superleague,,
-gh.1,Ghana Premier League,premierleague,,
-ug.1,Uganda Super League,superleague,,
-zw.1,Zimbabwe Premier Soccer League,premiersoccerleague,,
-bi.1,Burundi 1. Liga,1liga,,
-ao.1,Angola Girabola,girabola,,
-tz.1,Tanzania Premier League,premierleague,,
-mu.1,Mauritius Premier League,premierleague,,
-mu.cup,Mauritius Cup,cup,,
-mu.cup.rep,Mauritius Republic Cup,republiccup,,
-asia.cl,AFC Champions League,afcchampionsleague,,
-asia.cup,AFC Cup,afccup,,
-jp.1,Japan J. League,1-jleague,,
-jp.2,Japan J. League 2,jleague2,,
-jp.cup,Japan Emperor's Cup,emperorscup,,
-jp.cup.l,Japan J. League Cup,jleaguecup,,
-kr.1,South Korea K-League,kleague,,
-kr.2,South Korea K-League 2,kleague2,,
-kr.cup,South Korea Cup,cup,,
-sg.1,Singapore Premier League,premierleague,,
-th.1,Thailand Premier League,premierleague,,
-my.1,Malaysia Super League,superleague,,
-mm.1,Myanmar National League,nationalleague,,
-id.1,Indonesia Super League,superleague,,
-in.1.i,India I-League,ileague,,
-in.1.ii,India Super League,superleague,,
-tw.1,Taiwan Premier League,premierleague,,
-cn.1,China Super League,1-superleague,,
-kz.1,Kazakhstan Premier League A,1-premierleague,,
-tm.1,Turkmenistan 1. Liga,1liga,,
-uz.1,Uzbekistan Super League,superleague,,
-tj.1,Tajikistan Higher League,higherleague,,
-tj.super,Tajikistan Super Cup,supercup,,
-vn.1,Vietnam V. League 1,vleague1,,
-vn.cup,Vietnam Cup,cup,,
-jm.1,Jamaica Premier League,premierleague,,
-cr.1,Costa Rica Primera División,primeradivision,,
-cr.2,Costa Rica Segunda División,segundadivision,,
-hn.1,Honduras Primera División,primeradivision,,
-sv.1,El Salvador Primera División,primeradivision,,
-gt.1,Guatemala Liga Nacional,liganacional,,
-ni.1,Nicaragua Primera División,primeradivision,,
-at.1,Österr. Bundesliga,1-bundesliga,,
-at.2,Österr. 2. Liga,2-liga2,2018/19,
-at.2,Österr. Erste Liga,2-liga1,,2017/18
-at.3.o,Österr. Regionalliga Ost,3-regionalliga-ost,,
-at.3.m,Österr. Regionalliga Mitte,3-regionalliga-mitte,,
-at.3.sbg,Österr. Regionalliga Salzburg,regionalligasalzburg,,
-at.3.t,Österr. Regionalliga Tirol,regionalligatirol,,
-at.3.v,Österr. Regionalliga Vorarlberg,regionalligavorarlberg,,
-at.3.w,Österr. Regionalliga West,regionalligawest,,
-at.cup,ÖFB Cup,cup,,
-at.4.ost.w,Österr. Wiener Stadtliga,wienerstadtliga,,
-at.4.ost.n,Österr. Landesliga Niederösterreich,landesliganiederosterreich,,
-at.4.ost.b,Österr. Landesliga Burgenland,landesligaburgenland,,
-at.4.mitte.st,Österr. Steirische Landesliga,steirischelandesliga,,
-at.4.mitte.o,Österr. Landesliga Oberösterreich,landesligaoberosterreich,,
-at.4.mitte.k,Österr. Kärtner Liga,kartnerliga,,
-at.4.west.s,Österr. Salzburger Liga,salzburgerliga,,
-at.4.west.t,Österr. Tiroler Liga,tirolerliga,,
-at.4.west.v,Österr. Vorarlberg Liga,vorarlbergliga,,
-at.5.n.ost,Österr. 2. Landesliga Ost (NÖ),2landesligaostno,,
-at.5.n.west,Österr. 2. Landesliga West (NÖ),2landesligawestno,,
-at.6.n.ost.sso,Österr. Gebietsliga Süd/Südost (NÖ),gebietsligasudsudostno,,
-at.6.n.ost.nnw,Österr. Gebietsliga Nord/Nordwest (NÖ),gebietsliganordnordwestno,,
-at.6.n.west.w,Österr. Gebietsliga West (NÖ),gebietsligawestno,,
-at.6.n.west.nww,Österr. Gebietsliga Nordwest/Waldviertel (NÖ),gebietsliganordwestwaldviertelno,,
-at.7.n.ost.sso.s,Österr. 1. Klasse Süd (NÖ),1klassesudno,,
-at.7.n.ost.sso.o,Österr. 1. Klasse Ost (NÖ),1klasseostno,,
-at.7.n.ost.nnw.n,Österr. 1. Klasse Nord (NÖ),1klassenordno,,
-at.7.n.ost.nnw.nw,Österr. 1. Klasse Nordwest (NÖ),1klassenordwestno,,
-at.7.n.west.w.w,Österr. 1. Klasse West (NÖ),1klassewestno,,
-at.7.n.west.w.wm,Österr. 1. Klasse West-Mitte (NÖ),1klassewestmitteno,,
-at.7.n.west.nww.nwm,Österr. 1. Klasse Nordwest-Mitte (NÖ),1klassenordwestmitteno,,
-at.7.n.west.nww.w,Österr. 1. Klasse Waldviertel (NÖ),1klassewaldviertelno,,
-at.8.n.steinfeld,Österr. 2. Klasse Steinfeld (NÖ),2klassesteinfeldno,,
-at.8.n.wechsel,Österr. 2. Klasse Wechsel (NÖ),2klassewechselno,,
-at.8.n.triestingtal,Österr. 2. Klasse Triestingtal (NÖ),2klassetriestingtalno,,
-at.8.n.ostmitte,Österr. 2. Klasse Ost/Mitte (NÖ),2klasseostmitteno,,
-at.8.n.ost,Österr. 2. Klasse Ost (NÖ),2klasseostno,,
-at.8.n.weinviertel.n,Österr. 2. Klasse Weinviertel Nord (NÖ),2klasseweinviertelnordno,,
-at.8.n.weinviertel.s,Österr. 2. Klasse Weinviertel Süd (NÖ),2klasseweinviertelsudno,,
-at.8.n.marchfeld,Österr. 2. Klasse Marchfeld (NÖ),2klassemarchfeldno,,
-at.8.n.donau,Österr. 2. Klasse Donau (NÖ),2klassedonauno,,
-at.8.n.pulkautal,Österr. 2. Klasse Pulkautal (NÖ),2klassepulkautalno,,
-at.8.n.ybbstal,Österr. 2. Klasse Ybbstal (NÖ),2klasseybbstalno,,
-at.8.n.yspertal,Österr. 2. Klasse Yspertal (NÖ),2klasseyspertalno,,
-at.8.n.alpenvorland,Österr. 2. Klasse Alpenvorland (NÖ),2klassealpenvorlandno,,
-at.8.n.traisental,Österr. 2. Klasse Traisental (NÖ),2klassetraisentalno,,
-at.8.n.wachau,Österr. 2. Klasse Wachau (NÖ),2klassewachauno,,
-at.8.n.schmidatal,Österr. 2. Klasse Schmidatal (NÖ),2klasseschmidatalno,,
-at.8.n.waldviertelthayatal,Österr. 2. Klasse Waldviertel Thayatal (NÖ),2klassewaldviertelthayatalno,,
-at.8.n.waldviertel.s,Österr. 2. Klasse Waldviertel/Süd (NÖ),2klassewaldviertelsudno,,
-at.9.n.hornerwald,Österr. 3. Klasse Hornerwald (NÖ),3klassehornerwaldno,,
-at.9.n.mistelbach,Österr. 3. Klasse Mistelbach (NÖ),3klassemistelbachno,,
-eng.2,English Championship,2-championship,2004/05,
-eng.2,English Division One,2-division1,1992/93,2003/04
-eng.1,English Division One,1-division1,1892/93,1991/92
-eng.1,English Football League,1-footballleague,1888/89,1891/92
-eng.3,English League One,3-league1,2004/05,
-eng.3,English Division Two,3-division2,1992/93,2003/04
-eng.2,English Division Two,2-division2,1892/93,1991/92
-eng.4,English League Two,4-league2,2004/05,
-eng.4,English Division Three,4-division3,1992/93,2003/04
-eng.3,English Division Three,3-division3,,1991/92
-eng.1,English Premier League,1-premierleague,1992/93,
-eng.5,English National League,5-nationalleague,1992/93,
-eng.3.a,English Division Three (North),3a-division3_north,,
-eng.3.b,English Division Three (South),3b-division3_south,,
-eng.cup,English FA Cup,facup,,
-eng.super,English FA Community Shield,facommunityshield,,
-eng.cup.l,English EFL Cup,eflcup,,
-eng.cup.t,English EFL Trophy,efltrophy,,
-eng.cup.t.ii,English FA Trophy,fatrophy,,
-de.1,Deutsche Bundesliga,1-bundesliga,,
-de.2,Deutsche 2. Bundesliga,2-bundesliga2,,
-de.3,Deutsche 3. Liga,3-liga3,,
-de.cup,DFB Pokal,cup,,
-de.super,Deutsche Supercup,super,,
-de.4.nord,Deutsche Regionalliga Nord,4-regionalliga-nord,,
-de.4.nordost,Deutsche Regionalliga Nordost,4-regionalliga-nordost,,
-de.4.west,Deutsche Regionalliga West,4-regionalliga-west,,
-de.4.suedwest,Deutsche Regionalliga Südwest,4-regionalliga-suedwest,,
-de.4.bayern,Deutsche Regionalliga Bayern,4-regionalliga-bayern,,
-de.5.nord.sh,Deutsche Schleswig-Holstein-Liga,schleswigholsteinliga,,
-de.5.nord.hh,Deutsche Oberliga Hamburg,oberligahamburg,,
-de.5.nord.hb,Deutsche Bremen-Liga,bremenliga,,
-de.5.nord.ni,Deutsche Oberliga Niedersachsen,oberliganiedersachsen,,
-de.5.nordost.n,Deutsche Oberliga Nordost (Nord),oberliganordostnord,,
-de.5.nordost.s,Deutsche Oberliga Nordost (Süd),oberliganordostsud,,
-de.5.west.niederrhein,Deutsche Oberliga Niederrhein,oberliganiederrhein,,
-de.5.west.mittelrhein,Deutsche Mittelrheinliga,mittelrheinliga,,
-de.5.west.westfalen,Deutsche Oberliga Westfalen,oberligawestfalen,,
-de.5.suedwest.rp.sl,Deutsche Oberliga Rheinland-Pfalz/Saar,oberligarheinlandpfalzsaar,,
-de.5.suedwest.he,Deutsche Hessenliga,hessenliga,,
-de.5.suedwest.bw,Deutsche Oberliga Baden-Württemberg,oberligabadenwurttemberg,,
-de.5.by.n,Deutsche Bayernliga (Nord),bayernliganord,,
-de.5.by.s,Deutsche Bayernliga (Süd),bayernligasud,,
-uefa.cl,UEFA Champions League,cl,1992/93,
-uefa.cl.quali,UEFA Champions League - Quali,uefachampionsleaguequali,1992/93,
-euro.champs,European Champion Clubs' Cup,champs,1955/56,1991/92
-euro.cup,European Cup Winners' Cup,cupwinners,1960/61,1998/99
-uefa.el,UEFA Europa League,el,2009/10,
-uefa.el.quali,UEFA Europa League - Quali,uefaeuropaleaguequali,2009/10,
-uefa.cup,UEFA Cup,cup,1971/72,2008/09
-uefa.conf,UEFA Conference League,conf,2021/22,
-uefa.conf.quali,UEFA Conference League - Quali,uefaconferenceleaguequali,2021/22,
-uefa.super,UEFA Super Cup,super,1972,
-atl.cup,Atlantic Cup,atlanticcup,,
-czsk.super,Czechoslovak Supercup,czechoslovaksupercup,,
-sco.1,Scottish Premiership,1-premiership,,
-sco.2,Scottish Championship,championship,,
-sco.3,Scottish League One,leagueone,,
-sco.4,Scottish League Two,leaguetwo,,
-sco.cup.l,Scottish League Cup,leaguecup,,
-sco.cup.fa,Scottish FA Cup,facup,,
-sco.cup.cc,Scottish Challenge Cup,challengecup,,
-wal.1,Welsh Premier League,1-premierleague,,
-nir.1,Northern Irish Premiership,1-premiership,,
-nir.2,Northern Irish Championship,championship,,
-nir.cup.l,Northern Irish League Cup,leaguecup,,
-nir.cup,Northern Irish Irish Cup,irishcup,,
-nir.super,Northern Irish NIFL Charity Shield,niflcharityshield,,
-ie.1,Irish Premier Division,1-premierdivision,,
-ie.2,Irish First Division,firstdivision,,
-ie.cup.l,Irish League Cup,leaguecup,,
-ie.super,Irish Supercup,supercup,,
-ie.cup,Irish FAI Cup,faicup,,
-is.1,Iceland Urvalsdeild,1-urvalsdeild,,
-is.2,Iceland 1. Deild,1deild,,
-is.3,Iceland 2. Delid,2delid,,
-is.cup,Iceland Cup,cup,,
-is.cup.l,Iceland League Cup,leaguecup,,
-is.super,Iceland Super Cup,supercup,,
-fo.1,Faroe Islands Premier Division,1-premierdivision,,
-es.1,Primera División de España,1-liga,,
-es.2,Segunda División de España,2-liga2,,
-es.3,Spain Segunda División B,segundadivisionb,,
-es.cup,Copa del Rey de España,cup,,
-es.super,Spain Supercopa,supercopa,,
-pt.1,Portuguese Primeira Liga,1-primeiraliga,,
-pt.2,Portuguese Segunda Liga,2-segundaliga,,
-pt.cup,Portuguese Taça de Portugal,tacadeportugal,,
-pt.cup.l,Portuguese Taça da Liga,tacadaliga,,
-pt.super,Portuguese Supercup,supercup,,
-gi.1,Gibraltar Premier League A,1-premierleague,,
-ad.1,Andorra Premier Division,1-premierdisvision,,
-fr.1,French Ligue 1,1-ligue1,,
-fr.2,French Ligue 2,2-ligue2,,
-fr.3,French National,national,,
-fr.cup,French Coupe de France,cup,,
-fr.cup.l,French Coupe de la Ligue,coupedelaligue,,
-fr.super,French Trophée des Champions,tropheedeschampions,,
-it.1,Italian Serie A,1-seriea,,
-it.2,Italian Serie B,2-serieb,,
-it.3.a,Italian Serie C (North & Central West),3-seriec_a,,
-it.3.b,Italian Serie C (North & Central East),3-seriec_b,,
-it.3.c,Italian Serie C (South),3-seriec_c,,
-it.cup,Coppa Italia,cup,,
-it.cup.c,Italian Coppa Italia Serie C,coppaitaliaseriec,,
-it.super,Italian Supercoppa Italiana,supercoppaitaliana,,
-sm.1,San Marinese Championship,1-championship,,
-tr.1,Turkish Süper Lig,1-superlig,,
-tr.2,Turkish 1. Lig,2-lig1,,
-tr.3.b,Turkish 2. Lig - Beya,2ligbeya,,
-tr.3.ki,Turkish 2. Lig - Kirmizi,2ligkirmizi,,
-tr.3.playoffs,Turkish 2. Lig - Play Offs,2ligplayoffs,,
-tr.cup,Türkiye Kupasi,turkiyekupasi,,
-tr.super,Turkish Süper Kupa,superkupa,,
-gr.1,Greek Super League,1-superleague,,
-gr.2,Greek Super League 2,superleague2,,
-gr.cup,Greek Greek Cup,greekcup,,
-cy.1,Cyprus First Division,1-firstdivision,,
-cy.cup,Cyprus Cypriot Cup,cypriotcup,,
-mt.1,Malta Premier League,1-premierleague,,
-mt.cup,Malta Cup,cup,,
-dk.1,Denmark Superligaen,1-superligaen,,
-dk.2,Denmark 1. Division,1division,,
-dk.cup,Denmark Landspokalturneringen,landspokalturneringen,,
-no.1,Norway Eliteserien,1-eliteserien,,
-no.2,Norway 1. Division,1division,,
-no.3,Norway 2. Division,2division,,
-no.cup,Norway Norwegian Football Cup,norwegianfootballcup,,
-se.1,Sweden Allsvenskan,1-allsvenskan,,
-se.2,Sweden Superettan,2-superettan,,
-se.3.s,Sweden Div 1 Södra,div1sodra,,
-se.3.n,Sweden Div 1 Norra,div1norra,,
-se.cup,Sweden Cup,cup,,
-fi.1,Finland Veikkausliiga,1-veikkausliiga,,
-fi.2,Finland Ykkonen,ykkonen,,
-fi.3,Finland Kakkonen,kakkonen,,
-fi.4.a,Finland Kakkonen Group A,kakkonengroupa,,
-fi.cup,Finland Cup,cup,,
-nl.1,Netherlands Eredivisie,1-eredivisie,,
-nl.1.comeback,Netherlands Eredivisie Comeback Tournament,eredivisiecomebacktournament,,
-nl.2,Netherlands Eerste Divisie,eerstedivisie,,
-nl.cup,Netherlands Cup,cup,,
-nl.super,Netherlands Johan Cruijff Schaal,johancruijffschaal,,
-nl.po,Netherlands Promotion/Relegation Playoffs,promotionrelegationplayoffs,,
-be.1,Belgium First Division A,1-firstdivisiona,,
-be.2,Belgium First Division B,firstdivisionb,,
-be.cup,Beker van Belgie,bekervanbelgie,,
-be.super,Belgium Supercup,supercup,,
-lu.1,Luxembourg National Division,1-nationaldivision,,
-pl.1,Poland Ekstraklasa,1-ekstraklasa,,
-pl.2,Poland I Liga,iliga,,
-pl.3,Poland II Liga,iiliga,,
-pl.cup,Poland Cup,cup,,
-pl.super,Poland Supercup,supercup,,
-hu.1,Hungarian Nemzeti Bajnokság I,1-nbi,,
-hu.2,Hungarian Nemzeti Bajnokság II,2-nbii,,
-hu.cup,Hungarian Cup,cup,,
-cz.1,Czech Republic First League,1-firstleague,,
-cz.2,Czech Republic 1. Division,1division,,
-cz.cup,Czech Republic Cup,cup,,
-ch.1,Swiss Super League,1-superleague,,
-ch.2,Swiss Challenge League,2-challengeleague,,
-ch.3,Swiss Promotion League,promotionleague,,
-ch.cup,Swiss Cup,cup,,
-li.cup,Liechtensteiner Pokal,cup,,
-sk.1,Slovakia First League,1-liga1,,
-sk.2,Slovakia Second League,secondleague,,
-sk.cup,Slovakia Cup,cup,,
-si.1,Slovenia First League,1-firstleague,,
-si.2,Slovenia Second League,secondleague,,
-si.cup,Slovenia Cup,cup,,
-hr.1,Croatia HNL,1-hnl,,
-hr.2,Croatia Prva NL,prvanl,,
-hr.3,Croatia Druga NL,druganl,,
-hr.cup,Croatia Cup,cup,,
-hr.super,Croatia Supercup,supercup,,
-ba.1,Bosnia and Herzegovina Premier Liga,1-premierliga,,
-ba.cup,Bosnia and Herzegovina Cup,cup,,
-rs.1,Serbia Super League,1-superleague,,
-rs.cup,Serbia Cup,cup,,
-kos.1,Kosovo Superliga A,1-superliga,,
-al.1,Albania Super League,1-superleague,,
-md.1,Moldova First Division,1-firstdivision,,
-me.1,Montenegro First League,1-firstleague,,
-me.cup,Montenegro Cup,cup,,
-mk.1,North Macedonia First League,1-firstleague,,
-ro.1,Romania Liga 1,1-liga1,,
-ro.2,Romania Liga 2,liga2,,
-ro.3.a,Romania Liga 3 - Seria 1,liga3seria1,,
-ro.cup,Romania Cup,cup,,
-ro.super,Romania Supercup,supercup,,
-bg.1,Bulgaria Premier League,1-premierleague,,
-bg.cup,Bulgaria Cup,cup,,
-bg.super,Bulgaria Supercup,supercup,,
-lv.1,Latvia Higher League,1-higherleague,,
-lt.1,Lithuania First Division,1-firstdivision,,
-ee.1,Estonia Meistriliiga,1-meistriliiga,,
-ee.cup,Estonia Cup,cup,,
-ru.1,Russia Premier League,1-premierliga,,
-ru.2,Russia 1. Division,2-division1,,
-ru.cup,Russia Cup,cup,,
-ru.super,Russia Supercup,supercup,,
-ua.1,Ukraine Premier League,1-premierleague,,
-ua.cup,Ukraine Cup,cup,,
-ua.super,Ukraine Supercup,supercup,,
-by.1,Belarus Premier League,1-premierleague,,
-by.2,Belarus Pervaya Liga,pervayaliga,,
-by.3,Belarus Vtoraya Liga,vtorayaliga,,
-by.cup,Belarus Cup,cup,,
-by.res,Belarus Reserve Liga,reserveliga,,
-am.1,Armenia Premier League,1-premierleague,,
-az.1,Azerbaijan Premier League A,1-premierleague,,
-ge.1,Georgia Premier League A,1-premierleague,,
-world,World Cup,cup,,
-world.quali.europe,World Cup Quali Europe,worldcupqualieurope,,
-world.quali.northamerica,World Cup Quali North/Central America and Caribbean,worldcupqualinorthcentralamericaandcaribbean,,
-world.quali.southamerica,World Cup Quali South America,worldcupqualisouthamerica,,
-world.quali.africa,World Cup Quali Africa,worldcupqualiafrica,,
-world.quali.asia,World Cup Quali Asia (w/ Australia),worldcupqualiasiawaustralia,,
-world.quali.pacific,World Cup Quali South Pacific,worldcupqualisouthpacific,,
-world.quali.playoffs,World Cup Quali Intercontinental Playoffs,worldcupqualiintercontinentalplayoffs,,
-world.confed,Confederations Cup,confederationscup,,
-euro,Euro,euro,1960,
-euro.quali,Euro Quali,euroquali,,
-uefa.nl,UEFA Nations League,nl,2018/19,
-uefa.nl.a,UEFA Nations League A,nla,2018/19,
-uefa.nl.b,UEFA Nations League B,nlb,2018/19,
-uefa.nl.c,UEFA Nations League C,nlc,2018/19,
-southamerica,Copa América,copaamerica,,
-northamerica,Gold Cup,goldcup,,
-asia,Asian Cup,asiancup,,
-africa,Africa Cup of Nations,africacupofnations,,
-paficic,South Pacific Nations Cup,southpacificnationscup,,
-world.club,Club World Cup,clubworldcup,,
-il.1,Israel Premier League,1-premierleague,,
-il.2,Israel National League,nationalleague,,
-il.cup,Israel League Cup National,leaguecupnational,,
-il.cup.lp,Israel League Cup Premier,leaguecuppremier,,
-il.super,Israel Supercup,supercup,,
-ps.1.i,Palestine West Bank Premier League,westbankpremierleague,,
-ps.1.ii,Palestine Gaza Strip Premier League,gazastrippremierleague,,
-ps.cup.gaza,Palestine Gaza Strip Cup,gazastripcup,,
-sa.1,Saudi Arabia Saudi Professional League,saudiprofessionalleague,,
-sa.cup,Saudi Arabia King Cup,kingcup,,
-sa.super,Saudi Arabia Super Cup,supercup,,
-qa.1,Qatar Stars League,starsleague,,
-ir.1,Iran Pro League,proleague,,
-bh.1,Bahrain Premier League,premierleague,,
-om.cup,Oman Sultan Cup,sultancup,,
-concacaf.cl,CONCACAF Champions League,concacafchampionsleague,,
-concacaf.l,CONCACAF League,concacafleague,,
-usmx.cup,US & Mexican Leagues Cup,usmexicanleaguescup,,
-ca.1,Canada Premier League,premierleague,,
-us.1,Major League Soccer,majorleaguesoccer,,
-us.mls.back,MLS is Back Tournament,mlsisbacktournament,,
-us.2,United Soccer League Championship,unitedsoccerleaguechampionship,,
-us.3,United Soccer League One,unitedsoccerleagueone,,
-us.4,United Soccer League Two,unitedsoccerleaguetwo,,
-us.cup,US Open Cup,usopencup,,
-us.ncaa,United States NCAA Men's Soccer,ncaamenssoccer,,
-mx.1,Liga MX,1-ligamx,,
-mx.2,Liga de Expansión MX,2-ligaexpansionmx,2020/21,
-mx.2,Ascenso MX,2-ascensomx,,2019/20
-mx.copa,Mexico Copa MX,copamx,,
-au.1,Australia A-League,aleague,,
-au.2.qpr,Australia Queensland Premier,queenslandpremier,,
-au.cup,Australia FFA Cup,ffacup,,
-ar.1,Argentina Primera Division,1-primeradivision,,
-ar.2,Argentina Primera B Nacional,primerabnacional,,
-ar.3.metro,Argentina Primera B Metropolitana,primerabmetropolitana,,
-ar.3.fed,Argentina Torneo Federal A,torneofederala,,
-ar.4.metro,Argentina Primera C Metropolitana,primeracmetropolitana,,
-ar.4.fed,Argentina Torneo Federal B,torneofederalb,,
-ar.5.metro,Argentina Primera D Metropolitana,primeradmetropolitana,,
-ar.5.fed,Argentina Torneo Federal C,torneofederalc,,
-ar.copa,Argentina Copa Argentina,copaargentina,,
-ar.copa.l,Argentina Copa Superliga,copasuperliga,,
-ar.super,Argentina Supercopa Argentina,supercopaargentina,,
-br.1,Brasileiro Série A,1-seriea,,
-br.2,Brasileiro Série B,2-serieb,,
-br.3,Brasileiro Série C,3-seriec,,
-br.4,Brasileiro Série D,4-seried,,
-br.copa,Copa do Brasil,cup,,
-br.league,Brazil Primeira Liga,primeiraliga,,
-br.rs,Campeonato Gaúcho,gauchao,,
-br.rs.2,Brazil Divisão de Acesso Gaúcha,divisaodeacessogaucha,,
-br.rs.3,Brazil Terceirona,terceirona,,
-br.sp,Campeonato Paulista,paulistao,,
-br.rj,Campeonato Carioca,carioca,,
-br.mg,Campeonato Mineiro,mineiro,,
-br.paranaense,Campeonato Paranaense,paranaense,,
-copa.l,Copa Libertadores,libertadores,,
-copa.s,Copa Sudamericana,sudamericana,,
-recopa,Recopa Sudamericana,recopasudamericana,,
-py.1,Paraguay Primera Division,primeradivision,,
-pe.1,Peru Primera Division,primeradivision,,
-pe.2,Peru Segunda Division,segundadivision,,
-pe.copa.bic,Peru Copa Bicentenario 2019,copabicentenario2019,,
-bo.1,Bolivia Bolivian Primera División,bolivianprimeradivision,,
-cl.1,Chile Primera Divison,primeradivison,,
-cl.2,Chile Primera B,primerab,,
-cl.copa,Copa Chile,copachile,,
-co.1,Colombia Primera A,1-primeraa,,
-co.2,Colombia Primera B,primerab,,
-co.copa,Copa Colombia,copacolombia,,
-co.super,Colombia Super Cup,supercup,,
-uy.1,Uruguay Primera División,primeradivision,,
-uy.copa,Uruguay Cup,cup,,
-ec.1,Ecuador Serie A,seriea,,
-ec.2,Ecuador Serie B,serieb,,
-ve.1,Venezuela Primera División,primeradivision,,
-ve.copa,Copa Venezuela,copavenezuela,,
+code,name,start_season,end_season,clubs,intl
+caf.cl,CAF Champions League,,,true,true
+caf.conf,CAF Confederations Cup,,,true,true
+afl,African Football League,,,true,true
+eg.1,Egypt Premiership,,,true,false
+eg.cup,Egypt Cup,,,true,false
+eg.super,Egypt Supercup,,,true,false
+tn.1,Tunisia Ligue 1,,,true,false
+ma.1,Morocco Botola,,,true,false
+dz.1,Algeria Ligue 1,,,true,false
+za.1,South Africa Premier League,,,true,false
+za.2,South Africa National First Division,,,true,false
+za.cup,South Africa Cup,,,true,false
+za.cup.l,South Africa Knockout,,,true,false
+ng.1,Nigeria Professional League,,,true,false
+ke.1,Kenya Premier League,,,true,false
+zm.1,Zambia Super League,,,true,false
+gh.1,Ghana Premier League,,,true,false
+ug.1,Uganda Super League,,,true,false
+zw.1,Zimbabwe Premier Soccer League,,,true,false
+bi.1,Burundi 1. Liga,,,true,false
+ao.1,Angola Girabola,,,true,false
+tz.1,Tanzania Premier League,,,true,false
+mu.1,Mauritius Premier League,,,true,false
+mu.cup,Mauritius Cup,,,true,false
+mu.cup.rep,Mauritius Republic Cup,,,true,false
+asia.cl,AFC Champions League,,,true,true
+asia.cup,AFC Cup,,,true,true
+jp.1,Japan J. League,,,true,false
+jp.2,Japan J. League 2,,,true,false
+jp.cup,Japan Emperor's Cup,,,true,false
+jp.cup.l,Japan J. League Cup,,,true,false
+kr.1,South Korea K-League,,,true,false
+kr.2,South Korea K-League 2,,,true,false
+kr.cup,South Korea Cup,,,true,false
+sg.1,Singapore Premier League,,,true,false
+th.1,Thailand Premier League,,,true,false
+my.1,Malaysia Super League,,,true,false
+mm.1,Myanmar National League,,,true,false
+id.1,Indonesia Super League,,,true,false
+in.1.i,India I-League,,,true,false
+in.1.ii,India Super League,,,true,false
+tw.1,Taiwan Premier League,,,true,false
+cn.1,China Super League,,,true,false
+kz.1,Kazakhstan Premier League A,,,true,false
+kz.2,Kazakhstan Pervaya Liga,,,true,false
+kz.cup,Kazakhstan Kubok,,,true,false
+kz.super,Kazakhstan Superkubok,,,true,false
+tm.1,Turkmenistan 1. Liga,,,true,false
+uz.1,Uzbekistan Super League,,,true,false
+tj.1,Tajikistan Higher League,,,true,false
+tj.super,Tajikistan Super Cup,,,true,false
+vn.1,Vietnam V. League 1,,,true,false
+vn.cup,Vietnam Cup,,,true,false
+jm.1,Jamaica Premier League,,,true,false
+cr.1,Costa Rica Primera División,,,true,false
+cr.2,Costa Rica Segunda División,,,true,false
+hn.1,Honduras Primera División,,,true,false
+sv.1,El Salvador Primera División,,,true,false
+gt.1,Guatemala Liga Nacional,,,true,false
+ni.1,Nicaragua Primera División,,,true,false
+at.1,Österr. Bundesliga,,,true,false
+at.2,Österr. 2. Liga,2018/19,,true,false
+at.2,Österr. Erste Liga,,2017/18,true,false
+at.3.o,Österr. Regionalliga Ost,,,true,false
+at.3.m,Österr. Regionalliga Mitte,,,true,false
+at.3.sbg,Österr. Regionalliga Salzburg,,,true,false
+at.3.t,Österr. Regionalliga Tirol,,,true,false
+at.3.v,Österr. Regionalliga Vorarlberg,,,true,false
+at.3.w,Österr. Regionalliga West,,,true,false
+at.cup,ÖFB Cup,,,true,false
+at.4.ost.w,Österr. Wiener Stadtliga,,,true,false
+at.4.ost.n,Österr. Landesliga Niederösterreich,,,true,false
+at.4.ost.b,Österr. Landesliga Burgenland,,,true,false
+at.4.mitte.st,Österr. Steirische Landesliga,,,true,false
+at.4.mitte.o,Österr. Landesliga Oberösterreich,,,true,false
+at.4.mitte.k,Österr. Kärtner Liga,,,true,false
+at.4.west.s,Österr. Salzburger Liga,,,true,false
+at.4.west.t,Österr. Tiroler Liga,,,true,false
+at.4.west.v,Österr. Vorarlberg Liga,,,true,false
+at.5.n.ost,Österr. 2. Landesliga Ost (NÖ),,,true,false
+at.5.n.west,Österr. 2. Landesliga West (NÖ),,,true,false
+at.6.n.ost.sso,Österr. Gebietsliga Süd/Südost (NÖ),,,true,false
+at.6.n.ost.nnw,Österr. Gebietsliga Nord/Nordwest (NÖ),,,true,false
+at.6.n.west.w,Österr. Gebietsliga West (NÖ),,,true,false
+at.6.n.west.nww,Österr. Gebietsliga Nordwest/Waldviertel (NÖ),,,true,false
+at.7.n.ost.sso.s,Österr. 1. Klasse Süd (NÖ),,,true,false
+at.7.n.ost.sso.o,Österr. 1. Klasse Ost (NÖ),,,true,false
+at.7.n.ost.nnw.n,Österr. 1. Klasse Nord (NÖ),,,true,false
+at.7.n.ost.nnw.nw,Österr. 1. Klasse Nordwest (NÖ),,,true,false
+at.7.n.west.w.w,Österr. 1. Klasse West (NÖ),,,true,false
+at.7.n.west.w.wm,Österr. 1. Klasse West-Mitte (NÖ),,,true,false
+at.7.n.west.nww.nwm,Österr. 1. Klasse Nordwest-Mitte (NÖ),,,true,false
+at.7.n.west.nww.w,Österr. 1. Klasse Waldviertel (NÖ),,,true,false
+at.8.n.steinfeld,Österr. 2. Klasse Steinfeld (NÖ),,,true,false
+at.8.n.wechsel,Österr. 2. Klasse Wechsel (NÖ),,,true,false
+at.8.n.triestingtal,Österr. 2. Klasse Triestingtal (NÖ),,,true,false
+at.8.n.ostmitte,Österr. 2. Klasse Ost/Mitte (NÖ),,,true,false
+at.8.n.ost,Österr. 2. Klasse Ost (NÖ),,,true,false
+at.8.n.weinviertel.n,Österr. 2. Klasse Weinviertel Nord (NÖ),,,true,false
+at.8.n.weinviertel.s,Österr. 2. Klasse Weinviertel Süd (NÖ),,,true,false
+at.8.n.marchfeld,Österr. 2. Klasse Marchfeld (NÖ),,,true,false
+at.8.n.donau,Österr. 2. Klasse Donau (NÖ),,,true,false
+at.8.n.pulkautal,Österr. 2. Klasse Pulkautal (NÖ),,,true,false
+at.8.n.ybbstal,Österr. 2. Klasse Ybbstal (NÖ),,,true,false
+at.8.n.yspertal,Österr. 2. Klasse Yspertal (NÖ),,,true,false
+at.8.n.alpenvorland,Österr. 2. Klasse Alpenvorland (NÖ),,,true,false
+at.8.n.traisental,Österr. 2. Klasse Traisental (NÖ),,,true,false
+at.8.n.wachau,Österr. 2. Klasse Wachau (NÖ),,,true,false
+at.8.n.schmidatal,Österr. 2. Klasse Schmidatal (NÖ),,,true,false
+at.8.n.waldviertelthayatal,Österr. 2. Klasse Waldviertel Thayatal (NÖ),,,true,false
+at.8.n.waldviertel.s,Österr. 2. Klasse Waldviertel/Süd (NÖ),,,true,false
+at.9.n.hornerwald,Österr. 3. Klasse Hornerwald (NÖ),,,true,false
+at.9.n.mistelbach,Österr. 3. Klasse Mistelbach (NÖ),,,true,false
+eng.2,English Championship,2004/05,,true,false
+eng.2,English Division 1,1992/93,2003/04,true,false
+eng.1,English Division 1,1892/93,1991/92,true,false
+eng.1,English Football League,1888/89,1891/92,true,false
+eng.3,English League One,2004/05,,true,false
+eng.3,English Division 2,1992/93,2003/04,true,false
+eng.2,English Division 2,1892/93,1991/92,true,false
+eng.4,English League Two,2004/05,,true,false
+eng.4,English Division 3,1992/93,2003/04,true,false
+eng.3,English Division 3,,1991/92,true,false
+eng.1,English Premier League,1992/93,,true,false
+eng.5,English National League,1992/93,,true,false
+eng.3.n,English Division 3 (North),,,true,false
+eng.3.s,English Division 3 (South),,,true,false
+eng.cup,English FA Cup,,,true,false
+eng.super,English FA Community Shield,,,true,false
+eng.cup.l,English EFL Cup,,,true,false
+eng.cup.t,English EFL Trophy,,,true,false
+eng.cup.t.ii,English FA Trophy,,,true,false
+de.1,Deutsche Bundesliga,,,true,false
+de.2,Deutsche 2. Bundesliga,,,true,false
+de.3,Deutsche 3. Liga,,,true,false
+de.cup,DFB Pokal,,,true,false
+de.super,Deutsche Supercup,,,true,false
+de.4.nord,Deutsche Regionalliga Nord,,,true,false
+de.4.nordost,Deutsche Regionalliga Nordost,,,true,false
+de.4.west,Deutsche Regionalliga West,,,true,false
+de.4.suedwest,Deutsche Regionalliga Südwest,,,true,false
+de.4.bayern,Deutsche Regionalliga Bayern,,,true,false
+de.5.nord.sh,Deutsche Schleswig-Holstein-Liga,,,true,false
+de.5.nord.hh,Deutsche Oberliga Hamburg,,,true,false
+de.5.nord.hb,Deutsche Bremen-Liga,,,true,false
+de.5.nord.ni,Deutsche Oberliga Niedersachsen,,,true,false
+de.5.nordost.n,Deutsche Oberliga Nordost (Nord),,,true,false
+de.5.nordost.s,Deutsche Oberliga Nordost (Süd),,,true,false
+de.5.west.niederrhein,Deutsche Oberliga Niederrhein,,,true,false
+de.5.west.mittelrhein,Deutsche Mittelrheinliga,,,true,false
+de.5.west.westfalen,Deutsche Oberliga Westfalen,,,true,false
+de.5.suedwest.rp.sl,Deutsche Oberliga Rheinland-Pfalz/Saar,,,true,false
+de.5.suedwest.he,Deutsche Hessenliga,,,true,false
+de.5.suedwest.bw,Deutsche Oberliga Baden-Württemberg,,,true,false
+de.5.by.n,Deutsche Bayernliga (Nord),,,true,false
+de.5.by.s,Deutsche Bayernliga (Süd),,,true,false
+uefa.cl,UEFA Champions League,1992/93,,true,true
+uefa.cl.quali,UEFA Champions League - Quali,1992/93,,true,true
+euro.champs,European Champion Clubs' Cup,1955/56,1991/92,true,true
+euro.cup,European Cup Winners' Cup,1960/61,1998/99,true,true
+uefa.el,UEFA Europa League,2009/10,,true,true
+uefa.el.quali,UEFA Europa League - Quali,2009/10,,true,true
+uefa.cup,UEFA Cup,1971/72,2008/09,true,true
+uefa.conf,UEFA Conference League,2021/22,,true,true
+uefa.conf.quali,UEFA Conference League - Quali,2021/22,,true,true
+uefa.super,UEFA Super Cup,1972,,true,true
+atl.cup,Atlantic Cup,,,true,true
+czsk.super,Czechoslovak Supercup,,,true,true
+sco.1,Scottish Premiership,,,true,false
+sco.2,Scottish Championship,,,true,false
+sco.3,Scottish League One,,,true,false
+sco.4,Scottish League Two,,,true,false
+sco.cup.l,Scottish League Cup,,,true,false
+sco.cup.fa,Scottish FA Cup,,,true,false
+sco.cup.cc,Scottish Challenge Cup,,,true,false
+wal.1,Welsh Premier League,,,true,false
+wal.cup,Welsh Welsh Cup,,,true,false
+wal.cup.l,Welsh League Cup,,,true,false
+nir.1,Northern Irish Premiership,,,true,false
+nir.2,Northern Irish Championship,,,true,false
+nir.cup,Northern Irish Irish Cup,,,true,false
+nir.cup.l,Northern Irish League Cup,,,true,false
+nir.super,Northern Irish NIFL Charity Shield,,,true,false
+ie.1,Irish Premier Division,,,true,false
+ie.2,Irish First Division,,,true,false
+ie.cup,Irish FAI Cup,,,true,false
+ie.cup.l,Irish League Cup,,,true,false
+ie.super,Irish Supercup,,,true,false
+is.1,Iceland Úrvalsdeild,,,true,false
+is.2,Iceland 1. Deild,,,true,false
+is.3,Iceland 2. Delid,,,true,false
+is.cup,Iceland Cup,,,true,false
+is.cup.l,Iceland League Cup,,,true,false
+is.super,Iceland Super Cup,,,true,false
+fo.1,Faroe Islands Premier Division,,,true,false
+fo.cup,Faroe Islands Cup,,,true,false
+es.1,Spain Primera División,,,true,false
+es.2,Spain Segunda División,,,true,false
+es.3,Spain Segunda División B,,,true,false
+es.cup,Spain Copa del Rey,,,true,false
+es.super,Spain Supercopa,,,true,false
+pt.1,Portuguese Primeira Liga,,,true,false
+pt.2,Portuguese Segunda Liga,,,true,false
+pt.cup,Portuguese Taça de Portugal,,,true,false
+pt.cup.l,Portuguese Taça da Liga,,,true,false
+pt.super,Portuguese Supercup,,,true,false
+gi.1,Gibraltar Premier League A,,,true,false
+ad.1,Andorra Premier Division,,,true,false
+fr.1,French Ligue 1,,,true,false
+fr.2,French Ligue 2,,,true,false
+fr.3,French National,,,true,false
+fr.cup,French Coupe de France,,,true,false
+fr.cup.l,French Coupe de la Ligue,,,true,false
+fr.super,French Trophée des Champions,,,true,false
+it.1,Italian Serie A,,,true,false
+it.2,Italian Serie B,,,true,false
+it.3.a,Italian Serie C (North & Central West),,,true,false
+it.3.b,Italian Serie C (North & Central East),,,true,false
+it.3.c,Italian Serie C (South),,,true,false
+it.4.a,Italian Serie D Girone A,,,true,false
+it.4.b,Italian Serie D Girone B,,,true,false
+it.4.c,Italian Serie D Girone C,,,true,false
+it.4.d,Italian Serie D Girone D,,,true,false
+it.4.e,Italian Serie D Girone E,,,true,false
+it.4.f,Italian Serie D Girone F,,,true,false
+it.4.g,Italian Serie D Girone G,,,true,false
+it.4.h,Italian Serie D Girone H,,,true,false
+it.4.i,Italian Serie D Girone I,,,true,false
+it.cup,Coppa Italia,,,true,false
+it.cup.c,Coppa Italia Serie C,,,true,false
+it.super,Supercoppa Italiana,,,true,false
+sm.1,San Marinese Championship,,,true,false
+sm.cup,San Marinese Coppa Titano,,,true,false
+sm.super,San Marinese Super Coppa,,,true,false
+tr.1,Turkish Süper Lig,,,true,false
+tr.2,Turkish 1. Lig,,,true,false
+tr.3.b,Turkish 2. Lig - Beya,,,true,false
+tr.3.ki,Turkish 2. Lig - Kirmizi,,,true,false
+tr.3.playoffs,Turkish 2. Lig - Play Offs,,,true,false
+tr.cup,Türkiye Kupasi,,,true,false
+tr.super,Turkish Süper Kupa,,,true,false
+gr.1,Greek Super League,,,true,false
+gr.2,Greek Super League 2,,,true,false
+gr.cup,Greek Greek Cup,,,true,false
+cy.1,Cyprus First Division,,,true,false
+cy.cup,Cyprus Cypriot Cup,,,true,false
+cy.super,Cyprus Super Cup,,,true,false
+mt.1,Malta Premier League,,,true,false
+mt.cup,Malta Cup,,,true,false
+dk.1,Denmark Superligaen,,,true,false
+dk.2,Denmark 1. Division,,,true,false
+dk.3,Denmark 2. Division,,,true,false
+dk.cup,Denmark Landspokalturneringen,,,true,false
+no.1,Norway Eliteserien,,,true,false
+no.2,Norway 1. Division,,,true,false
+no.3.a,Norway 2. Divisjon Avdeling 1,,,true,false
+no.3.b,Norway 2. Divisjon Avdeling 2,,,true,false
+no.cup,Norway Cupen,,,true,false
+se.1,Sweden Allsvenskan,,,true,false
+se.2,Sweden Superettan,,,true,false
+se.3.s,Sweden Div 1 Södra,,,true,false
+se.3.n,Sweden Div 1 Norra,,,true,false
+se.cup,Sweden Cup,,,true,false
+se.super,Sweden Supercupen,,,true,false
+fi.1,Finland Veikkausliiga,,,true,false
+fi.2,Finland Ykkonen,,,true,false
+fi.3,Finland Kakkonen,,,true,false
+fi.4.a,Finland Kakkonen Group A,,,true,false
+fi.cup,Finland Cup,,,true,false
+fi.cup.l,Finland Liigacup,,,true,false
+nl.1,Netherlands Eredivisie,,,true,false
+nl.1.comeback,Netherlands Eredivisie Comeback Tournament,,,true,false
+nl.2,Netherlands Eerste Divisie,,,true,false
+nl.3,Netherlands Tweede Divisie,,,true,false
+nl.cup,Netherlands Cup,,,true,false
+nl.super,Netherlands Johan Cruijff Schaal,,,true,false
+nl.po,Netherlands Promotion/Relegation Playoffs,,,true,false
+be.1,Belgium First Division A,,,true,false
+be.2,Belgium First Division B,,,true,false
+be.cup,Belgium Beker van België,,,true,false
+be.super,Belgium Supercup,,,true,false
+lu.1,Luxembourg National Division,,,true,false
+lu.cup,Luxembourg Coupe,,,true,false
+pl.1,Poland Ekstraklasa,,,true,false
+pl.2,Poland I Liga,,,true,false
+pl.3,Poland II Liga,,,true,false
+pl.cup,Poland Cup,,,true,false
+pl.super,Poland Supercup,,,true,false
+hu.1,Hungarian Nemzeti Bajnokság I,,,true,false
+hu.2,Hungarian Nemzeti Bajnokság II,,,true,false
+hu.cup,Hungarian Cup,,,true,false
+hu.cup.l,Hungarian Ligakupa,,,true,false
+hu.super,Hungarian Szuperkupa,,,true,false
+cz.1,Czech Republic First League,,,true,false
+cz.2,Czech Republic National League,1993/94,,true,false
+cz.3.c.a,Czech Republic Bohemian Football League A,1991/92,,true,false
+cz.3.c.b,Czech Republic Bohemian Football League B,1991/92,,true,false
+cz.3.ms,Czech Republic Moravian-Silesian Football League,1991/92,,true,false
+cz.cup,Czech Republic Cup,,,true,false
+cz.super,Czech Republic Superpohár,,,true,false
+ch.1,Swiss Super League,,,true,false
+ch.2,Swiss Challenge League,,,true,false
+ch.3,Swiss Promotion League,,,true,false
+ch.cup,Swiss Cup,,,true,false
+li.cup,Liechtensteiner Pokal,,,true,false
+sk.1,Slovakia First League,,,true,false
+sk.2,Slovakia Second League,,,true,false
+sk.cup,Slovakia Cup,,,true,false
+sk.super,Slovakia Superpohár,,,true,false
+si.1,Slovenia First League,,,true,false
+si.2,Slovenia Second League,,,true,false
+si.cup,Slovenia Cup,,,true,false
+si.super,Slovenia Super Pokal,,,true,false
+hr.1,Croatia HNL,,,true,false
+hr.2,Croatia Prva NL,,,true,false
+hr.3,Croatia Druga NL,,,true,false
+hr.cup,Croatia Cup,,,true,false
+hr.super,Croatia Supercup,,,true,false
+ba.1,Bosnia and Herzegovina Premier Liga,,,true,false
+ba.cup,Bosnia and Herzegovina Cup,,,true,false
+rs.1,Serbia Super League,,,true,false
+rs.2,Serbia Prva Liga,,,true,false
+rs.cup,Serbia Cup,,,true,false
+kos.1,Kosovo Superliga A,,,true,false
+al.1,Albania Super League,,,true,false
+al.cup,Albania Kupa,,,true,false
+md.1,Moldova First Division,,,true,false
+md.cup,Moldova Cupa Moldova,,,true,false
+me.1,Montenegro First League,,,true,false
+me.cup,Montenegro Cup,,,true,false
+mk.1,North Macedonia First League,,,true,false
+mk.cup,North Macedonia Kup na Makedonija,,,true,false
+ro.1,Romania Liga 1,,,true,false
+ro.2,Romania Liga 2,,,true,false
+ro.3.a,Romania Liga 3 - Seria 1,,,true,false
+ro.cup,Romania Cup,,,true,false
+ro.cup.l,Romania Cupa Ligii,,,true,false
+ro.super,Romania Supercup,,,true,false
+bg.1,Bulgaria Premier League,,,true,false
+bg.cup,Bulgaria Cup,,,true,false
+bg.super,Bulgaria Supercup,,,true,false
+lv.1,Latvia Higher League,,,true,false
+lv.2,Latvia 1. Liga,,,true,false
+lv.cup,Latvia Latvijas kauss,,,true,false
+lt.1,Lithuania First Division,,,true,false
+lt.cup,Lithuania LFF Taurė,,,true,false
+ee.1,Estonia Meistriliiga,,,true,false
+ee.cup,Estonia Cup,,,true,false
+ru.1,Russia Premier League,,,true,false
+ru.2,Russia 1. Division,,,true,false
+ru.cup,Russia Cup,,,true,false
+ru.super,Russia Supercup,,,true,false
+ua.1,Ukraine Premier League,,,true,false
+ua.cup,Ukraine Cup,,,true,false
+ua.super,Ukraine Supercup,,,true,false
+by.1,Belarus Premier League,,,true,false
+by.2,Belarus Pervaya Liga,,,true,false
+by.3,Belarus Vtoraya Liga,,,true,false
+by.cup,Belarus Cup,,,true,false
+by.res,Belarus Reserve Liga,,,true,false
+am.1,Armenia Premier League,,,true,false
+am.cup,Armenia Cup,,,true,false
+az.1,Azerbaijan Premier League A,,,true,false
+az.2,Azerbaijan I Liqa,,,true,false
+az.cup,Azerbaijan Kubok,,,true,false
+ge.1,Georgia Premier League A,,,true,false
+ge.cup,Georgia David Kipiani Cup,,,true,false
+world,World Cup,,,false,true
+world.quali.europe,World Cup Quali Europe,,,false,true
+world.quali.northamerica,World Cup Quali North/Central America and Caribbean,,,false,true
+world.quali.southamerica,World Cup Quali South America,,,false,true
+world.quali.africa,World Cup Quali Africa,,,false,true
+world.quali.asia,World Cup Quali Asia (w/ Australia),,,false,true
+world.quali.pacific,World Cup Quali South Pacific,,,false,true
+world.quali.playoffs,World Cup Quali Intercontinental Playoffs,,,false,true
+world.confed,Confederations Cup,,,false,true
+euro,Euro,1960,,false,true
+euro.quali,Euro Quali,,,false,true
+uefa.nl,UEFA Nations League,2018/19,,false,true
+uefa.nl.a,UEFA Nations League A,2018/19,,false,true
+uefa.nl.b,UEFA Nations League B,2018/19,,false,true
+uefa.nl.c,UEFA Nations League C,2018/19,,false,true
+uefa.nl.d,UEFA Nations League D,2018/19,,false,true
+southamerica,Copa América,,,false,true
+northamerica,Gold Cup,,,false,true
+asia,Asian Cup,,,false,true
+africa,Africa Cup of Nations,,,false,true
+paficic,South Pacific Nations Cup,,,false,true
+world.club,Club World Cup,,,true,true
+il.1,Israel Premier League,,,true,false
+il.2,Israel National League,,,true,false
+il.cup,Israel State Cup,,,true,false
+il.cup.l1,Israel Toto Cup Al,,,true,false
+il.cup.l2,Israel Toto Cup Leumit,,,true,false
+il.super,Israel Supercup,,,true,false
+ps.1.i,Palestine West Bank Premier League,,,true,false
+ps.1.ii,Palestine Gaza Strip Premier League,,,true,false
+ps.cup.gaza,Palestine Gaza Strip Cup,,,true,false
+sa.1,Saudi Arabia Saudi Professional League,,,true,false
+sa.cup,Saudi Arabia King Cup,,,true,false
+sa.super,Saudi Arabia Super Cup,,,true,false
+qa.1,Qatar Stars League,,,true,false
+ir.1,Iran Pro League,,,true,false
+bh.1,Bahrain Premier League,,,true,false
+om.cup,Oman Sultan Cup,,,true,false
+concacaf.cl,CONCACAF Champions League,,,true,true
+concacaf.l,CONCACAF League,,,true,true
+usmx.cup,US & Mexican Leagues Cup,,,true,true
+ca.1,Canada Premier League,,,true,false
+ca.cup,Canada Championship,,,true,false
+ca.3.on,Canada League1 Ontario,,,true,false
+ca.3.bc,Canada League1 British Columbia,,,true,false
+ca.3.qc,Canada Premiere Ligue du Quebec,,,true,false
+us.1,Major League Soccer,,,true,false
+us.1.back,MLS is Back Tournament,,,true,false
+us.3.next,United States MLS Next Pro,2022,,true,false
+us.2,United States USL Championship,2011,,true,false
+us.3,United Soccer League One,2019,,true,false
+us.4,United Soccer League Two,,,true,false
+us.cup,US Open Cup,,,true,false
+us.ncaa,United States NCAA Men's Soccer,,,true,false
+mx.1,Liga MX,,,true,false
+mx.2,Liga de Expansión MX,2020/21,,true,false
+mx.2,Ascenso MX,,2019/20,true,false
+mx.3.a,Mexico Serie A,,,true,false
+mx.3.b,Mexico Serie B,,,true,false
+mx.cup,Mexico Copa MX,,2019/20,true,false
+au.1,Australia A-League,,,true,false
+au.2.qpr,Australia Queensland Premier,,,true,false
+au.cup,Australia Cup,2014,,true,false
+nz.1,New Zealand National League,,,true,false
+ar.1,Argentina Primera Division,,,true,false
+ar.2,Argentina Primera B Nacional,,,true,false
+ar.3.metro,Argentina Primera B Metropolitana,,,true,false
+ar.3.fed,Argentina Torneo Federal A,,,true,false
+ar.4.metro,Argentina Primera C Metropolitana,,,true,false
+ar.4.fed,Argentina Torneo Federal B,,,true,false
+ar.5.metro,Argentina Primera D Metropolitana,,,true,false
+ar.5.fed,Argentina Torneo Federal C,,,true,false
+ar.cup,Argentina Copa Argentina,,,true,false
+ar.cup.l,Argentina Copa Superliga,,,true,false
+ar.super,Argentina Supercopa Argentina,,,true,false
+br.1,Brasileiro Série A,,,true,false
+br.2,Brasileiro Série B,,,true,false
+br.3,Brasileiro Série C,,,true,false
+br.4,Brasileiro Série D,,,true,false
+br.cup,Copa do Brasil,,,true,false
+br.league,Brazil Primeira Liga,,,true,false
+br.rs,Campeonato Gaúcho,,,true,false
+br.rs.2,Brazil Divisão de Acesso Gaúcha,,,true,false
+br.rs.3,Brazil Terceirona,,,true,false
+br.sp,Campeonato Paulista,,,true,false
+br.rj,Campeonato Carioca,,,true,false
+br.mg,Campeonato Mineiro,,,true,false
+br.paranaense,Campeonato Paranaense,,,true,false
+copa.l,Copa Libertadores,,,true,true
+copa.s,Copa Sudamericana,,,true,true
+recopa,Recopa Sudamericana,,,true,true
+py.1,Paraguay Primera Division,,,true,false
+pe.1,Peru Primera Division,,,true,false
+pe.2,Peru Segunda Division,,,true,false
+pe.cup.bic,Peru Copa Bicentenario 2019,,,true,false
+bo.1,Bolivia Primera División,,,true,false
+cl.1,Chile Primera Divison,,,true,false
+cl.2,Chile Primera B,,,true,false
+cl.cup,Copa Chile,,,true,false
+co.1,Colombia Primera A,,,true,false
+co.2,Colombia Primera B,,,true,false
+co.cup,Copa Colombia,,,true,false
+co.super,Colombia Super Cup,,,true,false
+uy.1,Uruguay Primera División,,,true,false
+uy.2,Uruguay Segunda División,,,true,false
+uy.cup,Uruguay Cup,,,true,false
+ec.1,Ecuador Serie A,,,true,false
+ec.2,Ecuador Serie B,,,true,false
+ve.1,Venezuela Primera División,,,true,false
+ve.cup,Copa Venezuela,,,true,false

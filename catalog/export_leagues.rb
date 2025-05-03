@@ -1,3 +1,11 @@
+###
+#  todo - split export into three datafiles!!!
+#              - (domestic) leagues & cups   - clubs? true, intl? false
+#              -  intl clubs competitions    - clubs? true, intl? true
+#              -  intl national team comps   - clubs? false, intl? true
+
+
+
 require 'active_record'   ## todo: add sqlite3? etc.
 require 'cocos'
 
@@ -27,22 +35,27 @@ rows = []
 CatalogDb::Model::LeaguePeriod.all.each do |period|
   pp period
 
+  league = period.league
 
   rows << [
               period.tier_key,
               period.qname,
-              period.slug,
+              ## period.slug,
               period.start_season || '',
-              period.end_season || ''
+              period.end_season || '',
+              league.clubs?.to_s,      # note - always string expected (not bools etc.)
+              league.intl?.to_s,
           ]
 end
 
 # key, name, basename, start_season, end_season
-headers = ['key',
+headers = ['code',       ## note - renamed to code (from key)
            'name',
-           'basename',
+           ## 'basename',
            'start_season',
-           'end_season']
+           'end_season',
+           'clubs',
+           'intl',]
 
 pp rows
 

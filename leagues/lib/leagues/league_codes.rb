@@ -73,7 +73,8 @@ def add( recs )
     ## note: auto-change seasons to season object or nil
     @leagues[ key ] << {  'code'         => rec['code'],
                           'name'         => rec['name'],
-                          'basename'     => rec['basename'],
+                          'clubs'        => (rec['clubs'].nil? || rec['clubs'].empty?) ? true : ['true', 't'].include?(rec['clubs']), 
+                          'intl'         => (rec['intl'].nil? || rec['intl'].empty?) ? false : ['true', 't'].include?(rec['intl']), 
                           'start_season' => rec['start_season'].empty? ? nil : Season.parse( rec['start_season'] ),
                           'end_season'   => rec['end_season'].empty?   ? nil : Season.parse( rec['end_season'] ),
                        }

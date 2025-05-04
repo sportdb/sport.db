@@ -1,6 +1,10 @@
 code,name,start_season,end_season,clubs,intl
 
 
+## quick hack - add upstream
+bg.2,Bulgarian Second League,,
+
+
 ### quick hack - add more leagues "by hand"
 ###    todo - add leagues upstream!!!
 

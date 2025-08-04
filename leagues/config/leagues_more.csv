@@ -47,3 +47,9 @@ br.cup,Copa do Brasil,,      ## br.copa
 ###  fix - upstream uses world.club !!! 
 world.clubs,Club World Cup,2000,,  true, true
 
+
+###
+##  fix use alternate codes!!!
+uefa.cl.q,UEFA Champions League - Quali,1992/93,,true,true
+uefa.el.q,UEFA Europa League - Quali,2009/10,,true,true
+uefa.conf.q,UEFA Conference League - Quali,2021/22,,true,true

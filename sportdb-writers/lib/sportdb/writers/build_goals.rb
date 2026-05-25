@@ -55,4 +55,50 @@ def self.merge_goals( matches, goals )
 end
 
 
+
+def self.build_goals( goals )
+  ## todo/fix: for now assumes always minutes (without offset) - add offset support
+
+  ## note: "fold" multiple goals by players
+  team1_goals = {}
+  team2_goals = {}
+  goals.each do |goal|
+    team_goals = goal.team == 1 ? team1_goals : team2_goals
+    player_goals = team_goals[ goal.player ] ||= []
+    player_goals << goal
+  end
+
+  buf = String.new
+  if team1_goals.size > 0
+    buf << build_goals_for_team( team1_goals )
+  end
+
+  ## note: only add a separator (;) if BOTH teams have goal scores
+  if team1_goals.size > 0 && team2_goals.size > 0
+    buf << '; '
+  end
+
+  if team2_goals.size > 0
+    buf << build_goals_for_team( team2_goals )
+  end
+  buf
+end
+
+
+def self.build_goals_for_team( team_goals )
+  buf = String.new
+  team_goals.each_with_index do |(player_name, goals),i|
+    buf << ' ' if i > 0
+    buf << "#{player_name} "
+    buf << goals.map do |goal|
+                        str = "#{goal.minute}'"
+                        str << "(og)"      if goal.owngoal?
+                        str << "(p)"       if goal.penalty?
+                        str
+                     end.join( ', ' )
+  end
+  buf
+end
+
+
 end # module Writer

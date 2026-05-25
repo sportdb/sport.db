@@ -4,14 +4,13 @@ class TxtMatchWriter
 
 
 ## note: build returns buf - an (in-memory) string buf(fer)
-def self.build_v2( matches, rounds: true )
+def self.build( matches, rounds: true )
   ## note: make sure rounds is a bool, that is, true or false  (do NOT pass in strings etc.)
   raise ArgumentError, "rounds flag - bool expected; got: #{rounds.inspect}"    unless rounds.is_a?( TrueClass ) || rounds.is_a?( FalseClass )
 
 
-  ### check for stages & stats
+  ### calc stats and check for stages
   stats = _calc_stats( matches )
-
 
   buf = String.new
 
@@ -19,58 +18,75 @@ def self.build_v2( matches, rounds: true )
   buf << _build_stats( stats )
   buf << "\n\n"
 
-  buf << _build_batch_v2( matches, rounds: rounds )
 
-  buf
+  use_stages = stats['use_stages' ]
+  if use_stages
+    ## split matches by stage
+    matches_by_stage = {}
+    matches.each do |match|
+      stage = match.stage || ''
+      matches_by_stage[stage] ||= []
+      matches_by_stage[stage] << match
+    end
+
+    ## todo/fix
+    ## note - empty stage must go first!!!!
+    matches_by_stage.each_with_index do |(name, matches),i|
+      buf << "\n"  if i != 0   # add extra new line (if not first stage)
+      if name.empty?
+        buf << "# Regular Season\n"   ## empty stage
+      else
+        buf << "== #{name}\n"
+      end
+      buf +=  _build_batch( matches, rounds: rounds )
+      buf << "\n"    if i+1 != matches_by_stage.size
+    end
+    buf
+  else
+    buf += _build_batch( matches, rounds: rounds )
+    buf
+  end
 end
 
 
-def self._build_batch_v2( matches, rounds: true )
+def self._build_batch( matches, rounds: true )
   ## note: make sure rounds is a bool, that is, true or false  (do NOT pass in strings etc.)
   raise ArgumentError, "rounds flag - bool expected; got: #{rounds.inspect}"    unless rounds.is_a?( TrueClass ) || rounds.is_a?( FalseClass )
 
+  buf = String.new
+
   last_round = nil
-  last_year  = nil  
   last_date  = nil
   last_time  = nil
-
-
-  buf = String.new
 
 
   matches.each_with_index do |match,i|
 
      ## note: make rounds optional (set rounds flag to false to turn off)
      if rounds
-        ## build round string
-        round = if match.round.is_a?( Integer ) ||
-                   match.round =~ /^[0-9]+$/   ## all numbers/digits
-                      ## default "class format
-                      ##   e.g. Runde 1, Spieltag 1, Matchday 1, Week 1
-                      "Matchday #{match.round}"
-                else ## use as is from match
-                  ## note: for now assume english names
-                  if match.round.nil?
-                    ## warn
-                    puts "!! ERROR - match with round nil?"
-                    pp match
-                    exit 1
-                  end
-                  (ROUND_TRANSLATIONS[match.round] || match.round)
-                end
-  
-        ## if stage present - (auto-)add upfront
-        round = "#{match.stage}, #{round}"   if match.stage
-
-
-        if round != last_round
+       if match.round != last_round
          buf << (i == 0 ? "\n" : "\n\n")    ## start with single empty line
-         buf << "» #{round}\n" 
-         
+         if match.round.is_a?( Integer ) ||
+            match.round =~ /^[0-9]+$/   ## all numbers/digits
+             ## default "class format
+             ##   e.g. Runde 1, Spieltag 1, Matchday 1, Week 1
+             buf << "Matchday #{match.round}"
+         else ## use as is from match
+           ## note: for now assume english names
+            if match.round.nil?
+              ## warn
+              puts "!! ERROR - match with round nil?"
+              pp match
+              exit 1
+            end
+
+           buf << (ROUND_TRANSLATIONS[match.round] || match.round)
+         end
          ## note - reset last_date & last_time on every new round header
-         last_date  = nil
-         last_time  = nil
-         last_round = round
+         last_date = nil
+         last_time = nil
+
+         buf << "\n"
        end
      end
 
@@ -90,7 +106,7 @@ def self._build_batch_v2( matches, rounds: true )
 
      ## note - date might be NIL!!!!!
      date_yyyymmdd = date ? date.strftime( '%Y-%m-%d' ) : nil
-  
+
      ## note: time is OPTIONAL for now
      ## note: use 17.00 and NOT 17:00 for now
      time_hhmm     = time ? time.strftime( '%H.%M' ) : nil
@@ -100,15 +116,7 @@ def self._build_batch_v2( matches, rounds: true )
          if date_yyyymmdd != last_date
             ## note: add an extra leading blank line (if no round headings printed)
             buf << "\n"   unless rounds
-
-            buf << "  "
-            ## note: only add year if different for last date header
-            buf << if (date ? date.year : nil) != last_year
-                     "#{date.strftime( '%a %b/%-d %Y' )}" 
-                   else 
-                     "#{date.strftime( '%a %b/%-d' )}"
-                   end
-            buf << "\n"
+            buf << "[#{date.strftime( '%a %b/%-d' )}]\n"
             last_time = nil
          end
      end
@@ -124,26 +132,22 @@ def self._build_batch_v2( matches, rounds: true )
 
      if time
         if last_time != time_hhmm
-          line << "  %5s" % time_hhmm
+          line << "%5s" % time_hhmm
         else
-          line << (' ' *7)
+          line << '     '
         end
         line << '  '
      else
-       line << (' ' *9)
+       line << '       '
      end
 
      line << "%-23s" % team1    ## note: use %-s for left-align
-     line << " v "
+
+     ## note: separate by at least two spaces for now
+     line << "  #{match.score.to_s( lang: 'en' )}  "
+
      line << "%-23s" % team2
 
-     ## note - only print if score is available
-     ##          returns - for not available for now!!!!
-     score = match.score.to_s( lang: 'en' )
-     if score != '-'
-        ## note: separate by at least two spaces for now
-        line << "  #{score}  "  
-     end
 
      if match.status
       line << '  '
@@ -177,12 +181,15 @@ def self._build_batch_v2( matches, rounds: true )
        buf << "\n"
      end
 
-     last_year  = date ? date.year : nil
+
+     last_round = match.round
      last_date  = date_yyyymmdd
      last_time  = time_hhmm
   end
   buf
 end
+
+
 
 end # class TxtMatchWriter
 end # module SportDb

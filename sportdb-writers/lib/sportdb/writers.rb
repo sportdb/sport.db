@@ -26,42 +26,38 @@ end   # module Writer
 ###
 # our own code
 require_relative 'writers/version'
-require_relative 'writers/goals'
+
+require_relative 'writers/rounds'
+
+require_relative 'writers/build_stats'
+require_relative 'writers/build_goals'
+
 require_relative 'writers/txt_writer'
-require_relative 'writers/txt_writer_v2'
 
 
 
 module SportDb
 class TxtMatchWriter
+
+
+
+
+  ## fix - change name: to title: !!!!
+  ##    fix:  remove rounds: true|false  - make it works without rounds without flag!!!!!
+
   def self.write( path, matches, name:, rounds: true)
 
     buf = build( matches, rounds: rounds )
-  
-    ## for convenience - make sure parent folders/directories exist
-    FileUtils.mkdir_p( File.dirname( path) )  unless Dir.exist?( File.dirname( path ))
-  
+
     puts "==> writing to >#{path}<..."
-    File.open( path, 'w:utf-8' ) do |f|
-      f.write( "= #{name}\n\n" )
-      f.write( buf )
-    end
+
+    txt = "= #{name}\n\n" + buf
+    write_text( path, txt )
   end # method self.write
 
-  def self.write_v2( path, matches, name:, rounds: true)
-
-    buf = build_v2( matches, rounds: rounds )
-  
-    ## for convenience - make sure parent folders/directories exist
-    FileUtils.mkdir_p( File.dirname( path) )  unless Dir.exist?( File.dirname( path ))
-  
-    puts "==> writing to >#{path}<..."
-    File.open( path, 'w:utf-8' ) do |f|
-      f.write( "= #{name}\n\n" )
-      f.write( buf )
-    end
-  end # method self.write_v2
-
+  class << self
+    alias_method :write_v2, :write
+  end
 
 end  # class TxtMatchWriter
 end  # module SportDb

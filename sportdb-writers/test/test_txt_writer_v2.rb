@@ -11,7 +11,7 @@ class TestTxtWriterV2 < Minitest::Test
   TxtMatchWriter = SportDb::TxtMatchWriter
   CsvMatchParser = SportDb::CsvMatchParser
 
-  STAGE_DIR = '/sports/cache.wfb' 
+  STAGE_DIR = '/sports/cache.wfb'
 
   def _generate( league_name:, league_key:, seasons: )
     seasons.each do |season|
@@ -22,9 +22,9 @@ class TestTxtWriterV2 < Minitest::Test
       puts
       pp matches[0]
       puts "#{matches.size} matches"
- 
+
       outpath = "./tmp/#{season.to_path}_#{league_key}.txt"
-      TxtMatchWriter.write_v2( outpath, matches,
+      TxtMatchWriter.write( outpath, matches,
                                name: "#{league_name} #{season.key}" )
    end
  end
@@ -34,7 +34,7 @@ class TestTxtWriterV2 < Minitest::Test
     ## '2020/21'
     seasons      = [ '2023/24', '2024/25']
     _generate( league_name: 'Liga MX',
-               league_key: 'mx.1', 
+               league_key: 'mx.1',
                seasons: seasons  )
   end
 
@@ -49,7 +49,7 @@ class TestTxtWriterV2 < Minitest::Test
     # '2023/24'
     seasons      = [ '2024/25']
     _generate( league_name: 'Austria | Bundesliga',
-               league_key: 'at.1', 
+               league_key: 'at.1',
                seasons: seasons  )
   end
 

@@ -57,12 +57,13 @@ def self._build_batch( matches, rounds: true )
                   nil
                 end
 
-        ##  note - only stage present is possible
-        ## if stage present - (auto-)add upfront
+
         if match.stage
              if ['Regular', 'Regular stage'].include?(match.stage)
                 ## skip stage
              else
+              ##  note - only stage present is possible
+              ## if stage present - (auto-)add upfront
                round =  round ? "#{match.stage}, #{round}" : "#{match.stage}"
              end
         end
@@ -94,6 +95,13 @@ def self._build_batch( matches, rounds: true )
             else  ## assume it's already a date (object) or nil!!!!
                match.date
             end
+
+     ###
+     ##  fix - fix - fix
+     ##    ruby has no TIME type/class
+     ##      Time.strptime will include date (plus timezone etc.) e.g.!!!
+     ##      12:00  =>  2026-05-25 12:00:00 +0200
+     ##    do NOT use object; keep time as a string!!!!
 
      time = if match.time.is_a?( String )
               Time.strptime( match.time, '%H:%M')

@@ -32,7 +32,7 @@ require_relative 'writers/rounds'
 require_relative 'writers/build_stats'
 require_relative 'writers/build_goals'
 
-require_relative 'writers/txt_writer'
+require_relative 'writers/build'
 
 
 
@@ -55,8 +55,12 @@ class TxtMatchWriter
     write_text( path, txt )
   end # method self.write
 
+
+
+
   class << self
     alias_method :write_v2, :write
+    alias_method :build_v2, :build
   end
 
 end  # class TxtMatchWriter
